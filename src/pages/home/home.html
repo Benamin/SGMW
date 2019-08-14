@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-navbar style="padding-right: 0">
+    <ion-buttons start>
+      <button ion-button icon-only class="search-button">
+        <img class="toolbar-img" src="../../assets/imgs/home/logo.png">
+      </button>
+    </ion-buttons>
+    <ion-buttons end class="navbar-search">
+      <button ion-button icon-only class="toolbar-icon">
+        <ion-icon class="search-icon" name="search"></ion-icon>
+        搜索课程
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="banner">
+    <img src="../../assets/imgs/home/m11_banner.jpg" alt="">
+    <div class="banner-tips">
+      品牌、互联网、ADAS等模块化只是训练
+    </div>
+  </div>
+  <!--  销售运营-->
+  <div class="sale">
+    <p>销售运营</p>
+    <div class="sale-box">
+      <div class="scroll-tab">
+        <div class="sale-content">
+          <div class="sale-item">
+            <img src="../../assets/imgs/home/m11_img1.jpg" alt="">
+            <div class="sale-desc">
+              <p>店长</p>
+              <p>超过217,780人学习</p>
+            </div>
+          </div>
+          <div class="sale-item">
+            <img src="../../assets/imgs/home/m11_img1.jpg" alt="">
+            <div class="sale-desc">
+              <p>销售经理</p>
+              <p>超过217,780人学习</p>
+            </div>
+          </div>
+          <div class="sale-item">
+            <img src="../../assets/imgs/home/m11_img1.jpg" alt="">
+            <div class="sale-desc">
+              <p>服务经理</p>
+              <p>超过217,780人学习</p>
+            </div>
+          </div>
+          <div class="sale-item">
+            <img src="../../assets/imgs/home/m11_img1.jpg" alt="">
+            <div class="sale-desc">
+              <p>服务经理</p>
+              <p>超过217,780人学习</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space"></div>
+  <!--  产品体验-->
+  <div class="product">
+    <p>产品体验</p>
+    <div class="item">
+      <div class="m11_img" style="height: 160px">
+        <img src="../../assets/imgs/home/m11_img2.jpg" alt="">
+        <div class="left-font">
+          <p>新宝骏</p>
+          <p>300小时/超过600门课程</p>
+        </div>
+      </div>
+      <div style="height: 160px">
+        <div class="m11_img" style="padding: 0 0 4px 8px;height: 80px">
+          <img src="../../assets/imgs/home/m11_img3.jpg" style="height: 76px">
+          <div class="right-font1">
+            <p>经典宝骏</p>
+            <p>125小时/超过600门课程</p>
+          </div>
+        </div>
+        <div class="m11_img" style="padding: 4px 0 0 8px;height: 80px">
+          <img src="../../assets/imgs/home/m11_img4.jpg" style="height: 76px">
+          <div class="right-font2">
+            <p>新能源</p>
+            <p>234小时/超过600门课程</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  中间提示-->
+  <div class="item" style="margin: 5px 0;">
+    <div>
+      <div style="text-align: center">
+        <img src="../../assets/imgs/home/m11_icon1.png" alt="">
+      </div>
+      无限制访问
+    </div>
+    <div>
+      <div style="text-align: center">
+        <img src="../../assets/imgs/home/m11_icon2.png" alt="">
+      </div>
+      名师护航
+    </div>
+  </div>
+  <div style="padding: 10px;" class="item">
+    <div class="m11_img" style="padding: 5px;">
+      <img src="../../assets/imgs/home/m11_img5.jpg" alt="">
+      <div class="img-font">
+        <p>五菱</p>
+        <p>407小时/超过600门课程</p>
+      </div>
+    </div>
+    <div class="m11_img" style="padding: 5px;">
+      <img src="../../assets/imgs/home/m11_img6.jpg" alt="">
+      <div class="img-font">
+        <p>专家特区</p>
+        <p>407小时/超过600门课程</p>
+      </div>
+    </div>
+  </div>
+  <div class="person">
+    <div class="person-type">
+      <div (click)="selectType('teacher')" [ngClass]="{'select':type == 'teacher'}">优秀教师</div>
+      <div (click)="selectType('student')" [ngClass]="{'select':type == 'student'}">学生评价</div>
+    </div>
+    <div #imgWidth class="person-img">
+      <img  [ngClass]="{'select':personrType == 0}" (click)="selectPerson(0)" class="select" src="../../assets/imgs/home/m11_avatar.jpg">
+      <img [ngClass]="{'select':personrType == 1}" (click)="selectPerson(1)" src="../../assets/imgs/home/m11_avatar.jpg">
+      <img [ngClass]="{'select':personrType == 2}" (click)="selectPerson(2)" src="../../assets/imgs/home/m11_avatar.jpg">
+      <img [ngClass]="{'select':personrType == 3}" (click)="selectPerson(3)" src="../../assets/imgs/home/m11_avatar.jpg">
+      <img [ngClass]="{'select':personrType == 4}" (click)="selectPerson(4)" src="../../assets/imgs/home/m11_avatar.jpg">
+    </div>
+    <div class="person-desc">
+      <span #angular class="angular"></span>
+      <div class="desc-title">
+        一级AI智能教师
+        <span class="focus">关注</span>
+      </div>
+      <div class="desc-desc">
+        教学经验丰富，浙江教育出版社《初中语文成长导师》系列丛书编委，引导学生建立语文和生活的紧密联系。
+      </div>
+    </div>
+  </div>
+  <!--  优秀教师-->
+</ion-content>
