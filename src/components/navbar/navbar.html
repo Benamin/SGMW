@@ -1,0 +1,7 @@
+<div class="navbar">
+    <ng-container *ngFor="let item of list;let i = index;">
+        <div class="item" (click)="changeType()">
+            <span class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</span>
+        </div>
+    </ng-container>
+</div>
