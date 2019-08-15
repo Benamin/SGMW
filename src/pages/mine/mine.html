@@ -1,15 +1,49 @@
-<!--
-  Generated template for the MinePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title>mine</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>个人中心</ion-title>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+    <div class="mine">
+        <div class="mine-info">
+            <div class="info-item">
+                <div>头像</div>
+                <div class="info-name">
+                    <p>新宝骏Rm-5</p>
+                    <p>学员</p>
+                </div>
+                <div>
+                    🔔
+                </div>
+            </div>
+            <div class="info-item item-type">
+                <div (click)="goToCourse()">
+                    <p>7</p>
+                    <p>课程</p>
+                </div>
+                <div>
+                    <p>5</p>
+                    <p>作业</p>
+                </div>
+                <div (click)="goToCollection()">
+                    <p>8</p>
+                    <p>收藏</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mine-list">
+        <div class="item" (click)="goToNoti()">
+            <div></div>
+            <div>通知中心</div>
+            <div></div>
+        </div>
+        <div class="item">
+            <div></div>
+            <div>退出登录</div>
+            <div></div>
+        </div>
+    </div>
 
 </ion-content>

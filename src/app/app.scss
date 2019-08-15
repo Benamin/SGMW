@@ -1,6 +1,6 @@
 // http://ionicframework.com/docs/theming/
-
-
+@import "../theme/ionic";
+@import "../theme/tab.icon";
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,71 +14,11 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-html,body,p{
+html, body, p {
   margin: 0;
 }
-.space{
+
+.space {
   height: 10px;
   background-color: #f2f2f2;
-}
-
-.tabs-ios .tab-button-icon {
-  margin-top: 1px;
-  margin-bottom: -2px;
-  min-width: 22px;
-  height: 30px;
-  font-size: 30px;
-  color: #8c8c8c;
-}
-
-//tabs-icon
-ion-icon {
-  &[class*="custom-"] {
-    margin: 0 2px 0 0;
-    vertical-align: middle;
-    $sz: 20px;
-    width: $sz;
-    height: $sz;
-  }
-  // custom icons
-  &[class*="home-on"] {
-    background: url(../assets/imgs/tabs/tab1_on.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-  &[class*="home-off"] {
-    background: url(../assets/imgs/tabs/tab1_off.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-
-  &[class*="discover-on"] {
-    background: url(../assets/imgs/tabs/tab2_on.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-  &[class*="discover-off"] {
-    background: url(../assets/imgs/tabs/tab2_off.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-
-  &[class*="serve-on"] {
-    background: url(../assets/imgs/tabs/tab3_on.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-  &[class*="serve-off"] {
-    background: url(../assets/imgs/tabs/tab3_off.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-  &[class*="mine-on"] {
-    background: url(../assets/imgs/tabs/tab4_on.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-  &[class*="mine-off"] {
-    background: url(../assets/imgs/tabs/tab4_off.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-  &[class*="tab-key"] {
-    background: url(../assets/imgs/tabs/icon-key.png) no-repeat 50% 50%;
-    background-size: contain;
-    height: 40px !important;
-    width: 40px !important;
-  }
 }

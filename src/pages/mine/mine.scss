@@ -1,3 +1,83 @@
 page-mine {
+  .mine {
+    height: 180px;
+    background-color: #343435;
+    position: relative;
+  }
 
+  //个人信息区域
+  .mine-info {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: -50px;
+    width: calc(100% - 40px);
+    height: 100%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 20px;
+  }
+
+  .info-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > div:nth-child(2n +1){
+      width: 20%;
+    }
+    > div:nth-child(2n){
+      width: 60%;
+    }
+    .info-name{
+      p:first-child{
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+  }
+  .item-type{
+    text-align: center;
+    > div > p:first-child{
+      font-size: 26px;
+      font-weight: bold;
+      color: #333333;
+    }
+    > div > p:last-child{
+      font-size:12px;
+      color: #999999;
+    }
+  }
+  .info-item + .info-item{
+    margin-top: 20px;
+  }
+
+  //列表区域
+  .mine-list {
+    margin: 80px 20px;
+    background-color: #fff;
+    border-radius: 6px;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+
+    > div:nth-child(2n +1) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 10%;
+    }
+
+    > div:nth-child(2n) {
+      width: 80%;
+    }
+  }
+
+  .item + .item {
+    border-top: 0.1rem solid #e3e3e3;
+  }
 }
