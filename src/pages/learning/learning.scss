@@ -1,3 +1,41 @@
 page-learning {
-
+   ion-content{
+    background-color: #ffffff !important;
+  }
+  .header{
+    background-color: #343435;
+    display: flex;
+    > div{
+      width: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      min-height: 44px;
+    }
+  }
+  .learn-list{
+    padding: 10px;
+    .course-item{
+      display: flex;
+      padding: 5px;
+      .item-img{
+        width: 40%;
+        padding-right: 5px;
+        img{
+          height: 70px;
+        }
+      }
+      .item-desc{
+        width: 60%;
+        padding-left: 5px;
+        > p{
+          font-size: 18px;
+        }
+        .desc{
+          color: #999999;
+        }
+      }
+    }
+  }
 }

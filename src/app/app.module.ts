@@ -12,18 +12,20 @@ import {MinePage} from "../pages/mine/mine";
 import {LearningPage} from "../pages/learning/learning";
 import {CoursePage} from "../pages/course/course";
 import {MineModule} from "../pages/mine/mine.module";
+import {ComponentsModule} from "../components/components.module";
+import {LearningPageModule} from "../pages/learning/learning.module";
 
 @NgModule({
     declarations: [
         MyApp,
         HomePage,
         TabsPage,
-        LearningPage,
         CoursePage,
     ],
     imports: [
         BrowserModule,
         MineModule,
+        LearningPageModule,
         IonicModule.forRoot(MyApp, {
             tabsHideOnSubPages: 'true',
             backButtonText: '',   //返回按钮显示中文
@@ -34,12 +36,12 @@ import {MineModule} from "../pages/mine/mine.module";
             modalLeave: 'modal-slide-out',
             swipeBackEnabled: false
         }),
+        ComponentsModule,
     ],
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
         HomePage,
-        LearningPage,
         CoursePage,
         TabsPage
     ],
