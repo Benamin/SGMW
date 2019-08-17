@@ -1,22 +1,37 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {NavController, NavParams, ViewController} from "ionic-angular";
+import {Keyboard} from "@ionic-native/keyboard";
 
-/**
- * Generated class for the CommentComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
-  selector: 'comment',
-  templateUrl: 'comment.html'
+    selector: 'comment',
+    templateUrl: 'comment.html'
 })
 export class CommentComponent {
+    @ViewChild('textAreaElement') textAreaElement: ElementRef;
 
-  text: string;
+    replyContent: string;
+    placeholder: string;
 
-  constructor() {
-    console.log('Hello CommentComponent Component');
-    this.text = 'Hello World';
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+                private keyboard: Keyboard,
+                public viewCtrl: ViewController) {
+        this.placeholder = this.navParams.get('placeholder');
+        setTimeout(() => {
+            this.textAreaElement.nativeElement.focus();
+            this.keyboard.show();
+        }, 500)
+    }
+
+    close() {
+        this.viewCtrl.dismiss();
+    }
+
+    stop(e) {
+        e.stopPropagation();
+    }
+
+    submit() {
+        this.viewCtrl.dismiss(this.replyContent);
+    }
 
 }

@@ -14,6 +14,7 @@ import {CoursePage} from "../pages/course/course";
 import {MineModule} from "../pages/mine/mine.module";
 import {ComponentsModule} from "../components/components.module";
 import {LearningPageModule} from "../pages/learning/learning.module";
+import {Keyboard} from "@ionic-native/keyboard";
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import {LearningPageModule} from "../pages/learning/learning.module";
     providers: [
         StatusBar,
         SplashScreen,
+        Keyboard,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })

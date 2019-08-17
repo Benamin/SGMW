@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
+import {CourseCommentPage} from "../course-comment/course-comment";
 
 
 @Component({
@@ -26,6 +27,10 @@ export class CourseDetailPage {
 
   teachDetail(){
     this.navCtrl.push(TeacherPage);
+  }
+
+  goTeacher(title){
+    this.navCtrl.push(CourseCommentPage,{title:title});
   }
 
 }

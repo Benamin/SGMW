@@ -1,15 +1,54 @@
-<!--
-  Generated template for the CourseCommentPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title>courseComment</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>{{title}}</ion-title>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+    <div class="item">
+        <div class="course-comment">
+            <div>4.0</div>
+            <div>
+                <p>1902个评价</p>
+            </div>
+            <div>
+                <p>4.0</p>
+                <p>课程适用</p>
+            </div>
+            <div>
+                <p>4.0</p>
+                <p>通俗易懂</p>
+            </div>
+            <div>
+                <p>4.0</p>
+                <p>逻辑清晰</p>
+            </div>
+        </div>
+    </div>
 
+    <div class="space"></div>
+
+    <div class="comment-list">
+        <div class="comment-item" *ngFor="let item of list;">
+            <div class="first">
+                <div>图片</div>
+                <div>
+                    <p>在水中飞舞</p>
+                    <p>2019-08-09 09:20:20</p>
+                </div>
+                <div>
+                    星星
+                </div>
+            </div>
+            <div class="last">
+                顾问的服务态度极佳，顾问的服务态度极佳，顾问的服务态度极佳，顾问的服务态度极佳，
+                顾问的服务态度极佳，顾问的服务态度极佳，顾问的服务态度极佳，顾问的服务态度极佳，
+            </div>
+        </div>
+    </div>
 </ion-content>
+<ion-footer (click)="openComment()">
+    <div class="course-footer">
+        请输入你对课程的评价...
+    </div>
+</ion-footer>
