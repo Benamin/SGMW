@@ -12,6 +12,8 @@ export class LearningPage {
 
     tabsList = [];
     learnList = [];
+    headList = [];
+    headType = 1;
 
     constructor(public navCtrl: NavController, public navParams: NavParams) {
     }
@@ -27,24 +29,30 @@ export class LearningPage {
             {name: "用户体验", type: '6'},
         ];
         this.learnList = [
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
-            { img:'',title:'',brand:'新宝骏',comment:'123',collection:'123' },
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
+        ];
+        this.headList = [
+            {type: 1, name: '产品体验'},
+            {type: 2, name: '销售运营'},
+            {type: 3, name: '能力提升'},
+            {type: 4, name: '服务运营'},
         ]
     }
 
-    getTabs(e){
+    getTabs(e) {
         console.log(e);
     }
 
-    goCourse(){
+    goCourse() {
         this.navCtrl.push(CourseDetailPage);
     }
 

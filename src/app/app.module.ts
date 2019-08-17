@@ -8,25 +8,26 @@ import {TabsPage} from '../pages/tabs/tabs';
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {MinePage} from "../pages/mine/mine";
-import {LearningPage} from "../pages/learning/learning";
 import {CoursePage} from "../pages/course/course";
 import {MineModule} from "../pages/mine/mine.module";
 import {ComponentsModule} from "../components/components.module";
 import {LearningPageModule} from "../pages/learning/learning.module";
 import {Keyboard} from "@ionic-native/keyboard";
+import {CoursePageModule} from "../pages/course/course.module";
+import {LoginPageModule} from "../pages/login/login.module";
 
 @NgModule({
     declarations: [
         MyApp,
         HomePage,
         TabsPage,
-        CoursePage,
     ],
     imports: [
         BrowserModule,
+        LoginPageModule,
         MineModule,
         LearningPageModule,
+        CoursePageModule,
         IonicModule.forRoot(MyApp, {
             tabsHideOnSubPages: 'true',
             backButtonText: '',   //返回按钮显示中文

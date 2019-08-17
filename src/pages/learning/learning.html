@@ -1,9 +1,10 @@
 <ion-content>
   <div class="header">
-    <div>产品体验</div>
-    <div>销售运营</div>
-    <div>能力提升</div>
-    <div>服务运营</div>
+    <ng-container *ngFor="let title of headList;let i = index">
+      <div (click)="headType = i">
+        <span [ngClass]="{'select':headType == i}">{{title.name}}</span>
+      </div>
+    </ng-container>
   </div>
 <scroll-tabs [tabsList]="tabsList" (done)="getTabs($event)"></scroll-tabs>
 

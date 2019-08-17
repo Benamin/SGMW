@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {NavbarComponent} from './navbar/navbar';
 import {IonicPageModule} from "ionic-angular";
 import {ScrollTabsComponent} from './scroll-tabs/scroll-tabs';
@@ -6,26 +6,29 @@ import {CommentComponent} from './comment/comment';
 
 @NgModule({
     declarations: [
+        CommentComponent,
+        CommentComponent,
         NavbarComponent,
-        CommentComponent,
-        CommentComponent,
+        ScrollTabsComponent,
     ],
     imports: [
         IonicPageModule
     ],
     exports: [
+        CommentComponent,
+        CommentComponent,
         NavbarComponent,
-        CommentComponent,
-        CommentComponent,
+        ScrollTabsComponent,
     ],
     providers: [
-        NavbarComponent,
         CommentComponent,
     ],
     entryComponents: [
-        NavbarComponent,
         CommentComponent,
-    ]
+        NavbarComponent,
+        ScrollTabsComponent,
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 export class ComponentsModule {
 }

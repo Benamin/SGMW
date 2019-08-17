@@ -1,25 +1,22 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the CoursePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-course',
-  templateUrl: 'course.html',
+    selector: 'page-course',
+    templateUrl: 'course.html',
 })
 export class CoursePage {
+    navbarList = [
+        {type: '1', name: '学习中'},
+        {type: '2', name: '已完成'},
+    ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CoursePage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad CoursePage');
+    }
 
 }

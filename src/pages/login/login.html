@@ -1,15 +1,25 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+    <div class="login">
+        <div class="logo">
+            <img src="../assets/imgs/login/logo.png" alt="">
+        </div>
+        <div class="login-input">
+            <ion-input placeholder="请输入经销商号"></ion-input>
+            <ion-input placeholder="请输入操作员名"></ion-input>
+            <ion-input placeholder="请输入密码"></ion-input>
+            <div class="check">
+                <ion-input placeholder="请输入验证码"></ion-input>
+                <img class="flash" src="../assets/imgs/login/flash.png" alt="">
+            </div>
 
+        </div>
+        <div class="login-button" (click)="login()">
+            <img src="../assets/imgs/login/button.png" alt="">
+        </div>
+    </div>
 </ion-content>

@@ -1,4 +1,8 @@
 page-home {
+  .button-inner{
+    justify-content: left;
+    margin-left: 10px;
+  }
   .toolbar-icon .button-inner{
     padding: 5px 10px;
     color: #fff;
@@ -17,7 +21,7 @@ page-home {
     margin: 0;
   }
   .toolbar-img{
-    width: 80%;
+    width: 50%;
   }
   .banner{
     height: 140px;
@@ -25,9 +29,11 @@ page-home {
     position: relative;
     img{
       position: absolute;
-      bottom: -10px;
       border-radius: 10px;
-      left: 10px;
+      left: 50%;
+      width: 95%;
+      top: 60%;
+      transform: translate(-50%, -50%);
     }
     .banner-tips{
       position: absolute;
