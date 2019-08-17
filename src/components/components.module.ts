@@ -3,6 +3,7 @@ import {NavbarComponent} from './navbar/navbar';
 import {IonicPageModule} from "ionic-angular";
 import {ScrollTabsComponent} from './scroll-tabs/scroll-tabs';
 import {CommentComponent} from './comment/comment';
+import { CourseListComponent } from './course-list/course-list';
 
 @NgModule({
     declarations: [
@@ -10,6 +11,7 @@ import {CommentComponent} from './comment/comment';
         CommentComponent,
         NavbarComponent,
         ScrollTabsComponent,
+    CourseListComponent,
     ],
     imports: [
         IonicPageModule
@@ -19,6 +21,7 @@ import {CommentComponent} from './comment/comment';
         CommentComponent,
         NavbarComponent,
         ScrollTabsComponent,
+    CourseListComponent,
     ],
     providers: [
         CommentComponent,
@@ -27,6 +30,7 @@ import {CommentComponent} from './comment/comment';
         CommentComponent,
         NavbarComponent,
         ScrollTabsComponent,
+        CourseListComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

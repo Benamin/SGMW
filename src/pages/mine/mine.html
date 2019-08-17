@@ -11,10 +11,9 @@
                 <div>头像</div>
                 <div class="info-name">
                     <p>新宝骏Rm-5</p>
-                    <p>学员</p>
                 </div>
-                <div>
-                    🔔
+                <div class="info-position">
+                    <a><img src="../assets/imgs/mine/student.png" ><span>学员</span></a>
                 </div>
             </div>
             <div class="info-item item-type">
@@ -35,14 +34,22 @@
     </div>
     <div class="mine-list">
         <div class="item" (click)="goToNoti()">
-            <div></div>
-            <div>通知中心</div>
-            <div></div>
+            <div class="left">
+                <img src="../assets/imgs/mine/notifation.png" >
+            </div>
+            <div class="middle">通知中心</div>
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
         </div>
         <div class="item">
-            <div></div>
-            <div>退出登录</div>
-            <div></div>
+            <div class="left">
+                <img src="../assets/imgs/mine/logout.png" >
+            </div>
+            <div class="middle">退出登录</div>
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
         </div>
     </div>
 

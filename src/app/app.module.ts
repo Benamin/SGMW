@@ -15,11 +15,11 @@ import {LearningPageModule} from "../pages/learning/learning.module";
 import {Keyboard} from "@ionic-native/keyboard";
 import {CoursePageModule} from "../pages/course/course.module";
 import {LoginPageModule} from "../pages/login/login.module";
+import {HomeModule} from "../pages/home/home.module";
 
 @NgModule({
     declarations: [
         MyApp,
-        HomePage,
         TabsPage,
     ],
     imports: [
@@ -28,6 +28,7 @@ import {LoginPageModule} from "../pages/login/login.module";
         MineModule,
         LearningPageModule,
         CoursePageModule,
+        HomeModule,
         IonicModule.forRoot(MyApp, {
             tabsHideOnSubPages: 'true',
             backButtonText: '',   //返回按钮显示中文

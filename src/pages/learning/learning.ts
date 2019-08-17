@@ -52,7 +52,7 @@ export class LearningPage {
         console.log(e);
     }
 
-    goCourse() {
+    goCourse(e) {
         this.navCtrl.push(CourseDetailPage);
     }
 

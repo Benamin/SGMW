@@ -35,12 +35,26 @@ page-mine {
         font-size: 20px;
       }
     }
+    .info-position{
+      font-size: 12px;
+      a{
+        color: #333333;
+        background-image: linear-gradient(to right , #feca46, #fee6a3);
+        padding: 4px 5px;
+        border-radius: 4px;
+      }
+      img{
+        width: 15px;
+        vertical-align: sub;
+        margin-right: 5px;
+      }
+    }
   }
   .item-type{
     text-align: center;
     > div > p:first-child{
-      font-size: 26px;
-      font-weight: bold;
+      font-size: 4rem;
+      font-weight: 400;
       color: #333333;
     }
     > div > p:last-child{
@@ -64,7 +78,9 @@ page-mine {
     align-items: center;
     justify-content: center;
     padding: 15px;
-
+    img{
+      width: 20px;
+    }
     > div:nth-child(2n +1) {
       display: flex;
       align-items: center;
@@ -74,6 +90,11 @@ page-mine {
 
     > div:nth-child(2n) {
       width: 80%;
+      padding-left: 10px;
+    }
+    .right{
+      font-size: 1.6rem;
+      color: #999999;
     }
   }
 

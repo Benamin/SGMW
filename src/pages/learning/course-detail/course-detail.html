@@ -95,12 +95,25 @@
     <div class="space"></div>
     <div class="item">
         <p>相关课程</p>
+        <course-list [list]="learnList" (done)="goCourse($event)"></course-list>
     </div>
 </ion-content>
 
-<ion-footer>
-    <div class="course-footer">
-        <ion-buttons>立即报名</ion-buttons>
-        <ion-buttons>收藏</ion-buttons>
-    </div>
+<ion-footer class="course-footer">
+    <ion-toolbar (click)="sign()" >
+        <ion-buttons tappable (click)="sign()">立即报名</ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar (click)="collection()">
+        <ion-buttons >收藏</ion-buttons>
+    </ion-toolbar>
+
 </ion-footer>
+
+<div *ngIf="signObj.isSign" class="sign">
+    <img src="../assets/imgs/course/sign-success.png">
+    <p>报名成功</p>
+</div>
+<div *ngIf="collectionObj.isCollection" class="collection">
+    <img src="../assets/imgs/course/collection-success.png">
+    <p>收藏成功</p>
+</div>
