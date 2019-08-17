@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {CourseDetailPage} from "./course-detail/course-detail";
 
 
 @IonicPage()
@@ -41,6 +42,10 @@ export class LearningPage {
 
     getTabs(e){
         console.log(e);
+    }
+
+    goCourse(){
+        this.navCtrl.push(CourseDetailPage);
     }
 
 }

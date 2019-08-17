@@ -8,7 +8,7 @@
 <scroll-tabs [tabsList]="tabsList" (done)="getTabs($event)"></scroll-tabs>
 
   <div class="learn-list">
-    <div class="course-item" *ngFor="let item of learnList">
+    <div class="course-item" *ngFor="let item of learnList" (click)="goCourse()">
       <div class="item-img">
         <img src="../../assets/imgs/home/m11_img3@2x.jpg">
       </div>

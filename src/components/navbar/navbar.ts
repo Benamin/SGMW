@@ -1,22 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
     selector: 'navbar',
     templateUrl: 'navbar.html'
 })
+/**
+ * list = [ { type:"1",name:"类型" } ]
+ */
 export class NavbarComponent {
-
-    list = [];
+    @Input() list;
     bar = {
-        type: null,
+        type: "1",
     };
 
     constructor() {
         console.log('Hello NavbarComponent Component');
     }
 
-    changeType() {
-
+    changeType(item) {
+        this.bar.type = item.type;
     }
 
 }

@@ -2,16 +2,19 @@ import {NgModule} from '@angular/core';
 import {NavbarComponent} from './navbar/navbar';
 import {IonicPageModule} from "ionic-angular";
 import {ScrollTabsComponent} from './scroll-tabs/scroll-tabs';
+import { CommentComponent } from './comment/comment';
 
 @NgModule({
     declarations: [
         NavbarComponent,
+    CommentComponent,
     ],
     imports: [
         IonicPageModule
     ],
     exports: [
         NavbarComponent,
+    CommentComponent,
     ],
     providers:[
         NavbarComponent,

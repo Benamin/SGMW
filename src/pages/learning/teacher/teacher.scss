@@ -1,0 +1,48 @@
+page-teacher {
+  p{
+    margin: 10px 0;
+  }
+  ion-content{
+    background-color: #343435 !important;
+  }
+  .container{
+    color: #ffffff;
+    width: 90%;
+    margin: 10% auto;
+    text-align: center;
+    .name{
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+  .focus {
+    background-color: #aedee8;
+    padding: 3px 20px;
+    border-radius: 20px;
+    line-height: 25px;
+    font-size: 14px;
+  }
+
+  .desc-desc {
+    margin-top: 2rem;
+    color: #666666;
+    letter-spacing: 2px;
+    position: relative;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .desc-desc::after {
+    content: "";
+    position: absolute;
+    top: -19px;
+    left: 48%;
+    border-bottom: 10px solid #ffffff;
+    border-top: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    transition: all 500ms;
+  }
+}
