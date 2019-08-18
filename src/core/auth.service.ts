@@ -1,0 +1,1 @@
+import {Storage} from "@ionic/storage";export class AuthService {    constructor(private storage: Storage) {    }    public async getToken() {        return await this.storage.get('Authorization');    }}

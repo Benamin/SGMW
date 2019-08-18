@@ -1,7 +1,13 @@
 {
-  "name": "MyIonicProject",
+  "name": "ionic-demo",
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://devapi.chinacloudsites.cn/api"
+    }
+  ]
 }

@@ -1,11 +1,13 @@
-<ion-content>
-  <div class="header">
+<ion-header>
+  <div class="header" style="width: 100%">
     <ng-container *ngFor="let title of headList;let i = index">
       <div (click)="headType = i">
         <span [ngClass]="{'select':headType == i}">{{title.name}}</span>
       </div>
     </ng-container>
   </div>
+</ion-header>
+<ion-content>
 <scroll-tabs [tabsList]="tabsList" (done)="getTabs($event)"></scroll-tabs>
 <course-list [list]="learnList" (done)="goCourse($event)"></course-list>
 </ion-content>

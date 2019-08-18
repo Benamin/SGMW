@@ -64,6 +64,9 @@ page-course-detail {
     > div {
       flex: 1;
     }
+    > div:nth-child(2){
+      flex: 2;
+    }
 
     .focus {
       background-color: #aedee8;
@@ -123,7 +126,9 @@ page-course-detail {
     background-color: #fff;
     border-top: 1px solid #e3e3e3;
     padding: 10px;
-
+    .toolbar-background-ios{
+      background-color: #fff;
+    }
     > ion-toolbar:first-child {
       width: 75%;
       background-color: #fff;

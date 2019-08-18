@@ -16,6 +16,11 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {CoursePageModule} from "../pages/course/course.module";
 import {LoginPageModule} from "../pages/login/login.module";
 import {HomeModule} from "../pages/home/home.module";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {InterceptorProvider} from "../core/auth.interceptor";
+import {LoginService} from "../pages/login/login.service";
+import {HomeService} from "../pages/home/home.service";
+import {IonicStorageModule} from "@ionic/storage";
 
 @NgModule({
     declarations: [
@@ -24,11 +29,13 @@ import {HomeModule} from "../pages/home/home.module";
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         LoginPageModule,
         MineModule,
         LearningPageModule,
         CoursePageModule,
         HomeModule,
+        IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
             tabsHideOnSubPages: 'true',
             backButtonText: '',   //返回按钮显示中文
@@ -52,7 +59,10 @@ import {HomeModule} from "../pages/home/home.module";
         StatusBar,
         SplashScreen,
         Keyboard,
-        {provide: ErrorHandler, useClass: IonicErrorHandler}
+        LoginService,
+        HomeService,
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        {provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true},
     ]
 })
 export class AppModule {
