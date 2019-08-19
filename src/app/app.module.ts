@@ -21,6 +21,7 @@ import {InterceptorProvider} from "../core/auth.interceptor";
 import {LoginService} from "../pages/login/login.service";
 import {HomeService} from "../pages/home/home.service";
 import {IonicStorageModule} from "@ionic/storage";
+import {CommonService} from "../core/common.service";
 
 @NgModule({
     declarations: [
@@ -61,6 +62,7 @@ import {IonicStorageModule} from "@ionic/storage";
         Keyboard,
         LoginService,
         HomeService,
+        CommonService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true},
     ]
