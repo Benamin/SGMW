@@ -33,11 +33,11 @@ export class LoginPage {
         console.log(this.user);
         this.loginSer.loginpost(this.user).subscribe(
             (res) => {
-                loading.dismiss();
                 this.storage.set('Authorization', res.data.Token);
-                this.navCtrl.setRoot(TabsPage);
             }
         );
+        this.navCtrl.setRoot(TabsPage);
+        loading.dismiss();
     }
 
 }

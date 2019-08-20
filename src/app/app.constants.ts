@@ -1,1 +1,1 @@
-// export const SERVER_API_URL = '/api';export const SERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';export const pageSize = 10;
+export const SERVER_API_URL = '/api';// export const SERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';export const pageSize = 10;

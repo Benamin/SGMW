@@ -32,6 +32,7 @@ export class HomePage {
         this.angular.nativeElement.style.left = index * width + width / 2 - 10 + 'px';
     }
 
+    //获取轮播图
     getBanner() {
         this.homeSer.getBannerList().subscribe(
             (res) => {
@@ -39,5 +40,9 @@ export class HomePage {
         )
     }
 
+    //优秀教师
+    getGoodsTeacher(){
+
+    }
 
 }
