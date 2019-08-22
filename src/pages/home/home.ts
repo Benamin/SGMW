@@ -12,6 +12,9 @@ export class HomePage {
 
     type = 'teacher';
     personrType = 0;
+    saleList = [];  //销售运营
+    productList = new Array(5);  //产品体验
+    teacherList = [];
 
     constructor(public navCtrl: NavController, public homeSer: HomeService) {
 
@@ -20,6 +23,8 @@ export class HomePage {
 
     ionViewDidLoad() {
         this.getBanner();
+        this.getGoodsTeacher();
+        this.getProductList();
     }
 
     selectType(type) {
@@ -41,8 +46,27 @@ export class HomePage {
     }
 
     //优秀教师
-    getGoodsTeacher(){
+    getGoodsTeacher() {
+        this.homeSer.GetGoodTeacherList().subscribe(
+            (res) => {
+                this.teacherList = res.data;
+            }
+        )
+    }
 
+    //获取产品分类 nlts
+    getProductList() {
+        this.homeSer.GetDictionaryByPCode('nlts').subscribe(
+            (res) => {
+                this.saleList = res.data;
+            }
+        )
+
+        this.homeSer.GetDictionaryByPCode('cpty').subscribe(
+            (res) => {
+                this.productList = res.data;
+            }
+        )
     }
 
 }

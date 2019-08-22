@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {MyCoursePage} from "./my-course/my-course";
 import {MycollectionPage} from "./mycollection/mycollection";
 import {NotificationPage} from "./notification/notification";
+import {AppService} from "../../app/app.service";
 
 
 @Component({
@@ -10,8 +11,14 @@ import {NotificationPage} from "./notification/notification";
     templateUrl: 'mine.html',
 })
 export class MinePage {
+    mineInfo;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+                private appSer: AppService) {
+        //获取个人信息
+        this.appSer.mineInfo.subscribe(value => {
+            this.mineInfo = value;
+        })
     }
 
     ionViewDidLoad() {

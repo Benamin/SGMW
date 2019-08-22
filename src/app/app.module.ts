@@ -23,6 +23,8 @@ import {HomeService} from "../pages/home/home.service";
 import {IonicStorageModule} from "@ionic/storage";
 import {CommonService} from "../core/common.service";
 import {HTTP} from "@ionic-native/http";
+import {LearnService} from "../pages/learning/learn.service";
+import {AppService} from "./app.service";
 
 @NgModule({
     declarations: [
@@ -64,7 +66,9 @@ import {HTTP} from "@ionic-native/http";
         LoginService,
         HomeService,
         CommonService,
+        LearnService,
         HTTP,
+        AppService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true},
     ]

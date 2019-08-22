@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>课程名称</ion-title>
+        <ion-title>{{product.detail?.Title}}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -8,7 +8,7 @@
     <div class="banner">
         <div class="content">
             <div class="course-name">
-                汽车智能驾控技术的分级及其标准
+                {{product.detail?.Description}}
             </div>
             <div class="course-desc">
                 <span>20课时</span>
@@ -22,14 +22,14 @@
     <div class="item">
         <p>简介</p>
         <div class="introduction">
-            汽车智能驾控技术的分级及其标准,汽车智能驾控技术的分级及其标准,汽车智能驾控技术的分级及其标准
+            {{product.detail?.Description}}
         </div>
     </div>
     <div class="space"></div>
     <div class="item">
         <p>章节</p>
         <div>
-
+            <p *ngFor="let item of product.chapter?.Course?.children">{{item.title}}</p>
         </div>
     </div>
     <div class="space"></div>
@@ -37,11 +37,13 @@
         <p>教师
             <span (click)="teachDetail()" float-end class="look">查看</span>
         </p>
-        <div class="teacher-info">
-            <div>图片</div>
+        <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
             <div>
-                <p>秋国艳</p>
-                <p>一级AI智能老师</p>
+                <img [src]="item.HeadPhoto">
+            </div>
+            <div>
+                <p>{{item.UserName}}</p>
+                <p>{{item.Position}}</p>
             </div>
             <div>
                 <span class="focus">关注</span>

@@ -3,6 +3,7 @@ import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angu
 import {TabsPage} from "../tabs/tabs";
 import {LoginService} from "./login.service";
 import {Storage} from "@ionic/storage";
+import {AppService} from "../../app/app.service";
 
 
 @IonicPage()
@@ -18,7 +19,7 @@ export class LoginPage {
     };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
-                private loginSer: LoginService, private storage: Storage) {
+                private loginSer: LoginService, private storage: Storage, private appSer: AppService) {
     }
 
     ionViewDidLoad() {
@@ -34,6 +35,7 @@ export class LoginPage {
         this.loginSer.loginpost(this.user).subscribe(
             (res) => {
                 this.storage.set('Authorization', res.data.Token);
+                this.appSer.setMine(res.data.User);
             }
         );
         this.navCtrl.setRoot(TabsPage);

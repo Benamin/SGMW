@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {CourseDetailPage} from "./course-detail/course-detail";
+import {LearnService} from "./learn.service";
+import {pageSize} from "../../app/app.constants";
+import {HomeService} from "../home/home.service";
 
 
 @IonicPage()
@@ -11,14 +14,22 @@ import {CourseDetailPage} from "./course-detail/course-detail";
 export class LearningPage {
 
     tabsList = [];
-    learnList = [];
+    productList = [];
     headList = [];
     headType = 1;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    page = {
+      page:'1',
+      pageSize:"200"
+    };
+
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+                private learnSer:LearnService,private homeSer:HomeService) {
     }
 
     ionViewDidLoad() {
+        this.getProduct();
+        this.getSubjectList();
         this.tabsList = [
             {name: "不限", type: '0'},
             {name: "新宝骏", type: '1'},
@@ -28,18 +39,6 @@ export class LearningPage {
             {name: "专家团队", type: '5'},
             {name: "用户体验", type: '6'},
         ];
-        this.learnList = [
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-        ];
         this.headList = [
             {type: 1, name: '产品体验'},
             {type: 2, name: '销售运营'},
@@ -48,12 +47,41 @@ export class LearningPage {
         ]
     }
 
+    getSubjectList(){
+        this.homeSer.GetDictionaryByPCode('Subject').subscribe(
+            (res)=>{
+
+            }
+        )
+    }
+
+    getProduct(){
+        const data = {
+            page:this.page.page,
+            pageSize:this.page.pageSize
+        };
+        this.learnSer.GetProductList(data).subscribe(
+            (res)=>{
+                this.productList = res.data.ProductList;
+            }
+        )
+    }
+
     getTabs(e) {
         console.log(e);
     }
 
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage);
+        console.log(e);
+        this.navCtrl.push(CourseDetailPage,{id:e.Id});
+    }
+
+    doInfinite(e){
+        e.complete();
+    }
+
+    doRefresh(e){
+        e.complete();
     }
 
 }

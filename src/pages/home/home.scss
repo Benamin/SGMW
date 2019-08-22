@@ -133,6 +133,7 @@ page-home {
       width: 40%;
       display: inline-block;
       position: relative;
+      margin-right: 20px;
       .sale-desc{
         position: absolute;
         bottom: -8px;
@@ -225,6 +226,8 @@ page-home {
       img{
         border-radius: 50%;
         transition: all 100ms;
+        width: 5rem;
+        height: 5rem;
       }
       img.select{
         border: 5px solid #fed25b;

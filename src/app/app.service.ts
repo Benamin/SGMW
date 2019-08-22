@@ -1,0 +1,1 @@
+import {Injectable} from '@angular/core';import {BehaviorSubject, Subscription} from 'rxjs';@Injectable()export class AppService {    private mineSource:BehaviorSubject<any> = new BehaviorSubject({});    public mineInfo = this.mineSource.asObservable();    //个人信息    public setMine(value: any){        this.mineSource.next(value);    }}

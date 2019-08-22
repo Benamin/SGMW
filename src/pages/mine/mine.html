@@ -8,12 +8,14 @@
     <div class="mine">
         <div class="mine-info">
             <div class="info-item">
-                <div>头像</div>
+                <div>
+                    <img src="{{mineInfo?.HeadPhoto}}" alt="">
+                </div>
                 <div class="info-name">
-                    <p>新宝骏Rm-5</p>
+                    <p>{{mineInfo?.LoginName}}</p>
                 </div>
                 <div class="info-position">
-                    <a><img src="../assets/imgs/mine/student.png" ><span>学员</span></a>
+                    <a><img src="../assets/imgs/mine/student.png" ><span>{{mineInfo?.Position}}</span></a>
                 </div>
             </div>
             <div class="info-item item-type">

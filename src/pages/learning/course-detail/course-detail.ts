@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
+import {LearnService} from "../learn.service";
 
 
 @Component({
@@ -11,6 +12,11 @@ import {timer} from "rxjs/observable/timer";
 })
 export class CourseDetailPage {
 
+    pId;
+    product = {
+        detail:null,
+        chapter:null,
+    };
     learnList = [];
     navbarList = [
         {type: '1', name: '简介'},
@@ -28,22 +34,26 @@ export class CourseDetailPage {
         isCollection: false
     };
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService) {
     }
 
     ionViewDidLoad() {
-        this.learnList = [
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-            {img: '', title: '', brand: '新宝骏', comment: '123', collection: '123'},
-        ];
+        this.pId = this.navParams.get('id');
+        this.getChapter();
+        this.learSer.GetProductById(this.pId).subscribe(
+            (res) => {
+                this.product.detail = res.data;
+            }
+        )
+    }
+
+    //获取章节
+    getChapter() {
+        this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
+            (res) => {
+                this.product.chapter = res.data;
+            }
+        )
     }
 
     teachDetail() {
