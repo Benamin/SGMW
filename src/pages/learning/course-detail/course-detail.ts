@@ -14,8 +14,8 @@ export class CourseDetailPage {
 
     pId;
     product = {
-        detail:null,
-        chapter:null,
+        detail: null,
+        chapter: null,
     };
     learnList = [];
     navbarList = [
@@ -40,6 +40,7 @@ export class CourseDetailPage {
     ionViewDidLoad() {
         this.pId = this.navParams.get('id');
         this.getChapter();
+        this.getReleate();
         this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
@@ -56,8 +57,20 @@ export class CourseDetailPage {
         )
     }
 
+    //获取相关课程
+    getReleate() {
+        const data = {
+            pid: this.pId
+        }
+        this.learSer.GetRelationProductList(data).subscribe(
+            (res) => {
+                this.learnList = res.data.ProductList;
+            }
+        )
+    }
+
     teachDetail() {
-        this.navCtrl.push(TeacherPage);
+        this.navCtrl.push(TeacherPage,{item:this.product.detail.Teachers[0]});
     }
 
     goTeacher(title) {
@@ -66,6 +79,7 @@ export class CourseDetailPage {
 
     goCourse(e) {
         console.log(e);
+        this.navCtrl.push(CourseDetailPage,{id:e.Id});
     }
 
     //报名

@@ -7,11 +7,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TeacherPage {
 
+  info;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TeacherPage');
+    this.info = this.navParams.get('item');
   }
 
 }

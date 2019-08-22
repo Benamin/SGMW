@@ -1,6 +1,8 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {HomeService} from "./home.service";
+import {LearnService} from "../learning/learn.service";
+import {CommonService} from "../../core/common.service";
 
 @Component({
     selector: 'page-home',
@@ -16,7 +18,8 @@ export class HomePage {
     productList = new Array(5);  //产品体验
     teacherList = [];
 
-    constructor(public navCtrl: NavController, public homeSer: HomeService) {
+    constructor(public navCtrl: NavController, public homeSer: HomeService,
+                private learnSer:LearnService,private commonSer:CommonService) {
 
 
     }
@@ -67,6 +70,30 @@ export class HomePage {
                 this.productList = res.data;
             }
         )
+    }
+
+    async focusHandle(){
+        const data = {
+            TopicID:this.teacherList[this.personrType].UserId
+        };
+        await this.learnSer.SaveSubscribe(data).subscribe(
+            (res)=>{
+                this.commonSer.toast('关注成功');
+            }
+        )
+        await this.getGoodsTeacher();
+    }
+
+    async cancleFocusHandle(){
+        const data = {
+            TopicID:this.teacherList[this.personrType].UserId
+        };
+        this.learnSer.SaveSubscribe(data).subscribe(
+            (res)=>{
+                this.commonSer.toast('取消关注成功');
+            }
+        )
+        await this.getGoodsTeacher();
     }
 
 }

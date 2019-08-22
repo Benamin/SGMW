@@ -29,7 +29,13 @@
     <div class="item">
         <p>章节</p>
         <div>
-            <p *ngFor="let item of product.chapter?.Course?.children">{{item.title}}</p>
+            <ng-container *ngFor="let item of product.chapter?.Course?.children">
+                <p >{{item.title}}</p>
+
+                <p *ngIf="item.children">
+                    <tree-list [treeList]="item.children"></tree-list>
+                </p>
+            </ng-container>
         </div>
     </div>
     <div class="space"></div>
@@ -102,11 +108,11 @@
 </ion-content>
 
 <ion-footer class="course-footer">
-    <ion-toolbar (click)="sign()" >
+    <ion-toolbar (click)="sign()">
         <ion-buttons tappable (click)="sign()">立即报名</ion-buttons>
     </ion-toolbar>
     <ion-toolbar (click)="collection()">
-        <ion-buttons >收藏</ion-buttons>
+        <ion-buttons>收藏</ion-buttons>
     </ion-toolbar>
 
 </ion-footer>

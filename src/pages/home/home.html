@@ -102,7 +102,7 @@
             <span #angular class="angular"></span>
             <div class="desc-title">
                 {{teacherList[personrType]?.Position}}
-                <span class="focus">关注</span>
+                <span class="focus" (click)="focusHandle()">关注</span>
             </div>
             <div class="desc-desc">
                 {{teacherList[personrType]?.Remark}}
