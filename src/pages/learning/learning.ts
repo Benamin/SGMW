@@ -72,7 +72,6 @@ export class LearningPage {
     }
 
     goCourse(e) {
-        console.log(e);
         this.navCtrl.push(CourseDetailPage,{id:e.Id});
     }
 

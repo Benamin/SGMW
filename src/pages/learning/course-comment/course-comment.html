@@ -31,18 +31,19 @@
     <div class="comment-list">
         <div class="comment-item" *ngFor="let item of list;">
             <div class="first">
-                <div>图片</div>
                 <div>
-                    <p>在水中飞舞</p>
-                    <p>2019-08-09 09:20:20</p>
+                    <img [src]="item.HeadPhoto" alt="">
                 </div>
                 <div>
-                    星星
+                    <p>{{item.UserName}}</p>
+                    <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
+                </div>
+                <div>
+                    {{item.Score}}
                 </div>
             </div>
             <div class="last">
-                顾问的服务态度极佳，顾问的服务态度极佳，顾问的服务态度极佳，顾问的服务态度极佳，
-                顾问的服务态度极佳，顾问的服务态度极佳，顾问的服务态度极佳，顾问的服务态度极佳，
+                {{item.Contents}}
             </div>
         </div>
     </div>

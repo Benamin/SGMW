@@ -45,8 +45,8 @@ export class CourseDetailPage {
     }
 
     async ionViewDidLoad() {
-        const sub = this.appSer.fileInfo.subscribe(value => {
-            if(value){
+        this.appSer.fileInfo.subscribe(value => {
+            if (value) {
                 this.product.videoPath = value.fileUrl;
                 console.log(this.product.videoPath)
             }
@@ -63,7 +63,7 @@ export class CourseDetailPage {
         await this.getProductInfo();
     }
 
-    ionViewDidLeave(){
+    ionViewDidLeave() {
         this.appSer.setFile(null);
     }
 
@@ -101,10 +101,26 @@ export class CourseDetailPage {
         this.navCtrl.push(TeacherPage, {item: this.product.detail.Teachers[0]});
     }
 
-    goTeacher(title) {
-        this.navCtrl.push(CourseCommentPage, {title: title});
+    //教师评价
+    goTeacherComment() {
+        console.log(this.product.detail.Teachers[0].UserID)
+        this.navCtrl.push(CourseCommentPage, {
+            TopicID: this.product.detail.Teachers[0].UserID,
+            TopicType: 'teacher',
+            title: '教师评价'
+        });
     }
 
+    //课程评价
+    goCourseComment(){
+        this.navCtrl.push(CourseCommentPage, {
+            TopicID: this.product.detail.PrId,
+            TopicType: 'course',
+            title: '课程评价'
+        });
+    }
+
+    //课程
     goCourse(e) {
         this.navCtrl.push(CourseDetailPage, {id: e.Id});
     }
