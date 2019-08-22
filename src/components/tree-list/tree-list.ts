@@ -1,4 +1,4 @@
-import {Component, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'tree-list',
@@ -6,10 +6,15 @@ import {Component, Input, Output} from '@angular/core';
 })
 export class TreeListComponent {
   @Input() treeList;
-  @Output() done;
+  @Output() fileData = new EventEmitter<any>();
 
   constructor() {
     console.log(this.treeList);
+  }
+
+  handle(e){
+    console.log(`treeData${JSON.stringify(e)}`)
+    this.fileData.emit(e);
   }
 
 }

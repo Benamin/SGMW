@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
 import {LearnService} from "../learn.service";
+import {AppService} from "../../../app/app.service";
 
 
 @Component({
@@ -14,8 +15,9 @@ export class CourseDetailPage {
 
     pId;
     product = {
-        detail: null,
+        detail: <any>null,
         chapter: null,
+        videoPath:null
     };
     learnList = [];
     navbarList = [
@@ -34,43 +36,60 @@ export class CourseDetailPage {
         isCollection: false
     };
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService) {
-    }
-
-    ionViewDidLoad() {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
+                public loadCtrl: LoadingController,public appSer:AppService) {
         this.pId = this.navParams.get('id');
-        this.getChapter();
-        this.getReleate();
-        this.learSer.GetProductById(this.pId).subscribe(
-            (res) => {
-                this.product.detail = res.data;
+        this.appSer.fileInfo.subscribe(
+            (res)=>{
+                console.log(res);
             }
         )
     }
 
-    //获取章节
-    getChapter() {
-        this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
+    async ionViewDidLoad() {
+        const data = {
+            pid: this.pId
+        };
+        await this.learSer.GetProductById(this.pId).subscribe(
+            (res) => {
+                this.product.detail = res.data;
+            }
+        );
+        await this.getProductInfo();
+    }
+
+    //课程详情、课程章节、相关课程、课程评价
+    async getProductInfo() {
+        let loading = this.loadCtrl.create({
+            content: '课程正在打开...'
+        });
+        loading.present();
+        const data = {
+            pid: this.pId
+        };
+        await this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
             }
         )
-    }
-
-    //获取相关课程
-    getReleate() {
-        const data = {
-            pid: this.pId
-        }
-        this.learSer.GetRelationProductList(data).subscribe(
+        await this.learSer.GetRelationProductList(data).subscribe(
             (res) => {
                 this.learnList = res.data.ProductList;
             }
         )
+        const data1 = {
+            // topicID: this.product.detail.PrId
+        };
+        // await this.learSer.GetCommentSum(data1).subscribe(
+        //     (res) => {
+        //
+        //     }
+        // )
+        await loading.dismiss();
     }
 
     teachDetail() {
-        this.navCtrl.push(TeacherPage,{item:this.product.detail.Teachers[0]});
+        this.navCtrl.push(TeacherPage, {item: this.product.detail.Teachers[0]});
     }
 
     goTeacher(title) {
@@ -79,19 +98,49 @@ export class CourseDetailPage {
 
     goCourse(e) {
         console.log(e);
-        this.navCtrl.push(CourseDetailPage,{id:e.Id});
+        this.navCtrl.push(CourseDetailPage, {id: e.Id});
     }
 
     //报名
     sign() {
-        this.signObj.isSign = true;
-        timer(1000).subscribe(() => this.signObj.isSign = false);
+        const data = {
+            pid: this.pId
+        };
+        this.learSer.BuyProduct(data).subscribe(
+            (res) => {
+                this.signObj.isSign = true;
+                timer(1000).subscribe(() => this.signObj.isSign = false);
+            }
+        )
     }
 
     //收藏
     collection() {
-        this.collectionObj.isCollection = true;
-        timer(1000).subscribe(() => this.collectionObj.isCollection = false);
+        const data = {
+            CSID: this.product.detail.PrId
+        };
+        this.learSer.SaveCollectionByCSID(data).subscribe(
+            (res) => {
+                this.ionViewDidLoad();
+                this.collectionObj.isCollection = true;
+                timer(1000).subscribe(() => this.collectionObj.isCollection = false);
+            }
+        )
     }
 
+    //取消收藏
+    cancleCollection() {
+        const data = {
+            CSID: this.product.detail.PrId
+        };
+        this.learSer.CancelCollectionByCSID(data).subscribe(
+            (res) => {
+                this.ionViewDidLoad();
+            }
+        )
+    }
+
+    getInfo(e){
+        console.log(e);
+    }
 }

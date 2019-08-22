@@ -1,4 +1,7 @@
 <div *ngFor="let item of treeList">
-  <p  [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}">{{item.NodeLevel}} 、{{item.title}}</p>
-  <tree-list *ngIf="item.children" [treeList]="item.children"></tree-list>
+    <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}">{{item.NodeLevel}} 、{{item.title}}</p>
+    <tree-list *ngIf="item.children" [treeList]="item.children"></tree-list>
+    <div *ngFor="let item of item.files">
+        <p (click)="handle(item)">{{item.filename}}</p>
+    </div>
 </div>

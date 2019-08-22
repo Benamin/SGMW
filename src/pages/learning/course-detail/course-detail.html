@@ -6,7 +6,7 @@
 
 <ion-content>
     <div class="banner">
-        <div class="content">
+        <div class="content" *ngIf="!product.videoPath">
             <div class="course-name">
                 {{product.detail?.Description}}
             </div>
@@ -15,6 +15,11 @@
                 <span>评价</span>
                 <span>收藏</span>
             </div>
+        </div>
+        <div class="content video" *ngIf="product.videoPath">
+            <video width="100%" height="100%" [src]="product.videoPath" controls="controls">
+                您的浏览器不支持 html5。
+            </video>
         </div>
     </div>
     <navbar [list]="navbarList"></navbar>
@@ -30,10 +35,9 @@
         <p>章节</p>
         <div>
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
-                <p >{{item.title}}</p>
-
+                <p>{{item.title}}</p>
                 <p *ngIf="item.children">
-                    <tree-list [treeList]="item.children"></tree-list>
+                    <tree-list [treeList]="item.children" (fileData)="getInfo($event)" ></tree-list>
                 </p>
             </ng-container>
         </div>
@@ -108,11 +112,18 @@
 </ion-content>
 
 <ion-footer class="course-footer">
-    <ion-toolbar (click)="sign()">
-        <ion-buttons tappable (click)="sign()">立即报名</ion-buttons>
+    <ion-toolbar *ngIf="!product.detail?.IsBuy" (click)="sign()">
+        <ion-buttons tappable>立即报名</ion-buttons>
     </ion-toolbar>
-    <ion-toolbar (click)="collection()">
+    <ion-toolbar *ngIf="product.detail?.IsBuy">
+        <ion-buttons tappable (click)="sign()">立即学习</ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="!product.detail?.IsCollection" (click)="collection()">
         <ion-buttons>收藏</ion-buttons>
+    </ion-toolbar>
+
+    <ion-toolbar *ngIf="product.detail?.IsCollection" (click)="cancleCollection()">
+        <ion-buttons>已收藏</ion-buttons>
     </ion-toolbar>
 
 </ion-footer>
