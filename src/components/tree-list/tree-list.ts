@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {AppService} from "../../app/app.service";
 
 @Component({
   selector: 'tree-list',
@@ -8,13 +9,12 @@ export class TreeListComponent {
   @Input() treeList;
   @Output() fileData = new EventEmitter<any>();
 
-  constructor() {
-    console.log(this.treeList);
+  constructor(private appSer:AppService) {
   }
 
   handle(e){
-    console.log(`treeData${JSON.stringify(e)}`)
     this.fileData.emit(e);
+    this.appSer.setFile(e);
   }
 
 }

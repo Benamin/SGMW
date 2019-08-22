@@ -73,7 +73,8 @@ import {DataFormatService} from "../core/dataFormat.service";
         DataFormatService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true},
-    ]
+    ],
+
 })
 export class AppModule {
 }

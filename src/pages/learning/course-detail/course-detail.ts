@@ -17,7 +17,7 @@ export class CourseDetailPage {
     product = {
         detail: <any>null,
         chapter: null,
-        videoPath:null
+        videoPath: null
     };
     learnList = [];
     navbarList = [
@@ -36,17 +36,22 @@ export class CourseDetailPage {
         isCollection: false
     };
 
+    test;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
-                public loadCtrl: LoadingController,public appSer:AppService) {
+                public loadCtrl: LoadingController, public appSer: AppService) {
         this.pId = this.navParams.get('id');
-        this.appSer.fileInfo.subscribe(
-            (res)=>{
-                console.log(res);
-            }
-        )
+
     }
 
     async ionViewDidLoad() {
+        const sub = this.appSer.fileInfo.subscribe(value => {
+            if(value){
+                this.product.videoPath = value.fileUrl;
+                console.log(this.product.videoPath)
+            }
+        });
+
         const data = {
             pid: this.pId
         };
@@ -56,6 +61,10 @@ export class CourseDetailPage {
             }
         );
         await this.getProductInfo();
+    }
+
+    ionViewDidLeave(){
+        this.appSer.setFile(null);
     }
 
     //课程详情、课程章节、相关课程、课程评价
@@ -97,7 +106,6 @@ export class CourseDetailPage {
     }
 
     goCourse(e) {
-        console.log(e);
         this.navCtrl.push(CourseDetailPage, {id: e.Id});
     }
 
@@ -140,7 +148,6 @@ export class CourseDetailPage {
         )
     }
 
-    getInfo(e){
-        console.log(e);
+    getInfo(e) {
     }
 }
