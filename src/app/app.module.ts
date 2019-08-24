@@ -28,6 +28,10 @@ import {AppService} from "./app.service";
 import {DataFormatService} from "../core/dataFormat.service";
 import {BackButtonService} from "../core/backButton.service";
 import {EmitService} from "../core/emit.service";
+import {FileOpener} from "@ionic-native/file-opener";
+import {File} from "@ionic-native/file";
+import {FileService} from "../core/file.service";
+import {UntilService} from "../core/until.service";
 
 @NgModule({
     declarations: [
@@ -66,6 +70,8 @@ import {EmitService} from "../core/emit.service";
         StatusBar,
         SplashScreen,
         Keyboard,
+        FileOpener,
+        File,
         LoginService,
         HomeService,
         CommonService,
@@ -75,6 +81,8 @@ import {EmitService} from "../core/emit.service";
         DataFormatService,
         BackButtonService,
         EmitService,
+        FileService,
+        UntilService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true},
     ],

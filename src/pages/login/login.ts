@@ -31,7 +31,6 @@ export class LoginPage {
             content: '登录中...'
         });
         loading.present();
-        console.log(this.user);
         this.loginSer.loginpost(this.user).subscribe(
             (res) => {
                 this.storage.set('Authorization', res.data.Token);

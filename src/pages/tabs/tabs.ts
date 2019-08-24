@@ -48,6 +48,7 @@ export class TabsPage {
 
     constructor(private platform: Platform, private backButtonService: BackButtonService) {
         this.platform.ready().then(() => {
+            alert('registerBackButtonAction');
             this.backButtonService.registerBackButtonAction(this.myTabs);
         });
     }

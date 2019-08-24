@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {CourseDetailPage} from "./course-detail/course-detail";
 import {LearnService} from "./learn.service";
 import {pageSize} from "../../app/app.constants";
@@ -19,12 +19,12 @@ export class LearningPage {
     headType = 1;
 
     page = {
-      page:'1',
-      pageSize:"200"
+        page: '1',
+        pageSize: "200"
     };
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,
-                private learnSer:LearnService,private homeSer:HomeService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
+                private learnSer: LearnService, private homeSer: HomeService) {
     }
 
     ionViewDidLoad() {
@@ -47,22 +47,27 @@ export class LearningPage {
         ]
     }
 
-    getSubjectList(){
+    getSubjectList() {
         this.homeSer.GetDictionaryByPCode('Subject').subscribe(
-            (res)=>{
+            (res) => {
 
             }
         )
     }
 
-    getProduct(){
+    getProduct() {
+        let loading = this.loadCtrl.create({
+            content: '课程正在打开...'
+        });
+        loading.present();
         const data = {
-            page:this.page.page,
-            pageSize:this.page.pageSize
+            page: this.page.page,
+            pageSize: this.page.pageSize
         };
         this.learnSer.GetProductList(data).subscribe(
-            (res)=>{
+            (res) => {
                 this.productList = res.data.ProductList;
+                loading.dismiss();
             }
         )
     }
@@ -72,14 +77,14 @@ export class LearningPage {
     }
 
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage,{id:e.Id});
+        this.navCtrl.push(CourseDetailPage, {id: e.Id});
     }
 
-    doInfinite(e){
+    doInfinite(e) {
         e.complete();
     }
 
-    doRefresh(e){
+    doRefresh(e) {
         e.complete();
     }
 

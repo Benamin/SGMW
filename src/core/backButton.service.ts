@@ -25,13 +25,11 @@ export class BackButtonService {
     registerBackButtonAction(tabRef: Tabs): void {
 
         this.platform.registerBackButtonAction(() => {
-            alert('registerBackButtonAction');
             let activeNav: NavController = this.appCtrl.getActiveNavs()[0];
             //如果可以返回上一页，则执行pop
             if (activeNav.canGoBack()) {
                 if (this.isDo === 'false') {  //正常返回
                     activeNav.pop();
-                    alert('pop');
                 }
                 if (this.isDo === 'result') {
                     let index = activeNav.length() - 2;
