@@ -52,7 +52,7 @@ export class HomePage {
     getGoodsTeacher() {
         this.homeSer.GetGoodTeacherList().subscribe(
             (res) => {
-                this.teacherList = res.data;
+                this.teacherList = res.data.TeacherItems;
             }
         )
     }

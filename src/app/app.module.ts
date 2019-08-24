@@ -26,6 +26,8 @@ import {HTTP} from "@ionic-native/http";
 import {LearnService} from "../pages/learning/learn.service";
 import {AppService} from "./app.service";
 import {DataFormatService} from "../core/dataFormat.service";
+import {BackButtonService} from "../core/backButton.service";
+import {EmitService} from "../core/emit.service";
 
 @NgModule({
     declarations: [
@@ -71,6 +73,8 @@ import {DataFormatService} from "../core/dataFormat.service";
         HTTP,
         AppService,
         DataFormatService,
+        BackButtonService,
+        EmitService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true},
     ],
