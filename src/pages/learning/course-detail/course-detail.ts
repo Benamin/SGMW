@@ -5,6 +5,8 @@ import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
 import {LearnService} from "../learn.service";
 import {AppService} from "../../../app/app.service";
+import {CommonService} from "../../../core/common.service";
+import {FileService} from "../../../core/file.service";
 
 
 @Component({
@@ -39,7 +41,8 @@ export class CourseDetailPage {
     test;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
-                public loadCtrl: LoadingController, public appSer: AppService) {
+                public loadCtrl: LoadingController, public appSer: AppService,public commonSer:CommonService,
+                private fileSer:FileService) {
         this.pId = this.navParams.get('id');
 
     }
@@ -48,13 +51,9 @@ export class CourseDetailPage {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
                 this.product.videoPath = value.fileUrl;
-                console.log(this.product.videoPath)
+                this.viewFile(value.fileUrl,value.fileName);
             }
         });
-
-        const data = {
-            pid: this.pId
-        };
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
@@ -65,6 +64,10 @@ export class CourseDetailPage {
 
     ionViewDidLeave() {
         this.appSer.setFile(null);
+    }
+
+    viewFile(fileUrl,fileName){
+        this.fileSer.downloadFile(fileUrl,fileName);
     }
 
     //课程详情、课程章节、相关课程、课程评价
@@ -100,6 +103,30 @@ export class CourseDetailPage {
 
     teachDetail() {
         this.navCtrl.push(TeacherPage, {item: this.product.detail.Teachers[0]});
+    }
+
+    async focusHandle(UserID){
+        const data = {
+            TopicID:UserID
+        };
+        await this.learSer.SaveSubscribe(data).subscribe(
+            (res)=>{
+                this.commonSer.toast('关注成功');
+                this.ionViewDidLoad();
+            }
+        )
+    }
+
+    async cancleFocusHandle(UserID){
+        const data = {
+            TopicID:UserID
+        };
+        this.learSer.SaveSubscribe(data).subscribe(
+            (res)=>{
+                this.commonSer.toast('取消关注成功');
+                this.ionViewDidLoad();
+            }
+        )
     }
 
     //教师评价

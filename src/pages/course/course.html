@@ -7,28 +7,5 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-slides #contentSlides (ionSlideDidChange)="slideChanged()">
-    <ng-container *ngFor="let sli of slide">
-      <ion-slide>
-        <ion-content padding>
-          <ion-refresher (ionRefresh)="doRefresh($event)">
-            <ion-refresher-content pullingText="下拉刷新"
-                                   refreshingSpinner="bubbles">
-            </ion-refresher-content>
-          </ion-refresher>
-          <div *ngFor="let item of list">
-            <ion-item >
-              <p>{{item}}</p>
-            </ion-item>
-          </div>
-          <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-            <ion-infinite-scroll-content
-                    loadingSpinner="bubbles"
-                    loadingText="加载中"></ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-        </ion-content>
-      </ion-slide>
-    </ng-container>
-  </ion-slides>
+  <navbar [list]="navbarList"></navbar>
 </ion-content>

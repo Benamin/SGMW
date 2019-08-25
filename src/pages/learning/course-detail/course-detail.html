@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="content video" *ngIf="product.videoPath">
-            <video width="100%" height="100%" [src]="product.videoPath" controls="controls">
+            <video width="100%" height="100%" poster="{{product.chapter?.Course?.CoverUrl}}" [src]="product.videoPath" controls="controls">
                 您的浏览器不支持 html5。
             </video>
         </div>
@@ -56,7 +56,8 @@
                 <p>{{item.Position}}</p>
             </div>
             <div>
-                <span class="focus">关注</span>
+                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)" class="focus">关注</span>
+                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)" class="focus">取消关注</span>
             </div>
         </div>
     </div>
