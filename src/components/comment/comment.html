@@ -5,11 +5,14 @@
         <textarea #textAreaElement [(ngModel)]="replyContent" class="content-textarea" placeholder="{{placeholder}}"></textarea>
       </div>
       <ion-row style="margin-top: 5px">
-        <ion-col col-6>
+        <ion-col col-5>
           <span class="send" (click)="submit()">发送</span>
         </ion-col>
-        <ion-col col-4 text-center></ion-col>
-        <ion-col col-2 text-center>星星</ion-col>
+        <ion-col col-7 text-center class="img-star">
+          <ng-container *ngFor="let star of starList;let i = index;">
+            <span (click)="checkStar(i)" [ngClass]="star" class="icon iconfont"></span>
+          </ng-container>
+        </ion-col>
       </ion-row>
     </div>
   </div>

@@ -38,8 +38,11 @@
                     <p>{{item.UserName}}</p>
                     <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
                 </div>
-                <div>
-                    {{item.Score}}
+                <div class="img-star">
+                    <ng-container *ngFor="let st of starList;let i = index">
+                            <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
+                                  class="icon iconfont "></span>
+                    </ng-container>
                 </div>
             </div>
             <div class="last">

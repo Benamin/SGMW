@@ -11,6 +11,8 @@ export class CommentComponent {
 
     replyContent: string;
     placeholder: string;
+    starList = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
+    score;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private keyboard: Keyboard,
@@ -22,6 +24,23 @@ export class CommentComponent {
         }, 500)
     }
 
+    /**
+     *
+     * @param score  分数 从0开始
+     */
+    checkStar(score) {
+        this.score = score + 1;
+        let arr = new Array(5);
+        for (let i = 0; i < arr.length; i++) {
+            if (i < score + 1) {
+                arr[i] = "icon-star-fill";
+            } else {
+                arr[i] = "icon-star";
+            }
+        }
+        this.starList = arr;
+    }
+
     close() {
         this.viewCtrl.dismiss();
     }
@@ -31,7 +50,11 @@ export class CommentComponent {
     }
 
     submit() {
-        this.viewCtrl.dismiss(this.replyContent);
+        const data = {
+            'replyContent': this.replyContent,
+            'score': this.score
+        };
+        this.viewCtrl.dismiss(data);
     }
 
 }

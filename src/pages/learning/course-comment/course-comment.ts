@@ -11,9 +11,10 @@ import {CommonService} from "../../../core/common.service";
 export class CourseCommentPage {
     title;
     list = [];
+    starList = new Array(5);
 
     page = {
-        pageSize: 10,
+        pageSize: 100,
         page: 1,
         total: null
     };
@@ -28,6 +29,7 @@ export class CourseCommentPage {
     ionViewDidLoad() {
         this.topicID = this.navParams.get("TopicID");
         this.TopicType = this.navParams.get("TopicType");
+        this.title = this.navParams.get("title");
         this.getList();
     }
 
@@ -56,11 +58,11 @@ export class CourseCommentPage {
         modal.present();
     }
 
-    replyHandle(Contents) {
+    replyHandle(res) {
         const data = {
             TopicID: this.topicID,
-            Score: 5,
-            Contents: Contents,
+            Score: res.score,
+            Contents: res.replyContent,
             TopicType: this.TopicType
         }
         this.learnSer.SaveComment(data).subscribe(

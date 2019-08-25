@@ -57,7 +57,7 @@ export class LearningPage {
 
     getProduct() {
         let loading = this.loadCtrl.create({
-            content: '课程正在打开...'
+            content: '加载中...'
         });
         loading.present();
         const data = {

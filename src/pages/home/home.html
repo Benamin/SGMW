@@ -10,9 +10,15 @@
 
 <ion-content>
     <div class="banner">
-        <img src="../../assets/imgs/home/m11_banner@2x.jpg" alt="">
-        <div class="banner-tips">
-            品牌、互联网、ADAS等模块化只是训练
+        <div class="img">
+            <ion-slides>
+                <ion-slide *ngFor="let item of bannerList">
+                    <img [src]="item.SourceUrl">
+                    <div class="banner-tips">
+                        {{item.Title}}
+                    </div>
+                </ion-slide>
+            </ion-slides>
         </div>
     </div>
     <!--  销售运营-->
@@ -102,7 +108,10 @@
             <span #angular class="angular"></span>
             <div class="desc-title">
                 {{teacherList[personrType]?.Position}}
-                <span class="focus" (click)="focusHandle()">关注</span>
+                <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == false"
+                      (click)="focusHandle()">关注</span>
+                <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == true"
+                      (click)="cancleFocusHandle()">已关注</span>
             </div>
             <div class="desc-desc">
                 {{teacherList[personrType]?.Remark}}

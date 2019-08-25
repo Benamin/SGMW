@@ -58,9 +58,9 @@ export class CourseDetailPage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                this.getProductInfo();
             }
         );
-        await this.getProductInfo();
     }
 
     ionViewDidLeave() {
@@ -85,15 +85,16 @@ export class CourseDetailPage {
             (res) => {
                 this.learnList = res.data.ProductList;
             }
-        )
+        );
+        console.log(this.product.detail);
         const data1 = {
-            // topicID: this.product.detail.PrId
+            topicID: this.product.detail.PrId
         };
-        // await this.learSer.GetCommentSum(data1).subscribe(
-        //     (res) => {
-        //
-        //     }
-        // )
+        await this.learSer.GetCommentSum(data1).subscribe(
+            (res) => {
+
+            }
+        )
         await loading.dismiss();
     }
 

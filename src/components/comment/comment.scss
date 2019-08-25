@@ -1,14 +1,16 @@
 comment {
-  .main{
-    background-color: rgba(0,0,0,.4);
+  .main {
+    background-color: rgba(0, 0, 0, .4);
     height: 100%;
   }
-  .content{
+
+  .content {
     position: relative;
     height: 100%;
     width: 100%;
   }
-  .comment{
+
+  .comment {
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -17,11 +19,13 @@ comment {
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
     padding: 15px;
-    ion-icon{
+
+    ion-icon {
       font-size: 3rem;
       font-weight: bold;
     }
   }
+
   .content-textarea {
     padding: 10px;
     min-height: 100px;
@@ -30,9 +34,22 @@ comment {
     background-color: #f2f2f2;
     border-radius: 5px;
   }
-  .send{
+
+  .send {
     background-image: linear-gradient(to right, #feca46, #fee6a3);
     padding: 6px 30px;
     border-radius: 100px;
+  }
+
+  .img-star {
+    span {
+      color: #facd70;
+      font-size: 3rem;
+    }
+
+    span.score {
+      color: #e44f17;
+      margin-left: 15px;
+    }
   }
 }

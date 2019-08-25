@@ -27,7 +27,7 @@ page-home {
     height: 140px;
     background-color: #343435;
     position: relative;
-    img{
+    .img{
       position: absolute;
       border-radius: 10px;
       left: 50%;
@@ -43,6 +43,13 @@ page-home {
       padding: 5px 10px;
       font-weight: bold;
       background-image: linear-gradient(to right , #ffffff, #fce6ad);
+    }
+    ion-slides,ion-slide{
+      height: 180px;
+    }
+    img{
+      max-height: 180px;
+      border-radius: 10px;
     }
   }
   .item {

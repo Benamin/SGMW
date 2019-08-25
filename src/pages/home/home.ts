@@ -17,6 +17,7 @@ export class HomePage {
     saleList = [];  //销售运营
     productList = new Array(5);  //产品体验
     teacherList = [];
+    bannerList = [];
 
     constructor(public navCtrl: NavController, public homeSer: HomeService,
                 private learnSer:LearnService,private commonSer:CommonService) {
@@ -24,7 +25,7 @@ export class HomePage {
 
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.getBanner();
         this.getGoodsTeacher();
         this.getProductList();
@@ -44,6 +45,7 @@ export class HomePage {
     getBanner() {
         this.homeSer.getBannerList().subscribe(
             (res) => {
+                this.bannerList = res.data.NewsItems;
             }
         )
     }
@@ -74,7 +76,7 @@ export class HomePage {
 
     async focusHandle(){
         const data = {
-            TopicID:this.teacherList[this.personrType].UserId
+            TopicID:this.teacherList[this.personrType].UserID
         };
         await this.learnSer.SaveSubscribe(data).subscribe(
             (res)=>{
@@ -86,7 +88,7 @@ export class HomePage {
 
     async cancleFocusHandle(){
         const data = {
-            TopicID:this.teacherList[this.personrType].UserId
+            TopicID:this.teacherList[this.personrType].UserID
         };
         this.learnSer.SaveSubscribe(data).subscribe(
             (res)=>{

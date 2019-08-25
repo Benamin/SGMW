@@ -55,7 +55,8 @@ page-course-comment {
         }
 
         > div:nth-child(2) {
-          width: 70%;
+          padding-left: 10px;
+          width: 50%;
 
           p:first-child {
             font-size: 16px;
@@ -68,7 +69,7 @@ page-course-comment {
         }
 
         > div:last-child {
-          width: 20%;
+          width: 40%;
         }
       }
     }
@@ -96,6 +97,16 @@ page-course-comment {
       font-size: 14px;
       color: #666;
       padding: 0 10px;
+    }
+  }
+
+  .img-star {
+    flex-direction: column;
+    flex-flow: column;
+    color: #facd70;
+
+    span {
+      font-size: 2rem;
     }
   }
 }
