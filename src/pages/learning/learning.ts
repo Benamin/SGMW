@@ -53,6 +53,12 @@ export class LearningPage {
 
             }
         )
+
+        this.homeSer.GetDictionaryByPCodeByNative('Subject').then(
+            (res) => {
+
+            }
+        )
     }
 
     getProduct() {
@@ -70,6 +76,14 @@ export class LearningPage {
                 loading.dismiss();
             }
         )
+
+        // this.learnSer.GetProductListByNative(data).then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         this.productList = res1.data.ProductList;
+        //         loading.dismiss();
+        //     }
+        // )
     }
 
     getTabs(e) {

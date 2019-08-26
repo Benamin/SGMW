@@ -41,8 +41,8 @@ export class CourseDetailPage {
     test;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
-                public loadCtrl: LoadingController, public appSer: AppService,public commonSer:CommonService,
-                private fileSer:FileService) {
+                public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
+                private fileSer: FileService) {
         this.pId = this.navParams.get('id');
 
     }
@@ -51,7 +51,7 @@ export class CourseDetailPage {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
                 this.product.videoPath = value.fileUrl;
-                this.viewFile(value.fileUrl,value.fileName);
+                if (value.fileUrl) this.viewFile(value.fileUrl, value.fileName);
             }
         });
         await this.learSer.GetProductById(this.pId).subscribe(
@@ -60,14 +60,23 @@ export class CourseDetailPage {
                 this.getProductInfo();
             }
         );
+
+        // await this.learSer.GetProductByIdByNative(this.pId).then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         console.log(res1);
+        //         this.product.detail = res1.data;
+        //         this.getProductInfo();
+        //     }
+        // );
     }
 
     ionViewDidLeave() {
         this.appSer.setFile(null);
     }
 
-    viewFile(fileUrl,fileName){
-        this.fileSer.downloadFile(fileUrl,fileName);
+    viewFile(fileUrl, fileName) {
+        this.fileSer.downloadFile(fileUrl, fileName);
     }
 
     //课程详情、课程章节、相关课程、课程评价
@@ -84,20 +93,41 @@ export class CourseDetailPage {
                 this.product.chapter = res.data;
             }
         )
+        // await this.learSer.GetAdminChapterListByProductIDByNative(this.pId).then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         console.log(res1);
+        //         this.product.chapter = res1.data;
+        //     }
+        // )
+
         await this.learSer.GetRelationProductList(data).subscribe(
             (res) => {
                 this.learnList = res.data.ProductList;
             }
         );
-        console.log(this.product.detail);
+        // await this.learSer.GetRelationProductListByNative(data).then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         console.log(res1);
+        //         this.learnList = res1.data.ProductList;
+        //     }
+        // );
+
         const data1 = {
-            topicID: this.product.detail.PrId
+            // topicID: this.product.detail.PrId
         };
         await this.learSer.GetCommentSum(data1).subscribe(
             (res) => {
 
             }
-        )
+        );
+
+        // await this.learSer.GetCommentSumByNative(data1).then(
+        //     (res) => {
+        //
+        //     }
+        // );
         await loading.dismiss();
     }
 
@@ -105,9 +135,9 @@ export class CourseDetailPage {
         this.navCtrl.push(TeacherPage, {item: this.product.detail.Teachers[0]});
     }
 
-    async focusHandle(UserID){
+    async focusHandle(UserID) {
         const data = {
-            TopicID:UserID
+            TopicID: UserID
         };
         await this.learSer.SaveSubscribe(data).subscribe(
             (res)=>{
@@ -115,18 +145,32 @@ export class CourseDetailPage {
                 this.ionViewDidLoad();
             }
         )
+
+        // await this.learSer.SaveSubscribeByNative(data).then(
+        //     (res) => {
+        //         this.commonSer.toast('关注成功');
+        //         this.ionViewDidLoad();
+        //     }
+        // )
     }
 
-    async cancleFocusHandle(UserID){
+    async cancleFocusHandle(UserID) {
         const data = {
-            TopicID:UserID
+            TopicID: UserID
         };
-        this.learSer.SaveSubscribe(data).subscribe(
+        this.learSer.CancelSubscribe(data).subscribe(
             (res)=>{
                 this.commonSer.toast('取消关注成功');
                 this.ionViewDidLoad();
             }
         )
+
+        // this.learSer.CancelSubscribeByNative(data).then(
+        //     (res) => {
+        //         this.commonSer.toast('取消关注成功');
+        //         this.ionViewDidLoad();
+        //     }
+        // )
     }
 
     //教师评价
@@ -140,7 +184,7 @@ export class CourseDetailPage {
     }
 
     //课程评价
-    goCourseComment(){
+    goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
@@ -164,6 +208,13 @@ export class CourseDetailPage {
                 timer(1000).subscribe(() => this.signObj.isSign = false);
             }
         )
+
+        // this.learSer.BuyProductByNative(data).then(
+        //     (res) => {
+        //         this.signObj.isSign = true;
+        //         timer(1000).subscribe(() => this.signObj.isSign = false);
+        //     }
+        // )
     }
 
     //收藏
@@ -178,6 +229,14 @@ export class CourseDetailPage {
                 timer(1000).subscribe(() => this.collectionObj.isCollection = false);
             }
         )
+
+        // this.learSer.SaveCollectionByCSIDByNative(data).then(
+        //     (res) => {
+        //         this.ionViewDidLoad();
+        //         this.collectionObj.isCollection = true;
+        //         timer(1000).subscribe(() => this.collectionObj.isCollection = false);
+        //     }
+        // )
     }
 
     //取消收藏
@@ -190,6 +249,12 @@ export class CourseDetailPage {
                 this.ionViewDidLoad();
             }
         )
+
+        // this.learSer.CancelCollectionByCSIDByNative(data).then(
+        //     (res) => {
+        //         this.ionViewDidLoad();
+        //     }
+        // )
     }
 
     getInfo(e) {

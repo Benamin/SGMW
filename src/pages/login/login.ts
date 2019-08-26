@@ -35,9 +35,18 @@ export class LoginPage {
             (res) => {
                 this.storage.set('Authorization', res.data.Token);
                 this.appSer.setMine(res.data.User);
+                this.navCtrl.setRoot(TabsPage);
             }
         );
-        this.navCtrl.setRoot(TabsPage);
+
+        // this.loginSer.loginpostByNative(this.user).then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         this.storage.set('Authorization', res1.data.Token);
+        //         this.appSer.setMine(res1.data.User);
+        //         this.navCtrl.setRoot(TabsPage);
+        //     }
+        // );
         loading.dismiss();
     }
 

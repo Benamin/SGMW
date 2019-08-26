@@ -84,7 +84,9 @@ import {UntilService} from "../core/until.service";
         FileService,
         UntilService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
-        {provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true},
+        {
+            provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
+        },
     ],
 
 })

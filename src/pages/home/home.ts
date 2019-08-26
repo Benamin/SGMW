@@ -20,15 +20,21 @@ export class HomePage {
     bannerList = [];
 
     constructor(public navCtrl: NavController, public homeSer: HomeService,
-                private learnSer:LearnService,private commonSer:CommonService) {
+                private learnSer: LearnService, private commonSer: CommonService) {
 
 
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad(){
+        alert('home');
         this.getBanner();
         this.getGoodsTeacher();
         this.getProductList();
+    }
+
+    ionViewDidEnter(){
+
+
     }
 
     selectType(type) {
@@ -48,6 +54,14 @@ export class HomePage {
                 this.bannerList = res.data.NewsItems;
             }
         )
+
+        // this.homeSer.getBannerListByNative().then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         console.log(res1);
+        //         this.bannerList = res1.data.NewsItems;
+        //     }
+        // )
     }
 
     //优秀教师
@@ -57,6 +71,13 @@ export class HomePage {
                 this.teacherList = res.data.TeacherItems;
             }
         )
+
+        // this.homeSer.GetGoodTeacherListBynative().then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         this.teacherList = res1.data.TeacherItems;
+        //     }
+        // )
     }
 
     //获取产品分类 nlts
@@ -65,36 +86,62 @@ export class HomePage {
             (res) => {
                 this.saleList = res.data;
             }
-        )
+        );
+
+        // this.homeSer.GetDictionaryByPCodeByNative('nlts').then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         this.saleList = res1.data;
+        //     }
+        // );
 
         this.homeSer.GetDictionaryByPCode('cpty').subscribe(
             (res) => {
                 this.productList = res.data;
             }
-        )
+        );
+
+        // this.homeSer.GetDictionaryByPCodeByNative('cpty').then(
+        //     (res) => {
+        //         let res1 = JSON.parse(res.data);
+        //         this.productList = res1.data;
+        //     }
+        // );
     }
 
-    async focusHandle(){
+    async focusHandle() {
         const data = {
-            TopicID:this.teacherList[this.personrType].UserID
+            TopicID: this.teacherList[this.personrType].UserID
         };
         await this.learnSer.SaveSubscribe(data).subscribe(
             (res)=>{
                 this.commonSer.toast('关注成功');
             }
-        )
+        );
+
+        // await this.learnSer.SaveSubscribeByNative(data).then(
+        //     (res) => {
+        //         this.commonSer.toast('关注成功');
+        //     }
+        // );
         await this.getGoodsTeacher();
     }
 
-    async cancleFocusHandle(){
+    async cancleFocusHandle() {
         const data = {
-            TopicID:this.teacherList[this.personrType].UserID
+            TopicID: this.teacherList[this.personrType].UserID
         };
-        this.learnSer.SaveSubscribe(data).subscribe(
+        this.learnSer.CancelSubscribe(data).subscribe(
             (res)=>{
                 this.commonSer.toast('取消关注成功');
             }
         )
+
+        // this.learnSer.CancelSubscribeByNative(data).then(
+        //     (res) => {
+        //         this.commonSer.toast('取消关注成功');
+        //     }
+        // );
         await this.getGoodsTeacher();
     }
 
