@@ -17,12 +17,12 @@ export class ScrollTabsComponent implements OnChanges {
     spanWidth;
 
     constructor() {
-        console.log(this.tabsList);
-        timer(100).subscribe((res) => {
+        timer(5000).subscribe((res) => {
             const htmlFontSize = getComputedStyle(window.document.documentElement)['font-size'];
             this.itemWidth = htmlFontSize.split("px")[0] * 8;
             this.spanWidth = this.tabSpan.nativeElement.offsetWidth;   //文字宽度
             this.changeParent(this.tabsList[0], 0);
+            console.log(this.tabsList);
         })
     }
 

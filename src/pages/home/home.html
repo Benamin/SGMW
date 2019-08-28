@@ -27,8 +27,8 @@
         <div class="sale-box">
             <div class="scroll-tab">
                 <div class="sale-content">
-                    <div class="sale-item" *ngFor="let sale of saleList">
-                        <img src="../../assets/imgs/home/m11_img1@2x.jpg" alt="">
+                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;">
+                        <img src="../../assets/imgs/home/shop{{i+1+'.jpg'}}" alt="">
                         <div class="sale-desc">
                             <p>{{sale.TypeName}}</p>
                             <p>超过{{sale.CourseCount}}人学习</p>
@@ -101,8 +101,12 @@
     </div>
     <div class="person">
         <div #imgWidth class="person-img">
-            <img *ngFor="let img of teacherList;let i = index;" [ngClass]="{'select':personrType == i}"
-                 (click)="selectPerson(i)" [src]="img.HeadPhoto">
+            <ng-container *ngFor="let img of teacherList;let i = index;">
+                <img *ngIf="img.HeadPhoto" [ngClass]="{'select':personrType == i}" (click)="selectPerson(i)"
+                     [src]="img.HeadPhoto">
+                <img *ngIf="!img.HeadPhoto" [ngClass]="{'select':personrType == i}" (click)="selectPerson(i)"
+                     src="../../assets/imgs/home/goodTeacher.png">
+            </ng-container>
         </div>
         <div class="person-desc">
             <span #angular class="angular"></span>

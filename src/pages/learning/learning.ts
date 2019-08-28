@@ -13,14 +13,16 @@ import {HomeService} from "../home/home.service";
 })
 export class LearningPage {
 
+    code = "Subject";
     tabsList = [];
     productList = [];
     headList = [];
-    headType = 1;
+    headType;
 
     page = {
+        SubjectID: '',
         page: '1',
-        pageSize: "200"
+        pageSize: "2000"
     };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
@@ -28,35 +30,36 @@ export class LearningPage {
     }
 
     ionViewDidLoad() {
-        this.getProduct();
         this.getSubjectList();
-        this.tabsList = [
-            {name: "不限", type: '0'},
-            {name: "新宝骏", type: '1'},
-            {name: "经典宝骏", type: '2'},
-            {name: "五菱", type: '3'},
-            {name: "新能源", type: '4'},
-            {name: "专家团队", type: '5'},
-            {name: "用户体验", type: '6'},
-        ];
-        this.headList = [
-            {type: 1, name: '产品体验'},
-            {type: 2, name: '销售运营'},
-            {type: 3, name: '能力提升'},
-            {type: 4, name: '服务运营'},
-        ]
     }
 
     getSubjectList() {
-        this.homeSer.GetDictionaryByPCode('Subject').subscribe(
+        this.homeSer.GetDictionaryByPCode("Subject").subscribe(
             (res) => {
-
+                this.headList = res.data.map(e => {
+                    return {type: e.TypeCode, name: e.TypeName}
+                })
+                this.selectType(this.headList[1], 1);
             }
         )
 
-        this.homeSer.GetDictionaryByPCodeByNative('Subject').then(
-            (res) => {
+        // this.homeSer.GetDictionaryByPCodeByNative('Subject').then(
+        //         //     (res) => {
+        //         //
+        //         //     }
+        //         // )
+    }
 
+    selectType(title, index) {
+        this.headType = index;
+        this.code = title.type;
+        this.homeSer.GetDictionaryByPCode(this.code).subscribe(
+            (res) => {
+                this.tabsList = res.data.map(e => {
+                    return {type: e.TypeCode, name: e.TypeName, ID: e.ID}
+                });
+                this.page.SubjectID = this.tabsList[0].ID;
+                this.getProduct();
             }
         )
     }
@@ -67,6 +70,7 @@ export class LearningPage {
         });
         loading.present();
         const data = {
+            SubjectID: this.page.SubjectID,
             page: this.page.page,
             pageSize: this.page.pageSize
         };
@@ -87,7 +91,8 @@ export class LearningPage {
     }
 
     getTabs(e) {
-        console.log(e);
+        this.page.SubjectID = e.ID;
+        this.getProduct();
     }
 
     goCourse(e) {

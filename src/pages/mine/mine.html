@@ -8,8 +8,11 @@
     <div class="mine">
         <div class="mine-info">
             <div class="info-item">
-                <div>
-                    <img src="{{mineInfo?.HeadPhoto}}" alt="">
+                <div style="position: relative">
+                    <div class="mask1">
+                        <img class="img3" src="{{mineInfo?.HeadPhoto}}" alt="">
+
+                    </div>
                 </div>
                 <div class="info-name">
                     <p>{{mineInfo?.LoginName}}</p>
@@ -18,32 +21,32 @@
                     <a><img src="../assets/imgs/mine/student.png" ><span>{{mineInfo?.Position}}</span></a>
                 </div>
             </div>
-            <div class="info-item item-type">
-                <div (click)="goToCourse()">
-                    <p>7</p>
-                    <p>课程</p>
-                </div>
-                <div>
-                    <p>5</p>
-                    <p>作业</p>
-                </div>
-                <div (click)="goToCollection()">
-                    <p>8</p>
-                    <p>收藏</p>
-                </div>
-            </div>
+<!--            <div class="info-item item-type">-->
+<!--                <div (click)="goToCourse()">-->
+<!--                    <p>7</p>-->
+<!--                    <p>课程</p>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <p>5</p>-->
+<!--                    <p>作业</p>-->
+<!--                </div>-->
+<!--                <div (click)="goToCollection()">-->
+<!--                    <p>8</p>-->
+<!--                    <p>收藏</p>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
     <div class="mine-list">
-        <div class="item" (click)="goToNoti()">
-            <div class="left">
-                <img src="../assets/imgs/mine/notifation.png" >
-            </div>
-            <div class="middle">通知中心</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
+<!--        <div class="item" (click)="goToNoti()">-->
+<!--            <div class="left">-->
+<!--                <img src="../assets/imgs/mine/notifation.png" >-->
+<!--            </div>-->
+<!--            <div class="middle">通知中心</div>-->
+<!--            <div class="right">-->
+<!--                <ion-icon name="arrow-forward"></ion-icon>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="item">
             <div class="left">
                 <img src="../assets/imgs/mine/logout.png" >

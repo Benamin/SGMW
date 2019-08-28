@@ -28,13 +28,13 @@ export class TabsPage {
             tabIconOff: 'custom-discover-off',
             index: 1
         },
-        {
-            root: CoursePage,
-            tabTitle: '我的课程',
-            tabIconOn: 'custom-serve-on',
-            tabIconOff: 'custom-serve-off',
-            index: 2
-        },
+        // {
+        //     root: CoursePage,
+        //     tabTitle: '我的课程',
+        //     tabIconOn: 'custom-serve-on',
+        //     tabIconOff: 'custom-serve-off',
+        //     index: 2
+        // },
         {
             root: MinePage,
             tabTitle: '个人中心',

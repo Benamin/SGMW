@@ -26,7 +26,6 @@ export class HomePage {
     }
 
     ionViewDidLoad(){
-        alert('home');
         this.getBanner();
         this.getGoodsTeacher();
         this.getProductList();
