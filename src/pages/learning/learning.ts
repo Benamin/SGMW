@@ -30,7 +30,14 @@ export class LearningPage {
     }
 
     ionViewDidLoad() {
-        this.getSubjectList();
+        const item = this.navParams.get('item');
+        if(item){
+            this.page.SubjectID = item.ID;
+            this.headType = this.navParams.get('headType');
+            this.getProduct();
+        }else{
+            this.getSubjectList();
+        }
     }
 
     getSubjectList() {

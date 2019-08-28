@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
+import {LearningPage} from "../learning/learning";
 
 @Component({
     selector: 'page-home',
@@ -38,6 +39,16 @@ export class HomePage {
 
     selectType(type) {
         this.type = type;
+    }
+
+    saleToLearn(item){
+        this.navCtrl.setRoot(LearningPage,{item:item,headType:2});
+        this.navCtrl.parent.select(1);
+    }
+
+    goToLearn(index){
+        this.navCtrl.setRoot(LearningPage,{item:this.productList[index],headType:1});
+        this.navCtrl.parent.select(1);
     }
 
     selectPerson(index) {

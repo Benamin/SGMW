@@ -115,7 +115,7 @@ export class CourseDetailPage {
         // );
 
         const data1 = {
-            // topicID: this.product.detail.PrId
+            topicID: this.product.detail.PrId
         };
         await this.learSer.GetCommentSum(data1).subscribe(
             (res) => {

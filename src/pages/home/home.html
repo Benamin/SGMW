@@ -27,7 +27,7 @@
         <div class="sale-box">
             <div class="scroll-tab">
                 <div class="sale-content">
-                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;">
+                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" (click)="saleToLearn(sale)">
                         <img src="../../assets/imgs/home/shop{{i+1+'.jpg'}}" alt="">
                         <div class="sale-desc">
                             <p>{{sale.TypeName}}</p>
@@ -43,14 +43,14 @@
     <div class="product">
         <p>产品体验</p>
         <div class="item">
-            <div class="m11_img" style="height: 160px">
+            <div class="m11_img" style="height: 160px" (click)="goToLearn(0)">
                 <img src="../../assets/imgs/home/m11_img2@2x.jpg" alt="">
                 <div class="left-font">
                     <p>{{productList[0]?.TypeName}}</p>
                     <p>{{productList[0]?.HourCount}}小时/超过{{productList[0]?.CourseCount}}门课程</p>
                 </div>
             </div>
-            <div style="height: 160px">
+            <div style="height: 160px" (click)="goToLearn(1)">
                 <div class="m11_img" style="padding: 0 0 4px 8px;height: 80px">
                     <img src="../../assets/imgs/home/m11_img3@2x.jpg" style="height: 76px">
                     <div class="right-font1">
@@ -58,7 +58,7 @@
                         <p>{{productList[1]?.HourCount}}小时/超过{{productList[1]?.CourseCount}}门课程</p>
                     </div>
                 </div>
-                <div class="m11_img" style="padding: 4px 0 0 8px;height: 80px">
+                <div class="m11_img" style="padding: 4px 0 0 8px;height: 80px" (click)="goToLearn(2)">
                     <img src="../../assets/imgs/home/m11_img4@2x.jpg" style="height: 76px">
                     <div class="right-font2">
                         <p>{{productList[2]?.TypeName}}</p>
@@ -84,14 +84,14 @@
         </div>
     </div>
     <div style="padding: 10px;" class="item">
-        <div class="m11_img" style="padding: 5px;">
+        <div class="m11_img" style="padding: 5px;" (click)="goToLearn(3)">
             <img src="../../assets/imgs/home/m11_img5@2x.jpg" alt="">
             <div class="img-font">
                 <p>{{productList[3]?.TypeName}}</p>
                 <p>{{productList[3]?.HourCount}}小时/超过{{productList[3]?.CourseCount}}门课程</p>
             </div>
         </div>
-        <div class="m11_img" style="padding: 5px;">
+        <div class="m11_img" style="padding: 5px;" (click)="goToLearn(4)">
             <img src="../../assets/imgs/home/m11_img6@2x.jpg" alt="">
             <div class="img-font">
                 <p>{{productList[4]?.TypeName}}</p>
