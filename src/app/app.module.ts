@@ -32,6 +32,7 @@ import {FileOpener} from "@ionic-native/file-opener";
 import {File} from "@ionic-native/file";
 import {FileService} from "../core/file.service";
 import {UntilService} from "../core/until.service";
+import {MineService} from "../pages/mine/mine.service";
 
 @NgModule({
     declarations: [
@@ -76,6 +77,7 @@ import {UntilService} from "../core/until.service";
         HomeService,
         CommonService,
         LearnService,
+        MineService,
         HTTP,
         AppService,
         DataFormatService,

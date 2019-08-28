@@ -14,13 +14,13 @@ import {HomePage} from "../pages/home/home";
 export class MyApp {
   rootPage:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage:Storage) {
-    platform.ready().then(() => {
-      splashScreen.hide();
-      statusBar.show();
-      statusBar.overlaysWebView(false);
-      statusBar.backgroundColorByHexString('#343435');
-      statusBar.styleLightContent();
+  constructor(private platform: Platform,private statusBar: StatusBar,private splashScreen: SplashScreen,private storage:Storage) {
+    this.platform.ready().then(() => {
+      this.splashScreen.hide();
+      this.statusBar.show();
+      this.statusBar.overlaysWebView(false);
+      this.statusBar.backgroundColorByHexString('#343435');
+      this.statusBar.styleLightContent();
       this.checkLogin();
     });
   }
