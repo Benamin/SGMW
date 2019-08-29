@@ -6,7 +6,7 @@ import {AppService} from "../../app/app.service";
   templateUrl: 'tree-list.html'
 })
 export class TreeListComponent {
-  @Input() treeList;
+  @Input() treeList = [];
   @Output() fileData = new EventEmitter<any>();
 
   constructor(private appSer:AppService) {

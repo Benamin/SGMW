@@ -86,13 +86,12 @@ page-home {
     }
     p:last-child{
       font-size: 12px;
-      color: #dddddd;
     }
   }
   .left-font{
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: 20px;
+    left: 10px;
     width: 100%;
     text-align: left;
     border-radius: 5px;
@@ -101,21 +100,19 @@ page-home {
     }
     p:last-child{
       font-size: 12px;
-      color: #dddddd;
     }
   }
   .img-font{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    bottom: 20px;
+    left: 10px;
+    text-align: left;
     width: 100%;
     p:first-child{
       font-weight: bold;
     }
     p:last-child{
       font-size: 12px;
-      color: #dddddd;
     }
   }
   .sale{
@@ -144,9 +141,9 @@ page-home {
       margin-right: 20px;
       .sale-desc{
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
+        bottom: 20px;
+        left: 10px;
+        color: #fff;
         p{
           padding:5px;
         }
@@ -184,11 +181,6 @@ page-home {
     top: 0;
     border-radius: 4px;
     background-image: linear-gradient(to bottom , #fee6a3, #feca46);
-  }
-  .left-font{
-    background-image: linear-gradient(to right , #3d3e63, #6f70ac);
-    color: #ffffff;
-    padding: 10px;
   }
   .person{
     background-color: #343435;

@@ -33,3 +33,8 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+/build/www
+/build
+/build/www/assets/
+/build/www/assets/cordova/cordova_android/
+build/

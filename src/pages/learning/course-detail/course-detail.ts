@@ -38,6 +38,8 @@ export class CourseDetailPage {
         isCollection: false
     };
 
+    files = [];
+
     test;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
@@ -86,6 +88,7 @@ export class CourseDetailPage {
         await this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
+                this.f(this.product.chapter.Course.children);
             }
         );
 
@@ -112,6 +115,28 @@ export class CourseDetailPage {
         await loading.dismiss();
     }
 
+    f(data) {
+        for(let i = 0;i<data.length;i++){
+            if(data[i].files.length > 0) {
+                this.files = this.files.concat(data[i].files);
+            }
+            if(data[i].children.length > 0) this.f(data[i].children);
+            console.log(this.files);
+        }
+    }
+
+    //立即学习
+    studyNow(){
+        console.log(this.files);
+        if(this.files.length  == 0){
+            this.commonSer.toast('暂无学习文件');
+        } else if (this.files[0].icon.includes('mp4')) {
+            this.product.videoPath = this.files[0].fileUrl;
+        } else {
+            if (this.files[0].fileUrl) this.viewFile(this.files[0].fileUrl, this.files[0].filename);
+        }
+    }
+
     teachDetail() {
         this.navCtrl.push(TeacherPage, {item: this.product.detail.Teachers[0]});
     }
@@ -126,13 +151,6 @@ export class CourseDetailPage {
                 this.ionViewDidLoad();
             }
         )
-
-        // await this.learSer.SaveSubscribeByNative(data).then(
-        //     (res) => {
-        //         this.commonSer.toast('关注成功');
-        //         this.ionViewDidLoad();
-        //     }
-        // )
     }
 
     async cancleFocusHandle(UserID) {

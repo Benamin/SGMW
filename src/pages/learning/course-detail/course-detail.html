@@ -116,8 +116,8 @@
     <ion-toolbar *ngIf="!product.detail?.IsBuy" (click)="sign()">
         <ion-buttons tappable>立即报名</ion-buttons>
     </ion-toolbar>
-    <ion-toolbar *ngIf="product.detail?.IsBuy">
-        <ion-buttons tappable (click)="sign()">立即学习</ion-buttons>
+    <ion-toolbar *ngIf="product.detail?.IsBuy" (click)="studyNow()">
+        <ion-buttons tappable >立即学习</ion-buttons>
     </ion-toolbar>
     <ion-toolbar *ngIf="!product.detail?.IsCollection" (click)="collection()">
         <ion-buttons>收藏</ion-buttons>

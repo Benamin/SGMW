@@ -23,14 +23,14 @@
     </div>
     <!--  销售运营-->
     <div class="sale">
-        <p>领域细分</p>
+        <p>课程分类</p>
         <div class="sale-box">
             <div class="scroll-tab">
                 <div class="sale-content">
                     <div class="sale-item" *ngFor="let sale of saleList;let i = index;" (click)="saleToLearn(sale)">
                         <img src="../../assets/imgs/home/shop{{i+1+'.png'}}" alt="">
                         <div class="sale-desc">
-                            <p>{{sale.TypeName}}</p>
+                            {{sale.TypeName}}
                         </div>
                     </div>
                 </div>

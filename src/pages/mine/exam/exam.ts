@@ -59,7 +59,7 @@ export class ExamPage {
   }
 
   goExam(item){
-    this.navCtrl.push(DoExamPage,item);
+    this.navCtrl.push(DoExamPage,{item:item});
   }
 
 }

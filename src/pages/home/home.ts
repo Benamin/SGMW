@@ -71,6 +71,9 @@ export class HomePage {
         this.homeSer.GetGoodTeacherList().subscribe(
             (res) => {
                 this.teacherList = res.data.TeacherItems;
+                if (this.teacherList.length > 5) {
+                    this.teacherList.splice(5, this.teacherList.length - 5);
+                }
             }
         )
     }
