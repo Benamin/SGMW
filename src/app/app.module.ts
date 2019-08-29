@@ -34,6 +34,7 @@ import {FileService} from "../core/file.service";
 import {UntilService} from "../core/until.service";
 import {MineService} from "../pages/mine/mine.service";
 import {ModalFromRightEnter, ModalFromRightLeave, ModalScaleEnter, ModalScaleLeave} from "./modal-transitions";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 @NgModule({
     declarations: [
@@ -73,6 +74,7 @@ import {ModalFromRightEnter, ModalFromRightLeave, ModalScaleEnter, ModalScaleLea
         SplashScreen,
         Keyboard,
         FileOpener,
+        InAppBrowser,
         File,
         LoginService,
         HomeService,

@@ -28,6 +28,7 @@
     "@ionic-native/file": "^4.20.0",
     "@ionic-native/file-opener": "^4.20.0",
     "@ionic-native/http": "^4.20.0",
+    "@ionic-native/in-app-browser": "^4.20.0",
     "@ionic-native/keyboard": "^4.20.0",
     "@ionic-native/splash-screen": "~4.20.0",
     "@ionic-native/status-bar": "~4.20.0",
@@ -39,6 +40,7 @@
     "cordova-plugin-advanced-http": "^2.1.1",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-opener2": "^2.2.1",
+    "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-ionic-webview": "^4.1.1",
     "cordova-plugin-nativestorage": "^2.3.2",
     "ionic-angular": "3.9.5",
@@ -78,7 +80,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      }
+      },
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android",

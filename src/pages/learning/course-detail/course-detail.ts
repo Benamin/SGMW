@@ -7,6 +7,8 @@ import {LearnService} from "../learn.service";
 import {AppService} from "../../../app/app.service";
 import {CommonService} from "../../../core/common.service";
 import {FileService} from "../../../core/file.service";
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 
 @Component({
@@ -44,7 +46,7 @@ export class CourseDetailPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
-                private fileSer: FileService) {
+                private fileSer: FileService,private inAppBrowser:InAppBrowser) {
         this.pId = this.navParams.get('id');
 
     }
@@ -74,6 +76,7 @@ export class CourseDetailPage {
     viewFile(fileUrl, fileName) {
         console.log(fileUrl, fileName);
         this.fileSer.downloadFile(fileUrl, fileName);
+        // this.inAppBrowser.create(`https://view.officeapps.live.com/op/view.aspx?src=${fileUrl}`, '_system');
     }
 
     //课程详情、课程章节、相关课程、课程评价
