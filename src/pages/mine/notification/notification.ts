@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the NotificationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {MineService} from "../mine.service";
+import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 
 @Component({
   selector: 'page-notification',
@@ -14,11 +9,40 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NotificationPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  notificationList = [];
+  page = {
+    page: 1,
+    pageSize: 100,
+    total: null
+  };
+  constructor(public navCtrl: NavController, public navParams: NavParams,private mineSer:MineService) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificationPage');
+    this.getList();
   }
 
+  getList() {
+    const data = {
+      page:this.page.page,
+      pageSize:this.page.pageSize
+    };
+    this.mineSer.GetUserNewsList(data).subscribe(
+        (res) => {
+          this.notificationList = res.data.NewsList;
+        }
+    )
+  }
+
+  goDetail(e) {
+    this.navCtrl.push(CourseDetailPage, {id: e.Id});
+  }
+
+  doInfinite(e) {
+    e.complete();
+  }
+
+  doRefresh(e) {
+    e.complete();
+  }
 }

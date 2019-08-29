@@ -24,10 +24,13 @@ export class MycollectionPage {
     }
 
     getList() {
-        const data = {};
+        const data = {
+            page:this.page.page,
+            pageSize:this.page.pageSize
+        };
         this.mineSer.GetMyCollectionProductList(data).subscribe(
             (res) => {
-                this.collectionList = res.data;
+                this.collectionList = res.data.ProductList;
             }
         )
     }

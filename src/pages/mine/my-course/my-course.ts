@@ -1,20 +1,49 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {MineService} from "../mine.service";
 
 @Component({
-  selector: 'page-my-course',
-  templateUrl: 'my-course.html',
+    selector: 'page-my-course',
+    templateUrl: 'my-course.html',
 })
 export class MyCoursePage {
-  navbarList = [
-    {type: '1', name: '学习中'},
-    {type: '2', name: '已完成'},
-  ];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    navbarList = [
+        {type: '1', name: '学习中'},
+        {type: '2', name: '已完成'},
+    ];
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MyCoursePage');
-  }
+    page = {
+        page: 1,
+        pageSize: 100,
+        studystate: 0,
+    };
+
+    courseList = [];
+
+    constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService) {
+    }
+
+    ionViewDidLoad() {
+        this.getList();
+    }
+
+    getList() {
+        const data = {
+            page: this.page.page,
+            pageSize: this.page.pageSize,
+            studystate:this.page.studystate
+        };
+        this.mineSer.GetMyProductList(data).subscribe(
+            (res) => {
+                this.courseList = res.data.ProductList;
+            }
+        )
+    }
+
+    changeType(e) {
+        this.page.page = 1;
+        this.page.studystate = e.type;
+        this.getList();
+    }
 
 }

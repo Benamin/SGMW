@@ -27028,7 +27028,7 @@ page-login .scroll-content {
 }
 
 page-mine .mine {
-  height: 100px;
+  height: 180px;
   background-color: #343435;
   position: relative;
 }
@@ -27037,7 +27037,7 @@ page-mine .mine-info {
   position: absolute;
   left: 20px;
   right: 20px;
-  bottom: -20px;
+  bottom: -50px;
   width: calc(100% - 40px);
   height: 100%;
   background-color: #fff;
@@ -27112,7 +27112,7 @@ page-mine .info-item + .info-item {
 }
 
 page-mine .mine-list {
-  margin: 40px 20px;
+  margin: 80px 20px;
   background-color: #fff;
   border-radius: 6px;
 }
@@ -27179,4 +27179,45 @@ page-mine .mask1 {
 page-mine .img3 {
   width: auto;
   height: 100%;
+}
+
+page-my-course .learn-list {
+  padding: 10px;
+}
+
+page-my-course .learn-list .course-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px;
+}
+
+page-my-course .learn-list .course-item .item-img {
+  width: 40%;
+  padding-right: 5px;
+  text-align: center;
+}
+
+page-my-course .learn-list .course-item .item-img img {
+  height: 70px;
+}
+
+page-my-course .learn-list .course-item .item-desc {
+  width: 60%;
+  padding-left: 5px;
+}
+
+page-my-course .learn-list .course-item .item-desc > p {
+  font-size: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+page-my-course .learn-list .course-item .item-desc .desc {
+  color: #999999;
+  margin-top: 10px;
 }

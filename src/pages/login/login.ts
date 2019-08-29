@@ -33,6 +33,7 @@ export class LoginPage {
         loading.present();
         this.loginSer.loginpost(this.user).subscribe(
             (res) => {
+                loading.dismiss();
                 this.storage.set('Authorization', res.data.Token);
                 this.appSer.setMine(res.data.User);
                 this.navCtrl.setRoot(TabsPage);
@@ -47,7 +48,6 @@ export class LoginPage {
         //         this.navCtrl.setRoot(TabsPage);
         //     }
         // );
-        loading.dismiss();
     }
 
 }

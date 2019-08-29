@@ -1,6 +1,6 @@
 page-mine {
   .mine {
-    height: 100px;
+    height: 180px;
     background-color: #343435;
     position: relative;
   }
@@ -10,7 +10,7 @@ page-mine {
     position: absolute;
     left: 20px;
     right: 20px;
-    bottom: -20px;
+    bottom: -50px;
     width: calc(100% - 40px);
     height: 100%;
     background-color: #fff;
@@ -69,7 +69,7 @@ page-mine {
 
   //列表区域
   .mine-list {
-    margin: 40px 20px;
+    margin: 80px 20px;
     background-color: #fff;
     border-radius: 6px;
   }
