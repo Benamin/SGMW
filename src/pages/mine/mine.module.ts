@@ -7,6 +7,8 @@ import {NotificationPage} from "./notification/notification";
 import {NavbarComponent} from "../../components/navbar/navbar";
 import {ComponentsModule} from "../../components/components.module";
 import {NotificationDetailPage} from "./notification-detail/notification-detail";
+import {ExamPage} from "./exam/exam";
+import {DoExamPage} from "./do-exam/do-exam";
 
 @NgModule({
     declarations: [
@@ -14,7 +16,9 @@ import {NotificationDetailPage} from "./notification-detail/notification-detail"
         MycollectionPage,
         MyCoursePage,
         NotificationPage,
-        NotificationDetailPage
+        NotificationDetailPage,
+        ExamPage,
+        DoExamPage,
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -26,6 +30,8 @@ import {NotificationDetailPage} from "./notification-detail/notification-detail"
         NotificationPage,
         NotificationDetailPage,
         NavbarComponent,
+        ExamPage,
+        DoExamPage,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

@@ -8,7 +8,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__course_detail_course_detail__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__learn_service__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__learn_service__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home_service__ = __webpack_require__(143);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -194,7 +194,7 @@ var DataFormatService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_constants__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__ = __webpack_require__(69);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -254,9 +254,9 @@ var HomeService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tabs_tabs__ = __webpack_require__(328);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_service__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_service__ = __webpack_require__(337);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_app_service__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_app_service__ = __webpack_require__(63);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -311,7 +311,7 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/login/login.html"*/'<ion-header>\n    <ion-navbar>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="login">\n        <div class="logo">\n            <img src="../assets/imgs/login/logo.png" alt="">\n        </div>\n        <div class="login-input">\n<!--            <ion-input placeholder="请输入经销商号"></ion-input>-->\n            <ion-input [(ngModel)]="user.LoginName" placeholder="请输入操作员名"></ion-input>\n            <ion-input [(ngModel)]="user.Password" type="password" placeholder="请输入密码"></ion-input>\n            <div class="check">\n                <ion-input placeholder="请输入验证码"></ion-input>\n                <img class="flash" src="../assets/imgs/login/flash.png" alt="">\n            </div>\n\n        </div>\n        <div class="login-button" (click)="login()">\n            <img src="../assets/imgs/login/button.png" alt="">\n        </div>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/login/login.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/login/login.html"*/'<ion-header>\n    <ion-navbar>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="login">\n        <div class="logo">\n            <img src="../assets/imgs/login/logo.png" alt="">\n        </div>\n        <div class="login-input">\n<!--            <ion-input placeholder="请输入经销商号"></ion-input>-->\n            <ion-input [(ngModel)]="user.LoginName" placeholder="请输入操作员名"></ion-input>\n            <ion-input [(ngModel)]="user.Password" type="password" placeholder="请输入密码"></ion-input>\n            <div class="check">\n                <ion-input placeholder="请输入验证码"></ion-input>\n                <img class="flash" src="../assets/imgs/login/flash.png" alt="">\n            </div>\n\n        </div>\n        <div class="login-button" (click)="login()">\n            登录\n        </div>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/login/login.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */],
             __WEBPACK_IMPORTED_MODULE_3__login_service__["a" /* LoginService */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_5__app_app_service__["a" /* AppService */]])
@@ -331,7 +331,7 @@ var LoginPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_service__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__learning_learn_service__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__learning_learn_service__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_common_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__learning_learning__ = __webpack_require__(141);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -426,13 +426,6 @@ var HomePage = /** @class */ (function () {
         this.homeSer.getBannerList().subscribe(function (res) {
             _this.bannerList = res.data.NewsItems;
         });
-        // this.homeSer.getBannerListByNative().then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         console.log(res1);
-        //         this.bannerList = res1.data.NewsItems;
-        //     }
-        // )
     };
     //优秀教师
     HomePage.prototype.getGoodsTeacher = function () {
@@ -440,34 +433,16 @@ var HomePage = /** @class */ (function () {
         this.homeSer.GetGoodTeacherList().subscribe(function (res) {
             _this.teacherList = res.data.TeacherItems;
         });
-        // this.homeSer.GetGoodTeacherListBynative().then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         this.teacherList = res1.data.TeacherItems;
-        //     }
-        // )
     };
     //获取产品分类 nlts
     HomePage.prototype.getProductList = function () {
         var _this = this;
-        this.homeSer.GetDictionaryByPCode('nlts').subscribe(function (res) {
+        this.homeSer.GetDictionaryByPCode("Subject").subscribe(function (res) {
             _this.saleList = res.data;
         });
-        // this.homeSer.GetDictionaryByPCodeByNative('nlts').then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         this.saleList = res1.data;
-        //     }
-        // );
         this.homeSer.GetDictionaryByPCode('cpty').subscribe(function (res) {
             _this.productList = res.data;
         });
-        // this.homeSer.GetDictionaryByPCodeByNative('cpty').then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         this.productList = res1.data;
-        //     }
-        // );
     };
     HomePage.prototype.focusHandle = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -484,18 +459,8 @@ var HomePage = /** @class */ (function () {
                             })];
                     case 1:
                         _a.sent();
-                        // await this.learnSer.SaveSubscribeByNative(data).then(
-                        //     (res) => {
-                        //         this.commonSer.toast('关注成功');
-                        //     }
-                        // );
                         return [4 /*yield*/, this.getGoodsTeacher()];
                     case 2:
-                        // await this.learnSer.SaveSubscribeByNative(data).then(
-                        //     (res) => {
-                        //         this.commonSer.toast('关注成功');
-                        //     }
-                        // );
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -515,18 +480,8 @@ var HomePage = /** @class */ (function () {
                         this.learnSer.CancelSubscribe(data).subscribe(function (res) {
                             _this.commonSer.toast('取消关注成功');
                         });
-                        // this.learnSer.CancelSubscribeByNative(data).then(
-                        //     (res) => {
-                        //         this.commonSer.toast('取消关注成功');
-                        //     }
-                        // );
                         return [4 /*yield*/, this.getGoodsTeacher()];
                     case 1:
-                        // this.learnSer.CancelSubscribeByNative(data).then(
-                        //     (res) => {
-                        //         this.commonSer.toast('取消关注成功');
-                        //     }
-                        // );
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -543,7 +498,7 @@ var HomePage = /** @class */ (function () {
     ], HomePage.prototype, "imgWidth", void 0);
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/home/home.html"*/'<ion-header>\n    <ion-navbar style="padding-right: 0">\n        <ion-buttons start>\n            <button ion-button icon-only class="search-button">\n                <img class="toolbar-img" src="../../assets/imgs/home/logo@2x.png">\n            </button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="banner">\n        <div class="img">\n            <ion-slides>\n                <ion-slide *ngFor="let item of bannerList">\n                    <img [src]="item.SourceUrl">\n                    <div class="banner-tips">\n                        {{item.Title}}\n                    </div>\n                </ion-slide>\n            </ion-slides>\n        </div>\n    </div>\n    <!--  销售运营-->\n    <div class="sale">\n        <p>销售运营</p>\n        <div class="sale-box">\n            <div class="scroll-tab">\n                <div class="sale-content">\n                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" (click)="saleToLearn(sale)">\n                        <img src="../../assets/imgs/home/shop{{i+1+\'.jpg\'}}" alt="">\n                        <div class="sale-desc">\n                            <p>{{sale.TypeName}}</p>\n                            <p>超过{{sale.CourseCount}}人学习</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class="space"></div>\n    <!--  产品体验-->\n    <div class="product">\n        <p>产品体验</p>\n        <div class="item">\n            <div class="m11_img" style="height: 160px" (click)="goToLearn(0)">\n                <img src="../../assets/imgs/home/m11_img2@2x.jpg" alt="">\n                <div class="left-font">\n                    <p>{{productList[0]?.TypeName}}</p>\n                    <p>{{productList[0]?.HourCount}}小时/超过{{productList[0]?.CourseCount}}门课程</p>\n                </div>\n            </div>\n            <div style="height: 160px" (click)="goToLearn(1)">\n                <div class="m11_img" style="padding: 0 0 4px 8px;height: 80px">\n                    <img src="../../assets/imgs/home/m11_img3@2x.jpg" style="height: 76px">\n                    <div class="right-font1">\n                        <p>{{productList[1]?.TypeName}}</p>\n                        <p>{{productList[1]?.HourCount}}小时/超过{{productList[1]?.CourseCount}}门课程</p>\n                    </div>\n                </div>\n                <div class="m11_img" style="padding: 4px 0 0 8px;height: 80px" (click)="goToLearn(2)">\n                    <img src="../../assets/imgs/home/m11_img4@2x.jpg" style="height: 76px">\n                    <div class="right-font2">\n                        <p>{{productList[2]?.TypeName}}</p>\n                        <p>{{productList[2]?.HourCount}}小时/超过{{productList[2]?.CourseCount}}门课程</p>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <!--  中间提示-->\n    <div class="item" style="margin: 5px 0;">\n        <div>\n            <div style="text-align: center">\n                <img style="width: 20%;" src="../../assets/imgs/home/m11_icon1@2x.png" alt="">\n            </div>\n            无限制访问\n        </div>\n        <div>\n            <div style="text-align: center">\n                <img style="width: 20%;" src="../../assets/imgs/home/m11_icon2@2x.png" alt="">\n            </div>\n            名师护航\n        </div>\n    </div>\n    <div style="padding: 10px;" class="item">\n        <div class="m11_img" style="padding: 5px;" (click)="goToLearn(3)">\n            <img src="../../assets/imgs/home/m11_img5@2x.jpg" alt="">\n            <div class="img-font">\n                <p>{{productList[3]?.TypeName}}</p>\n                <p>{{productList[3]?.HourCount}}小时/超过{{productList[3]?.CourseCount}}门课程</p>\n            </div>\n        </div>\n        <div class="m11_img" style="padding: 5px;" (click)="goToLearn(4)">\n            <img src="../../assets/imgs/home/m11_img6@2x.jpg" alt="">\n            <div class="img-font">\n                <p>{{productList[4]?.TypeName}}</p>\n                <p>{{productList[4]?.HourCount}}小时/超过{{productList[4]?.CourseCount}}门课程</p>\n            </div>\n        </div>\n    </div>\n    <div class="person">\n        <div #imgWidth class="person-img">\n            <ng-container *ngFor="let img of teacherList;let i = index;">\n                <img *ngIf="img.HeadPhoto" [ngClass]="{\'select\':personrType == i}" (click)="selectPerson(i)"\n                     [src]="img.HeadPhoto">\n                <img *ngIf="!img.HeadPhoto" [ngClass]="{\'select\':personrType == i}" (click)="selectPerson(i)"\n                     src="../../assets/imgs/home/goodTeacher.png">\n            </ng-container>\n        </div>\n        <div class="person-desc">\n            <span #angular class="angular"></span>\n            <div class="desc-title">\n                {{teacherList[personrType]?.Position}}\n                <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == false"\n                      (click)="focusHandle()">关注</span>\n                <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == true"\n                      (click)="cancleFocusHandle()">已关注</span>\n            </div>\n            <div class="desc-desc">\n                {{teacherList[personrType]?.Remark}}\n            </div>\n        </div>\n    </div>\n    <!--  优秀教师-->\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/home/home.html"*/'<ion-header>\n    <ion-navbar style="padding-right: 0">\n        <ion-buttons start>\n            <button ion-button icon-only class="search-button">\n                <img class="toolbar-img" src="../../assets/imgs/home/logo@2x.png">\n            </button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="banner">\n        <div class="img">\n            <ion-slides>\n                <ion-slide *ngFor="let item of bannerList">\n                    <img [src]="item.SourceUrl">\n<!--                    <div class="banner-tips">-->\n<!--                        {{item.Title}}-->\n<!--                    </div>-->\n                </ion-slide>\n            </ion-slides>\n        </div>\n    </div>\n    <!--  销售运营-->\n    <div class="sale">\n        <p>领域细分</p>\n        <div class="sale-box">\n            <div class="scroll-tab">\n                <div class="sale-content">\n                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" (click)="saleToLearn(sale)">\n                        <img src="../../assets/imgs/home/shop{{i+1+\'.png\'}}" alt="">\n                        <div class="sale-desc">\n                            <p>{{sale.TypeName}}</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class="space"></div>\n    <!--  产品体验-->\n    <div class="product" style="padding:0 15px;">\n        <p>产品体验</p>\n        <div class="item">\n            <div class="m11_img" style="height: 160px" (click)="goToLearn(0)">\n                <img src="../../assets/imgs/home/{{productList[0]?.TypeCode}}.jpg" alt="">\n                <div class="left-font">\n                    <p>{{productList[0]?.TypeName}}</p>\n                    <p>{{productList[0]?.HourCount}}小时/超过{{productList[0]?.CourseCount}}门课程</p>\n                </div>\n            </div>\n            <div style="height: 160px" (click)="goToLearn(1)">\n                <div class="m11_img" style="padding: 0 0 4px 8px;height: 80px">\n                    <img src="../../assets/imgs/home/{{productList[1]?.TypeCode}}.jpg" style="height: 76px">\n                    <div class="right-font1">\n                        <p>{{productList[1]?.TypeName}}</p>\n                        <p>{{productList[1]?.HourCount}}小时/超过{{productList[1]?.CourseCount}}门课程</p>\n                    </div>\n                </div>\n                <div class="m11_img" style="padding: 4px 0 0 8px;height: 80px" (click)="goToLearn(2)">\n                    <img src="../../assets/imgs/home/{{productList[2]?.TypeCode}}.jpg" style="height: 76px">\n                    <div class="right-font2">\n                        <p>{{productList[2]?.TypeName}}</p>\n                        <p>{{productList[2]?.HourCount}}小时/超过{{productList[2]?.CourseCount}}门课程</p>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div style="padding:0 10px;" class="item">\n        <div class="m11_img" style="padding: 5px;" (click)="goToLearn(3)">\n            <img src="../../assets/imgs/home/{{productList[3]?.TypeCode}}.jpg" alt="">\n            <div class="img-font">\n                <p>{{productList[3]?.TypeName}}</p>\n                <p>{{productList[3]?.HourCount}}小时/超过{{productList[3]?.CourseCount}}门课程</p>\n            </div>\n        </div>\n        <div class="m11_img" style="padding: 5px;" (click)="goToLearn(4)">\n            <img src="../../assets/imgs/home/{{productList[4]?.TypeCode}}.jpg" alt="">\n            <div class="img-font">\n                <p>{{productList[4]?.TypeName}}</p>\n                <p>{{productList[4]?.HourCount}}小时/超过{{productList[4]?.CourseCount}}门课程</p>\n            </div>\n        </div>\n    </div>\n    <div class="person">\n        <div #imgWidth class="person-img">\n            <ng-container *ngFor="let img of teacherList;let i = index;">\n                <img *ngIf="img.HeadPhoto" [ngClass]="{\'select\':personrType == i}" (click)="selectPerson(i)"\n                     [src]="img.HeadPhoto">\n                <img *ngIf="!img.HeadPhoto" [ngClass]="{\'select\':personrType == i}" (click)="selectPerson(i)"\n                     src="../../assets/imgs/home/goodTeacher.png">\n            </ng-container>\n        </div>\n        <div class="person-desc">\n            <span #angular class="angular"></span>\n            <div class="desc-title">\n                {{teacherList[personrType]?.Position}}\n                <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == false"\n                      (click)="focusHandle()">关注</span>\n                <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == true"\n                      (click)="cancleFocusHandle()">已关注</span>\n            </div>\n            <div class="desc-desc">\n                {{teacherList[personrType]?.Remark}}\n            </div>\n        </div>\n    </div>\n    <!--  优秀教师-->\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__home_service__["a" /* HomeService */],
             __WEBPACK_IMPORTED_MODULE_3__learning_learn_service__["a" /* LearnService */], __WEBPACK_IMPORTED_MODULE_4__core_common_service__["a" /* CommonService */]])
@@ -947,7 +902,7 @@ var TeacherPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_comment_comment__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__learn_service__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__learn_service__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_common_service__ = __webpack_require__(46);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1221,7 +1176,7 @@ var LoginPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mine_mine__ = __webpack_require__(329);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__learning_learning__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_backButton_service__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_backButton_service__ = __webpack_require__(335);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1306,7 +1261,8 @@ var TabsPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__my_course_my_course__ = __webpack_require__(330);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mycollection_mycollection__ = __webpack_require__(331);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notification_notification__ = __webpack_require__(332);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_app_service__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_app_service__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__exam_exam__ = __webpack_require__(333);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1316,6 +1272,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1344,13 +1301,16 @@ var MinePage = /** @class */ (function () {
     MinePage.prototype.goToCollection = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__mycollection_mycollection__["a" /* MycollectionPage */]);
     };
+    MinePage.prototype.goExam = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__exam_exam__["a" /* ExamPage */]);
+    };
     //通知中心
     MinePage.prototype.goToNoti = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__notification_notification__["a" /* NotificationPage */]);
     };
     MinePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-mine',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/mine.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>个人中心</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="mine">\n        <div class="mine-info">\n            <div class="info-item">\n                <div style="position: relative">\n                    <div class="mask1">\n                        <img class="img3" src="{{mineInfo?.HeadPhoto}}" alt="">\n\n                    </div>\n                </div>\n                <div class="info-name">\n                    <p>{{mineInfo?.LoginName}}</p>\n                </div>\n                <div class="info-position">\n                    <a><img src="../assets/imgs/mine/student.png" ><span>{{mineInfo?.Position}}</span></a>\n                </div>\n            </div>\n            <div class="info-item item-type">\n                <div (click)="goToCourse()">\n                    <p>7</p>\n                    <p>课程</p>\n                </div>\n                <div>\n                    <p>5</p>\n                    <p>作业</p>\n                </div>\n                <div (click)="goToCollection()">\n                    <p>8</p>\n                    <p>收藏</p>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class="mine-list">\n        <div class="item" (click)="goToNoti()">\n            <div class="left">\n                <img src="../assets/imgs/mine/notifation.png" >\n            </div>\n            <div class="middle">通知中心</div>\n            <div class="right">\n                <ion-icon name="arrow-forward"></ion-icon>\n            </div>\n        </div>\n        <div class="item">\n            <div class="left">\n                <img src="../assets/imgs/mine/logout.png" >\n            </div>\n            <div class="middle">退出登录</div>\n            <div class="right">\n                <ion-icon name="arrow-forward"></ion-icon>\n            </div>\n        </div>\n    </div>\n\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/mine.html"*/,
+            selector: 'page-mine',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/mine.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>个人中心</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="mine">\n        <div class="mine-info">\n            <div class="info-item">\n                <div style="position: relative">\n                    <div class="mask1">\n                        <img class="img3" src="{{mineInfo?.HeadPhoto}}" alt="">\n\n                    </div>\n                </div>\n                <div class="info-name">\n                    <p>{{mineInfo?.LoginName}}</p>\n                </div>\n                <div class="info-position">\n                    <a><img src="../assets/imgs/mine/student.png" ><span>{{mineInfo?.Position}}</span></a>\n                </div>\n            </div>\n            <div class="info-item item-type">\n                <div (click)="goToCourse()">\n                    <p>7</p>\n                    <p>课程</p>\n                </div>\n                <div (click)="goExam()">\n                    <p>5</p>\n                    <p>作业</p>\n                </div>\n                <div (click)="goToCollection()">\n                    <p>8</p>\n                    <p>收藏</p>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class="mine-list">\n        <div class="item" (click)="goToNoti()">\n            <div class="left">\n                <img src="../assets/imgs/mine/notifation.png" >\n            </div>\n            <div class="middle">通知中心</div>\n            <div class="right">\n                <ion-icon name="arrow-forward"></ion-icon>\n            </div>\n        </div>\n        <div class="item">\n            <div class="left">\n                <img src="../assets/imgs/mine/logout.png" >\n            </div>\n            <div class="middle">退出登录</div>\n            <div class="right">\n                <ion-icon name="arrow-forward"></ion-icon>\n            </div>\n        </div>\n    </div>\n\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/mine.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_5__app_app_service__["a" /* AppService */]])
@@ -1369,7 +1329,7 @@ var MinePage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyCoursePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(47);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1383,10 +1343,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MyCoursePage = /** @class */ (function () {
-    function MyCoursePage(navCtrl, navParams, mineSer) {
+    function MyCoursePage(navCtrl, navParams, mineSer, loadCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.mineSer = mineSer;
+        this.loadCtrl = loadCtrl;
         this.navbarList = [
             { type: '1', name: '学习中' },
             { type: '2', name: '已完成' },
@@ -1394,7 +1355,7 @@ var MyCoursePage = /** @class */ (function () {
         this.page = {
             page: 1,
             pageSize: 100,
-            studystate: 0,
+            studystate: 1,
         };
         this.courseList = [];
     }
@@ -1403,6 +1364,10 @@ var MyCoursePage = /** @class */ (function () {
     };
     MyCoursePage.prototype.getList = function () {
         var _this = this;
+        var loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
         var data = {
             page: this.page.page,
             pageSize: this.page.pageSize,
@@ -1410,6 +1375,7 @@ var MyCoursePage = /** @class */ (function () {
         };
         this.mineSer.GetMyProductList(data).subscribe(function (res) {
             _this.courseList = res.data.ProductList;
+            loading.dismiss();
         });
     };
     MyCoursePage.prototype.changeType = function (e) {
@@ -1419,9 +1385,10 @@ var MyCoursePage = /** @class */ (function () {
     };
     MyCoursePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-my-course',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/my-course/my-course.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>我的课程</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <navbar [list]="navbarList" (done)="changeType($event)"></navbar>\n  <div class="learn-list">\n    <div class="course-item" *ngFor="let item of courseList">\n      <div class="item-img">\n        <img [src]="item.ImageUrl">\n      </div>\n      <div class="item-desc">\n        <p>{{item.Title}}</p>\n        <div class="desc">\n          <span>{{item.SubjectName}}</span>\n          <span>评论</span>\n          <span>收藏</span>\n        </div>\n      </div>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/my-course/my-course.html"*/,
+            selector: 'page-my-course',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/my-course/my-course.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>我的课程</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <navbar [list]="navbarList" (done)="changeType($event)"></navbar>\n  <div class="learn-list">\n    <div class="course-item" *ngFor="let item of courseList">\n      <div class="item-img">\n        {{item.overpercentage}}%\n      </div>\n      <div class="item-desc">\n        <p>{{item.Title}}</p>\n        <div class="desc">\n          <span>{{item.SubjectName}}</span>\n          <span>评论</span>\n          <span>收藏</span>\n        </div>\n      </div>\n    </div>\n  </div>\n  <ion-list text-center style="margin-top: 10rem" *ngIf="courseList.length == 0">\n    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">\n    <p text-center style="color: #666666;font-size: 16px">\n      暂无数据\n    </p>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/my-course/my-course.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__mine_service__["a" /* MineService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__mine_service__["a" /* MineService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]])
     ], MyCoursePage);
     return MyCoursePage;
 }());
@@ -1437,7 +1404,7 @@ var MyCoursePage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MycollectionPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__learning_course_detail_course_detail__ = __webpack_require__(90);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1488,7 +1455,7 @@ var MycollectionPage = /** @class */ (function () {
     };
     MycollectionPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-mycollection',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/mycollection/mycollection.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>我的收藏</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingText="下拉刷新"\n                           refreshingSpinner="bubbles">\n    </ion-refresher-content>\n  </ion-refresher>\n  <course-list [list]="collectionList" (done)="goCourse($event)"></course-list>\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content\n            loadingSpinner="bubbles"\n            loadingText="加载中"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/mycollection/mycollection.html"*/,
+            selector: 'page-mycollection',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/mycollection/mycollection.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>我的收藏</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingText="下拉刷新"\n                           refreshingSpinner="bubbles">\n    </ion-refresher-content>\n  </ion-refresher>\n  <course-list [list]="collectionList" (done)="goCourse($event)"></course-list>\n  <ion-list text-center style="margin-top: 10rem" *ngIf="collectionList.length == 0">\n    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">\n    <p text-center style="color: #666666;font-size: 16px">\n      暂无数据\n    </p>\n  </ion-list>\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content\n            loadingSpinner="bubbles"\n            loadingText="加载中"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/mycollection/mycollection.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__mine_service__["a" /* MineService */]])
     ], MycollectionPage);
@@ -1506,7 +1473,7 @@ var MycollectionPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__learning_course_detail_course_detail__ = __webpack_require__(90);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1543,7 +1510,7 @@ var NotificationPage = /** @class */ (function () {
             pageSize: this.page.pageSize
         };
         this.mineSer.GetUserNewsList(data).subscribe(function (res) {
-            _this.notificationList = res.data;
+            _this.notificationList = res.data.NewsList;
         });
     };
     NotificationPage.prototype.goDetail = function (e) {
@@ -1557,7 +1524,7 @@ var NotificationPage = /** @class */ (function () {
     };
     NotificationPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-notification',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/notification/notification.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>通知中心</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingText="下拉刷新"\n                           refreshingSpinner="bubbles">\n    </ion-refresher-content>\n  </ion-refresher>\n  <div *ngFor="let item of notificationList" (click)="goDetail(item)">\n\n  </div>\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content\n            loadingSpinner="bubbles"\n            loadingText="加载中"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/notification/notification.html"*/,
+            selector: 'page-notification',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/notification/notification.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>通知中心</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingText="下拉刷新"\n                           refreshingSpinner="bubbles">\n    </ion-refresher-content>\n  </ion-refresher>\n  <div *ngFor="let item of notificationList" (click)="goDetail(item)">\n\n  </div>\n  <ion-list text-center style="margin-top: 10rem" *ngIf="notificationList.length == 0">\n    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">\n    <p text-center style="color: #666666;font-size: 16px">\n      暂无数据\n    </p>\n  </ion-list>\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content\n            loadingSpinner="bubbles"\n            loadingText="加载中"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/notification/notification.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__mine_service__["a" /* MineService */]])
     ], NotificationPage);
@@ -1572,10 +1539,133 @@ var NotificationPage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExamPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__do_exam_do_exam__ = __webpack_require__(334);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ExamPage = /** @class */ (function () {
+    function ExamPage(navCtrl, navParams, mineSer, loadCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.mineSer = mineSer;
+        this.loadCtrl = loadCtrl;
+        this.navbarList = [
+            { type: '1', name: '未开始' },
+            { type: '2', name: '进行中' },
+            { type: '3', name: '已完成' },
+        ];
+        /// 1-未开始
+        /// 2-进行中
+        /// 3-已完成
+        this.page = {
+            EName: '',
+            StudyState: 1,
+            EType: 4,
+        };
+        this.examList = [];
+    }
+    ExamPage.prototype.ionViewDidLoad = function () {
+        this.getList();
+    };
+    ExamPage.prototype.getList = function () {
+        var _this = this;
+        var loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
+        var data = {
+            EName: '',
+            StudyState: this.page.StudyState,
+            EType: this.page.EType,
+        };
+        this.mineSer.getMyScores(data).subscribe(function (res) {
+            _this.examList = res.data;
+            loading.dismiss();
+        });
+    };
+    ExamPage.prototype.changeType = function (e) {
+        // this.page.EType = 1;
+        this.page.StudyState = e.type;
+        this.getList();
+    };
+    ExamPage.prototype.goExam = function (item) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__do_exam_do_exam__["a" /* DoExamPage */], item);
+    };
+    ExamPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'page-exam',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/exam/exam.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>我的作业</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <navbar [list]="navbarList" (done)="changeType($event)"></navbar>\n    <div class="exam">\n        <ng-container *ngFor="let item of examList">\n            <div class="space"></div>\n            <div class="item" (click)="goExam(item)">\n                <p class="eName">{{item.EName}}</p>\n            </div>\n        </ng-container>\n    </div>\n    <ion-list text-center style="margin-top: 10rem" *ngIf="examList.length == 0">\n        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">\n        <p text-center style="color: #666666;font-size: 16px">\n            暂无数据\n        </p>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/exam/exam.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__mine_service__["a" /* MineService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]])
+    ], ExamPage);
+    return ExamPage;
+}());
+
+//# sourceMappingURL=exam.js.map
+
+/***/ }),
+
+/***/ 334:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DoExamPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var DoExamPage = /** @class */ (function () {
+    function DoExamPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    DoExamPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad DoExamPage');
+    };
+    DoExamPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'page-do-exam',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/mine/do-exam/do-exam.html"*/'<!--\n  Generated template for the DoExamPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>doExam</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/mine/do-exam/do-exam.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+    ], DoExamPage);
+    return DoExamPage;
+}());
+
+//# sourceMappingURL=do-exam.js.map
+
+/***/ }),
+
+/***/ 335:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BackButtonService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__emit_service__ = __webpack_require__(334);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__emit_service__ = __webpack_require__(336);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1665,7 +1755,7 @@ var BackButtonService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 334:
+/***/ 336:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1700,7 +1790,7 @@ var EmitService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 335:
+/***/ 337:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1708,7 +1798,7 @@ var EmitService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_constants__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__ = __webpack_require__(69);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1744,13 +1834,13 @@ var LoginService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 378:
+/***/ 380:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(379);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(385);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1758,7 +1848,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 383:
+/***/ 385:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1766,36 +1856,36 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(709);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(711);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(145);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_tabs__ = __webpack_require__(328);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(376);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(377);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(379);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_course_course__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_mine_mine_module__ = __webpack_require__(710);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_mine_mine_module__ = __webpack_require__(712);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_components_module__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_learning_learning_module__ = __webpack_require__(321);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_keyboard__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_course_course_module__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_login_login_module__ = __webpack_require__(327);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_home_home_module__ = __webpack_require__(712);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_home_home_module__ = __webpack_require__(714);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_common_http__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__core_auth_interceptor__ = __webpack_require__(714);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_login_login_service__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__core_auth_interceptor__ = __webpack_require__(716);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_login_login_service__ = __webpack_require__(337);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_home_home_service__ = __webpack_require__(143);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_storage__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__core_common_service__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_http__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_learning_learn_service__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__app_service__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_http__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_learning_learn_service__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__app_service__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__core_dataFormat_service__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__core_backButton_service__ = __webpack_require__(333);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__core_emit_service__ = __webpack_require__(334);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__core_backButton_service__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__core_emit_service__ = __webpack_require__(336);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_file_opener__ = __webpack_require__(326);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ionic_native_file__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__core_file_service__ = __webpack_require__(324);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__core_until_service__ = __webpack_require__(715);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_mine_mine_service__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__core_until_service__ = __webpack_require__(717);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_mine_mine_service__ = __webpack_require__(47);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1910,7 +2000,7 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 403:
+/***/ 405:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1983,7 +2073,7 @@ var ScrollTabsComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 412:
+/***/ 414:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2028,13 +2118,13 @@ var CourseListComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 413:
+/***/ 415:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TreeListComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_app_service__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_app_service__ = __webpack_require__(63);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2065,7 +2155,7 @@ var TreeListComponent = /** @class */ (function () {
     ], TreeListComponent.prototype, "fileData", void 0);
     TreeListComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'tree-list',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/components/tree-list/tree-list.html"*/'<div *ngFor="let item of treeList">\n    <p [ngStyle]="{\'padding-left\':(item.NodeLevel*5)+\'px\'}">{{item.NodeLevel}} 、{{item.title}}</p>\n    <tree-list *ngIf="item.children" [treeList]="item.children"></tree-list>\n    <div *ngFor="let item of item.files">\n        <p [ngStyle]="{\'padding-left\':(item.NodeLevel*5)+\'px\'}" (click)="handle(item)">{{item.filename}}</p>\n    </div>\n</div>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/components/tree-list/tree-list.html"*/
+            selector: 'tree-list',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/components/tree-list/tree-list.html"*/'<div class="list" *ngFor="let item of treeList">\n    <p [ngStyle]="{\'padding-left\':(item.NodeLevel*5)+\'px\'}">{{item.NodeLevel}} 、{{item.title}}</p>\n    <tree-list *ngIf="item.children" [treeList]="item.children"></tree-list>\n    <div *ngFor="let item of item.files">\n        <p [ngStyle]="{\'padding-left\':(item.NodeLevel*5)+\'px\'}" (click)="handle(item)">{{item.filename}}\n        <span class="icon">{{item.icon}}</span></p>\n    </div>\n</div>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/components/tree-list/tree-list.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__app_app_service__["a" /* AppService */]])
     ], TreeListComponent);
@@ -2126,7 +2216,88 @@ var CommonService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 62:
+/***/ 47:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MineService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_constants__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_dataFormat_service__ = __webpack_require__(142);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var MineService = /** @class */ (function () {
+    function MineService(http, nativeHttp, dataForm) {
+        this.http = http;
+        this.nativeHttp = nativeHttp;
+        this.dataForm = dataForm;
+    }
+    //我的收藏
+    MineService.prototype.GetMyCollectionProductList = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/EProduct/GetMyCollectionProductList', data);
+    };
+    //我的课程的数量
+    MineService.prototype.GetMyProductCount = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/EProduct/GetMyProductCount', data);
+    };
+    //课程列表
+    MineService.prototype.GetMyProductList = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/EProduct/GetMyProductList', data);
+    };
+    //通知中心
+    MineService.prototype.GetUserNewsList = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/appnews/GetUserNewsList', data);
+    };
+    //通知信息详情
+    MineService.prototype.GetNewsById = function (data) {
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/appnews/GetNewsById' + this.dataForm.toQuery(data));
+    };
+    //作业列表
+    MineService.prototype.getMyScores = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/study/getMyScoresP', data);
+    };
+    //作业题目
+    MineService.prototype.homeworkInit = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/study/homeworkInit' + this.dataForm.toQuery(data), null);
+    };
+    //暂存作业
+    MineService.prototype.saveStuExams = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/study/saveStuExams', data);
+    };
+    //提交作业
+    MineService.prototype.submitStuExams = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/study/submitStuExams', data);
+    };
+    //获取成绩
+    MineService.prototype.getStuScore = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/study/getStuScore' + this.dataForm.toQuery(data), null);
+    };
+    MineService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__["a" /* HTTP */], __WEBPACK_IMPORTED_MODULE_4__core_dataFormat_service__["a" /* DataFormatService */]])
+    ], MineService);
+    return MineService;
+}());
+
+//# sourceMappingURL=mine.service.js.map
+
+/***/ }),
+
+/***/ 63:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2146,7 +2317,7 @@ var AppService = /** @class */ (function () {
     function AppService() {
         this.mineSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs__["BehaviorSubject"]({});
         this.mineInfo = this.mineSource.asObservable();
-        this.fileSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs__["BehaviorSubject"]({});
+        this.fileSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs__["BehaviorSubject"](null);
         this.fileInfo = this.fileSource.asObservable();
     }
     //个人信息
@@ -2167,7 +2338,7 @@ var AppService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 67:
+/***/ 68:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2177,7 +2348,7 @@ var AppService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_constants__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_common_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_dataFormat_service__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_http__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_http__ = __webpack_require__(69);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2284,6 +2455,14 @@ var LearnService = /** @class */ (function () {
     LearnService.prototype.GetCommentByNative = function (data) {
         return this.nativeHttp.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/EComment/GetComment', data, null);
     };
+    //更新学习进度
+    LearnService.prototype.SaveStudy = function (data) {
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/StudentStudy/SaveStudy', data);
+    };
+    //初始化作业
+    LearnService.prototype.examByStudy = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/study/examByStudy' + this.dataFormatSer.toQuery(data), null);
+    };
     LearnService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_3__core_common_service__["a" /* CommonService */],
@@ -2296,76 +2475,15 @@ var LearnService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 69:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MineService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_constants__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_dataFormat_service__ = __webpack_require__(142);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var MineService = /** @class */ (function () {
-    function MineService(http, nativeHttp, dataForm) {
-        this.http = http;
-        this.nativeHttp = nativeHttp;
-        this.dataForm = dataForm;
-    }
-    //我的收藏
-    MineService.prototype.GetMyCollectionProductList = function (data) {
-        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/EProduct/GetMyCollectionProductList', data);
-    };
-    //我的课程的数量
-    MineService.prototype.GetMyProductCount = function (data) {
-        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/EProduct/GetMyProductCount', data);
-    };
-    //课程列表
-    MineService.prototype.GetMyProductList = function (data) {
-        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/EProduct/GetMyProductList', data);
-    };
-    //通知中心
-    MineService.prototype.GetUserNewsList = function (data) {
-        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/appnews/GetUserNewsList', data);
-    };
-    //通知信息详情
-    MineService.prototype.GetNewsById = function (data) {
-        return this.http.get(__WEBPACK_IMPORTED_MODULE_2__app_app_constants__["a" /* SERVER_API_URL */] + '/appnews/GetNewsById' + this.dataForm.toQuery(data));
-    };
-    MineService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_http__["a" /* HTTP */], __WEBPACK_IMPORTED_MODULE_4__core_dataFormat_service__["a" /* DataFormatService */]])
-    ], MineService);
-    return MineService;
-}());
-
-//# sourceMappingURL=mine.service.js.map
-
-/***/ }),
-
-/***/ 709:
+/***/ 711:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(376);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(377);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(379);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_login_login__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(92);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2420,7 +2538,7 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 710:
+/***/ 712:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2433,13 +2551,17 @@ var MyApp = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__notification_notification__ = __webpack_require__(332);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_navbar_navbar__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_components_module__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__notification_detail_notification_detail__ = __webpack_require__(711);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__notification_detail_notification_detail__ = __webpack_require__(713);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__exam_exam__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__do_exam_do_exam__ = __webpack_require__(334);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -2459,7 +2581,9 @@ var MineModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_3__mycollection_mycollection__["a" /* MycollectionPage */],
                 __WEBPACK_IMPORTED_MODULE_4__my_course_my_course__["a" /* MyCoursePage */],
                 __WEBPACK_IMPORTED_MODULE_5__notification_notification__["a" /* NotificationPage */],
-                __WEBPACK_IMPORTED_MODULE_8__notification_detail_notification_detail__["a" /* NotificationDetailPage */]
+                __WEBPACK_IMPORTED_MODULE_8__notification_detail_notification_detail__["a" /* NotificationDetailPage */],
+                __WEBPACK_IMPORTED_MODULE_9__exam_exam__["a" /* ExamPage */],
+                __WEBPACK_IMPORTED_MODULE_10__do_exam_do_exam__["a" /* DoExamPage */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__mine__["a" /* MinePage */]),
@@ -2471,6 +2595,8 @@ var MineModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_5__notification_notification__["a" /* NotificationPage */],
                 __WEBPACK_IMPORTED_MODULE_8__notification_detail_notification_detail__["a" /* NotificationDetailPage */],
                 __WEBPACK_IMPORTED_MODULE_6__components_navbar_navbar__["a" /* NavbarComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__exam_exam__["a" /* ExamPage */],
+                __WEBPACK_IMPORTED_MODULE_10__do_exam_do_exam__["a" /* DoExamPage */],
             ],
             schemas: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* NO_ERRORS_SCHEMA */]]
         })
@@ -2482,14 +2608,14 @@ var MineModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 711:
+/***/ 713:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationDetailPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mine_service__ = __webpack_require__(47);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2532,7 +2658,7 @@ var NotificationDetailPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 712:
+/***/ 714:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2540,7 +2666,7 @@ var NotificationDetailPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__search_search__ = __webpack_require__(713);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__search_search__ = __webpack_require__(715);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2575,7 +2701,7 @@ var HomeModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 713:
+/***/ 715:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2614,7 +2740,7 @@ var SearchPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 714:
+/***/ 716:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2717,7 +2843,7 @@ var InterceptorProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 715:
+/***/ 717:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2740,10 +2866,10 @@ var UntilService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__navbar_navbar__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__scroll_tabs_scroll_tabs__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__scroll_tabs_scroll_tabs__ = __webpack_require__(405);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__comment_comment__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__course_list_course_list__ = __webpack_require__(412);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tree_list_tree_list__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__course_list_course_list__ = __webpack_require__(414);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tree_list_tree_list__ = __webpack_require__(415);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2812,8 +2938,8 @@ var ComponentsModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__course_comment_course_comment__ = __webpack_require__(323);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_timer__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_timer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_timer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__learn_service__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_app_service__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__learn_service__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_app_service__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_common_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__core_file_service__ = __webpack_require__(324);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2908,9 +3034,13 @@ var CourseDetailPage = /** @class */ (function () {
                     case 0:
                         this.appSer.fileInfo.subscribe(function (value) {
                             if (value) {
-                                _this.product.videoPath = value.fileUrl;
-                                if (value.fileUrl)
-                                    _this.viewFile(value.fileUrl, value.fileName);
+                                if (value.icon.includes('mp4')) {
+                                    _this.product.videoPath = value.fileUrl;
+                                }
+                                else {
+                                    if (value.fileUrl)
+                                        _this.viewFile(value.fileUrl, value.filename);
+                                }
                             }
                         });
                         return [4 /*yield*/, this.learSer.GetProductById(this.pId).subscribe(function (res) {
@@ -2928,6 +3058,7 @@ var CourseDetailPage = /** @class */ (function () {
         this.appSer.setFile(null);
     };
     CourseDetailPage.prototype.viewFile = function (fileUrl, fileName) {
+        console.log(fileUrl, fileName);
         this.fileSer.downloadFile(fileUrl, fileName);
     };
     //课程详情、课程章节、相关课程、课程评价
@@ -2947,35 +3078,13 @@ var CourseDetailPage = /** @class */ (function () {
                         };
                         return [4 /*yield*/, this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(function (res) {
                                 _this.product.chapter = res.data;
-                            })
-                            // await this.learSer.GetAdminChapterListByProductIDByNative(this.pId).then(
-                            //     (res) => {
-                            //         let res1 = JSON.parse(res.data);
-                            //         console.log(res1);
-                            //         this.product.chapter = res1.data;
-                            //     }
-                            // )
-                        ];
+                            })];
                     case 1:
                         _a.sent();
-                        // await this.learSer.GetAdminChapterListByProductIDByNative(this.pId).then(
-                        //     (res) => {
-                        //         let res1 = JSON.parse(res.data);
-                        //         console.log(res1);
-                        //         this.product.chapter = res1.data;
-                        //     }
-                        // )
                         return [4 /*yield*/, this.learSer.GetRelationProductList(data).subscribe(function (res) {
                                 _this.learnList = res.data.ProductList;
                             })];
                     case 2:
-                        // await this.learSer.GetAdminChapterListByProductIDByNative(this.pId).then(
-                        //     (res) => {
-                        //         let res1 = JSON.parse(res.data);
-                        //         console.log(res1);
-                        //         this.product.chapter = res1.data;
-                        //     }
-                        // )
                         _a.sent();
                         data1 = {
                             topicID: this.product.detail.PrId
@@ -3077,15 +3186,20 @@ var CourseDetailPage = /** @class */ (function () {
             pid: this.pId
         };
         this.learSer.BuyProduct(data).subscribe(function (res) {
+            _this.ionViewDidLoad();
+            _this.initStudy();
             _this.signObj.isSign = true;
             Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_timer__["timer"])(1000).subscribe(function () { return _this.signObj.isSign = false; });
         });
-        // this.learSer.BuyProductByNative(data).then(
-        //     (res) => {
-        //         this.signObj.isSign = true;
-        //         timer(1000).subscribe(() => this.signObj.isSign = false);
-        //     }
-        // )
+    };
+    //初始化作业
+    CourseDetailPage.prototype.initStudy = function () {
+        console.log(this.product.detail.PrId);
+        var data = {
+            TopicID: this.product.detail.PrId,
+        };
+        this.learSer.examByStudy(data).subscribe(function (res) {
+        });
     };
     //收藏
     CourseDetailPage.prototype.collection = function () {
@@ -3098,13 +3212,6 @@ var CourseDetailPage = /** @class */ (function () {
             _this.collectionObj.isCollection = true;
             Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_timer__["timer"])(1000).subscribe(function () { return _this.collectionObj.isCollection = false; });
         });
-        // this.learSer.SaveCollectionByCSIDByNative(data).then(
-        //     (res) => {
-        //         this.ionViewDidLoad();
-        //         this.collectionObj.isCollection = true;
-        //         timer(1000).subscribe(() => this.collectionObj.isCollection = false);
-        //     }
-        // )
     };
     //取消收藏
     CourseDetailPage.prototype.cancleCollection = function () {
@@ -3125,7 +3232,7 @@ var CourseDetailPage = /** @class */ (function () {
     };
     CourseDetailPage = CourseDetailPage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-course-detail',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/learning/course-detail/course-detail.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>{{product.detail?.Title}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="banner">\n        <div class="content" *ngIf="!product.videoPath">\n            <div class="course-name">\n                {{product.detail?.Description}}\n            </div>\n            <div class="course-desc">\n                <span>20课时</span>\n                <span>评价</span>\n                <span>收藏</span>\n            </div>\n        </div>\n        <div class="content video" *ngIf="product.videoPath">\n            <video width="100%" height="100%" poster="{{product.chapter?.Course?.CoverUrl}}" [src]="product.videoPath" controls="controls">\n                您的浏览器不支持 html5。\n            </video>\n        </div>\n    </div>\n    <navbar [list]="navbarList"></navbar>\n    <div class="space"></div>\n    <div class="item">\n        <p>简介</p>\n        <div class="introduction">\n            {{product.detail?.Description}}\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>章节</p>\n        <div>\n            <ng-container *ngFor="let item of product.chapter?.Course?.children">\n                <p>{{item.title}}</p>\n                <p *ngIf="item.children">\n                    <tree-list [treeList]="item.children" (fileData)="getInfo($event)" ></tree-list>\n                </p>\n            </ng-container>\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>教师\n            <span (click)="teachDetail()" float-end class="look">查看</span>\n        </p>\n        <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">\n            <div>\n                <img [src]="item.HeadPhoto">\n            </div>\n            <div>\n                <p>{{item.UserName}}</p>\n                <p>{{item.Position}}</p>\n            </div>\n            <div>\n                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)" class="focus">关注</span>\n                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)" class="focus">取消关注</span>\n            </div>\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>课程评价<span float-end class="look" (click)="goCourseComment()">更多</span></p>\n        <div class="course-comment">\n            <div>4.0</div>\n            <div>\n                <p>1902个评价</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>课程适用</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>通俗易懂</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>逻辑清晰</p>\n            </div>\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>教师评价<span (click)="goTeacherComment()" float-end class="look">更多</span></p>\n        <div class="teacher-comment">\n            <div>4.0</div>\n            <div>\n                <p>1902个评价</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>课程适用</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>通俗易懂</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>逻辑清晰</p>\n            </div>\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>相关课程</p>\n        <course-list [list]="learnList" (done)="goCourse($event)"></course-list>\n    </div>\n</ion-content>\n\n<ion-footer class="course-footer">\n    <ion-toolbar *ngIf="!product.detail?.IsBuy" (click)="sign()">\n        <ion-buttons tappable>立即报名</ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar *ngIf="product.detail?.IsBuy">\n        <ion-buttons tappable (click)="sign()">立即学习</ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar *ngIf="!product.detail?.IsCollection" (click)="collection()">\n        <ion-buttons>收藏</ion-buttons>\n    </ion-toolbar>\n\n    <ion-toolbar *ngIf="product.detail?.IsCollection" (click)="cancleCollection()">\n        <ion-buttons>已收藏</ion-buttons>\n    </ion-toolbar>\n\n</ion-footer>\n\n<div *ngIf="signObj.isSign" class="sign">\n    <img src="../assets/imgs/course/sign-success.png">\n    <p>报名成功</p>\n</div>\n<div *ngIf="collectionObj.isCollection" class="collection">\n    <img src="../assets/imgs/course/collection-success.png">\n    <p>收藏成功</p>\n</div>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/learning/course-detail/course-detail.html"*/,
+            selector: 'page-course-detail',template:/*ion-inline-start:"/Users/ben/plan/SGMW/src/pages/learning/course-detail/course-detail.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>{{product.detail?.Title}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="banner">\n        <div class="content" *ngIf="!product.videoPath">\n            <div class="course-name">\n                {{product.detail?.Description}}\n            </div>\n            <div class="course-desc">\n                <span>20课时</span>\n                <span>评价</span>\n                <span>收藏</span>\n            </div>\n        </div>\n        <div class="content video" *ngIf="product.videoPath">\n            <video width="100%" height="100%" poster="{{product.chapter?.Course?.CoverUrl}}" [src]="product.videoPath" controls="controls">\n                您的浏览器不支持 html5。\n            </video>\n        </div>\n    </div>\n    <navbar [list]="navbarList"></navbar>\n    <div class="space"></div>\n    <div class="item">\n        <p>简介</p>\n        <div class="introduction">\n            {{product.detail?.Description}}\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>章节</p>\n        <div>\n            <ng-container *ngFor="let item of product.chapter?.Course?.children">\n                <p>{{item.title}}</p>\n                <p *ngIf="item.children">\n                    <tree-list [treeList]="item.children" (fileData)="getInfo($event)" ></tree-list>\n                </p>\n            </ng-container>\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>教师\n            <span (click)="teachDetail()" float-end class="look">查看</span>\n        </p>\n        <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">\n            <div>\n                <img [src]="item.HeadPhoto">\n            </div>\n            <div>\n                <p>{{item.UserName}}</p>\n                <p>{{item.Position}}</p>\n            </div>\n            <div>\n                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)" class="focus">关注</span>\n                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)" class="focus">取消关注</span>\n            </div>\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>课程评价<span float-end class="look" (click)="goCourseComment()">更多</span></p>\n        <div class="course-comment">\n            <div>4.0</div>\n            <div>\n<!--                <p>1902个评价</p>-->\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>课程适用</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>通俗易懂</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>逻辑清晰</p>\n            </div>\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>教师评价<span (click)="goTeacherComment()" float-end class="look">更多</span></p>\n        <div class="teacher-comment">\n            <div>4.0</div>\n            <div>\n<!--                <p>1902个评价</p>-->\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>课程适用</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>通俗易懂</p>\n            </div>\n            <div>\n                <p>4.0</p>\n                <p>逻辑清晰</p>\n            </div>\n        </div>\n    </div>\n    <div class="space"></div>\n    <div class="item">\n        <p>相关课程</p>\n        <course-list [list]="learnList" (done)="goCourse($event)"></course-list>\n    </div>\n</ion-content>\n\n<ion-footer class="course-footer">\n    <ion-toolbar *ngIf="!product.detail?.IsBuy" (click)="sign()">\n        <ion-buttons tappable>立即报名</ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar *ngIf="product.detail?.IsBuy">\n        <ion-buttons tappable (click)="sign()">立即学习</ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar *ngIf="!product.detail?.IsCollection" (click)="collection()">\n        <ion-buttons>收藏</ion-buttons>\n    </ion-toolbar>\n\n    <ion-toolbar *ngIf="product.detail?.IsCollection" (click)="cancleCollection()">\n        <ion-buttons>已收藏</ion-buttons>\n    </ion-toolbar>\n\n</ion-footer>\n\n<div *ngIf="signObj.isSign" class="sign">\n    <img src="../assets/imgs/course/sign-success.png">\n    <p>报名成功</p>\n</div>\n<div *ngIf="collectionObj.isCollection" class="collection">\n    <img src="../assets/imgs/course/collection-success.png">\n    <p>收藏成功</p>\n</div>\n'/*ion-inline-end:"/Users/ben/plan/SGMW/src/pages/learning/course-detail/course-detail.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_5__learn_service__["a" /* LearnService */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_6__app_app_service__["a" /* AppService */], __WEBPACK_IMPORTED_MODULE_7__core_common_service__["a" /* CommonService */],
@@ -3152,5 +3259,5 @@ var pageSize = 10;
 
 /***/ })
 
-},[378]);
+},[380]);
 //# sourceMappingURL=main.js.map

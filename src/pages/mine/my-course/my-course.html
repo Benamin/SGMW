@@ -9,7 +9,7 @@
   <div class="learn-list">
     <div class="course-item" *ngFor="let item of courseList">
       <div class="item-img">
-        <img [src]="item.ImageUrl">
+        {{item.overpercentage}}%
       </div>
       <div class="item-desc">
         <p>{{item.Title}}</p>
@@ -21,4 +21,10 @@
       </div>
     </div>
   </div>
+  <ion-list text-center style="margin-top: 10rem" *ngIf="courseList.length == 0">
+    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+    <p text-center style="color: #666666;font-size: 16px">
+      暂无数据
+    </p>
+  </ion-list>
 </ion-content>

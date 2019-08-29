@@ -26084,6 +26084,19 @@ navbar .dutyItem > div {
   margin-bottom: 10px;
 }
 
+tree-list .list {
+  padding: 10px 0;
+}
+
+tree-list .icon {
+  padding: 0px 5px;
+  border: 1px solid #66a0eb;
+  border-radius: 4px;
+  background-color: #66a0eb;
+  color: #ffffff;
+  margin-left: 10px;
+}
+
 page-course .slide-zoom {
   height: 100%;
 }
@@ -26199,7 +26212,7 @@ page-home .m11_img img {
 
 page-home .right-font1, page-home .right-font2 {
   position: absolute;
-  left: 10px;
+  left: 20px;
   bottom: 20px;
   text-align: left;
 }
@@ -26283,8 +26296,10 @@ page-home .sale .sale-item {
 
 page-home .sale .sale-item .sale-desc {
   position: absolute;
-  bottom: -8px;
-  left: 5px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 page-home .sale .sale-item .sale-desc p {
@@ -27016,7 +27031,13 @@ page-login .login-input .check .flash {
 
 page-login .login-button {
   text-align: center;
-  margin-top: 20px;
+  width: 85%;
+  margin: 40px auto;
+  height: 40px;
+  line-height: 40px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#fecc4b), to(#feeaa5));
+  background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+  border-radius: 100px;
 }
 
 page-login .login-button img {
@@ -27179,6 +27200,21 @@ page-mine .mask1 {
 page-mine .img3 {
   width: auto;
   height: 100%;
+}
+
+page-exam .exam {
+  padding: 20px;
+}
+
+page-exam .exam .item {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+page-exam .exam .item .eName {
+  font-size: 1.8rem;
+  font-weight: 400;
 }
 
 page-my-course .learn-list {

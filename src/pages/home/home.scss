@@ -78,7 +78,7 @@ page-home {
   }
   .right-font1,.right-font2{
     position: absolute;
-    left: 10px;
+    left: 20px;
     bottom: 20px;
     text-align: left;
     p:first-child{
@@ -144,8 +144,9 @@ page-home {
       margin-right: 20px;
       .sale-desc{
         position: absolute;
-        bottom: -8px;
-        left: 5px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
         p{
           padding:5px;
         }

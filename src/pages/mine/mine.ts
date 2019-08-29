@@ -4,6 +4,7 @@ import {MyCoursePage} from "./my-course/my-course";
 import {MycollectionPage} from "./mycollection/mycollection";
 import {NotificationPage} from "./notification/notification";
 import {AppService} from "../../app/app.service";
+import {ExamPage} from "./exam/exam";
 
 
 @Component({
@@ -33,6 +34,10 @@ export class MinePage {
     //我的收藏
     goToCollection() {
         this.navCtrl.push(MycollectionPage);
+    }
+
+    goExam(){
+        this.navCtrl.push(ExamPage);
     }
 
     //通知中心

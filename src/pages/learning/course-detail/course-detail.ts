@@ -50,8 +50,11 @@ export class CourseDetailPage {
     async ionViewDidLoad() {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
-                this.product.videoPath = value.fileUrl;
-                if (value.fileUrl) this.viewFile(value.fileUrl, value.fileName);
+                if (value.icon.includes('mp4')) {
+                    this.product.videoPath = value.fileUrl;
+                } else {
+                    if (value.fileUrl) this.viewFile(value.fileUrl, value.filename);
+                }
             }
         });
         await this.learSer.GetProductById(this.pId).subscribe(
@@ -60,15 +63,6 @@ export class CourseDetailPage {
                 this.getProductInfo();
             }
         );
-
-        // await this.learSer.GetProductByIdByNative(this.pId).then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         console.log(res1);
-        //         this.product.detail = res1.data;
-        //         this.getProductInfo();
-        //     }
-        // );
     }
 
     ionViewDidLeave() {
@@ -76,6 +70,7 @@ export class CourseDetailPage {
     }
 
     viewFile(fileUrl, fileName) {
+        console.log(fileUrl, fileName);
         this.fileSer.downloadFile(fileUrl, fileName);
     }
 
@@ -92,27 +87,13 @@ export class CourseDetailPage {
             (res) => {
                 this.product.chapter = res.data;
             }
-        )
-        // await this.learSer.GetAdminChapterListByProductIDByNative(this.pId).then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         console.log(res1);
-        //         this.product.chapter = res1.data;
-        //     }
-        // )
+        );
 
         await this.learSer.GetRelationProductList(data).subscribe(
             (res) => {
                 this.learnList = res.data.ProductList;
             }
         );
-        // await this.learSer.GetRelationProductListByNative(data).then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         console.log(res1);
-        //         this.learnList = res1.data.ProductList;
-        //     }
-        // );
 
         const data1 = {
             topicID: this.product.detail.PrId
@@ -140,7 +121,7 @@ export class CourseDetailPage {
             TopicID: UserID
         };
         await this.learSer.SaveSubscribe(data).subscribe(
-            (res)=>{
+            (res) => {
                 this.commonSer.toast('关注成功');
                 this.ionViewDidLoad();
             }
@@ -159,7 +140,7 @@ export class CourseDetailPage {
             TopicID: UserID
         };
         this.learSer.CancelSubscribe(data).subscribe(
-            (res)=>{
+            (res) => {
                 this.commonSer.toast('取消关注成功');
                 this.ionViewDidLoad();
             }
@@ -204,17 +185,25 @@ export class CourseDetailPage {
         };
         this.learSer.BuyProduct(data).subscribe(
             (res) => {
+                this.ionViewDidLoad();
+                this.initStudy();
                 this.signObj.isSign = true;
                 timer(1000).subscribe(() => this.signObj.isSign = false);
             }
         )
+    }
 
-        // this.learSer.BuyProductByNative(data).then(
-        //     (res) => {
-        //         this.signObj.isSign = true;
-        //         timer(1000).subscribe(() => this.signObj.isSign = false);
-        //     }
-        // )
+    //初始化作业
+    initStudy() {
+        console.log(this.product.detail.PrId)
+        const data = {
+            TopicID: this.product.detail.PrId,
+        };
+        this.learSer.examByStudy(data).subscribe(
+            (res) => {
+
+            }
+        )
     }
 
     //收藏
@@ -229,14 +218,6 @@ export class CourseDetailPage {
                 timer(1000).subscribe(() => this.collectionObj.isCollection = false);
             }
         )
-
-        // this.learSer.SaveCollectionByCSIDByNative(data).then(
-        //     (res) => {
-        //         this.ionViewDidLoad();
-        //         this.collectionObj.isCollection = true;
-        //         timer(1000).subscribe(() => this.collectionObj.isCollection = false);
-        //     }
-        // )
     }
 
     //取消收藏
