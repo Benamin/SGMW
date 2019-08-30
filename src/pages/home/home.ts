@@ -4,6 +4,7 @@ import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
 import {LearningPage} from "../learning/learning";
+import {GoodTeacherPage} from "./good-teacher/good-teacher";
 
 @Component({
     selector: 'page-home',
@@ -115,6 +116,15 @@ export class HomePage {
             }
         )
         await this.getGoodsTeacher();
+    }
+
+    //更多教师
+    moreTeacher() {
+        this.navCtrl.push(GoodTeacherPage);
+    }
+
+    goToSearch(){
+
     }
 
 }

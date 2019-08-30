@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>优秀教师</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#fff;">
+    <div class="teacher" *ngFor="let item of  teacherList">
+        <div class="teacher-info">
+            <div class="headPhoto">
+                <img [src]="item.HeadPhoto">
+            </div>
+            <div class="name">
+                <p style="font-weight: bold">{{item.UserName}}</p>
+                <p>{{item.Position || ' '}}</p>
+            </div>
+            <div class="focuscontent">
+                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item)" class="focus">关注</span>
+                <span *ngIf="item.IsSubscribe == true"  style="background-color:#aaa" (click)="cancleFocusHandle(item)"
+                      class="focus">已关注</span>
+            </div>
+        </div>
+        <div class="infomation">
+            {{item.Remark}}
+        </div>
+    </div>
+</ion-content>

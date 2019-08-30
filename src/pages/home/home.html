@@ -5,6 +5,12 @@
                 <img class="toolbar-img" src="../../assets/imgs/home/logo@2x.png">
             </button>
         </ion-buttons>
+        <ion-buttons end class="navbar-search" (click)="goToSearch()">
+            <button ion-button icon-only class="toolbar-icon">
+                <ion-icon class="search-icon" name="search"></ion-icon>
+                搜索课程
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -84,6 +90,8 @@
         </div>
     </div>
     <div class="person">
+        <p>优秀教师
+        <span float-end style="font-size: 1.3rem" (click)="moreTeacher()">更多</span></p>
         <div #imgWidth class="person-img">
             <ng-container *ngFor="let img of teacherList;let i = index;">
                 <img *ngIf="img.HeadPhoto" [ngClass]="{'select':personrType == i}" (click)="selectPerson(i)"
@@ -95,7 +103,7 @@
         <div class="person-desc">
             <span #angular class="angular"></span>
             <div class="desc-title">
-                {{teacherList[personrType]?.Position}}
+                {{teacherList[personrType]?.UserName}}
                 <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == false"
                       (click)="focusHandle()">关注</span>
                 <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == true"

@@ -1,0 +1,38 @@
+page-good-teacher {
+  .teacher{
+    padding: 1rem;
+  }
+  .teacher-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .headPhoto{
+      img{
+        width: 70%;
+      }
+      text-align: center;
+    }
+
+    > div {
+      flex: 1;
+    }
+    > div:nth-child(2){
+      flex: 2;
+      padding-left: 10px;
+    }
+
+    .focus {
+      background-color: #aedee8;
+      float: right;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+  }
+  .teacher + .teacher{
+    border-top: 1px solid #dddddd;
+  }
+  .infomation{
+    color: #666666;
+  }
+}
