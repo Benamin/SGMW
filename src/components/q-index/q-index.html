@@ -1,0 +1,14 @@
+<ion-content>
+  <div class="padding-20-10">
+    <p class="title">
+      共{{list.length}}题
+    </p>
+    <ion-row>
+      <ion-col col-3 *ngFor="let item of list;let i = index" (click)="chooseItem(item)">
+        <div class="item-style" [ngClass]="item.QAnswer != ''?'select':''">
+          {{i}}
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

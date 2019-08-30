@@ -5,6 +5,7 @@ import {ScrollTabsComponent} from './scroll-tabs/scroll-tabs';
 import {CommentComponent} from './comment/comment';
 import {CourseListComponent} from './course-list/course-list';
 import {TreeListComponent} from './tree-list/tree-list';
+import {QIndexComponent} from './q-index/q-index';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import {TreeListComponent} from './tree-list/tree-list';
         ScrollTabsComponent,
         CourseListComponent,
         TreeListComponent,
+        QIndexComponent,
     ],
     imports: [
         IonicPageModule
@@ -25,6 +27,7 @@ import {TreeListComponent} from './tree-list/tree-list';
         ScrollTabsComponent,
         CourseListComponent,
         TreeListComponent,
+        QIndexComponent,
     ],
     providers: [
         CommentComponent,
@@ -35,6 +38,7 @@ import {TreeListComponent} from './tree-list/tree-list';
         ScrollTabsComponent,
         CourseListComponent,
         TreeListComponent,
+        QIndexComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
