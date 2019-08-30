@@ -1,0 +1,263 @@
+page-look-exam {
+  .main-container {
+    height: calc(100% - 8rem);
+    background-color: #e6e8ed ;
+    padding: 1.8rem;
+  }
+  .bgc{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+  .swiper-slide, .slide-zoom {
+    text-align: left;
+  }
+  ion-slides{
+    height: calc(100% - 4rem);
+  }
+  .swiper-slide {
+    justify-content: normal;
+    align-items: normal;
+  }
+  .learn-item {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding-bottom: 1rem;
+  }
+  .learn-title {
+    background-color: rgba(18, 28, 52, 0.34);
+    font-size: 1.8rem;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    border-top-left-radius: .8rem;
+    border-top-right-radius: .8rem;
+  }
+  .item-container {
+    background-color: #fff;
+    height: calc(100% - 4rem);
+    border-bottom-left-radius: .8rem;
+    border-bottom-right-radius: .8rem;
+    overflow-y: scroll;
+  }
+  .item-title {
+    padding: 2rem 3rem;
+    font-size: 1.5rem;
+  }
+  .item-content {
+    padding: 2rem 3rem;
+    p {
+      margin: 1rem 0;
+    }
+  }
+  .footer{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 7rem;
+    width: 100%;
+    z-index: 999;
+  }
+  .doIt{
+    font-size: 1.2rem;
+    padding-left: 20px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+  .outer{
+    height: 3px;
+    background-color: #bee1ec;
+    position: relative;
+    .inner{
+      background-image: linear-gradient(to right , #fecc4b, #feeaa5);
+      height: 3px;
+      transition: all 500ms;
+    }
+  }
+  .footer-subject {
+    padding: 0 1rem;
+    height: 5rem;
+    background-color: #ffffff;
+    display: flex;
+    font-size: 1.8rem;
+    div {
+      line-height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .submit {
+      flex: 3;
+      div{
+        text-align: center;
+        height: 3rem;
+        width: 100%;
+      }
+    }
+    .saveStuExams {
+      flex: 3;
+      div{
+        text-align: center;
+        height: 3rem;
+        width: 100%;
+        font-size: 1rem;
+      }
+    }
+    .more {
+      flex: 1;
+      font-size: 3.5rem;
+    }
+  }
+  .ans-green {
+    font-size: 1.3rem;
+    background-color: #50b632;
+    color: #ffffff;
+    padding: 4px 5px;
+    margin-left: 2rem;
+    border-radius: 4px;
+  }
+  .ans-red {
+    font-size: 1.3rem;
+    background-color: #f76063;
+    color: #ffffff;
+    padding: 4px 5px;
+    margin-left: 2rem;
+    border-radius: 4px;
+  }
+  .selectIndex {
+    position: relative;
+  }
+  .select-right{
+    background-image: linear-gradient(to right , #fecc4b, #feeaa5);
+  }
+  .select-error::before {
+    content: '\2718';
+    position: absolute;
+    left: -20px;
+    top: 0;
+    color: #ec1826;
+    font-size: 2rem;
+  }
+  .item-ios p {
+    margin: 15px 0;
+    white-space: normal;
+  }
+  .input-radio {
+    border: 1px solid #ddd;
+    display: inline-block;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    vertical-align: sub;
+    position: absolute;
+    top: 1px;
+    left: -20px;
+  }
+  label {
+    position: relative;
+    input {
+      display: none;
+    }
+  }
+  input:checked + .input-radio::after {
+    content: '\2713';
+    position: absolute;
+    width: 10px;
+    top: 2px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #333;
+    left: 2px;
+  }
+
+  .input-check {
+    border: 1px solid #ddd;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    vertical-align: text-top;
+    border-radius: 2px;
+    position: absolute;
+    top: 1px;
+    left: -20px;
+  }
+
+  input:checked + .input-check::after {
+    content: '\2713';
+    position: absolute;
+    width: 10px;
+    top: -4px;
+    left: 0px;
+    height: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .content-textarea {
+    padding: 10px;
+    min-height: 100px;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  .submit-error{
+    height: 3rem;
+    width: 40%;
+    background-color: #5579bb;
+    color: #fff;
+    line-height: 3rem;
+  }
+  .button-error{
+    line-height: 4rem;
+    height: 4rem;
+    text-align: center;
+    margin-top: .5rem;
+  }
+  .item-answer{
+    font-weight: bold;
+    font-size: 1.8rem;
+  }
+  .item-explain{
+    font-size: 1.4rem;
+    color: #474747;
+  }
+  .item-answer,.item-explain{
+    padding: 1rem;
+  }
+  .selectIndex {
+    display: inline-block;
+    vertical-align: middle;
+    width: 2rem;
+    text-align: center;
+    height: 2rem;
+    line-height: 1.9rem;
+    border: 1px solid #333;
+    border-radius: 50%;
+    margin-right: 5px;
+    color: #333;
+    font-size: 1.5rem;
+    position: relative;
+  }
+  .isRight,.isBlank,.isError{
+    position: absolute;
+    left: 0px;
+    top: 2rem;
+    font-size: 1.2rem;
+    color: #fff;
+  }
+  .isRight{
+    background-color: #54b575;
+  }
+  .isError{
+    background-color: #e42417;
+  }
+  .isBlank{
+    background-color: #aaaaaa;
+  }
+}

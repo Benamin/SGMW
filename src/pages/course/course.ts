@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {MineService} from "../mine/mine.service";
 
 @IonicPage()
 @Component({
@@ -10,38 +11,46 @@ export class CoursePage {
     navbarList = [
         {type: '1', name: '学习中'},
         {type: '2', name: '已完成'},
-    ]
-    slide = [1,2,3]
-    list = [];
+    ];
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    page = {
+        page: 1,
+        pageSize: 100,
+        studystate: 1,
+    };
+
+    courseList = [];
+
+    constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
+                private loadCtrl:LoadingController) {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad CoursePage');
-        this.getList()
+        this.getList();
     }
 
-    getList(){
-        for (let i = 0;i < 10;i++){
-            this.list.push(i)
-        }
+    getList() {
+        const loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
+        const data = {
+            page: this.page.page,
+            pageSize: this.page.pageSize,
+            studystate:this.page.studystate
+        };
+        this.mineSer.GetMyProductList(data).subscribe(
+            (res) => {
+                this.courseList = res.data.ProductList;
+                loading.dismiss();
+            }
+        )
     }
 
-    slideChanged(){
-
-    }
-
-    doRefresh(e){
-        e.complete();
-    }
-
-    doInfinite(e){
-        const len = this.list.length;
-        for (let i = len;i < len +10;i++){
-            this.list.push(i)
-        }
-        e.complete();
+    changeType(e) {
+        this.page.page = 1;
+        this.page.studystate = e.type;
+        this.getList();
     }
 
 }

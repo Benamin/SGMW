@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{index +1}}/{{exam.stuExamInfo.length}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides (ionSlideDidChange)="slideChanged()">
+    <ng-container *ngIf="exam.stuExamInfo.length > 0">
+      <ion-slide *ngFor="let item of exam.stuExamInfo;let i = index;">
+        <div class="learn-item">
+          <div class="item-container">
+            <div class="item-title">
+              <!--判断题目类型-->
+              <span class="isRight" *ngIf="item.IsOk == 1">正确</span>
+              <span class="isError" *ngIf="item.IsOk == 2">错误</span>
+              <span class="isBlank" *ngIf="item.IsOk == 3">未作答</span>
+              <p>
+                {{i + 1}}:
+                <span *ngIf="item.QType == -1">(不限)</span>
+                <span *ngIf="item.QType == 1">(单选)</span>
+                <span *ngIf="item.QType == 2">(多选)</span>
+                <span *ngIf="item.QType == 3">(判断)</span>
+                {{item.QContent}}
+              </p>
+            </div>
+            <div class="item-content">
+              <div class="padding-20-20">
+                <!--单选题-->
+                <ng-container *ngIf="item.QType == 1">
+                  <p>
+                    <label>
+                      <input  type="radio" value="A" [name]="item.ID">
+                      <span [ngClass]="{'select-right' : item.StuAnswer.includes('A') == true}" class="selectIndex">A</span>&nbsp;&nbsp;
+                      {{item.ChoiceA}}
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="radio" value="B" [name]="item.ID">
+                      <span [ngClass]="{'select-right' : item.StuAnswer.includes('B') == true}" class="selectIndex">B</span>&nbsp;&nbsp;
+                      {{item.ChoiceB}}
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="radio" value="C" [name]="item.ID">
+                      <span [ngClass]="{'select-right' : item.StuAnswer.includes('C') == true}" class="selectIndex">C</span>&nbsp;&nbsp;
+                      {{item.ChoiceC}}
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input  type="radio" value="D" [name]="item.ID">
+                      <span [ngClass]="{'select-right' : item.StuAnswer.includes('D') == true}" class="selectIndex">D</span>&nbsp;&nbsp;
+                      {{item.ChoiceD}}
+                    </label>
+                  </p>
+                </ng-container>
+                <!--多选题-->
+                <ng-container *ngIf="item.QType == 2">
+                  <p>
+                    <label>
+                      <input type="checkbox" value="A" [name]="item.ID">
+                      <span [ngClass]="{'select-right' : item.StuAnswer.includes('A') == true}" class="input-duox selectIndex">A</span>&nbsp;&nbsp;
+                      {{item.ChoiceA}}
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" 
+                             value="B" [name]="item.ID">
+                      <span [ngClass]="{'select-right' : item.StuAnswer.includes('B') == true}" class="input-duox selectIndex">B</span>&nbsp;&nbsp;
+                      {{item.ChoiceB}}
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" 
+                             value="C" [name]="item.ID">
+                      <span [ngClass]="{'select-right' : item.StuAnswer.includes('C') == true}" class="input-duox selectIndex">C</span>&nbsp;&nbsp;
+                      {{item.ChoiceC}}
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" 
+                             value="D" [name]="item.ID">
+                      <span [ngClass]="{'select-right' : item.StuAnswer.includes('D') == true}" class="input-duox selectIndex">D</span>&nbsp;&nbsp;
+                      {{item.ChoiceD}}
+                    </label>
+                  </p>
+                </ng-container>
+                <!--填空-->
+                <ng-container *ngIf="item.QType == 4">
+                  <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                </ng-container>
+                <!--判断题-->
+                <ng-container *ngIf="item.QType == 3">
+                  <p>
+                    <label>
+                      <input [name]="item.ID" value="1"
+                             type="radio">
+                      <span [ngClass]="{'select-right' : item.QAnswer.includes('1') == true}" class="selectIndex">A</span>&nbsp;&nbsp;
+                      正确
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input [name]="item.ID" value="0"
+                             type="radio">
+                      <span [ngClass]="{'select-right' : item.QAnswer.includes('0') == true}" class="selectIndex">B</span>&nbsp;&nbsp;
+                      错误
+                    </label>
+                  </p>
+                </ng-container>
+                <!--问答-->
+                <ng-container *ngIf="item.questionType == 5">
+                  <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                </ng-container>
+              </div>
+            </div>
+            <div class="item-answer">
+              答案：{{item.QAnswer}}
+            </div>
+            <div class="item-explain">
+              解析：{{item.Explain}}
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ng-container>
+  </ion-slides>
+
+  <div class="footer">
+    <p class="doIt">已完成：{{doneTotal}}/{{exam.stuExamInfo.length}}题</p>
+    <div class="outer">
+      <div class="inner" [style.width]="(doneTotal/exam.stuExamInfo.length)*100 +'%'"></div>
+    </div>
+    <div class="footer-subject">
+      <div class="submit">
+        <div>正确率</div>
+      </div>
+      <div class="saveStuExams" >
+        <div>批改时间:{{exam.stuScore?.ModifyTime | date:'yyyy-MM-dd HH:mm' }}</div>
+      </div>
+      <div class="more" (click)="moreChoice()">
+        <ion-icon name="list"></ion-icon>
+      </div>
+    </div>
+  </div>
+</ion-content>

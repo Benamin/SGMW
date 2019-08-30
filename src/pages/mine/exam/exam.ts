@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {DoExamPage} from "../do-exam/do-exam";
+import {LookExamPage} from "../look-exam/look-exam";
 
 @Component({
   selector: 'page-exam',
@@ -59,7 +60,11 @@ export class ExamPage {
   }
 
   goExam(item){
-    this.navCtrl.push(DoExamPage,{item:item});
+    if(this.page.StudyState == 3){
+      this.navCtrl.push(LookExamPage,{item:item});
+    }else {
+      this.navCtrl.push(DoExamPage,{item:item});
+    }
   }
 
 }

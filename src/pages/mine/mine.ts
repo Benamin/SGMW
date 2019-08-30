@@ -1,10 +1,12 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {MyCoursePage} from "./my-course/my-course";
 import {MycollectionPage} from "./mycollection/mycollection";
 import {NotificationPage} from "./notification/notification";
 import {AppService} from "../../app/app.service";
 import {ExamPage} from "./exam/exam";
+import {LoginPage} from "../login/login";
+import {Storage} from "@ionic/storage";
 
 
 @Component({
@@ -15,7 +17,7 @@ export class MinePage {
     mineInfo;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private appSer: AppService) {
+                private appSer: AppService,private app:App,private storage:Storage) {
         //获取个人信息
         this.appSer.mineInfo.subscribe(value => {
             this.mineInfo = value;
@@ -43,6 +45,14 @@ export class MinePage {
     //通知中心
     goToNoti() {
         this.navCtrl.push(NotificationPage);
+    }
+
+    //后台退出
+    logoutApp() {
+        let length = this.navCtrl.length();
+        this.navCtrl.remove(length);
+        this.storage.clear();
+        this.app.getRootNav().setRoot(LoginPage);
     }
 
 }

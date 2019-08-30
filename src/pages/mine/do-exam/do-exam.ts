@@ -28,8 +28,8 @@ export class DoExamPage {
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            this.commonSer.alert("是否退出当前测试，中途退出直接交卷？", (res) => {
-                this.submit()
+            this.commonSer.alert("是否退出当前测试？", (res) => {
+                this.navCtrl.pop();
             })
         };
     }
@@ -81,7 +81,12 @@ export class DoExamPage {
             });
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
-
+                    if (res.code == 200) {
+                        this.commonSer.toast(`试卷得分:${res.message}`);
+                    } else {
+                        this.commonSer.toast(res.message);
+                    }
+                    this.navCtrl.pop();
                 }
             )
         })
@@ -92,10 +97,12 @@ export class DoExamPage {
         this.commonSer.alert('确认暂存提交？', () => {
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
-                    this.commonSer.toast(res.message);
                     if (res.code == 200) {
+                        this.commonSer.toast(`试卷得分:${res.message}`);
                     } else {
+                        this.commonSer.toast(res.message);
                     }
+                    this.navCtrl.pop();
                 }
             )
         });

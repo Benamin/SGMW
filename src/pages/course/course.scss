@@ -1,5 +1,39 @@
 page-course {
-  .slide-zoom{
-    height: 100%;
+  .learn-list {
+    padding: 10px;
+
+    .course-item {
+      display: flex;
+      padding: 5px;
+
+      .item-img {
+        width: 40%;
+        padding-right: 5px;
+        text-align: center;
+
+        img {
+          height: 70px;
+        }
+      }
+
+      .item-desc {
+        width: 60%;
+        padding-left: 5px;
+
+        > p {
+          font-size: 16px;
+          overflow: hidden;
+          display: -webkit-box;
+          text-overflow: ellipsis;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+        .desc {
+          color: #999999;
+          margin-top: 10px;
+        }
+      }
+    }
   }
 }
