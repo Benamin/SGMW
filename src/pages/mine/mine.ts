@@ -7,6 +7,7 @@ import {AppService} from "../../app/app.service";
 import {ExamPage} from "./exam/exam";
 import {LoginPage} from "../login/login";
 import {Storage} from "@ionic/storage";
+import {MineService} from "./mine.service";
 
 
 @Component({
@@ -15,8 +16,13 @@ import {Storage} from "@ionic/storage";
 })
 export class MinePage {
     mineInfo;
+    numer = {
+        exam:0,
+
+    }
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
+                private mineSer:MineService,
                 private appSer: AppService,private app:App,private storage:Storage) {
         //获取个人信息
         this.appSer.mineInfo.subscribe(value => {

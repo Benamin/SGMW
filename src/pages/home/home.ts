@@ -5,6 +5,7 @@ import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
 import {LearningPage} from "../learning/learning";
 import {GoodTeacherPage} from "./good-teacher/good-teacher";
+import {SearchPage} from "./search/search";
 
 @Component({
     selector: 'page-home',
@@ -124,7 +125,7 @@ export class HomePage {
     }
 
     goToSearch(){
-
+        this.navCtrl.push(SearchPage);
     }
 
 }
