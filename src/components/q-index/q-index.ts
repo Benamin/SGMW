@@ -14,11 +14,11 @@ export class QIndexComponent {
   constructor(private params: NavParams,private statusBar:StatusBar,
               private viewCtrl: ViewController) {
     this.list = this.params.get('list');
-
+    console.log(this.list);
   }
 
-  chooseItem(item){
-
+  chooseItem(item,i){
+    this.viewCtrl.dismiss(i);
   }
 
 }

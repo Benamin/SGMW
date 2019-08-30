@@ -1,12 +1,12 @@
-<ion-content>
-  <div class="padding-20-10">
+<ion-content style="background-color: #ffffff">
+  <div class="qIndex">
     <p class="title">
       共{{list.length}}题
     </p>
     <ion-row>
-      <ion-col col-3 *ngFor="let item of list;let i = index" (click)="chooseItem(item)">
+      <ion-col col-3 *ngFor="let item of list;let i = index" (click)="chooseItem(item,i)">
         <div class="item-style" [ngClass]="item.QAnswer != ''?'select':''">
-          {{i}}
+          {{i +1}}
         </div>
       </ion-col>
     </ion-row>

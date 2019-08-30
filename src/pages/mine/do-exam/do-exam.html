@@ -100,7 +100,7 @@
                                             <input [(ngModel)]="item.QAnswer" [name]="item.ID" value="1"
                                                    type="radio">
                                             <span class=" selectIndex">A</span>&nbsp;&nbsp;
-                                            是
+                                            正确
                                         </label>
                                     </p>
                                     <p>
@@ -108,7 +108,7 @@
                                             <input [(ngModel)]="item.QAnswer" [name]="item.ID" value="0"
                                                    type="radio">
                                             <span class=" selectIndex">B</span>&nbsp;&nbsp;
-                                            否
+                                            错误
                                         </label>
                                     </p>
                                 </ng-container>
@@ -124,15 +124,21 @@
         </ng-container>
     </ion-slides>
 
-    <div class="footer-subject">
-        <div class="submit" (click)="submit()">
-            <div>确认提交</div>
+    <div class="footer">
+        <p class="doIt">已完成：{{doneTotal}}/{{exam.qs.length}}题</p>
+        <div class="outer">
+            <div class="inner" [style.width]="(doneTotal/exam.qs.length)*100 +'%'"></div>
         </div>
-        <div class="saveStuExams" (click)="saveStuExams()">
-            <div>暂存答案</div>
-        </div>
-        <div class="more" (click)="moreChoice()">
-            <ion-icon name="list"></ion-icon>
+        <div class="footer-subject">
+            <div class="submit" (click)="submit()">
+                <div>确认提交</div>
+            </div>
+            <div class="saveStuExams" (click)="saveStuExams()">
+                <div>暂存答案</div>
+            </div>
+            <div class="more" (click)="moreChoice()">
+                <ion-icon name="list"></ion-icon>
+            </div>
         </div>
     </div>
 </ion-content>

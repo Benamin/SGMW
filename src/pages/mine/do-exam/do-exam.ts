@@ -1,8 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, Navbar, NavController, NavParams, Slides} from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {CommonService} from "../../../core/common.service";
 import {QIndexComponent} from "../../../components/q-index/q-index";
+import {EmitService} from "../../../core/emit.service";
 
 @Component({
     selector: 'page-do-exam',
@@ -10,18 +11,30 @@ import {QIndexComponent} from "../../../components/q-index/q-index";
 })
 export class DoExamPage {
     @ViewChild(Slides) slides: Slides;
+    @ViewChild(Navbar) navbar: Navbar;
 
     index = 0;  //当前题目的序号
     exam = {
         qs: [],
         stuScore: null
-    }
+    };
+    doneTotal = 0;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
-                private loadCtrl: LoadingController, private commonSer: CommonService, private modalCtrl: ModalController) {
+                private loadCtrl: LoadingController, private commonSer: CommonService, private modalCtrl: ModalController,
+                public eventEmitSer: EmitService,) {
     }
 
     ionViewDidLoad() {
+        this.eventEmitSer.eventEmit.emit('true');
+        this.navbar.backButtonClick = () => {
+            this.commonSer.alert("是否退出当前测试，中途退出直接交卷？", (res) => {
+                this.submit()
+            })
+        };
+    }
+
+    ionViewDidEnter() {
         const loading = this.loadCtrl.create({
             content: '加载中...'
         });
@@ -42,6 +55,13 @@ export class DoExamPage {
 
     slideChanged() {
         this.index = this.slides.realIndex;
+        this.doneTotal = 0;
+        this.exam.qs.forEach(e => {
+                if (e.QAnswer.length > 0) {
+                    this.doneTotal++;
+                }
+            }
+        )
     }
 
     //多选
@@ -56,6 +76,9 @@ export class DoExamPage {
     //确认提交
     submit() {
         this.commonSer.alert('确认提交答案？', () => {
+            this.exam.qs.forEach(e => {
+                if (e.QType == 2) e.QAnswer = e.QAnswer.sort().join(',');
+            });
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
 
@@ -87,7 +110,7 @@ export class DoExamPage {
             });
         modal.onDidDismiss(res => {
             if (res) {
-                console.log(res);
+                this.slides.slideTo(res);
             }
         })
         modal.present();
