@@ -34,5 +34,10 @@ page-good-teacher {
   }
   .infomation{
     color: #666666;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
 }

@@ -3,6 +3,7 @@ import {IonicPageModule} from 'ionic-angular';
 import {HomePage} from "./home";
 import {SearchPage} from "./search/search";
 import {GoodTeacherPage} from "./good-teacher/good-teacher";
+import {ComponentsModule} from "../../components/components.module";
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import {GoodTeacherPage} from "./good-teacher/good-teacher";
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
+        ComponentsModule,
     ],
     entryComponents: [
         SearchPage,

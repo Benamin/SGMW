@@ -49,12 +49,6 @@ export class LearningPage {
                 this.selectType(this.headList[1], 1);
             }
         )
-
-        // this.homeSer.GetDictionaryByPCodeByNative('Subject').then(
-        //         //     (res) => {
-        //         //
-        //         //     }
-        //         // )
     }
 
     selectType(title, index) {

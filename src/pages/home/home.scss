@@ -270,6 +270,11 @@ page-home {
       .desc-desc{
         color: #999;
         letter-spacing: 2px;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
       }
     }
   }
