@@ -1,23 +1,23 @@
 <ion-header>
-  <div class="header" style="width: 100%">
-    <ng-container *ngFor="let title of headList;let i = index">
-      <div (click)="selectType(title,i)">
-        <span [ngClass]="{'select':headType == i}">{{title.name}}</span>
-      </div>
-    </ng-container>
-  </div>
+    <div class="header" style="width: 100%">
+        <ng-container *ngFor="let title of headList;let i = index">
+            <div (click)="getSecondType(title,i)">
+                <span [ngClass]="{'select':headType == i}">{{title.name}}</span>
+            </div>
+        </ng-container>
+    </div>
 </ion-header>
-<ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingText="下拉刷新"
-                           refreshingSpinner="bubbles">
-    </ion-refresher-content>
-  </ion-refresher>
-<scroll-tabs [tabsList]="tabsList" (done)="getTabs($event)"></scroll-tabs>
-<course-list [list]="productList" (done)="goCourse($event)"></course-list>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content
-            loadingSpinner="bubbles"
-            loadingText="加载中"></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+<ion-content style="position: relative">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新"
+                               refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <scroll-tabs [tabsList]="tabsList" (done)="setSubjectID($event)"></scroll-tabs>
+    <course-list [list]="productList" (done)="goCourse($event)"></course-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

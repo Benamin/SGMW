@@ -1,5 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {timer} from "rxjs/observable/timer";
+import {HomeService} from "../../pages/home/home.service";
 
 
 @Component({
@@ -16,7 +17,13 @@ export class ScrollTabsComponent implements OnChanges {
     itemWidth;
     spanWidth;
 
-    constructor() {
+    threeType = {
+        list: [],
+        show: false,
+        type: null,
+    };
+
+    constructor(private homeSer:HomeService) {
         timer(5000).subscribe((res) => {
             const htmlFontSize = getComputedStyle(window.document.documentElement)['font-size'];
             this.itemWidth = htmlFontSize.split("px")[0] * 8;
@@ -38,6 +45,21 @@ export class ScrollTabsComponent implements OnChanges {
         // 自身div的一半 - 滑块的一半
         this.tips.nativeElement.style.left = this.itemWidth * (index) + (this.itemWidth - this.spanWidth) / 2 + 'px';
         this.done.emit(item);
+    }
+
+    getTabs(e) {
+
+        if (this.threeType.show && this.threeType.type == e.type) {
+            this.threeType.show = false;
+            return;
+        }
+        this.threeType.type = e.type;
+        this.homeSer.GetDictionaryByPCode(e.type).subscribe(
+            (res) => {
+                this.threeType.list = res.data;
+                this.threeType.show = true;
+            }
+        )
     }
 
 }

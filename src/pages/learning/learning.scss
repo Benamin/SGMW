@@ -25,5 +25,23 @@ page-learning {
     border-radius: 50px;
   }
 
+  .three-type {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    background-color: #fff;
+    border-bottom: 1px solid #aaa;
+    transition: height 500ms;
+    overflow: hidden;
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+    p {
+      padding: 10px;
+    }
+
+    p + p {
+      border-top: 1px solid #eeeeee;
+    }
+  }
+
 }
 

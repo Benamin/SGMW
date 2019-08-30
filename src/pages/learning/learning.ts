@@ -31,27 +31,28 @@ export class LearningPage {
 
     ionViewDidLoad() {
         const item = this.navParams.get('item');
-        if(item){
+        if (item) {   //其他路径转入
             this.page.SubjectID = item.ID;
             this.headType = this.navParams.get('headType');
             this.getProduct();
-        }else{
-            this.getSubjectList();
+        } else {  //tab栏进入
+            this.getOneType();
         }
     }
 
-    getSubjectList() {
+    getOneType() {
         this.homeSer.GetDictionaryByPCode("Subject").subscribe(
             (res) => {
                 this.headList = res.data.map(e => {
                     return {type: e.TypeCode, name: e.TypeName}
                 })
-                this.selectType(this.headList[1], 1);
+                this.getSecondType(this.headList[1], 1);
             }
         )
     }
 
-    selectType(title, index) {
+    //二级菜单
+    getSecondType(title, index) {
         this.headType = index;
         this.code = title.type;
         this.homeSer.GetDictionaryByPCode(this.code).subscribe(
@@ -63,6 +64,12 @@ export class LearningPage {
                 this.getProduct();
             }
         )
+    }
+
+    //根据三级菜单获取产品
+    setSubjectID(e) {
+        this.page.SubjectID = e.ID;
+        this.getProduct();
     }
 
     getProduct() {
@@ -81,19 +88,6 @@ export class LearningPage {
                 loading.dismiss();
             }
         )
-
-        // this.learnSer.GetProductListByNative(data).then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         this.productList = res1.data.ProductList;
-        //         loading.dismiss();
-        //     }
-        // )
-    }
-
-    getTabs(e) {
-        this.page.SubjectID = e.ID;
-        this.getProduct();
     }
 
     goCourse(e) {
