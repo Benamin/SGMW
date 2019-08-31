@@ -70,8 +70,9 @@ export class CourseDetailPage {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
                 if (this.product.detail && this.product.detail.IsBuy) {
-                    if (value.icon.includes('.mp4')) this.product.videoPath = value.fileUrl;
-                    if (value.icon.includes('.pdf')) this.openPDF(value);
+                    console.log(value);
+                    if (value.icon.includes('mp4')) this.product.videoPath = value.fileUrl;
+                    if (value.icon.includes('pdf')) this.openPDF(value);
                     // if (value.fileUrl) this.viewOfficeFile(value.fileUrl, value.filename);
                 } else {
                     this.commonSer.toast('请先报名');
@@ -96,7 +97,7 @@ export class CourseDetailPage {
                 pdfSource: {
                     url: file.fileUrl
                 },
-                title: file.fileName
+                title: file.filename
             },
 
         });
@@ -149,7 +150,7 @@ export class CourseDetailPage {
         } else if (this.files[0].icon.includes('mp4')) {
             this.product.videoPath = this.files[0].fileUrl;
         } else {
-            if (this.files[0].fileUrl) this.viewFile(this.files[0].fileUrl, this.files[0].filename);
+            if (this.files[0].fileUrl) this.viewOfficeFile(this.files[0].fileUrl, this.files[0].filename);
         }
     }
 

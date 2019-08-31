@@ -22,15 +22,15 @@
             </div>
             <div class="info-item item-type">
                 <div (click)="goToCourse()">
-                    <p>{{numer?.CourseCount}}</p>
+                    <p>{{numer?.CourseCount || '0'}}</p>
                     <p>课程</p>
                 </div>
                 <div (click)="goExam()">
-                    <p>{{numer?.WorkCount}}</p>
+                    <p>{{numer?.WorkCount || '0'}}</p>
                     <p>作业</p>
                 </div>
                 <div (click)="goToCollection()">
-                    <p>{{numer?.CollectionCount}}</p>
+                    <p>{{numer?.CollectionCount || '0'}}</p>
                     <p>收藏</p>
                 </div>
             </div>

@@ -59,7 +59,7 @@ export class MinePage {
         // let length = this.navCtrl.length();
         // this.navCtrl.remove(length);
         this.storage.clear();
-        this.app.getRootNav()[0].setRoot(LoginPage);
+        this.app.getActiveNavs()[0].setRoot(LoginPage);
     }
 
 }
