@@ -21,9 +21,6 @@ export class LookExamPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController,
                 private mineSer: MineService, private loadCtrl: LoadingController, private storage: Storage) {
-        this.storage.get('opTips').then(value => {
-            this.opTips = value ? 'false' : 'true';
-        })
 
     }
 
@@ -42,6 +39,9 @@ export class LookExamPage {
                 this.exam.stuExamInfo = res.data.stuExamInfo;
                 this.exam.stuScore = res.data.stuScore;
                 loading.dismiss();
+                this.storage.get('opTips').then(value => {
+                    this.opTips = value ? 'false' : 'true';
+                })
             }
         )
     }

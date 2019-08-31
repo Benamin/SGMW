@@ -22,10 +22,12 @@ export class LoginPage {
         codeRight: '',
         inputCode: ''
     };
+    bodyHeight;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService) {
+        this.bodyHeight = document.documentElement.clientHeight
     }
 
     ionViewDidLoad() {

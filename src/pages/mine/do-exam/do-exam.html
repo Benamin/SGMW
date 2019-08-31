@@ -153,3 +153,12 @@
         </div>
     </div>
 </div>
+
+<div *ngIf="score.show" class="score" (click)="close($event)">
+    <div class="content">
+        <p>作业提交成功</p>
+        <p class="number">{{score.score}}</p>
+        <p>作业得分</p>
+        <div>完成</div>
+    </div>
+</div>

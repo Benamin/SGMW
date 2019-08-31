@@ -21,14 +21,15 @@ export class DoExamPage {
     };
     doneTotal = 0;
     opTips;
+    score = {
+        score:100,
+        show:false,
+    };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private storage: Storage,
                 private loadCtrl: LoadingController, private commonSer: CommonService, private modalCtrl: ModalController,
                 public eventEmitSer: EmitService,) {
-        this.storage.get('opTips').then(value => {
-            this.opTips = value ? 'false' : 'true';
-        })
     }
 
     ionViewDidLoad() {
@@ -42,7 +43,7 @@ export class DoExamPage {
 
     ionViewDidEnter() {
         const loading = this.loadCtrl.create({
-            content: '加载中...'
+            content: '作业加载中...'
         });
         loading.present();
         const item = this.navParams.get('item');
@@ -52,9 +53,12 @@ export class DoExamPage {
         this.mineSer.homeworkInit(data).subscribe(
             (res) => {
                 this.exam.qs = res.data.qs;
-                this.exam.qs.forEach(e => e.QAnswer = '');
+                this.exam.qs.forEach(e => e.QAnswer = []);
                 this.exam.stuScore = res.data.stuScore;
                 loading.dismiss();
+                this.storage.get('opTips').then(value => {
+                    this.opTips = value ? 'false' : 'true';
+                })
             }
         )
     }
@@ -75,7 +79,7 @@ export class DoExamPage {
         if (this.exam.qs[i].QAnswer && this.exam.qs[i].QAnswer.includes(option)) {
             this.exam.qs[i].QAnswer = this.exam.qs[i].QAnswer.replace(option, '');
         } else {
-            this.exam.qs[i].QAnswer += option + '';
+            this.exam.qs[i].QAnswer.push(option);
         }
     }
 
@@ -88,11 +92,11 @@ export class DoExamPage {
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
                     if (res.code == 200) {
-                        this.commonSer.toast(`试卷得分:${res.message}`);
+                        this.score.score = res.message;
+                        this.score.show = true;
                     } else {
                         this.commonSer.toast(res.message);
                     }
-                    this.navCtrl.pop();
                 }
             )
         })
@@ -104,11 +108,11 @@ export class DoExamPage {
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
                     if (res.code == 200) {
-                        this.commonSer.toast(`试卷得分:${res.message}`);
+                        this.score.show = true;
+                        this.score.score = res.message;
                     } else {
                         this.commonSer.toast(res.message);
                     }
-                    this.navCtrl.pop();
                 }
             )
         });
@@ -127,5 +131,15 @@ export class DoExamPage {
             }
         })
         modal.present();
+    }
+
+    hidden() {
+        this.opTips = false;
+        this.storage.set('opTips', 'false');
+    }
+
+    close(e) {
+        this.score.show = false;
+        this.navCtrl.pop();
     }
 }

@@ -60,11 +60,11 @@ export class ExamPage {
   }
 
   goExam(item){
-    if(this.page.StudyState == 3){
-      this.navCtrl.push(LookExamPage,{item:item});
-    }else {
+    // if(this.page.StudyState == 3){
+    //   this.navCtrl.push(LookExamPage,{item:item});
+    // }else {
       this.navCtrl.push(DoExamPage,{item:item});
-    }
+    // }
   }
 
 }
