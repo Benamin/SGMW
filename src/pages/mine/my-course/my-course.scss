@@ -32,8 +32,24 @@ page-my-course {
         .desc {
           color: #999999;
           margin-top: 10px;
+          span{
+            margin-right: 10px;
+            ion-icon{
+              margin-right: 3px;
+            }
+          }
         }
       }
     }
+  }
+  .round{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    border: 2px solid #fed25b;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

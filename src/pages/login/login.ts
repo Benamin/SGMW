@@ -16,12 +16,22 @@ import {CheckCodeComponent} from "../../components/check-code/check-code";
 export class LoginPage {
     @ViewChild('checkCode') checkCode: CheckCodeComponent;
 
+    //学员
     user = {
         LoginName: 'sgmwadmin',
         Password: 'P@ssw0rd',
         codeRight: '',
         inputCode: ''
     };
+
+    //经销商
+    jxs = {
+        Jxsh: '',
+        LoginName: '',
+        password: '',
+        UserType: 'Teacher'
+    }
+
     bodyHeight;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
@@ -49,6 +59,25 @@ export class LoginPage {
         loading.present();
         this.loginSer.loginpost(this.user).subscribe(
             (res) => {
+                loading.dismiss();
+                if (res.code == 200) {
+                    this.storage.set('Authorization', res.data.Token);
+                    this.appSer.setMine(res.data.User);
+                    this.navCtrl.setRoot(TabsPage);
+                } else {
+                    this.storage.clear();
+                    this.commonSer.toast(res.message);
+                }
+            }
+        )
+    }
+
+    loginJsx(){
+        const loading = this.loadCtrl.create({
+            content: '登录中...'
+        });
+        this.loginSer.sgmwLogin(this.jxs).subscribe(
+            (res)=>{
                 loading.dismiss();
                 if (res.code == 200) {
                     this.storage.set('Authorization', res.data.Token);

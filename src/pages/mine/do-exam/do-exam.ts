@@ -22,8 +22,8 @@ export class DoExamPage {
     doneTotal = 0;
     opTips;
     score = {
-        score:100,
-        show:false,
+        score: 100,
+        show: false,
     };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
@@ -85,37 +85,33 @@ export class DoExamPage {
 
     //确认提交
     submit() {
-        this.commonSer.alert('确认提交答案？', () => {
-            this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.sort().join(',');
-            });
-            this.mineSer.submitStuExams(this.exam).subscribe(
-                (res) => {
-                    if (res.code == 200) {
-                        this.score.score = res.message;
-                        this.score.show = true;
-                    } else {
-                        this.commonSer.toast(res.message);
-                    }
+        this.exam.qs.forEach(e => {
+            if (e.QType == 2) e.QAnswer = e.QAnswer.sort().join(',');
+        });
+        this.mineSer.submitStuExams(this.exam).subscribe(
+            (res) => {
+                if (res.code == 200) {
+                    this.score.score = res.message;
+                    this.score.show = true;
+                } else {
+                    this.commonSer.toast(res.message);
                 }
-            )
-        })
+            }
+        )
     }
 
     //暂存提交
     saveStuExams() {
-        this.commonSer.alert('确认暂存提交？', () => {
-            this.mineSer.submitStuExams(this.exam).subscribe(
-                (res) => {
-                    if (res.code == 200) {
-                        this.score.show = true;
-                        this.score.score = res.message;
-                    } else {
-                        this.commonSer.toast(res.message);
-                    }
+        this.mineSer.submitStuExams(this.exam).subscribe(
+            (res) => {
+                if (res.code == 200) {
+                    this.score.show = true;
+                    this.score.score = res.message;
+                } else {
+                    this.commonSer.toast(res.message);
                 }
-            )
-        });
+            }
+        )
     }
 
     //查看题目

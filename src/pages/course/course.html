@@ -4,19 +4,21 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content style="background-color: #ffffff">
   <navbar [list]="navbarList" (done)="changeType($event)"></navbar>
   <div class="learn-list">
-    <div class="course-item" *ngFor="let item of courseList">
+    <div class="course-item" *ngFor="let item of courseList" (click)="goCourse(item)">
       <div class="item-img">
-        {{item.overpercentage}}%
+        <div class="round">
+          {{item.overpercentage}}%
+        </div>
       </div>
       <div class="item-desc">
         <p>{{item.Title}}</p>
         <div class="desc">
           <span>{{item.SubjectName}}</span>
-          <span>评论</span>
-          <span>收藏</span>
+          <span><ion-icon style="vertical-align: text-bottom" name="text"></ion-icon>{{item.ZanCount}}</span>
+          <span><ion-icon style="vertical-align: middle" name="heart"></ion-icon>{{item.CollectionCount}}</span>
         </div>
       </div>
     </div>

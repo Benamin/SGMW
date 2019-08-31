@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {MineService} from "../mine.service";
+import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 
 @Component({
     selector: 'page-my-course',
@@ -50,6 +51,10 @@ export class MyCoursePage {
         this.page.page = 1;
         this.page.studystate = e.type;
         this.getList();
+    }
+
+    goCourse(e) {
+        this.navCtrl.push(CourseDetailPage, {id: e.Id});
     }
 
 }

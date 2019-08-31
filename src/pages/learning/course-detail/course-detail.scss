@@ -34,6 +34,12 @@ page-course-detail {
 
       .course-desc {
         color: #e3e3e3;
+        span{
+          margin-right: 10px;
+          ion-icon{
+            margin-right: 3px;
+          }
+        }
       }
     }
   }

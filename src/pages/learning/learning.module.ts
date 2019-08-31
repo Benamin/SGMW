@@ -5,6 +5,7 @@ import {CourseCommentPage} from "./course-comment/course-comment";
 import {CourseDetailPage} from "./course-detail/course-detail";
 import {ComponentsModule} from "../../components/components.module";
 import {TeacherPage} from "./teacher/teacher";
+import {ViewFilePage} from "./view-file/view-file";
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import {TeacherPage} from "./teacher/teacher";
         CourseDetailPage,
         CourseCommentPage,
         TeacherPage,
+        ViewFilePage,
     ],
     imports: [
         IonicPageModule.forChild(LearningPage),
@@ -20,7 +22,8 @@ import {TeacherPage} from "./teacher/teacher";
     entryComponents: [
         CourseCommentPage,
         CourseDetailPage,
-        TeacherPage
+        TeacherPage,
+        ViewFilePage
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

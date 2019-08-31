@@ -33,6 +33,12 @@ course-list {
         .desc {
           color: #999999;
           margin-top: 10px;
+          span{
+            margin-right: 10px;
+            ion-icon{
+              margin-right: 3px;
+            }
+          }
         }
       }
     }
