@@ -243,4 +243,70 @@ page-course-detail {
       border-bottom: 1px solid #dddddd;
     }
   }
+
+
+  .tabs-fixed-scroll {
+    position: absolute;
+    z-index: 999;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    background-color: #fff;
+    width: 100%;
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+  }
+
+  .duty-state {
+    border: 1px solid #f8ac56;
+    font-size: 1.3rem;
+    border-radius: 4px;
+    padding: 1px 4px;
+    color: #f8ac56;
+  }
+
+  .navbar > div {
+    width: 50%;
+    text-align: center;
+    position: relative;
+    height: 36px;
+    line-height: 36px;
+  }
+
+  .duty-title {
+    position: relative;
+    //color: #e42417;
+  }
+
+  .duty-title::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-image: linear-gradient(to right, #feca46, #fee6a3);
+    bottom: -10px;
+    left: 0;
+    border-radius: 4px;
+  }
+
+  .span-btn {
+    background-color: #e42417;
+    font-size: 1.4rem;
+    padding: 4px 6px;
+    color: #fff;
+    border-radius: 3px;
+  }
+
+  .dutyItem > div {
+    margin-bottom: 10px;
+  }
 }

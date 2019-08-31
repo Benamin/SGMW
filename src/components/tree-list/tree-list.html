@@ -7,7 +7,7 @@
     </p>
     <tree-list *ngIf="item.children.length > 0 && !item.show" [treeList]="item.children"></tree-list>
     <div *ngFor="let item of item.files">
-        <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="handle(item)">{{item.filename}}
+        <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="handle(item,$event)">{{item.filename}}
             <span class="file-icon">{{item.icon}}</span></p>
     </div>
 </div>

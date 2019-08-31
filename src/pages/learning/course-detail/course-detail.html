@@ -27,28 +27,43 @@
             </video>
         </div>
     </div>
-    <navbar #navbar [list]="navbarList"></navbar>
+<!--    <navbar #navbar [list]="navbarList" (done)="getNavbar($event)"></navbar>-->
+    <div [hidden]="bar.show" #navbar class="navbar">
+        <ng-container *ngFor="let item of navbarList;let i = index;">
+            <div class="navbar-item" (click)="changeType(item)">
+                <a href="#{{item.code}}" class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</a>
+            </div>
+        </ng-container>
+    </div>
+    <div  [hidden]="!bar.show" class="navbar" ion-fixed>
+        <ng-container *ngFor="let item of navbarList;let i = index;">
+            <div class="navbar-item" (click)="changeType(item)">
+                <a href="#{{item.code}}" class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</a>
+            </div>
+        </ng-container>
+    </div>
+
     <div #space class="space"></div>
-    <div class="item" (click)="openPDF()">
+    <div di="desc" class="item">
         <p>简介</p>
         <div class="introduction">
             {{product.detail?.Description}}
         </div>
     </div>
     <div class="space"></div>
-    <div class="item">
+    <div id="chapter" class="item">
         <p>章节</p>
         <div class="chapter">
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
                 <p style="font-weight: 500">{{item.title}}</p>
                 <div *ngIf="item.children">
-                    <tree-list [treeList]="item.children" (fileData)="getInfo($event)" ></tree-list>
+                    <tree-list [treeList]="item.children" ></tree-list>
                 </div>
             </ng-container>
         </div>
     </div>
     <div class="space"></div>
-    <div class="item">
+    <div id="teacher" class="item">
         <p>教师
             <span (click)="teachDetail()" float-end class="look">查看</span>
         </p>
@@ -67,7 +82,7 @@
         </div>
     </div>
     <div class="space"></div>
-    <div class="item">
+    <div id="comment" class="item">
         <p>课程评价<span float-end class="look" (click)="goCourseComment()">更多</span></p>
         <div class="course-comment">
             <div>4.0</div>
@@ -111,7 +126,7 @@
         </div>
     </div>
     <div class="space"></div>
-    <div class="item">
+    <div id="relation" class="item">
         <p>相关课程</p>
         <course-list [list]="learnList" (done)="goCourse($event)"></course-list>
     </div>

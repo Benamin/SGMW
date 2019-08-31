@@ -12,9 +12,10 @@ export class TreeListComponent {
     constructor(private appSer: AppService) {
     }
 
-    handle(e) {
-        this.fileData.emit(e);
-        this.appSer.setFile(e);
+    handle(item, event) {
+        event.stopPropagation();
+        this.fileData.emit(item);
+        this.appSer.setFile(item);
     }
 
     getMore(e) {

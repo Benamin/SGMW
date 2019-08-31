@@ -54,6 +54,7 @@ export class ExamPage {
     }
 
     changeType(e) {
+        console.log(e);
         // this.page.EType = 1;
         this.page.StudyState = e.type;
         this.getList();

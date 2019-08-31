@@ -106,7 +106,7 @@
                 {{teacherList[personrType]?.UserName}}
                 <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == false"
                       (click)="focusHandle()">关注</span>
-                <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == true"
+                <span class="focus" style="background-color:rgba(0,0,0,.2);color:#fff;" *ngIf="teacherList[personrType]?.IsSubscribe == true"
                       (click)="cancleFocusHandle()">已关注</span>
             </div>
             <div class="desc-desc">

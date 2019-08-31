@@ -16,7 +16,7 @@
             </div>
             <div class="focuscontent">
                 <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item)" class="focus">关注</span>
-                <span *ngIf="item.IsSubscribe == true"  style="background-color:#aaa" (click)="cancleFocusHandle(item)"
+                <span *ngIf="item.IsSubscribe == true"  style="background-color:rgba(0,0,0,.2);color:#fff;" (click)="cancleFocusHandle(item)"
                       class="focus">已关注</span>
             </div>
         </div>

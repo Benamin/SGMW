@@ -10,7 +10,9 @@
         <ng-container *ngFor="let item of examList">
             <div class="space"></div>
             <div class="item" (click)="goExam(item)">
-                <p class="eName">{{item.EName}}</p>
+                <span class="studyState">{{navbarList[page.StudyState -1].name}}</span>
+                <p class="courseName">{{item.CourseName}}</p>
+                <p class="eName"><img  src="./assets/imgs/tabs/tab3_off@3x.png">{{item.EName}}</p>
             </div>
         </ng-container>
     </div>

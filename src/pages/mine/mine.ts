@@ -56,10 +56,10 @@ export class MinePage {
 
     //后台退出
     logoutApp() {
-        // let length = this.navCtrl.length();
-        // this.navCtrl.remove(length);
+        let length = this.navCtrl.length();
+        this.navCtrl.remove(length);
         this.storage.clear();
-        this.app.getActiveNavs()[0].setRoot(LoginPage);
+        this.app.getRootNav().setRoot(LoginPage);
     }
 
 }

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
+import {Content, IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
@@ -16,6 +16,9 @@ import {ViewFilePage} from "../view-file/view-file";
     templateUrl: 'course-detail.html',
 })
 export class CourseDetailPage {
+    @ViewChild('banner') banner:ElementRef;
+    @ViewChild('navbar') navbar:ElementRef;
+    @ViewChild(Content) content: Content;
 
     pId;
     product = {
@@ -25,11 +28,11 @@ export class CourseDetailPage {
     };
     learnList = [];
     navbarList = [
-        {type: '1', name: '简介'},
-        {type: '2', name: '章节'},
-        {type: '3', name: '教师'},
-        {type: '4', name: '评价'},
-        {type: '5', name: '相关'},
+        {type: '1', name: '简介',code:'desc'},
+        {type: '2', name: '章节',code:'chapter'},
+        {type: '3', name: '教师',code:'teacher'},
+        {type: '4', name: '评价',code:'comment'},
+        {type: '5', name: '相关',code:'relation'},
     ];
 
     signObj = {
@@ -43,15 +46,21 @@ export class CourseDetailPage {
     files = [];
 
     loading;
+    bar = {
+        type: "1",
+        show:false,
+    };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
+                public zone: NgZone,public renderer: Renderer2,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
 
     }
 
     async ionViewDidLoad() {
+        this.scrollHeight();
         this.loading = this.loadCtrl.create({
             content: '课程正在打开...'
         });
@@ -73,7 +82,10 @@ export class CourseDetailPage {
                     console.log(value);
                     if (value.icon.includes('mp4')) this.product.videoPath = value.fileUrl;
                     if (value.icon.includes('pdf')) this.openPDF(value);
-                    // if (value.fileUrl) this.viewOfficeFile(value.fileUrl, value.filename);
+                    if (!value.icon.includes('pdf') && !value.icon.includes('mp4')) {
+                        this.commonSer.toast('暂时只可预览pdf文件')
+                        // this.viewOfficeFile(value.fileUrl, value.filename);
+                    }
                 } else {
                     this.commonSer.toast('请先报名');
                 }
@@ -102,6 +114,23 @@ export class CourseDetailPage {
 
         });
         modal.present();
+    }
+
+    //固定navbar
+    scrollHeight() {
+        const height = this.banner.nativeElement.offsetHeight;
+        this.content.ionScroll.subscribe(($event) => {
+            this.zone.run(() => {
+                console.log(this.content.scrollTop)
+                if (this.content.scrollTop > height) {
+                    this.bar.show = true;
+                    this.renderer.addClass(this.navbar.nativeElement, 'tabs-fixed-scroll')
+                } else {
+                    this.bar.show = false;
+                    this.renderer.removeClass(this.navbar.nativeElement, 'tabs-fixed-scroll')
+                }
+            })
+        })
     }
 
     //课程详情、课程章节、相关课程、课程评价
@@ -260,6 +289,12 @@ export class CourseDetailPage {
         )
     }
 
-    getInfo(e) {
+    changeType(item) {
+        this.bar.type = item.type;
+        // this.done.emit(item);
+    }
+
+    getNavbar(e){
+        console.log(e);
     }
 }

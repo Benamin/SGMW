@@ -53,7 +53,7 @@ export class DoExamPage {
         this.mineSer.homeworkInit(data).subscribe(
             (res) => {
                 this.exam.qs = res.data.qs;
-                this.exam.qs.forEach(e => e.QAnswer = []);
+                this.exam.qs.forEach(e => e.QAnswer = '');
                 this.exam.stuScore = res.data.stuScore;
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
@@ -79,39 +79,53 @@ export class DoExamPage {
         if (this.exam.qs[i].QAnswer && this.exam.qs[i].QAnswer.includes(option)) {
             this.exam.qs[i].QAnswer = this.exam.qs[i].QAnswer.replace(option, '');
         } else {
-            this.exam.qs[i].QAnswer.push(option);
+            this.exam.qs[i].QAnswer += option + '';
         }
     }
 
     //确认提交
     submit() {
-        this.exam.qs.forEach(e => {
-            if (e.QType == 2) e.QAnswer = e.QAnswer.sort().join(',');
-        });
-        this.mineSer.submitStuExams(this.exam).subscribe(
-            (res) => {
-                if (res.code == 200) {
-                    this.score.score = res.message;
-                    this.score.show = true;
-                } else {
-                    this.commonSer.toast(res.message);
+        this.commonSer.alert('确认提交?', () => {
+            const loading = this.loadCtrl.create({
+                content: '提交中...'
+            });
+            loading.present();
+            this.exam.qs.forEach(e => {
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split().sort().join(',');
+            });
+            this.mineSer.submitStuExams(this.exam).subscribe(
+                (res) => {
+                    loading.dismiss()
+                    if (res.code == 200) {
+                        this.score.score = res.message;
+                        this.score.show = true;
+                    } else {
+                        this.commonSer.toast(res.Message);
+                    }
                 }
-            }
-        )
+            )
+        });
     }
 
     //暂存提交
     saveStuExams() {
-        this.mineSer.submitStuExams(this.exam).subscribe(
-            (res) => {
-                if (res.code == 200) {
-                    this.score.show = true;
-                    this.score.score = res.message;
-                } else {
-                    this.commonSer.toast(res.message);
+        this.commonSer.alert('确定暂存答案?', () => {
+            const loading = this.loadCtrl.create({
+                content: '提交中...'
+            });
+            loading.present();
+            this.mineSer.submitStuExams(this.exam).subscribe(
+                (res) => {
+                    loading.dismiss();
+                    if (res.code == 200) {
+                        this.score.show = true;
+                        this.score.score = res.message;
+                    } else {
+                        this.commonSer.toast(res.Message);
+                    }
                 }
-            }
-        )
+            )
+        });
     }
 
     //查看题目
