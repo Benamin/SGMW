@@ -1,8 +1,14 @@
 tree-list {
   .list{
-    padding: 10px 0;
+    //padding: 10px 0;
   }
-  .icon{
+  .more-icon{
+    float: right;
+    margin-top: 2px;
+    color: #666;
+    margin-right: 10px;
+  }
+  .file-icon{
     padding: 0px 5px;
     border: 1px solid #66a0eb;
     border-radius: 4px;

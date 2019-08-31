@@ -38,12 +38,12 @@
     <div class="space"></div>
     <div class="item">
         <p>章节</p>
-        <div>
+        <div class="chapter">
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
-                <p>{{item.title}}</p>
-                <p *ngIf="item.children">
+                <p style="font-weight: 500">{{item.title}}</p>
+                <div *ngIf="item.children">
                     <tree-list [treeList]="item.children" (fileData)="getInfo($event)" ></tree-list>
-                </p>
+                </div>
             </ng-container>
         </div>
     </div>
@@ -53,10 +53,10 @@
             <span (click)="teachDetail()" float-end class="look">查看</span>
         </p>
         <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
-            <div>
+            <div class="img">
                 <img [src]="item.HeadPhoto">
             </div>
-            <div>
+            <div class="position">
                 <p>{{item.UserName}}</p>
                 <p>{{item.Position}}</p>
             </div>

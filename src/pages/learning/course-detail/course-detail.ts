@@ -7,8 +7,7 @@ import {LearnService} from "../learn.service";
 import {AppService} from "../../../app/app.service";
 import {CommonService} from "../../../core/common.service";
 import {FileService} from "../../../core/file.service";
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-
+import {InAppBrowser} from '@ionic-native/in-app-browser';
 
 
 @Component({
@@ -46,27 +45,36 @@ export class CourseDetailPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
-                private fileSer: FileService,private inAppBrowser:InAppBrowser) {
+                private fileSer: FileService, private inAppBrowser: InAppBrowser) {
         this.pId = this.navParams.get('id');
 
     }
 
     async ionViewDidLoad() {
-        this.appSer.fileInfo.subscribe(value => {
-            if (value) {
-                if (value.icon.includes('mp4')) {
-                    this.product.videoPath = value.fileUrl;
-                } else {
-                    if (value.fileUrl) this.viewFile(value.fileUrl, value.filename);
-                }
-            }
-        });
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
                 this.getProductInfo();
+                this.getFileInfo();
             }
         );
+    }
+
+    //接受文件事件
+    getFileInfo() {
+        this.appSer.fileInfo.subscribe(value => {
+            if (value) {
+                if (this.product.detail && this.product.detail.IsBuy) {
+                    if (value.icon.includes('mp4')) {
+                        this.product.videoPath = value.fileUrl;
+                    } else {
+                        // if (value.fileUrl) this.viewFile(value.fileUrl, value.filename);
+                    }
+                } else {
+                    this.commonSer.toast('请先报名');
+                }
+            }
+        });
     }
 
     ionViewDidLeave() {
@@ -119,19 +127,19 @@ export class CourseDetailPage {
     }
 
     f(data) {
-        for(let i = 0;i<data.length;i++){
-            if(data[i].files.length > 0) {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].files.length > 0) {
                 this.files = this.files.concat(data[i].files);
             }
-            if(data[i].children.length > 0) this.f(data[i].children);
+            if (data[i].children.length > 0) this.f(data[i].children);
             console.log(this.files);
         }
     }
 
     //立即学习
-    studyNow(){
+    studyNow() {
         console.log(this.files);
-        if(this.files.length  == 0){
+        if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
             this.product.videoPath = this.files[0].fileUrl;
