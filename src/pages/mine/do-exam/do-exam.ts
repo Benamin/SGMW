@@ -4,6 +4,7 @@ import {MineService} from "../mine.service";
 import {CommonService} from "../../../core/common.service";
 import {QIndexComponent} from "../../../components/q-index/q-index";
 import {EmitService} from "../../../core/emit.service";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'page-do-exam',
@@ -19,10 +20,15 @@ export class DoExamPage {
         stuScore: null
     };
     doneTotal = 0;
+    opTips;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
+                private storage: Storage,
                 private loadCtrl: LoadingController, private commonSer: CommonService, private modalCtrl: ModalController,
                 public eventEmitSer: EmitService,) {
+        this.storage.get('opTips').then(value => {
+            this.opTips = value ? 'false' : 'true';
+        })
     }
 
     ionViewDidLoad() {

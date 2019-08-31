@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {TabsPage} from "../tabs/tabs";
 import {LoginService} from "./login.service";
 import {Storage} from "@ionic/storage";
 import {AppService} from "../../app/app.service";
+import {CommonService} from "../../core/common.service";
+import {CheckCodeComponent} from "../../components/check-code/check-code";
 
 
 @IonicPage()
@@ -12,21 +14,33 @@ import {AppService} from "../../app/app.service";
     templateUrl: 'login.html',
 })
 export class LoginPage {
+    @ViewChild('checkCode') checkCode: CheckCodeComponent;
 
     user = {
         LoginName: 'sgmwadmin',
-        Password: 'P@ssw0rd'
+        Password: 'P@ssw0rd',
+        codeRight: '',
+        inputCode: ''
     };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
-                private loginSer: LoginService, private storage: Storage, private appSer: AppService) {
+                private loginSer: LoginService, private storage: Storage, private appSer: AppService,
+                private commonSer: CommonService) {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad LoginPage');
+        this.checkCode.drawPic();
     }
 
     login() {
+        if (!this.user.LoginName || !this.user.Password) {
+            this.commonSer.toast("请输入用户名密码");
+            return
+        }
+        if (this.user.codeRight != this.user.inputCode) {
+            this.commonSer.toast('请输入正确的验证码');
+            return;
+        }
         const loading = this.loadCtrl.create({
             content: '登录中...'
         });
@@ -34,20 +48,25 @@ export class LoginPage {
         this.loginSer.loginpost(this.user).subscribe(
             (res) => {
                 loading.dismiss();
-                this.storage.set('Authorization', res.data.Token);
-                this.appSer.setMine(res.data.User);
-                this.navCtrl.setRoot(TabsPage);
+                if (res.code == 200) {
+                    this.storage.set('Authorization', res.data.Token);
+                    this.appSer.setMine(res.data.User);
+                    this.navCtrl.setRoot(TabsPage);
+                } else {
+                    this.storage.clear();
+                    this.commonSer.toast(res.message);
+                }
             }
-        );
+        )
+    }
 
-        // this.loginSer.loginpostByNative(this.user).then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         this.storage.set('Authorization', res1.data.Token);
-        //         this.appSer.setMine(res1.data.User);
-        //         this.navCtrl.setRoot(TabsPage);
-        //     }
-        // );
+    //重新获取验证码
+    flashCode() {
+        this.checkCode.drawPic();
+    }
+
+    getCode(e) {
+        this.user.codeRight = e;
     }
 
 }

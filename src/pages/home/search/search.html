@@ -1,11 +1,11 @@
 
 <ion-header>
     <ion-navbar>
-      <div class="search-header">
+      <form class="search-header" action="#">
         <ion-icon class="search-icon" name="search"></ion-icon>
-        <ion-input type="text" placeholder="搜索课程" (ionChange)="search()" [(ngModel)]="page.title"></ion-input>
+        <ion-input type="search" placeholder="搜索课程" (ionChange)="search()" [(ngModel)]="page.title"></ion-input>
         <span class="clear" (click)="clear()">取消</span>
-      </div>
+      </form>
     </ion-navbar>
 </ion-header>
 
@@ -16,6 +16,12 @@
     </ion-refresher-content>
   </ion-refresher>
   <course-list [list]="productList" (done)="goCourse($event)"></course-list>
+  <ion-list text-center style="margin-top: 10rem" *ngIf="productList.length == 0">
+    <img style="width: 15%;" src="./assets/imgs/tabs/tab3_off@3x.png" >
+    <p text-center style="color: #999;font-size: 16px;margin-top: 20px">
+      请搜索你想要查找的课程
+    </p>
+  </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content
             loadingSpinner="bubbles"

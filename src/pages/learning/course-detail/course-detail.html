@@ -1,19 +1,24 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{product.detail?.Title}}</ion-title>
+        <ion-title>{{product.detail?.SubjectName}}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
     <div class="banner">
+        <div class="background-image">
+            <img [src]="product.detail?.ImageUrl" alt="">
+        </div>
         <div class="content" *ngIf="!product.videoPath">
-            <div class="course-name">
-                {{product.detail?.Description}}
-            </div>
-            <div class="course-desc">
-                <span>20课时</span>
-                <span>评价</span>
-                <span>收藏</span>
+            <div class="content-info">
+                <div class="course-name">
+                    {{product.detail?.Title}}
+                </div>
+                <div class="course-desc">
+                    <span>20课时</span>
+                    <span>评价</span>
+                    <span>收藏</span>
+                </div>
             </div>
         </div>
         <div class="content video" *ngIf="product.videoPath">

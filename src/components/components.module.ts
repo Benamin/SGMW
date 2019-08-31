@@ -6,6 +6,7 @@ import {CommentComponent} from './comment/comment';
 import {CourseListComponent} from './course-list/course-list';
 import {TreeListComponent} from './tree-list/tree-list';
 import {QIndexComponent} from './q-index/q-index';
+import {CheckCodeComponent} from './check-code/check-code';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import {QIndexComponent} from './q-index/q-index';
         CourseListComponent,
         TreeListComponent,
         QIndexComponent,
+        CheckCodeComponent,
     ],
     imports: [
         IonicPageModule
@@ -28,6 +30,7 @@ import {QIndexComponent} from './q-index/q-index';
         CourseListComponent,
         TreeListComponent,
         QIndexComponent,
+        CheckCodeComponent,
     ],
     providers: [
         CommentComponent,
@@ -39,6 +42,7 @@ import {QIndexComponent} from './q-index/q-index';
         CourseListComponent,
         TreeListComponent,
         QIndexComponent,
+        CheckCodeComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

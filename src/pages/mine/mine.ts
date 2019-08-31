@@ -16,10 +16,7 @@ import {MineService} from "./mine.service";
 })
 export class MinePage {
     mineInfo;
-    numer = {
-        exam:0,
-
-    }
+    numer;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private mineSer:MineService,
@@ -31,7 +28,11 @@ export class MinePage {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad MinePage');
+        this.mineSer.GetMyProductCountInfo().subscribe(
+            (res)=>{
+                this.numer = res.data;
+            }
+        )
     }
 
     //我的课程

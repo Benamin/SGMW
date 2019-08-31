@@ -50,5 +50,8 @@ page-search {
     text-align: center;
     margin-right: 10px;
   }
+  input[type=search]::-webkit-search-cancel-button{
+    -webkit-appearance: none;
+  }
 
 }

@@ -13,7 +13,10 @@ export class ScrollTabsComponent implements OnChanges {
     @Input() tabsList;
     @Output() done = new EventEmitter();
 
-    selectIndex = 1;
+    select = {
+        index:1,
+        item:null
+    }
     itemWidth;
     spanWidth;
 
@@ -28,8 +31,6 @@ export class ScrollTabsComponent implements OnChanges {
             const htmlFontSize = getComputedStyle(window.document.documentElement)['font-size'];
             this.itemWidth = htmlFontSize.split("px")[0] * 8;
             this.spanWidth = this.tabSpan.nativeElement.offsetWidth;   //文字宽度
-            this.changeParent(this.tabsList[0], 0);
-            console.log(this.tabsList);
         })
     }
 
@@ -40,15 +41,16 @@ export class ScrollTabsComponent implements OnChanges {
     }
 
     changeParent(item, index) {
-        this.selectIndex = index;
+        this.select.index = index;
+        this.select.item = item;
         this.tips.nativeElement.style.width = this.tabSpan.nativeElement.offsetWidth + 'px';
         // 自身div的一半 - 滑块的一半
         this.tips.nativeElement.style.left = this.itemWidth * (index) + (this.itemWidth - this.spanWidth) / 2 + 'px';
-        this.done.emit(item);
+        this.getTabs(item);
     }
 
+    //获取三级菜单
     getTabs(e) {
-
         if (this.threeType.show && this.threeType.type == e.type) {
             this.threeType.show = false;
             return;
@@ -62,4 +64,15 @@ export class ScrollTabsComponent implements OnChanges {
         )
     }
 
+    //选择单个三级分类
+    setSubjectID(e){
+        this.threeType.show = false;
+        this.done.emit(e)
+    }
+
+    //选择全部
+    setAll(){
+        this.threeType.show = false;
+        this.done.emit(this.select.item);
+    }
 }

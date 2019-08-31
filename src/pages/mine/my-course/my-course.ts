@@ -8,8 +8,8 @@ import {MineService} from "../mine.service";
 })
 export class MyCoursePage {
     navbarList = [
-        {type: '1', name: '学习中'},
-        {type: '2', name: '已完成'},
+        {type: '2', name: '学习中'},
+        {type: '1', name: '已完成'},
     ];
 
     page = {

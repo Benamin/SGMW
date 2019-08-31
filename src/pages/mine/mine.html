@@ -11,27 +11,26 @@
                 <div style="position: relative">
                     <div class="mask1">
                         <img class="img3" src="{{mineInfo?.HeadPhoto}}" alt="">
-
                     </div>
                 </div>
                 <div class="info-name">
                     <p>{{mineInfo?.LoginName}}</p>
                 </div>
                 <div class="info-position">
-                    <a><img src="../assets/imgs/mine/student.png" ><span>{{mineInfo?.Position}}</span></a>
+                    <a><img src="../assets/imgs/mine/student.png" ><span>学员</span></a>
                 </div>
             </div>
             <div class="info-item item-type">
                 <div (click)="goToCourse()">
-                    <p>7</p>
+                    <p>{{numer?.CourseCount}}</p>
                     <p>课程</p>
                 </div>
                 <div (click)="goExam()">
-                    <p>5</p>
+                    <p>{{numer?.WorkCount}}</p>
                     <p>作业</p>
                 </div>
                 <div (click)="goToCollection()">
-                    <p>8</p>
+                    <p>{{numer?.CollectionCount}}</p>
                     <p>收藏</p>
                 </div>
             </div>

@@ -184,4 +184,30 @@ page-do-exam {
     background-color: #fed25b;
     border: 1px solid #333333;
   }
+  .op-tips{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+    z-index: 999;
+    .op-content{
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 85%;
+    }
+    .btn-op{
+      font-size: 1.8rem;
+      color: #fff;
+      width: 50%;
+      padding: 8px 12px;
+      margin: 40px auto;
+      border: 1px solid #ffffff;
+      border-radius: 10px;
+      text-align: center;
+    }
+  }
 }

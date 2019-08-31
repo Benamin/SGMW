@@ -2,14 +2,31 @@ page-course-detail {
   .banner {
     height: 180px;
     background-color: rgba(0, 0, 0, .4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    .background-image{
+      height: 100%;
+      text-align: center;
+      img{
+        height: 100%;
+      }
+    }
 
     .content {
-      text-align: center;
-      width: 80%;
-      color: #ffffff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,.5);
+      .content-info{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 80%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #ffffff;
+      }
 
       .course-name {
         font-size: 20px;
@@ -20,7 +37,8 @@ page-course-detail {
       }
     }
   }
-  .video.content{
+
+  .video.content {
     width: 100%;
     height: 100%;
   }
@@ -68,7 +86,8 @@ page-course-detail {
     > div {
       flex: 1;
     }
-    > div:nth-child(2){
+
+    > div:nth-child(2) {
       flex: 2;
       padding-left: 10px;
     }
@@ -130,17 +149,21 @@ page-course-detail {
     background-color: #fff;
     border-top: 1px solid #e3e3e3;
     padding: 10px;
-    .toolbar-background-ios{
+
+    .toolbar-background-ios {
       background-color: #fff;
     }
+
     > ion-toolbar:first-child {
       width: 75%;
       background-color: #fff;
-      .toolbar-background-ios{
+
+      .toolbar-background-ios {
         background-color: #fff;
         border: none;
       }
-      ion-buttons{
+
+      ion-buttons {
         width: 90%;
         border-radius: 50px;
         margin: 0 auto;
@@ -150,7 +173,8 @@ page-course-detail {
 
     > ion-toolbar:last-child {
       width: 25%;
-      ion-buttons{
+
+      ion-buttons {
         background-color: #aedee8;
         border-radius: 20px;
         font-size: 14px;
@@ -159,27 +183,31 @@ page-course-detail {
 
     }
   }
-  course-list .learn-list{
+
+  course-list .learn-list {
     padding: 0;
   }
-  .sign,.collection{
+
+  .sign, .collection {
     position: absolute;
     top: 50%;
     left: 50%;
     height: 16%;
     width: 60%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     z-index: 999;
     text-align: center;
     color: #ffffff;
-    img{
+
+    img {
       width: 80%;
     }
-    p{
+
+    p {
       position: absolute;
       top: 55%;
       left: 50%;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
     }
   }
 }

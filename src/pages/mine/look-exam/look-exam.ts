@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {QIndexComponent} from "../../../components/q-index/q-index";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'page-look-exam',
@@ -16,9 +17,14 @@ export class LookExamPage {
         stuScore: null
     };
     doneTotal = 0;
+    opTips;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController,
-                private mineSer: MineService, private loadCtrl: LoadingController) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController,
+                private mineSer: MineService, private loadCtrl: LoadingController, private storage: Storage) {
+        this.storage.get('opTips').then(value => {
+            this.opTips = value ? 'false' : 'true';
+        })
+
     }
 
     ionViewDidLoad() {
@@ -57,6 +63,11 @@ export class LookExamPage {
             }
         });
         modal.present();
+    }
+
+    hidden() {
+        this.opTips = false;
+        this.storage.set('opTips', 'false');
     }
 
 }

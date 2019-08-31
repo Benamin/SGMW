@@ -27,11 +27,12 @@ export class MyApp {
 
 
   checkLogin(){
-    const auth = this.storage.get('Authorization');
-    if(auth){
-      this.rootPage = LoginPage;
-    }else{
-      this.rootPage = LoginPage;
-    }
+    this.storage.get('Authorization').then(value => {
+      if(value){
+        this.rootPage = TabsPage;
+      }else{
+        this.rootPage = LoginPage;
+      }
+    });
   }
 }
