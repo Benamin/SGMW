@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {LoadingController, NavController} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
@@ -22,7 +22,7 @@ export class HomePage {
     teacherList = [];
     bannerList = [];
 
-    constructor(public navCtrl: NavController, public homeSer: HomeService,
+    constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService) {
 
 
@@ -81,18 +81,23 @@ export class HomePage {
     }
 
     //获取产品分类 nlts
-    getProductList() {
-        this.homeSer.GetDictionaryByPCode("Subject").subscribe(
+    async getProductList() {
+        let loading = this.loadCtrl.create({
+            content: '加载中...'
+        });
+        loading.present();
+        await this.homeSer.GetDictionaryByPCode("Subject").subscribe(
             (res) => {
                 this.saleList = res.data;
             }
         )
 
-        this.homeSer.GetDictionaryByPCode('cpty').subscribe(
+        await this.homeSer.GetDictionaryByPCode('cpty').subscribe(
             (res) => {
                 this.productList = res.data;
             }
         );
+        loading.dismiss();
     }
 
     async focusHandle() {
@@ -124,7 +129,7 @@ export class HomePage {
         this.navCtrl.push(GoodTeacherPage);
     }
 
-    goToSearch(){
+    goToSearch() {
         this.navCtrl.push(SearchPage);
     }
 

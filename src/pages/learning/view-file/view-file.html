@@ -1,9 +1,23 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title></ion-title>
-  </ion-navbar>
+
+    <ion-navbar>
+        <ion-title>{{displayData.title}}</ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="cancel()">
+                <span class="color-fff" ion-text>取消</span>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
 </ion-header>
-
-<ion-content>
-
+<ion-content padding>
+    <pdf-viewer [src]="displayData.pdfSource"
+                [show-all]="true"
+                [original-size]="false"
+                [zoom]=1
+                [render-text]="false"
+                [autoresize]="true"
+                (after-load-complete)="afterLoad($event)"
+                style="display: block">
+    </pdf-viewer>
 </ion-content>

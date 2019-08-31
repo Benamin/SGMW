@@ -3,10 +3,12 @@ page-course-detail {
     height: 180px;
     background-color: rgba(0, 0, 0, .4);
     position: relative;
-    .background-image{
+
+    .background-image {
       height: 100%;
       text-align: center;
-      img{
+
+      img {
         height: 100%;
       }
     }
@@ -17,8 +19,9 @@ page-course-detail {
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,.5);
-      .content-info{
+      background-color: rgba(0, 0, 0, .5);
+
+      .content-info {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -34,9 +37,11 @@ page-course-detail {
 
       .course-desc {
         color: #e3e3e3;
-        span{
+
+        span {
           margin-right: 10px;
-          ion-icon{
+
+          ion-icon {
             margin-right: 3px;
           }
         }
@@ -88,13 +93,17 @@ page-course-detail {
     display: flex;
     align-items: center;
     justify-content: center;
-    .img{
+
+    .img {
       text-align: center;
-      img{
+
+      img {
         width: 5rem;
+        height: 5rem;
         border-radius: 50%;
       }
     }
+
     > div {
       flex: 1;
     }
@@ -102,7 +111,8 @@ page-course-detail {
     > div:nth-child(2) {
       flex: 2;
       padding-left: 10px;
-      p:last-child{
+
+      p:last-child {
         margin-top: 5px;
         color: #777777;
       }
@@ -226,8 +236,9 @@ page-course-detail {
       transform: translate(-50%, -50%);
     }
   }
-  .chapter{
-    p{
+
+  .chapter {
+    p {
       padding: 8px 0;
       border-bottom: 1px solid #dddddd;
     }

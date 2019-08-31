@@ -1,17 +1,30 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {PDFDocumentProxy} from "pdfjs-dist";
 
 @Component({
-  selector: 'page-view-file',
-  templateUrl: 'view-file.html',
+    selector: 'page-view-file',
+    templateUrl: 'view-file.html',
 })
 export class ViewFilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    displayData: any = {};
+    totalPage;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ViewFilePage');
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+                private viewCtrl: ViewController) {
+    }
+
+    ionViewDidLoad() {
+        this.displayData = this.navParams.get('displayData');
+    }
+
+    afterLoad(pdf: PDFDocumentProxy) {
+        this.totalPage = pdf.numPages;
+    }
+
+    cancel() {
+        this.viewCtrl.dismiss();
+    }
 
 }

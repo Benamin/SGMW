@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-    <div class="banner">
+    <div #banner class="banner">
         <div class="background-image">
             <img [src]="product.detail?.ImageUrl" alt="">
         </div>
@@ -27,9 +27,9 @@
             </video>
         </div>
     </div>
-    <navbar [list]="navbarList"></navbar>
-    <div class="space"></div>
-    <div class="item">
+    <navbar #navbar [list]="navbarList"></navbar>
+    <div #space class="space"></div>
+    <div class="item" (click)="openPDF()">
         <p>简介</p>
         <div class="introduction">
             {{product.detail?.Description}}

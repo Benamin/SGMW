@@ -35,6 +35,8 @@ import {UntilService} from "../core/until.service";
 import {MineService} from "../pages/mine/mine.service";
 import {ModalFromRightEnter, ModalFromRightLeave, ModalScaleEnter, ModalScaleLeave} from "./modal-transitions";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
+import {ViewFilePage} from "../pages/learning/view-file/view-file";
 
 @NgModule({
     declarations: [
@@ -67,7 +69,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
         MyApp,
         HomePage,
         CoursePage,
-        TabsPage
+        TabsPage,
     ],
     providers: [
         StatusBar,

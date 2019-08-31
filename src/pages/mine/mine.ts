@@ -19,17 +19,17 @@ export class MinePage {
     numer;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private mineSer:MineService,
-                private appSer: AppService,private app:App,private storage:Storage) {
+                private mineSer: MineService,
+                private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
-        this.appSer.mineInfo.subscribe(value => {
+        this.storage.get('user').then(value => {
             this.mineInfo = value;
         })
     }
 
     ionViewDidLoad() {
         this.mineSer.GetMyProductCountInfo().subscribe(
-            (res)=>{
+            (res) => {
                 this.numer = res.data;
             }
         )
@@ -45,7 +45,7 @@ export class MinePage {
         this.navCtrl.push(MycollectionPage);
     }
 
-    goExam(){
+    goExam() {
         this.navCtrl.push(ExamPage);
     }
 
@@ -56,10 +56,10 @@ export class MinePage {
 
     //后台退出
     logoutApp() {
-        let length = this.navCtrl.length();
-        this.navCtrl.remove(length);
+        // let length = this.navCtrl.length();
+        // this.navCtrl.remove(length);
         this.storage.clear();
-        this.app.getRootNav().setRoot(LoginPage);
+        this.app.getRootNav()[0].setRoot(LoginPage);
     }
 
 }

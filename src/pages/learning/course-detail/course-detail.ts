@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
@@ -8,6 +8,7 @@ import {AppService} from "../../../app/app.service";
 import {CommonService} from "../../../core/common.service";
 import {FileService} from "../../../core/file.service";
 import {InAppBrowser} from '@ionic-native/in-app-browser';
+import {ViewFilePage} from "../view-file/view-file";
 
 
 @Component({
@@ -41,16 +42,20 @@ export class CourseDetailPage {
 
     files = [];
 
-    test;
+    loading;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
-                private fileSer: FileService, private inAppBrowser: InAppBrowser) {
+                private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
 
     }
 
     async ionViewDidLoad() {
+        this.loading = this.loadCtrl.create({
+            content: '课程正在打开...'
+        });
+        this.loading.present();
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
@@ -65,11 +70,9 @@ export class CourseDetailPage {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
                 if (this.product.detail && this.product.detail.IsBuy) {
-                    if (value.icon.includes('mp4')) {
-                        this.product.videoPath = value.fileUrl;
-                    } else {
-                        // if (value.fileUrl) this.viewFile(value.fileUrl, value.filename);
-                    }
+                    if (value.icon.includes('.mp4')) this.product.videoPath = value.fileUrl;
+                    if (value.icon.includes('.pdf')) this.openPDF(value);
+                    // if (value.fileUrl) this.viewOfficeFile(value.fileUrl, value.filename);
                 } else {
                     this.commonSer.toast('请先报名');
                 }
@@ -77,22 +80,31 @@ export class CourseDetailPage {
         });
     }
 
+
     ionViewDidLeave() {
         this.appSer.setFile(null);
     }
 
-    viewFile(fileUrl, fileName) {
-        console.log(fileUrl, fileName);
+    viewOfficeFile(fileUrl, fileName) {
         this.fileSer.downloadFile(fileUrl, fileName);
         // this.inAppBrowser.create(`https://view.officeapps.live.com/op/view.aspx?src=${fileUrl}`, '_system');
     }
 
+    openPDF(file) {
+        let modal = this.modalCtrl.create(ViewFilePage, {
+            displayData: {
+                pdfSource: {
+                    url: file.fileUrl
+                },
+                title: file.fileName
+            },
+
+        });
+        modal.present();
+    }
+
     //课程详情、课程章节、相关课程、课程评价
     async getProductInfo() {
-        let loading = this.loadCtrl.create({
-            content: '课程正在打开...'
-        });
-        loading.present();
         const data = {
             pid: this.pId
         };
@@ -117,13 +129,7 @@ export class CourseDetailPage {
 
             }
         );
-
-        // await this.learSer.GetCommentSumByNative(data1).then(
-        //     (res) => {
-        //
-        //     }
-        // );
-        await loading.dismiss();
+        this.loading.dismiss();
     }
 
     f(data) {
@@ -132,7 +138,6 @@ export class CourseDetailPage {
                 this.files = this.files.concat(data[i].files);
             }
             if (data[i].children.length > 0) this.f(data[i].children);
-            console.log(this.files);
         }
     }
 
@@ -174,13 +179,6 @@ export class CourseDetailPage {
                 this.ionViewDidLoad();
             }
         )
-
-        // this.learSer.CancelSubscribeByNative(data).then(
-        //     (res) => {
-        //         this.commonSer.toast('取消关注成功');
-        //         this.ionViewDidLoad();
-        //     }
-        // )
     }
 
     //教师评价
@@ -259,12 +257,6 @@ export class CourseDetailPage {
                 this.ionViewDidLoad();
             }
         )
-
-        // this.learSer.CancelCollectionByCSIDByNative(data).then(
-        //     (res) => {
-        //         this.ionViewDidLoad();
-        //     }
-        // )
     }
 
     getInfo(e) {
