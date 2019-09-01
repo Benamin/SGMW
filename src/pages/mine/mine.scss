@@ -4,6 +4,12 @@ page-mine {
     background-color: #343435;
     position: relative;
   }
+  .logo{
+    text-align: center;
+    img{
+      width: 50%;
+    }
+  }
 
   //个人信息区域
   .mine-info {
@@ -12,10 +18,10 @@ page-mine {
     right: 20px;
     bottom: -50px;
     width: calc(100% - 40px);
-    height: 100%;
+    height: 90%;
     background-color: #fff;
     border-radius: 6px;
-    padding: 20px;
+    padding:15px 20px;
   }
 
   .info-item{
@@ -64,12 +70,12 @@ page-mine {
     }
   }
   .info-item + .info-item{
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   //列表区域
   .mine-list {
-    margin: 80px 20px;
+    margin: 65px 20px;
     background-color: #fff;
     border-radius: 6px;
   }
