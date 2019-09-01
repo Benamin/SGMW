@@ -1,6 +1,5 @@
 course-list {
   .learn-list {
-    padding: 10px;
 
     .course-item {
       display: flex;
@@ -20,17 +19,24 @@ course-list {
       .item-desc {
         width: 60%;
         padding-left: 5px;
-
+        display: flex;
+        flex-flow: row wrap;
         > p {
-          font-size: 16px;
+          font-size:1.5rem;
+          font-weight:400;
+          color:rgba(0,0,0,.9);
+          line-height:1.75rem;
           overflow: hidden;
           display: -webkit-box;
           text-overflow: ellipsis;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
+          align-self: flex-start;
         }
 
         .desc {
+          align-self: flex-end;
+          width: 100%;
           color: #999999;
           margin-top: 10px;
           span{

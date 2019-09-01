@@ -7,6 +7,9 @@ import {LearningPage} from "../learning/learning";
 import {GoodTeacherPage} from "./good-teacher/good-teacher";
 import {SearchPage} from "./search/search";
 import {NoDevPage} from "./no-dev/no-dev";
+import {Storage} from "@ionic/storage";
+import {NotificationPage} from "../mine/notification/notification";
+import {CourseDetailPage} from "../learning/course-detail/course-detail";
 
 @Component({
     selector: 'page-home',
@@ -22,11 +25,14 @@ export class HomePage {
     productList = new Array(5);  //产品体验
     teacherList = [];
     bannerList = [];
+    mineInfo;
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
-                private learnSer: LearnService, private commonSer: CommonService) {
+                private learnSer: LearnService, private commonSer: CommonService, private storage: Storage) {
 
-
+        this.storage.get('user').then(value => {
+            this.mineInfo = value;
+        })
     }
 
     ionViewDidLoad() {
@@ -92,10 +98,15 @@ export class HomePage {
                 this.saleList = res.data;
             }
         )
-
-        await this.homeSer.GetDictionaryByPCode('cpty').subscribe(
+        const data = {
+            "page": 1,
+            "pageSize": 5,
+            "IsHot": "true"
+        };
+        await this.learnSer.GetProductList(data).subscribe(
             (res) => {
-                this.productList = res.data;
+                this.productList = res.data.ProductList;
+                console.log(this.productList);
             }
         );
         await loading.dismiss();
@@ -107,7 +118,7 @@ export class HomePage {
     }
 
     goDev(title) {
-        this.navCtrl.push(NoDevPage,{title:title});
+        this.navCtrl.push(NoDevPage, {title: title});
     }
 
     //关注
@@ -143,6 +154,15 @@ export class HomePage {
 
     goToSearch() {
         this.navCtrl.push(SearchPage);
+    }
+
+    goToNotifation() {
+        this.navCtrl.push(NotificationPage);
+    }
+
+    //前往课程
+    goCourse(e) {
+        this.navCtrl.push(CourseDetailPage, {id: e.Id});
     }
 
 }

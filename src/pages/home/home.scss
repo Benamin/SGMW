@@ -3,18 +3,50 @@ page-home {
     justify-content: left;
     margin-left: 10px;
   }
+  .img-head{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .img-head + span{
+    font-size:1.5rem;
+    font-weight:600;
+    color:rgba(255,255,255,1);
+    line-height:2.08rem;
+  }
+  .toolbar-tips{
+    width: 3rem;
+    position: relative;
+    margin-right: 10px;
+    .tips-num{
+      position: absolute;
+      top: 0;
+      right: -5px;
+      width: 1.2rem;
+      height: 1.2rem;
+      background: #ff4f29;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 1rem;
+      line-height: 1.2rem;
+    }
+  }
 
   .toolbar-icon .button-inner {
     padding: 5px 10px;
     color: #fff;
-    background-color: #ADDAE9;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    background-color: #575758;
+    border-radius: 1.25rem;
     font-size: 14px;
 
     .search-icon {
       font-size: 24px;
     }
+  }
+
+  .search{
+    width: 7rem;
   }
 
   .bar-button-ios {
@@ -161,8 +193,8 @@ page-home {
 
       .sale-desc {
         position: absolute;
-        bottom: 20px;
-        left: 10px;
+        bottom: 10px;
+        left: 14px;
         color: #fff;
 
         p {
@@ -196,7 +228,7 @@ page-home {
     font-size: 18px;
     position: relative;
     padding-left: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
   }

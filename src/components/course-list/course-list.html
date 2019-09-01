@@ -1,14 +1,14 @@
 <div class="learn-list">
   <div class="course-item" *ngFor="let item of list" (click)="getItem(item)">
     <div class="item-img">
-      <img [src]="item.ImageUrl">
+      <img [src]="item?.ImageUrl">
     </div>
     <div class="item-desc">
-      <p>{{item.Title}}</p>
+      <p>{{item?.Title}}</p>
       <div class="desc">
-        <span>{{item.SubjectName}}</span>
-        <span><ion-icon style="vertical-align: text-bottom" name="text"></ion-icon>{{item.ZanCount}}</span>
-        <span><ion-icon style="vertical-align: middle" name="heart"></ion-icon>{{item.CollectionCount}}</span>
+        <span>{{item?.SubjectName}}</span>
+        <span><ion-icon style="vertical-align: text-bottom" name="text"></ion-icon>{{item?.ZanCount}}</span>
+        <span><ion-icon style="vertical-align: middle" name="heart"></ion-icon>{{item?.CollectionCount}}</span>
       </div>
     </div>
   </div>

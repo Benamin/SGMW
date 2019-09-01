@@ -5,9 +5,17 @@
                   name="arrow-forward"></ion-icon>
         <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon" name="arrow-down"></ion-icon>
     </p>
-    <tree-list *ngIf="item.children.length > 0 && !item.show" [treeList]="item.children"></tree-list>
+    <tree-list *ngIf="item.children.length > 0 && !item.show" [IsBuy]="IsBuy" [treeList]="item.children"></tree-list>
     <div *ngFor="let item of item.files">
         <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="handle(item,$event)">{{item.filename}}
             <span class="file-icon">{{item.icon}}</span></p>
     </div>
+    <ng-container *ngIf="IsBuy">
+        <div *ngFor="let item of item.tags">
+            <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="handleExam(item,$event)">
+                <span class="exam">
+                    {{item.label}}
+                </span>
+        </div>
+    </ng-container>
 </div>

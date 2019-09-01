@@ -2,13 +2,20 @@
     <ion-navbar style="padding-right: 0">
         <ion-buttons start>
             <button ion-button icon-only class="search-button">
-                <img class="toolbar-img" src="../../assets/imgs/home/logo@2x.png">
+                <img class="img-head" src="{{mineInfo?.HeadPhoto}}" alt="">
+                <span>你好，{{mineInfo?.LoginName}}</span>
             </button>
         </ion-buttons>
         <ion-buttons end class="navbar-search" (click)="goToSearch()">
             <button ion-button icon-only class="toolbar-icon">
                 <ion-icon class="search-icon" name="search"></ion-icon>
-                搜索课程
+                <ion-input class="search" placeholder="搜索课程"  autocomplete='off'></ion-input>
+            </button>
+        </ion-buttons>
+        <ion-buttons end class="navbar-search" (click)="goToNotifation()">
+            <button ion-button icon-only class="toolbar-tips">
+                <img src="../../assets/imgs/home/tips.png" alt="">
+                <span class="tips-num">2</span>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -45,7 +52,7 @@
             <span class="float-more" (click)="moreCourse()">
            更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span></p>
         <div class="item">
-           <course-list [list]="null"></course-list>
+           <course-list [list]="productList" (done)="goCourse($event)"></course-list>
         </div>
     </div>
 

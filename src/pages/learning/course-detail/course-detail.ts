@@ -68,6 +68,7 @@ export class CourseDetailPage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                console.log(this.product.detail.IsBuy);
                 this.getProductInfo();
                 this.getFileInfo();
             }
@@ -91,20 +92,6 @@ export class CourseDetailPage {
     ionViewDidLeave() {
         console.log('leave');
         this.appSer.setFile(null);
-    }
-
-
-    openPDF(file) {
-        let modal = this.modalCtrl.create(ViewFilePage, {
-            displayData: {
-                pdfSource: {
-                    url: file.fileUrl
-                },
-                title: file.filename
-            },
-
-        });
-        modal.present();
     }
 
     //固定navbar

@@ -1,0 +1,18 @@
+page-no-dev {
+    .no-dev{
+      width: 100%;
+      height: 100%;
+      .content{
+        width:60%;
+        margin: 35% auto;
+        text-align: center;
+        p{
+          margin-top: 10px;
+          font-size:1.5rem;
+          font-weight:400;
+          color:rgba(0,0,0,.4);
+          line-height:1.83rem;
+        }
+      }
+    }
+}

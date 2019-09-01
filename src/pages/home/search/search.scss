@@ -2,12 +2,18 @@ page-search {
   .back-button.show-back-button{
     display: none;
   }
+  .text-input-ios {
+    margin: 7px 8px 11px 0;
+    padding: 0;
+    width: calc(100% - 8px);
+  }
   ion-input, ion-textarea{
     color: #333;
     background-color: #fff;
     border-radius: 100px;
     padding-left: 35px;
-    margin-left: 10px;
+    margin-left: 20px;
+    height: 2.5rem;
   }
   .header-ios .toolbar-ios:last-child .toolbar-background-ios{
     border: none;
@@ -35,8 +41,8 @@ page-search {
   }
   .search-icon{
     position: absolute;
-    top: 7px;
-    left: 20px;
+    top: 5px;
+    left: 30px;
     color: #333;
     z-index: 999;
     font-size: 2.5rem;

@@ -35,6 +35,7 @@ export class TreeListComponent {
         event.stopPropagation();
     }
 
+    //文件处理
     handle(file, event) {
         if (this.IsBuy) {
             if (file.icon.includes('mp4')) {
@@ -48,6 +49,11 @@ export class TreeListComponent {
         } else {
             this.commonSer.toast('请先报名');
         }
+    }
+
+    //作业处理
+    handleExam(exam,ev){
+        ev.stopPropagation();
     }
 
     viewOfficeFile(fileUrl, fileName) {
