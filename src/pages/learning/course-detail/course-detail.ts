@@ -236,7 +236,7 @@ export class CourseDetailPage {
         };
         this.learSer.BuyProduct(data).subscribe(
             (res) => {
-                this.ionViewDidLoad();
+                this.ionViewDidEnter();
                 this.initStudy();
                 this.signObj.isSign = true;
                 timer(1000).subscribe(() => this.signObj.isSign = false);
@@ -264,7 +264,7 @@ export class CourseDetailPage {
         };
         this.learSer.SaveCollectionByCSID(data).subscribe(
             (res) => {
-                this.ionViewDidLoad();
+                this.ionViewDidEnter();
                 this.collectionObj.isCollection = true;
                 timer(1000).subscribe(() => this.collectionObj.isCollection = false);
             }
@@ -278,7 +278,7 @@ export class CourseDetailPage {
         };
         this.learSer.CancelCollectionByCSID(data).subscribe(
             (res) => {
-                this.ionViewDidLoad();
+                this.ionViewDidEnter();
             }
         )
     }

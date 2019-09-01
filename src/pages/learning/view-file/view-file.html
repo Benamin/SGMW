@@ -17,6 +17,8 @@
                 [zoom]=1
                 [render-text]="false"
                 [autoresize]="true"
+                (error)="onError($event)"
+                (on-progress)="progress($event)"
                 (after-load-complete)="afterLoad($event)"
                 style="display: block">
     </pdf-viewer>

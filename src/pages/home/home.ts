@@ -6,6 +6,7 @@ import {CommonService} from "../../core/common.service";
 import {LearningPage} from "../learning/learning";
 import {GoodTeacherPage} from "./good-teacher/good-teacher";
 import {SearchPage} from "./search/search";
+import {NoDevPage} from "./no-dev/no-dev";
 
 @Component({
     selector: 'page-home',
@@ -100,9 +101,19 @@ export class HomePage {
         await loading.dismiss();
     }
 
-    async focusHandle() {
+    //更多课程
+    moreCourse() {
+        this.navCtrl.parent.select(1);
+    }
+
+    goDev(title) {
+        this.navCtrl.push(NoDevPage,{title:title});
+    }
+
+    //关注
+    async focusHandle(item) {
         const data = {
-            TopicID: this.teacherList[this.personrType].UserID
+            TopicID: item.UserID
         };
         await this.learnSer.SaveSubscribe(data).subscribe(
             (res) => {
@@ -112,9 +123,10 @@ export class HomePage {
         await this.getGoodsTeacher();
     }
 
-    async cancleFocusHandle() {
+    //取消关注
+    async cancleFocusHandle(item) {
         const data = {
-            TopicID: this.teacherList[this.personrType].UserID
+            TopicID: item.UserID
         };
         this.learnSer.CancelSubscribe(data).subscribe(
             (res) => {

@@ -20,12 +20,14 @@ export class TreeListComponent {
     }
 
     openPDF(file) {
+        console.log(file);
         let modal = this.modalCtrl.create(ViewFilePage, {
             displayData: {
                 pdfSource: {
                     url: file.fileUrl
                 },
-                title: file.filename
+                title: file.filename,
+                Size:file.Size * 1024
             },
 
         });

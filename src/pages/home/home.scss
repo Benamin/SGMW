@@ -1,33 +1,40 @@
 page-home {
-  .button-inner{
+  .button-inner {
     justify-content: left;
     margin-left: 10px;
   }
-  .toolbar-icon .button-inner{
+
+  .toolbar-icon .button-inner {
     padding: 5px 10px;
     color: #fff;
     background-color: #ADDAE9;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
     font-size: 14px;
-    .search-icon{
+
+    .search-icon {
       font-size: 24px;
     }
   }
-  .bar-button-ios{
+
+  .bar-button-ios {
     height: 28px;
   }
-  .navbar-search{
+
+  .navbar-search {
     margin: 0;
   }
-  .toolbar-img{
+
+  .toolbar-img {
     width: 50%;
   }
-  .banner{
+
+  .banner {
     height: 140px;
     background-color: #343435;
     position: relative;
-    .img{
+
+    .img {
       position: absolute;
       border-radius: 10px;
       left: 50%;
@@ -35,24 +42,28 @@ page-home {
       top: 60%;
       transform: translate(-50%, -50%);
     }
-    .banner-tips{
+
+    .banner-tips {
       position: absolute;
       right: 0px;
       bottom: 20px;
       width: 160px;
       padding: 5px 10px;
       font-weight: bold;
-      background-image: linear-gradient(to right , #ffffff, #fce6ad);
+      background-image: linear-gradient(to right, #ffffff, #fce6ad);
     }
-    ion-slides,ion-slide{
+
+    ion-slides, ion-slide {
       height: 180px;
       align-items: flex-end;
     }
-    img{
+
+    img {
       height: 150px;
       border-radius: 10px;
     }
   }
+
   .item {
     display: flex;
     justify-content: center;
@@ -63,118 +74,136 @@ page-home {
     text-align: center;
     width: 50%;
   }
-  .m11_img2{
-    background-image: url('../assets/imgs/home/m11_img2.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: #ffffff;
-  }
-  .m11_img{
+
+  .m11_img {
     color: #ffffff;
     position: relative;
-    img{
+
+    img {
       width: 100%;
     }
   }
-  .right-font1,.right-font2{
+
+  .right-font1, .right-font2 {
     position: absolute;
     left: 20px;
     bottom: 20px;
     text-align: left;
-    p:first-child{
+
+    p:first-child {
       font-weight: bold;
     }
-    p:last-child{
+
+    p:last-child {
       font-size: 12px;
     }
   }
-  .left-font{
+
+  .left-font {
     position: absolute;
     bottom: 20px;
     left: 10px;
     width: 100%;
     text-align: left;
     border-radius: 5px;
-    p:first-child{
+
+    p:first-child {
       font-weight: bold;
     }
-    p:last-child{
+
+    p:last-child {
       font-size: 12px;
     }
   }
-  .img-font{
+
+  .img-font {
     position: absolute;
     bottom: 20px;
     left: 10px;
     text-align: left;
     width: 100%;
-    p:first-child{
+
+    p:first-child {
       font-weight: bold;
     }
-    p:last-child{
+
+    p:last-child {
       font-size: 12px;
     }
   }
-  .sale{
-    padding: 10px;
-    margin-top: 50px;
+
+  .sale {
+    padding: 1rem 2rem;
+    margin-top: 20px;
     margin-bottom: 10px;
     overflow: hidden;
 
-    .sale-box{
+    .sale-box {
       display: flex;
     }
-    .scroll-tab{
+
+    .scroll-tab {
       overflow-y: hidden;
       overflow-x: scroll;
       width: 100%;
       height: 90px;
     }
-    .sale-content{
+
+    .sale-content {
       white-space: nowrap;
     }
 
-    .sale-item{
+    .sale-item {
       width: 40%;
       display: inline-block;
       position: relative;
       margin-right: 20px;
-      .sale-desc{
+
+      .sale-desc {
         position: absolute;
         bottom: 20px;
         left: 10px;
         color: #fff;
-        p{
-          padding:5px;
+
+        p {
+          padding: 5px;
         }
-        p:first-child{
+
+        p:first-child {
           color: #ffffff;
           font-weight: bold;
           font-size: 16px;
         }
-        p:last-child{
-          background-image: linear-gradient(to right , #fce6ad, #fff4d9);
+
+        p:last-child {
+          background-image: linear-gradient(to right, #fce6ad, #fff4d9);
           border-radius: 6px;
           font-size: 12px;
         }
       }
     }
   }
-  .product{
-    padding: 10px;
+
+  .product {
+    padding:0 2rem;
+    margin-top: 30px;
   }
+
   .sale > p:first-child,
   .person > p:first-child,
-  .product > p:first-child{
+  .product > p:first-child {
     font-weight: bold;
     font-size: 18px;
     position: relative;
     padding-left: 15px;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
   }
+
   .sale > p:first-child::before,
   .person > p:first-child::before,
-  .product > p:first-child::before{
+  .product > p:first-child::before {
     content: '';
     width: 4px;
     height: 100%;
@@ -182,102 +211,89 @@ page-home {
     left: 0;
     top: 0;
     border-radius: 4px;
-    background-image: linear-gradient(to bottom , #fee6a3, #feca46);
+    background-image: linear-gradient(to bottom, #fee6a3, #feca46);
   }
-  .person{
-    background-color: #343435;
-    color: #ffffff;
-    padding: 15px;
-    .person-type{
+
+  .new-module {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+
+    > div {
+      flex: 1;
       text-align: center;
-      width: 80%;
-      margin: 20px auto;
-      height: 40px;
-      background-color: #404042;
-      font-size: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50px;
-      div{
-        padding: 8px 30px;
-        font-size: 14px;
-        font-weight: bold;
-        width: 50%;
-        transition: all 500ms;
+
+      img {
+        width: 30%;
       }
-      div:first-child{
-        border-top-left-radius: 50px;
-        border-bottom-left-radius: 50px;
-      }
-      div:last-child{
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;
-      }
-      div.select{
-        background-image: linear-gradient(to right , #ffffff, #fce6ad);
-        color: #333333;
-        border-radius: 50px;
-      }
-    }
-    .person-img{
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
-      img{
-        border-radius: 50%;
-        transition: all 100ms;
-        width: 5rem;
-        height: 5rem;
-      }
-      img.select{
-        border: 5px solid #fed25b;
-      }
-    }
-    .person-desc{
-      background-color: #fff;
-      color: #333333;
-      padding: 15px 10px;
-      margin-top:15px;
-      border-radius: 10px;
-      position: relative;
-      .angular{
-        position: absolute;
-        top: -19px;
-        left: 25px;
-        border-bottom: 10px solid #ffffff;
-        border-top: 10px solid transparent;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        transition: all 500ms;
-      }
-      .focus{
-        background-color: #ADDAE9;
-        float: right;
-        padding: 3px 20px;
-        border-radius: 20px;
-        line-height: 25px;
-        font-size: 14px;
-      }
-      .desc-title{
-        padding: 10px 0;
-        font-size: 18px;
-        height: 55px;
-        line-height: 35px;
-      }
-      .desc-desc{
-        color: #999;
-        letter-spacing: 2px;
-        overflow: hidden;
-        display: -webkit-box;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
+
+      p {
+        font-size: 1rem;
+        font-weight: 400;
+        color: rgba(102, 102, 102, 1);
+        line-height: 17px;
+        margin-top: 5px;
       }
     }
   }
 
+  .person {
+    padding: 1rem 2rem;
+  }
+
+  .teacher {
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0rem 0.08rem 0.67rem 0rem rgba(0, 0, 0, 0.1);
+  }
+
+  .teacher-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .headPhoto {
+      img {
+        width: 70%;
+      }
+
+      text-align: center;
+    }
+
+    > div {
+      flex: 1;
+    }
+
+    > div:nth-child(2) {
+      flex: 2;
+      padding-left: 10px;
+    }
+
+    .focus {
+      background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+      float: right;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+  }
+
+  .teacher-info + .teacher-info {
+    margin-top: 10px;
+  }
+
+  .teacher + .teacher {
+    border-top: 1px solid #dddddd;
+  }
+
+  .float-more {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, .7);
+    line-height: 1.42rem;
+    margin-left: auto;
+  }
 
 }

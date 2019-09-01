@@ -14,22 +14,47 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content style="background:rgba(248,248,248,1);">
     <div class="banner">
         <div class="img">
             <ion-slides>
                 <ion-slide *ngFor="let item of bannerList">
                     <img [src]="item.SourceUrl">
-<!--                    <div class="banner-tips">-->
-<!--                        {{item.Title}}-->
-<!--                    </div>-->
                 </ion-slide>
             </ion-slides>
         </div>
     </div>
-    <!--  销售运营-->
+    <!--  新模块  -->
+    <div class="new-module" >
+        <div (click)="goDev('资讯')"><img src="../../assets/imgs/home/news@2x.png" alt="">
+            <p>资讯</p>
+        </div>
+        <div (click)="goDev('状元说')"><img src="../../assets/imgs/home/zys@2x.png" alt="">
+            <p>状元说</p>
+        </div>
+        <div (click)="goDev('排行榜')"><img src="../../assets/imgs/home/rank@2x.png" alt="">
+            <p>排行榜</p>
+        </div>
+        <div (click)="goDev('考试')"><img src="../../assets/imgs/home/ks@2x.png" alt="">
+            <p>考试</p>
+        </div>
+    </div>
+    <!--  热门课程-->
+    <div class="product">
+        <p>热门课程
+            <span class="float-more" (click)="moreCourse()">
+           更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span></p>
+        <div class="item">
+           <course-list [list]="null"></course-list>
+        </div>
+    </div>
+
+    <!--  课程分类-->
     <div class="sale">
-        <p>课程分类</p>
+        <p>课程分类
+            <span class="float-more" (click)="moreCourse()">
+           更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
+        </p>
         <div class="sale-box">
             <div class="scroll-tab">
                 <div class="sale-content">
@@ -43,76 +68,26 @@
             </div>
         </div>
     </div>
-    <div class="space"></div>
-    <!--  产品体验-->
-    <div class="product" style="padding:0 15px;">
-        <p>产品体验</p>
-        <div class="item">
-            <div class="m11_img" style="height: 160px" (click)="goToLearn(0)">
-                <img src="../../assets/imgs/home/{{productList[0]?.TypeCode}}.jpg" alt="">
-                <div class="left-font">
-                    <p>{{productList[0]?.TypeName}}</p>
-                    <p>{{productList[0]?.HourCount}}小时/超过{{productList[0]?.CourseCount}}门课程</p>
-                </div>
-            </div>
-            <div style="height: 160px" (click)="goToLearn(1)">
-                <div class="m11_img" style="padding: 0 0 4px 8px;height: 80px">
-                    <img src="../../assets/imgs/home/{{productList[1]?.TypeCode}}.jpg" style="height: 76px">
-                    <div class="right-font1">
-                        <p>{{productList[1]?.TypeName}}</p>
-                        <p>{{productList[1]?.HourCount}}小时/超过{{productList[1]?.CourseCount}}门课程</p>
-                    </div>
-                </div>
-                <div class="m11_img" style="padding: 4px 0 0 8px;height: 80px" (click)="goToLearn(2)">
-                    <img src="../../assets/imgs/home/{{productList[2]?.TypeCode}}.jpg" style="height: 76px">
-                    <div class="right-font2">
-                        <p>{{productList[2]?.TypeName}}</p>
-                        <p>{{productList[2]?.HourCount}}小时/超过{{productList[2]?.CourseCount}}门课程</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="padding:0 10px;" class="item">
-        <div class="m11_img" style="padding: 5px;" (click)="goToLearn(3)">
-            <img src="../../assets/imgs/home/{{productList[3]?.TypeCode}}.jpg" alt="">
-            <div class="img-font">
-                <p>{{productList[3]?.TypeName}}</p>
-                <p>{{productList[3]?.HourCount}}小时/超过{{productList[3]?.CourseCount}}门课程</p>
-            </div>
-        </div>
-        <div class="m11_img" style="padding: 5px;" (click)="goToLearn(4)">
-            <img src="../../assets/imgs/home/{{productList[4]?.TypeCode}}.jpg" alt="">
-            <div class="img-font">
-                <p>{{productList[4]?.TypeName}}</p>
-                <p>{{productList[4]?.HourCount}}小时/超过{{productList[4]?.CourseCount}}门课程</p>
-            </div>
-        </div>
-    </div>
     <div class="person">
-        <p>优秀教师
-        <span float-end style="font-size: 1.3rem" (click)="moreTeacher()">更多</span></p>
-        <div #imgWidth class="person-img">
-            <ng-container *ngFor="let img of teacherList;let i = index;">
-                <img *ngIf="img.HeadPhoto" [ngClass]="{'select':personrType == i}" (click)="selectPerson(i)"
-                     [src]="img.HeadPhoto">
-                <img *ngIf="!img.HeadPhoto" [ngClass]="{'select':personrType == i}" (click)="selectPerson(i)"
-                     src="../../assets/imgs/home/goodTeacher.png">
-            </ng-container>
-        </div>
-        <div class="person-desc">
-            <span #angular class="angular"></span>
-            <div class="desc-title">
-                {{teacherList[personrType]?.UserName}}
-                <span class="focus" *ngIf="teacherList[personrType]?.IsSubscribe == false"
-                      (click)="focusHandle()">关注</span>
-                <span class="focus" style="background-color:rgba(0,0,0,.2);color:#fff;" *ngIf="teacherList[personrType]?.IsSubscribe == true"
-                      (click)="cancleFocusHandle()">已关注</span>
-            </div>
-            <div class="desc-desc">
-                {{teacherList[personrType]?.Remark}}
+        <p>金牌教师<span class="float-more" (click)="moreTeacher()">
+           更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
+        </p>
+        <div class="teacher">
+            <div class="teacher-info" *ngFor="let item of teacherList">
+                <div class="headPhoto">
+                    <img [src]="item.HeadPhoto">
+                </div>
+                <div class="name">
+                    <p style="font-weight: bold">{{item.UserName}}</p>
+                    <p>{{item.Position || ' '}}</p>
+                </div>
+                <div class="focuscontent">
+                    <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item)" class="focus">关注</span>
+                    <span *ngIf="item.IsSubscribe == true" style="background:rgba(0,0,0,.2);color: #ffffff"
+                          (click)="cancleFocusHandle(item)"
+                          class="focus">已关注</span>
+                </div>
             </div>
         </div>
     </div>
-    <!--  优秀教师-->
 </ion-content>

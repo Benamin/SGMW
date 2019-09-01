@@ -4,12 +4,14 @@ import {HomePage} from "./home";
 import {SearchPage} from "./search/search";
 import {GoodTeacherPage} from "./good-teacher/good-teacher";
 import {ComponentsModule} from "../../components/components.module";
+import {NoDevPage} from "./no-dev/no-dev";
 
 @NgModule({
     declarations: [
         HomePage,
         SearchPage,
-        GoodTeacherPage
+        GoodTeacherPage,
+        NoDevPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -17,7 +19,8 @@ import {ComponentsModule} from "../../components/components.module";
     ],
     entryComponents: [
         SearchPage,
-        GoodTeacherPage
+        GoodTeacherPage,
+        NoDevPage
     ]
 })
 export class HomeModule {

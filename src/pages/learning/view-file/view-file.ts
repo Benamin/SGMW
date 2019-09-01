@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {PDFDocumentProxy} from "pdfjs-dist";
+import {CommonService} from "../../../core/common.service";
 
 @Component({
     selector: 'page-view-file',
@@ -10,21 +11,43 @@ export class ViewFilePage {
 
     displayData: any = {};
     totalPage;
+    uploadLoading;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,
-                private viewCtrl: ViewController) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private commerSer: CommonService,
+                private viewCtrl: ViewController, private loadingCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
         this.displayData = this.navParams.get('displayData');
-    }
-
-    afterLoad(pdf: PDFDocumentProxy) {
-        this.totalPage = pdf.numPages;
+        console.log(this.displayData);
+        this.uploadLoading = this.loadingCtrl.create({
+            content: '加载中...',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.uploadLoading.present();
     }
 
     cancel() {
         this.viewCtrl.dismiss();
+    }
+
+    //加载进度条
+    progress(ev) {
+        console.log(ev);
+        let progress = Math.round(100.0 * ev.loaded / this.displayData.Size);
+        this.uploadLoading.setContent('加载中...' + progress + '%');
+    }
+
+    //加载完成
+    afterLoad(pdf: PDFDocumentProxy) {
+        this.uploadLoading.dismiss();
+        this.totalPage = pdf.numPages;
+    }
+
+    //加载出错
+    onError(ev) {
+        this.commerSer.alert(JSON.stringify(ev));
     }
 
 }
