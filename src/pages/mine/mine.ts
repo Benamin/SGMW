@@ -45,6 +45,7 @@ export class MinePage {
         this.navCtrl.push(MycollectionPage);
     }
 
+    //我的作业
     goExam() {
         this.navCtrl.push(ExamPage);
     }

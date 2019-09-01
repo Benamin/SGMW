@@ -1,14 +1,20 @@
 tree-list {
-  .list{
+  .list {
     //padding: 10px 0;
+    img {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
   }
-  .more-icon{
+
+  .more-icon {
     float: right;
     margin-top: 2px;
     color: #666;
     margin-right: 10px;
   }
-  .file-icon{
+
+  .file-icon {
     padding: 0px 5px;
     border: 1px solid #66a0eb;
     border-radius: 4px;
@@ -16,19 +22,21 @@ tree-list {
     color: #ffffff;
     margin-left: 10px;
   }
-  .exam{
+
+  .exam {
     padding: 3px 8px;
-    background:rgba(255,201,45,.3);
-    border-radius:0.17rem;
+    background: rgba(255, 201, 45, .3);
+    border-radius: 0.17rem;
     position: relative;
   }
-  .exam::before{
+
+  .exam::before {
     content: '';
     position: absolute;
     top: 0;
     left: -3px;
-    width:0.25rem;
-    height:100%;
-    background:linear-gradient(241deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+    width: 0.25rem;
+    height: 100%;
+    background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
   }
 }

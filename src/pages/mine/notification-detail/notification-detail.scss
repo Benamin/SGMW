@@ -1,3 +1,28 @@
 page-notification-detail {
+  .main-content{
+    background-color: #ffffff;
+    padding: 2rem 1rem;
+  }
 
+  .title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 1);
+    line-height: 2.33rem;
+    margin-bottom: 1rem;
+  }
+
+  .createTime {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, .4);
+    line-height: 1.5rem;
+    margin-bottom: 1.4rem;
+  }
+  .content{
+    font-size:1.5rem;
+    font-weight:400;
+    color:rgba(0,0,0,.8);
+    line-height:1.83rem;
+  }
 }

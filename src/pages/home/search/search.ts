@@ -16,16 +16,22 @@ export class SearchPage {
         page: '1',
         pageSize: "2000"
     };
+    show;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,private keyboard:Keyboard,
+    constructor(public navCtrl: NavController, public navParams: NavParams, private keyboard: Keyboard,
                 private learnSer: LearnService, private loadCtrl: LoadingController) {
+        this.show = true;
     }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad SearchPage');
     }
 
+    ionViewDidLeave() {
+    }
+
     clear() {
+        this.show = false;
         this.navCtrl.pop();
     }
 
@@ -45,7 +51,7 @@ export class SearchPage {
         }
     }
 
-    showKey(){
+    showKey() {
         this.keyboard.show();
     }
 

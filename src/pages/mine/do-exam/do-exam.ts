@@ -35,7 +35,7 @@ export class DoExamPage {
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            this.commonSer.alert("是否退出当前测试？", (res) => {
+            this.commonSer.alert("确定要放弃答案吗？", (res) => {
                 this.navCtrl.pop();
             })
         };

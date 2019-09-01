@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
+import {NotificationDetailPage} from "../notification-detail/notification-detail";
 
 @Component({
   selector: 'page-notification',
@@ -35,7 +36,7 @@ export class NotificationPage {
   }
 
   goDetail(e) {
-    this.navCtrl.push(CourseDetailPage, {id: e.Id});
+    this.navCtrl.push(NotificationDetailPage, {id: e.Id});
   }
 
   doInfinite(e) {

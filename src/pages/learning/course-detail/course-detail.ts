@@ -62,7 +62,7 @@ export class CourseDetailPage {
     async ionViewDidEnter() {
         this.scrollHeight();
         this.loading = this.loadCtrl.create({
-            content: '课程正在打开...'
+            content: ''
         });
         this.loading.present();
         await this.learSer.GetProductById(this.pId).subscribe(

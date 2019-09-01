@@ -40,18 +40,18 @@ export class CheckCodeComponent {
         ctx.fillStyle = this.randomColor(180, 240);//填充画布颜色
         ctx.fillRect(0, 0, _width, _height);//填充矩形--画画
         for (let i = 0; i < _num; i++) {
-            let x = (_width) / _num * i ;
-            let y = this.randomNum(_height , _height);
-            let deg = this.randomNum(-45, 45);
-            let txt = _str[this.randomNum(0, _str.length)];
+            let x = (_width-10)/_num*i+10;
+            let y = this.randomNum(_height/2,_height);
+            let deg = this.randomNum(-45,45);
+            let txt = _str[this.randomNum(0,_str.length)];
             _picTxt += txt;//获取一个随机数
-            ctx.fillStyle = this.randomColor(10, 100);//填充随机颜色
-            ctx.font = this.randomNum(16, 40) + "px SimHei";//设置随机数大小，字体为SimHei
-            ctx.translate(x, y);//将当前xy坐标作为原始坐标
-            ctx.rotate(deg * Math.PI / 180);//旋转随机角度
-            ctx.fillText(txt, 0, 0);//绘制填色的文本
-            ctx.rotate(-deg * Math.PI / 180);
-            ctx.translate(-x, -y);
+            ctx.fillStyle = this.randomColor(10,100);//填充随机颜色
+            ctx.font = this.randomNum(16,40)+"px SimHei";//设置随机数大小，字体为SimHei
+            ctx.translate(x,y);//将当前xy坐标作为原始坐标
+            ctx.rotate(deg*Math.PI/180);//旋转随机角度
+            ctx.fillText(txt, 0,0);//绘制填色的文本
+            ctx.rotate(-deg*Math.PI/180);
+            ctx.translate(-x,-y);
         }
         for (let i = 0; i < _num; i++) {
             //定义笔触颜色

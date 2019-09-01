@@ -34,7 +34,6 @@ export class ViewFilePage {
 
     //加载进度条
     progress(ev) {
-        console.log(ev);
         let progress = Math.round(100.0 * ev.loaded / this.displayData.Size);
         this.uploadLoading.setContent('加载中...' + progress + '%');
     }

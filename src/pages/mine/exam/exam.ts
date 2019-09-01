@@ -31,7 +31,7 @@ export class ExamPage {
                 private loadCtrl: LoadingController) {
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.getList();
     }
 

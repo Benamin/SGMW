@@ -6,9 +6,23 @@ page-login {
 
   .login {
     height: 100%;
-    background-image: url('../assets/imgs/login/login_bg.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    position: relative;
+
+    .back-img {
+      height: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .login-form {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
   }
 
   .logo {
@@ -32,15 +46,18 @@ page-login {
       font-size: 16px;
       margin-bottom: 20px;
     }
-    .check{
+
+    .check {
       position: relative;
-      .flash{
+
+      .flash {
         position: absolute;
         bottom: 10px;
         right: 18px;
         width: 20px;
       }
-      .checkCode{
+
+      .checkCode {
         position: absolute;
         top: 5px;
         right: 45px;
@@ -54,13 +71,15 @@ page-login {
     margin: 40px auto;
     height: 40px;
     line-height: 40px;
-    background-image: linear-gradient(to right , #fecc4b, #feeaa5);
+    background-image: linear-gradient(to right, #fecc4b, #feeaa5);
     border-radius: 100px;
+
     img {
       height: 60px;
     }
   }
-  .scroll-content{
+
+  .scroll-content {
     margin-bottom: 0 !important;
   }
 }

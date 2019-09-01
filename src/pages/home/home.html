@@ -15,7 +15,7 @@
         <ion-buttons end class="navbar-search" (click)="goToNotifation()">
             <button ion-button icon-only class="toolbar-tips">
                 <img src="../../assets/imgs/home/tips.png" alt="">
-                <span class="tips-num">2</span>
+<!--                <span class="tips-num">2</span>-->
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -24,7 +24,7 @@
 <ion-content style="background:rgba(248,248,248,1);">
     <div class="banner">
         <div class="img">
-            <ion-slides>
+            <ion-slides pager>
                 <ion-slide *ngFor="let item of bannerList">
                     <img [src]="item.SourceUrl">
                 </ion-slide>
@@ -76,12 +76,12 @@
         </div>
     </div>
     <div class="person">
-        <p>金牌教师<span class="float-more" (click)="moreTeacher()">
+        <p>金牌讲师<span class="float-more" (click)="moreTeacher()">
            更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
         </p>
         <div class="teacher">
             <div class="teacher-info" *ngFor="let item of teacherList">
-                <div class="headPhoto">
+                <div class="headPhoto" (click)="teachDetail(item)">
                     <img [src]="item.HeadPhoto">
                 </div>
                 <div class="name">

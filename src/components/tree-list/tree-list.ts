@@ -2,9 +2,11 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AppService} from "../../app/app.service";
 import {EmitService} from "../../core/emit.service";
 import {ViewFilePage} from "../../pages/learning/view-file/view-file";
-import {ModalController} from "ionic-angular";
+import {ModalController, NavController} from "ionic-angular";
 import {FileService} from "../../core/file.service";
 import {CommonService} from "../../core/common.service";
+import {timer} from "rxjs/observable/timer";
+import {ExamPage} from "../../pages/mine/exam/exam";
 
 @Component({
     selector: 'tree-list',
@@ -16,7 +18,13 @@ export class TreeListComponent {
     @Output() fileData = new EventEmitter<any>();
 
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
-                private fileSer: FileService,private commonSer:CommonService) {
+                private fileSer: FileService, private commonSer: CommonService,
+                private navCtrl:NavController) {
+        timer(10).subscribe(
+            (res) => {
+                this.treeList.forEach(e => e.show = true);
+            }
+        )
     }
 
     openPDF(file) {
@@ -27,7 +35,7 @@ export class TreeListComponent {
                     url: file.fileUrl
                 },
                 title: file.filename,
-                Size:file.Size * 1024
+                Size: file.Size * 1024
             },
 
         });
@@ -52,8 +60,9 @@ export class TreeListComponent {
     }
 
     //作业处理
-    handleExam(exam,ev){
+    handleExam(exam, ev) {
         ev.stopPropagation();
+        this.navCtrl.push(ExamPage);
     }
 
     viewOfficeFile(fileUrl, fileName) {

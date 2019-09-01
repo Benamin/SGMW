@@ -26,9 +26,9 @@ export class LoginPage {
 
     //经销商
     jxs = {
-        Jxsh: '',
-        LoginName: '',
-        password: '',
+        Jxsh: '000000',
+        LoginName: '丁林玲',
+        password: 'sgmw50@',
         UserType: 'Teacher'
     };
 
@@ -37,7 +37,7 @@ export class LoginPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService) {
-        this.bodyHeight = document.documentElement.clientHeight
+        this.bodyHeight = document.documentElement.clientHeight;
     }
 
     ionViewDidLoad() {

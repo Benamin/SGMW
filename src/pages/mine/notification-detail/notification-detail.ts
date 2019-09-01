@@ -26,7 +26,7 @@ export class NotificationDetailPage {
         }
         this.mineSer.GetNewsById(data).subscribe(
             (res) => {
-
+                this.detail = res.data;
             }
         )
     }

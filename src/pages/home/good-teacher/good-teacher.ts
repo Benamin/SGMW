@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HomeService} from "../home.service";
 import {LearnService} from "../../learning/learn.service";
 import {CommonService} from "../../../core/common.service";
+import {TeacherPage} from "../../learning/teacher/teacher";
 
 @Component({
   selector: 'page-good-teacher',
@@ -53,5 +54,10 @@ export class GoodTeacherPage {
         }
     )
   }
+
+    //教师详情
+    teachDetail(item) {
+        this.navCtrl.push(TeacherPage, {item: item});
+    }
 
 }

@@ -11,8 +11,13 @@
                            refreshingSpinner="bubbles">
     </ion-refresher-content>
   </ion-refresher>
-  <div *ngFor="let item of notificationList" (click)="goDetail(item)">
-
+  <div class="main" *ngFor="let item of notificationList" (click)="goDetail(item)">
+    <p>{{item.CrateTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+    <div class="noti">
+      <span class="tips"></span>
+      <p>{{item.Title}}</p>
+      <p>{{item.Text}}</p>
+    </div>
   </div>
   <ion-list text-center style="margin-top: 10rem" *ngIf="notificationList.length == 0">
     <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">

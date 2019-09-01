@@ -10,6 +10,8 @@ import {NoDevPage} from "./no-dev/no-dev";
 import {Storage} from "@ionic/storage";
 import {NotificationPage} from "../mine/notification/notification";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
+import {TeacherPage} from "../learning/teacher/teacher";
+import {defaultImg} from "../../app/app.constants";
 
 @Component({
     selector: 'page-home',
@@ -26,6 +28,7 @@ export class HomePage {
     teacherList = [];
     bannerList = [];
     mineInfo;
+    defaultImg = defaultImg;
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage) {
@@ -80,8 +83,8 @@ export class HomePage {
         this.homeSer.GetGoodTeacherList().subscribe(
             (res) => {
                 this.teacherList = res.data.TeacherItems;
-                if (this.teacherList.length > 5) {
-                    this.teacherList.splice(5, this.teacherList.length - 5);
+                if (this.teacherList.length > 3) {
+                    this.teacherList.splice(3, this.teacherList.length - 3);
                 }
             }
         )
@@ -97,10 +100,12 @@ export class HomePage {
             (res) => {
                 this.saleList = res.data;
             }
-        )
+        );
         const data = {
             "page": 1,
-            "pageSize": 5,
+            "pageSize": 4,
+            "OrderBy": "CreateTime",
+            "IsAsc": "false",
             "IsHot": "true"
         };
         await this.learnSer.GetProductList(data).subscribe(
@@ -117,10 +122,6 @@ export class HomePage {
         this.navCtrl.parent.select(1);
     }
 
-    goDev(title) {
-        this.navCtrl.push(NoDevPage, {title: title});
-    }
-
     //关注
     async focusHandle(item) {
         const data = {
@@ -129,9 +130,9 @@ export class HomePage {
         await this.learnSer.SaveSubscribe(data).subscribe(
             (res) => {
                 this.commonSer.toast('关注成功');
+                this.getGoodsTeacher();
             }
         );
-        await this.getGoodsTeacher();
     }
 
     //取消关注
@@ -142,9 +143,9 @@ export class HomePage {
         this.learnSer.CancelSubscribe(data).subscribe(
             (res) => {
                 this.commonSer.toast('取消关注成功');
+                this.getGoodsTeacher();
             }
         )
-        await this.getGoodsTeacher();
     }
 
     //更多教师
@@ -158,6 +159,15 @@ export class HomePage {
 
     goToNotifation() {
         this.navCtrl.push(NotificationPage);
+    }
+
+    //教师详情
+    teachDetail(item) {
+        this.navCtrl.push(TeacherPage, {item: item});
+    }
+
+    goDev(title) {
+        this.navCtrl.push(NoDevPage, {title: title});
     }
 
     //前往课程

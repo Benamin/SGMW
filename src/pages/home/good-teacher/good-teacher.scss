@@ -8,7 +8,7 @@ page-good-teacher {
     justify-content: center;
     .headPhoto{
       img{
-        width: 70%;
+        width: 4rem;
       }
       text-align: center;
     }
@@ -38,6 +38,6 @@ page-good-teacher {
     display: -webkit-box;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
   }
 }
