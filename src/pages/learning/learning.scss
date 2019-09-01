@@ -8,11 +8,12 @@ page-learning {
     display: flex;
 
     > div {
-      width: 25%;
+      //width: 25%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       color: #ffffff;
+      padding: 3px 5px;
       min-height: 44px;
     }
   }
@@ -21,7 +22,7 @@ page-learning {
   .select {
     background-image: linear-gradient(to right, #fce6ad, #ffffff);
     color: #333333;
-    padding: 3px 10px;
+    padding: 3px 5px;
     border-radius: 50px;
   }
 

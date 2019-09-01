@@ -8,7 +8,7 @@
     <div class="main-content">
         <ng-container *ngIf="detail">
             <p class="title">{{detail?.Title}}</p>
-            <p class="createTime">{{detail?.CrateTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+            <p class="createTime">{{detail?.CrateTime}}</p>
             <div class="content">
                 <p [innerHTML]="detail?.Text"></p>
             </div>

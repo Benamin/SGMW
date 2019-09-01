@@ -12,7 +12,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="main" *ngFor="let item of notificationList" (click)="goDetail(item)">
-    <p>{{item.CrateTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+    <p>{{item.CrateTime}}</p>
     <div class="noti">
       <span *ngIf="item.Status == 0" class="tips"></span>
       <p>{{item.Title}}</p>
