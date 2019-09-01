@@ -9,6 +9,7 @@ import {CommonService} from "../../../core/common.service";
 import {FileService} from "../../../core/file.service";
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {ViewFilePage} from "../view-file/view-file";
+import {EmitService} from "../../../core/emit.service";
 
 
 @Component({
@@ -16,8 +17,8 @@ import {ViewFilePage} from "../view-file/view-file";
     templateUrl: 'course-detail.html',
 })
 export class CourseDetailPage {
-    @ViewChild('banner') banner:ElementRef;
-    @ViewChild('navbar') navbar:ElementRef;
+    @ViewChild('banner') banner: ElementRef;
+    @ViewChild('navbar') navbar: ElementRef;
     @ViewChild(Content) content: Content;
 
     pId;
@@ -28,11 +29,11 @@ export class CourseDetailPage {
     };
     learnList = [];
     navbarList = [
-        {type: '1', name: '简介',code:'desc'},
-        {type: '2', name: '章节',code:'chapter'},
-        {type: '3', name: '教师',code:'teacher'},
-        {type: '4', name: '评价',code:'comment'},
-        {type: '5', name: '相关',code:'relation'},
+        {type: '1', name: '简介', code: 'desc'},
+        {type: '2', name: '章节', code: 'chapter'},
+        {type: '3', name: '教师', code: 'teacher'},
+        {type: '4', name: '评价', code: 'comment'},
+        {type: '5', name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -48,18 +49,17 @@ export class CourseDetailPage {
     loading;
     bar = {
         type: "1",
-        show:false,
+        show: false,
     };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
-                public zone: NgZone,public renderer: Renderer2,
+                public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
-
     }
 
-    async ionViewDidLoad() {
+    async ionViewDidEnter() {
         this.scrollHeight();
         this.loading = this.loadCtrl.create({
             content: '课程正在打开...'
@@ -74,34 +74,25 @@ export class CourseDetailPage {
         );
     }
 
+    getInfo(event) {
+        console.log(event)
+    }
+
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
-                if (this.product.detail && this.product.detail.IsBuy) {
-                    console.log(value);
-                    if (value.icon.includes('mp4')) this.product.videoPath = value.fileUrl;
-                    if (value.icon.includes('pdf')) this.openPDF(value);
-                    if (!value.icon.includes('pdf') && !value.icon.includes('mp4')) {
-                        this.commonSer.toast('暂时只可预览pdf文件')
-                        // this.viewOfficeFile(value.fileUrl, value.filename);
-                    }
-                } else {
-                    this.commonSer.toast('请先报名');
-                }
+                this.product.videoPath = value.fileUrl;
             }
         });
     }
 
 
     ionViewDidLeave() {
+        console.log('leave');
         this.appSer.setFile(null);
     }
 
-    viewOfficeFile(fileUrl, fileName) {
-        this.fileSer.downloadFile(fileUrl, fileName);
-        // this.inAppBrowser.create(`https://view.officeapps.live.com/op/view.aspx?src=${fileUrl}`, '_system');
-    }
 
     openPDF(file) {
         let modal = this.modalCtrl.create(ViewFilePage, {
@@ -179,7 +170,10 @@ export class CourseDetailPage {
         } else if (this.files[0].icon.includes('mp4')) {
             this.product.videoPath = this.files[0].fileUrl;
         } else {
-            if (this.files[0].fileUrl) this.viewOfficeFile(this.files[0].fileUrl, this.files[0].filename);
+            if (this.files[0].fileUrl) {
+                this.commonSer.toast('暂时只可预览pdf文件');
+                // this.viewOfficeFile(this.files[0].fileUrl, this.files[0].filename);
+            }
         }
     }
 
@@ -194,7 +188,7 @@ export class CourseDetailPage {
         await this.learSer.SaveSubscribe(data).subscribe(
             (res) => {
                 this.commonSer.toast('关注成功');
-                this.ionViewDidLoad();
+                this.ionViewDidEnter();
             }
         )
     }
@@ -206,7 +200,7 @@ export class CourseDetailPage {
         this.learSer.CancelSubscribe(data).subscribe(
             (res) => {
                 this.commonSer.toast('取消关注成功');
-                this.ionViewDidLoad();
+                this.ionViewDidEnter();
             }
         )
     }
@@ -294,7 +288,7 @@ export class CourseDetailPage {
         // this.done.emit(item);
     }
 
-    getNavbar(e){
+    getNavbar(e) {
         console.log(e);
     }
 }

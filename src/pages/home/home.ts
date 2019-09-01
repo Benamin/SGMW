@@ -97,7 +97,7 @@ export class HomePage {
                 this.productList = res.data;
             }
         );
-        loading.dismiss();
+        await loading.dismiss();
     }
 
     async focusHandle() {

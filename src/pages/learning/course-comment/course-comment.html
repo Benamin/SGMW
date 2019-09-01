@@ -8,7 +8,7 @@
     <div class="comment-list">
         <div class="comment-item" *ngFor="let item of list;">
             <div class="first">
-                <div>
+                <div class="headPhoto">
                     <img [src]="item.HeadPhoto" alt="">
                 </div>
                 <div>
@@ -27,6 +27,12 @@
             </div>
         </div>
     </div>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="list.length == 0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+    </ion-list>
 </ion-content>
 <ion-footer (click)="openComment()">
     <div class="course-footer">

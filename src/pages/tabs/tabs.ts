@@ -23,14 +23,14 @@ export class TabsPage {
         },
         {
             root: LearningPage,
-            tabTitle: '在线学习',
+            tabTitle: '在线课程',
             tabIconOn: 'custom-discover-on',
             tabIconOff: 'custom-discover-off',
             index: 1
         },
         {
             root: CoursePage,
-            tabTitle: '我的课程',
+            tabTitle: '我的学习',
             tabIconOn: 'custom-serve-on',
             tabIconOff: 'custom-serve-off',
             index: 2

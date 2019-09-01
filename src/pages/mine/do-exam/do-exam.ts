@@ -118,8 +118,8 @@ export class DoExamPage {
                 (res) => {
                     loading.dismiss();
                     if (res.code == 200) {
-                        this.score.show = true;
-                        this.score.score = res.message;
+                        this.navCtrl.pop();
+                        this.commonSer.toast('已暂存');
                     } else {
                         this.commonSer.toast(res.Message);
                     }

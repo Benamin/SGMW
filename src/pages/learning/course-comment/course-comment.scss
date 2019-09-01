@@ -50,6 +50,13 @@ page-course-comment {
         display: flex;
         margin-bottom: 10px;
 
+        .headPhoto{
+          img{
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+          }
+        }
         > div:first-child {
           width: 10%;
         }
@@ -60,6 +67,7 @@ page-course-comment {
 
           p:first-child {
             font-size: 16px;
+            margin-bottom:5px;
           }
 
           p:last-child {

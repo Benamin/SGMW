@@ -30,7 +30,7 @@ export class LoginPage {
         LoginName: '',
         password: '',
         UserType: 'Teacher'
-    }
+    };
 
     bodyHeight;
 

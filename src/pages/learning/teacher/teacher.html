@@ -9,7 +9,10 @@
         <div><img [src]="info?.HeadPhoto" alt=""></div>
         <p class="name">{{info?.UserName}}</p>
         <p class="position">{{info?.Position}}</p>
-        <p><span class="focus">关注</span></p>
+        <p>
+            <span *ngIf="info?.IsSubscribe == false" (click)="focusHandle(info.UserID)" class="focus">关注</span>
+            <span *ngIf="info?.IsSubscribe == true" style="background-color:#cccccc;color:#fff;" (click)="cancleFocusHandle(info.UserID)" class="focus">已关注</span>
+        </p>
         <div class="desc-desc">
             {{info?.Remark}}
         </div>

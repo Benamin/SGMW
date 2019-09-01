@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{product.detail?.SubjectName}}</ion-title>
+        <ion-title>课程详情</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -57,7 +57,7 @@
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
                 <p style="font-weight: 500">{{item.title}}</p>
                 <div *ngIf="item.children">
-                    <tree-list [treeList]="item.children" ></tree-list>
+                    <tree-list [treeList]="item.children" [IsBuy]="product.detail?.IsBuy" (fileData)="getInfo($event)"></tree-list>
                 </div>
             </ng-container>
         </div>
@@ -77,7 +77,7 @@
             </div>
             <div>
                 <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)" class="focus">关注</span>
-                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)" class="focus">取消关注</span>
+                <span *ngIf="item.IsSubscribe == true" style="background-color:rgba(0,0,0,.2);color:#fff;" (click)="cancleFocusHandle(item.UserID)" class="focus">已关注</span>
             </div>
         </div>
     </div>
@@ -94,11 +94,11 @@
                 <p>课程适用</p>
             </div>
             <div>
-                <p>4.0</p>
+                <p>4.5</p>
                 <p>通俗易懂</p>
             </div>
             <div>
-                <p>4.0</p>
+                <p>5.0</p>
                 <p>逻辑清晰</p>
             </div>
         </div>
@@ -116,11 +116,11 @@
                 <p>课程适用</p>
             </div>
             <div>
-                <p>4.0</p>
+                <p>4.5</p>
                 <p>通俗易懂</p>
             </div>
             <div>
-                <p>4.0</p>
+                <p>5.0</p>
                 <p>逻辑清晰</p>
             </div>
         </div>
@@ -144,7 +144,8 @@
     </ion-toolbar>
 
     <ion-toolbar *ngIf="product.detail?.IsCollection" (click)="cancleCollection()">
-        <ion-buttons>已收藏</ion-buttons>
+        <ion-buttons class="collectionDone">
+            <ion-icon style="vertical-align: middle" name="heart"></ion-icon>已收藏</ion-buttons>
     </ion-toolbar>
 
 </ion-footer>
