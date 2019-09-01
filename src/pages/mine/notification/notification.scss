@@ -28,14 +28,15 @@ page-notification {
     }
 
     > p:first-child {
-      font-size: 1.17rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: rgba(0, 0, 0, .9);
       line-height: 1.67rem;
+      margin-bottom: 10px;
     }
 
     > p:last-child {
-      font-size: 1rem;
+      font-size: 1.4rem;
       font-weight: 400;
       color: rgba(0, 0, 0, .6);
       line-height: 1.5rem;

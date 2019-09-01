@@ -12,6 +12,7 @@ import {NotificationPage} from "../mine/notification/notification";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
 import {TeacherPage} from "../learning/teacher/teacher";
 import {defaultImg} from "../../app/app.constants";
+import {MineService} from "../mine/mine.service";
 
 @Component({
     selector: 'page-home',
@@ -30,8 +31,13 @@ export class HomePage {
     mineInfo;
     defaultImg = defaultImg;
 
+    info = {
+        new: 0,
+    }
+
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
-                private learnSer: LearnService, private commonSer: CommonService, private storage: Storage) {
+                private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
+                private mineSer: MineService) {
 
         this.storage.get('user').then(value => {
             this.mineInfo = value;
@@ -45,7 +51,8 @@ export class HomePage {
     }
 
     ionViewDidEnter() {
-
+        this.info.new = 0;
+        this.getNew();
 
     }
 
@@ -144,6 +151,23 @@ export class HomePage {
             (res) => {
                 this.commonSer.toast('取消关注成功');
                 this.getGoodsTeacher();
+            }
+        )
+    }
+
+    //查询消息
+    getNew() {
+        const data = {
+            page: 1,
+            pageSize: 1000
+        };
+        this.mineSer.GetUserNewsList(data).subscribe(
+            (res) => {
+                res.data.NewsList.forEach(e => {
+                    if (e.Status == 0) {
+                        this.info.new++;
+                    }
+                })
             }
         )
     }

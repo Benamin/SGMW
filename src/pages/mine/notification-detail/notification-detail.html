@@ -10,7 +10,7 @@
             <p class="title">{{detail?.Title}}</p>
             <p class="createTime">{{detail?.CrateTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
             <div class="content">
-                {{detail?.Text}}
+                <p [innerHTML]="detail?.Text"></p>
             </div>
         </ng-container>
         <ng-container *ngIf="!detail">

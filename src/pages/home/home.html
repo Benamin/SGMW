@@ -9,13 +9,13 @@
         <ion-buttons end class="navbar-search" (click)="goToSearch()">
             <button ion-button icon-only class="toolbar-icon">
                 <ion-icon class="search-icon" name="search"></ion-icon>
-                <ion-input class="search" placeholder="搜索课程"  autocomplete='off'></ion-input>
+                <ion-input class="search" placeholder="搜索课程" autocomplete='off'></ion-input>
             </button>
         </ion-buttons>
         <ion-buttons end class="navbar-search" (click)="goToNotifation()">
             <button ion-button icon-only class="toolbar-tips">
                 <img src="../../assets/imgs/home/tips.png" alt="">
-<!--                <span class="tips-num">2</span>-->
+                <span *ngIf="info.new > 0" class="tips-num">{{info.new}}</span>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -32,7 +32,7 @@
         </div>
     </div>
     <!--  新模块  -->
-    <div class="new-module" >
+    <div class="new-module">
         <div (click)="goDev('资讯')"><img src="../../assets/imgs/home/news@2x.png" alt="">
             <p>资讯</p>
         </div>
@@ -52,7 +52,7 @@
             <span class="float-more" (click)="moreCourse()">
            更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span></p>
         <div class="item">
-           <course-list [list]="productList" (done)="goCourse($event)"></course-list>
+            <course-list [list]="productList" (done)="goCourse($event)"></course-list>
         </div>
     </div>
 
