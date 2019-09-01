@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {MyCoursePage} from "./my-course/my-course";
 import {MycollectionPage} from "./mycollection/mycollection";
 import {NotificationPage} from "./notification/notification";
@@ -19,7 +19,7 @@ export class MinePage {
     numer;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private mineSer: MineService,
+                private mineSer: MineService,private events:Events,
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
@@ -56,10 +56,8 @@ export class MinePage {
 
     //后台退出
     logoutApp() {
-        let length = this.navCtrl.length();
-        this.navCtrl.remove(length);
         this.storage.clear();
-        this.app.getRootNav().setRoot(LoginPage);
+        this.events.publish('toLogin');
     }
 
 }

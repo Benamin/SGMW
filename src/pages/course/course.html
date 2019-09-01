@@ -1,32 +1,34 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>我的课程</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>我的课程</ion-title>
+    </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color: #ffffff">
-  <navbar [list]="navbarList" (done)="changeType($event)"></navbar>
-  <div class="learn-list">
-    <div class="course-item" *ngFor="let item of courseList" (click)="goCourse(item)">
-      <div class="item-img">
-        <div class="round">
-          {{item.overpercentage}}%
+<ion-content>
+    <navbar [list]="navbarList" (done)="changeType($event)"></navbar>
+    <div class="learn-list">
+        <div class="course-item" *ngFor="let item of courseList" (click)="goCourse(item)">
+            <div class="item-img">
+                <div class="round">
+                    <img src="../../assets/imgs/course/round.png" alt="">
+                    <span class="tage"><span>{{item.overpercentage}}</span>%</span>
+                </div>
+            </div>
+            <div class="item-desc">
+                <p>{{item.Title}}</p>
+                <div class="desc">
+<!--                    <span>{{item.overcount}}/{{item.ManCount}}</span>-->
+                    <span>{{item.SubjectName}}</span>
+                    <span float-end><ion-icon style="vertical-align: middle" name="heart"></ion-icon>{{item.CollectionCount}}</span>
+                    <span float-end><ion-icon style="vertical-align: text-bottom" name="text"></ion-icon>{{item.ZanCount}}</span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="item-desc">
-        <p>{{item.Title}}</p>
-        <div class="desc">
-          <span>{{item.SubjectName}}</span>
-          <span><ion-icon style="vertical-align: text-bottom" name="text"></ion-icon>{{item.ZanCount}}</span>
-          <span><ion-icon style="vertical-align: middle" name="heart"></ion-icon>{{item.CollectionCount}}</span>
-        </div>
-      </div>
     </div>
-  </div>
-  <ion-list text-center style="margin-top: 10rem" *ngIf="courseList.length == 0">
-    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-    <p text-center style="color: #666666;font-size: 16px">
-      暂无数据
-    </p>
-  </ion-list>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="courseList.length == 0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+    </ion-list>
 </ion-content>

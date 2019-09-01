@@ -2,26 +2,49 @@ page-my-course {
   .learn-list {
     padding: 10px;
 
+    .round{
+      position: relative;
+      text-align: center;
+      .tage{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 1rem;
+        span{
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+      img{
+        width: 80%;
+      }
+    }
     .course-item {
       display: flex;
-      padding: 5px;
+      padding: 15px 10px;
+      background-color: #fff;
+      border-radius: 10px;
 
       .item-img {
-        width: 40%;
+        width: 30%;
         padding-right: 5px;
         text-align: center;
-
-        img {
-          height: 70px;
-        }
       }
 
       .item-desc {
-        width: 60%;
+        width: 70%;
         padding-left: 5px;
+        display: flex;
+        flex-direction: column;
+        flex-flow: row wrap;
 
         > p {
-          font-size: 16px;
+          align-self: flex-start;
+          font-size:16px;
+          font-weight:500;
+          color:rgba(0,0,0,.8);
+          line-height:1.83rem;
           overflow: hidden;
           display: -webkit-box;
           text-overflow: ellipsis;
@@ -32,24 +55,20 @@ page-my-course {
         .desc {
           color: #999999;
           margin-top: 10px;
-          span{
+          align-self: flex-end;
+          width: 100%;
+          span {
             margin-right: 10px;
-            ion-icon{
+
+            ion-icon {
               margin-right: 3px;
             }
           }
         }
       }
     }
-  }
-  .round{
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    border: 2px solid #fed25b;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .course-item + .course-item{
+      margin-top: 10px;
+    }
   }
 }

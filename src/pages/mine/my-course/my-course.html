@@ -4,21 +4,23 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color: #ffffff">
+<ion-content>
   <navbar [list]="navbarList" (done)="changeType($event)"></navbar>
   <div class="learn-list">
     <div class="course-item" *ngFor="let item of courseList" (click)="goCourse(item)">
       <div class="item-img">
         <div class="round">
-          {{item.overpercentage}}%
+          <img src="../../assets/imgs/course/round.png" alt="">
+          <span class="tage"><span>{{item.overpercentage}}</span>%</span>
         </div>
       </div>
       <div class="item-desc">
         <p>{{item.Title}}</p>
         <div class="desc">
+          <!--                    <span>{{item.overcount}}/{{item.ManCount}}</span>-->
           <span>{{item.SubjectName}}</span>
-          <span><ion-icon style="vertical-align: text-bottom" name="text"></ion-icon>{{item.ZanCount}}</span>
-          <span><ion-icon style="vertical-align: middle" name="heart"></ion-icon>{{item.CollectionCount}}</span>
+          <span float-end><ion-icon style="vertical-align: middle" name="heart"></ion-icon>{{item.CollectionCount}}</span>
+          <span float-end><ion-icon style="vertical-align: text-bottom" name="text"></ion-icon>{{item.ZanCount}}</span>
         </div>
       </div>
     </div>

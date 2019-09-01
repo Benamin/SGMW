@@ -10,9 +10,17 @@
         <ng-container *ngFor="let item of examList">
             <div class="space"></div>
             <div class="item" (click)="goExam(item)">
-                <span class="studyState">{{navbarList[page.StudyState -1].name}}</span>
+                <span *ngIf="page.StudyState == 1" class="studyState studyState1">未开始</span>
+                <span *ngIf="page.StudyState == 2" class="studyState studyState2">进行中</span>
+                <span *ngIf="page.StudyState == 3" class="studyState studyState3">已完成</span>
                 <p class="courseName">{{item.CourseName}}</p>
                 <p class="eName"><img  src="./assets/imgs/tabs/tab3_off@3x.png">{{item.EName}}</p>
+                <p *ngIf="page.StudyState == 3" class="split"></p>
+                <p *ngIf="page.StudyState == 3">
+                    <span class="examScore">作业得分：{{item.TotalScore}}</span>
+                    <span class="examTime">提交时间：{{item.ExamEnd | date:'MM-dd HH:mm:ss'}}</span>
+                </p>
+
             </div>
         </ng-container>
     </div>

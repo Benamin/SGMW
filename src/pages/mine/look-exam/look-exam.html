@@ -12,9 +12,15 @@
                     <div class="item-container">
                         <div class="item-title">
                             <!--判断题目类型-->
-                            <span class="isRight" *ngIf="item.IsOk == 1">正确</span>
-                            <span class="isError" *ngIf="item.IsOk == 2">错误</span>
-                            <span class="isBlank" *ngIf="item.IsOk == 3">未作答</span>
+                            <span class="isRight" *ngIf="item.IsOk == 1">
+                                <span style="font-size: 1.7rem" class="icon iconfont icon-duihao"></span>
+                            </span>
+                            <span class="isError" *ngIf="item.IsOk == 2">
+                                <span style="padding-left: 2px" class="icon iconfont icon-error"></span>
+                            </span>
+                            <span class="isBlank" *ngIf="item.IsOk == 3">
+                                <ion-icon name="help"></ion-icon>
+                            </span>
                             <p>
                                 {{i + 1}}:
                                 <span *ngIf="item.QType == -1">(不限)</span>
