@@ -32,9 +32,10 @@ export class CourseDetailPage {
     navbarList = [
         {type: '1', name: '简介', code: 'desc'},
         {type: '2', name: '章节', code: 'chapter'},
-        {type: '3', name: '讲师', code: 'teacher'},
-        {type: '4', name: '评价', code: 'comment'},
-        {type: '5', name: '相关', code: 'relation'},
+        {type: '3', name: '讨论', code: 'discuss'},
+        {type: '4', name: '讲师', code: 'teacher'},
+        {type: '5', name: '评价', code: 'comment'},
+        {type: '6', name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -48,7 +49,8 @@ export class CourseDetailPage {
 
     comment = {
         course: [],
-        teacher: []
+        teacher: [],
+        talk: [],
     };
 
     files = [];
@@ -152,7 +154,7 @@ export class CourseDetailPage {
             pageSize: 1,
             page: 1,
             TopicType: 'teacher',   //teacher  course
-            topicID: this.product.detail.Teachers[0].UserID
+            topicID: this.product.detail.Teachers[0].UserID,
         }
         this.learnSer.GetComment(data1).subscribe(
             (res) => {
@@ -164,11 +166,23 @@ export class CourseDetailPage {
             pageSize: 1,
             page: 1,
             TopicType: 'course',   //teacher  course
-            topicID: this.product.detail.Teachers[0].UserID
+            topicID: this.product.detail.PrId
         }
         this.learnSer.GetComment(data2).subscribe(
             (res) => {
-                this.comment.teacher = res.data.CommentItems;
+                this.comment.course = res.data.CommentItems;
+            }
+        );
+
+        const data3 = {
+            pageSize: 1,
+            page: 1,
+            TopicType: 'talk',   //teacher  course
+            topicID: this.product.detail.PrId
+        }
+        this.learnSer.GetTalkList(data3).subscribe(
+            (res) => {
+                this.comment.talk = res.data.CommentItems;
             }
         );
     }
@@ -243,6 +257,15 @@ export class CourseDetailPage {
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
             title: '课程评价'
+        });
+    }
+
+    //课程讨论
+    goCourseDiscuss() {
+        this.navCtrl.push(CourseCommentPage, {
+            TopicID: this.product.detail.PrId,
+            TopicType: 'talk',
+            title: '课程讨论'
         });
     }
 

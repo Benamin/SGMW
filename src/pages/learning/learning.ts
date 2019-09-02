@@ -38,7 +38,7 @@ export class LearningPage {
             this.getOneType(this.headType);
         } else {  //tab栏进入
             console.log('tabs');
-            this.getOneType(1);
+            this.getOneType(0);
         }
     }
 
@@ -49,7 +49,7 @@ export class LearningPage {
                 this.headList = res.data.map(e => {
                     return {type: e.TypeCode, name: e.TypeName}
                 })
-                this.getSecondType(this.headList[index], index);
+                this.getSecondType(this.headList[0], index);
             }
         )
     }

@@ -64,6 +64,34 @@
         </div>
     </div>
     <div class="space"></div>
+    <div class="item">
+        <p>课程讨论
+            <span *ngIf="comment.talk.length > 0" (click)="goCourseDiscuss()" float-end class="look">更多</span>
+            <span *ngIf="comment.talk.length == 0" (click)="goCourseDiscuss()" class="focus">去讨论</span>
+        </p>
+        <div class="comment-list">
+            <div class="comment-item" *ngFor="let item of comment.talk;">
+                <div class="first">
+                    <div class="headPhoto">
+                        <img [src]="item.HeadPhoto" alt="">
+                    </div>
+                    <div>
+                        <p>{{item.UserName}}</p>
+                        <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
+                    </div>
+                    <div class="img-star">
+                    </div>
+                </div>
+                <div class="last">
+                    {{item.Contents}}
+                </div>
+            </div>
+        </div>
+        <div class="no-comment" *ngIf="comment.talk.length == 0">
+            <p>暂无课程讨论，快去发一条吧～</p>
+        </div>
+    </div>
+    <div class="space"></div>
     <div id="teacher" class="item">
         <p>讲师
             <span (click)="teachDetail()" float-end class="look">查看</span>
@@ -86,11 +114,11 @@
     <div class="space"></div>
     <div id="comment" class="item">
         <p>课程评价
-            <span *ngIf="comment.teacher.length > 0" class="look" (click)="goCourseComment()">更多</span>
-            <span *ngIf="comment.teacher.length == 0" class="focus" (click)="goCourseComment()">去评价</span>
+            <span *ngIf="comment.course.length > 0" class="look" float-end (click)="goCourseComment()">更多</span>
+            <span *ngIf="comment.course.length == 0" class="focus" (click)="goCourseComment()">去评价</span>
         </p>
         <div class="comment-list">
-            <div class="comment-item" *ngFor="let item of comment.teacher;">
+            <div class="comment-item" *ngFor="let item of comment.course;">
                 <div class="first">
                     <div class="headPhoto">
                         <img [src]="item.HeadPhoto" alt="">
@@ -111,14 +139,14 @@
                 </div>
             </div>
         </div>
-        <div class="no-comment" *ngIf="comment.teacher.length == 0">
+        <div class="no-comment" *ngIf="comment.course.length == 0">
             <p>暂无教师评价，快去发一条吧～</p>
         </div>
     </div>
     <div class="space"></div>
     <div class="item">
         <p>讲师评价
-            <span *ngIf="comment.teacher.length > 0" (click)="goTeacherComment()" class="look">更多</span>
+            <span *ngIf="comment.teacher.length > 0" (click)="goTeacherComment()" float-end class="look">更多</span>
             <span *ngIf="comment.teacher.length == 0" (click)="goTeacherComment()" class="focus">去评价</span>
         </p>
         <div class="comment-list">

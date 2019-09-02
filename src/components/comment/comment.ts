@@ -11,6 +11,7 @@ export class CommentComponent {
 
     replyContent: string;
     placeholder: string;
+    type: string;
     starList = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
     score;
 
@@ -18,6 +19,7 @@ export class CommentComponent {
                 private keyboard: Keyboard,
                 public viewCtrl: ViewController) {
         this.placeholder = this.navParams.get('placeholder');
+        this.type = this.navParams.get('type');
         setTimeout(() => {
             this.textAreaElement.nativeElement.focus();
             this.keyboard.show();
