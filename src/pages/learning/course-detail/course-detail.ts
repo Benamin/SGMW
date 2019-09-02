@@ -19,6 +19,7 @@ import {EmitService} from "../../../core/emit.service";
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild('video') video: ElementRef;
     @ViewChild(Content) content: Content;
 
     pId;
@@ -313,5 +314,12 @@ export class CourseDetailPage {
 
     getNavbar(e) {
         console.log(e);
+    }
+
+    //播放视频
+    startPlay(video){
+        console.log(video);
+        video.target.play();
+        video.target.requestFullscreen();
     }
 }

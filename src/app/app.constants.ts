@@ -1,1 +1,1 @@
-export const SERVER_API_URL = '/api';// export const SERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';// export const SERVER_API_URL = 'https://elearningapi.sgmw.com.cn//api';export const pageSize = 10;export const defaultImg = './assets/imgs/default.jpg';
+export const SERVER_API_URL = '/api';// export const SERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';// export const SERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api';export const pageSize = 10;export const defaultImg = './assets/imgs/default.jpg';

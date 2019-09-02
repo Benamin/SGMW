@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="content video" *ngIf="product.videoPath">
-            <video width="100%" height="100%" poster="{{product.chapter?.Course?.CoverUrl}}" [src]="product.videoPath"
+            <video #video (canplaythrough)="startPlay($event)" width="100%" autoplay height="100%" poster="{{product.chapter?.Course?.CoverUrl}}" [src]="product.videoPath"
                    controls="controls">
                 您的浏览器不支持 html5。
             </video>
