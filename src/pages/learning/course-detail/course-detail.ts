@@ -32,7 +32,7 @@ export class CourseDetailPage {
     navbarList = [
         {type: '1', name: '简介', code: 'desc'},
         {type: '2', name: '章节', code: 'chapter'},
-        {type: '3', name: '讨论', code: 'discuss'},
+        {type: '3', name: '讨论', code: 'talk'},
         {type: '4', name: '讲师', code: 'teacher'},
         {type: '5', name: '评价', code: 'comment'},
         {type: '6', name: '相关', code: 'relation'},
@@ -245,6 +245,7 @@ export class CourseDetailPage {
     goTeacherComment() {
         console.log(this.product.detail.Teachers[0].UserID)
         this.navCtrl.push(CourseCommentPage, {
+            placeholder:'请输入你对教师的评价...',
             TopicID: this.product.detail.Teachers[0].UserID,
             TopicType: 'teacher',
             title: '讲师评价'
@@ -254,6 +255,7 @@ export class CourseDetailPage {
     //课程评价
     goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
+            placeholder:'请输入你对课程的评价...',
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
             title: '课程评价'
@@ -263,6 +265,7 @@ export class CourseDetailPage {
     //课程讨论
     goCourseDiscuss() {
         this.navCtrl.push(CourseCommentPage, {
+            placeholder:'请输入你要讨论的内容...',
             TopicID: this.product.detail.PrId,
             TopicType: 'talk',
             title: '课程讨论'

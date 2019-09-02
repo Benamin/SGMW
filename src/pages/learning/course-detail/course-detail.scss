@@ -107,7 +107,6 @@ page-course-detail {
     justify-content: center;
 
     .img {
-      text-align: center;
 
       img {
         width: 5rem;
@@ -219,6 +218,7 @@ page-course-detail {
 
         > div:last-child {
           width: 40%;
+          text-align: right;
         }
       }
     }

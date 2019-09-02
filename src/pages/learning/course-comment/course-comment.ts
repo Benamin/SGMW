@@ -20,6 +20,7 @@ export class CourseCommentPage {
     };
     topicID;
     TopicType;
+    placeholder;
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private commonSer: CommonService,
@@ -30,6 +31,7 @@ export class CourseCommentPage {
         this.topicID = this.navParams.get("TopicID");
         this.TopicType = this.navParams.get("TopicType");
         this.title = this.navParams.get("title");
+        this.placeholder = this.navParams.get("placeholder");
         if(this.TopicType != 'talk') this.getList();
         if(this.TopicType == 'talk') this.getTalkList();
     }

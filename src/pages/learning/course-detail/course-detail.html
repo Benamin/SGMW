@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="space"></div>
-    <div class="item">
+    <div id="talk" class="item">
         <p>课程讨论
             <span *ngIf="comment.talk.length > 0" (click)="goCourseDiscuss()" float-end class="look">更多</span>
             <span *ngIf="comment.talk.length == 0" (click)="goCourseDiscuss()" class="focus">去讨论</span>
@@ -182,7 +182,7 @@
     </div>
 </ion-content>
 
-<div class="course-footer" *ngIf="showFooter">
+<ion-footer class="course-footer" *ngIf="showFooter">
     <ion-toolbar *ngIf="!product.detail?.IsBuy" (click)="sign()">
         <ion-buttons tappable>立即报名</ion-buttons>
     </ion-toolbar>
@@ -200,7 +200,7 @@
         </ion-buttons>
     </ion-toolbar>
 
-</div>
+</ion-footer>
 
 <div *ngIf="signObj.isSign" class="sign">
     <img src="../assets/imgs/course/sign-success.png">

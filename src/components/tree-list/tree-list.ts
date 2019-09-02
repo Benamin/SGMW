@@ -34,7 +34,7 @@ export class TreeListComponent {
                 pdfSource: {
                     url: file.fileUrl
                 },
-                title: file.filename,
+                title: file.DisplayName,
                 Size: file.Size * 1024
             },
 
@@ -54,7 +54,7 @@ export class TreeListComponent {
             if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
                 this.commonSer.toast('暂时只可预览pdf文件');
                 // this.viewOfficeFile(file.fileUrl, file.filename);
-                this.fileSer.downloadFile(file.fileUrl, file.filename);
+                this.fileSer.downloadFile(file.fileUrl, file.DisplayName);
             }
         } else {
             this.commonSer.toast('请先报名');
@@ -67,8 +67,8 @@ export class TreeListComponent {
         this.navCtrl.push(ExamPage);
     }
 
-    viewOfficeFile(fileUrl, fileName) {
-        this.fileSer.downloadFile(fileUrl, fileName);
+    viewOfficeFile(fileUrl, DisplayName) {
+        this.fileSer.downloadFile(fileUrl, DisplayName);
         // this.inAppBrowser.create(`https://view.officeapps.live.com/op/view.aspx?src=${fileUrl}`, '_system');
     }
 

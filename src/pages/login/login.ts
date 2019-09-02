@@ -26,10 +26,10 @@ export class LoginPage {
 
     //经销商
     jxs = {
-        Jxsh: '000000',
-        LoginName: '丁林玲',
-        password: 'sgmw50@',
-        UserType: 'Teacher',
+        Jxsh: '',
+        LoginName: '',
+        password: '',
+        UserType: '',
         codeRight: '',
         inputCode: ''
     };

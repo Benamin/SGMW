@@ -7,7 +7,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://devapi.chinacloudsites.cn/api"
+      "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
     }
   ]
 }
