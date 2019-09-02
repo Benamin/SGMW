@@ -10,7 +10,7 @@
         <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="handle(item,$event)">
             <img *ngIf="item.icon != 'mp4'" src="../../assets/imgs/learn/file.png" alt="">
             <img *ngIf="item.icon == 'mp4'" src="../../assets/imgs/learn/mp4.png" alt="">
-            {{item.filename}}<span class="file-icon">{{item.icon}}</span></p>
+            {{item.DisplayName}}<span class="file-icon">{{item.icon}}</span></p>
     </div>
     <ng-container *ngIf="IsBuy">
         <div *ngFor="let item of item.tags">

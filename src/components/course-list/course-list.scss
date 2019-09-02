@@ -11,7 +11,6 @@ course-list {
         text-align: center;
 
         img {
-          height: 70px;
           border-radius: 5px;
           max-width: 100%;
         }
@@ -40,6 +39,7 @@ course-list {
           width: 100%;
           color: #999999;
           margin-top: 10px;
+          font-size: 1.2rem;
           > span{
             margin-right: 10px;
             span{

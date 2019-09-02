@@ -14,9 +14,7 @@
         </ion-buttons>
         <ion-buttons end class="navbar-search" (click)="goToNotifation()">
             <button ion-button icon-only class="toolbar-tips">
-                <img style="position: absolute;
-    top: 0;
-    right: -2px;" src="../../assets/imgs/home/tips.png" alt="">
+                <img style="position: absolute;top: 0;right: -2px;" src="../../assets/imgs/home/tips.png" alt="">
                 <span *ngIf="info.new > 0" class="tips-num">{{info.new}}</span>
             </button>
         </ion-buttons>
@@ -27,7 +25,7 @@
     <div class="banner">
         <div class="img">
             <ion-slides pager>
-                <ion-slide *ngFor="let item of bannerList">
+                <ion-slide *ngFor="let item of bannerList" (click)="goCourseBanner(item)">
                     <img [src]="item.SourceUrl">
                 </ion-slide>
             </ion-slides>

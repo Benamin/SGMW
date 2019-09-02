@@ -199,4 +199,11 @@ export class HomePage {
         this.navCtrl.push(CourseDetailPage, {id: e.Id});
     }
 
+    //前往课程
+    goCourseBanner(e) {
+        const arr = e.HttpURL.split('/');
+        console.log(arr);
+        this.navCtrl.push(CourseDetailPage, {id: arr[arr.length -1]});
+    }
+
 }

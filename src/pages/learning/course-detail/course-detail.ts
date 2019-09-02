@@ -31,7 +31,7 @@ export class CourseDetailPage {
     navbarList = [
         {type: '1', name: '简介', code: 'desc'},
         {type: '2', name: '章节', code: 'chapter'},
-        {type: '3', name: '教师', code: 'teacher'},
+        {type: '3', name: '讲师', code: 'teacher'},
         {type: '4', name: '评价', code: 'comment'},
         {type: '5', name: '相关', code: 'relation'},
     ];
@@ -159,6 +159,7 @@ export class CourseDetailPage {
         } else {
             if (this.files[0].fileUrl) {
                 this.commonSer.toast('暂时只可预览pdf文件');
+                this.fileSer.downloadFile(this.files[0].fileUrl, this.files[0].filename);
                 // this.viewOfficeFile(this.files[0].fileUrl, this.files[0].filename);
             }
         }
@@ -198,7 +199,7 @@ export class CourseDetailPage {
         this.navCtrl.push(CourseCommentPage, {
             TopicID: this.product.detail.Teachers[0].UserID,
             TopicType: 'teacher',
-            title: '教师评价'
+            title: '讲师评价'
         });
     }
 
