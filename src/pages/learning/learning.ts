@@ -27,6 +27,7 @@ export class LearningPage {
         page: '1',
         pageSize: "2000"
     };
+    loading;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private homeSer: HomeService, private storage: Storage) {
@@ -50,11 +51,11 @@ export class LearningPage {
     }
 
     ionViewWillLeave() {
+        this.productList = [];
         this.storage.set('course', null);
     }
 
     getOneType(index) {
-        console.log('one')
         this.homeSer.GetDictionaryByPCode("Subject").subscribe(
             (res) => {
                 this.headList = res.data.map(e => {
@@ -67,6 +68,10 @@ export class LearningPage {
 
     //二级菜单
     getSecondType(title, index) {
+        this.loading = this.loadCtrl.create({
+            content: '加载中...'
+        });
+        this.loading.present();
         this.scrollTabs.isShow = false;
         this.headType = index;
         this.code = title.type;
@@ -80,6 +85,7 @@ export class LearningPage {
                     this.getProduct();
                 } else {
                     this.productList = [];
+                    this.loading.dismiss();
                 }
             }
         )
@@ -92,10 +98,6 @@ export class LearningPage {
     }
 
     getProduct() {
-        let loading = this.loadCtrl.create({
-            content: '加载中...'
-        });
-        loading.present();
         const data = {
             SubjectID: this.page.SubjectID,
             page: this.page.page,
@@ -104,7 +106,7 @@ export class LearningPage {
         this.learnSer.GetProductList(data).subscribe(
             (res) => {
                 this.productList = res.data.ProductList;
-                loading.dismiss();
+                this.loading.dismiss();
             }
         )
     }
