@@ -121,7 +121,6 @@ page-course-detail {
 
     > div:nth-child(2) {
       flex: 2;
-      padding-left: 10px;
 
       p:last-child {
         margin-top: 5px;
@@ -448,5 +447,8 @@ page-course-detail {
     span {
       font-size: 2rem;
     }
+  }
+  .no-comment{
+    margin: 10px 0;
   }
 }

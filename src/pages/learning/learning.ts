@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {CourseDetailPage} from "./course-detail/course-detail";
 import {LearnService} from "./learn.service";
 import {pageSize} from "../../app/app.constants";
 import {HomeService} from "../home/home.service";
 import {Storage} from "@ionic/storage";
+import {ScrollTabsComponent} from "../../components/scroll-tabs/scroll-tabs";
 
 
 @IonicPage()
@@ -13,13 +14,13 @@ import {Storage} from "@ionic/storage";
     templateUrl: 'learning.html',
 })
 export class LearningPage {
+    @ViewChild('scrollTabs') scrollTabs:ScrollTabsComponent;
 
     code = "Subject";
     tabsList = [];
     productList = [];
     headList = [];
     headType;
-    isShow = false;
     page = {
         SubjectID: '',
         page: '1',
@@ -60,11 +61,9 @@ export class LearningPage {
 
     //二级菜单
     getSecondType(title, index) {
-        console.log('second');
-        this.isShow = false;
+        this.scrollTabs.isShow = false;
         this.headType = index;
         this.code = title.type;
-        console.log(this.code);
         this.homeSer.GetDictionaryByPCode(this.code).subscribe(
             (res) => {
                 this.tabsList = res.data.map(e => {
@@ -85,7 +84,6 @@ export class LearningPage {
     }
 
     getProduct() {
-        console.log('product');
         let loading = this.loadCtrl.create({
             content: '加载中...'
         });

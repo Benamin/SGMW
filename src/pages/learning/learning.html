@@ -13,7 +13,7 @@
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <scroll-tabs [isShow]="isShow" [tabsList]="tabsList" (done)="setSubjectID($event)"></scroll-tabs>
+    <scroll-tabs #scrollTabs [tabsList]="tabsList" (done)="setSubjectID($event)"></scroll-tabs>
     <course-list [list]="productList" (done)="goCourse($event)"></course-list>
 <!--    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">-->
 <!--        <ion-infinite-scroll-content-->
