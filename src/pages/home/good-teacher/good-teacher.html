@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content style="background-color:#fff;">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新"
+                               refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
     <div class="teacher" *ngFor="let item of  teacherList">
         <div class="teacher-info" >
             <div class="headPhoto" (click)="teachDetail(item)">

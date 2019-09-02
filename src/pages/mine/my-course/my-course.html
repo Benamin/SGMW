@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="下拉刷新"
+                           refreshingSpinner="bubbles">
+    </ion-refresher-content>
+  </ion-refresher>
   <navbar [list]="navbarList" [select]="2" (done)="changeType($event)"></navbar>
   <div class="learn-list">
     <div class="course-item" *ngFor="let item of courseList" (click)="goCourse(item)">

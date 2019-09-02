@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {MineService} from "../mine/mine.service";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
+import {timer} from "rxjs/observable/timer";
 
 @IonicPage()
 @Component({
@@ -28,6 +29,11 @@ export class CoursePage {
 
     ionViewDidLoad() {
         this.getList();
+    }
+
+    doRefresh(e){
+        this.ionViewDidLoad();
+        timer(1000).subscribe((res)=>{e.complete()});
     }
 
     getList() {

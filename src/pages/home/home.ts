@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {LoadingController, NavController, Slides} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
@@ -23,6 +23,7 @@ import {timer} from "rxjs/observable/timer";
 export class HomePage {
     @ViewChild('angular') angular: ElementRef;
     @ViewChild('imgWidth') imgWidth: ElementRef;
+    @ViewChild(Slides) slides: Slides;
 
     type = 'teacher';
     personrType = 0;
@@ -35,6 +36,10 @@ export class HomePage {
 
     info = {
         new: 0,
+    };
+
+    slidesOp = {
+        autoplay: 3000
     }
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
@@ -52,10 +57,23 @@ export class HomePage {
         this.getProductList();
     }
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.info.new = 0;
         this.getNew();
+    }
 
+    aotuPlay(){
+        this.slides.startAutoplay();
+    }
+
+    doRefresh(e){
+        this.ionViewDidLoad();
+        timer(1000).subscribe((res)=>{e.complete()});
+    }
+
+
+    ionViewWillLeave() {
+        this.slides.stopAutoplay();
     }
 
     selectType(type) {
@@ -65,13 +83,9 @@ export class HomePage {
     saleToLearn(item, index) {
         const data = {
             item: item, headType: index
-        }
+        };
+        this.storage.set('course', data);
         this.navCtrl.parent.select(1);
-        this.storage.set('course',data);
-        // this.tabSer.changeTabInContainerPage({index:1,item: item, headType: index});
-        // timer(500).subscribe(() => {
-        //     this.navCtrl.setRoot(LearningPage, {item: item, headType: index});
-        // })
     }
 
     goToLearn(index) {
@@ -101,6 +115,11 @@ export class HomePage {
                 this.teacherList = res.data.TeacherItems;
                 if (this.teacherList.length > 5) {
                     this.teacherList.splice(5, this.teacherList.length - 5);
+                    this.teacherList.forEach(e=>{
+                        if(e.UserName.length > 3){
+                            e.UserName = e.UserName.splice(0,1) +'...';
+                        }
+                    })
                 }
             }
         )

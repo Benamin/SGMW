@@ -3,6 +3,7 @@ import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angu
 import {MineService} from "../mine.service";
 import {DoExamPage} from "../do-exam/do-exam";
 import {LookExamPage} from "../look-exam/look-exam";
+import {timer} from "rxjs/observable/timer";
 
 @Component({
     selector: 'page-exam',
@@ -33,6 +34,11 @@ export class ExamPage {
 
     ionViewDidEnter() {
         this.getList();
+    }
+
+    doRefresh(e){
+        this.getList();
+        timer(1000).subscribe((res)=>{e.complete()});
     }
 
     getList() {

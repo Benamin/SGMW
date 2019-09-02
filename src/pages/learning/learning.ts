@@ -6,6 +6,7 @@ import {pageSize} from "../../app/app.constants";
 import {HomeService} from "../home/home.service";
 import {Storage} from "@ionic/storage";
 import {ScrollTabsComponent} from "../../components/scroll-tabs/scroll-tabs";
+import {timer} from "rxjs/observable/timer";
 
 
 @IonicPage()
@@ -14,7 +15,7 @@ import {ScrollTabsComponent} from "../../components/scroll-tabs/scroll-tabs";
     templateUrl: 'learning.html',
 })
 export class LearningPage {
-    @ViewChild('scrollTabs') scrollTabs:ScrollTabsComponent;
+    @ViewChild('scrollTabs') scrollTabs: ScrollTabsComponent;
 
     code = "Subject";
     tabsList = [];
@@ -41,6 +42,11 @@ export class LearningPage {
                 this.getOneType(0);
             }
         }))
+    }
+
+    doRefresh(e){
+        this.getProduct();
+        timer(1000).subscribe((res)=>{e.complete()});
     }
 
     ionViewWillLeave() {
@@ -72,6 +78,8 @@ export class LearningPage {
                 if (res.data.length > 0) {
                     this.page.SubjectID = this.tabsList[0].ID;
                     this.getProduct();
+                } else {
+                    this.productList = [];
                 }
             }
         )
@@ -106,10 +114,6 @@ export class LearningPage {
     }
 
     doInfinite(e) {
-        e.complete();
-    }
-
-    doRefresh(e) {
         e.complete();
     }
 

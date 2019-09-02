@@ -8,6 +8,7 @@ import {ExamPage} from "./exam/exam";
 import {LoginPage} from "../login/login";
 import {Storage} from "@ionic/storage";
 import {MineService} from "./mine.service";
+import {timer} from "rxjs/observable/timer";
 
 
 @Component({
@@ -33,6 +34,11 @@ export class MinePage {
                 this.numer = res.data;
             }
         )
+    }
+
+    doRefresh(e){
+        this.ionViewDidLoad();
+        timer(1000).subscribe((res)=>{e.complete()});
     }
 
     //我的课程

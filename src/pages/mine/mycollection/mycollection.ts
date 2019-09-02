@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
+import {timer} from "rxjs/observable/timer";
 
 @Component({
     selector: 'page-mycollection',
@@ -44,7 +45,8 @@ export class MycollectionPage {
     }
 
     doRefresh(e) {
-        e.complete();
+        this.getList();
+        timer(1000).subscribe(()=>{e.complete();});
     }
 
 }
