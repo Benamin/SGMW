@@ -29,39 +29,46 @@ export class LearningPage {
                 private learnSer: LearnService, private homeSer: HomeService) {
     }
 
-    ionViewDidLoad() {
-        const item = this.navParams.get('item');
-        if (item) {   //其他路径转入
-            this.page.SubjectID = item.ID;
-            this.headType = this.navParams.get('headType');
-            this.getProduct();
+    ionViewDidEnter() {
+        const data = this.navParams.get('item');
+        if (data) {   //其他路径转入
+            console.log('item');
+            this.page.SubjectID = data.ID;
+            this.headType = this.navParams.get("headType");
+            this.getOneType(this.headType);
         } else {  //tab栏进入
-            this.getOneType();
+            console.log('tabs');
+            this.getOneType(1);
         }
     }
 
-    getOneType() {
+    getOneType(index) {
+        console.log('one')
         this.homeSer.GetDictionaryByPCode("Subject").subscribe(
             (res) => {
                 this.headList = res.data.map(e => {
                     return {type: e.TypeCode, name: e.TypeName}
                 })
-                this.getSecondType(this.headList[1], 1);
+                this.getSecondType(this.headList[index], index);
             }
         )
     }
 
     //二级菜单
     getSecondType(title, index) {
+        console.log('second')
         this.headType = index;
+        console.log(this.headType);
         this.code = title.type;
         this.homeSer.GetDictionaryByPCode(this.code).subscribe(
             (res) => {
-                this.tabsList = res.data.map(e => {
-                    return {type: e.TypeCode, name: e.TypeName, ID: e.ID}
-                });
-                this.page.SubjectID = this.tabsList[0].ID;
-                this.getProduct();
+                if (res.data.length > 0) {
+                    this.tabsList = res.data.map(e => {
+                        return {type: e.TypeCode, name: e.TypeName, ID: e.ID}
+                    });
+                    this.page.SubjectID = this.tabsList[0].ID;
+                    this.getProduct();
+                }
             }
         )
     }

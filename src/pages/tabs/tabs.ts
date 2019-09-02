@@ -1,18 +1,23 @@
 import {Component, ViewChild} from '@angular/core';
 
 import {HomePage} from '../home/home';
-import {Events, NavController, Platform, Tabs} from "ionic-angular";
+import {Events, NavController, NavParams, Platform, Tabs} from "ionic-angular";
 import {MinePage} from "../mine/mine";
 import {LearningPage} from "../learning/learning";
 import {CoursePage} from "../course/course";
 import {BackButtonService} from "../../core/backButton.service";
 import {LoginPage} from "../login/login";
+import {TabService} from "../../core/tab.service";
 
 @Component({
     templateUrl: 'tabs.html'
 })
 export class TabsPage {
     @ViewChild('myTabs') myTabs: Tabs;
+
+    tabParams = {
+        test:'test'
+    };
 
     tabRoots = [
         {
@@ -47,11 +52,16 @@ export class TabsPage {
 
     tabsIndex;
 
-    constructor(private platform: Platform, private backButtonService: BackButtonService,
-                private events: Events,private nav: NavController) {
+    constructor(private platform: Platform, private backButtonService: BackButtonService,private params:NavParams,
+                private events: Events,private nav: NavController,private tabSer:TabService) {
         this.platform.ready().then(() => {
             this.backButtonService.registerBackButtonAction(this.myTabs);
         });
+        this.tabSer.tabChange.subscribe((value)=>{
+            this.tabParams = value;
+            console.log(this.tabParams);
+            this.myTabs.select(value.index)
+        })
         this.listenEvents();
     }
 

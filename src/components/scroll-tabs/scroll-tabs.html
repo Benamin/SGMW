@@ -1,4 +1,3 @@
-<div style="position: relative">
     <div #scrollTab class="scroll-tab">
         <div #newContentParent class="news-content parent">
             <div #tabsParent class="tabs-parent parent">
@@ -14,8 +13,9 @@
             </div>
         </div>
     </div>
-    <div class="three-type" [style.height]="threeType.show?'auto':'0'">
-        <p (click)="setAll()">全部</p>
-        <p *ngFor="let item of threeType.list;let i = index;" (click)="setSubjectID(item)">{{item.TypeName}}</p>
+    <div *ngIf="threeType.show" class="three-content" (click)="threeType.show = false">
+        <div class="three-type" [style.height]="threeType.show?'auto':'0'">
+            <p (click)="setAll()">全部</p>
+            <p *ngFor="let item of threeType.list;let i = index;" (click)="setSubjectID(item)">{{item.TypeName}}</p>
+        </div>
     </div>
-</div>

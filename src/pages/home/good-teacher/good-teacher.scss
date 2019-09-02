@@ -23,11 +23,17 @@ page-good-teacher {
     }
 
     .focus {
-      background-color: #ADDAE9;
-      float: right;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 12px;
+      display: inline-block;
+      font-size: 1.3rem;
+      width: 5rem;
+      height: 2rem;
+      background: #addae9;
+      border-radius: 1rem;
+      border: 0.08rem solid #addae9;
+      text-align: center;
+      line-height: 2rem;
+      font-weight: normal;
+      color: #000000;
     }
   }
   .teacher + .teacher{

@@ -44,11 +44,12 @@ export class CourseDetailPage {
     collectionObj = {
         isCollection: false
     };
+    showFooter = false;
 
     comment = {
-        course:[],
-        teacher:[]
-    }
+        course: [],
+        teacher: []
+    };
 
     files = [];
 
@@ -62,12 +63,13 @@ export class CourseDetailPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
-                private learnSer:LearnService,
+                private learnSer: LearnService,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
     }
 
     async ionViewDidEnter() {
+        this.showFooter = true;
         this.scrollHeight();
         this.loading = this.loadCtrl.create({
             content: ''
@@ -83,10 +85,6 @@ export class CourseDetailPage {
         );
     }
 
-    getInfo(event) {
-        console.log(event)
-    }
-
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
@@ -97,8 +95,8 @@ export class CourseDetailPage {
     }
 
 
-    ionViewDidLeave() {
-        console.log('leave');
+    ionViewWillLeave() {
+        this.showFooter = false;
         this.appSer.setFile(null);
     }
 
@@ -317,7 +315,7 @@ export class CourseDetailPage {
     }
 
     //播放视频
-    startPlay(video){
+    startPlay(video) {
         console.log(video);
         video.target.play();
         video.target.requestFullscreen();

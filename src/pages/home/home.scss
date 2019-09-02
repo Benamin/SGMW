@@ -279,16 +279,16 @@ page-home {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0rem 0.08rem 0.67rem 0rem rgba(0, 0, 0, 0.1);
+    display: flex;
   }
 
   .teacher-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex: 1;
 
     .headPhoto {
       img {
-        width: 70%;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
       }
 
@@ -311,10 +311,6 @@ page-home {
       border-radius: 20px;
       font-size: 12px;
     }
-  }
-
-  .teacher-info + .teacher-info {
-    margin-top: 10px;
   }
 
   .teacher + .teacher {

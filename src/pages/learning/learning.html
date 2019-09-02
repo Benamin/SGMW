@@ -1,8 +1,8 @@
 <ion-header>
     <div class="header" style="width: 100%">
-        <ng-container *ngFor="let title of headList;let i = index">
+        <ng-container *ngFor="let title of headList;let i = index;">
             <div (click)="getSecondType(title,i)">
-                <span [ngClass]="{'select':headType == i}">{{title.name}}</span>
+                <span [ngClass]="headType == i?'select':''">{{title.name}}</span>
             </div>
         </ng-container>
     </div>

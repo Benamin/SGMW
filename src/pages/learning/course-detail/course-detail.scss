@@ -182,14 +182,62 @@ page-course-detail {
     }
   }
 
+  .comment-list {
+    background-color: #fff;
+
+    .comment-item {
+
+      .first {
+        display: flex;
+        margin-bottom: 10px;
+
+        .headPhoto{
+          img{
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+          }
+        }
+        > div:first-child {
+          width: 10%;
+        }
+
+        > div:nth-child(2) {
+          padding-left: 10px;
+          width: 50%;
+
+          p:first-child {
+            font-size: 16px;
+            margin-bottom:5px;
+          }
+
+          p:last-child {
+            color: #999999;
+            font-size: 12px;
+          }
+        }
+
+        > div:last-child {
+          width: 40%;
+        }
+      }
+    }
+
+    .comment-item + .comment-item {
+      border-top: 1px solid #e3e3e3;
+    }
+  }
+
   //  底部
   .course-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
     display: flex;
     min-height: 3rem;
     line-height: 3rem;
     text-align: center;
     background-color: #fff;
-    padding: 10px;
 
     .toolbar-background-ios {
       background-color: #fff;
@@ -338,6 +386,7 @@ page-course-detail {
   .dutyItem > div {
     margin-bottom: 10px;
   }
+
   .focus {
     float: right;
     font-size: 1.3rem;
@@ -349,5 +398,55 @@ page-course-detail {
     text-align: center;
     line-height: 2rem;
     font-weight: normal;
+  }
+
+  //课程评价 //教师评价
+  .course-comment, .teacher-comment {
+    display: flex;
+    background-color: #fff;
+    padding: 20px;
+
+    > div {
+      flex: 1;
+    }
+
+    > div:nth-child(1) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      font-weight: 400;
+    }
+
+    > div:nth-child(2) {
+      flex: 2;
+    }
+
+    > div:nth-child(3),
+    > div:nth-child(4),
+    > div:nth-child(5) {
+      flex: 1;
+
+      > p:first-child {
+        font-weight: 400;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      > p:last-child {
+        font-weight: 400;
+        color: #777777;
+        font-size: 12px;
+      }
+    }
+  }
+  .img-star {
+    flex-direction: column;
+    flex-flow: column;
+    color: #facd70;
+
+    span {
+      font-size: 2rem;
+    }
   }
 }

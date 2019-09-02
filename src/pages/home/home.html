@@ -65,7 +65,7 @@
         <div class="sale-box">
             <div class="scroll-tab">
                 <div class="sale-content">
-                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" (click)="saleToLearn(sale)">
+                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" (click)="saleToLearn(sale,i)">
                         <img src="../../assets/imgs/home/shop{{i+1+'.png'}}" alt="">
                         <div class="sale-desc">
                             {{sale.TypeName}}
@@ -86,13 +86,6 @@
                 </div>
                 <div class="name">
                     <p style="font-weight: bold">{{item.UserName}}</p>
-                    <p>{{item.Position || ' '}}</p>
-                </div>
-                <div class="focuscontent">
-                    <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item)" class="focus">关注</span>
-                    <span *ngIf="item.IsSubscribe == true" style="background:rgba(0,0,0,.2);color: #ffffff"
-                          (click)="cancleFocusHandle(item)"
-                          class="focus">已关注</span>
                 </div>
             </div>
         </div>

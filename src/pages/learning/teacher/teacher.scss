@@ -21,11 +21,17 @@ page-teacher {
     }
   }
   .focus {
-    background-color: #aedee8;
-    padding: 6px 20px;
-    border-radius: 20px;
-    line-height: 25px;
-    font-size: 14px;
+    display: inline-block;
+    font-size: 1.3rem;
+    width: 5rem;
+    height: 2rem;
+    background: #addae9;
+    border-radius: 1rem;
+    border: 0.08rem solid #addae9;
+    text-align: center;
+    line-height: 2rem;
+    font-weight: normal;
+    color: #000000;
   }
 
   .desc-desc {

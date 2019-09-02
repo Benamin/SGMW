@@ -29,7 +29,9 @@ export class LoginPage {
         Jxsh: '000000',
         LoginName: '丁林玲',
         password: 'sgmw50@',
-        UserType: 'Teacher'
+        UserType: 'Teacher',
+        codeRight: '',
+        inputCode: ''
     };
 
     bodyHeight;
@@ -73,6 +75,10 @@ export class LoginPage {
     }
 
     loginJsx() {
+        if(this.jxs.codeRight != this.jxs.inputCode){
+            this.commonSer.toast('请输入正确的验证码');
+            return;
+        }
         const loading = this.loadCtrl.create({
             content: '登录中...'
         });
@@ -99,6 +105,7 @@ export class LoginPage {
 
     getCode(e) {
         this.user.codeRight = e;
+        this.jxs.codeRight = e;
     }
 
 }

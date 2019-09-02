@@ -13,6 +13,8 @@ import {CourseDetailPage} from "../learning/course-detail/course-detail";
 import {TeacherPage} from "../learning/teacher/teacher";
 import {defaultImg} from "../../app/app.constants";
 import {MineService} from "../mine/mine.service";
+import {TabService} from "../../core/tab.service";
+import {timer} from "rxjs/observable/timer";
 
 @Component({
     selector: 'page-home',
@@ -37,7 +39,7 @@ export class HomePage {
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
-                private mineSer: MineService) {
+                private mineSer: MineService, private tabSer: TabService) {
 
         this.storage.get('user').then(value => {
             this.mineInfo = value;
@@ -60,9 +62,12 @@ export class HomePage {
         this.type = type;
     }
 
-    saleToLearn(item) {
-        this.navCtrl.setRoot(LearningPage, {item: item, headType: 2});
+    saleToLearn(item, index) {
         this.navCtrl.parent.select(1);
+        // this.tabSer.changeTabInContainerPage({index:1,item: item, headType: index});
+        timer(500).subscribe(() => {
+            this.navCtrl.setRoot(LearningPage, {item: item, headType: index});
+        })
     }
 
     goToLearn(index) {
@@ -90,8 +95,8 @@ export class HomePage {
         this.homeSer.GetGoodTeacherList().subscribe(
             (res) => {
                 this.teacherList = res.data.TeacherItems;
-                if (this.teacherList.length > 3) {
-                    this.teacherList.splice(3, this.teacherList.length - 3);
+                if (this.teacherList.length > 5) {
+                    this.teacherList.splice(5, this.teacherList.length - 5);
                 }
             }
         )
@@ -203,7 +208,7 @@ export class HomePage {
     goCourseBanner(e) {
         const arr = e.HttpURL.split('/');
         console.log(arr);
-        this.navCtrl.push(CourseDetailPage, {id: arr[arr.length -1]});
+        this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
     }
 
 }

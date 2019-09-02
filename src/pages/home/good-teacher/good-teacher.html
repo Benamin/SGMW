@@ -6,8 +6,8 @@
 
 <ion-content style="background-color:#fff;">
     <div class="teacher" *ngFor="let item of  teacherList">
-        <div class="teacher-info" (click)="teachDetail(item)">
-            <div class="headPhoto">
+        <div class="teacher-info" >
+            <div class="headPhoto" (click)="teachDetail(item)">
                 <img [src]="item.HeadPhoto">
             </div>
             <div class="name">
@@ -16,7 +16,7 @@
             </div>
             <div class="focuscontent">
                 <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item)" class="focus">关注</span>
-                <span *ngIf="item.IsSubscribe == true" style="background-color:rgba(0,0,0,.2);color:#fff;"
+                <span *ngIf="item.IsSubscribe == true" style="background-color: #cccccc;color:#fff;border: 1px solid #cccccc;"
                       (click)="cancleFocusHandle(item)"
                       class="focus">已关注</span>
             </div>

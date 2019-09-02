@@ -37,6 +37,7 @@ import {ModalFromRightEnter, ModalFromRightLeave, ModalScaleEnter, ModalScaleLea
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
 import {ViewFilePage} from "../pages/learning/view-file/view-file";
+import {TabService} from "../core/tab.service";
 
 @NgModule({
     declarations: [
@@ -78,6 +79,7 @@ import {ViewFilePage} from "../pages/learning/view-file/view-file";
         FileOpener,
         InAppBrowser,
         File,
+        TabService,
         LoginService,
         HomeService,
         CommonService,

@@ -21,7 +21,8 @@
             </div>
         </div>
         <div class="content video" *ngIf="product.videoPath">
-            <video #video (canplaythrough)="startPlay($event)" width="100%" autoplay height="100%" poster="{{product.chapter?.Course?.CoverUrl}}" [src]="product.videoPath"
+            <video #video (canplaythrough)="startPlay($event)" width="100%" autoplay height="100%"
+                   poster="{{product.chapter?.Course?.CoverUrl}}" [src]="product.videoPath"
                    controls="controls">
                 您的浏览器不支持 html5。
             </video>
@@ -44,7 +45,7 @@
     </div>
 
     <div #space class="space"></div>
-    <div di="desc" class="item">
+    <div id="desc" class="item">
         <p>简介</p>
         <div class="introduction">
             {{product.detail?.Description}}
@@ -55,10 +56,9 @@
         <p>章节</p>
         <div class="chapter">
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
-                <p style="font-weight: 500">{{item.title}}</p>
+                <p style="font-weight: bold">{{item.title}}</p>
                 <div *ngIf="item.children">
-                    <tree-list [treeList]="item.children" [IsBuy]="product.detail?.IsBuy"
-                               (fileData)="getInfo($event)"></tree-list>
+                    <tree-list [treeList]="item.children" [IsBuy]="product.detail?.IsBuy"></tree-list>
                 </div>
             </ng-container>
         </div>
@@ -86,10 +86,10 @@
     <div class="space"></div>
     <div id="comment" class="item">
         <p>课程评价
-            <span *ngIf="comment.teacher.length > 0"  class="look" (click)="goCourseComment()">更多</span>
-            <span *ngIf="comment.teacher.length == 0"  class="focus" (click)="goCourseComment()">去评价</span>
+            <span *ngIf="comment.teacher.length > 0" class="look" (click)="goCourseComment()">更多</span>
+            <span *ngIf="comment.teacher.length == 0" class="focus" (click)="goCourseComment()">去评价</span>
         </p>
-        <div class="course-comment">
+        <div class="comment-list">
             <div class="comment-item" *ngFor="let item of comment.teacher;">
                 <div class="first">
                     <div class="headPhoto">
@@ -110,18 +110,18 @@
                     {{item.Contents}}
                 </div>
             </div>
-            <div class="no-comment" *ngIf="comment.teacher.length == 0">
-                <p>暂无教师评价，快去发一条吧～</p>
-            </div>
+        </div>
+        <div class="no-comment" *ngIf="comment.teacher.length == 0">
+            <p>暂无教师评价，快去发一条吧～</p>
         </div>
     </div>
     <div class="space"></div>
     <div class="item">
         <p>讲师评价
-            <span *ngIf="comment.teacher.length > 0" (click)="goTeacherComment()"  class="look">更多</span>
-            <span *ngIf="comment.teacher.length == 0" (click)="goTeacherComment()"  class="focus">去评价</span>
+            <span *ngIf="comment.teacher.length > 0" (click)="goTeacherComment()" class="look">更多</span>
+            <span *ngIf="comment.teacher.length == 0" (click)="goTeacherComment()" class="focus">去评价</span>
         </p>
-        <div class="teacher-comment">
+        <div class="comment-list">
             <div class="comment-item" *ngFor="let item of comment.teacher;">
                 <div class="first">
                     <div class="headPhoto">
@@ -142,9 +142,9 @@
                     {{item.Contents}}
                 </div>
             </div>
-            <div class="no-comment" *ngIf="comment.teacher.length == 0">
-                <p>暂无教师评价，快去发一条吧～</p>
-            </div>
+        </div>
+        <div class="no-comment" *ngIf="comment.teacher.length == 0">
+            <p>暂无教师评价，快去发一条吧～</p>
         </div>
     </div>
     <div class="space"></div>
@@ -154,7 +154,7 @@
     </div>
 </ion-content>
 
-<ion-footer class="course-footer">
+<div class="course-footer" *ngIf="showFooter">
     <ion-toolbar *ngIf="!product.detail?.IsBuy" (click)="sign()">
         <ion-buttons tappable>立即报名</ion-buttons>
     </ion-toolbar>
@@ -172,7 +172,7 @@
         </ion-buttons>
     </ion-toolbar>
 
-</ion-footer>
+</div>
 
 <div *ngIf="signObj.isSign" class="sign">
     <img src="../assets/imgs/course/sign-success.png">
