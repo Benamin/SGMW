@@ -1,11 +1,11 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>我的课程</ion-title>
+        <ion-title>我的学习</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <navbar [list]="navbarList" (done)="changeType($event)"></navbar>
+    <navbar [list]="navbarList" [select]="2" (done)="changeType($event)"></navbar>
     <div class="learn-list">
         <div class="course-item" *ngFor="let item of courseList" (click)="goCourse(item)">
             <div class="item-img">

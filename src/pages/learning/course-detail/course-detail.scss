@@ -14,7 +14,7 @@ page-course-detail {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         width: 100%;
         height: 100%;
       }
@@ -39,10 +39,10 @@ page-course-detail {
       }
 
       .course-name {
-        font-size:22px;
-        font-weight:600;
-        color:rgba(255,255,255,1);
-        line-height:2.67rem;
+        font-size: 22px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 1);
+        line-height: 2.67rem;
         margin-bottom: 15px;
       }
 
@@ -129,18 +129,22 @@ page-course-detail {
         color: #777777;
       }
     }
-
-    .focus {
-      background-color: #ADDAE9;
-      float: right;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-    }
   }
 
   //课程评价 //教师评价
   .course-comment, .teacher-comment {
+    .no-comment {
+      justify-content: left !important;
+
+      > p {
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: rgba(51, 51, 51, 1);
+        line-height: 1.67rem;
+        margin: 1rem 0;
+      }
+    }
+
     display: flex;
 
     > div {
@@ -217,10 +221,12 @@ page-course-detail {
         font-size: 14px;
         margin: 0 auto;
       }
-      .collectionDone{
+
+      .collectionDone {
         background-color: #d85e4f;
         color: #ffffff;
-        ion-icon{
+
+        ion-icon {
           margin-right: 3px;
         }
       }
@@ -260,7 +266,8 @@ page-course-detail {
       padding: 8px 0;
       border-bottom: 1px solid #dddddd;
     }
-    .list:last-child > p:last-child{
+
+    .list:last-child > p:last-child {
       border-bottom: none;
     }
   }
@@ -281,6 +288,7 @@ page-course-detail {
     height: 36px;
     background-color: #fff;
     width: 100%;
+
     a {
       text-decoration: none;
       color: #333;
@@ -329,5 +337,17 @@ page-course-detail {
 
   .dutyItem > div {
     margin-bottom: 10px;
+  }
+  .focus {
+    float: right;
+    font-size: 1.3rem;
+    width: 5rem;
+    height: 2rem;
+    background: #addae9;
+    border-radius: 1rem;
+    border: 0.08rem solid #addae9;
+    text-align: center;
+    line-height: 2rem;
+    font-weight: normal;
   }
 }

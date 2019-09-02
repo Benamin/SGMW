@@ -17,7 +17,7 @@ export class CoursePage {
     page = {
         page: 1,
         pageSize: 100,
-        studystate: 1,
+        studystate: 2,
     };
 
     courseList = [];

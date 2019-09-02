@@ -44,6 +44,11 @@ export class CourseDetailPage {
         isCollection: false
     };
 
+    comment = {
+        course:[],
+        teacher:[]
+    }
+
     files = [];
 
     loading;
@@ -51,10 +56,12 @@ export class CourseDetailPage {
         type: "1",
         show: false,
     };
+    starList = new Array(5);
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
+                private learnSer:LearnService,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
     }
@@ -68,9 +75,9 @@ export class CourseDetailPage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
-                console.log(this.product.detail.IsBuy);
                 this.getProductInfo();
                 this.getFileInfo();
+                this.getCommentList();
             }
         );
     }
@@ -99,7 +106,6 @@ export class CourseDetailPage {
         const height = this.banner.nativeElement.offsetHeight;
         this.content.ionScroll.subscribe(($event) => {
             this.zone.run(() => {
-                console.log(this.content.scrollTop)
                 if (this.content.scrollTop > height) {
                     this.bar.show = true;
                     this.renderer.addClass(this.navbar.nativeElement, 'tabs-fixed-scroll')
@@ -139,6 +145,35 @@ export class CourseDetailPage {
         );
         this.loading.dismiss();
     }
+
+
+    //课程评价
+    getCommentList() {
+        const data1 = {
+            pageSize: 1,
+            page: 1,
+            TopicType: 'teacher',   //teacher  course
+            topicID: this.product.detail.Teachers[0].UserID
+        }
+        this.learnSer.GetComment(data1).subscribe(
+            (res) => {
+                this.comment.teacher = res.data.CommentItems;
+            }
+        );
+
+        const data2 = {
+            pageSize: 1,
+            page: 1,
+            TopicType: 'course',   //teacher  course
+            topicID: this.product.detail.Teachers[0].UserID
+        }
+        this.learnSer.GetComment(data2).subscribe(
+            (res) => {
+                this.comment.teacher = res.data.CommentItems;
+            }
+        );
+    }
+
 
     f(data) {
         for (let i = 0; i < data.length; i++) {

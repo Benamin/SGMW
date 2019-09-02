@@ -9,17 +9,14 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
  */
 export class NavbarComponent {
     @Input() list;
+    @Input() select;
     @Output() done = new EventEmitter();
-    bar = {
-        type: "1",
-    };
 
     constructor() {
-        console.log('Hello NavbarComponent Component');
     }
 
     changeType(item) {
-        this.bar.type = item.type;
+        this.select = item.type;
         this.done.emit(item);
     }
 
