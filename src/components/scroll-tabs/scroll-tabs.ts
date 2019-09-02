@@ -12,10 +12,11 @@ export class ScrollTabsComponent implements OnChanges {
     @ViewChild('tabSpan') tabSpan: ElementRef;
     @ViewChild('tabsChildren') tabsChildren: ElementRef;
     @Input() tabsList;
+    @Input() isShow;
     @Output() done = new EventEmitter();
 
     select = {
-        index:1,
+        index:0,
         item:null
     }
     itemWidth;
@@ -23,7 +24,6 @@ export class ScrollTabsComponent implements OnChanges {
 
     threeType = {
         list: [],
-        show: false,
         type: null,
     };
 
@@ -54,28 +54,28 @@ export class ScrollTabsComponent implements OnChanges {
 
     //获取三级菜单
     getTabs(e) {
-        if (this.threeType.show && this.threeType.type == e.type) {
-            this.threeType.show = false;
+        if (this.isShow && this.threeType.type == e.type) {
+            this.isShow = false;
             return;
         }
         this.threeType.type = e.type;
         this.homeSer.GetDictionaryByPCode(e.type).subscribe(
             (res) => {
                 this.threeType.list = res.data;
-                this.threeType.show = true;
+                this.isShow = true;
             }
         )
     }
 
     //选择单个三级分类
     setSubjectID(e){
-        this.threeType.show = false;
+        this.isShow = false;
         this.done.emit(e)
     }
 
     //选择全部
     setAll(){
-        this.threeType.show = false;
+        this.isShow = false;
         this.done.emit(this.select.item);
     }
 }

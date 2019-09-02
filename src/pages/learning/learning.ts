@@ -18,7 +18,7 @@ export class LearningPage {
     productList = [];
     headList = [];
     headType;
-
+    isShow = false;
     page = {
         SubjectID: '',
         page: '1',
@@ -56,7 +56,7 @@ export class LearningPage {
 
     //二级菜单
     getSecondType(title, index) {
-        console.log('second')
+        this.isShow = false;
         this.headType = index;
         console.log(this.headType);
         this.code = title.type;

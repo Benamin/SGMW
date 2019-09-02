@@ -1,21 +1,21 @@
-    <div #scrollTab class="scroll-tab">
-        <div #newContentParent class="news-content parent">
-            <div #tabsParent class="tabs-parent parent">
-                <div #tabsChildren *ngFor="let item of tabsList;let i = index;" (click)="changeParent(item,i)"
-                     class="tabs-children">
+<div #scrollTab class="scroll-tab">
+    <div #newContentParent class="news-content parent">
+        <div #tabsParent class="tabs-parent parent">
+            <div #tabsChildren *ngFor="let item of tabsList;let i = index;" (click)="changeParent(item,i)"
+                 class="tabs-children">
                       <span #tabSpan [style.color]="select.index == i ? '#f71a22':'#999'">
                                     {{item.name}}
                           <ion-icon *ngIf="select.index == i" name="arrow-down"></ion-icon>
                           <ion-icon *ngIf="select.index != i" name="arrow-up"></ion-icon>
                       </span>
-                </div>
-<!--                <span #tips id="tips"></span>-->
             </div>
+            <!--                <span #tips id="tips"></span>-->
         </div>
     </div>
-    <div *ngIf="threeType.show" class="three-content" (click)="threeType.show = false">
-        <div class="three-type" [style.height]="threeType.show?'auto':'0'">
-            <p (click)="setAll()">全部</p>
-            <p *ngFor="let item of threeType.list;let i = index;" (click)="setSubjectID(item)">{{item.TypeName}}</p>
-        </div>
+</div>
+<div *ngIf="isShow" class="three-content" (click)="isShow = false">
+    <div class="three-type" [style.height]="isShow?'auto':'0'">
+        <p (click)="setAll()">全部</p>
+        <p *ngFor="let item of threeType.list;let i = index;" (click)="setSubjectID(item)">{{item.TypeName}}</p>
     </div>
+</div>

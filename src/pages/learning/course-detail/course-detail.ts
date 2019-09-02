@@ -74,7 +74,9 @@ export class CourseDetailPage {
         this.showFooter = true;
         this.scrollHeight();
         this.loading = this.loadCtrl.create({
-            content: ''
+            content: '',
+            dismissOnPageChange:true,
+            enableBackdropDismiss:true,
         });
         this.loading.present();
         await this.learSer.GetProductById(this.pId).subscribe(
