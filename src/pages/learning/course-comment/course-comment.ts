@@ -46,14 +46,6 @@ export class CourseCommentPage {
                 this.page.total = res.data.TotalCount;
             }
         );
-
-        // this.learnSer.GetCommentByNative(data).then(
-        //     (res) => {
-        //         let res1 = JSON.parse(res.data);
-        //         this.list = res1.data.CommentItems;
-        //         this.page.total = res.data.data.TotalCount;
-        //     }
-        // )
     }
 
     openComment() {
@@ -79,13 +71,6 @@ export class CourseCommentPage {
                 this.getList();
             }
         )
-
-        // this.learnSer.SaveCommentByNative(data).then(
-        //     (res) => {
-        //         this.commonSer.toast('评价成功');
-        //         this.getList();
-        //     }
-        // )
     }
 
 }
