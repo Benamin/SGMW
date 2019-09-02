@@ -63,11 +63,15 @@ export class HomePage {
     }
 
     saleToLearn(item, index) {
+        const data = {
+            item: item, headType: index
+        }
         this.navCtrl.parent.select(1);
+        this.storage.set('course',data);
         // this.tabSer.changeTabInContainerPage({index:1,item: item, headType: index});
-        timer(500).subscribe(() => {
-            this.navCtrl.setRoot(LearningPage, {item: item, headType: index});
-        })
+        // timer(500).subscribe(() => {
+        //     this.navCtrl.setRoot(LearningPage, {item: item, headType: index});
+        // })
     }
 
     goToLearn(index) {

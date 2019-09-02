@@ -37,8 +37,8 @@ export class ScrollTabsComponent implements OnChanges {
     }
 
     ngOnChanges(change: SimpleChanges) {
-        if (change['inputValue'] && change['inputValue'].currentValue.length > 0) {
-            console.dir(change['inputValue'].currentValue);
+        if (change['isShow'] && change['isShow'].currentValue.length > 0) {
+            console.log(change['inputValue'].currentValue);
         }
     }
 
