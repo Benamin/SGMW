@@ -9,6 +9,7 @@ import {LoginPage} from "../login/login";
 import {Storage} from "@ionic/storage";
 import {MineService} from "./mine.service";
 import {timer} from "rxjs/observable/timer";
+import {LoginService} from "../login/login.service";
 
 
 @Component({
@@ -20,7 +21,8 @@ export class MinePage {
     numer;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private mineSer: MineService,private events:Events,
+                private mineSer: MineService, private events: Events,
+                private loginSer: LoginService,
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
@@ -36,9 +38,11 @@ export class MinePage {
         )
     }
 
-    doRefresh(e){
+    doRefresh(e) {
         this.ionViewDidLoad();
-        timer(1000).subscribe((res)=>{e.complete()});
+        timer(1000).subscribe((res) => {
+            e.complete()
+        });
     }
 
     //我的课程
@@ -63,8 +67,18 @@ export class MinePage {
 
     //后台退出
     logoutApp() {
-        this.storage.clear();
-        this.events.publish('toLogin');
+        this.storage.get('Authorization').then(value => {
+            const data = {
+                token: value
+            };
+            console.log(data);
+            this.loginSer.sgmwLogout(data).subscribe(
+                (res) => {
+                    this.storage.clear();
+                    this.events.publish('toLogin');
+                }
+            );
+        })
     }
 
 }

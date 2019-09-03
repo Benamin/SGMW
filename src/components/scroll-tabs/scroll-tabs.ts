@@ -45,11 +45,15 @@ export class ScrollTabsComponent implements OnChanges {
     changeParent(item, index) {
         this.select.index = index;
         this.select.item = item;
+        console.log(index);
         // this.tips.nativeElement.style.width = this.tabSpan.nativeElement.offsetWidth + 'px';
         // 自身div的一半 - 滑块的一半
         // this.tips.nativeElement.style.left = this.itemWidth * (index) + (this.itemWidth - this.spanWidth) / 2 + 'px';
         // console.log(this.tips.nativeElement.style.left);
-        this.getTabs(item);
+        if(index == 'all') {
+            this.done.emit('all');
+        }
+        if(index != 'all') this.getTabs(item);
     }
 
     //获取三级菜单

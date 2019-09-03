@@ -1,6 +1,12 @@
 <div #scrollTab class="scroll-tab">
     <div #newContentParent class="news-content parent">
         <div #tabsParent class="tabs-parent parent">
+            <div (click)="changeParent('item','all')"
+                 class="tabs-children">
+                      <span #tabSpan [style.color]="select.index == 'all' ? '#f71a22':'#999'">
+                                   全部
+                      </span>
+            </div>
             <div #tabsChildren *ngFor="let item of tabsList;let i = index;" (click)="changeParent(item,i)"
                  class="tabs-children">
                       <span #tabSpan [style.color]="select.index == i ? '#f71a22':'#999'">
