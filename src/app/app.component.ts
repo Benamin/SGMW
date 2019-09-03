@@ -7,6 +7,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import {LoginPage} from "../pages/login/login";
 import {Storage} from "@ionic/storage";
 import {HomePage} from "../pages/home/home";
+import {LoginService} from "../pages/login/login.service";
+import {CommonService} from "../core/common.service";
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +16,8 @@ import {HomePage} from "../pages/home/home";
 export class MyApp {
   rootPage:any;
 
-  constructor(private platform: Platform,private statusBar: StatusBar,private splashScreen: SplashScreen,private storage:Storage) {
+  constructor(private platform: Platform,private statusBar: StatusBar,private commonSer:CommonService,
+              private splashScreen: SplashScreen,private storage:Storage,private loginSer:LoginService) {
     this.platform.ready().then(() => {
       this.splashScreen.hide();
       this.statusBar.show();
@@ -27,12 +30,30 @@ export class MyApp {
 
 
   checkLogin(){
-    this.storage.get('Authorization').then(value => {
+    this.storage.get('loginData').then(value => {
+      console.log(value);
       if(value){
-        this.rootPage = TabsPage;
+        this.imitateLogin(value);
       }else{
         this.rootPage = LoginPage;
       }
     });
+  }
+
+  imitateLogin(logindata){
+    this.loginSer.sgmwLogin(logindata).subscribe(
+        (res) => {
+          if (res.code == 200) {
+            this.storage.set('Authorization', res.data.Token);
+            this.storage.set('user', res.data.User);
+            this.storage.set('loginData', logindata);
+            this.rootPage = TabsPage;
+          } else {
+            this.rootPage = LoginPage;
+            this.commonSer.toast(res.message);
+            this.storage.clear();
+          }
+        }
+    )
   }
 }

@@ -62,13 +62,15 @@ export class HomePage {
         this.getNew();
     }
 
-    aotuPlay(){
+    aotuPlay() {
         this.slides.startAutoplay();
     }
 
-    doRefresh(e){
+    doRefresh(e) {
         this.ionViewDidLoad();
-        timer(1000).subscribe((res)=>{e.complete()});
+        timer(1000).subscribe((res) => {
+            e.complete()
+        });
     }
 
 
@@ -115,9 +117,9 @@ export class HomePage {
                 this.teacherList = res.data.TeacherItems;
                 if (this.teacherList.length > 5) {
                     this.teacherList.splice(5, this.teacherList.length - 5);
-                    this.teacherList.forEach(e=>{
-                        if(e.UserName.length > 3){
-                            e.UserName = e.UserName.splice(0,1) +'...';
+                    this.teacherList.forEach(e => {
+                        if (e.UserName.length > 3) {
+                            e.UserName = e.UserName.splice(0, 1) + '...';
                         }
                     })
                 }
@@ -229,9 +231,10 @@ export class HomePage {
 
     //前往课程
     goCourseBanner(e) {
-        const arr = e.HttpURL.split('/');
-        console.log(arr);
-        this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
+        if (e.HttpURL) {
+            const arr = e.HttpURL.split('/');
+            this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
+        }
     }
 
 }
