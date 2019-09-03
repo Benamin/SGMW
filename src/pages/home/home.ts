@@ -11,10 +11,11 @@ import {Storage} from "@ionic/storage";
 import {NotificationPage} from "../mine/notification/notification";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
 import {TeacherPage} from "../learning/teacher/teacher";
-import {defaultImg} from "../../app/app.constants";
+import {defaultImg, SERVER_HTTP_URL} from "../../app/app.constants";
 import {MineService} from "../mine/mine.service";
 import {TabService} from "../../core/tab.service";
 import {timer} from "rxjs/observable/timer";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 @Component({
     selector: 'page-home',
@@ -33,6 +34,7 @@ export class HomePage {
     bannerList = [];
     mineInfo;
     defaultImg = defaultImg;
+    httpUrl = SERVER_HTTP_URL;
 
     info = {
         new: 0,
@@ -44,7 +46,7 @@ export class HomePage {
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
-                private mineSer: MineService, private tabSer: TabService) {
+                private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser) {
 
         this.storage.get('user').then(value => {
             this.mineInfo = value;
@@ -84,7 +86,7 @@ export class HomePage {
 
     saleToLearn(item, index) {
         const data = {
-            item: item, headType: index
+            item: item, headType: index + 1
         };
         this.storage.set('course', data);
         this.navCtrl.parent.select(1);
@@ -231,9 +233,19 @@ export class HomePage {
 
     //前往课程
     goCourseBanner(e) {
-        if (e.HttpURL) {
-            const arr = e.HttpURL.split('/');
-            this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
+        if (e.URLType == 0) {
+            return;
+        }
+        if (e.URLType == 1) {
+
+        }
+        if (e.URLType == 2) {
+            if (e.HttpURL.includes(this.httpUrl)) {
+                const arr = e.HttpURL.split('/');
+                this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
+            } else {
+                this.inAppBrowser.create(e.HttpURL, '_system');
+            }
         }
     }
 

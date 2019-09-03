@@ -75,8 +75,8 @@ export class CourseDetailPage {
         this.scrollHeight();
         this.loading = this.loadCtrl.create({
             content: '',
-            dismissOnPageChange:true,
-            enableBackdropDismiss:true,
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
         });
         this.loading.present();
         await this.learSer.GetProductById(this.pId).subscribe(
@@ -206,13 +206,28 @@ export class CourseDetailPage {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
             this.product.videoPath = this.files[0].fileUrl;
+        } else if (this.files[0].icon.includes('pdf')) {
+            this.openPDF(this.files[0]);
         } else {
-            if (this.files[0].fileUrl) {
-                this.commonSer.toast('暂时只可预览pdf文件');
-                this.fileSer.downloadFile(this.files[0].fileUrl, this.files[0].filename);
-                // this.viewOfficeFile(this.files[0].fileUrl, this.files[0].filename);
-            }
+            this.fileSer.downloadFile(this.files[0].fileUrl, this.files[0].filename);
+            // this.viewOfficeFile(this.files[0].fileUrl, this.files[0].filename);
         }
+    }
+
+    openPDF(file) {
+        console.log(file);
+        let modal = this.modalCtrl.create(ViewFilePage, {
+            displayData: {
+                pdfSource: {
+                    url: file.fileUrl
+                },
+                title: file.DisplayName,
+                Size: file.Size * 1024
+            },
+
+        });
+        modal.present();
+        event.stopPropagation();
     }
 
     teachDetail() {
@@ -247,7 +262,7 @@ export class CourseDetailPage {
     goTeacherComment() {
         console.log(this.product.detail.Teachers[0].UserID)
         this.navCtrl.push(CourseCommentPage, {
-            placeholder:'请输入你对教师的评价...',
+            placeholder: '请输入你对教师的评价...',
             TopicID: this.product.detail.Teachers[0].UserID,
             TopicType: 'teacher',
             title: '讲师评价'
@@ -257,7 +272,7 @@ export class CourseDetailPage {
     //课程评价
     goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder:'请输入你对课程的评价...',
+            placeholder: '请输入你对课程的评价...',
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
             title: '课程评价'
@@ -267,7 +282,7 @@ export class CourseDetailPage {
     //课程讨论
     goCourseDiscuss() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder:'请输入你要讨论的内容...',
+            placeholder: '请输入你要讨论的内容...',
             TopicID: this.product.detail.PrId,
             TopicType: 'talk',
             title: '课程讨论'

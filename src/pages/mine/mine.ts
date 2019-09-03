@@ -10,6 +10,7 @@ import {Storage} from "@ionic/storage";
 import {MineService} from "./mine.service";
 import {timer} from "rxjs/observable/timer";
 import {LoginService} from "../login/login.service";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 
 @Component({
@@ -22,7 +23,7 @@ export class MinePage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private mineSer: MineService, private events: Events,
-                private loginSer: LoginService,
+                private loginSer: LoginService,private inAppBrowser:InAppBrowser,
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
@@ -63,6 +64,11 @@ export class MinePage {
     //通知中心
     goToNoti() {
         this.navCtrl.push(NotificationPage);
+    }
+
+    //意见反馈
+    openUrl(){
+        this.inAppBrowser.create('https://jinshuju.net/f/WVrljv', '_system');
     }
 
     //后台退出
