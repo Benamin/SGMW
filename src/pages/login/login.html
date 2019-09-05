@@ -6,11 +6,11 @@
 <ion-content>
     <div class="login" [style]="{ height: bodyHeight + 'px' }">
         <div class="back-img">
-            <img src="../../assets/imgs/login/login_bg.png" alt="">
+            <img src="./assets/imgs/login/login_bg.png" alt="">
         </div>
         <div class="login-form">
             <div class="logo">
-                <img src="../assets/imgs/login/logo.png" alt="">
+                <img src="./assets/imgs/login/logo.png" alt="">
             </div>
             <div class="login-input">
                 <ion-input [(ngModel)]="jxs.Jxsh" placeholder="请输入经销商号"></ion-input>
@@ -19,7 +19,7 @@
                 <div class="check">
                     <ion-input [(ngModel)]="jxs.inputCode" placeholder="请输入验证码"></ion-input>
                     <check-code class="checkCode" #checkCode (done)="getCode($event)"></check-code>
-                    <img (click)="flashCode()" class="flash" src="../assets/imgs/login/flash.png" alt="">
+                    <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
                 </div>
             </div>
             <div class="login-button" (click)="loginJsx()">
