@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.SGMW.start.h.test" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.SGMW.start.h" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>骏菱学社</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -103,4 +103,9 @@
     <plugin name="cordova-plugin-advanced-http" spec="~2.1.1">
         <variable name="OKHTTP_VERSION" value="3.10.0" />
     </plugin>
+    <plugin name="cordova-plugin-file" spec="^6.0.2" />
+    <plugin name="cordova-plugin-file-opener2" spec="~2.2.1" />
+    <plugin name="cordova-plugin-ionic-webview" spec="~4.1.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~3.1.0" />
+    <plugin name="cordova-plugin-app-version" spec="~0.1.9" />
 </widget>

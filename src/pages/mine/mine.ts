@@ -11,6 +11,8 @@ import {MineService} from "./mine.service";
 import {timer} from "rxjs/observable/timer";
 import {LoginService} from "../login/login.service";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {UpdateAppPage} from "./update-app/update-app";
+import {AppVersion} from "@ionic-native/app-version";
 
 
 @Component({
@@ -19,11 +21,12 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
 })
 export class MinePage {
     mineInfo;
-    numer;
+    number;
+    version;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private mineSer: MineService, private events: Events,
-                private loginSer: LoginService,private inAppBrowser:InAppBrowser,
+                private mineSer: MineService, private events: Events, private appVersion: AppVersion,
+                private loginSer: LoginService, private inAppBrowser: InAppBrowser,
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
@@ -32,11 +35,21 @@ export class MinePage {
     }
 
     ionViewDidLoad() {
+        this.getVersion();
         this.mineSer.GetMyProductCountInfo().subscribe(
             (res) => {
-                this.numer = res.data;
+                this.number = res.data;
             }
         )
+    }
+
+    getVersion() {
+        //检测是否需要更新
+        this.appVersion.getVersionNumber().then((version: string) => {
+            this.version = version;
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     doRefresh(e) {
@@ -67,8 +80,13 @@ export class MinePage {
     }
 
     //意见反馈
-    openUrl(){
+    openUrl() {
         this.inAppBrowser.create('https://jinshuju.net/f/WVrljv', '_system');
+    }
+
+    //更新
+    goUpdate() {
+        this.navCtrl.push(UpdateAppPage);
     }
 
     //后台退出

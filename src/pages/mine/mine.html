@@ -30,15 +30,15 @@
             </div>
             <div class="info-item item-type">
                 <div (click)="goToCourse()">
-                    <p>{{numer?.CourseCount || '0'}}</p>
+                    <p>{{number?.CourseCount || '0'}}</p>
                     <p>课程</p>
                 </div>
                 <div (click)="goExam()">
-                    <p>{{numer?.WorkCount || '0'}}</p>
+                    <p>{{number?.WorkCount || '0'}}</p>
                     <p>作业</p>
                 </div>
                 <div (click)="goToCollection()">
-                    <p>{{numer?.CollectionCount || '0'}}</p>
+                    <p>{{number?.CollectionCount || '0'}}</p>
                     <p>收藏</p>
                 </div>
             </div>
@@ -59,6 +59,16 @@
                 <img src="../assets/imgs/mine/yjfk.png">
             </div>
             <div class="middle">意见反馈</div>
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
+        </div>
+        <div class="item" (click)="goUpdate()">
+            <div class="left">
+                <img src="../assets/imgs/mine/gyyy.png">
+            </div>
+            <div class="middle">关于应用
+                <span float-end>版本{{version}}</span></div>
             <div class="right">
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>

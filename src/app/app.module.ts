@@ -38,6 +38,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
 import {ViewFilePage} from "../pages/learning/view-file/view-file";
 import {TabService} from "../core/tab.service";
+import {AppVersion} from "@ionic-native/app-version";
 
 @NgModule({
     declarations: [
@@ -78,6 +79,7 @@ import {TabService} from "../core/tab.service";
         Keyboard,
         FileOpener,
         InAppBrowser,
+        AppVersion,
         File,
         TabService,
         LoginService,

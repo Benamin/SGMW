@@ -98,10 +98,15 @@ page-mine {
     > div:nth-child(2n) {
       width: 80%;
       padding-left: 10px;
+      span{
+        color: #C4C4C4;
+        letter-spacing: 1px;
+      }
     }
     .right{
       font-size: 1.6rem;
       color: #999999;
+      height: 20px;
     }
   }
 

@@ -10,6 +10,7 @@ import {NotificationDetailPage} from "./notification-detail/notification-detail"
 import {ExamPage} from "./exam/exam";
 import {DoExamPage} from "./do-exam/do-exam";
 import {LookExamPage} from "./look-exam/look-exam";
+import {UpdateAppPage} from "./update-app/update-app";
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import {LookExamPage} from "./look-exam/look-exam";
         ExamPage,
         DoExamPage,
         LookExamPage,
+        UpdateAppPage,
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -34,7 +36,8 @@ import {LookExamPage} from "./look-exam/look-exam";
         NavbarComponent,
         ExamPage,
         DoExamPage,
-        LookExamPage
+        LookExamPage,
+        UpdateAppPage
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
