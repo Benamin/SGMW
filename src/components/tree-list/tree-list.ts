@@ -52,9 +52,8 @@ export class TreeListComponent {
             }
             if (file.icon.includes('pdf')) this.openPDF(file);
             if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
-                this.commonSer.toast('暂时只可预览pdf文件');
                 // this.viewOfficeFile(file.fileUrl, file.filename);
-                this.fileSer.downloadFile(file.fileUrl, file.DisplayName);
+                this.fileSer.downloadFile(file.fileUrl, file.filename);
             }
         } else {
             this.commonSer.toast('请先报名');
