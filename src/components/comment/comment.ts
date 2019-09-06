@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {Keyboard} from "@ionic-native/keyboard";
+import {CommonService} from "../../core/common.service";
 
 @Component({
     selector: 'comment',
@@ -16,7 +17,7 @@ export class CommentComponent {
     score;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private keyboard: Keyboard,
+                private keyboard: Keyboard,private commonSer:CommonService,
                 public viewCtrl: ViewController) {
         this.placeholder = this.navParams.get('placeholder');
         this.type = this.navParams.get('type');
@@ -52,6 +53,10 @@ export class CommentComponent {
     }
 
     submit() {
+        if(!this.replyContent || this.replyContent.trim() == ""){
+            this.commonSer.toast('请输入评价!');
+            return
+        }
         const data = {
             'replyContent': this.replyContent,
             'score': this.score
