@@ -31,7 +31,9 @@ export class HomePage {
     saleList = [];  //销售运营
     productList = new Array(5);  //产品体验
     teacherList = [];
-    bannerList = [];
+    bannerList = [
+        {SourceUrl: defaultImg}
+    ];
     mineInfo;
     defaultImg = defaultImg;
     httpUrl = SERVER_HTTP_URL;
@@ -42,7 +44,7 @@ export class HomePage {
 
     slidesOp = {
         autoplay: 3000
-    }
+    };
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
