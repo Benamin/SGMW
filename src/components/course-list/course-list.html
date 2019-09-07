@@ -1,16 +1,18 @@
  <div class="learn-list">
-  <div class="course-item" *ngFor="let item of list" (click)="getItem(item)">
-    <div class="item-img">
-      <img [src]="item?.ImageUrl || defaultImg">
-    </div>
-    <div class="item-desc">
-      <p>{{item?.Title}}</p>
-      <div class="desc">
-        <span>{{item?.SubjectName}}</span>
-        <span><span class="icon iconfont icon-pinglun"></span>{{item?.ZanCount}}</span>
-        <span><span class="icon iconfont icon-shoucang"></span>{{item?.CollectionCount}}</span>
-      </div>
-    </div>
-  </div>
+   <ng-container *ngFor="let item of list" (click)="getItem(item)">
+     <div class="course-item wow slideInUp" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="10">
+       <div class="item-img">
+         <img [src]="item?.ImageUrl || defaultImg">
+       </div>
+       <div class="item-desc">
+         <p>{{item?.Title}}</p>
+         <div class="desc">
+           <span>{{item?.SubjectName}}</span>
+           <span><span class="icon iconfont icon-pinglun"></span>{{item?.ZanCount}}</span>
+           <span><span class="icon iconfont icon-shoucang"></span>{{item?.CollectionCount}}</span>
+         </div>
+       </div>
+     </div>
+   </ng-container>
 </div>
 
