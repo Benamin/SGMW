@@ -17,6 +17,7 @@ import {TabService} from "../../core/tab.service";
 import {timer} from "rxjs/observable/timer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 
+declare let md5;
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -49,7 +50,9 @@ export class HomePage {
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
                 private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser) {
-
+        const hash = md5('value');
+        console.log(hash);
+        console.log(hash.length);
         this.storage.get('user').then(value => {
             this.mineInfo = value;
         })
