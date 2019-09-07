@@ -21,20 +21,6 @@ page-good-teacher {
       flex: 2;
       padding-left: 10px;
     }
-
-    .focus {
-      display: inline-block;
-      font-size: 1.3rem;
-      width: 5rem;
-      height: 2rem;
-      background: #addae9;
-      border-radius: 1rem;
-      border: 0.08rem solid #addae9;
-      text-align: center;
-      line-height: 2rem;
-      font-weight: normal;
-      color: #000000;
-    }
   }
   .teacher + .teacher{
     border-top: 1px solid #dddddd;

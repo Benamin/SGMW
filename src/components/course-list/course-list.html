@@ -1,6 +1,6 @@
  <div class="learn-list">
-   <ng-container *ngFor="let item of list" (click)="getItem(item)">
-     <div class="course-item">
+   <ng-container *ngFor="let item of list" >
+     <div class="course-item" (click)="getItem(item)">
        <div class="item-img">
          <img [src]="item?.ImageUrl || defaultImg">
        </div>
