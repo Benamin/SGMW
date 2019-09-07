@@ -45,6 +45,7 @@ export class TreeListComponent {
 
     //文件处理
     handle(file, event) {
+        event.stopPropagation();
         console.log(file);
         if (this.IsBuy) {
             if (file.icon.includes('mp4')) {

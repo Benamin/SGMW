@@ -1,6 +1,6 @@
  <div class="learn-list">
    <ng-container *ngFor="let item of list" (click)="getItem(item)">
-     <div class="course-item wow slideInUp" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="10">
+     <div class="course-item">
        <div class="item-img">
          <img [src]="item?.ImageUrl || defaultImg">
        </div>

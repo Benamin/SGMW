@@ -46,9 +46,9 @@ export class SearchPage {
                 (res) => {
                     this.productList = res.data.ProductList;
                 }
-            )
-            this.keyboard.hide();
+            );
         }
+        this.keyboard.hide();
     }
 
     showKey() {
