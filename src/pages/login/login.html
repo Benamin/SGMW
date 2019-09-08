@@ -13,11 +13,11 @@
                 <img src="./assets/imgs/login/logo.png" alt="">
             </div>
             <div class="login-input">
-                <ion-input [(ngModel)]="jxs.Jxsh" placeholder="请输入经销商号"></ion-input>
-                <ion-input [(ngModel)]="jxs.LoginName" placeholder="请输入操作员名"></ion-input>
-                <ion-input [(ngModel)]="jxs.password" type="password" placeholder="请输入密码"></ion-input>
+                <input [(ngModel)]="jxs.Jxsh" placeholder="请输入经销商号"/>
+                <input [(ngModel)]="jxs.LoginName" placeholder="请输入操作员名"/>
+                <input [(ngModel)]="jxs.password" type="password" placeholder="请输入密码"/>
                 <div class="check">
-                    <ion-input [(ngModel)]="jxs.inputCode" placeholder="请输入验证码"></ion-input>
+                    <input [(ngModel)]="jxs.inputCode" placeholder="请输入验证码"/>
                     <check-code class="checkCode" #checkCode (done)="getCode($event)"></check-code>
                     <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
                 </div>
