@@ -39,24 +39,25 @@ page-login {
     margin: 0 auto;
     position: relative;
 
-    input,ion-input {
-      padding: 8px 20px;
-      width: calc(100% - 8px);
+    .input-input{
+      margin-bottom: 20px;
+      width: calc(100% - 10px);
       background-color: #fff;
       border: 1px solid #ffffff;
       border-radius: 50px;
       font-size: 1.8rem;
-      margin-bottom: 20px;
-      height: 4.5rem;
-      line-height: 4.5rem;
+      padding-left: 20px;
+    }
+    input{
+      margin: 11px 8px 11px 0;
+      padding: 0;
+      width: calc(100% - 8px);
+      border: 0;
+      background: transparent;
     }
 
     .check {
       position: relative;
-
-      input {
-        margin: 0;
-      }
 
       .flash {
         position: absolute;
