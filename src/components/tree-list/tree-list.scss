@@ -39,4 +39,12 @@ tree-list {
     height: 100%;
     background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
   }
+  .collection{
+    top: 25% !important;
+    height: 90px !important;
+  }
+  .collection p{
+    border: none !important;
+    top: 65% !important;
+  }
 }

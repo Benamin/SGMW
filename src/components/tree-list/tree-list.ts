@@ -17,6 +17,8 @@ export class TreeListComponent {
     @Input() IsBuy = [];
     @Output() fileData = new EventEmitter<any>();
 
+    isSign = false;
+
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
                 private fileSer: FileService, private commonSer: CommonService,
                 private navCtrl:NavController) {
@@ -57,7 +59,8 @@ export class TreeListComponent {
                 this.fileSer.downloadFile(file.fileUrl, file.filename);
             }
         } else {
-            this.commonSer.toast('请先报名');
+            this.isSign = true;
+            timer(2000).subscribe(()=>this.isSign = false);
         }
     }
 

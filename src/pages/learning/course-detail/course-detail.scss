@@ -233,8 +233,8 @@ page-course-detail {
     width: 100%;
     bottom: 0;
     display: flex;
-    min-height: 3rem;
-    line-height: 3rem;
+    min-height: 4rem;
+    line-height: 3.5rem;
     text-align: center;
     background-color: #fff;
 
@@ -253,6 +253,7 @@ page-course-detail {
 
       ion-buttons {
         width: 90%;
+        height: 3.5rem;
         border-radius: 50px;
         margin: 0 auto;
         background-image: linear-gradient(to right, #feca46, #fee6a3);
