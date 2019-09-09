@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {LoadingController, NavController, Slides} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
@@ -16,8 +16,10 @@ import {MineService} from "../mine/mine.service";
 import {TabService} from "../../core/tab.service";
 import {timer} from "rxjs/observable/timer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {AppService} from "../../app/app.service";
 
 declare let md5;
+
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -43,19 +45,17 @@ export class HomePage {
         new: 0,
     };
 
-    slidesOp = {
-        autoplay: 3000
-    };
+    wow;   //是否执行动画
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
-                private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser) {
+                private appSer: AppService,
+                private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser,
+                private renderer: Renderer2) {
         const hash = md5('value');
-        console.log(hash);
-        console.log(hash.length);
         this.storage.get('user').then(value => {
             this.mineInfo = value;
-        })
+        });
     }
 
     ionViewDidLoad() {
@@ -65,8 +65,19 @@ export class HomePage {
     }
 
     ionViewWillEnter() {
+        this.appSer.wowInfo.subscribe(
+            (value) => {
+                this.wow = value;
+                console.log(this.wow);
+            }
+        )
         this.info.new = 0;
         this.getNew();
+    }
+
+    ionViewDidLeave(){
+        this.appSer.setWow(false);
+        console.log(this.wow);
     }
 
     aotuPlay() {
