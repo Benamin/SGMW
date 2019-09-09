@@ -54,7 +54,7 @@
     <!--  热门课程-->
     <div class="product">
         <p>热门课程
-            <span class="float-more" (click)="moreCourse()">
+            <span class="float-more" tappable (click)="moreCourse()">
            更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span></p>
         <div class="item">
             <course-list [list]="productList" (done)="goCourse($event)"></course-list>
@@ -64,7 +64,7 @@
     <!--  课程分类-->
     <div class="sale">
         <p>课程分类
-            <span class="float-more" (click)="moreCourse()">
+            <span class="float-more" (click)="moreCourse()" tappable>
            更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
         </p>
         <div class="sale-box">
@@ -81,7 +81,7 @@
         </div>
     </div>
     <div class="person" >
-        <p>金牌讲师<span class="float-more" (click)="moreTeacher()">
+        <p>金牌讲师<span class="float-more" (click)="moreTeacher()" tappable>
            更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
         </p>
         <div class="teacher">
