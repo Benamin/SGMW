@@ -13,10 +13,12 @@ export class SearchPage {
     productList = [];
     page = {
         title: '',
-        page: '1',
-        pageSize: "2000"
+        page: 1,
+        pageSize: 10,
+        TotalCount: null,
     };
     show;
+    showTips = true;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private keyboard: Keyboard,
                 private learnSer: LearnService, private loadCtrl: LoadingController) {
@@ -36,6 +38,7 @@ export class SearchPage {
     }
 
     search(event) {
+        this.showTips = false;
         if (event && event.keyCode == 13) {
             const data = {
                 title: this.page.title,
@@ -45,6 +48,7 @@ export class SearchPage {
             this.learnSer.GetProductList(data).subscribe(
                 (res) => {
                     this.productList = res.data.ProductList;
+                    this.page.TotalCount = res.data.TotalCount
                 }
             );
         }
@@ -60,11 +64,38 @@ export class SearchPage {
     }
 
     doInfinite(e) {
-        e.complete();
+        if (this.page.TotalCount == this.productList.length || this.productList.length > this.page.TotalCount) {
+            e.complete();
+            return
+        }
+        this.page.page++;
+        const data = {
+            title: this.page.title,
+            page: this.page.page,
+            pageSize: this.page.pageSize
+        };
+        this.learnSer.GetProductList(data).subscribe(
+            (res) => {
+                this.productList = this.productList.concat(res.data.ProductList);
+                this.page.TotalCount = res.data.TotalCount;
+                e.complete();
+            }
+        );
     }
 
     doRefresh(e) {
-        e.complete();
+        const data = {
+            title: this.page.title,
+            page: 1,
+            pageSize: this.page.pageSize
+        };
+        this.learnSer.GetProductList(data).subscribe(
+            (res) => {
+                this.productList = res.data.ProductList;
+                this.page.TotalCount = res.data.TotalCount;
+                e.complete();
+            }
+        );
     }
 
 }

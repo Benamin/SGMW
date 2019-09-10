@@ -16,10 +16,16 @@
         </ion-refresher-content>
     </ion-refresher>
     <course-list [list]="productList" (done)="goCourse($event)"></course-list>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="productList.length == 0">
+    <ion-list text-center style="margin-top: 10rem" *ngIf="showTips">
         <img style="width: 15%;" src="./assets/imgs/tabs/tab3_off@3x.png">
         <p text-center style="color: #999;font-size: 16px;margin-top: 20px">
             请搜索你想要查找的课程
+        </p>
+    </ion-list>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && productList.length == 0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
         </p>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
