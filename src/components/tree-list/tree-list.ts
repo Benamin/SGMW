@@ -7,6 +7,7 @@ import {FileService} from "../../core/file.service";
 import {CommonService} from "../../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {ExamPage} from "../../pages/mine/exam/exam";
+import {LearnService} from "../../pages/learning/learn.service";
 
 @Component({
     selector: 'tree-list',
@@ -20,7 +21,7 @@ export class TreeListComponent {
     isSign = false;
 
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
-                private fileSer: FileService, private commonSer: CommonService,
+                private fileSer: FileService, private commonSer: CommonService,private learSer:LearnService,
                 private navCtrl:NavController) {
         timer(10).subscribe(
             (res) => {
@@ -50,6 +51,7 @@ export class TreeListComponent {
         event.stopPropagation();
         console.log(file);
         if (this.IsBuy) {
+            this.saveProcess(file);
             if (file.icon.includes('mp4')) {
                 this.appSer.setFile(file);
             }
@@ -62,6 +64,18 @@ export class TreeListComponent {
             this.isSign = true;
             timer(2000).subscribe(()=>this.isSign = false);
         }
+    }
+
+    //保存学习进度
+    saveProcess(file){
+            const data = {
+                EAttachmentID: file.ID
+            };
+            this.learSer.SaveStudyByChapter(data).subscribe(
+                (res) => {
+                    console.log(res.message);
+                }
+            )
     }
 
     //作业处理

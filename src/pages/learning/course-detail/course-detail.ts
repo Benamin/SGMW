@@ -190,6 +190,7 @@ export class CourseDetailPage {
     }
 
 
+    //过滤指定对象
     f(data) {
         for (let i = 0; i < data.length; i++) {
             if (data[i].files.length > 0) {
@@ -210,7 +211,6 @@ export class CourseDetailPage {
             this.openPDF(this.files[0]);
         } else {
             this.fileSer.downloadFile(this.files[0].fileUrl, this.files[0].filename);
-            // this.viewOfficeFile(this.files[0].fileUrl, this.files[0].filename);
         }
     }
 

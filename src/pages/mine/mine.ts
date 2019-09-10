@@ -95,7 +95,6 @@ export class MinePage {
             const data = {
                 token: value
             };
-            console.log(data);
             this.loginSer.sgmwLogout(data).subscribe(
                 (res) => {
                     this.storage.clear();

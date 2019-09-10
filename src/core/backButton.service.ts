@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core';
-import {Platform, ToastController, App, NavController, Tabs} from 'ionic-angular';
+import {Platform, ToastController, App, NavController, Tabs, IonicApp} from 'ionic-angular';
 import {EmitService} from "./emit.service";
 
 @Injectable()
@@ -11,7 +11,7 @@ export class BackButtonService {
     //  1.false  正常返回上一层，2.true，禁止返回上一层，3.result,返回列表页面
     isDo = 'false';
 
-    constructor(public platform: Platform,
+    constructor(public platform: Platform,private ionicApp:IonicApp,
                 public appCtrl: App, public eventEmitSer: EmitService,
                 public toastCtrl: ToastController) {
         this.eventEmitSer.eventEmit.subscribe((value: any) => {
@@ -25,6 +25,23 @@ export class BackButtonService {
     registerBackButtonAction(tabRef: Tabs): void {
 
         this.platform.registerBackButtonAction(() => {
+
+            let activePortal = this.ionicApp._modalPortal.getActive() ||this.ionicApp._overlayPortal.getActive();
+            let loadingPortal = this.ionicApp._loadingPortal.getActive();
+            if (activePortal) {
+                //其他的关闭
+                activePortal.dismiss().catch(() => {
+                });
+                activePortal.onDidDismiss(() => {
+                });
+                return;
+            }
+            if (loadingPortal) {
+                //loading的话，返回键无效
+                activePortal.dismiss(()=>{})
+                return;
+            }
+
             let activeNav: NavController = this.appCtrl.getActiveNavs()[0];
             //如果可以返回上一页，则执行pop
             if (activeNav.canGoBack()) {
