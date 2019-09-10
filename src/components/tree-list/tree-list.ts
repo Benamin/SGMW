@@ -71,7 +71,7 @@ export class TreeListComponent {
             const data = {
                 EAttachmentID: file.ID
             };
-            this.learSer.SaveStudyByChapter(data).subscribe(
+            this.learSer.SaveStudy(data).subscribe(
                 (res) => {
                     console.log(res.message);
                 }
