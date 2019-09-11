@@ -4,7 +4,7 @@
 </ion-header>
 
 <ion-content>
-    <div class="login" [style]="{ height: bodyHeight + 'px' }">
+    <div class="login">
         <div class="back-img">
             <img src="./assets/imgs/login/login_bg.png" alt="">
         </div>
@@ -12,24 +12,99 @@
             <div class="logo">
                 <img src="./assets/imgs/login/logo.png" alt="">
             </div>
-            <div class="login-input">
-                <div class="input-input">
-                    <input [(ngModel)]="jxs.Jxsh" placeholder="请输入经销商号"/>
+            <div class="login-select">
+                <ion-select [(ngModel)]="loginObj.type" interface="popover">
+                    <ion-option value="jxs">经销商</ion-option>
+                    <ion-option value="gys">供应商</ion-option>
+                    <ion-option value="yg">员工</ion-option>
+                </ion-select>
+            </div>
+            <ng-container *ngIf="loginObj.type == 'jxs'">
+                <div class="loginPlatform">
+                    <div (click)="changeSlide(0,'xszs')" [style.color]="loginObj.platform == 'xszs'?'#fed25b':'#fff'">
+                        销售助手
+                    </div>
+                    <div (click)="changeSlide(1,'junke')" [style.color]="loginObj.platform == 'junke'?'#fed25b':'#fff'">
+                        骏客
+                    </div>
                 </div>
-                <div class="input-input">
-                    <input [(ngModel)]="jxs.LoginName" placeholder="请输入操作员名"/>
+                <ion-slides>
+                    <ion-slide>
+                        <div class="login-input">
+                            <div class="input-input">
+                                <input [(ngModel)]="jxs.xszs.Jxsh" placeholder="请输入经销商号"/>
+                            </div>
+                            <div class="input-input">
+                                <input [(ngModel)]="jxs.xszs.LoginName" placeholder="请输入操作员名"/>
+                            </div>
+                            <div class="input-input">
+                                <input [(ngModel)]="jxs.xszs.password" type="password" placeholder="请输入密码"/>
+                            </div>
+                            <div class="check input-input">
+                                <input [(ngModel)]="jxs.xszs.inputCode" placeholder="请输入验证码"/>
+                                <check-code class="checkCode" #checkCodeXszs (done)="getCodeXszs($event)"></check-code>
+                                <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                            </div>
+                        </div>
+                        <div class="login-button" (click)="loginXszsJsx()">
+                            登录
+                        </div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="login-input">
+                            <div class="input-input">
+                                <input [(ngModel)]="jxs.junke.LoginName" placeholder="请输入操作员名"/>
+                            </div>
+                            <div class="input-input">
+                                <input [(ngModel)]="jxs.junke.password" type="password" placeholder="请输入密码"/>
+                            </div>
+                            <div class="check input-input">
+                                <input [(ngModel)]="jxs.junke.inputCode" placeholder="请输入验证码"/>
+                                <check-code class="checkCode" #checkCodeJunke (done)="getCodeJunke($event)"></check-code>
+                                <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                            </div>
+                        </div>
+                        <div class="login-button" (click)="loginJunkeJsx()">
+                            登录
+                        </div>
+                    </ion-slide>
+                </ion-slides>
+            </ng-container>
+            <div [hidden]="loginObj.type != 'gys'">
+                <div class="login-input">
+                    <div class="input-input">
+                        <input [(ngModel)]="gysObj.LoginName" placeholder="请输入供应商名"/>
+                    </div>
+                    <div class="input-input">
+                        <input [(ngModel)]="gysObj.Password" type="password" placeholder="请输入密码"/>
+                    </div>
+                    <div class="check input-input">
+                        <input [(ngModel)]="gysObj.inputCode" placeholder="请输入验证码"/>
+                        <check-code class="checkCode" #checkCodeGys (done)="getCodeGys($event)"></check-code>
+                        <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                    </div>
                 </div>
-                <div class="input-input">
-                    <input [(ngModel)]="jxs.password" type="password" placeholder="请输入密码"/>
-                </div>
-                <div class="check input-input">
-                    <input [(ngModel)]="jxs.inputCode" placeholder="请输入验证码"/>
-                    <check-code class="checkCode" #checkCode (done)="getCode($event)"></check-code>
-                    <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                <div class="login-button" (click)="gysLogin()">
+                    登录
                 </div>
             </div>
-            <div class="login-button" (click)="loginJsx()">
-                登录
+            <div [hidden]="loginObj.type != 'yg'">
+                <div class="login-input">
+                    <div class="input-input">
+                        <input [(ngModel)]="ygObj.LoginName" placeholder="请输入员工名"/>
+                    </div>
+                    <div class="input-input">
+                        <input [(ngModel)]="ygObj.Password" type="password" placeholder="请输入密码"/>
+                    </div>
+                    <div class="check input-input">
+                        <input [(ngModel)]="ygObj.inputCode" placeholder="请输入验证码"/>
+                        <check-code class="checkCode" #checkCodeYG (done)="getCodeYg($event)"></check-code>
+                        <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                    </div>
+                </div>
+                <div class="login-button" (click)="ygLogin()">
+                    登录
+                </div>
             </div>
         </div>
     </div>
