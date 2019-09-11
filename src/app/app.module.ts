@@ -1,6 +1,6 @@
 import {NgModule, ErrorHandler, ElementRef} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {IonicApp, IonicModule, IonicErrorHandler, Config} from 'ionic-angular';
+import {IonicApp, IonicModule, IonicErrorHandler, Config, NavParams} from 'ionic-angular';
 import {MyApp} from './app.component';
 
 import {HomePage} from '../pages/home/home';

@@ -17,6 +17,7 @@ import {TabService} from "../../core/tab.service";
 import {timer} from "rxjs/observable/timer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppService} from "../../app/app.service";
+import {StatusBar} from "@ionic-native/status-bar";
 
 declare let md5;
 
@@ -49,9 +50,10 @@ export class HomePage {
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
-                private appSer: AppService,
+                private appSer: AppService, public statusBar: StatusBar,
                 private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser,
                 private renderer: Renderer2) {
+        this.statusBar.backgroundColorByHexString('#343435');
         const hash = md5('value');
         this.storage.get('user').then(value => {
             this.mineInfo = value;
@@ -75,7 +77,7 @@ export class HomePage {
         this.getNew();
     }
 
-    ionViewDidLeave(){
+    ionViewDidLeave() {
         this.appSer.setWow(false);
         console.log(this.wow);
     }

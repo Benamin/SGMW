@@ -7,6 +7,7 @@ import {AppService} from "../../app/app.service";
 import {CommonService} from "../../core/common.service";
 import {CheckCodeComponent} from "../../components/check-code/check-code";
 import {Keyboard} from "@ionic-native/keyboard";
+import {StatusBar} from "@ionic-native/status-bar";
 
 
 @IonicPage()
@@ -39,8 +40,8 @@ export class LoginPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
-                private commonSer: CommonService,private keyboard: Keyboard,) {
-        this.bodyHeight = document.documentElement.clientHeight;
+                private commonSer: CommonService,private keyboard: Keyboard,public statusBar:StatusBar) {
+        this.statusBar.backgroundColorByHexString('#1a1a1a');
     }
 
     ionViewDidLoad() {
