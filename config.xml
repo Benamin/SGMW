@@ -20,7 +20,7 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="AutoHideSplashScreen" value="true" />
     <feature name="CDVWKWebViewEngine">
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>

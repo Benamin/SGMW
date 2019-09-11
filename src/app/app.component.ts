@@ -23,7 +23,7 @@ export class MyApp {
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
-            // this.getLoad();
+            this.getLoad();
 
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
