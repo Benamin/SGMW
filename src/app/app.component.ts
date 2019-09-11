@@ -18,14 +18,13 @@ export class MyApp {
     rootPage: any;
     showSplash = false;
     loadUrl;
+    loadDefault = './assets/imgsload.png';
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
-            this.showSplash = true;
             this.getLoad();
 
-            this.splashScreen.hide();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
@@ -46,11 +45,11 @@ export class MyApp {
     getLoad() {
         this.loginSer.GetAppPic().subscribe(
             (res) => {
+                this.splashScreen.hide();
                 if (res.data.NewsItems.length > 0) {
+                    this.showSplash = true;
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
                     timer(3000).subscribe(() => this.showSplash = false)
-                } else {
-                    this.showSplash = false;
                 }
             }
         )
