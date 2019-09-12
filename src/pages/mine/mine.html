@@ -30,15 +30,15 @@
                 </div>
             </div>
             <div class="info-item item-type">
-                <div (click)="goToCourse()">
+                <div tappable (click)="goToCourse()">
                     <p>{{number?.CourseCount || '0'}}</p>
                     <p>课程</p>
                 </div>
-                <div (click)="goExam()">
+                <div tappable (click)="goExam()">
                     <p>{{number?.WorkCount || '0'}}</p>
                     <p>作业</p>
                 </div>
-                <div (click)="goToCollection()">
+                <div tappable (click)="goToCollection()">
                     <p>{{number?.CollectionCount || '0'}}</p>
                     <p>收藏</p>
                 </div>

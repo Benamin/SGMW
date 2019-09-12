@@ -152,7 +152,6 @@ export class LearningPage {
                 e.complete();
             }
         )
-
     }
 
 }

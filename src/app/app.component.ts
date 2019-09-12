@@ -29,15 +29,6 @@ export class MyApp {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
             this.statusBar.styleLightContent();
-
-            //骏客app权限校验
-            if (window.localStorage.getItem('source')) {
-                const source = window.localStorage.getItem('source');
-                const token = window.localStorage.getItem('token');
-                if (source == "Junke") this.trainAuth(token);
-            } else {
-                this.checkLogin();
-            }
         });
     }
 
@@ -51,14 +42,26 @@ export class MyApp {
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
                     timer(3000).subscribe(() => this.showSplash = false)
                 }
+                this.checkAuth();
             }
         )
+    }
+
+    //鉴权
+    checkAuth() {
+        //骏客app权限校验
+        if (window.localStorage.getItem('source')) {
+            const source = window.localStorage.getItem('source');
+            const token = window.localStorage.getItem('token');
+            if (source == "Junke") this.trainAuth(token);
+        } else {
+            this.checkLogin();
+        }
     }
 
 
     checkLogin() {
         this.storage.get('loginData').then(value => {
-            console.log(value);
             if (value) {
                 this.rootPage = TabsPage;
                 // this.imitateLogin(value);

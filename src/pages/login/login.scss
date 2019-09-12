@@ -36,7 +36,9 @@ page-login {
       border-radius: 100px;
       color: #ffffff;
       margin-left: 10%;
-      padding: 6px 8px;
+      padding: 3px 8px;
+      font-size: 1.2rem;
+      max-width: 30%;
     }
   }
 
@@ -46,6 +48,22 @@ page-login {
     align-items: center;
     justify-content: space-around;
     margin: 2rem 0;
+
+    .plat {
+      position: relative;
+    }
+
+    .plat::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -1rem;
+      transform: translate(-50%, -50%);
+      width: 2.4rem;
+      height: 4px;
+      background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+      border-radius: 2px;
+    }
   }
 
   .logo {
@@ -116,5 +134,18 @@ page-login {
 
   .scroll-content {
     margin-bottom: 0 !important;
+  }
+}
+
+.action-sheet-group {
+  button.action-sheet-button {
+    color: #000000;
+    font-size: 1.6rem;
+    min-height: 4rem;
+    padding: 0;
+  }
+
+  button.action-sheet-selected {
+    color: #FA6400;
   }
 }

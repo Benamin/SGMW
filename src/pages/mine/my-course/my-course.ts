@@ -16,7 +16,8 @@ export class MyCoursePage {
 
     page = {
         page: 1,
-        pageSize: 100,
+        pageSize: 10,
+        TotalCount:null,
         studystate: 2,
     };
 
@@ -43,6 +44,7 @@ export class MyCoursePage {
         this.mineSer.GetMyProductList(data).subscribe(
             (res) => {
                 this.courseList = res.data.ProductList;
+                this.page.TotalCount = res.data.TotalCount;
                 loading.dismiss();
             }
         )
@@ -58,9 +60,32 @@ export class MyCoursePage {
         this.navCtrl.push(CourseDetailPage, {id: e.Id});
     }
 
+    //加载更多
+    doInfinite(e) {
+        if (this.courseList.length == this.page.TotalCount || this.courseList.length > this.page.TotalCount) {
+            e.complete();
+            return;
+        }
+        this.page.page++;
+        const data = {
+            page: this.page.page,
+            pageSize: this.page.pageSize,
+            studystate:this.page.studystate
+        };
+        this.mineSer.GetMyProductList(data).subscribe(
+            (res) => {
+                this.courseList = this.courseList.concat(res.data.ProductList);
+                this.page.TotalCount = res.data.TotalCount;
+                e.complete();
+            }
+        )
+    }
+
+    //下拉刷新
     doRefresh(e) {
+        this.page.page = 1;
         this.getList();
-        timer(1000).subscribe(()=>{e.complete();});
+        timer(1000).subscribe(() => {e.complete();});
     }
 
 }

@@ -43,7 +43,6 @@ export class LoginPage {
     //经销商
     jxs = {
         junke: {
-            Jxsh: '',
             LoginName: '',
             password: '',
             UserType: '',
@@ -51,6 +50,7 @@ export class LoginPage {
             inputCode: ''
         },
         xszs: {
+            Jxsh: '',
             LoginName: '',
             password: '',
             UserType: '',

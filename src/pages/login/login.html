@@ -13,18 +13,18 @@
                 <img src="./assets/imgs/login/logo.png" alt="">
             </div>
             <div class="login-select">
-                <ion-select [(ngModel)]="loginObj.type" interface="popover">
+                <ion-select [(ngModel)]="loginObj.type" cancelText="取消" interface="action-sheet">
                     <ion-option value="jxs">经销商</ion-option>
                     <ion-option value="gys">供应商</ion-option>
                     <ion-option value="yg">员工</ion-option>
                 </ion-select>
             </div>
-            <ng-container *ngIf="loginObj.type == 'jxs'">
+            <div [hidden]="loginObj.type != 'jxs'">
                 <div class="loginPlatform">
-                    <div (click)="changeSlide(0,'xszs')" [style.color]="loginObj.platform == 'xszs'?'#fed25b':'#fff'">
+                    <div [ngClass]="loginObj.platform == 'xszs'?'plat':''" (click)="changeSlide(0,'xszs')">
                         销售助手
                     </div>
-                    <div (click)="changeSlide(1,'junke')" [style.color]="loginObj.platform == 'junke'?'#fed25b':'#fff'">
+                    <div [ngClass]="loginObj.platform == 'junke'?'plat':''" (click)="changeSlide(1,'junke')">
                         骏客
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         </div>
                     </ion-slide>
                 </ion-slides>
-            </ng-container>
+            </div>
             <div [hidden]="loginObj.type != 'gys'">
                 <div class="login-input">
                     <div class="input-input">
