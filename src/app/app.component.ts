@@ -60,7 +60,7 @@ export class MyApp {
         this.storage.get('loginData').then(value => {
             console.log(value);
             if (value) {
-                this.rootPage = LoginPage;
+                this.rootPage = TabsPage;
                 // this.imitateLogin(value);
             } else {
                 this.rootPage = LoginPage;
