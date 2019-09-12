@@ -7,6 +7,7 @@ import {FileService} from "../../core/file.service";
 import {CommonService} from "../../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {ExamPage} from "../../pages/mine/exam/exam";
+import {LearnService} from "../../pages/learning/learn.service";
 
 @Component({
     selector: 'tree-list',
@@ -17,8 +18,10 @@ export class TreeListComponent {
     @Input() IsBuy = [];
     @Output() fileData = new EventEmitter<any>();
 
+    isSign = false;
+
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
-                private fileSer: FileService, private commonSer: CommonService,
+                private fileSer: FileService, private commonSer: CommonService,private learSer:LearnService,
                 private navCtrl:NavController) {
         timer(10).subscribe(
             (res) => {
@@ -45,20 +48,34 @@ export class TreeListComponent {
 
     //文件处理
     handle(file, event) {
+        event.stopPropagation();
         console.log(file);
         if (this.IsBuy) {
+            this.saveProcess(file);
             if (file.icon.includes('mp4')) {
                 this.appSer.setFile(file);
             }
             if (file.icon.includes('pdf')) this.openPDF(file);
             if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
-                this.commonSer.toast('暂时只可预览pdf文件');
                 // this.viewOfficeFile(file.fileUrl, file.filename);
-                this.fileSer.downloadFile(file.fileUrl, file.DisplayName);
+                this.fileSer.downloadFile(file.fileUrl, file.filename);
             }
         } else {
-            this.commonSer.toast('请先报名');
+            this.isSign = true;
+            timer(2000).subscribe(()=>this.isSign = false);
         }
+    }
+
+    //保存学习进度
+    saveProcess(file){
+        const data = {
+            EAttachmentID: file.ID
+        };
+        this.learSer.SaveStudy(data).subscribe(
+            (res) => {
+                console.log(res.message);
+            }
+        )
     }
 
     //作业处理
