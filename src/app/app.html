@@ -1,5 +1,7 @@
 <div *ngIf="showSplash" class="splash">
-    <img *ngIf="showSplash" [src]="loadUrl" alt="引导图">
-    <img *ngIf="!showSplash" [src]="loadDefault" alt="引导图">
+    <img *ngIf="loadUrl" [src]="loadUrl" alt="引导图">
+    <img *ngIf="!loadUrl" [src]="loadDefault" alt="引导图">
 </div>
-<ion-nav [root]="rootPage"></ion-nav>
+<ng-container *ngIf="!showSplash">
+    <ion-nav [root]="rootPage"></ion-nav>
+</ng-container>

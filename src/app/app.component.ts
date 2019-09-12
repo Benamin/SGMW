@@ -16,7 +16,7 @@ import {timer} from "rxjs/observable/timer";
 })
 export class MyApp {
     rootPage: any;
-    showSplash = false;
+    showSplash = true;
     loadUrl;
     loadDefault = './assets/imgsload.png';
 
@@ -36,12 +36,13 @@ export class MyApp {
     getLoad() {
         this.loginSer.GetAppPic().subscribe(
             (res) => {
-                this.splashScreen.hide();
                 if (res.data.NewsItems.length > 0) {
-                    this.showSplash = true;
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
                     timer(3000).subscribe(() => this.showSplash = false)
+                }else{
+                    this.showSplash = false;
                 }
+                this.splashScreen.hide();
                 this.checkAuth();
             }
         )
@@ -59,18 +60,6 @@ export class MyApp {
         }
     }
 
-
-    checkLogin() {
-        this.storage.get('loginData').then(value => {
-            if (value) {
-                this.rootPage = TabsPage;
-                // this.imitateLogin(value);
-            } else {
-                this.rootPage = LoginPage;
-            }
-        });
-    }
-
     async trainAuth(token) {
         const data = <any>{};
         await this.loginSer.JunkeTrainAuth(token).subscribe(
@@ -86,6 +75,18 @@ export class MyApp {
             }
         );
     }
+
+    checkLogin() {
+        this.storage.get('loginData').then(value => {
+            if (value) {
+                this.rootPage = TabsPage;
+                // this.imitateLogin(value);
+            } else {
+                this.rootPage = LoginPage;
+            }
+        });
+    }
+
 
     initLogin(data) {
         this.loginSer.JunkeLogin(data).subscribe(
