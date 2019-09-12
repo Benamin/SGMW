@@ -61,10 +61,13 @@ export class LearningPage {
     }
 
     getOneType(index) {
-        this.homeSer.GetDictionaryByPCode("Subject").subscribe(
+        const data = {
+            code:"Subject"
+        }
+        this.learnSer.GetDictionaryByPCode(data).subscribe(
             (res) => {
                 this.headList = res.data.map(e => {
-                    return {type: e.TypeCode, name: e.TypeName, ID: e.ID}
+                    return {type: e.TypeCode, name: e.label, ID: e.value}
                 });
                 this.headList.unshift({type: 'allOne', name: '全部', ID: 'all'});
                 this.getSecondType(this.headList[index], index);
