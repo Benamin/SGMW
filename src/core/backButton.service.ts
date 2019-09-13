@@ -1,6 +1,7 @@
 import { Injectable} from '@angular/core';
 import {Platform, ToastController, App, NavController, Tabs} from 'ionic-angular';
 import {EmitService} from "./emit.service";
+import {LogoutService} from "../secret/logout.service";
 
 @Injectable()
 export class BackButtonService {
@@ -11,7 +12,7 @@ export class BackButtonService {
     //  1.false  正常返回上一层，2.true，禁止返回上一层，3.result,返回列表页面
     isDo = 'false';
 
-    constructor(public platform: Platform,
+    constructor(public platform: Platform,private logoutSer:LogoutService,
                 public appCtrl: App, public eventEmitSer: EmitService,
                 public toastCtrl: ToastController) {
         this.eventEmitSer.eventEmit.subscribe((value: any) => {
@@ -68,6 +69,7 @@ export class BackButtonService {
     private showExit(): void {
         //如果为true，退出
         if (this.backButtonPressed) {
+            this.logoutSer.logout();
             this.platform.exitApp();
         } else {
             //第一次按，弹出Toast

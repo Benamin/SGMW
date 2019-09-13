@@ -47,12 +47,12 @@ export class SearchPage {
             }
             this.learnSer.GetProductList(data).subscribe(
                 (res) => {
+                    this.keyboard.hide();
                     this.productList = res.data.ProductList;
                     this.page.TotalCount = res.data.TotalCount
                 }
             );
         }
-        this.keyboard.hide();
     }
 
     showKey() {

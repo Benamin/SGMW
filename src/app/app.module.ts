@@ -39,6 +39,7 @@ import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
 import {ViewFilePage} from "../pages/learning/view-file/view-file";
 import {TabService} from "../core/tab.service";
 import {AppVersion} from "@ionic-native/app-version";
+import {LogoutService} from "../secret/logout.service";
 
 @NgModule({
     declarations: [
@@ -94,6 +95,7 @@ import {AppVersion} from "@ionic-native/app-version";
         EmitService,
         FileService,
         UntilService,
+        LogoutService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

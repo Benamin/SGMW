@@ -5,7 +5,6 @@ import {MycollectionPage} from "./mycollection/mycollection";
 import {NotificationPage} from "./notification/notification";
 import {AppService} from "../../app/app.service";
 import {ExamPage} from "./exam/exam";
-import {LoginPage} from "../login/login";
 import {Storage} from "@ionic/storage";
 import {MineService} from "./mine.service";
 import {timer} from "rxjs/observable/timer";
@@ -13,6 +12,7 @@ import {LoginService} from "../login/login.service";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {UpdateAppPage} from "./update-app/update-app";
 import {AppVersion} from "@ionic-native/app-version";
+import {LogoutService} from "../../secret/logout.service";
 
 
 @Component({
@@ -24,7 +24,7 @@ export class MinePage {
     number;
     version;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,
+    constructor(public navCtrl: NavController, public navParams: NavParams,private logoutSer:LogoutService,
                 private mineSer: MineService, private events: Events, private appVersion: AppVersion,
                 private loginSer: LoginService, private inAppBrowser: InAppBrowser,
                 private appSer: AppService, private app: App, private storage: Storage) {
@@ -91,17 +91,7 @@ export class MinePage {
 
     //后台退出
     logoutApp() {
-        this.storage.get('Authorization').then(value => {
-            const data = {
-                token: value
-            };
-            this.loginSer.sgmwLogout(data).subscribe(
-                (res) => {
-                    this.storage.clear();
-                    this.events.publish('toLogin');
-                }
-            );
-        })
+        this.logoutSer.logout();
     }
 
 }
