@@ -59,7 +59,6 @@
 
     function GetRequest() {
         let url = location.search; //获取url中"?"符后的字串
-        console.log("url" + url);
         let theRequest = new Object();
         if (url.indexOf("?") != -1) {
             let str = url.substr(1);

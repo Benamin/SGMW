@@ -24,7 +24,6 @@ export class MyApp {
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
-
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
@@ -39,7 +38,7 @@ export class MyApp {
                 if (res.data.NewsItems.length > 0) {
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
                     timer(3000).subscribe(() => this.showSplash = false)
-                }else{
+                } else {
                     this.showSplash = false;
                 }
                 this.splashScreen.hide();
@@ -51,7 +50,8 @@ export class MyApp {
     //鉴权
     checkAuth() {
         //骏客app权限校验
-        if (window.localStorage.getItem('source')) {
+        const source = window.localStorage.getItem('source');
+        if (source != undefined && source) {
             const source = window.localStorage.getItem('source');
             const token = window.localStorage.getItem('token');
             if (source == "Junke") this.trainAuth(token);
