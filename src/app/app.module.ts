@@ -41,6 +41,9 @@ import {TabService} from "../core/tab.service";
 import {AppVersion} from "@ionic-native/app-version";
 import {LogoutService} from "../secret/logout.service";
 
+import { ConsultationPageModule } from '../pages/consultation/consultation.module';
+import { ConsultationPage } from '../pages/consultation/consultation';
+
 @NgModule({
     declarations: [
         MyApp,
@@ -66,6 +69,7 @@ import {LogoutService} from "../secret/logout.service";
             swipeBackEnabled: false
         }),
         ComponentsModule,
+        ConsultationPageModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -73,6 +77,7 @@ import {LogoutService} from "../secret/logout.service";
         HomePage,
         CoursePage,
         TabsPage,
+        ConsultationPage,
     ],
     providers: [
         StatusBar,

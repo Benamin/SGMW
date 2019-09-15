@@ -18,6 +18,7 @@ import {timer} from "rxjs/observable/timer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppService} from "../../app/app.service";
 import {StatusBar} from "@ionic-native/status-bar";
+import {ConsultationPage} from '../consultation/consultation';
 
 declare let md5;
 
@@ -265,6 +266,11 @@ export class HomePage {
                 this.inAppBrowser.create(e.HttpURL, '_system');
             }
         }
+    }
+
+    // 前往资讯
+    goConsultation() {
+        this.navCtrl.push(ConsultationPage);
     }
 
 }

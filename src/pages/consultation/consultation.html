@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-navbar style="">
+        <ion-title>资讯中心</ion-title>
+    </ion-navbar>
+    <ion-header-bar>
+            <div class="navul" #navul>
+                    <div class="navli" [ngClass]="{'act': navli=='新车资讯'}" (click)="switchInformation('新车资讯')">
+                        新车资讯
+                    </div>
+                    <div class="navli" [ngClass]="{'act': navli=='行业新闻'}" (click)="switchInformation('行业新闻')">
+                        行业新闻
+                    </div>
+                    <div class="navli" [ngClass]="{'act': navli=='培训资讯'}" (click)="switchInformation('培训资讯')">
+                        培训资讯
+                    </div>
+                </div> 
+    </ion-header-bar>
+</ion-header>
+
+
+<ion-content style="background: #fff;">
+
+    <div class="information-ul">
+        <div class="information-list img1">
+            <div class="list-time">
+                    <h4>新宝骏RM-5 RC-6 全擎上市全擎在线、智能出行</h4>
+                    <div class="time">
+                        2019-09-11 08:23
+                    </div>
+            </div>
+            <div class="imgdiv">
+                <img src="./assets/imgs/consultation/informationList-small.jpg" alt="">
+            </div>
+        </div>
+        <div class="information-list img3">
+            <h4>新宝骏RM-5 RC-6 全擎上市全擎在线、智能出行</h4>
+            <div class="imgdiv-flex">
+                <img src="./assets/imgs/consultation/informationList-small.jpg" alt="">
+                <img src="./assets/imgs/consultation/informationList-small.jpg" alt="">
+                <img src="./assets/imgs/consultation/informationList-small.jpg" alt="">
+            </div>
+            <div class="time">
+                2019-09-11 08:23
+            </div>
+        </div>
+        <div class="information-list imgBig">
+            <h4>新宝骏RM-5 RC-6 全擎上市全擎在线、智能出行，全系标配新宝骏车联网系统</h4>
+            <div class="imgdiv-flex">
+                <img src="./assets/imgs/consultation/InformationCenter@2x.jpg" alt="">
+            </div>
+            <div class="time">
+                2019-09-11 08:23
+            </div>
+        </div>
+        <div class="information-list img1">
+            <div class="list-time">
+                <h4>新宝骏RM-5 RC-6 全擎上市全擎在线、智能出行</h4>
+                <div class="time">
+                    2019-09-11 08:23
+                </div>
+            </div>
+            <div class="imgdiv">
+                <img src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="">
+            </div>
+        </div>
+        <div class="information-list img1">
+                <div class="list-time">
+                    <h4>新宝骏RM-5 RC-6 全擎上市全擎在线、智能出行</h4>
+                    <div class="time">
+                        2019-09-11 08:23
+                    </div>
+                </div>
+                <div class="imgdiv">
+                    <img src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="">
+                </div>
+            </div>
+    </div>
+</ion-content>
