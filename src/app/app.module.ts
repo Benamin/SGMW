@@ -40,6 +40,7 @@ import {ViewFilePage} from "../pages/learning/view-file/view-file";
 import {TabService} from "../core/tab.service";
 import {AppVersion} from "@ionic-native/app-version";
 import {LogoutService} from "../secret/logout.service";
+import {GetRequestService} from "../secret/getRequest.service";
 
 @NgModule({
     declarations: [
@@ -96,6 +97,7 @@ import {LogoutService} from "../secret/logout.service";
         FileService,
         UntilService,
         LogoutService,
+        GetRequestService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

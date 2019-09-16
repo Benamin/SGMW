@@ -69,7 +69,7 @@ export class BackButtonService {
     private showExit(): void {
         //如果为true，退出
         if (this.backButtonPressed) {
-            this.logoutSer.logout();
+            // this.logoutSer.logout();
             this.platform.exitApp();
         } else {
             //第一次按，弹出Toast
