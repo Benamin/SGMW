@@ -8,6 +8,7 @@ import {CommonService} from "../../core/common.service";
 import {CheckCodeComponent} from "../../components/check-code/check-code";
 import {Keyboard} from "@ionic-native/keyboard";
 import {StatusBar} from "@ionic-native/status-bar";
+import {timer} from "rxjs/observable/timer";
 
 
 @IonicPage()
@@ -79,9 +80,8 @@ export class LoginPage {
 
     //平台登录切换
     changeSlide(index, platform) {
-        console.log(index);
         this.loginObj.platform = platform;
-        this.slides.slideTo(index, 300);
+        this.slides.slideTo(index, 100);
     }
 
     //员工
@@ -185,7 +185,11 @@ export class LoginPage {
                     this.storage.set('Authorization', res.data.Token);
                     this.storage.set('user', res.data.User);
                     this.storage.set('loginData', this.jxs);
-                    this.navCtrl.setRoot(TabsPage);
+                    timer(500).subscribe(e => {
+                        this.navCtrl.setRoot(TabsPage);
+                        loading.dismiss();
+                        console.log(this.storage.get("Authorization"));
+                    })
                 } else {
                     this.storage.clear();
                     this.commonSer.toast(res.message);

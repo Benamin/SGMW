@@ -40,6 +40,7 @@ import {ViewFilePage} from "../pages/learning/view-file/view-file";
 import {TabService} from "../core/tab.service";
 import {AppVersion} from "@ionic-native/app-version";
 import {LogoutService} from "../secret/logout.service";
+import {GetRequestService} from "../secret/getRequest.service";
 
 import { ConsultationPageModule } from '../pages/consultation/consultation.module';
 import { ConsultationPage } from '../pages/consultation/consultation';
@@ -105,6 +106,7 @@ import { NumberOneModule } from '../pages/number-one/number-one.module';
         FileService,
         UntilService,
         LogoutService,
+        GetRequestService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

@@ -10,6 +10,7 @@ import {HomePage} from "../pages/home/home";
 import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
+import {GetRequestService} from "../secret/getRequest.service";
 
 @Component({
     templateUrl: 'app.html'
@@ -21,6 +22,7 @@ export class MyApp {
     loadDefault = './assets/imgsload.png';
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
+                private getRequest: GetRequestService,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
@@ -50,10 +52,10 @@ export class MyApp {
     //鉴权
     checkAuth() {
         //骏客app权限校验
-        const source = window.localStorage.getItem('source');
-        if (source != undefined && source) {
-            const source = window.localStorage.getItem('source');
-            const token = window.localStorage.getItem('token');
+        const req = <any>this.getRequest.getParams();
+        if (req.source != undefined && req.source) {
+            const source = req.source;
+            const token = req.token;
             if (source == "Junke") this.trainAuth(token);
         } else {
             this.checkLogin();
