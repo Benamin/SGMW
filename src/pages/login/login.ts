@@ -79,9 +79,8 @@ export class LoginPage {
 
     //平台登录切换
     changeSlide(index, platform) {
-        console.log(index);
         this.loginObj.platform = platform;
-        this.slides.slideTo(index, 300);
+        this.slides.slideTo(index, 100);
     }
 
     //员工
