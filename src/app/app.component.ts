@@ -30,7 +30,6 @@ export class MyApp {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
             this.statusBar.styleLightContent();
-            alert(location);
         });
     }
 
@@ -54,7 +53,6 @@ export class MyApp {
     checkAuth() {
         //骏客app权限校验
         const req = <any>this.getRequest.getParams();
-        alert("req:" + JSON.stringify(req));
         if (req.source != undefined && req.source) {
             const source = req.source;
             const token = req.token;
