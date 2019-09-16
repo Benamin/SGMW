@@ -18,7 +18,8 @@ import {timer} from "rxjs/observable/timer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppService} from "../../app/app.service";
 import {StatusBar} from "@ionic-native/status-bar";
-import {ConsultationPage} from '../consultation/consultation';
+import { ConsultationPage } from '../consultation/consultation';
+import { NumberOne } from '../number-one/number-one.component';
 
 declare let md5;
 
@@ -59,6 +60,7 @@ export class HomePage {
         this.storage.get('user').then(value => {
             this.mineInfo = value;
         });
+        this.goNumberOne();
     }
 
     ionViewDidLoad() {
@@ -271,6 +273,11 @@ export class HomePage {
     // 前往资讯
     goConsultation() {
         this.navCtrl.push(ConsultationPage);
+    }
+
+    // 前往状元说
+    goNumberOne() {
+        this.navCtrl.push(NumberOne);
     }
 
 }

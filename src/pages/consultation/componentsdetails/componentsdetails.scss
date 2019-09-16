@@ -1,0 +1,85 @@
+// component css goes here
+page-componentsdetails{
+  .details{
+    background: #fff;
+    padding: 0 15px;
+    h4{
+      font-size: 20px;
+      padding-top:10px; 
+      margin-top: 0;
+    }
+    .time{
+      color: rgba(0,0,0,0.4)
+    }
+    .inner-html{
+      line-height: 22px;
+      color: rgba(0,0,0,0.7);
+      padding-bottom: 10px;
+      p{
+        margin: 10px 0;
+      }
+    }
+  } 
+  .information-ul{
+    background: #fff;
+    margin-top: 20px;
+    h3{
+      margin: 0;
+      line-height: 40px;
+      font-size: 14px;
+      font-weight: 700;
+      padding-left: 15px;
+    }
+    h3::before{
+      content: " ";
+      display: block;
+      position: absolute;
+      left: -0px;
+      width: 4px;
+      height: 16px;
+      border-radius: 2px;
+      margin-top: 10px;
+      background: -webkit-linear-gradient(#FFF7CB, #FFC92D);
+    }
+    
+  }
+  .information-list{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #fff;
+    margin-left: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-right: 15px;
+    overflow: hidden;
+    h4{
+      color: rgba(0,0,0,0.8);
+      font-size: 16px;
+      margin-top: 0px;
+      line-height: 22px;
+    }
+    .imgdiv{
+      overflow: hidden;
+      height: 50px;
+      border-radius: 6px;
+    }
+
+    .time{
+      color: rgba(0,0,0,0.4)
+    }
+
+  }
+  .img1{
+    display: flex;
+    .imgdiv{
+      background: #e4e4e4;
+      height: 70px !important;
+      width: 125px !important;
+      flex-shrink:0;
+      img{
+        width: 100%;
+        // height: 100%;
+      }
+    }
+  }
+
+}

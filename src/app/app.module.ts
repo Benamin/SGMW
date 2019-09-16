@@ -43,6 +43,8 @@ import {LogoutService} from "../secret/logout.service";
 
 import { ConsultationPageModule } from '../pages/consultation/consultation.module';
 import { ConsultationPage } from '../pages/consultation/consultation';
+import { NumberOne } from '../pages/number-one/number-one.component';
+import { NumberOneModule } from '../pages/number-one/number-one.module';
 
 @NgModule({
     declarations: [
@@ -69,7 +71,8 @@ import { ConsultationPage } from '../pages/consultation/consultation';
             swipeBackEnabled: false
         }),
         ComponentsModule,
-        ConsultationPageModule
+        ConsultationPageModule,
+        NumberOneModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -78,6 +81,7 @@ import { ConsultationPage } from '../pages/consultation/consultation';
         CoursePage,
         TabsPage,
         ConsultationPage,
+        NumberOne
     ],
     providers: [
         StatusBar,
