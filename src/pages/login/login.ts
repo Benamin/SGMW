@@ -6,6 +6,7 @@ import {Storage} from "@ionic/storage";
 import {AppService} from "../../app/app.service";
 import {CommonService} from "../../core/common.service";
 import {CheckCodeComponent} from "../../components/check-code/check-code";
+import {timer} from "rxjs/observable/timer";
 
 
 @IonicPage()
@@ -75,7 +76,7 @@ export class LoginPage {
     }
 
     loginJsx() {
-        if(this.jxs.codeRight != this.jxs.inputCode){
+        if (this.jxs.codeRight != this.jxs.inputCode) {
             this.commonSer.toast('请输入正确的验证码');
             return;
         }
@@ -85,13 +86,17 @@ export class LoginPage {
         loading.present();
         this.loginSer.sgmwLogin(this.jxs).subscribe(
             (res) => {
-                loading.dismiss();
                 if (res.code == 200) {
                     this.storage.set('Authorization', res.data.Token);
                     this.storage.set('user', res.data.User);
                     this.storage.set('loginData', this.jxs);
-                    this.navCtrl.setRoot(TabsPage);
+                    timer(500).subscribe(e => {
+                        this.navCtrl.setRoot(TabsPage);
+                        loading.dismiss();
+                        console.log(this.storage.get("Authorization"));
+                    })
                 } else {
+                    loading.dismiss();
                     this.storage.clear();
                     this.commonSer.toast(res.message);
                 }

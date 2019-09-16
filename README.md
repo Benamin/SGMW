@@ -1,1 +1,1 @@
-npm installionic serveionic build --prodcordova build android --releasexxxxjarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore app-release-unsigned.apk 骏菱学社sgmwsgmwscp -r 22 build/www/ root@114.115.139.56:/opt/project
+npm installionic serveionic build --prodcordova build android --releasexxxx
