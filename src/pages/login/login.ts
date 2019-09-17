@@ -9,6 +9,7 @@ import {CheckCodeComponent} from "../../components/check-code/check-code";
 import {Keyboard} from "@ionic-native/keyboard";
 import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
+import {NoUserMsg} from "../../app/app.constants";
 
 
 @IonicPage()
@@ -63,7 +64,9 @@ export class LoginPage {
     loginObj = {
         type: "jxs",
         platform: 'xszs',
-    }
+    };
+
+    noUserMsg = NoUserMsg;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
@@ -102,9 +105,7 @@ export class LoginPage {
             (res) => {
                 loading.dismiss();
                 if (res.code == 200) {
-                    this.storage.set('Authorization', res.data.Token);
-                    this.storage.set('user', res.data.User);
-                    this.navCtrl.setRoot(TabsPage);
+                    this.userAsync(res);
                 } else {
                     this.storage.clear();
                     this.commonSer.toast(res.message);
@@ -131,9 +132,7 @@ export class LoginPage {
             (res) => {
                 loading.dismiss();
                 if (res.code == 200) {
-                    this.storage.set('Authorization', res.data.Token);
-                    this.storage.set('user', res.data.User);
-                    this.navCtrl.setRoot(TabsPage);
+                    this.userAsync(res);
                 } else {
                     this.storage.clear();
                     this.commonSer.toast(res.message);
@@ -156,9 +155,7 @@ export class LoginPage {
             (res) => {
                 loading.dismiss();
                 if (res.code == 200) {
-                    this.storage.set('Authorization', res.data.Token);
-                    this.storage.set('user', res.data.User);
-                    this.navCtrl.setRoot(TabsPage);
+                    this.userAsync(res);
                 } else {
                     this.storage.clear();
                     this.commonSer.toast(res.message);
@@ -181,20 +178,27 @@ export class LoginPage {
             (res) => {
                 loading.dismiss();
                 if (res.code == 200) {
-                    this.storage.set('Authorization', res.data.Token);
-                    this.storage.set('user', res.data.User);
-                    this.storage.set('loginData', this.jxs);
-                    timer(500).subscribe(e => {
-                        this.navCtrl.setRoot(TabsPage);
-                        loading.dismiss();
-                        console.log(this.storage.get("Authorization"));
-                    })
+                    this.userAsync(res);
                 } else {
                     this.storage.clear();
                     this.commonSer.toast(res.message);
                 }
             }
         )
+    }
+
+    //用户是否同步
+    userAsync(res) {
+        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
+            this.commonSer.alert(this.noUserMsg);
+        } else {
+            this.storage.set('Authorization', res.data.Token);
+            this.storage.set('user', res.data.User);
+            timer(300).subscribe(e => {
+                this.navCtrl.setRoot(TabsPage);
+                console.log(this.storage.get("Authorization"));
+            })
+        }
     }
 
     //重新获取验证码

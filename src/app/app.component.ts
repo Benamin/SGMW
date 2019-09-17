@@ -11,6 +11,7 @@ import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {GetRequestService} from "../secret/getRequest.service";
+import {NoUserMsg} from "./app.constants";
 
 @Component({
     templateUrl: 'app.html'
@@ -19,6 +20,8 @@ export class MyApp {
     rootPage: any;
     showSplash = true;
     loadUrl;
+
+    noUserMsg = NoUserMsg;
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService,
@@ -71,9 +74,9 @@ export class MyApp {
                     data.Jxsh = res.data.dealerCode;
                     this.initLogin(data);
                 } else {
+                    this.rootPage = LoginPage;
                     this.commonSer.toast(res.msg);
                 }
-                console.log(res);
             }
         );
     }
@@ -93,11 +96,8 @@ export class MyApp {
     initLogin(data) {
         this.loginSer.JunkeLogin(data).subscribe(
             (res) => {
-                console.log(res);
                 if (res.code == 200) {
-                    this.storage.set('Authorization', res.data.Token);
-                    this.storage.set('user', res.data.User);
-                    this.rootPage = TabsPage;
+                    this.userAsync(res);
                 } else {
                     this.rootPage = LoginPage;
                     this.commonSer.toast(res.message);
@@ -105,6 +105,19 @@ export class MyApp {
                 }
             }
         )
+    }
+
+    //用户是否同步
+    userAsync(res) {
+        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
+            this.commonSer.alert(this.noUserMsg);
+        } else {
+            this.storage.set('Authorization', res.data.Token);
+            this.storage.set('user', res.data.User);
+            timer(300).subscribe(e => {
+                this.rootPage = TabsPage;
+            })
+        }
     }
 
     imitateLogin(logindata) {
