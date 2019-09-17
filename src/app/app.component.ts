@@ -110,6 +110,7 @@ export class MyApp {
     //用户是否同步
     userAsync(res) {
         if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
+            this.rootPage = TabsPage;
             this.commonSer.alert(this.noUserMsg);
         } else {
             this.storage.set('Authorization', res.data.Token);
