@@ -19,7 +19,6 @@ export class MyApp {
     rootPage: any;
     showSplash = true;
     loadUrl;
-    loadDefault = './assets/imgsload.png';
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService,
