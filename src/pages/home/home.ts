@@ -60,7 +60,6 @@ export class HomePage {
         this.storage.get('user').then(value => {
             this.mineInfo = value;
         });
-        this.goNumberOne();
     }
 
     ionViewDidLoad() {

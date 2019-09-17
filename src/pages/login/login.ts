@@ -158,7 +158,6 @@ export class LoginPage {
                 if (res.code == 200) {
                     this.storage.set('Authorization', res.data.Token);
                     this.storage.set('user', res.data.User);
-                    this.storage.set('loginData', this.jxs);
                     this.navCtrl.setRoot(TabsPage);
                 } else {
                     this.storage.clear();

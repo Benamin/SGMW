@@ -53,6 +53,7 @@ export class MyApp {
     checkAuth() {
         //骏客app权限校验
         const req = <any>this.getRequest.getParams();
+        // alert("req:" + JSON.stringify(req));
         if (req.source != undefined && req.source) {
             const source = req.source;
             const token = req.token;
@@ -79,7 +80,7 @@ export class MyApp {
     }
 
     checkLogin() {
-        this.storage.get('loginData').then(value => {
+        this.storage.get('Authorization').then(value => {
             if (value) {
                 this.rootPage = TabsPage;
                 // this.imitateLogin(value);
@@ -97,7 +98,6 @@ export class MyApp {
                 if (res.code == 200) {
                     this.storage.set('Authorization', res.data.Token);
                     this.storage.set('user', res.data.User);
-                    // this.storage.set('loginData', logindata);
                     this.rootPage = TabsPage;
                 } else {
                     this.rootPage = LoginPage;
@@ -114,7 +114,6 @@ export class MyApp {
                 if (res.code == 200) {
                     this.storage.set('Authorization', res.data.Token);
                     this.storage.set('user', res.data.User);
-                    this.storage.set('loginData', logindata);
                     this.rootPage = TabsPage;
                 } else {
                     this.rootPage = LoginPage;
