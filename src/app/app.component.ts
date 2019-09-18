@@ -45,7 +45,7 @@ export class MyApp {
                 } else {
                     this.showSplash = false;
                 }
-                this.splashScreen.hide();
+                timer(500).subscribe(() => this.splashScreen.hide())
                 this.checkAuth();
             }
         )
