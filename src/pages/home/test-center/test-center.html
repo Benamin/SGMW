@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>考试中心</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="下拉刷新"
+                           refreshingSpinner="bubbles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <navbar [list]="navbarList" [select]="1" (done)="changeType($event)"></navbar>
+  <div class="exam">
+    <ng-container *ngFor="let item of examList">
+      <div class="space"></div>
+      <div class="item" (click)="goExam(item)">
+        <p class="courseName">{{item.CourseName}}</p>
+        <p class="eName"><img src="./assets/imgs/tabs/tab3_off@3x.png">{{item.EName}}</p>
+        <p *ngIf="page.StudyState == 3" class="split"></p>
+        <p *ngIf="page.StudyState == 3">
+          <span class="examScore">作业得分：{{item.TotalScore}}</span>
+          <span class="examTime">提交时间：{{item.ExamEnd | date:'MM-dd HH:mm:ss'}}</span>
+        </p>
+
+      </div>
+    </ng-container>
+  </div>
+  <ion-list text-center style="margin-top: 10rem" *ngIf="examList.length == 0">
+    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+    <p text-center style="color: #666666;font-size: 16px">
+      暂无数据
+    </p>
+  </ion-list>
+</ion-content>

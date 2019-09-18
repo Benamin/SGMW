@@ -18,6 +18,7 @@ import {timer} from "rxjs/observable/timer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppService} from "../../app/app.service";
 import {StatusBar} from "@ionic-native/status-bar";
+import {TestCenterPage} from "./test-center/test-center";
 import { ConsultationPage } from '../consultation/consultation';
 import { NumberOne } from '../number-one/number-one.component';
 
@@ -59,7 +60,7 @@ export class HomePage {
         const hash = md5('value');
         this.storage.get('user').then(value => {
             this.mineInfo = value;
-        })
+        });
     }
 
     ionViewDidLoad() {
@@ -246,6 +247,11 @@ export class HomePage {
         this.navCtrl.push(NoDevPage, {title: title});
     }
 
+    //考试中心
+    goTest(){
+        this.navCtrl.push(TestCenterPage);
+    }
+
     //前往课程
     goCourse(e) {
         this.navCtrl.push(CourseDetailPage, {id: e.Id});
@@ -278,5 +284,4 @@ export class HomePage {
     goNumberOne() {
         this.navCtrl.push(NumberOne);
     }
-
 }

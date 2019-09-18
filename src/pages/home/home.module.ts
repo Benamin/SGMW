@@ -5,13 +5,19 @@ import {SearchPage} from "./search/search";
 import {GoodTeacherPage} from "./good-teacher/good-teacher";
 import {ComponentsModule} from "../../components/components.module";
 import {NoDevPage} from "./no-dev/no-dev";
+import {TestCenterPage} from "./test-center/test-center";
+import {DoTestPage} from "./do-test/do-test";
+import {LookTestPage} from "./look-test/look-test";
 
 @NgModule({
     declarations: [
         HomePage,
         SearchPage,
         GoodTeacherPage,
-        NoDevPage
+        NoDevPage,
+        TestCenterPage,
+        DoTestPage,
+        LookTestPage,
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -20,7 +26,10 @@ import {NoDevPage} from "./no-dev/no-dev";
     entryComponents: [
         SearchPage,
         GoodTeacherPage,
-        NoDevPage
+        NoDevPage,
+        TestCenterPage,
+        DoTestPage,
+        LookTestPage,
     ]
 })
 export class HomeModule {
