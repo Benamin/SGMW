@@ -57,13 +57,13 @@ export class ExamPage {
         const one = this.mineSer.getMyScores(data).subscribe(
             (res) => {
                 this.examList = this.examList.concat(res.data);
-            }
-        );
-        data.EType = 4;
-        this.mineSer.getMyScores(data).subscribe(
-            (res) => {
-                this.examList = this.examList.concat(res.data);
-                loading.dismiss();
+                data.EType = 4;
+                this.mineSer.getMyScores(data).subscribe(
+                    (res) => {
+                        this.examList = this.examList.concat(res.data);
+                        loading.dismiss();
+                    }
+                );
             }
         );
     }
