@@ -5,7 +5,7 @@ import {Storage} from "@ionic/storage";
 import {QIndexComponent} from "../../../components/q-index/q-index";
 
 @Component({
-  selector: 'page-look-test',
+  selector: 'page-look-exam',
   templateUrl: 'look-test.html',
 })
 export class LookTestPage {

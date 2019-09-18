@@ -6,7 +6,7 @@ import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
 
 @Component({
-    selector: 'page-test-center',
+    selector: 'page-exam',
     templateUrl: 'test-center.html',
 })
 export class TestCenterPage {
