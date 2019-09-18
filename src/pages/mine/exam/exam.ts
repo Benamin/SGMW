@@ -22,8 +22,8 @@ export class ExamPage {
     /// 3-已完成
     page = {
         EName: '',
-        StudyState: 1,
-        EType: 4,  /// 3-预习作业 4-课后作业
+        StudyState: -1,
+        EType: 3,  /// 3-预习作业 4-课后作业
     };
 
     examList = [];
@@ -36,12 +36,15 @@ export class ExamPage {
         this.getList();
     }
 
-    doRefresh(e){
+    doRefresh(e) {
         this.getList();
-        timer(1000).subscribe((res)=>{e.complete()});
+        timer(1000).subscribe((res) => {
+            e.complete()
+        });
     }
 
     getList() {
+        this.examList = [];
         const loading = this.loadCtrl.create({
             content: ''
         });
@@ -49,14 +52,20 @@ export class ExamPage {
         const data = {
             EName: '',
             StudyState: this.page.StudyState,
-            EType: this.page.EType,  /// 3-预习作业 4-课后作业
+            EType: 3,  /// 3-预习作业 4-课后作业
         };
+        const one = this.mineSer.getMyScores(data).subscribe(
+            (res) => {
+                this.examList = this.examList.concat(res.data);
+            }
+        );
+        data.EType = 4;
         this.mineSer.getMyScores(data).subscribe(
             (res) => {
-                this.examList = res.data;
+                this.examList = this.examList.concat(res.data);
                 loading.dismiss();
             }
-        )
+        );
     }
 
     changeType(e) {
