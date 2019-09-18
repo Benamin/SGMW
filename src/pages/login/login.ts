@@ -104,11 +104,11 @@ export class LoginPage {
         this.loginSer.loginpost(this.ygObj).subscribe(
             (res) => {
                 loading.dismiss();
-                if (res.code == 200) {
+                if (res.code == 200 && res.data) {
                     this.userAsync(res);
                 } else {
                     this.storage.clear();
-                    this.commonSer.toast(res.message);
+                    this.commonSer.alert(res.message);
                 }
             }
         )
@@ -131,11 +131,11 @@ export class LoginPage {
         this.loginSer.loginpost(this.gysObj).subscribe(
             (res) => {
                 loading.dismiss();
-                if (res.code == 200) {
+                if (res.code == 200 && res.data) {
                     this.userAsync(res);
                 } else {
                     this.storage.clear();
-                    this.commonSer.toast(res.message);
+                    this.commonSer.alert(res.message);
                 }
             }
         )
@@ -154,11 +154,11 @@ export class LoginPage {
         this.loginSer.sgmwLogin(this.jxs.xszs).subscribe(
             (res) => {
                 loading.dismiss();
-                if (res.code == 200) {
+                if (res.code == 200 && res.data) {
                     this.userAsync(res);
                 } else {
                     this.storage.clear();
-                    this.commonSer.toast(res.message);
+                    this.commonSer.alert(res.message);
                 }
             }
         )
@@ -177,11 +177,11 @@ export class LoginPage {
         this.loginSer.sgmwLoginJK(this.jxs.junke).subscribe(
             (res) => {
                 loading.dismiss();
-                if (res.code == 200) {
+                if (res.code == 200 && res.data) {
                     this.userAsync(res);
                 } else {
                     this.storage.clear();
-                    this.commonSer.toast(res.message);
+                    this.commonSer.alert(res.message);
                 }
             }
         )

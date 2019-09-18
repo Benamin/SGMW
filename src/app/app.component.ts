@@ -96,11 +96,11 @@ export class MyApp {
     initLogin(data) {
         this.loginSer.JunkeLogin(data).subscribe(
             (res) => {
-                if (res.code == 200) {
+                if (res.code == 200 && res.data) {
                     this.userAsync(res);
                 } else {
                     this.rootPage = LoginPage;
-                    this.commonSer.toast(res.message);
+                    this.commonSer.alert(res.message);
                     this.storage.clear();
                 }
             }
@@ -124,13 +124,13 @@ export class MyApp {
     imitateLogin(logindata) {
         this.loginSer.sgmwLogin(logindata).subscribe(
             (res) => {
-                if (res.code == 200) {
+                if (res.code == 200 && res.data) {
                     this.storage.set('Authorization', res.data.Token);
                     this.storage.set('user', res.data.User);
                     this.rootPage = TabsPage;
                 } else {
                     this.rootPage = LoginPage;
-                    this.commonSer.toast(res.message);
+                    this.commonSer.alert(res.message);
                     this.storage.clear();
                 }
             }
