@@ -18,6 +18,7 @@ import {timer} from "rxjs/observable/timer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppService} from "../../app/app.service";
 import {StatusBar} from "@ionic-native/status-bar";
+import {TestCenterPage} from "./test-center/test-center";
 
 declare let md5;
 
@@ -242,6 +243,11 @@ export class HomePage {
 
     goDev(title) {
         this.navCtrl.push(NoDevPage, {title: title});
+    }
+
+    //考试中心
+    goTest(){
+        this.navCtrl.push(TestCenterPage);
     }
 
     //前往课程
