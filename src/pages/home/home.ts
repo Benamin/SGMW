@@ -59,7 +59,7 @@ export class HomePage {
         const hash = md5('value');
         this.storage.get('user').then(value => {
             this.mineInfo = value;
-        });
+        })
     }
 
     ionViewDidLoad() {
