@@ -25,7 +25,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
         CourseCommentPage,
         CourseDetailPage,
         TeacherPage,
-        ViewFilePage
+        ViewFilePage,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

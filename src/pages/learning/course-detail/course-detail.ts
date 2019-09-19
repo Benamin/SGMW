@@ -367,6 +367,5 @@ export class CourseDetailPage {
 
     getMore(e) {
         e.show = !e.show;
-        console.log(e);
     }
 }
