@@ -1,8 +1,7 @@
 <div class="list" *ngFor="let item of treeList">
     <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="getMore(item)">
         {{item.title}}
-        <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon"
-                  name="arrow-forward"></ion-icon>
+        <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon" name="arrow-forward"></ion-icon>
         <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon" name="arrow-down"></ion-icon>
     </p>
     <tree-list *ngIf="item.children.length > 0 && !item.show" [IsBuy]="IsBuy" [treeList]="item.children"></tree-list>

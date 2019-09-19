@@ -56,8 +56,12 @@
         <p>章节</p>
         <div class="chapter">
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
-                <p style="font-weight: bold">{{item.title}}</p>
-                <div *ngIf="item.children">
+                <p style="font-weight: bold" (click)="getMore(item)">
+                    {{item.title}}
+                    <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon" name="arrow-forward"></ion-icon>
+                    <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon" name="arrow-down"></ion-icon>
+                </p>
+                <div *ngIf="item.children && item.show">
                     <tree-list [treeList]="item.children" [IsBuy]="product.detail?.IsBuy"></tree-list>
                 </div>
             </ng-container>
@@ -89,25 +93,6 @@
         </div>
         <div class="no-comment" *ngIf="comment.talk.length == 0">
             <p>暂无课程讨论，快去发一条吧～</p>
-        </div>
-    </div>
-    <div class="space"></div>
-    <div id="teacher" class="item">
-        <p>讲师
-            <span (click)="teachDetail()" float-end class="look">查看</span>
-        </p>
-        <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
-            <div class="img">
-                <img [src]="item.HeadPhoto">
-            </div>
-            <div class="position">
-                <p style="margin-left: -10px">{{item.UserName}}</p>
-                <p style="margin-left: -10px">{{item.Position}}</p>
-            </div>
-            <div>
-                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)" class="focus focus-blue">关注</span>
-                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)" class="focus noFocus-blue">已关注</span>
-            </div>
         </div>
     </div>
     <div class="space"></div>
@@ -143,6 +128,25 @@
         </div>
     </div>
     <div class="space"></div>
+    <div id="teacher" class="item">
+        <p>讲师
+            <span (click)="teachDetail()" float-end class="look">查看</span>
+        </p>
+        <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
+            <div class="img">
+                <img [src]="item.HeadPhoto">
+            </div>
+            <div class="position">
+                <p style="margin-left: -10px">{{item.UserName}}</p>
+                <p style="margin-left: -10px">{{item.Position}}</p>
+            </div>
+            <div>
+                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)" class="focus focus-blue">关注</span>
+                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)" class="focus noFocus-blue">已关注</span>
+            </div>
+        </div>
+    </div>
+    <div class="space"></div>
     <div class="item">
         <p>讲师评价
             <span *ngIf="comment.teacher.length > 0" (click)="goTeacherComment()" float-end class="look">更多</span>
@@ -166,7 +170,13 @@
                     </div>
                 </div>
                 <div class="last">
-                    {{item.Contents}}
+                    <div class="Contents">
+                        {{item.Contents}}
+                    </div>
+                    <div class="item-teacher">
+                        <div>头像</div>
+                        <div>秋国烟</div>
+                    </div>
                 </div>
             </div>
         </div>

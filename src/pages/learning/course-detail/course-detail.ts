@@ -128,6 +128,7 @@ export class CourseDetailPage {
         await this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
+                this.product.chapter.Course.children.forEach(e => e.show = false);
                 this.f(this.product.chapter.Course.children);
             }
         );
@@ -362,5 +363,10 @@ export class CourseDetailPage {
         console.log(video);
         video.target.play();
         video.target.requestFullscreen();
+    }
+
+    getMore(e) {
+        e.show = !e.show;
+        console.log(e);
     }
 }
