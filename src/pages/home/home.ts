@@ -21,6 +21,7 @@ import {StatusBar} from "@ionic-native/status-bar";
 import {TestCenterPage} from "./test-center/test-center";
 import { ConsultationPage } from '../consultation/consultation';
 import { NumberOne } from '../number-one/number-one.component';
+import {LivePage} from "./live/live";
 
 declare let md5;
 
@@ -283,5 +284,10 @@ export class HomePage {
     // 前往状元说
     goNumberOne() {
         this.navCtrl.push(NumberOne);
+    }
+
+    //前往直播
+    goLive(){
+        this.navCtrl.push(LivePage);
     }
 }

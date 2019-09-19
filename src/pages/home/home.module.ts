@@ -8,6 +8,7 @@ import {NoDevPage} from "./no-dev/no-dev";
 import {TestCenterPage} from "./test-center/test-center";
 import {DoTestPage} from "./do-test/do-test";
 import {LookTestPage} from "./look-test/look-test";
+import {LivePage} from "./live/live";
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import {LookTestPage} from "./look-test/look-test";
         TestCenterPage,
         DoTestPage,
         LookTestPage,
+        LivePage,
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -30,6 +32,7 @@ import {LookTestPage} from "./look-test/look-test";
         TestCenterPage,
         DoTestPage,
         LookTestPage,
+        LivePage,
     ]
 })
 export class HomeModule {
