@@ -156,7 +156,7 @@ export class MyApp {
         this.appVersion.getVersionNumber().then((version: string) => {
             version = version;
             const data = {
-                code:'android'
+                code:platform
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res)=>{
