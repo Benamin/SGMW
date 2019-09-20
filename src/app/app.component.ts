@@ -12,6 +12,8 @@ import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {GetRequestService} from "../secret/getRequest.service";
 import {NoUserMsg} from "./app.constants";
+import {AppVersion} from "@ionic-native/app-version";
+import {AppUpdateService} from "../core/appUpdate.service";
 
 @Component({
     templateUrl: 'app.html'
@@ -23,8 +25,15 @@ export class MyApp {
 
     noUserMsg = NoUserMsg;
 
+    app = {
+        UpdateTips:false,
+        AppUrl:'',
+        UpdateText:'',
+    }
+
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
-                private getRequest: GetRequestService,
+                private getRequest: GetRequestService,private appVersion:AppVersion,
+                private appUpdate:AppUpdateService,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
@@ -32,8 +41,11 @@ export class MyApp {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
             this.statusBar.styleLightContent();
+
+            this.checkVersion();
         });
     }
+
 
     //app启动图
     getLoad() {
@@ -135,5 +147,29 @@ export class MyApp {
                 }
             }
         )
+    }
+
+    //校验版本
+    checkVersion(){
+        const platform = this.platform.platforms();
+        let version;
+        this.appVersion.getVersionNumber().then((version: string) => {
+            version = version;
+            const data = {
+                code:'android'
+            }
+            this.loginSer.GetAppVersionByCode(data).subscribe(
+                (res)=>{
+                    if(version != res.data.AppVersion){
+                        this.app.UpdateTips = true;
+                        this.app.AppUrl = res.data.AppUrl;
+                        this.app.UpdateText = res.data.UpdateText;
+                        this.commonSer.toast('需要更新');
+                    }
+                }
+            )
+        }).catch(err => {
+            console.log(err);
+        });
     }
 }

@@ -46,6 +46,7 @@ import { ConsultationPageModule } from '../pages/consultation/consultation.modul
 import { ConsultationPage } from '../pages/consultation/consultation';
 import { NumberOne } from '../pages/number-one/number-one.component';
 import { NumberOneModule } from '../pages/number-one/number-one.module';
+import {AppUpdateService} from "../core/appUpdate.service";
 
 @NgModule({
     declarations: [
@@ -107,6 +108,7 @@ import { NumberOneModule } from '../pages/number-one/number-one.module';
         UntilService,
         LogoutService,
         GetRequestService,
+        AppUpdateService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

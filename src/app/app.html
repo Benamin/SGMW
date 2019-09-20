@@ -4,3 +4,6 @@
 <ng-container *ngIf="!showSplash">
     <ion-nav [root]="rootPage"></ion-nav>
 </ng-container>
+<ng-container *ngIf="app.UpdateTips">
+    <update-app (done)="app.UpdateTips = false" [AppUrl]="app.AppUrl" [UpdateText]="app.UpdateText"></update-app>
+</ng-container>
