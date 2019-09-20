@@ -6,9 +6,13 @@
 </ion-header>
 <ion-content >
   <div class="details">
-      <h4>新宝骏RM-5 RC-6 全擎上市全擎在线、智能出行</h4>
-      <div class="time">新车资讯 /  2019-08-07 18:39</div>
+      <h4>{{data.Title}}</h4>
+      <div class="time">新车资讯 /  {{data.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}</div>
       <div class="inner-html">
+        <span [innerHTML]='data.Text'></span>
+        <!-- {{data.Text}} -->
+      </div>
+      <!-- <div class="inner-html">
         <p>
           8月8日，在北京举行的J.D. Power 2019中国新车质量研究新闻发布暨汽车质量类研究颁奖典礼上，宝骏730在众多车型品牌中脱颖而出，以优异的成绩获得紧凑型MPV细分市场第一名，
           公司质量部总监郑红武出席发布会并代表公司领奖。
@@ -21,7 +25,7 @@
             今年的研究报告显示，在紧凑型MPV细分市场中，宝骏730获得第一名，宝骏360获得第二名；在中型MPV细分市场中，五菱宏光S3获得第二名，充分印证了产品质量的可靠性。本次研究基于2018年5月至2019年3月之间购车的33468位车主的真实反馈，研究覆盖67个品牌的266款车型。公司多款车型获奖，既是公司对质量文化重视的体现，也是对公司先进制造体系和过硬品质管控体系的肯定。
           </p>
 
-      </div>
+      </div> -->
   </div>
 
   <div class="information-ul">
