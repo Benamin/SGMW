@@ -50,13 +50,14 @@ page-course-comment {
         display: flex;
         margin-bottom: 10px;
 
-        .headPhoto{
-          img{
+        .headPhoto {
+          img {
             width: 3rem;
             height: 3rem;
             border-radius: 50%;
           }
         }
+
         > div:first-child {
           width: 10%;
         }
@@ -67,7 +68,7 @@ page-course-comment {
 
           p:first-child {
             font-size: 16px;
-            margin-bottom:5px;
+            margin-bottom: 5px;
           }
 
           p:last-child {
@@ -116,5 +117,87 @@ page-course-comment {
     span {
       font-size: 2rem;
     }
+  }
+
+  .last.teacher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Contents {
+      width: 80%;
+    }
+    div.Contents:last-child{
+      width: 100%;
+    }
+
+    .item-teacher {
+      img{
+        width: 2rem;
+      }
+      text-align: center;
+      width: 20%;
+      font-size: 1.2rem;
+      font-family: PingFangSC;
+      font-weight: 400;
+      color: rgba(51, 51, 51, 1);
+      line-height: 20px;
+      border-left: 1px solid #d8d8d8;
+    }
+  }
+
+
+  .teacher-box {
+    display: flex;
+  }
+
+  .scroll-tab {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .teacher-content {
+    white-space: nowrap;
+  }
+
+  .teacher-item {
+    width: 25%;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 17px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    line-height: 30px;
+    display: inline-block;
+    padding: 2px 0;
+    margin-right: 10px;
+
+    .flex-teacher {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      height: 2rem;
+    }
+
+    .teacher-desc {
+      color: #333333;
+    }
+
+    img + .teacher-desc {
+      margin-left: 10px;
+    }
+  }
+
+  div.teacher-item:first-child,
+  div.teacher-item:last-child {
+    margin-left: 20px;
+  }
+
+  .teacher-item-select {
+    border: 1px solid #f2f2f2;
+    background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
   }
 }

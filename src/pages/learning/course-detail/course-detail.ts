@@ -263,7 +263,7 @@ export class CourseDetailPage {
     goTeacherComment() {
         console.log(this.product.detail.Teachers[0].UserID)
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你对教师的评价...',
+            placeholder: '请输入你对讲师的评价...',
             TopicID: this.product.detail.Teachers[0].UserID,
             TopicType: 'teacher',
             title: '讲师评价'

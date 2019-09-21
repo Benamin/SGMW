@@ -10,6 +10,7 @@ import {CommonService} from "../../core/common.service";
 export class CommentComponent {
     @ViewChild('textAreaElement') textAreaElement: ElementRef;
 
+    teacher;
     replyContent: string;
     placeholder: string;
     type: string;

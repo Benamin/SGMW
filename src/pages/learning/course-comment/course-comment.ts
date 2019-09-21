@@ -13,6 +13,17 @@ export class CourseCommentPage {
     list = [];
     starList = new Array(5);
 
+    teacherList = [
+        {img: null, name: '全部讲师'},
+        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
+    ];
+    selectTeacher;
+
     page = {
         pageSize: 1000,
         page: 1,
@@ -32,8 +43,8 @@ export class CourseCommentPage {
         this.TopicType = this.navParams.get("TopicType");
         this.title = this.navParams.get("title");
         this.placeholder = this.navParams.get("placeholder");
-        if(this.TopicType != 'talk') this.getList();
-        if(this.TopicType == 'talk') this.getTalkList();
+        if (this.TopicType != 'talk') this.getList();
+        if (this.TopicType == 'talk') this.getTalkList();
     }
 
     getList() {
@@ -51,7 +62,7 @@ export class CourseCommentPage {
         );
     }
 
-    getTalkList(){
+    getTalkList() {
         const data = {
             pageSize: this.page.pageSize,
             page: this.page.page,
@@ -67,22 +78,22 @@ export class CourseCommentPage {
     }
 
     openComment() {
-        let modal = this.modalCtrl.create(CommentComponent, {placeholder: '请输入评价',type:this.TopicType});
+        let modal = this.modalCtrl.create(CommentComponent, {placeholder: '请输入评价', type: this.TopicType});
         modal.onDidDismiss(res => {
             if (res) {
-                if(this.TopicType == 'talk') this.talkhandle(res);
-                if(this.TopicType != 'talk') this.replyHandle(res);
+                if (this.TopicType == 'talk') this.talkhandle(res);
+                if (this.TopicType != 'talk') this.replyHandle(res);
             }
         });
         modal.present();
     }
 
     //课程讨论
-    talkhandle(res){
+    talkhandle(res) {
         const data = {
             TopicID: this.topicID,
             Contents: res.replyContent,
-            TopicType:'talk'
+            TopicType: 'talk'
         }
         this.learnSer.Savetalk(data).subscribe(
             (res) => {
@@ -106,6 +117,11 @@ export class CourseCommentPage {
                 this.getList();
             }
         )
+    }
+
+    //选择讲师
+    setTeacher(item, i) {
+        this.selectTeacher = i;
     }
 
 }

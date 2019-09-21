@@ -39,6 +39,9 @@ comment {
     background-image: linear-gradient(to right, #feca46, #fee6a3);
     padding: 6px 30px;
     border-radius: 100px;
+    font-weight:500;
+    color:rgba(0,0,0,.8);
+    line-height:17px;
   }
 
   .img-star {
@@ -50,6 +53,17 @@ comment {
     span.score {
       color: #e44f17;
       margin-left: 15px;
+    }
+  }
+  .select{
+    .select-ios {
+      border: 1px solid #ccc;
+      border-radius: 100px;
+      color: #333333;
+      padding:6px 8px;
+      font-size: 1.4rem;
+      max-width: 30%;
+      margin-bottom: 15px;
     }
   }
 }
