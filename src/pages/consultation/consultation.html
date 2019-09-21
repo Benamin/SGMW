@@ -19,8 +19,12 @@
 
 
 <ion-content style="background: #fff;">
-
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+                </ion-refresher-content>
+            </ion-refresher>
     <div class="information-ul">
+          
         <ng-container *ngFor="let item of dataList">
            
         <div class="information-list img1" *ngIf="item.imgarr=='img1'" (click)="goComponentsdetails(item)">
@@ -54,7 +58,9 @@
                     {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
             </div>
         </div>
-
-    </ng-container>
+        </ng-container>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </div>
 </ion-content>

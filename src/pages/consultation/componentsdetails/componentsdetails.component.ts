@@ -8,13 +8,16 @@ import {ConsultationService} from '../consultation.service';
 export class Componentsdetails {
   lidata;
   data:any={Title:'',ReleaseTime:'',Text:''};
-
+  RelationArr=[];
   constructor(public navParams: NavParams,private serve :ConsultationService) {
+
+  }
+  ngOnInit(): void {
     this.lidata = this.navParams.get('data');
     console.log(this.lidata);
     this.GetNewsByID(this.lidata.Id);
     this.GetRelationNewsByID(this.lidata.Id);
-  }
+}
   GetNewsByID(id){
     this.serve.GetNewsByID(id).subscribe((res:any) => {
       console.log(res);
@@ -24,7 +27,7 @@ export class Componentsdetails {
   GetRelationNewsByID(id){
     this.serve.GetRelationNewsByID(id).subscribe(res => {
       console.log(res);
+      this.RelationArr=res.data;
     });
   }
-  // https://devapi.chinacloudsites.cn/api/ENews/GetNewsByID?id=5238d84e-076b-4f8e-b170-016d1fc55996
 }
