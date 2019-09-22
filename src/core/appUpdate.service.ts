@@ -44,7 +44,6 @@ export class AppUpdateService {
             const fileName = "temp.apk";
             if (blob) {
                 let path = this.file.externalDataDirectory;
-                this.commonSer.alert(`path:${path}`);
                 this.file.writeFile(path, fileName, blob, {
                     replace: true
                 }).then(
