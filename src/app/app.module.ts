@@ -46,6 +46,11 @@ import { ConsultationPageModule } from '../pages/consultation/consultation.modul
 import { ConsultationPage } from '../pages/consultation/consultation';
 import { NumberOne } from '../pages/number-one/number-one.component';
 import { NumberOneModule } from '../pages/number-one/number-one.module';
+import { ForumModule } from '../pages/forum/forum.module';
+import { ForumPage } from '../pages/forum/forum.component';
+
+
+
 
 @NgModule({
     declarations: [
@@ -73,7 +78,8 @@ import { NumberOneModule } from '../pages/number-one/number-one.module';
         }),
         ComponentsModule,
         ConsultationPageModule,
-        NumberOneModule
+        NumberOneModule,
+        ForumModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -82,7 +88,8 @@ import { NumberOneModule } from '../pages/number-one/number-one.module';
         CoursePage,
         TabsPage,
         ConsultationPage,
-        NumberOne
+        NumberOne,
+        ForumPage
     ],
     providers: [
         StatusBar,
