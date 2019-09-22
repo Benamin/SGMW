@@ -151,20 +151,21 @@ export class MyApp {
 
     //校验版本
     checkVersion(){
-        const platform = this.platform.platforms();
-        let version;
+        let versionCode;
+        let platform;
+        if (this.platform.is('ios')) platform = 'ios';
+        if (this.platform.is('android')) platform = 'android';
         this.appVersion.getVersionNumber().then((version: string) => {
-            version = version;
+            versionCode = version;
             const data = {
-                code:platform
+                code:'android'
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res)=>{
-                    if(version != res.data.AppVersion){
+                    if(versionCode != res.data.AppVersion){
                         this.app.UpdateTips = true;
                         this.app.AppUrl = res.data.AppUrl;
                         this.app.UpdateText = res.data.UpdateText;
-                        this.commonSer.toast('需要更新');
                     }
                 }
             )
