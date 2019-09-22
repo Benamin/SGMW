@@ -232,9 +232,10 @@ page-course-detail {
         }
 
         .item-teacher {
-          img{
+          img {
             width: 2rem;
           }
+
           text-align: center;
           width: 20%;
           font-size: 1.2rem;
@@ -258,7 +259,7 @@ page-course-detail {
     width: 100%;
     bottom: 0;
     display: flex;
-    min-height: 4rem;
+    min-height: 50px;
     line-height: 3.5rem;
     text-align: center;
     background-color: #fff;
