@@ -185,7 +185,9 @@ export class CourseDetailPage {
         }
         this.learnSer.GetTalkList(data3).subscribe(
             (res) => {
-                this.comment.talk = res.data.CommentItems;
+                if(res.data){
+                    this.comment.talk = res.data.CommentItems;
+                }
             }
         );
     }

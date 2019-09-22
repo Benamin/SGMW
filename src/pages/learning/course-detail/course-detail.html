@@ -58,8 +58,10 @@
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
                 <p style="font-weight: bold" (click)="getMore(item)">
                     {{item.title}}
-                    <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon" name="arrow-forward"></ion-icon>
-                    <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon" name="arrow-down"></ion-icon>
+                    <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon"
+                              name="arrow-forward"></ion-icon>
+                    <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon"
+                              name="arrow-down"></ion-icon>
                 </p>
                 <div *ngIf="item.show" class="chapter-teacher">
                     <div>
@@ -150,8 +152,10 @@
                 <p style="margin-left: -10px">{{item.Position}}</p>
             </div>
             <div>
-                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)" class="focus focus-blue">关注</span>
-                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)" class="focus noFocus-blue">已关注</span>
+                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)"
+                      class="focus focus-blue">关注</span>
+                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)"
+                      class="focus noFocus-blue">已关注</span>
             </div>
         </div>
     </div>
@@ -206,7 +210,10 @@
     <ion-toolbar *ngIf="!product.detail?.IsBuy" (click)="sign()">
         <ion-buttons tappable>立即报名</ion-buttons>
     </ion-toolbar>
-    <ion-toolbar *ngIf="product.detail?.IsBuy" (click)="studyNow()">
+    <ion-toolbar *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100" (click)="studyNow()">
+        <ion-buttons tappable>回顾课程</ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100" (click)="studyNow()">
         <ion-buttons tappable>立即学习</ion-buttons>
     </ion-toolbar>
     <ion-toolbar *ngIf="!product.detail?.IsCollection" (click)="collection()">
