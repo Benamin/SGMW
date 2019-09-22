@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {IonicPageModule} from 'ionic-angular';
 
 import { ForumPage } from './forum.component';
+import { PostlistComponent } from './postlist/postlist.component';
 
 @NgModule({
   imports: [
@@ -10,8 +11,9 @@ import { ForumPage } from './forum.component';
     CommonModule
   ],
   entryComponents: [
-    ForumPage
+    ForumPage,
+    PostlistComponent
   ],
-  declarations: [ForumPage]
+  declarations: [ForumPage,PostlistComponent]
 })
 export class ForumModule { }
