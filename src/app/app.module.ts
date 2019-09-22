@@ -47,6 +47,9 @@ import { ConsultationPage } from '../pages/consultation/consultation';
 import { NumberOne } from '../pages/number-one/number-one.component';
 import { NumberOneModule } from '../pages/number-one/number-one.module';
 import {AppUpdateService} from "../core/appUpdate.service";
+import { ForumModule } from '../pages/forum/forum.module';
+import { ForumPage } from '../pages/forum/forum.component';
+
 
 @NgModule({
     declarations: [
@@ -74,7 +77,8 @@ import {AppUpdateService} from "../core/appUpdate.service";
         }),
         ComponentsModule,
         ConsultationPageModule,
-        NumberOneModule
+        NumberOneModule,
+        ForumModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -83,7 +87,8 @@ import {AppUpdateService} from "../core/appUpdate.service";
         CoursePage,
         TabsPage,
         ConsultationPage,
-        NumberOne
+        NumberOne,
+        ForumPage
     ],
     providers: [
         StatusBar,

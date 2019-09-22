@@ -3,14 +3,19 @@ import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA }     from '@angular/c
 import {IonicPageModule} from 'ionic-angular';
 import {ComponentsModule} from "../../components/components.module";
 import { NumberOne } from './number-one.component';
+import { NumberOneDetailsComponent } from './numberOneDetails/numberOneDetails.component';
 
 @NgModule({
+    declarations: [
+        NumberOne,
+        NumberOneDetailsComponent
+    ],
     imports: [
         ComponentsModule,
         IonicPageModule.forChild(NumberOne),
     ],
-    declarations: [
-        NumberOne
+    entryComponents: [
+        NumberOneDetailsComponent
     ],
     schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA]
 })

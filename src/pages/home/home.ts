@@ -22,7 +22,7 @@ import {TestCenterPage} from "./test-center/test-center";
 import { ConsultationPage } from '../consultation/consultation';
 import { NumberOne } from '../number-one/number-one.component';
 import {LivePage} from "./live/live";
-
+import { ForumPage } from '../forum/forum.component';
 declare let md5;
 
 @Component({
@@ -279,6 +279,11 @@ export class HomePage {
     // 前往资讯
     goConsultation() {
         this.navCtrl.push(ConsultationPage);
+    }
+
+    // 前往论坛
+    goForumComponent() {
+        this.navCtrl.push(ForumPage);
     }
 
     // 前往状元说

@@ -51,6 +51,9 @@ page-componentsdetails{
     border-bottom: 1px solid rgba(0,0,0,0.1);
     padding-right: 15px;
     overflow: hidden;
+    .list-time{
+      flex:1;
+    }
     h4{
       color: rgba(0,0,0,0.8);
       font-size: 16px;

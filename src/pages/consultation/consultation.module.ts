@@ -3,7 +3,7 @@ import {IonicPageModule} from 'ionic-angular';
 import {ConsultationPage} from './consultation';
 import {ComponentsModule} from "../../components/components.module";
 import { Componentsdetails } from './componentsdetails/componentsdetails.component';
-
+import {ConsultationService} from './consultation.service';
 @NgModule({
     declarations: [
         ConsultationPage,
@@ -16,6 +16,7 @@ import { Componentsdetails } from './componentsdetails/componentsdetails.compone
     entryComponents: [
         Componentsdetails
     ],
+    providers: [ConsultationService],
     schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ConsultationPageModule {
