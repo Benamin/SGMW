@@ -15,12 +15,12 @@ export class CourseCommentPage {
 
     teacherList = [
         {img: null, name: '全部讲师'},
-        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodteacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
+        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
     ];
     selectTeacher;
 
