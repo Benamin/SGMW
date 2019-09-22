@@ -1,13 +1,6 @@
 <div class="main">
     <div class="content" (click)="close()">
         <div class="comment" (click)="stop($event)">
-            <div *ngIf="type == 'teacher'" class="select">
-                <ion-select [(ngModel)]="teacher" cancelText="取消" interface="action-sheet" placeholder="选择讲师">
-                    <ion-option style="background-color: #cccccc" value="jxs">秋国烟</ion-option>
-                    <ion-option value="gys">秋国烟</ion-option>
-                    <ion-option value="yg">秋国烟</ion-option>
-                </ion-select>
-            </div>
             <div class="padding-10">
                 <textarea #textAreaElement [(ngModel)]="replyContent" class="content-textarea"
                           placeholder="{{placeholder}}"></textarea>

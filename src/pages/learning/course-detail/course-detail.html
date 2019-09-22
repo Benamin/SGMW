@@ -63,15 +63,6 @@
                     <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon"
                               name="arrow-down"></ion-icon>
                 </p>
-                <div *ngIf="item.show" class="chapter-teacher">
-                    <div>
-                        <img src="./assets/imgs/home/goodTeacher.png" alt="">
-                    </div>
-                    <div>秋国烟</div>
-                    <div>
-                        上课时间：2019-01-01至2019-02-02
-                    </div>
-                </div>
                 <div *ngIf="item.children && item.show">
                     <tree-list [treeList]="item.children" [IsBuy]="product.detail?.IsBuy"></tree-list>
                 </div>
@@ -185,12 +176,6 @@
                 <div class="last teacher">
                     <div class="Contents">
                         {{item.Contents}}
-                    </div>
-                    <div class="item-teacher">
-                        <div>
-                            <img src="./assets/imgs/home/goodTeacher.png" alt="">
-                        </div>
-                        <div>秋国烟</div>
                     </div>
                 </div>
             </div>

@@ -35,25 +35,18 @@ export class TabsPage {
             index: 1
         },
         {
-            root: ForumPage,
-            tabTitle: '论坛',
-            tabIconOn: 'custom-forum-on',
-            tabIconOff: 'custom-forum-off',
-            index: 3
-        },
-        {
             root: CoursePage,
             tabTitle: '我的学习',
             tabIconOn: 'custom-serve-on',
             tabIconOff: 'custom-serve-off',
-            index: 4
+            index: 3
         },
         {
             root: MinePage,
             tabTitle: '个人中心',
             tabIconOn: 'custom-mine-on',
             tabIconOff: 'custom-mine-off',
-            index: 5
+            index: 4
         },
     ];
 
