@@ -99,8 +99,8 @@ page-course-comment {
     .course-footer {
       background-color: #e3e3e3;
       border-radius: 100px;
-      height: 3rem;
-      line-height: 3rem;
+      height: 40px;
+      line-height: 40px;
       width: 90%;
       margin: 0 auto;
       font-size: 14px;
@@ -133,7 +133,7 @@ page-course-comment {
 
     .item-teacher {
       img{
-        width: 2rem;
+        width: 24px;
       }
       text-align: center;
       width: 20%;
@@ -163,7 +163,7 @@ page-course-comment {
   }
 
   .teacher-item {
-    width: 25%;
+    width: 90px;
     background: rgba(255, 255, 255, 1);
     border-radius: 17px;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -187,7 +187,8 @@ page-course-comment {
     }
 
     img + .teacher-desc {
-      margin-left: 10px;
+      margin-left: 5px;
+      font-size: 12px;
     }
   }
 
