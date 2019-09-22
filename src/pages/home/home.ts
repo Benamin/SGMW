@@ -61,6 +61,9 @@ export class HomePage {
         const hash = md5('value');
         this.storage.get('user').then(value => {
             this.mineInfo = value;
+            if(this.mineInfo.UserName.length > 3){
+                this.mineInfo.UserName = this.mineInfo.UserName.slice(0, 3) + '...';
+            }
         });
     }
 
