@@ -17,23 +17,27 @@ export class CoursePage {
 
     page = {
         page: 1,
-        pageSize: 100,
+        pageSize: 10,
         studystate: 2,
+        TotalCount: 0,
     };
 
     courseList = [];
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
-                private loadCtrl:LoadingController) {
+                private loadCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
         this.getList();
     }
 
-    doRefresh(e){
-        this.ionViewDidLoad();
-        timer(1000).subscribe((res)=>{e.complete()});
+    doRefresh(e) {
+        this.page.page = 1;
+        this.getList();
+        timer(1000).subscribe((res) => {
+            e.complete()
+        });
     }
 
     getList() {
@@ -44,11 +48,12 @@ export class CoursePage {
         const data = {
             page: this.page.page,
             pageSize: this.page.pageSize,
-            studystate:this.page.studystate
+            studystate: this.page.studystate
         };
         this.mineSer.GetMyProductList(data).subscribe(
             (res) => {
                 this.courseList = res.data.ProductList;
+                this.page.TotalCount = res.data.TotalCount
                 loading.dismiss();
             }
         )
@@ -62,6 +67,27 @@ export class CoursePage {
 
     goCourse(e) {
         this.navCtrl.push(CourseDetailPage, {id: e.Id});
+    }
+
+    //下拉加载更多
+    doInfinite(e) {
+        if (this.courseList.length == this.page.TotalCount || this.courseList.length > this.page.TotalCount) {
+            e.complete();
+            return;
+        }
+        this.page.page++;
+        const data = {
+            page: this.page.page,
+            pageSize: this.page.pageSize,
+            studystate: this.page.studystate
+        };
+        this.mineSer.GetMyCollectionProductList(data).subscribe(
+            (res) => {
+                this.courseList = this.courseList.concat(res.data.ProductList);
+                this.page.TotalCount = res.data.TotalCount;
+                e.complete();
+            }
+        )
     }
 
 }

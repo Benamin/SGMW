@@ -61,7 +61,6 @@ export class CourseDetailPage {
         show: false,
     };
     starList = new Array(5);
-
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
