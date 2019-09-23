@@ -56,10 +56,12 @@ export class ExamPage {
         };
         const one = this.mineSer.getMyScores(data).subscribe(
             (res) => {
+                res.data.forEach(e=>e.EType = "预习作业");
                 this.examList = this.examList.concat(res.data);
                 data.EType = 4;
                 this.mineSer.getMyScores(data).subscribe(
                     (res) => {
+                        res.data.forEach(e=>e.EType = "课后作业");
                         this.examList = this.examList.concat(res.data);
                         loading.dismiss();
                     }

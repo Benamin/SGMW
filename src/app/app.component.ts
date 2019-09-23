@@ -50,7 +50,7 @@ export class MyApp {
             (res) => {
                 if (res.data.NewsItems.length > 0) {
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
-                    timer(3000).subscribe(() => this.showSplash = false)
+                    timer(3000).subscribe(() => this.showSplash = false);
                     timer(3500).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
@@ -70,11 +70,13 @@ export class MyApp {
             const source = req.source;
             const token = req.token;
             if (source == "Junke") this.trainAuth(token);
+            if (source == "xszs") this.XSZSLogin(req);
         } else {
             this.checkLogin();
         }
     }
 
+    //骏客鉴权
     async trainAuth(token) {
         const data = <any>{};
         await this.loginSer.JunkeTrainAuth(token).subscribe(
@@ -89,6 +91,28 @@ export class MyApp {
                 }
             }
         );
+    }
+
+    //销售助手app跳转登录
+    XSZSLogin(req) {
+        const data = {
+            Jxsh:req.jxsh,
+            Jxsmc:req.jxsmc,
+            Czydm:req.czydm,
+            Czymc:req.czymc,
+            Czyzw:req.czyzw,
+        };
+        this.loginSer.XSZSLogin(data).subscribe(
+            (res) => {
+                if (res.code == 200 && res.data) {
+                    this.userAsync(res);
+                } else {
+                    this.rootPage = LoginPage;
+                    this.commonSer.alert(res.message);
+                    this.storage.clear();
+                }
+            }
+        )
     }
 
     checkLogin() {
@@ -119,10 +143,10 @@ export class MyApp {
 
     //用户是否同步
     userAsync(res) {
-        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
-            this.rootPage = TabsPage;
+        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {  //用户不存在
+            this.rootPage = LoginPage;
             this.commonSer.alert(this.noUserMsg);
-        } else {
+        } else {   //用户存在
             this.storage.set('Authorization', res.data.Token);
             this.storage.set('user', res.data.User);
             timer(300).subscribe(e => {

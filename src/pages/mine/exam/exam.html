@@ -19,7 +19,10 @@
                 <span *ngIf="page.StudyState == 2" class="studyState studyState2">进行中</span>
                 <span *ngIf="page.StudyState == 3" class="studyState studyState3">已完成</span>
                 <p class="courseName">{{item.CourseName}}</p>
-                <p class="eName"><img src="./assets/imgs/tabs/tab3_off@3x.png">{{item.EName}}</p>
+                <p class="eName">
+                    <img src="./assets/imgs/tabs/tab3_off@3x.png">
+                    {{item.EType}} - {{item.EName}}
+                </p>
                 <p *ngIf="page.StudyState == 3" class="split"></p>
                 <p *ngIf="page.StudyState == 3">
                     <span class="examScore">作业得分：{{item.TotalScore}}</span>
