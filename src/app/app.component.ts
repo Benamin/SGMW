@@ -32,8 +32,8 @@ export class MyApp {
     }
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
-                private getRequest: GetRequestService,private appVersion:AppVersion,
-                private appUpdate:AppUpdateService,
+                private getRequest: GetRequestService, private appVersion: AppVersion,
+                private appUpdate: AppUpdateService,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
@@ -41,8 +41,6 @@ export class MyApp {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
             this.statusBar.styleLightContent();
-
-            this.checkVersion();
         });
     }
 
@@ -57,7 +55,10 @@ export class MyApp {
                 } else {
                     this.showSplash = false;
                 }
-                timer(500).subscribe(() => this.splashScreen.hide())
+                timer(500).subscribe(() => {
+                    this.checkVersion();
+                    this.splashScreen.hide()
+                })
                 this.checkAuth();
             }
         )
@@ -149,7 +150,7 @@ export class MyApp {
         )
     }
 
-    //校验版本
+    //检测版本
     checkVersion(){
         let versionCode;
         let platform;
@@ -158,11 +159,11 @@ export class MyApp {
         this.appVersion.getVersionNumber().then((version: string) => {
             versionCode = version;
             const data = {
-                code:'android'
+                code: 'android'
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
-                (res)=>{
-                    if(versionCode != res.data.AppVersion){
+                (res) => {
+                    if (versionCode != res.data.AppVersion) {
                         this.app.UpdateTips = true;
                         this.app.AppUrl = res.data.AppUrl;
                         this.app.UpdateText = res.data.UpdateText;

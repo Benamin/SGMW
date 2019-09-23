@@ -77,7 +77,6 @@ export class HomePage {
         this.appSer.wowInfo.subscribe(
             (value) => {
                 this.wow = value;
-                console.log(this.wow);
             }
         )
         this.info.new = 0;
@@ -86,7 +85,6 @@ export class HomePage {
 
     ionViewDidLeave() {
         this.appSer.setWow(false);
-        console.log(this.wow);
     }
 
     aotuPlay() {
@@ -175,7 +173,6 @@ export class HomePage {
         await this.learnSer.GetProductList(data).subscribe(
             (res) => {
                 this.productList = res.data.ProductList;
-                console.log(this.productList);
             }
         );
         await loading.dismiss();

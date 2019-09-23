@@ -72,7 +72,7 @@ page-course-detail {
     border-radius: 6px;
 
     > p:first-child {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
       position: relative;
       margin-bottom: 10px;
@@ -206,7 +206,7 @@ page-course-detail {
           width: 50%;
 
           p:first-child {
-            font-size: 16px;
+            font-size: 13px;
             margin-bottom: 5px;
           }
 
@@ -231,10 +231,15 @@ page-course-detail {
           width: 80%;
         }
 
+        div.Contents:last-child{
+          width: 100%;
+        }
+
         .item-teacher {
-          img{
+          img {
             width: 2rem;
           }
+
           text-align: center;
           width: 20%;
           font-size: 1.2rem;
@@ -258,7 +263,7 @@ page-course-detail {
     width: 100%;
     bottom: 0;
     display: flex;
-    min-height: 4rem;
+    min-height: 50px;
     line-height: 3.5rem;
     text-align: center;
     background-color: #fff;
@@ -491,7 +496,7 @@ page-course-detail {
     color: #facd70;
 
     span {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
   }
 
