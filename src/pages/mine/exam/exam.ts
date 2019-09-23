@@ -22,7 +22,7 @@ export class ExamPage {
     /// 3-已完成
     page = {
         EName: '',
-        StudyState: -1,
+        StudyState: 1,
         EType: 3,  /// 3-预习作业 4-课后作业
     };
 

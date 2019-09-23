@@ -61,6 +61,8 @@ export class CourseDetailPage {
         show: false,
     };
     starList = new Array(5);
+    setInterval;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
@@ -69,9 +71,12 @@ export class CourseDetailPage {
         this.pId = this.navParams.get('id');
     }
 
+    ionViewDidLoad() {
+        this.scrollHeight();
+    }
+
     async ionViewDidEnter() {
         this.showFooter = true;
-        this.scrollHeight();
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -99,6 +104,7 @@ export class CourseDetailPage {
 
 
     ionViewWillLeave() {
+        window.clearInterval(this.setInterval);
         this.showFooter = false;
         this.appSer.setFile(null);
     }
@@ -108,6 +114,7 @@ export class CourseDetailPage {
         const height = this.banner.nativeElement.offsetHeight;
         this.content.ionScroll.subscribe(($event) => {
             this.zone.run(() => {
+                console.log(this.content.scrollTop);
                 if (this.content.scrollTop > height) {
                     this.bar.show = true;
                     this.renderer.addClass(this.navbar.nativeElement, 'tabs-fixed-scroll')
