@@ -25,7 +25,7 @@ export class MyApp {
     noUserMsg = NoUserMsg;
 
     app = {
-        UpdateTips: false,
+        UpdateTips: true,
         AppUrl: '',
         UpdateText: '',
     };
@@ -51,7 +51,7 @@ export class MyApp {
                 if (res.data.NewsItems.length > 0) {
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
                     timer(3000).subscribe(() => this.showSplash = false);
-                    timer(3500).subscribe(() => this.checkVersion())
+                    timer(5000).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
                 }
