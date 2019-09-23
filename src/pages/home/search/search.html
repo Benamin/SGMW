@@ -4,7 +4,7 @@
             <ion-icon class="search-icon" name="search"></ion-icon>
             <ion-input type="search" placeholder="搜索课程" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
                        [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
-            <span class="clear" (click)="clear()">取消</span>
+            <span class="clear" tappable (click)="clear()">取消</span>
         </form>
     </ion-navbar>
 </ion-header>

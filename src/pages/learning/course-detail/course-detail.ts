@@ -157,7 +157,7 @@ export class CourseDetailPage {
             pageSize: 1,
             page: 1,
             TopicType: 'teacher',   //teacher  course
-            topicID: this.product.detail.Teachers[0].UserID,
+            topicid: this.product.detail.Teachers[0].UserID,
         }
         this.learnSer.GetComment(data1).subscribe(
             (res) => {
@@ -171,7 +171,7 @@ export class CourseDetailPage {
             pageSize: 1,
             page: 1,
             TopicType: 'course',   //teacher  course
-            topicID: this.product.detail.PrId
+            topicid: this.product.detail.PrId
         }
         this.learnSer.GetComment(data2).subscribe(
             (res) => {

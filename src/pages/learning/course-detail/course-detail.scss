@@ -72,7 +72,7 @@ page-course-detail {
     border-radius: 6px;
 
     > p:first-child {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
       position: relative;
       margin-bottom: 10px;
@@ -206,7 +206,7 @@ page-course-detail {
           width: 50%;
 
           p:first-child {
-            font-size: 16px;
+            font-size: 13px;
             margin-bottom: 5px;
           }
 
@@ -229,6 +229,10 @@ page-course-detail {
 
         .Contents {
           width: 80%;
+        }
+
+        div.Contents:last-child{
+          width: 100%;
         }
 
         .item-teacher {
@@ -492,7 +496,7 @@ page-course-detail {
     color: #facd70;
 
     span {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
   }
 

@@ -2,8 +2,10 @@ import {AppVersion} from '@ionic-native/app-version';
 import {FileOpener} from '@ionic-native/file-opener';
 import {File} from '@ionic-native/file';
 import {Injectable} from '@angular/core';
-import {AlertController} from 'ionic-angular';
+import {AlertController, Platform} from 'ionic-angular';
 import {CommonService} from "./common.service";
+import {LoginService} from "../pages/login/login.service";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class AppUpdateService {
@@ -11,6 +13,8 @@ export class AppUpdateService {
     constructor(private appVersion: AppVersion,
                 private fileOpener: FileOpener,
                 private file: File,
+                private platform: Platform,
+                private loginSer: LoginService,
                 private commonSer: CommonService,
                 private alertCtrl: AlertController,
     ) {

@@ -12,7 +12,7 @@
   </ion-refresher>
   <navbar [list]="navbarList" [select]="2" (done)="changeType($event)"></navbar>
   <div class="learn-list">
-    <div class="course-item" *ngFor="let item of courseList" (click)="goCourse(item)">
+    <div class="course-item" tappable *ngFor="let item of courseList" (click)="goCourse(item)">
       <div class="item-img">
         <div class="round">
           <img src="./assets/imgs/course/round.png" alt="">
