@@ -52,7 +52,7 @@ export class CourseCommentPage {
             pageSize: this.page.pageSize,
             page: this.page.page,
             TopicType: this.TopicType,   //teacher  course
-            topicid : this.topicID
+            topicID: this.topicID
         }
         this.learnSer.GetComment(data).subscribe(
             (res) => {

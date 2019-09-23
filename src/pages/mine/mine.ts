@@ -93,11 +93,6 @@ export class MinePage {
         this.inAppBrowser.create('https://jinshuju.net/f/WVrljv', '_system');
     }
 
-    //更新
-    goUpdate() {
-        this.navCtrl.push(UpdateAppPage);
-    }
-
     //后台退出
     logoutApp() {
         this.logoutSer.logout();
@@ -112,16 +107,16 @@ export class MinePage {
         this.appVersion.getVersionNumber().then((version: string) => {
             versionCode = version;
             const data = {
-                code: 'android'
+                code: platform
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
-                    if (versionCode != res.data.AppVersion) {
+                    if (versionCode != '10.0') {
                         this.appVersionInfo.UpdateTips = true;
                         this.appVersionInfo.AppUrl = res.data.AppUrl;
                         this.appVersionInfo.UpdateText = res.data.UpdateText;
                     } else {
-                        this.commonSer.toast('已是最新版本');
+                        this.navCtrl.push(UpdateAppPage);
                     }
                 }
             )
