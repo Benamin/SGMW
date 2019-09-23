@@ -6,7 +6,6 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {TabsPage} from '../pages/tabs/tabs';
 import {LoginPage} from "../pages/login/login";
 import {Storage} from "@ionic/storage";
-import {HomePage} from "../pages/home/home";
 import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
@@ -26,10 +25,10 @@ export class MyApp {
     noUserMsg = NoUserMsg;
 
     app = {
-        UpdateTips:false,
-        AppUrl:'',
-        UpdateText:'',
-    }
+        UpdateTips: false,
+        AppUrl: '',
+        UpdateText: '',
+    };
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService, private appVersion: AppVersion,
@@ -52,13 +51,11 @@ export class MyApp {
                 if (res.data.NewsItems.length > 0) {
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
                     timer(3000).subscribe(() => this.showSplash = false)
+                    timer(3500).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
                 }
-                timer(500).subscribe(() => {
-                    this.checkVersion();
-                    this.splashScreen.hide()
-                })
+                timer(500).subscribe(() => this.splashScreen.hide())
                 this.checkAuth();
             }
         )
@@ -151,7 +148,7 @@ export class MyApp {
     }
 
     //检测版本
-    checkVersion(){
+    checkVersion() {
         let versionCode;
         let platform;
         if (this.platform.is('ios')) platform = 'IOS';
@@ -159,7 +156,7 @@ export class MyApp {
         this.appVersion.getVersionNumber().then((version: string) => {
             versionCode = version;
             const data = {
-                code: 'android'
+                code: platform
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {

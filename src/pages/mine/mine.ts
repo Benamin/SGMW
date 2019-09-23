@@ -108,10 +108,10 @@ export class MinePage {
             versionCode = version;
             const data = {
                 code: platform
-            }
+            };
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
-                    if (versionCode != '10.0') {
+                    if (versionCode != res.data.AppVersion) {
                         this.appVersionInfo.UpdateTips = true;
                         this.appVersionInfo.AppUrl = res.data.AppUrl;
                         this.appVersionInfo.UpdateText = res.data.UpdateText;
