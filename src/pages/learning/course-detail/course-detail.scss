@@ -48,13 +48,17 @@ page-course-detail {
 
       .course-desc {
         color: #e3e3e3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         span {
           margin-right: 15px;
-
-          span {
-            font-size: 1.2rem;
-            margin-right: 3px;
+          display: flex;
+          align-items: center;
+          img{
+            width: 18px;
+            margin-right: 5px;
           }
         }
       }

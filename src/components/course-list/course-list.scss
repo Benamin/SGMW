@@ -42,16 +42,20 @@ course-list {
           width: 100%;
           color: #999999;
           margin-top: 10px;
-          font-size: 1.2rem;
           display: flex;
-
+          img{
+            margin-right: 2px;
+            width: 18px;
+          }
           > span {
-            margin-right: 15px;
-
-            span {
-              margin-right: 5px;
-              font-size: 1.2rem;
-            }
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+          }
+          > span:first-child{
+            font-size: 12px;
+            flex: 4;
           }
 
           > span:nth-of-type(2) {
