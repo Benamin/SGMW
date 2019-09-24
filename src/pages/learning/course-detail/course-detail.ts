@@ -104,7 +104,6 @@ export class CourseDetailPage {
 
 
     ionViewWillLeave() {
-        window.clearInterval(this.setInterval);
         this.showFooter = false;
         this.appSer.setFile(null);
     }
