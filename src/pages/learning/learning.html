@@ -2,7 +2,7 @@
     <div #scrollTab class="scroll-tab">
         <div #newContentParent class="news-content parent">
             <div #tabsParent class="tabs-parent parent">
-                <div #tabsChildren *ngFor="let item of headList;let i = index;" (click)="getSecondType(item,i)"
+                <div #tabsChildren *ngFor="let item of headList;let i = index;" tappable (click)="getSecondType(item,i)"
                      class="tabs-children">
                       <span #tabSpan [ngClass]="headType == i?'select':''">
                                     {{item.name}}

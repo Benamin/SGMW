@@ -31,14 +31,14 @@
     <!--    <navbar #navbar [list]="navbarList" (done)="getNavbar($event)"></navbar>-->
     <div [hidden]="bar.show" #navbar class="navbar">
         <ng-container *ngFor="let item of navbarList;let i = index;">
-            <div class="navbar-item" (click)="changeType(item)">
+            <div class="navbar-item" tappable (click)="changeType(item)">
                 <a href="#{{item.code}}" class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</a>
             </div>
         </ng-container>
     </div>
     <div [hidden]="!bar.show" class="navbar" ion-fixed>
         <ng-container *ngFor="let item of navbarList;let i = index;">
-            <div class="navbar-item" (click)="changeType(item)">
+            <div class="navbar-item" tappable (click)="changeType(item)">
                 <a href="#{{item.code}}" class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</a>
             </div>
         </ng-container>
@@ -56,7 +56,7 @@
         <p>章节</p>
         <div class="chapter">
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
-                <p style="font-weight: bold" (click)="getMore(item)">
+                <p style="font-weight: bold" tappable (click)="getMore(item)">
                     {{item.title}}
                     <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon"
                               name="arrow-forward"></ion-icon>
@@ -72,8 +72,8 @@
     <div class="space"></div>
     <div id="talk" class="item">
         <p>课程讨论
-            <span *ngIf="comment.talk.length > 0" (click)="goCourseDiscuss()" float-end class="look">更多</span>
-            <span *ngIf="comment.talk.length == 0" (click)="goCourseDiscuss()" class="focus focus-blue">去讨论</span>
+            <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end class="look">更多</span>
+            <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()" class="focus focus-blue">去讨论</span>
         </p>
         <div class="comment-list">
             <div class="comment-item" *ngFor="let item of comment.talk;">
@@ -100,8 +100,8 @@
     <div class="space"></div>
     <div id="comment" class="item">
         <p>课程评价
-            <span *ngIf="comment.course.length > 0" class="look" float-end (click)="goCourseComment()">更多</span>
-            <span *ngIf="comment.course.length == 0" class="focus-blue focus" (click)="goCourseComment()">去评价</span>
+            <span *ngIf="comment.course.length > 0" tappable class="look" float-end (click)="goCourseComment()">更多</span>
+            <span *ngIf="comment.course.length == 0" tappable class="focus-blue focus" (click)="goCourseComment()">去评价</span>
         </p>
         <div class="comment-list">
             <div class="comment-item" *ngFor="let item of comment.course;">
@@ -132,7 +132,7 @@
     <div class="space"></div>
     <div id="teacher" class="item">
         <p>讲师
-            <span (click)="teachDetail()" float-end class="look">查看</span>
+            <span (click)="teachDetail()" tappable float-end class="look">查看</span>
         </p>
         <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
             <div class="img">
@@ -143,9 +143,9 @@
                 <p style="margin-left: -10px">{{item.Position}}</p>
             </div>
             <div>
-                <span *ngIf="item.IsSubscribe == false" (click)="focusHandle(item.UserID)"
+                <span *ngIf="item.IsSubscribe == false" tappable (click)="focusHandle(item.UserID)"
                       class="focus focus-blue">关注</span>
-                <span *ngIf="item.IsSubscribe == true" (click)="cancleFocusHandle(item.UserID)"
+                <span *ngIf="item.IsSubscribe == true" tappable (click)="cancleFocusHandle(item.UserID)"
                       class="focus noFocus-blue">已关注</span>
             </div>
         </div>
@@ -153,8 +153,8 @@
     <div class="space"></div>
     <div class="item">
         <p>讲师评价
-            <span *ngIf="comment.teacher.length > 0" (click)="goTeacherComment()" float-end class="look">更多</span>
-            <span *ngIf="comment.teacher.length == 0" (click)="goTeacherComment()" class="focus focus-blue">去评价</span>
+            <span *ngIf="comment.teacher.length > 0" tappable (click)="goTeacherComment()" float-end class="look">更多</span>
+            <span *ngIf="comment.teacher.length == 0" tappable (click)="goTeacherComment()" class="focus focus-blue">去评价</span>
         </p>
         <div class="comment-list">
             <div class="comment-item" *ngFor="let item of comment.teacher;">
@@ -193,7 +193,7 @@
 
 <ion-footer class="course-footer" *ngIf="showFooter">
     <ion-toolbar tappable *ngIf="!product.detail?.IsBuy" (click)="sign()">
-        <ion-buttons tappable>立即报名</ion-buttons>
+        <ion-buttons>立即报名</ion-buttons>
     </ion-toolbar>
     <ion-toolbar tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100" (click)="studyNow()">
         <ion-buttons tappable>回顾课程</ion-buttons>

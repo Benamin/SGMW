@@ -1,19 +1,19 @@
 <div class="list" *ngFor="let item of treeList">
-    <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="getMore(item)">
+    <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" tappable (click)="getMore(item)">
         {{item.title}}
         <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon" name="arrow-forward"></ion-icon>
         <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon" name="arrow-down"></ion-icon>
     </p>
     <tree-list *ngIf="item.children.length > 0 && !item.show" [IsBuy]="IsBuy" [treeList]="item.children"></tree-list>
     <div *ngFor="let item of item.files">
-        <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="handle(item,$event)">
+        <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" tappable (click)="handle(item,$event)">
             <img *ngIf="item.icon != 'mp4'" src="./assets/imgs/learn/file.png" alt="">
             <img *ngIf="item.icon == 'mp4'" src="./assets/imgs/learn/mp4.png" alt="">
             {{item.DisplayName}}<span class="file-icon">{{item.icon}}</span></p>
     </div>
     <ng-container *ngIf="IsBuy">
         <div *ngFor="let item of item.tags">
-            <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" (click)="handleExam(item,$event)">
+            <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" tappable (click)="handleExam(item,$event)">
                 <span class="exam">
                     {{item.label}}
                 </span>

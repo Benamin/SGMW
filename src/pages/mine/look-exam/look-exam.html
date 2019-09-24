@@ -158,13 +158,13 @@
             <div class="saveStuExams">
                 <div>批改时间:{{exam.stuScore?.ModifyTime | date:'yyyy-MM-dd HH:mm' }}</div>
             </div>
-            <div class="more" (click)="moreChoice()">
+            <div class="more" tappable (click)="moreChoice()">
                 <ion-icon name="list"></ion-icon>
             </div>
         </div>
     </div>
 </ion-content>
-<div class="op-tips" *ngIf="opTips == 'true'" (click)="hidden()">
+<div class="op-tips" tappable *ngIf="opTips == 'true'" (click)="hidden()">
     <div class="op-content">
         <div class="img-op">
             <img src="./assets/imgs/mine/operate-tips.png" alt="">

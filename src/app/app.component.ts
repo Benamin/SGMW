@@ -25,7 +25,7 @@ export class MyApp {
     noUserMsg = NoUserMsg;
 
     app = {
-        UpdateTips: true,
+        UpdateTips: false,
         AppUrl: '',
         UpdateText: '',
     };

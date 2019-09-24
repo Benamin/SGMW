@@ -14,7 +14,7 @@
     <div class="exam">
         <ng-container *ngFor="let item of examList">
             <div class="space"></div>
-            <div class="item" (click)="goExam(item)">
+            <div class="item" tappable (click)="goExam(item)">
                 <span *ngIf="page.StudyState == 1" class="studyState studyState1">未开始</span>
                 <span *ngIf="page.StudyState == 2" class="studyState studyState2">进行中</span>
                 <span *ngIf="page.StudyState == 3" class="studyState studyState3">已完成</span>

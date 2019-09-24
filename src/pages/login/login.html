@@ -21,10 +21,10 @@
             </div>
             <div [hidden]="loginObj.type != 'jxs'">
                 <div class="loginPlatform">
-                    <div tappable [ngClass]="loginObj.platform == 'xszs'?'plat':''" (click)="changeSlide(0,'xszs')">
+                    <div tappable [ngClass]="loginObj.platform == 'xszs'?'plat':''" tappable (click)="changeSlide(0,'xszs')">
                         销售助手
                     </div>
-                    <div tappable [ngClass]="loginObj.platform == 'junke'?'plat':''" (click)="changeSlide(1,'junke')">
+                    <div tappable [ngClass]="loginObj.platform == 'junke'?'plat':''"  (click)="changeSlide(1,'junke')">
                         骏客
                     </div>
                 </div>
@@ -43,10 +43,10 @@
                             <div class="check input-input">
                                 <input [(ngModel)]="jxs.xszs.inputCode" placeholder="请输入验证码"/>
                                 <check-code class="checkCode" #checkCodeXszs (done)="getCodeXszs($event)"></check-code>
-                                <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                                <img tappable (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
                             </div>
                         </div>
-                        <div class="login-button" (click)="loginXszsJsx()">
+                        <div class="login-button" tappable (click)="loginXszsJsx()">
                             登录
                         </div>
                     </ion-slide>
@@ -61,10 +61,10 @@
                             <div class="check input-input">
                                 <input [(ngModel)]="jxs.junke.inputCode" placeholder="请输入验证码"/>
                                 <check-code class="checkCode" #checkCodeJunke (done)="getCodeJunke($event)"></check-code>
-                                <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                                <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                             </div>
                         </div>
-                        <div class="login-button" (click)="loginJunkeJsx()">
+                        <div class="login-button" tappable (click)="loginJunkeJsx()">
                             登录
                         </div>
                     </ion-slide>
@@ -81,10 +81,10 @@
                     <div class="check input-input">
                         <input [(ngModel)]="gysObj.inputCode" placeholder="请输入验证码"/>
                         <check-code class="checkCode" #checkCodeGys (done)="getCodeGys($event)"></check-code>
-                        <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                        <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                     </div>
                 </div>
-                <div class="login-button" (click)="gysLogin()">
+                <div class="login-button" tappable (click)="gysLogin()">
                     登录
                 </div>
             </div>
@@ -99,10 +99,10 @@
                     <div class="check input-input">
                         <input [(ngModel)]="ygObj.inputCode" placeholder="请输入验证码"/>
                         <check-code class="checkCode" #checkCodeYG (done)="getCodeYg($event)"></check-code>
-                        <img (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
+                        <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                     </div>
                 </div>
-                <div class="login-button" (click)="ygLogin()">
+                <div class="login-button" tappable (click)="ygLogin()">
                     登录
                 </div>
             </div>
