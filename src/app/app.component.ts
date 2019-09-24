@@ -58,8 +58,10 @@ export class MyApp {
                     timer(4000).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
+                    this.checkAuth();
                 }
-                timer(500).subscribe(() => this.splashScreen.hide())
+
+                timer(1000).subscribe(() => this.splashScreen.hide())
             }
         )
     }

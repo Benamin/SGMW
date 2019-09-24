@@ -100,6 +100,8 @@ export class MinePage {
 
     //检测版本
     checkVersion() {
+        // this.navCtrl.push(UpdateAppPage);
+
         let versionCode;
         let platform;
         if (this.platform.is('ios')) platform = 'IOS';
