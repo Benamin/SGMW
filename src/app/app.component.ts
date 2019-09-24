@@ -36,6 +36,7 @@ export class MyApp {
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
+            this.splashScreen.show();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
@@ -50,13 +51,15 @@ export class MyApp {
             (res) => {
                 if (res.data.NewsItems.length > 0) {
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
-                    timer(3000).subscribe(() => this.showSplash = false);
-                    timer(5000).subscribe(() => this.checkVersion())
+                    timer(3000).subscribe(() => {
+                        this.showSplash = false;
+                        this.checkAuth();
+                    });
+                    timer(4000).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
                 }
                 timer(500).subscribe(() => this.splashScreen.hide())
-                this.checkAuth();
             }
         )
     }
@@ -90,17 +93,19 @@ export class MyApp {
                     this.commonSer.toast(res.msg);
                 }
             }
-        );
+        ), (err) => {
+            this.rootPage = LoginPage;
+        };
     }
 
     //销售助手app跳转登录
     XSZSLogin(req) {
         const data = {
-            Jxsh:req.jxsh,
-            Jxsmc:req.jxsmc,
-            Czydm:req.czydm,
-            Czymc:req.czymc,
-            Czyzw:req.czyzw,
+            Jxsh: req.jxsh,
+            Jxsmc: req.jxsmc,
+            Czydm: req.czydm,
+            Czymc: req.czymc,
+            Czyzw: req.czyzw,
         };
         this.loginSer.XSZSLogin(data).subscribe(
             (res) => {
