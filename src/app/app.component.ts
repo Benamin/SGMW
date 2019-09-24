@@ -57,7 +57,7 @@ export class MyApp {
                 if (res.data.NewsItems.length > 0) {
                     this.load.imgUrl = res.data.NewsItems[0].SourceUrl;
                     this.load.httpUrl = res.data.NewsItems[0].SubTitle;
-                    timer(300000).subscribe(() => {
+                    timer(3000).subscribe(() => {
                         this.showSplash = false;
                         this.checkAuth();
                     });
