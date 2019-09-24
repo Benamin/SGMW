@@ -6,7 +6,6 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {TabsPage} from '../pages/tabs/tabs';
 import {LoginPage} from "../pages/login/login";
 import {Storage} from "@ionic/storage";
-import {HomePage} from "../pages/home/home";
 import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
@@ -26,10 +25,10 @@ export class MyApp {
     noUserMsg = NoUserMsg;
 
     app = {
-        UpdateTips:false,
-        AppUrl:'',
-        UpdateText:'',
-    }
+        UpdateTips: false,
+        AppUrl: '',
+        UpdateText: '',
+    };
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService, private appVersion: AppVersion,
@@ -37,6 +36,8 @@ export class MyApp {
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
+
+            this.splashScreen.show();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
@@ -51,15 +52,17 @@ export class MyApp {
             (res) => {
                 if (res.data.NewsItems.length > 0) {
                     this.loadUrl = res.data.NewsItems[0].SourceUrl;
-                    timer(3000).subscribe(() => this.showSplash = false)
+                    timer(3000).subscribe(() => {
+                        this.showSplash = false;
+                        this.checkAuth();
+                    });
+                    timer(4000).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
+                    this.checkAuth();
                 }
-                timer(500).subscribe(() => {
-                    this.checkVersion();
-                    this.splashScreen.hide()
-                })
-                this.checkAuth();
+
+                timer(1000).subscribe(() => this.splashScreen.hide())
             }
         )
     }
@@ -73,11 +76,13 @@ export class MyApp {
             const source = req.source;
             const token = req.token;
             if (source == "Junke") this.trainAuth(token);
+            if (source == "xszs") this.XSZSLogin(req);
         } else {
             this.checkLogin();
         }
     }
 
+    //骏客鉴权
     async trainAuth(token) {
         const data = <any>{};
         await this.loginSer.JunkeTrainAuth(token).subscribe(
@@ -91,7 +96,31 @@ export class MyApp {
                     this.commonSer.toast(res.msg);
                 }
             }
-        );
+        ), (err) => {
+            this.rootPage = LoginPage;
+        };
+    }
+
+    //销售助手app跳转登录
+    XSZSLogin(req) {
+        const data = {
+            Jxsh: req.jxsh,
+            Jxsmc: req.jxsmc,
+            Czydm: req.czydm,
+            Czymc: req.czymc,
+            Czyzw: req.czyzw,
+        };
+        this.loginSer.XSZSLogin(data).subscribe(
+            (res) => {
+                if (res.code == 200 && res.data) {
+                    this.userAsync(res);
+                } else {
+                    this.rootPage = LoginPage;
+                    this.commonSer.alert(res.message);
+                    this.storage.clear();
+                }
+            }
+        )
     }
 
     checkLogin() {
@@ -122,10 +151,10 @@ export class MyApp {
 
     //用户是否同步
     userAsync(res) {
-        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
-            this.rootPage = TabsPage;
+        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {  //用户不存在
+            this.rootPage = LoginPage;
             this.commonSer.alert(this.noUserMsg);
-        } else {
+        } else {   //用户存在
             this.storage.set('Authorization', res.data.Token);
             this.storage.set('user', res.data.User);
             timer(300).subscribe(e => {
@@ -151,15 +180,15 @@ export class MyApp {
     }
 
     //检测版本
-    checkVersion(){
+    checkVersion() {
         let versionCode;
         let platform;
-        if (this.platform.is('ios')) platform = 'ios';
+        if (this.platform.is('ios')) platform = 'IOS';
         if (this.platform.is('android')) platform = 'android';
         this.appVersion.getVersionNumber().then((version: string) => {
             versionCode = version;
             const data = {
-                code: 'android'
+                code: platform
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
