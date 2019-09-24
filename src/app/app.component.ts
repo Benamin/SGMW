@@ -36,6 +36,7 @@ export class MyApp {
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
+
             this.splashScreen.show();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
