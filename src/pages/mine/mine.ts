@@ -100,31 +100,31 @@ export class MinePage {
 
     //检测版本
     checkVersion() {
-        // this.navCtrl.push(UpdateAppPage);
+        this.navCtrl.push(UpdateAppPage);
 
-        let versionCode;
-        let platform;
-        if (this.platform.is('ios')) platform = 'IOS';
-        if (this.platform.is('android')) platform = 'android';
-        this.appVersion.getVersionNumber().then((version: string) => {
-            versionCode = version;
-            const data = {
-                code: platform
-            };
-            this.loginSer.GetAppVersionByCode(data).subscribe(
-                (res) => {
-                    if (versionCode != res.data.AppVersion) {
-                        this.appVersionInfo.UpdateTips = true;
-                        this.appVersionInfo.AppUrl = res.data.AppUrl;
-                        this.appVersionInfo.UpdateText = res.data.UpdateText;
-                    } else {
-                        this.navCtrl.push(UpdateAppPage);
-                    }
-                }
-            )
-        }).catch(err => {
-            console.log(err);
-        });
+        // let versionCode;
+        // let platform;
+        // if (this.platform.is('ios')) platform = 'IOS';
+        // if (this.platform.is('android')) platform = 'android';
+        // this.appVersion.getVersionNumber().then((version: string) => {
+        //     versionCode = version;
+        //     const data = {
+        //         code: platform
+        //     };
+        //     this.loginSer.GetAppVersionByCode(data).subscribe(
+        //         (res) => {
+        //             if (versionCode != res.data.AppVersion) {
+        //                 this.appVersionInfo.UpdateTips = true;
+        //                 this.appVersionInfo.AppUrl = res.data.AppUrl;
+        //                 this.appVersionInfo.UpdateText = res.data.UpdateText;
+        //             } else {
+        //                 this.navCtrl.push(UpdateAppPage);
+        //             }
+        //         }
+        //     )
+        // }).catch(err => {
+        //     console.log(err);
+        // });
     }
 
 }
