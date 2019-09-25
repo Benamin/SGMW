@@ -20,10 +20,11 @@
                 </div>
             </div>
         </div>
-        <div class="content video" *ngIf="product.videoPath">
-            <video #video (canplaythrough)="startPlay($event)" width="100%" autoplay height="100%"
-                   poster="{{product.chapter?.Course?.CoverUrl}}" [src]="product.videoPath"
+        <div class="content video" [hidden]="!product.videoPath">
+            <video #video playsinline (canplaythrough)="startPlay($event)" width="100%" autoplay height="100%"
+                   poster="{{product.chapter?.Course?.CoverUrl}}"
                    controls="controls">
+                <source [src]="product.videoPath">
                 您的浏览器不支持 html5。
             </video>
         </div>

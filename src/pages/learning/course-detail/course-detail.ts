@@ -19,7 +19,8 @@ import {EmitService} from "../../../core/emit.service";
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
-    @ViewChild('video') video: ElementRef;
+    @ViewChild('video')
+    public video: ElementRef;
     @ViewChild(Content) content: Content;
 
     pId;
@@ -98,6 +99,9 @@ export class CourseDetailPage {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
                 this.product.videoPath = value.fileUrl;
+                const video: HTMLVideoElement = this.video.nativeElement;
+                video.load();
+                this.video.nativeElement.load();
             }
         });
     }
@@ -373,7 +377,6 @@ export class CourseDetailPage {
 
     //播放视频
     startPlay(video) {
-        console.log(video);
         video.target.play();
         video.target.requestFullscreen();
     }
