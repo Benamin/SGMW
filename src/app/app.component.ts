@@ -20,7 +20,11 @@ import {AppUpdateService} from "../core/appUpdate.service";
 export class MyApp {
     rootPage: any;
     showSplash = true;
-    loadUrl;
+
+    load = {
+        imgUrl:null,
+        httpUrl:null
+    };
 
     noUserMsg = NoUserMsg;
 
@@ -51,12 +55,13 @@ export class MyApp {
         this.loginSer.GetAppPic().subscribe(
             (res) => {
                 if (res.data.NewsItems.length > 0) {
-                    this.loadUrl = res.data.NewsItems[0].SourceUrl;
+                    this.load.imgUrl = res.data.NewsItems[0].SourceUrl;
+                    this.load.httpUrl = res.data.NewsItems[0].SubTitle;
                     timer(3000).subscribe(() => {
                         this.showSplash = false;
                         this.checkAuth();
                     });
-                    timer(4000).subscribe(() => this.checkVersion())
+                    // timer(4000).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
                     this.checkAuth();
@@ -202,5 +207,13 @@ export class MyApp {
         }).catch(err => {
             console.log(err);
         });
+    }
+
+
+    //打开链接
+    openUrl(){
+        if(this.load.httpUrl){
+            this.commonSer.openUrlByBrowser(this.load.httpUrl);
+        }
     }
 }

@@ -13,9 +13,12 @@ update-app {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70%;
-    height: 50%;
+    background-image: url("../assets/imgs/update_tip_bg.png");
+    background-position: center center;
     background-size: cover;
+    background-repeat: no-repeat;
+    width: 65%;
+    height: 52%;
     border-radius: 10px;
   }
   .update-content{
@@ -36,6 +39,7 @@ update-app {
     padding: 0 15%;
     font-size: 1.5rem;
     font-weight: 400;
+    text-align: center;
   }
   .update-button{
     position: absolute;
@@ -54,7 +58,7 @@ update-app {
   }
   .icon-close {
     position: absolute;
-    bottom: -20px;
+    bottom: -30px;
     left: 50%;
     transform: translate(-50%, 4rem);
     color: #fff;

@@ -70,9 +70,12 @@ export class CourseDetailPage {
         this.pId = this.navParams.get('id');
     }
 
+    ionViewDidLoad() {
+        this.scrollHeight();
+    }
+
     async ionViewDidEnter() {
         this.showFooter = true;
-        this.scrollHeight();
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
