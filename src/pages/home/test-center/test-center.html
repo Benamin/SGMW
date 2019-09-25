@@ -14,7 +14,7 @@
   <div class="exam">
     <ng-container *ngFor="let item of examList">
       <div class="space"></div>
-      <div class="item" (click)="goExam(item)">
+      <div class="item" tappable (click)="goExam(item)">
         <p class="courseName">{{item.CourseName}}</p>
         <p class="eName"><img src="./assets/imgs/tabs/tab3_off@3x.png">{{item.EName}}</p>
         <p *ngIf="page.StudyState == 3" class="split"></p>

@@ -61,7 +61,7 @@ export class MyApp {
                         this.showSplash = false;
                         this.checkAuth();
                     });
-                    // timer(4000).subscribe(() => this.checkVersion())
+                     timer(4000).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
                     this.checkAuth();
@@ -132,7 +132,6 @@ export class MyApp {
         this.storage.get('Authorization').then(value => {
             if (value) {
                 this.rootPage = TabsPage;
-                // this.imitateLogin(value);
             } else {
                 this.rootPage = LoginPage;
             }

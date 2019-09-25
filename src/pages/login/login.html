@@ -21,7 +21,7 @@
             </div>
             <div [hidden]="loginObj.type != 'jxs'">
                 <div class="loginPlatform">
-                    <div tappable [ngClass]="loginObj.platform == 'xszs'?'plat':''" tappable (click)="changeSlide(0,'xszs')">
+                    <div tappable [ngClass]="loginObj.platform == 'xszs'?'plat':''" (click)="changeSlide(0,'xszs')">
                         销售助手
                     </div>
                     <div tappable [ngClass]="loginObj.platform == 'junke'?'plat':''"  (click)="changeSlide(1,'junke')">
