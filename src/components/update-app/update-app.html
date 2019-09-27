@@ -1,17 +1,14 @@
 <div class="cover">
   <div class="bg-content">
-    <div class="img">
-      <img src="./assets/imgs/update_tip_bg.png">
-    </div>
     <div class="update-content">
       <div class="update-text">
         {{UpdateText}}
       </div>
-      <div (click)="updateApp()" class="update-button">
+      <div tappable (click)="updateApp()" class="update-button">
         马上更新
       </div>
     </div>
-    <span (click)="close()" class="icon-close">
+    <span tappable (click)="close()" class="icon-close">
             <ion-icon name="close"></ion-icon>
         </span>
   </div>

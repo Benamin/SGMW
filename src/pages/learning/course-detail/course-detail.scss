@@ -1,4 +1,7 @@
 page-course-detail {
+  .scroll-content{
+    -webkit-overflow-scrolling: auto;
+  }
   .banner {
     height: 180px;
     background-color: rgba(0, 0, 0, .4);
@@ -48,13 +51,17 @@ page-course-detail {
 
       .course-desc {
         color: #e3e3e3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         span {
           margin-right: 15px;
-
-          span {
-            font-size: 1.2rem;
-            margin-right: 3px;
+          display: flex;
+          align-items: center;
+          img{
+            width: 18px;
+            margin-right: 5px;
           }
         }
       }

@@ -1,6 +1,6 @@
 <div class="main">
-    <div class="content" (click)="close()">
-        <div class="comment" (click)="stop($event)">
+    <div class="content" tappable (click)="close()">
+        <div class="comment" tappable (click)="stop($event)">
             <div *ngIf="type == 'teacher'" class="select">
                 <ion-select [(ngModel)]="teacher" cancelText="取消" interface="action-sheet" placeholder="选择讲师">
                     <ion-option style="background-color: #cccccc" value="jxs">秋国烟</ion-option>
@@ -14,11 +14,11 @@
             </div>
             <ion-row style="margin-top: 5px">
                 <ion-col col-5>
-                    <span class="send" (click)="submit()">发送</span>
+                    <span class="send" tappable (click)="submit()">发送</span>
                 </ion-col>
                 <ion-col col-7 text-center class="img-star" *ngIf="type != 'talk'">
                     <ng-container *ngFor="let star of starList;let i = index;">
-                        <span (click)="checkStar(i)" [ngClass]="star" class="icon iconfont"></span>
+                        <span  tappable (click)="checkStar(i)" [ngClass]="star" class="icon iconfont"></span>
                     </ng-container>
                 </ion-col>
             </ion-row>

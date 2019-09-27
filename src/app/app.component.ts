@@ -20,7 +20,11 @@ import {AppUpdateService} from "../core/appUpdate.service";
 export class MyApp {
     rootPage: any;
     showSplash = true;
-    loadUrl;
+
+    load = {
+        imgUrl: null,
+        httpUrl: null
+    };
 
     noUserMsg = NoUserMsg;
 
@@ -51,7 +55,8 @@ export class MyApp {
         this.loginSer.GetAppPic().subscribe(
             (res) => {
                 if (res.data.NewsItems.length > 0) {
-                    this.loadUrl = res.data.NewsItems[0].SourceUrl;
+                    this.load.imgUrl = res.data.NewsItems[0].SourceUrl;
+                    this.load.httpUrl = res.data.NewsItems[0].SubTitle;
                     timer(3000).subscribe(() => {
                         this.showSplash = false;
                         this.checkAuth();
@@ -127,7 +132,6 @@ export class MyApp {
         this.storage.get('Authorization').then(value => {
             if (value) {
                 this.rootPage = TabsPage;
-                // this.imitateLogin(value);
             } else {
                 this.rootPage = LoginPage;
             }
@@ -163,22 +167,6 @@ export class MyApp {
         }
     }
 
-    imitateLogin(logindata) {
-        this.loginSer.sgmwLogin(logindata).subscribe(
-            (res) => {
-                if (res.code == 200 && res.data) {
-                    this.storage.set('Authorization', res.data.Token);
-                    this.storage.set('user', res.data.User);
-                    this.rootPage = TabsPage;
-                } else {
-                    this.rootPage = LoginPage;
-                    this.commonSer.alert(res.message);
-                    this.storage.clear();
-                }
-            }
-        )
-    }
-
     //检测版本
     checkVersion() {
         let versionCode;
@@ -202,5 +190,13 @@ export class MyApp {
         }).catch(err => {
             console.log(err);
         });
+    }
+
+
+    //打开链接
+    openUrl() {
+        if (this.load.httpUrl) {
+            this.commonSer.openUrlByBrowser(this.load.httpUrl);
+        }
     }
 }

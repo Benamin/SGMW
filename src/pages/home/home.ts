@@ -271,7 +271,7 @@ export class HomePage {
                 const arr = e.HttpURL.split('/');
                 this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
             } else {
-                this.inAppBrowser.create(e.HttpURL, '_system');
+                this.commonSer.openUrlByBrowser(e.HttpURL);
             }
         }
     }

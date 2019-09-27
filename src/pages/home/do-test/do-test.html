@@ -130,20 +130,20 @@
       <div class="inner" [style.width]="(doneTotal/exam.qs.length)*100 +'%'"></div>
     </div>
     <div class="footer-subject">
-      <div class="submit" (click)="submit()">
+      <div class="submit" tappable (click)="submit()">
         <div>确认提交</div>
       </div>
-      <div class="saveStuExams" (click)="saveStuExams()">
+      <div class="saveStuExams" tappable (click)="saveStuExams()">
         <div>暂存答案</div>
       </div>
-      <div class="more" (click)="moreChoice()">
+      <div class="more" tappable (click)="moreChoice()">
         <ion-icon name="list"></ion-icon>
       </div>
     </div>
   </div>
 </ion-content>
 
-<div class="op-tips" *ngIf="opTips == 'true'" (click)="hidden()">
+<div class="op-tips" tappable *ngIf="opTips == 'true'" (click)="hidden()">
   <div class="op-content">
     <div class="img-op">
       <img src="./assets/imgs/mine/operate-tips.png" alt="">
@@ -154,7 +154,7 @@
   </div>
 </div>
 
-<div *ngIf="score.show" class="score" (click)="close($event)">
+<div *ngIf="score.show" class="score" tappable (click)="close($event)">
   <div class="content">
     <img src="./assets/imgs/mine/exam-submit.png" alt="">
     <p>作业提交成功</p>

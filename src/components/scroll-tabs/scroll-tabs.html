@@ -1,7 +1,7 @@
 <div #scrollTab class="scroll-tab">
     <div #newContentParent class="news-content parent">
         <div #tabsParent class="tabs-parent parent">
-            <div #tabsChildren *ngFor="let item of tabsList;let i = index;" (click)="changeParent(item,i)"
+            <div #tabsChildren *ngFor="let item of tabsList;let i = index;" tappable (click)="changeParent(item,i)"
                  class="tabs-children">
                       <span #tabSpan [style.color]="select.index == i ? '#f71a22':'#999'">
                                     {{item.name}}
@@ -13,9 +13,9 @@
         </div>
     </div>
 </div>
-<div *ngIf="isShow" class="three-content" (click)="isShow = false">
+<div *ngIf="isShow" class="three-content" tappable (click)="isShow = false">
     <div class="three-type" [style.height]="isShow?'auto':'0'">
-        <p (click)="setAll()">全部</p>
-        <p *ngFor="let item of threeType.list;let i = index;" (click)="setSubjectID(item)">{{item.TypeName}}</p>
+        <p tappable (click)="setAll()">全部</p>
+        <p *ngFor="let item of threeType.list;let i = index;" tappable (click)="setSubjectID(item)">{{item.TypeName}}</p>
     </div>
 </div>
