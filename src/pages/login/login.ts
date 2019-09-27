@@ -9,8 +9,11 @@ import {CheckCodeComponent} from "../../components/check-code/check-code";
 import {Keyboard} from "@ionic-native/keyboard";
 import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
-import {NoUserMsg} from "../../app/app.constants";
+import {JunKe_client_id, NoUserMsg, XSZS_appId, XSZS_appKey, XSZS_client_id} from "../../app/app.constants";
+import {DatePipe} from "@angular/common";
+import {RandomWordService} from "../../secret/randomWord.service";
 
+declare let md5: any;
 
 @IonicPage()
 @Component({
@@ -45,17 +48,18 @@ export class LoginPage {
     //经销商
     jxs = {
         junke: {
-            LoginName: '',
-            password: '',
-            UserType: '',
+            username: '',
+            grant_type: '',
+            client_id: JunKe_client_id,
+            jxsh: '',
             codeRight: '',
             inputCode: ''
         },
         xszs: {
-            Jxsh: '',
-            LoginName: '',
-            password: '',
-            UserType: '',
+            jxsh: '',
+            czymc: '',
+            pwd: '',
+            source: 'TrainingSystem',
             codeRight: '',
             inputCode: ''
         }
@@ -69,6 +73,8 @@ export class LoginPage {
     noUserMsg = NoUserMsg;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
+                private datePipe: DatePipe,
+                private randomWord: RandomWordService,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
@@ -151,14 +157,27 @@ export class LoginPage {
             content: '登录中...'
         });
         loading.present();
-        this.loginSer.sgmwLogin(this.jxs.xszs).subscribe(
+
+        const timestamp = this.datePipe.transform(new Date(), 'yyyyMMddHHmmss')
+        const nonce = this.randomWord.uuid();
+        const sign = XSZS_appId + XSZS_appKey + timestamp + nonce;
+        const header = {
+            appId: XSZS_appId,
+            nonce: nonce,
+            timestamp: timestamp,
+            sign: this.randomWord.hex_md5(sign)
+        };
+
+        console.log(header);
+        console.log(this.jxs.xszs);
+        this.loginSer.sgmwLogin(this.jxs.xszs, header).subscribe(
             (res) => {
                 loading.dismiss();
-                if (res.code == 200 && res.data) {
-                    this.userAsync(res);
+                if (res.success == "true") {
+                    this.connectToken(res.data);
                 } else {
                     this.storage.clear();
-                    this.commonSer.alert(res.message);
+                    this.commonSer.alert(res.error);
                 }
             }
         )
@@ -174,7 +193,7 @@ export class LoginPage {
             content: '登录中...'
         });
         loading.present();
-        this.loginSer.sgmwLoginJK(this.jxs.junke).subscribe(
+        this.loginSer.connectToken(this.jxs.junke).subscribe(
             (res) => {
                 loading.dismiss();
                 if (res.code == 200 && res.data) {
@@ -187,18 +206,39 @@ export class LoginPage {
         )
     }
 
+    //获取token
+    connectToken(res) {
+        const data = {
+            grant_type: "password",
+            client_id: XSZS_client_id,
+            username: res.czymc,
+            jxsh: res.jxsh,
+            czydm: res.czydm
+        };
+        this.loginSer.connectToken(data).subscribe(
+            (res) => {
+                if (res.code == 200 && res.data) {
+                    this.userAsync(res);
+                } else {
+                    this.storage.clear();
+                    this.commonSer.alert(res.message);
+                }
+            }
+        )
+    }
+
     //用户是否同步
     userAsync(res) {
-        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
-            this.commonSer.alert(this.noUserMsg);
-        } else {
-            this.storage.set('Authorization', res.data.Token);
-            this.storage.set('user', res.data.User);
-            timer(300).subscribe(e => {
-                this.navCtrl.setRoot(TabsPage);
-                console.log(this.storage.get("Authorization"));
-            })
-        }
+        // if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
+        //     this.commonSer.alert(this.noUserMsg);
+        // } else {
+        //     this.storage.set('Authorization', res.data.Token);
+        //     this.storage.set('user', res.data.User);
+        //     timer(300).subscribe(e => {
+        //         this.navCtrl.setRoot(TabsPage);
+        //         console.log(this.storage.get("Authorization"));
+        //     })
+        // }
     }
 
     //重新获取验证码

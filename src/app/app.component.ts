@@ -22,8 +22,8 @@ export class MyApp {
     showSplash = true;
 
     load = {
-        imgUrl:null,
-        httpUrl:null
+        imgUrl: null,
+        httpUrl: null
     };
 
     noUserMsg = NoUserMsg;
@@ -61,7 +61,7 @@ export class MyApp {
                         this.showSplash = false;
                         this.checkAuth();
                     });
-                     timer(4000).subscribe(() => this.checkVersion())
+                    timer(4000).subscribe(() => this.checkVersion())
                 } else {
                     this.showSplash = false;
                     this.checkAuth();
@@ -167,22 +167,6 @@ export class MyApp {
         }
     }
 
-    imitateLogin(logindata) {
-        this.loginSer.sgmwLogin(logindata).subscribe(
-            (res) => {
-                if (res.code == 200 && res.data) {
-                    this.storage.set('Authorization', res.data.Token);
-                    this.storage.set('user', res.data.User);
-                    this.rootPage = TabsPage;
-                } else {
-                    this.rootPage = LoginPage;
-                    this.commonSer.alert(res.message);
-                    this.storage.clear();
-                }
-            }
-        )
-    }
-
     //检测版本
     checkVersion() {
         let versionCode;
@@ -210,8 +194,8 @@ export class MyApp {
 
 
     //打开链接
-    openUrl(){
-        if(this.load.httpUrl){
+    openUrl() {
+        if (this.load.httpUrl) {
             this.commonSer.openUrlByBrowser(this.load.httpUrl);
         }
     }
