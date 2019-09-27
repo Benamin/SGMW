@@ -52,9 +52,9 @@ export class ConsultationPage {
             let arr=res.data.NewsItems;
             arr.forEach((element,i) => {
                 element['imgarr']='img1';
-                if(i%3==2){ // img1 img3 imgBig
-                    element['imgarr']='imgBig';
-                }
+                // if(i%3==2){ // img1 img3 imgBig
+                //     element['imgarr']='imgBig';
+                // }
             });
             this.dataList=this.dataList.concat(arr);
         })
