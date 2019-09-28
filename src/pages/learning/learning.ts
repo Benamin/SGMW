@@ -27,6 +27,7 @@ export class LearningPage {
         page: 1,
         pageSize: "10",
         TotalCount: 0,
+        isLoading:false,
     };
     loading;
 
@@ -123,6 +124,7 @@ export class LearningPage {
         };
         this.learnSer.GetProductList(data).subscribe(
             (res) => {
+                this.page.isLoading = true;
                 this.productList = res.data.ProductList;
                 this.page.TotalCount = res.data.TotalCount;
                 this.loading.dismiss();
@@ -149,6 +151,7 @@ export class LearningPage {
             (res) => {
                 this.productList = this.productList.concat(res.data.ProductList);
                 this.page.TotalCount = res.data.TotalCount;
+                this.page.isLoading = true;
                 e.complete();
             }
         )

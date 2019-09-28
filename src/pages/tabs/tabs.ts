@@ -8,7 +8,7 @@ import {CoursePage} from "../course/course";
 import {BackButtonService} from "../../core/backButton.service";
 import {LoginPage} from "../login/login";
 import {TabService} from "../../core/tab.service";
-
+import { ForumPage } from '../forum/forum.component';
 @Component({
     templateUrl: 'tabs.html'
 })
@@ -35,18 +35,25 @@ export class TabsPage {
             index: 1
         },
         {
+            root: ForumPage,
+            tabTitle: '论坛',
+            tabIconOn: 'custom-forum-on',
+            tabIconOff: 'custom-forum-off',
+            index: 3
+        },
+        {
             root: CoursePage,
             tabTitle: '我的学习',
             tabIconOn: 'custom-serve-on',
             tabIconOff: 'custom-serve-off',
-            index: 2
+            index: 4
         },
         {
             root: MinePage,
             tabTitle: '个人中心',
             tabIconOn: 'custom-mine-on',
             tabIconOff: 'custom-mine-off',
-            index: 3
+            index: 5
         },
     ];
 

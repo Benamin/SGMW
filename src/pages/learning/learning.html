@@ -2,7 +2,7 @@
     <div #scrollTab class="scroll-tab">
         <div #newContentParent class="news-content parent">
             <div #tabsParent class="tabs-parent parent">
-                <div #tabsChildren *ngFor="let item of headList;let i = index;" (click)="getSecondType(item,i)"
+                <div #tabsChildren *ngFor="let item of headList;let i = index;" tappable (click)="getSecondType(item,i)"
                      class="tabs-children">
                       <span #tabSpan [ngClass]="headType == i?'select':''">
                                     {{item.name}}
@@ -28,6 +28,12 @@
     </ion-refresher>
     <scroll-tabs #scrollTabs  [tabsList]="tabsList" (done)="setSubjectID($event)"></scroll-tabs>
     <course-list [list]="productList" (done)="goCourse($event)"></course-list>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="productList.length == 0 && page.isLoading">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无课程
+        </p>
+    </ion-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"

@@ -9,7 +9,7 @@
         <div class="scroll-tab">
             <div class="teacher-content">
                 <ng-container *ngFor="let teacher of teacherList;let i = index;">
-                    <div [ngClass]="selectTeacher == i?'teacher-item-select':''" class="teacher-item"
+                    <div [ngClass]="selectTeacher == i?'teacher-item-select':''" tappable class="teacher-item"
                          (click)="setTeacher(teacher,i)">
                         <div class="flex-teacher">
                             <img [src]="teacher.img" alt="">
@@ -43,7 +43,7 @@
                 </div>
                 <div *ngIf="TopicType == 'teacher'" class="item-teacher">
                     <div>
-                        <img src="./assets/imgs/home/goodteacher.png" alt="">
+                        <img src="./assets/imgs/home/goodTeacher.png" alt="">
                     </div>
                     <div>秋国烟</div>
                 </div>
@@ -57,7 +57,7 @@
         </p>
     </ion-list>
 </ion-content>
-<ion-footer (click)="openComment()">
+<ion-footer (click)="openComment()" tappable>
     <div class="course-footer">
         {{placeholder}}
     </div>

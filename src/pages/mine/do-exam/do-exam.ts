@@ -114,7 +114,7 @@ export class DoExamPage {
                 content: '提交中...'
             });
             loading.present();
-            this.mineSer.submitStuExams(this.exam).subscribe(
+            this.mineSer.saveStuExams(this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
                     if (res.code == 200) {

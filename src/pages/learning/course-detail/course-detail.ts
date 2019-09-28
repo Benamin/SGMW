@@ -70,9 +70,12 @@ export class CourseDetailPage {
         this.pId = this.navParams.get('id');
     }
 
+    ionViewDidLoad() {
+        this.scrollHeight();
+    }
+
     async ionViewDidEnter() {
         this.showFooter = true;
-        this.scrollHeight();
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -161,7 +164,9 @@ export class CourseDetailPage {
         }
         this.learnSer.GetComment(data1).subscribe(
             (res) => {
-                this.comment.teacher = res.data.CommentItems;
+                if (res.data) {
+                    this.comment.teacher = res.data.CommentItems;
+                }
             }
         );
 
@@ -173,7 +178,9 @@ export class CourseDetailPage {
         }
         this.learnSer.GetComment(data2).subscribe(
             (res) => {
-                this.comment.course = res.data.CommentItems;
+                if (res.data) {
+                    this.comment.course = res.data.CommentItems;
+                }
             }
         );
 
@@ -185,7 +192,7 @@ export class CourseDetailPage {
         }
         this.learnSer.GetTalkList(data3).subscribe(
             (res) => {
-                if(res.data){
+                if (res.data) {
                     this.comment.talk = res.data.CommentItems;
                 }
             }
@@ -205,7 +212,8 @@ export class CourseDetailPage {
 
     //立即学习
     studyNow() {
-        console.log(this.files);
+        const loading = this.loadCtrl.create();
+        loading.present();
         if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
@@ -215,6 +223,7 @@ export class CourseDetailPage {
         } else {
             this.fileSer.downloadFile(this.files[0].fileUrl, this.files[0].filename);
         }
+        loading.dismiss();
     }
 
     openPDF(file) {

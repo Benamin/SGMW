@@ -58,6 +58,10 @@ export class CommentComponent {
             this.commonSer.toast('请输入评价!');
             return
         }
+        if(this.type != 'talk' && !this.score){
+            this.commonSer.toast('请先打分!');
+            return
+        }
         const data = {
             'replyContent': this.replyContent,
             'score': this.score

@@ -12,7 +12,7 @@
     </ion-refresher>
     <navbar [list]="navbarList" [select]="2" (done)="changeType($event)"></navbar>
     <div class="learn-list">
-        <div class="course-item" *ngFor="let item of courseList" (click)="goCourse(item)">
+        <div class="course-item" tappable *ngFor="let item of courseList" (click)="goCourse(item)">
             <div class="item-img">
                 <div class="round">
                     <img src="./assets/imgs/course/round.png" alt="">
@@ -22,10 +22,9 @@
             <div class="item-desc">
                 <p>{{item.Title}}</p>
                 <div class="desc">
-<!--                    <span>{{item.overcount}}/{{item.ManCount}}</span>-->
                     <span>{{item.SubjectName}}</span>
-                    <span><span class="icon iconfont icon-pinglun"></span>{{item.ZanCount}}</span>
-                    <span><span class="icon iconfont icon-shoucang"></span>{{item.CollectionCount}}</span>
+                    <span><img src="./assets/imgs/learn/like@2x.png" alt="">{{item?.ZanCount}}</span>
+                    <span><img src="./assets/imgs/learn/collect@2x.png" alt="">{{item?.CollectionCount}}</span>
                 </div>
             </div>
         </div>
@@ -36,4 +35,9 @@
             暂无数据
         </p>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

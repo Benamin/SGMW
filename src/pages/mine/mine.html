@@ -25,8 +25,8 @@
                     <p>{{mineInfo?.UserName}}</p>
                 </div>
                 <div class="info-position">
-<!--                        <img src="./assets/imgs/mine/student.png">-->
-                        <img src="./assets/imgs/mine/xueyuan.png">
+                    <!--                        <img src="./assets/imgs/mine/student.png">-->
+                    <img src="./assets/imgs/mine/xueyuan.png">
                 </div>
             </div>
             <div class="info-item item-type">
@@ -64,7 +64,7 @@
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>
         </div>
-        <div class="item" tappable (click)="goUpdate()">
+        <div class="item" tappable (click)="checkVersion()">
             <div class="left">
                 <img src="./assets/imgs/mine/gyyy.png">
             </div>
@@ -86,3 +86,8 @@
     </div>
 
 </ion-content>
+
+<ng-container *ngIf="appVersionInfo.UpdateTips">
+    <update-app (done)="appVersionInfo.UpdateTips = false" [AppUrl]="appVersionInfo.AppUrl"
+                [UpdateText]="appVersionInfo.UpdateText"></update-app>
+</ng-container>

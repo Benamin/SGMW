@@ -67,6 +67,9 @@ page-consultation {
       }
       .img1{
         display: flex;
+        .list-time{
+          flex: 1;
+        }
         .imgdiv{
           background: #e4e4e4;
           height: 70px !important;

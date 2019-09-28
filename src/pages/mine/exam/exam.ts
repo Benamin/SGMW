@@ -22,7 +22,7 @@ export class ExamPage {
     /// 3-已完成
     page = {
         EName: '',
-        StudyState: -1,
+        StudyState: 1,
         EType: 3,  /// 3-预习作业 4-课后作业
     };
 
@@ -56,10 +56,12 @@ export class ExamPage {
         };
         const one = this.mineSer.getMyScores(data).subscribe(
             (res) => {
+                res.data.forEach(e=>e.EType = "预习作业");
                 this.examList = this.examList.concat(res.data);
                 data.EType = 4;
                 this.mineSer.getMyScores(data).subscribe(
                     (res) => {
+                        res.data.forEach(e=>e.EType = "课后作业");
                         this.examList = this.examList.concat(res.data);
                         loading.dismiss();
                     }

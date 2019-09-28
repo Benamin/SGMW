@@ -6,13 +6,13 @@
                 <span>你好，{{mineInfo?.UserName}}</span>
             </button>
         </ion-buttons>
-        <ion-buttons end class="navbar-search" (click)="goToSearch()">
+        <ion-buttons end class="navbar-search" tappable (click)="goToSearch()">
             <button ion-button icon-only class="toolbar-icon">
                 <ion-icon class="search-icon" name="search"></ion-icon>
                 <ion-input class="search" placeholder="搜索课程" autocomplete='off'></ion-input>
             </button>
         </ion-buttons>
-        <ion-buttons end class="navbar-search" (click)="goToNotifation()">
+        <ion-buttons end class="navbar-search" tappable (click)="goToNotifation()">
             <button ion-button icon-only class="toolbar-tips">
                 <img style="position: absolute;top: 0;right: -2px;" src="./assets/imgs/home/tips.png" alt="">
                 <span *ngIf="info.new > 0" class="tips-num">{{info.new}}</span>
@@ -30,7 +30,7 @@
     <div class="banner">
         <div [ngClass]="{'slideInDown':wow == true}" class="img wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="20" >
             <ion-slides *ngIf="bannerList.length > 0" #slides pager autoplay="3000" (ionSlideAutoplayStop)="aotuPlay()">
-                <ion-slide *ngFor="let item of bannerList" (click)="goCourseBanner(item)">
+                <ion-slide *ngFor="let item of bannerList" tappable (click)="goCourseBanner(item)">
                     <img [src]="item.SourceUrl">
                 </ion-slide>
             </ion-slides>
@@ -38,19 +38,19 @@
     </div>
     <!--  新模块  -->
     <div class="new-module " >
-        <div [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goDev('资讯')"><img src="./assets/imgs/home/news@2x.png" alt="">
+        <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goConsultation()"><img src="./assets/imgs/home/news@2x.png" alt="">
             <p>资讯</p>
         </div>
-        <div [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goDev('状元说')"><img src="./assets/imgs/home/zys@2x.png" alt="">
+        <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goNumberOne()"><img src="./assets/imgs/home/zys@2x.png" alt="">
             <p>状元说</p>
         </div>
-        <div [ngClass]="wow == true?'slideInRight':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goDev('排行榜')"><img src="./assets/imgs/home/rank@2x.png" alt="">
+        <div tappable [ngClass]="wow == true?'slideInRight':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goDev('排行榜')"><img src="./assets/imgs/home/rank@2x.png" alt="">
             <p>排行榜</p>
         </div>
-        <div [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goTest()"><img src="./assets/imgs/home/ks@2x.png" alt="">
+        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goTest()"><img src="./assets/imgs/home/ks@2x.png" alt="">
             <p>考试中心</p>
         </div>
-        <div [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goLive()"><img src="./assets/imgs/home/zb@2x.png" alt="">
+        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goLive()"><img src="./assets/imgs/home/zb@2x.png" alt="">
             <p>直播</p>
         </div>
     </div>
@@ -73,7 +73,7 @@
         <div class="sale-box">
             <div class="scroll-tab">
                 <div class="sale-content">
-                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" (click)="saleToLearn(sale,i)">
+                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" tappable (click)="saleToLearn(sale,i)">
                         <img src="./assets/imgs/home/shop{{i+1+'.png'}}" alt="">
                         <div class="sale-desc">
                             {{sale.TypeName}}
@@ -89,7 +89,7 @@
         </p>
         <div class="teacher">
             <div class="teacher-info" *ngFor="let item of teacherList">
-                <div class="headPhoto" (click)="teachDetail(item)">
+                <div class="headPhoto" tappable (click)="teachDetail(item)">
                     <img [src]="item.HeadPhoto">
                 </div>
                 <div class="name">

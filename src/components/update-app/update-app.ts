@@ -22,8 +22,9 @@ export class UpdateAppComponent {
     }
 
     updateApp() {
+        this.done.emit();
         if (this.platform.is('ios')) {
-            this.isIOS()
+            this.isIOS();
         } else {
             this.appUpdate.downloadApp(this.AppUrl);
         }

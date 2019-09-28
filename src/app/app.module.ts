@@ -42,11 +42,16 @@ import {AppVersion} from "@ionic-native/app-version";
 import {LogoutService} from "../secret/logout.service";
 import {GetRequestService} from "../secret/getRequest.service";
 
-import { ConsultationPageModule } from '../pages/consultation/consultation.module';
-import { ConsultationPage } from '../pages/consultation/consultation';
-import { NumberOne } from '../pages/number-one/number-one.component';
-import { NumberOneModule } from '../pages/number-one/number-one.module';
+import {ConsultationPageModule} from '../pages/consultation/consultation.module';
+import {ConsultationPage} from '../pages/consultation/consultation';
+import {NumberOne} from '../pages/number-one/number-one.component';
+import {NumberOneModule} from '../pages/number-one/number-one.module';
 import {AppUpdateService} from "../core/appUpdate.service";
+import {ForumModule} from '../pages/forum/forum.module';
+import {ForumPage} from '../pages/forum/forum.component';
+import {DatePipe} from "@angular/common";
+import {RandomWordService} from "../secret/randomWord.service";
+
 
 @NgModule({
     declarations: [
@@ -74,7 +79,8 @@ import {AppUpdateService} from "../core/appUpdate.service";
         }),
         ComponentsModule,
         ConsultationPageModule,
-        NumberOneModule
+        NumberOneModule,
+        ForumModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -83,7 +89,8 @@ import {AppUpdateService} from "../core/appUpdate.service";
         CoursePage,
         TabsPage,
         ConsultationPage,
-        NumberOne
+        NumberOne,
+        ForumPage
     ],
     providers: [
         StatusBar,
@@ -109,6 +116,8 @@ import {AppUpdateService} from "../core/appUpdate.service";
         LogoutService,
         GetRequestService,
         AppUpdateService,
+        DatePipe,
+        RandomWordService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
