@@ -28,10 +28,10 @@
                         <img *ngIf="item.PaperScore == item.TotalScore" src="./assets/imgs/test/best@2x.png">
                     </div>
                 </div>
-                <p *ngIf="page.StudyState == 3" class="split"></p>
-                <p *ngIf="page.StudyState == 3">
-                    <span class="examScore">考试得分：{{item.TotalScore}}</span>
-                    <span class="examTime">提交时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
+                <p *ngIf="page.StudyState != 1" class="split"></p>
+                <p *ngIf="page.StudyState != 1">
+                    <span class="examScore">考试时间：{{item.ExamTimer}}分钟</span>
+                    <span class="examTime">到期时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
                 </p>
             </div>
         </ng-container>

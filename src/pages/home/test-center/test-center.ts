@@ -38,8 +38,11 @@ export class TestCenterPage {
                 private loadCtrl: LoadingController) {
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.getList();
+    }
+
+    ionViewDidEnter(){
         this.checkTimeOut();
     }
 

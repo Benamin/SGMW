@@ -156,7 +156,7 @@
         <div>作业得分：{{exam.stuScore?.TotalScore}}</div>
       </div>
       <div class="saveStuExams">
-        <div>批改时间:{{exam.stuScore?.ModifyTime | date:'yyyy-MM-dd HH:mm' }}</div>
+        <div>提交时间:{{exam.stuScore?.ModifyTime | date:'MM-dd HH:mm' }}</div>
       </div>
       <div class="more" tappable (click)="moreChoice()">
         <ion-icon name="list"></ion-icon>
