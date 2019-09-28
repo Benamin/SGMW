@@ -5,6 +5,7 @@ import { PostlistComponent } from './postlist/postlist.component';
 import {PostsContentComponent} from './posts-content/posts-content.component';
 import {ForumService} from './forum.service';
 
+import {ViewReplyComponent} from './view-reply/view-reply.component';
 @Component({
   selector: 'page-forum',
   templateUrl: './forum.component.html'
@@ -17,7 +18,12 @@ export class ForumPage implements OnInit {
 
   ngOnInit() {
     this.forum_topicplate_list();
-    this.goPostsContent()
+    // this.goPostsContent();
+    this.showViewReply()
+  }
+  // 前往 评论列表
+  showViewReply(){
+    this.navCtrl.push(ViewReplyComponent);
   }
         // 前往帖子详情
   goPostsContent() {

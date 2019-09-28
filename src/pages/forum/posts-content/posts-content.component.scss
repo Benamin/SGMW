@@ -125,9 +125,10 @@ page-posts-content{
             font-size: 14px;
         }
         .reply-more{
-            display: flex;
+            // display: flex;
             align-items: center;
             margin-top: 5px;
+            display: inline-block;
             span{
                 padding-left: 37px;
                 margin-top: 10px;
@@ -139,7 +140,7 @@ page-posts-content{
                 font-size: 12px;
             }
             img{
-                height: 11px;
+                height: 10px;
                 margin-left: 8px;
             }
         }
@@ -224,10 +225,12 @@ page-posts-content{
             padding-bottom: 40px;
             padding-top: 10px;
             textarea{
+                resize:none;
+                outline:none;
                 border: none;
                 border-radius: 5px;
                 width: 100%;
-                background: rgb(185, 185, 185);
+                background: #F2F2F2;
             }
         }
         .btn{

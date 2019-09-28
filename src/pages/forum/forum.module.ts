@@ -6,6 +6,7 @@ import { ForumPage } from './forum.component';
 import { PostlistComponent } from './postlist/postlist.component';
 import {PostsContentComponent} from './posts-content/posts-content.component';
 import {ForumService} from './forum.service';
+import {ViewReplyComponent} from './view-reply/view-reply.component';
 
 @NgModule({
   imports: [
@@ -15,9 +16,10 @@ import {ForumService} from './forum.service';
   entryComponents: [
     ForumPage,
     PostlistComponent,
-    PostsContentComponent
+    PostsContentComponent,
+    ViewReplyComponent
   ],
   providers:[ForumService],
-  declarations: [ForumPage,PostlistComponent,PostsContentComponent]
+  declarations: [ForumPage,PostlistComponent,PostsContentComponent,ViewReplyComponent]
 })
 export class ForumModule { }

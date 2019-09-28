@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams} from "ionic-angular";
+import { NavParams, NavController} from "ionic-angular";
+
 import {ForumService} from '../forum.service';
+import {ViewReplyComponent} from '../view-reply/view-reply.component';
+
 @Component({
   selector: 'page-posts-content',
   templateUrl: './posts-content.component.html',
@@ -9,15 +12,14 @@ export class PostsContentComponent implements OnInit {
   lidata={Id:''};
   inputText="";
   textareaBlur=false;
-
-  constructor(private serve:ForumService,public navParams: NavParams) { }
+  constructor(private serve:ForumService,public navParams: NavParams,public navCtrl: NavController) { }
 
   ngOnInit() {
     this.lidata = this.navParams.get('data');
     console.log(this.lidata);
     // this.forum_post_get(this.lidata.Id);
   }
-
+  
   forum_post_get(postId){
     this.serve.forum_post_get(postId).subscribe((res:any) => {
       console.log('帖子列表',res);
@@ -31,8 +33,13 @@ export class PostsContentComponent implements OnInit {
       textDiv.focus();
     }, 20);
   }
-
   inputshow_on(){
     this.textareaBlur=false;
   }
+
+  showViewReply(){
+    this.navCtrl.push(ViewReplyComponent);
+  }
+  // 查看评论
+
 }
