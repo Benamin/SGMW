@@ -19,11 +19,10 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppService} from "../../app/app.service";
 import {StatusBar} from "@ionic-native/status-bar";
 import {TestCenterPage} from "./test-center/test-center";
-import { ConsultationPage } from '../consultation/consultation';
-import { NumberOne } from '../number-one/number-one.component';
+import {ConsultationPage} from '../consultation/consultation';
+import {NumberOne} from '../number-one/number-one.component';
 import {LivePage} from "./live/live";
-import { ForumPage } from '../forum/forum.component';
-declare let md5;
+import {ForumPage} from '../forum/forum.component';
 
 @Component({
     selector: 'page-home',
@@ -58,11 +57,12 @@ export class HomePage {
                 private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser,
                 private renderer: Renderer2) {
         this.statusBar.backgroundColorByHexString('#343435');
-        const hash = md5('value');
         this.storage.get('user').then(value => {
-            this.mineInfo = value;
-            if(this.mineInfo.UserName.length > 3){
-                this.mineInfo.UserName = this.mineInfo.UserName.slice(0, 3) + '...';
+            if (value) {
+                this.mineInfo = value;
+                if (this.mineInfo.UserName.length > 3) {
+                    this.mineInfo.UserName = this.mineInfo.UserName.slice(0, 3) + '...';
+                }
             }
         });
     }
@@ -249,7 +249,7 @@ export class HomePage {
     }
 
     //考试中心
-    goTest(){
+    goTest() {
         this.navCtrl.push(TestCenterPage);
     }
 
@@ -292,7 +292,7 @@ export class HomePage {
     }
 
     //前往直播
-    goLive(){
+    goLive() {
         this.navCtrl.push(LivePage);
     }
 }

@@ -217,11 +217,13 @@ export class LoginPage {
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
-                if (res.code == 200 && res.data) {
-                    this.userAsync(res);
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    this.navCtrl.setRoot(TabsPage);
+                    // this.userAsync(res);
                 } else {
                     this.storage.clear();
-                    this.commonSer.alert(res.message);
+                    this.commonSer.alert(res.error);
                 }
             }
         )
@@ -229,16 +231,15 @@ export class LoginPage {
 
     //用户是否同步
     userAsync(res) {
-        // if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
-        //     this.commonSer.alert(this.noUserMsg);
-        // } else {
-        //     this.storage.set('Authorization', res.data.Token);
-        //     this.storage.set('user', res.data.User);
-        //     timer(300).subscribe(e => {
-        //         this.navCtrl.setRoot(TabsPage);
-        //         console.log(this.storage.get("Authorization"));
-        //     })
-        // }
+        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
+            this.commonSer.alert(this.noUserMsg);
+        } else {
+            this.storage.set('user', res.data.User);
+            timer(300).subscribe(e => {
+                this.navCtrl.setRoot(TabsPage);
+                console.log(this.storage.get("Authorization"));
+            })
+        }
     }
 
     //重新获取验证码
