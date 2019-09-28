@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {LoadingController, NavController, Slides} from 'ionic-angular';
+
 import { PostlistComponent } from './postlist/postlist.component';
 import {PostsContentComponent} from './posts-content/posts-content.component';
+import {ForumService} from './forum.service';
 
 @Component({
   selector: 'page-forum',
@@ -9,20 +11,28 @@ import {PostsContentComponent} from './posts-content/posts-content.component';
 })
 export class ForumPage implements OnInit {
 
-  
-  constructor(public navCtrl: NavController) {
+  forumLIst=[];
+  constructor(public navCtrl: NavController,private serve:ForumService) {
    }
 
   ngOnInit() {
-    this.goPostsContent();
+    this.forum_topicplate_list();
+    this.goPostsContent()
   }
         // 前往帖子详情
-        goPostsContent() {
-          this.navCtrl.push(PostsContentComponent);
-        }
+  goPostsContent() {
+    this.navCtrl.push(PostsContentComponent);
+  }
   // 前往发帖列表
-  goPostlist() {
-    this.navCtrl.push(PostlistComponent);
+  goPostlist(data) {
+    this.navCtrl.push(PostlistComponent,{data:data});
+  }
+
+  forum_topicplate_list(){
+    this.serve.forum_topicplate_list().subscribe((res:any) => {
+      console.log('板块列表',res);
+      this.forumLIst=res.data;
+    })
   }
 
 

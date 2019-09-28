@@ -24,9 +24,8 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="information-ul">
-
+        <div *ngIf="no_list" style="text-align: center;color: #737373;padding-top: 100px;">暂无数据</div>
         <ng-container *ngFor="let item of dataList">
-
             <div class="information-list img1" *ngIf="item.IsSingle" (click)="goComponentsdetails(item)">
                 <div class="list-time">
                     <h4>{{item.Title}}</h4>

@@ -14,14 +14,20 @@ export class ConsultationService {
     GetNewsList(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/news/GetNewsList',data);
     }
+
+    // 获取新闻类别信息
+    GetDictionaryByPCode(): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/Dictionary/GetDictionaryByPCode?code=zxzx');
+    }
     // 获取新闻详情
     GetNewsByID(id){
         return this.http.get(SERVER_API_URL + '/ENews/GetNewsByID?id='+id);
     }
     // 获取相关新闻
     GetRelationNewsByID(id): Observable<any> {
-
         return this.http.get(SERVER_API_URL + '/ENews/GetRelationNewsByID?id='+id);
     }
+
+  
 
 }

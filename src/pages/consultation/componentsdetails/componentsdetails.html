@@ -15,7 +15,7 @@
 
   <div class="information-ul">
       <h3>相关推荐</h3>
-      <div class="information-list img1" *ngFor="let item of RelationArr">
+      <div class="information-list img1" (click)="goComponentsdetails(item)" *ngFor="let item of RelationArr">
           <div class="list-time">
               <h4>{{item.Title}}</h4>
               <div class="time">

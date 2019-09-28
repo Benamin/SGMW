@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams} from "ionic-angular";
+import { NavParams, NavController} from "ionic-angular";
 import {ConsultationService} from '../consultation.service';
 @Component({
     selector: 'page-componentsdetails',
@@ -9,7 +9,7 @@ export class Componentsdetails {
   lidata;
   data:any={Title:'',ReleaseTime:'',Text:''};
   RelationArr=[];
-  constructor(public navParams: NavParams,private serve :ConsultationService) {
+  constructor(public navParams: NavParams,private serve :ConsultationService,public navCtrl: NavController) {
 
   }
   ngOnInit(): void {
@@ -30,4 +30,7 @@ export class Componentsdetails {
       this.RelationArr=res.data;
     });
   }
+  goComponentsdetails(data){
+    this.navCtrl.push(Componentsdetails,{data:data});
+}
 }

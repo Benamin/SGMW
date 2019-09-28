@@ -44,17 +44,17 @@
       <div class="left-bg">
         <h3>更多专区</h3>
       </div>
-      <div class="con-div" (click)="goPostlist()">
+      <div class="con-div" *ngFor="let item of forumLIst" (click)="goPostlist(item)">
           <div class="list">
               <div class="img-div">
                   <img src="./assets/imgs/forum/other/hha.png" alt="">
               </div>
               <div class="text">
                 <div>
-                  <span  class="text-l">专家专区</span>
+                  <span  class="text-l">{{item.Name}}</span>
                   <span class="text-r">[2341条帖子]</span>
                 </div>
-                <p >
+                <p>
                     四强联手，75个销售网点，6000亿五
                     菱印尼金融公司始航…
                 </p>
