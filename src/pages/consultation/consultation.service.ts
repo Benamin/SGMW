@@ -10,7 +10,7 @@ export class ConsultationService {
     constructor(private http: HttpClient,private nativeHttp:HTTP) {
     }
 
-    //获取banner
+    // 获取新闻列表
     GetNewsList(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/news/GetNewsList',data);
     }

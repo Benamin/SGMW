@@ -63,13 +63,16 @@ page-consultation {
         }
     
         .time{
+          font-size: 12px;
           color: rgba(0,0,0,0.4)
         }
       }
+     
       .img1{
         display: flex;
         .list-time{
           flex: 1;
+         
         }
         .imgdiv{
           background: #e4e4e4;

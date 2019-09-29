@@ -7,6 +7,7 @@ import {ConsultationService} from '../consultation.service';
 })
 export class Componentsdetails {
   lidata;
+  title="";
   data:any={Title:'',ReleaseTime:'',Text:''};
   RelationArr=[];
   constructor(public navParams: NavParams,private serve :ConsultationService,public navCtrl: NavController) {
@@ -15,6 +16,7 @@ export class Componentsdetails {
   ngOnInit(): void {
     this.lidata = this.navParams.get('data');
     console.log(this.lidata);
+    this.title=this.lidata.GetNewsList=='xsal'?"详情":'详情中心'
     this.GetNewsByID(this.lidata.Id);
     this.GetRelationNewsByID(this.lidata.Id);
 }

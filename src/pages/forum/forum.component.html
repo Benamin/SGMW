@@ -5,36 +5,18 @@
     </ion-navbar>
 </ion-header>
 <ion-content >
-  <div class="history">
+  <div class="history" *ngIf="ForumHistory.length>0">
     <div class="left-bg">
       <h3>最近浏览</h3>
     </div>
     <div class="list-con">
-        <div class="history-list" (click)="goPostlist()">
+        <div class="history-list" (click)="goPostlist()" *ngFor="let item of ForumHistory">
             <div class="img-div">
-              <img src="./assets/imgs/forum/other/hha.png" alt="">
+              <img [src]="item.CoverImage" alt="">
             </div>
             <div class='text'>
-              <h4>销售专区</h4>
-              <p>[1076条帖子]</p>
-            </div>
-        </div>
-        <div class="history-list" (click)="goPostlist()">
-            <div class="img-div">
-              <img src="./assets/imgs/forum/other/hha.png" alt="">
-            </div>
-            <div class='text'>
-              <h4>销售专区</h4>
-              <p>[1076条帖子]</p>
-            </div>
-        </div>  
-        <div class="history-list" (click)="goPostlist()">
-            <div class="img-div">
-              <img src="./assets/imgs/forum/other/hha.png" alt="">
-            </div>
-            <div class='text'>
-              <h4>销售专区</h4>
-              <p>[1076条帖子]</p>
+                <h4>{{item.Name}}</h4>
+                <p>[{{item.PostCount}}条帖子]</p>
             </div>
         </div>
     </div>
@@ -47,21 +29,20 @@
       <div class="con-div" *ngFor="let item of forumLIst" (click)="goPostlist(item)">
           <div class="list">
               <div class="img-div">
-                  <img src="./assets/imgs/forum/other/hha.png" alt="">
+                  <img [src]="item.CoverImage" alt="">
               </div>
               <div class="text">
                 <div>
                   <span  class="text-l">{{item.Name}}</span>
-                  <span class="text-r">[2341条帖子]</span>
+                  <span class="text-r">[{{item.PostCount}}条帖子]</span>
                 </div>
-                <p>
-                    四强联手，75个销售网点，6000亿五
-                    菱印尼金融公司始航…
+                <p style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
+                   {{item.Description}}
                 </p>
               </div>
           </div>
       </div>  
-      <div class="con-div" (click)="goPostlist()">
+      <!-- <div class="con-div" (click)="goPostlist()">
           <div class="list">
               <div class="img-div">
                   <img src="./assets/imgs/forum/other/hha2.png" alt="">
@@ -76,57 +57,10 @@
                 </p>
               </div>
           </div>
-      </div> 
-      <div class="con-div" (click)="goPostlist()">
-          <div class="list">
-              <div class="img-div">
-                  <img src="./assets/imgs/forum/other/hha3.png" alt="">
-              </div>
-              <div class="text">
-                <div>
-                  <span  class="text-l">新车体验</span>
-                  <span class="text-r">[2341条帖子]</span>
-                </div>
-                <p >
-                    四强联手，75个销售网点，6000亿五
-                    菱印尼金融公司始航…
-                </p>
-              </div>
-          </div>
-      </div> 
-      <div class="con-div" (click)="goPostlist()">
-          <div class="list">
-              <div class="img-div">
-                  <img src="./assets/imgs/forum/other/hha.png" alt="">
-              </div>
-              <div class="text">
-                <div>
-                  <span  class="text-l">RM-5专区</span>
-                  <span class="text-r">[2341条帖子]</span>
-                </div>
-                <p >
-                    四强联手，75个销售网点，6000亿五
-                    菱印尼金融公司始航…
-                </p>
-              </div>
-          </div>
-      </div> 
-      <div class="con-div" (click)="goPostlist()"> 
-          <div class="list">
-              <div class="img-div">
-                  <img src="./assets/imgs/forum/other/hha.png" alt="">
-              </div>
-              <div class="text">
-                <div>
-                  <span  class="text-l">专家专区</span>
-                  <span class="text-r">[2341条帖子]</span>
-                </div>
-                <p >
-                    四强联手，75个销售网点，6000亿五
-                    菱印尼金融公司始航…
-                </p>
-              </div>
-          </div>
-      </div> 
+      </div>  -->
+  
   </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+</ion-infinite-scroll>
 </ion-content>
