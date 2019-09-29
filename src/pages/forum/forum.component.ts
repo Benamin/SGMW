@@ -33,7 +33,7 @@ export class ForumPage implements OnInit {
     // this.goPostsContent();
     // this.showViewReply()
     this.getHistory();
-    this.PostAddComponent();
+    // this.PostAddComponent();
   }
   // 前往 评论列表
   showViewReply(){
