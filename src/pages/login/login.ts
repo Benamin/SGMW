@@ -193,7 +193,7 @@ export class LoginPage {
             content: '登录中...'
         });
         loading.present();
-        this.loginSer.connectToken(this.jxs.junke).subscribe(
+        this.loginSer.JunkeAppAuthCas(this.jxs.junke).subscribe(
             (res) => {
                 loading.dismiss();
                 if (res.code == 200 && res.data) {
