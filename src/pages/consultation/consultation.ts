@@ -10,6 +10,7 @@ import {ConsultationService} from './consultation.service';
 })
 export class ConsultationPage {
     navli:'新车资讯'|'行业新闻'|'培训资讯'='新车资讯';
+    navliopt = {};
     dataPost={
         "page": 1,
         "pageSize": 10,
@@ -17,7 +18,7 @@ export class ConsultationPage {
         "Title": "",
         "Code": "publish",
         "SubTitle": "",
-        "TypeID":"xczx", 
+        "TypeID":"xyxw", 
         "States": "1",  
         "OrderBy": "IsStick",
         "IsAsc": true,
@@ -25,20 +26,35 @@ export class ConsultationPage {
     }
     dataList=[];
     isdoInfinite=true;
+    no_list=false;
 
     constructor(private navCtrl:NavController,public navParams: NavParams,private serve:ConsultationService){
     }
     ngOnInit(): void {
         //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
         //Add 'implements OnInit' to the class.
-        this.getData();
+        // this.getData();
+        this.GetDictionaryByPCode();
+    }
+    GetDictionaryByPCode(){
+        this.serve.GetDictionaryByPCode().subscribe(res => {
+            console.log('新闻列表',res);
+            res.data.forEach(element => {
+                this.navliopt[element['label']]= element.value;
+            });
+            this.switchInformation('新车资讯');
+        })
     }
     switchInformation(title){
         this.navli=title;
+        this.no_list=true;
+        this.isdoInfinite=true;
         this.dataList=[];
+        this.dataPost.TypeID=this.navliopt[title];
         this.dataPost.page=1;
         this.getData();
     }
+    
     goComponentsdetails(data){
         this.navCtrl.push(Componentsdetails,{data:data});
     }
@@ -52,11 +68,12 @@ export class ConsultationPage {
             let arr=res.data.NewsItems;
             arr.forEach((element,i) => {
                 element['imgarr']='img1';
-                if(i%3==2){ // img1 img3 imgBig
-                    element['imgarr']='imgBig';
-                }
+                // if(i%3==2){ // img1 img3 imgBig
+                //     element['imgarr']='imgBig';
+                // }
             });
             this.dataList=this.dataList.concat(arr);
+            this.no_list=this.dataList.length==0?true:false;
         })
     }
 

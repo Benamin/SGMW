@@ -64,11 +64,16 @@ page-number-one {
       }
   
       .time{
+        font-size: 12px;
         color: rgba(0,0,0,0.4)
       }
     }
+  
     .img1{
       display: flex;
+      .list-time{
+        flex: 1;
+      }
       .imgdiv{
         background: #e4e4e4;
         height: 70px !important;
@@ -260,9 +265,9 @@ page-number-one {
          border-radius: 4px;
          
         }
-        .label::before{
+        .label-before{
           display: inline-block;
-          content: "RM-5";
+          // content: "RM-5";
           font-family:'PingFangSC';
           -webkit-background-clip:text;
           color: transparent; 
