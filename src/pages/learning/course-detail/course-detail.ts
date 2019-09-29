@@ -223,6 +223,7 @@ export class CourseDetailPage {
         if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
+            console.log(this.files[0]);
             this.product.videoPath = this.files[0].fileUrl;
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
