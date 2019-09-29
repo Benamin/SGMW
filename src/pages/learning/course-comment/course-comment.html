@@ -12,8 +12,8 @@
                     <div [ngClass]="selectTeacher == i?'teacher-item-select':''" tappable class="teacher-item"
                          (click)="setTeacher(teacher,i)">
                         <div class="flex-teacher">
-                            <img [src]="teacher.img" alt="">
-                            <span class="teacher-desc">{{teacher.name}}</span>
+                            <img [src]="teacher.HeadPhoto" alt="">
+                            <span class="teacher-desc">{{teacher.UserName}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -45,7 +45,7 @@
                     <div>
                         <img src="./assets/imgs/home/goodTeacher.png" alt="">
                     </div>
-                    <div>秋国烟</div>
+                    <div>{{item.TeacherName}}</div>
                 </div>
             </div>
         </div>

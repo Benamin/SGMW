@@ -68,9 +68,9 @@
                     <div>
                         <img src="./assets/imgs/home/goodTeacher.png" alt="">
                     </div>
-                    <div>秋国烟</div>
+                    <div>{{item.UserName}}</div>
                     <div>
-                        上课时间：2019-01-01至2019-02-02
+                        上课时间：{{item.StartTime | date:"yyyy-MM-dd"}}至{{item.EndTime | date:"yyyy-MM-dd"}}
                     </div>
                 </div>
                 <div *ngIf="item.children && item.show">
@@ -191,7 +191,7 @@
                         <div>
                             <img src="./assets/imgs/home/goodTeacher.png" alt="">
                         </div>
-                        <div>秋国烟</div>
+                        <div>{{item.TeacherName}}</div>
                     </div>
                 </div>
             </div>
