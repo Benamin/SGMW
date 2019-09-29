@@ -219,8 +219,9 @@ export class LoginPage {
             (res) => {
                 if (res.access_token) {
                     this.storage.set('Authorization', res.access_token);
-                    this.navCtrl.setRoot(TabsPage);
-                    // this.userAsync(res);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
                 } else {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
@@ -229,16 +230,27 @@ export class LoginPage {
         )
     }
 
+    //查询用户信息
+    getUserInfo() {
+        this.loginSer.GetUserInfoByUPN().subscribe(
+            (res) => {
+                if (res.code == 200 && res.data) {
+                    this.userAsync(res);
+                } else {
+                    this.storage.clear();
+                    this.commonSer.alert(res.message);
+                }
+            }
+        )
+    }
+
     //用户是否同步
     userAsync(res) {
-        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {
+        if (res.data.UserId == '00000000-0000-0000-0000-000000000000') {
             this.commonSer.alert(this.noUserMsg);
         } else {
-            this.storage.set('user', res.data.User);
-            timer(300).subscribe(e => {
-                this.navCtrl.setRoot(TabsPage);
-                console.log(this.storage.get("Authorization"));
-            })
+            this.storage.set('user', res.data);
+            this.navCtrl.setRoot(TabsPage);
         }
     }
 

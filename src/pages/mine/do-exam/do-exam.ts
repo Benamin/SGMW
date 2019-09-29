@@ -114,6 +114,9 @@ export class DoExamPage {
                 content: '提交中...'
             });
             loading.present();
+            this.exam.qs.forEach(e => {
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split().sort().join(',');
+            });
             this.mineSer.saveStuExams(this.exam).subscribe(
                 (res) => {
                     loading.dismiss();

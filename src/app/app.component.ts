@@ -10,7 +10,7 @@ import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {GetRequestService} from "../secret/getRequest.service";
-import {NoUserMsg} from "./app.constants";
+import {JunKe_client_id, NoUserMsg} from "./app.constants";
 import {AppVersion} from "@ionic-native/app-version";
 import {AppUpdateService} from "../core/appUpdate.service";
 
@@ -89,12 +89,15 @@ export class MyApp {
 
     //骏客鉴权
     async trainAuth(token) {
-        const data = <any>{};
+        const data = <any>{
+            "grant_type": "password",
+            "client_id": JunKe_client_id,
+        };
         await this.loginSer.JunkeTrainAuth(token).subscribe(
             (res) => {
                 if (res.status) {
-                    data.LoginName = res.data.userAccount;
-                    data.Jxsh = res.data.dealerCode;
+                    data.username = res.data.userAccount;
+                    data.jxsh = res.data.dealerCode;
                     this.initLogin(data);
                 } else {
                     this.rootPage = LoginPage;
@@ -106,23 +109,30 @@ export class MyApp {
         };
     }
 
-    //销售助手app跳转登录
+    /**
+     * 销售助手app跳转登录
+     * @param req jxsh->经销商号  jxsmc->经销商名称 czydm->操作员代码 czymc->操作员名称 czyzw->操作员职位
+     * @constructor
+     */
     XSZSLogin(req) {
         const data = {
-            Jxsh: req.jxsh,
-            Jxsmc: req.jxsmc,
-            Czydm: req.czydm,
-            Czymc: req.czymc,
-            Czyzw: req.czyzw,
+            "grant_type": "password",
+            "client_id": JunKe_client_id,
+            "username": req.czymc,
+            "jxsh": req.jxsh,
+            "czydm": req.czydm,
         };
-        this.loginSer.XSZSLogin(data).subscribe(
+        this.loginSer.connectToken(data).subscribe(
             (res) => {
-                if (res.code == 200 && res.data) {
-                    this.userAsync(res);
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
                 } else {
                     this.rootPage = LoginPage;
-                    this.commonSer.alert(res.message);
                     this.storage.clear();
+                    this.commonSer.alert(res.error);
                 }
             }
         )
@@ -139,15 +149,33 @@ export class MyApp {
     }
 
 
+    //获取权限 Authorization
     initLogin(data) {
-        this.loginSer.JunkeLogin(data).subscribe(
+        this.loginSer.connectToken(data).subscribe(
+            (res) => {
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
+                } else {
+                    this.rootPage = LoginPage;
+                    this.storage.clear();
+                    this.commonSer.alert(res.error);
+                }
+            }
+        )
+    }
+
+    //查询用户信息
+    getUserInfo() {
+        this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
                 if (res.code == 200 && res.data) {
                     this.userAsync(res);
                 } else {
-                    this.rootPage = LoginPage;
-                    this.commonSer.alert(res.message);
                     this.storage.clear();
+                    this.commonSer.alert(res.message);
                 }
             }
         )
@@ -155,12 +183,12 @@ export class MyApp {
 
     //用户是否同步
     userAsync(res) {
-        if (res.data.User.UserId == '00000000-0000-0000-0000-000000000000') {  //用户不存在
+        if (res.data.UserId == '00000000-0000-0000-0000-000000000000') {  //用户不存在
             this.rootPage = LoginPage;
             this.commonSer.alert(this.noUserMsg);
         } else {   //用户存在
             this.storage.set('Authorization', res.data.Token);
-            this.storage.set('user', res.data.User);
+            this.storage.set('user', res.data);
             timer(300).subscribe(e => {
                 this.rootPage = TabsPage;
             })
