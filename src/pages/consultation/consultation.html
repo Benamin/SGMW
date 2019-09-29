@@ -3,61 +3,60 @@
         <ion-title>资讯中心</ion-title>
     </ion-navbar>
     <ion-header-bar>
-            <div class="navul" #navul>
-                    <div class="navli" [ngClass]="{'act': navli=='新车资讯'}" (click)="switchInformation('新车资讯')">
-                        新车资讯
-                    </div>
-                    <div class="navli" [ngClass]="{'act': navli=='行业新闻'}" (click)="switchInformation('行业新闻')">
-                        行业新闻
-                    </div>
-                    <div class="navli" [ngClass]="{'act': navli=='培训资讯'}" (click)="switchInformation('培训资讯')">
-                        培训资讯
-                    </div>
-                </div> 
+        <div class="navul" #navul>
+            <div class="navli" [ngClass]="{'act': navli=='新车资讯'}" (click)="switchInformation('新车资讯')">
+                新车资讯
+            </div>
+            <div class="navli" [ngClass]="{'act': navli=='行业新闻'}" (click)="switchInformation('行业新闻')">
+                行业新闻
+            </div>
+            <div class="navli" [ngClass]="{'act': navli=='培训资讯'}" (click)="switchInformation('培训资讯')">
+                培训资讯
+            </div>
+        </div>
     </ion-header-bar>
 </ion-header>
 
 
 <ion-content style="background: #fff;">
     <ion-refresher (ionRefresh)="doRefresh($event)">
-                <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
-                </ion-refresher-content>
-            </ion-refresher>
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
     <div class="information-ul">
-          
+        <div *ngIf="no_list" style="text-align: center;color: #737373;padding-top: 100px;">暂无数据</div>
         <ng-container *ngFor="let item of dataList">
-           
-        <div class="information-list img1" *ngIf="item.imgarr=='img1'" (click)="goComponentsdetails(item)">
-            <div class="list-time" >
+            <div class="information-list img1" *ngIf="item.IsSingle" (click)="goComponentsdetails(item)">
+                <div class="list-time">
                     <h4>{{item.Title}}</h4>
                     <div class="time">
-                            {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                        {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
                     </div>
+                </div>
+                <div class="imgdiv">
+                    <img [src]="img" *ngFor="let img of item.SourceURLList.slice(0,1)" alt="">
+                </div>
             </div>
-            <div class="imgdiv">
-                <img [src]="item.SourceUrl" alt="">
-            </div>
-        </div>
-        <div class="information-list img3"  *ngIf="item.imgarr=='img3'" (click)="goComponentsdetails(item)">
-            <h4>{{item.Title}}</h4>
-            <div class="imgdiv-flex">
-                    <img [src]="item.SourceUrl" alt="">
-                    <img [src]="item.SourceUrl" alt="">
-                    <img [src]="item.SourceUrl" alt="">
-            </div>
-            <div class="time">
+            <div class="information-list img3" *ngIf="!item.IsSingle" (click)="goComponentsdetails(item)">
+                <h4>{{item.Title}}</h4>
+                <div class="imgdiv-flex">
+                    <img [src]="img" *ngFor="let img of item.SourceURLList" alt="">
+                    <!-- <img [src]="item.SourceUrl" alt="">
+                    <img [src]="item.SourceUrl" alt=""> -->
+                </div>
+                <div class="time">
                     {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                </div>
             </div>
-        </div>
-        <div class="information-list imgBig" *ngIf="item.imgarr=='imgBig'" (click)="goComponentsdetails(item)">
-            <h4>{{item.Title}}</h4>
-            <div class="imgdiv-flex">
+            <!-- <div class="information-list imgBig" *ngIf="item.imgarr=='imgBig'" (click)="goComponentsdetails(item)">
+                <h4>{{item.Title}}</h4>
+                <div class="imgdiv-flex">
                     <img [src]="item.SourceUrl" alt="">
-            </div>
-            <div class="time">
+                </div>
+                <div class="time">
                     {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
-            </div>
-        </div>
+                </div>
+            </div> -->
         </ng-container>
         <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
             <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>

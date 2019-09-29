@@ -1,0 +1,123 @@
+page-post-add {
+    .backPop {
+        color: #fff;
+        margin-left: 10px;
+    }
+
+    .release {
+        position: absolute;
+        right: 15px;
+        background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+        background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+        padding: 4px 13px;
+        font-size: 14px;
+        transform: translate(0px, -4px);
+        border-radius: 9px;
+    }
+
+    .content-div {
+        height: calc(100% - 100px);
+
+        .input-div {
+            margin-top: 0;
+            background: #fff;
+            padding: 15px 10px;
+            margin-top: 0px;
+
+        }
+
+        .textarea-div {
+            margin-top: 10px;
+            padding: 15px 10px;
+            background: #fff;
+            height: calc(100% - 100px);
+        }
+
+        input {
+            outline: none;
+            border: none;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+    }
+
+    .buttom-div {
+        position: absolute;
+        background: #fff;
+        bottom: 0;
+        z-index: 6;
+        width: 100%;
+        padding-left: 20px;
+    }
+
+    .img-div {
+        display: flex;
+        overflow: auto;
+    }
+
+    .can-img {
+        background: #999999;
+        flex-shrink: 0;
+        margin-right: 10px;
+        width: 100px;
+        height: 100px;
+        position: relative;
+
+        p {
+            position: absolute;
+            bottom: 0;
+            background: rgba(58, 58, 58, 0.42);
+            color: #efefef;
+            font-size: 12px;
+            text-align: center;
+            width: 100%;
+        }
+    }
+
+    .add-img {
+        flex-shrink: 0;
+        width: 100px;
+        height: 100px;
+    }
+
+    .bun-buttom {
+        margin: 10px 0;
+        display: flex;
+        color: #7e7e7e;
+
+        .describe {
+            font-size: 14px;
+            background: #F1F1F1;
+            line-height: 28px;
+            display: block;
+            height: 26px;
+            padding: 0 5px;
+            border-radius: 6px;
+        }
+
+        div {
+            flex: 1;
+        }
+
+        .seve-draft {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 14px;
+                height: 14px;
+                align-items: center;
+            }
+        }
+    }
+}
