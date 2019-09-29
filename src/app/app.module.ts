@@ -53,8 +53,6 @@ import {VgCoreModule} from "videogular2/compiled/src/core/core";
 import {VgControlsModule} from "videogular2/compiled/src/controls/controls";
 import {VgOverlayPlayModule} from "videogular2/compiled/src/overlay-play/overlay-play";
 import {VgBufferingModule} from "videogular2/compiled/src/buffering/buffering";
-import {TestPage} from "../pages/test/test";
-import {TestPageModule} from "../pages/test/test.module";
 
 
 @NgModule({
@@ -89,7 +87,6 @@ import {TestPageModule} from "../pages/test/test.module";
         ConsultationPageModule,
         NumberOneModule,
         ForumModule,
-        TestPageModule,
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -100,7 +97,6 @@ import {TestPageModule} from "../pages/test/test.module";
         ConsultationPage,
         NumberOne,
         ForumPage,
-        TestPage
     ],
     providers: [
         StatusBar,
