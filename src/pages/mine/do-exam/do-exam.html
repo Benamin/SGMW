@@ -25,38 +25,59 @@
                             <div class="padding-20-20">
                                 <!--单选题-->
                                 <ng-container *ngIf="item.QType == 1">
-                                    <p>
+                                    <p *ngIf="item.ChoiceA">
                                         <label>
                                             <input [(ngModel)]="item.QAnswer" type="radio" value="A" [name]="item.ID">
                                             <span class="selectIndex">A</span>&nbsp;&nbsp;
                                             {{item.ChoiceA}}
                                         </label>
                                     </p>
-                                    <p>
+                                    <p *ngIf="item.ChoiceB">
                                         <label>
                                             <input [(ngModel)]="item.QAnswer" type="radio" value="B" [name]="item.ID">
                                             <span class="selectIndex">B</span>&nbsp;&nbsp;
                                             {{item.ChoiceB}}
                                         </label>
                                     </p>
-                                    <p>
+                                    <p *ngIf="item.ChoiceC">
                                         <label>
                                             <input [(ngModel)]="item.QAnswer" type="radio" value="C" [name]="item.ID">
                                             <span class="selectIndex">C</span>&nbsp;&nbsp;
                                             {{item.ChoiceC}}
                                         </label>
                                     </p>
-                                    <p>
+                                    <p *ngIf="item.ChoiceD">
                                         <label>
                                             <input [(ngModel)]="item.QAnswer" type="radio" value="D" [name]="item.ID">
                                             <span class="selectIndex">D</span>&nbsp;&nbsp;
                                             {{item.ChoiceD}}
                                         </label>
                                     </p>
+                                    <p *ngIf="item.ChoiceE">
+                                        <label>
+                                            <input [(ngModel)]="item.QAnswer" type="radio" value="E" [name]="item.ID">
+                                            <span class="selectIndex">D</span>&nbsp;&nbsp;
+                                            {{item.ChoiceE}}
+                                        </label>
+                                    </p>
+                                    <p *ngIf="item.ChoiceF">
+                                        <label>
+                                            <input [(ngModel)]="item.QAnswer" type="radio" value="F" [name]="item.ID">
+                                            <span class="selectIndex">F</span>&nbsp;&nbsp;
+                                            {{item.ChoiceF}}
+                                        </label>
+                                    </p>
+                                    <p *ngIf="item.ChoiceG">
+                                        <label>
+                                            <input [(ngModel)]="item.QAnswer" type="radio" value="G" [name]="item.ID">
+                                            <span class="selectIndex">G</span>&nbsp;&nbsp;
+                                            {{item.ChoiceG}}
+                                        </label>
+                                    </p>
                                 </ng-container>
                                 <!--多选题-->
                                 <ng-container *ngIf="item.QType == 2">
-                                    <p>
+                                    <p *ngIf="item.ChoiceA">
                                         <label>
                                             <input type="checkbox" (change)="mutiSelect(i,'A')"
                                                    value="A" [name]="item.ID">
@@ -64,7 +85,7 @@
                                             {{item.ChoiceA}}
                                         </label>
                                     </p>
-                                    <p>
+                                    <p *ngIf="item.ChoiceB">
                                         <label>
                                             <input type="checkbox" (change)="mutiSelect(i,'B')"
                                                    value="B" [name]="item.ID">
@@ -72,7 +93,7 @@
                                             {{item.ChoiceB}}
                                         </label>
                                     </p>
-                                    <p>
+                                    <p *ngIf="item.ChoiceC">
                                         <label>
                                             <input type="checkbox" (change)="mutiSelect(i,'C')"
                                                    value="C" [name]="item.ID">
@@ -80,12 +101,36 @@
                                             {{item.ChoiceC}}
                                         </label>
                                     </p>
-                                    <p>
+                                    <p *ngIf="item.ChoiceD">
                                         <label>
                                             <input type="checkbox" (change)="mutiSelect(i,'D')"
                                                    value="D" [name]="item.ID">
                                             <span class="input-duox selectIndex">D</span>&nbsp;&nbsp;
                                             {{item.ChoiceD}}
+                                        </label>
+                                    </p>
+                                    <p *ngIf="item.ChoiceE">
+                                        <label>
+                                            <input type="checkbox" (change)="mutiSelect(i,'E')"
+                                                   value="E" [name]="item.ID">
+                                            <span class="input-duox selectIndex">E</span>&nbsp;&nbsp;
+                                            {{item.ChoiceE}}
+                                        </label>
+                                    </p>
+                                    <p *ngIf="item.ChoiceF">
+                                        <label>
+                                            <input type="checkbox" (change)="mutiSelect(i,'F')"
+                                                   value="F" [name]="item.ID">
+                                            <span class="input-duox selectIndex">F</span>&nbsp;&nbsp;
+                                            {{item.ChoiceF}}
+                                        </label>
+                                    </p>
+                                    <p *ngIf="item.ChoiceG">
+                                        <label>
+                                            <input type="checkbox" (change)="mutiSelect(i,'G')"
+                                                   value="G" [name]="item.ID">
+                                            <span class="input-duox selectIndex">G</span>&nbsp;&nbsp;
+                                            {{item.ChoiceG}}
                                         </label>
                                     </p>
                                 </ng-container>

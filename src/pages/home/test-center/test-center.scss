@@ -1,3 +1,59 @@
-page-test-center {
+page-exam {
+  .item {
+    position: relative;
+  }
 
+  .test-item {
+    display: flex;
+    padding: 5px;
+    position: relative;
+
+    .test-item-image {
+      width: 40%;
+      padding-right: 5px;
+      text-align: center;
+
+      img {
+        border-radius: 5px;
+        height: 70px;
+        width: 100%;
+      }
+    }
+
+    .test-item-desc {
+      width: 60%;
+      padding-left: 5px;
+      display: flex;
+      flex-flow: row wrap;
+
+      > p.courseName {
+        width: 100%;
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: rgba(0, 0, 0, .9);
+        line-height: 1.75rem;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        align-self: flex-start;
+        margin: 0;
+      }
+
+      > p.eName {
+        width: 100%;
+        align-self: flex-end;
+      }
+    }
+  }
+
+  .test-leave {
+    position: absolute;
+    top: 50%;
+    right: -5%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+  }
 }
