@@ -10,6 +10,7 @@ import {FileService} from "../../../core/file.service";
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {ViewFilePage} from "../view-file/view-file";
 import {EmitService} from "../../../core/emit.service";
+import {v} from "@angular/core/src/render3";
 
 
 @Component({
@@ -55,6 +56,7 @@ export class CourseDetailPage {
     };
 
     files = [];
+    videoList = [];
 
     loading;
     bar = {
@@ -62,7 +64,6 @@ export class CourseDetailPage {
         show: false,
     };
     starList = new Array(5);
-    setInterval;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -94,20 +95,50 @@ export class CourseDetailPage {
         );
     }
 
+
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
-            if (value) {
-                this.product.videoPath = value.fileUrl;
-                const video: HTMLVideoElement = this.video.nativeElement;
-                video.load();
-                this.video.nativeElement.load();
+            console.log(value);
+            if (value != null) {
+                this.videoList.forEach((e, index) => {
+                    if (e.ID == value.ID) {
+                        this.product.videoPath = index;
+                        e.videoUrl = value.fileUrl;
+                    }
+                });
+                const videoArr = document.querySelectorAll("video");
+                console.log(videoArr[this.product.videoPath]);
+                // videoArr[this.product.videoPath].videoUrl;
+                // videoArr[this.product.videoPath].requestFullscreen();
+                this.clickVideo(videoArr[this.product.videoPath]);
             }
         });
     }
 
+    //播放视频
+    startPlay(video) {
+        console.log('canplay')
+        video.target.play();
+        video.target.requestFullscreen();
+    }
+
+    //列表视频不同时播放
+    clickVideo(e) {
+        const videoArr = document.querySelectorAll("video");
+        for (let i = 0; i < videoArr.length; i++) {
+            if (videoArr[i] != e.target) {
+                videoArr[i].pause();
+            }
+        }
+    }
+
 
     ionViewWillLeave() {
+        const videoArr = document.querySelectorAll("video");
+        for (let i = 0; i < videoArr.length; i++) {
+            videoArr[i].pause();
+        }
         this.showFooter = false;
         this.appSer.setFile(null);
     }
@@ -210,10 +241,12 @@ export class CourseDetailPage {
     f(data) {
         for (let i = 0; i < data.length; i++) {
             if (data[i].files.length > 0) {
+                this.videoList = this.videoList.concat(data[i].files.filter(e => e.icon.includes('mp4')));
                 this.files = this.files.concat(data[i].files);
             }
             if (data[i].children.length > 0) this.f(data[i].children);
         }
+        console.log(this.videoList);
     }
 
     //立即学习
@@ -223,8 +256,7 @@ export class CourseDetailPage {
         if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
-            console.log(this.files[0]);
-            this.product.videoPath = this.files[0].fileUrl;
+            this.appSer.setFile(this.files[0]);
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
         } else {
@@ -374,12 +406,6 @@ export class CourseDetailPage {
 
     getNavbar(e) {
         console.log(e);
-    }
-
-    //播放视频
-    startPlay(video) {
-        video.target.play();
-        video.target.requestFullscreen();
     }
 
     getMore(e) {

@@ -87,6 +87,10 @@ page-login {
       border: 1px solid #ffffff;
       border-radius: 50px;
       padding-left: 20px;
+      -webkit-user-select:text !important;
+      input{
+        -webkit-user-select:text !important;
+      }
     }
 
     input {

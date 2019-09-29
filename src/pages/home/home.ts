@@ -23,6 +23,7 @@ import { ConsultationPage } from '../consultation/consultation';
 import { NumberOne } from '../number-one/number-one.component';
 import {LivePage} from "./live/live";
 import { ForumPage } from '../forum/forum.component';
+import {TestPage} from "../test/test";
 declare let md5;
 
 @Component({
@@ -245,7 +246,8 @@ export class HomePage {
     }
 
     goDev(title) {
-        this.navCtrl.push(NoDevPage, {title: title});
+        // this.navCtrl.push(NoDevPage, {title: title});
+        this.navCtrl.push(TestPage);
     }
 
     //考试中心

@@ -49,6 +49,12 @@ import { NumberOneModule } from '../pages/number-one/number-one.module';
 import {AppUpdateService} from "../core/appUpdate.service";
 import { ForumModule } from '../pages/forum/forum.module';
 import { ForumPage } from '../pages/forum/forum.component';
+import {VgCoreModule} from "videogular2/compiled/src/core/core";
+import {VgControlsModule} from "videogular2/compiled/src/controls/controls";
+import {VgOverlayPlayModule} from "videogular2/compiled/src/overlay-play/overlay-play";
+import {VgBufferingModule} from "videogular2/compiled/src/buffering/buffering";
+import {TestPage} from "../pages/test/test";
+import {TestPageModule} from "../pages/test/test.module";
 
 
 @NgModule({
@@ -64,6 +70,10 @@ import { ForumPage } from '../pages/forum/forum.component';
         LearningPageModule,
         CoursePageModule,
         HomeModule,
+        VgCoreModule,
+        VgControlsModule,
+        VgOverlayPlayModule,
+        VgBufferingModule,
         IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
             tabsHideOnSubPages: 'true',
@@ -78,7 +88,8 @@ import { ForumPage } from '../pages/forum/forum.component';
         ComponentsModule,
         ConsultationPageModule,
         NumberOneModule,
-        ForumModule
+        ForumModule,
+        TestPageModule,
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -88,7 +99,8 @@ import { ForumPage } from '../pages/forum/forum.component';
         TabsPage,
         ConsultationPage,
         NumberOne,
-        ForumPage
+        ForumPage,
+        TestPage
     ],
     providers: [
         StatusBar,
