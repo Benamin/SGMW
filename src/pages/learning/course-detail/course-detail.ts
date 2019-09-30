@@ -99,7 +99,8 @@ export class CourseDetailPage {
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
-            if (value && this.videojs) {
+            if (value) {
+                console.log(this.product.videoPoster);
                 timer(300).subscribe(() => this.product.videoSrc = value.fileUrl);
             }
         });
@@ -137,6 +138,7 @@ export class CourseDetailPage {
                 this.product.chapter = res.data;
                 this.product.chapter.Course.children.forEach(e => e.show = false);
                 this.f(this.product.chapter.Course.children);
+                this.product.videoPoster = this.product.chapter.Course.CoverUrl;
             }
         );
 
@@ -221,8 +223,8 @@ export class CourseDetailPage {
         if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
-            console.log(this.files[0]);
             this.product.videoSrc = this.files[0].fileUrl;
+            console.log(this.product.videoPoster);
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
         } else {

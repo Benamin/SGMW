@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
 import {timer} from "rxjs/observable/timer";
 
 declare let videojs: any;
@@ -7,7 +7,7 @@ declare let videojs: any;
     selector: 'videojs',
     templateUrl: 'videojs.html'
 })
-export class VideojsComponent {
+export class VideojsComponent implements OnDestroy{
     @ViewChild('example_video') example_video: ElementRef;
 
     videoPoster: string;
@@ -16,12 +16,19 @@ export class VideojsComponent {
 
     constructor() {
         timer(100).subscribe(() => {
-            this.video = videojs("example_video", {
+            this.video = videojs("#example_video", {
                 muted: false,
                 controls: true,
                 autoplay: true
+            },(e)=>{
+                console.log('videojs播放器初始化成功')
+                console.log(e)
             })
         });
+    }
+
+    ngOnDestroy(): void {
+        this.video.dispose();
     }
 
     get src() {
@@ -33,7 +40,7 @@ export class VideojsComponent {
         if (this.video && src) {
             console.log(this.video);
             this.video.src({type: 'application/x-mpegURL', src: src});
-            this.poster = src;
+            this.videoSrc = src;
         }
     }
 

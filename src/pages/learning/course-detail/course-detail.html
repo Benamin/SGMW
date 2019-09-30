@@ -21,7 +21,7 @@
             </div>
         </div>
         <div id="videoTag" class="content video" [hidden]="product.videoSrc == null">
-            <videojs [poster]="product.videoPoster" [src]="product.videoSrc"></videojs>
+            <videojs [src]="product.videoSrc" [poster]="product.videoPoster" ></videojs>
         </div>
     </div>
     <div [hidden]="bar.show" #navbar class="navbar">
