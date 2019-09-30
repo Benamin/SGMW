@@ -75,6 +75,7 @@ export class CourseDetailPage {
 
     ionViewDidLoad() {
         this.scrollHeight();
+        this.videojs = videojs('example_video');
     }
 
     async ionViewDidEnter() {
@@ -93,8 +94,6 @@ export class CourseDetailPage {
                 this.getCommentList();
             }
         );
-
-        this.videojs = videojs('example_video_1');
     }
 
     //接受文件事件
@@ -102,15 +101,19 @@ export class CourseDetailPage {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
                 this.product.videoPath = value.fileUrl;
-                console.log(this.product.videoPath);
-                this.videojs.src(this.product.videoPath);
-                this.videojs.load(this.product.videoPath);
+                this.videojs.src({
+                    type: 'application/x-mpegURL',
+                    src: this.product.videoPath
+                });
+                this.videojs.requestFullscreen();
             }
         });
     }
 
 
     ionViewWillLeave() {
+        this.videojs.pause();
+        this.videojs.dispose();
         this.showFooter = false;
         this.appSer.setFile(null);
     }
@@ -120,7 +123,6 @@ export class CourseDetailPage {
         const height = this.banner.nativeElement.offsetHeight;
         this.content.ionScroll.subscribe(($event) => {
             this.zone.run(() => {
-                console.log(this.content.scrollTop);
                 if (this.content.scrollTop > height) {
                     this.bar.show = true;
                     this.renderer.addClass(this.navbar.nativeElement, 'tabs-fixed-scroll')

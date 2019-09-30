@@ -7,7 +7,7 @@ import {CourseListComponent} from './course-list/course-list';
 import {TreeListComponent} from './tree-list/tree-list';
 import {QIndexComponent} from './q-index/q-index';
 import {CheckCodeComponent} from './check-code/check-code';
-import { UpdateAppComponent } from './update-app/update-app';
+import {UpdateAppComponent} from './update-app/update-app';
 
 @NgModule({
     declarations: [
@@ -19,7 +19,7 @@ import { UpdateAppComponent } from './update-app/update-app';
         TreeListComponent,
         QIndexComponent,
         CheckCodeComponent,
-    UpdateAppComponent,
+        UpdateAppComponent,
     ],
     imports: [
         IonicPageModule
@@ -33,7 +33,7 @@ import { UpdateAppComponent } from './update-app/update-app';
         TreeListComponent,
         QIndexComponent,
         CheckCodeComponent,
-    UpdateAppComponent,
+        UpdateAppComponent,
     ],
     providers: [
         CommentComponent,

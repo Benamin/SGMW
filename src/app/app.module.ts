@@ -49,11 +49,9 @@ import { NumberOneModule } from '../pages/number-one/number-one.module';
 import {AppUpdateService} from "../core/appUpdate.service";
 import { ForumModule } from '../pages/forum/forum.module';
 import { ForumPage } from '../pages/forum/forum.component';
-import {VgCoreModule} from "videogular2/compiled/src/core/core";
-import {VgControlsModule} from "videogular2/compiled/src/controls/controls";
-import {VgOverlayPlayModule} from "videogular2/compiled/src/overlay-play/overlay-play";
-import {VgBufferingModule} from "videogular2/compiled/src/buffering/buffering";
-
+import {GlobalData} from "../core/GlobleData";
+import {TestPage} from "../pages/test/test";
+import {TestPageModule} from "../pages/test/test.module";
 
 @NgModule({
     declarations: [
@@ -68,10 +66,6 @@ import {VgBufferingModule} from "videogular2/compiled/src/buffering/buffering";
         LearningPageModule,
         CoursePageModule,
         HomeModule,
-        VgCoreModule,
-        VgControlsModule,
-        VgOverlayPlayModule,
-        VgBufferingModule,
         IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
             tabsHideOnSubPages: 'true',
@@ -87,6 +81,7 @@ import {VgBufferingModule} from "videogular2/compiled/src/buffering/buffering";
         ConsultationPageModule,
         NumberOneModule,
         ForumModule,
+        TestPageModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -97,6 +92,7 @@ import {VgBufferingModule} from "videogular2/compiled/src/buffering/buffering";
         ConsultationPage,
         NumberOne,
         ForumPage,
+        TestPage
     ],
     providers: [
         StatusBar,
@@ -122,6 +118,7 @@ import {VgBufferingModule} from "videogular2/compiled/src/buffering/buffering";
         LogoutService,
         GetRequestService,
         AppUpdateService,
+        GlobalData,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
