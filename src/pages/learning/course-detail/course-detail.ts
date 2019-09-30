@@ -79,8 +79,6 @@ export class CourseDetailPage {
     }
 
     async ionViewDidEnter() {
-        this.videojs = videojs('example_video');
-
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
@@ -103,18 +101,12 @@ export class CourseDetailPage {
         this.appSer.fileInfo.subscribe(value => {
             if (value && this.videojs) {
                 timer(300).subscribe(() => this.product.videoSrc = value.fileUrl);
-                // this.videojs.src({
-                //     type: 'application/x-mpegURL',
-                //     src: this.product.videoPath
-                // });
-                // this.videojs.play();
             }
         });
     }
 
 
     ionViewDidLeave() {
-        this.videojs.pause();
         this.showFooter = false;
         this.appSer.setFile(null);
     }

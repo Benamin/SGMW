@@ -8,15 +8,14 @@ declare let videojs: any;
     templateUrl: 'videojs.html'
 })
 export class VideojsComponent {
-    @ViewChild('example_video') example_video:ElementRef;
+    @ViewChild('example_video') example_video: ElementRef;
 
     videoPoster: string;
-    videoSrc: string = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8";
+    videoSrc: string;
     video;
 
     constructor() {
         timer(100).subscribe(() => {
-            console.log(this.example_video.nativeElement);
             this.video = videojs("example_video", {
                 muted: false,
                 controls: true,
@@ -31,7 +30,7 @@ export class VideojsComponent {
 
     @Input() set src(src) {
         console.log("src:" + src);
-        if (this.video) {
+        if (this.video && src) {
             console.log(this.video);
             this.video.src({type: 'application/x-mpegURL', src: src});
             this.poster = src;
