@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {timer} from "rxjs/observable/timer";
 
 declare let videojs: any;
@@ -8,15 +8,16 @@ declare let videojs: any;
     templateUrl: 'videojs.html'
 })
 export class VideojsComponent {
+    @ViewChild('example_video') example_video:ElementRef;
 
     videoPoster: string;
-    videoSrc: string;
-    videojs;
+    videoSrc: string = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8";
+    video;
 
     constructor() {
         timer(100).subscribe(() => {
-            console.log('初始化');
-            this.videojs = videojs('example_video', {
+            console.log(this.example_video.nativeElement);
+            this.video = videojs("example_video", {
                 muted: false,
                 controls: true,
                 autoplay: true
@@ -30,9 +31,10 @@ export class VideojsComponent {
 
     @Input() set src(src) {
         console.log("src:" + src);
-        if (this.videojs) {
-            console.log(this.videojs);
-            this.videojs.src({type: 'application/x-mpegURL', src: src});
+        if (this.video) {
+            console.log(this.video);
+            this.video.src({type: 'application/x-mpegURL', src: src});
+            this.poster = src;
         }
     }
 
