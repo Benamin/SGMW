@@ -117,7 +117,7 @@
             <div class="comment-item" *ngFor="let item of comment.course;">
                 <div class="first">
                     <div class="headPhoto">
-                        <img [src]="item.HeadPhoto" alt="">
+                        <img [src]="item.UserImage || defalutPhoto" alt="">
                     </div>
                     <div>
                         <p>{{item.UserName}}</p>
@@ -146,7 +146,7 @@
         </p>
         <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
             <div class="img">
-                <img [src]="item.HeadPhoto">
+                <img [src]="item.HeadPhoto  || defalutPhoto">
             </div>
             <div class="position">
                 <p style="margin-left: -10px">{{item.UserName}}</p>
@@ -170,7 +170,7 @@
             <div class="comment-item" *ngFor="let item of comment.teacher;">
                 <div class="first">
                     <div class="headPhoto">
-                        <img [src]="item.HeadPhoto" alt="">
+                        <img [src]="item.HeadPhoto  || defalutPhoto" alt="">
                     </div>
                     <div>
                         <p>{{item.UserName}}</p>
@@ -189,7 +189,7 @@
                     </div>
                     <div class="item-teacher">
                         <div>
-                            <img src="./assets/imgs/home/goodTeacher.png" alt="">
+                            <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
                         </div>
                         <div>{{item.TeacherName}}</div>
                     </div>

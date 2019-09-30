@@ -3,6 +3,7 @@ import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angula
 import {CommentComponent} from "../../../components/comment/comment";
 import {LearnService} from "../learn.service";
 import {CommonService} from "../../../core/common.service";
+import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
 
 @Component({
     selector: 'page-course-comment',
@@ -26,6 +27,7 @@ export class CourseCommentPage {
     topicID;
     TopicType;
     placeholder;
+    defalutPhoto = defaultHeadPhoto;   //默认头像；
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private commonSer: CommonService,
