@@ -11,7 +11,7 @@ import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {ViewFilePage} from "../view-file/view-file";
 import {EmitService} from "../../../core/emit.service";
 
-declare let amp: any;
+declare let videojs: any;
 
 @Component({
     selector: 'page-course-detail',
@@ -28,7 +28,8 @@ export class CourseDetailPage {
     product = {
         detail: <any>null,
         chapter: null,
-        videoPath: null
+        videoSrc: null,
+        videoPoster: null
     };
     learnList = [];
     navbarList = [
@@ -63,7 +64,7 @@ export class CourseDetailPage {
         show: false,
     };
     starList = new Array(5);
-    myPlayer;
+    videojs;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -75,20 +76,11 @@ export class CourseDetailPage {
 
     ionViewDidLoad() {
         this.scrollHeight();
-        this.myPlayer = amp('vid1', { /* Options */
-                "nativeControlsForTouch": false,
-                autoplay: false,
-                controls: true,
-                width: "640",
-                height: "400",
-                poster: ""
-            }, () => {
-                console.log('Good to go!');
-            }
-        );
     }
 
     async ionViewDidEnter() {
+        this.videojs = videojs('example_video');
+
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
@@ -109,23 +101,20 @@ export class CourseDetailPage {
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
-            if (value) {
-                // this.myPlayer.options.autoplay = true;
-                this.myPlayer.src([{
-                    // src: value.fileUrl,
-                    src: "http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest",
-                    type: "application/vnd.ms-sstr+xml",
-                }]);
-                console.log(value.fileUrl);
-                timer(300).subscribe(() => this.product.videoPath = value.fileUrl);
+            if (value && this.videojs) {
+                timer(300).subscribe(() => this.product.videoSrc = value.fileUrl);
+                // this.videojs.src({
+                //     type: 'application/x-mpegURL',
+                //     src: this.product.videoPath
+                // });
+                // this.videojs.play();
             }
         });
     }
 
 
     ionViewDidLeave() {
-        console.log('dispose');
-        this.myPlayer.dispose();
+        this.videojs.pause();
         this.showFooter = false;
         this.appSer.setFile(null);
     }
@@ -241,8 +230,7 @@ export class CourseDetailPage {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
             console.log(this.files[0]);
-            // this.product.videoPath = this.files[0].fileUrl;
-            this.appSer.setFile(this.files[0]);
+            this.product.videoSrc = this.files[0].fileUrl;
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
         } else {

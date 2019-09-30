@@ -20,19 +20,13 @@
                 </div>
             </div>
         </div>
-        <div id="videoTag" class="content video" [hidden]="product.videoPath == null">
-<!--            <video id="example_video" class="video-js vjs-default-skin" autoplay-->
-<!--                   preload="none" width="100%" height="180" controls-->
-<!--                   poster="{{product.chapter?.Course?.CoverUrl}}">-->
-<!--                <source [src]="product.videoPath">-->
-<!--            </video>-->
-            <video id="vid1" class="azuremediaplayer amp-default-skin" autoplay controls width="640" height="400"
-                   data-setup='{"nativeControlsForTouch": false}'>
-                <source src="http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest" type="application/vnd.ms-sstr+xml" />
-                <p class="amp-no-js">
-                    To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video
-                </p>
-            </video>
+        <div id="videoTag" class="content video" [hidden]="product.videoSrc == null">
+            <!--            <video id="example_video" class="video-js vjs-default-skin" autoplay-->
+            <!--                   width="100%" height="180" controls-->
+            <!--                   poster="{{product.chapter?.Course?.CoverUrl}}">-->
+            <!--                <source [src]="product.videoPath">-->
+            <!--            </video>-->
+            <videojs [poster]="product.videoPoster" [src]="product.videoSrc"></videojs>
         </div>
     </div>
     <div [hidden]="bar.show" #navbar class="navbar">

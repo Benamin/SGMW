@@ -53,11 +53,11 @@ export class TreeListComponent {
         if (this.IsBuy) {
             this.saveProcess(file);
             if (file.icon.includes('mp4')) {
+                console.log(event);
                 this.appSer.setFile(file);
             }
             if (file.icon.includes('pdf')) this.openPDF(file);
             if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
-                // this.viewOfficeFile(file.fileUrl, file.filename);
                 this.fileSer.downloadFile(file.fileUrl, file.filename);
             }
         } else {
