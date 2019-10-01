@@ -100,7 +100,6 @@ export class CourseDetailPage {
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
-                console.log(this.product.videoPoster);
                 timer(300).subscribe(() => this.product.videoSrc = value.fileUrl);
             }
         });
@@ -224,7 +223,6 @@ export class CourseDetailPage {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
             this.product.videoSrc = this.files[0].fileUrl;
-            console.log(this.product.videoPoster);
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
         } else {
@@ -234,7 +232,6 @@ export class CourseDetailPage {
     }
 
     openPDF(file) {
-        console.log(file);
         let modal = this.modalCtrl.create(ViewFilePage, {
             displayData: {
                 pdfSource: {
@@ -279,7 +276,6 @@ export class CourseDetailPage {
 
     //教师评价
     goTeacherComment() {
-        console.log(this.product.detail.Teachers[0].UserID)
         this.navCtrl.push(CourseCommentPage, {
             placeholder: '请输入你对讲师的评价...',
             TopicID: this.product.detail.Teachers[0].UserID,
@@ -330,7 +326,6 @@ export class CourseDetailPage {
 
     //初始化作业
     initStudy() {
-        console.log(this.product.detail.PrId)
         const data = {
             TopicID: this.product.detail.PrId,
         };

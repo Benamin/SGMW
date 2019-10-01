@@ -246,8 +246,7 @@ export class HomePage {
     }
 
     goDev(title) {
-        // this.navCtrl.push(NoDevPage, {title: title});
-        this.navCtrl.push(TestPage);
+        this.navCtrl.push(NoDevPage, {title: title});
     }
 
     //考试中心

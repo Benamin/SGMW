@@ -22,7 +22,6 @@ export class VideojsComponent implements OnDestroy{
                 autoplay: true
             },(e)=>{
                 console.log('videojs播放器初始化成功')
-                console.log(e)
             })
         });
     }
@@ -36,9 +35,7 @@ export class VideojsComponent implements OnDestroy{
     }
 
     @Input() set src(src) {
-        console.log("src:" + src);
         if (this.video && src) {
-            console.log(this.video);
             this.video.src({type: 'application/x-mpegURL', src: src});
             this.videoSrc = src;
         }
@@ -49,7 +46,6 @@ export class VideojsComponent implements OnDestroy{
     }
 
     @Input() set poster(poster) {
-        console.log("poster:" + poster);
         this.videoPoster = poster;
     }
 
