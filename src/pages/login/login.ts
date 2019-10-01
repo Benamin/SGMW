@@ -9,11 +9,19 @@ import {CheckCodeComponent} from "../../components/check-code/check-code";
 import {Keyboard} from "@ionic-native/keyboard";
 import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
-import {JunKe_client_id, NoUserMsg, XSZS_appId, XSZS_appKey, XSZS_client_id} from "../../app/app.constants";
+import {
+    JunKe_client_id, JunKe_PRIVATE_KEY,
+    NoUserMsg,
+    sgmw_client_id,
+    XSZS_appId,
+    XSZS_appKey,
+    XSZS_client_id
+} from "../../app/app.constants";
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../../secret/randomWord.service";
 
 declare let md5: any;
+declare let JSEncrypt: any;
 
 @IonicPage()
 @Component({
@@ -31,24 +39,31 @@ export class LoginPage {
 
     //供应商
     gysObj = {
-        LoginName: '',
-        Password: '',
+        grant_type: 'password',
+        client_id: sgmw_client_id,
+        username: '',
+        password: '',
+        usertype: 'sgmw',
         codeRight: '',
         inputCode: ''
     };
 
     //员工
     ygObj = {
-        LoginName: '',
-        Password: '',
+        grant_type: 'password',
+        client_id: sgmw_client_id,
+        username: '',
+        password: '',
+        usertype: 'gys',
         codeRight: '',
         inputCode: ''
-    }
+    };
 
     //经销商
     jxs = {
         junke: {
             username: '',
+            password: "",
             grant_type: '',
             client_id: JunKe_client_id,
             jxsh: '',
@@ -95,7 +110,7 @@ export class LoginPage {
 
     //员工
     ygLogin() {
-        if (!this.ygObj.LoginName || !this.ygObj.Password) {
+        if (!this.ygObj.username || !this.ygObj.password) {
             this.commonSer.toast("请输入用户名密码");
             return
         }
@@ -107,14 +122,17 @@ export class LoginPage {
             content: '登录中...'
         });
         loading.present();
-        this.loginSer.loginpost(this.ygObj).subscribe(
+        this.loginSer.connectToken(this.ygObj).subscribe(
             (res) => {
                 loading.dismiss();
-                if (res.code == 200 && res.data) {
-                    this.userAsync(res);
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
                 } else {
                     this.storage.clear();
-                    this.commonSer.alert(res.message);
+                    this.commonSer.alert(res.error);
                 }
             }
         )
@@ -122,7 +140,7 @@ export class LoginPage {
 
     //供应商
     gysLogin() {
-        if (!this.gysObj.LoginName || !this.gysObj.Password) {
+        if (!this.gysObj.username || !this.gysObj.password) {
             this.commonSer.toast("请输入用户名密码");
             return
         }
@@ -134,20 +152,24 @@ export class LoginPage {
             content: '登录中...'
         });
         loading.present();
-        this.loginSer.loginpost(this.gysObj).subscribe(
+        this.loginSer.connectToken(this.gysObj).subscribe(
             (res) => {
                 loading.dismiss();
-                if (res.code == 200 && res.data) {
-                    this.userAsync(res);
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
                 } else {
                     this.storage.clear();
-                    this.commonSer.alert(res.message);
+                    this.commonSer.alert(res.error);
                 }
             }
         )
     }
 
-    //销售助手 --经销商登录
+    /***销售助手***/
+    // --经销商登录
     loginXszsJsx() {
         if (this.jxs.xszs.codeRight != this.jxs.xszs.inputCode) {
             this.commonSer.toast('请输入正确的验证码');
@@ -174,7 +196,7 @@ export class LoginPage {
             (res) => {
                 loading.dismiss();
                 if (res.success == "true") {
-                    this.connectToken(res.data);
+                    this.connectTokenByXSZS(res.data);
                 } else {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
@@ -183,31 +205,8 @@ export class LoginPage {
         )
     }
 
-    //骏客---经销商登录
-    loginJunkeJsx() {
-        if (this.jxs.junke.codeRight != this.jxs.junke.inputCode) {
-            this.commonSer.toast('请输入正确的验证码');
-            return;
-        }
-        const loading = this.loadCtrl.create({
-            content: '登录中...'
-        });
-        loading.present();
-        this.loginSer.JunkeAppAuthCas(this.jxs.junke).subscribe(
-            (res) => {
-                loading.dismiss();
-                if (res.code == 200 && res.data) {
-                    this.userAsync(res);
-                } else {
-                    this.storage.clear();
-                    this.commonSer.alert(res.message);
-                }
-            }
-        )
-    }
-
-    //获取token
-    connectToken(res) {
+    //获取token --销售助手
+    connectTokenByXSZS(res) {
         const data = {
             grant_type: "password",
             client_id: XSZS_client_id,
@@ -229,6 +228,65 @@ export class LoginPage {
             }
         )
     }
+
+    /***end***/
+
+    /***骏客***/
+    //骏客---经销商登录
+    loginJunkeJsx() {
+        let encrypt = new JSEncrypt();
+        if (this.jxs.junke.codeRight != this.jxs.junke.inputCode) {
+            this.commonSer.toast('请输入正确的验证码');
+            return;
+        }
+        const loading = this.loadCtrl.create({
+            content: '登录中...'
+        });
+        loading.present();
+        encrypt.setPublicKey(JunKe_PRIVATE_KEY);
+
+        const password = encrypt.encrypt(this.jxs.junke.password);
+        console.log(password);
+        const data = {
+            "userName": this.jxs.junke.username,
+            "password": password
+        }
+        this.loginSer.JunkeAppAuthCas(data).subscribe(
+            (res) => {
+                loading.dismiss();
+                if (res.status) {
+                    this.connectTokenByJunKe(res.data);
+                } else {
+                    this.storage.clear();
+                    this.commonSer.alert(res.msg);
+                }
+            }
+        )
+    }
+
+    connectTokenByJunKe(res) {
+        const data = {
+            grant_type: "password",
+            client_id: JunKe_client_id,
+            username: this.jxs.junke.username,
+            jxsh: res.dealerCode,
+        };
+        this.loginSer.connectToken(data).subscribe(
+            (res) => {
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
+                } else {
+                    this.storage.clear();
+                    this.commonSer.alert(res.error);
+                }
+            }
+        )
+    }
+
+    /***end***/
 
     //查询用户信息
     getUserInfo() {
@@ -252,6 +310,12 @@ export class LoginPage {
             this.storage.set('user', res.data);
             this.navCtrl.setRoot(TabsPage);
         }
+    }
+
+    //slide改变
+    slideChange() {
+        console.log('slidechange')
+        this.loginObj.platform = this.loginObj.platform == "xszs" ? "junke" : "xszs";
     }
 
     //重新获取验证码

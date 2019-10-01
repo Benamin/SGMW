@@ -12,6 +12,10 @@
     {
       "path": "/XSZSAPI",
       "proxyUrl": "http://112.124.23.230:8010/API"
+    },
+    {
+      "path": "/JunKeAPI",
+      "proxyUrl": "https://nbjtest.sgmw.com.cn"
     }
   ]
 }

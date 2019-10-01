@@ -28,7 +28,8 @@
                         骏客
                     </div>
                 </div>
-                <ion-slides>
+                <ion-slides (ionSlideDidChange)="slideChange()">
+                    <!--销售助手-->
                     <ion-slide>
                         <div class="login-input">
                             <div class="input-input">
@@ -50,13 +51,14 @@
                             登录
                         </div>
                     </ion-slide>
+                    <!--骏客-->
                     <ion-slide>
                         <div class="login-input">
                             <div class="input-input">
                                 <input [(ngModel)]="jxs.junke.username" placeholder="请输入操作员名"/>
                             </div>
                             <div class="input-input">
-                                <input [(ngModel)]="jxs.junke.grant_type" type="password" placeholder="请输入密码"/>
+                                <input [(ngModel)]="jxs.junke.password" type="password" placeholder="请输入密码"/>
                             </div>
                             <div class="check input-input">
                                 <input [(ngModel)]="jxs.junke.inputCode" placeholder="请输入验证码"/>
@@ -73,10 +75,10 @@
             <div [hidden]="loginObj.type != 'gys'">
                 <div class="login-input">
                     <div class="input-input">
-                        <input [(ngModel)]="gysObj.LoginName" placeholder="请输入供应商名"/>
+                        <input [(ngModel)]="gysObj.username" placeholder="请输入供应商名"/>
                     </div>
                     <div class="input-input">
-                        <input [(ngModel)]="gysObj.Password" type="password" placeholder="请输入密码"/>
+                        <input [(ngModel)]="gysObj.password" type="password" placeholder="请输入密码"/>
                     </div>
                     <div class="check input-input">
                         <input [(ngModel)]="gysObj.inputCode" placeholder="请输入验证码"/>
@@ -91,10 +93,10 @@
             <div [hidden]="loginObj.type != 'yg'">
                 <div class="login-input">
                     <div class="input-input">
-                        <input [(ngModel)]="ygObj.LoginName" placeholder="请输入员工名"/>
+                        <input [(ngModel)]="ygObj.username" placeholder="请输入员工名"/>
                     </div>
                     <div class="input-input">
-                        <input [(ngModel)]="ygObj.Password" type="password" placeholder="请输入密码"/>
+                        <input [(ngModel)]="ygObj.password" type="password" placeholder="请输入密码"/>
                     </div>
                     <div class="check input-input">
                         <input [(ngModel)]="ygObj.inputCode" placeholder="请输入验证码"/>
