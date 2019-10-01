@@ -6,8 +6,7 @@
 
 <ion-content>
     <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="下拉刷新"
-                               refreshingSpinner="bubbles">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
     <div class="mine">
@@ -38,14 +37,37 @@
                     <p>{{number?.WorkCount || '0'}}</p>
                     <p>作业</p>
                 </div>
+                <div tappable (click)="goMyForum()">
+                    <p>{{number?.WorkCount || '0'}}</p>
+                    <p>帖子</p>
+                </div>
                 <div tappable (click)="goToCollection()">
                     <p>{{number?.CollectionCount || '0'}}</p>
                     <p>收藏</p>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="mine-list">
+        <div class="item" tappable (click)="goToNoti()">
+            <div class="left">
+                <img src="./assets/imgs/mine/p41_guanzhu.png">
+            </div>
+            <div class="middle">我的关注</div>
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
+        </div>
+        <div class="item" tappable (click)="goToNoti()">
+            <div class="left">
+                <img src="./assets/imgs/mine/p41_likr.png">
+            </div>
+            <div class="middle">我的点赞</div>
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
+        </div>
         <div class="item" tappable (click)="goToNoti()">
             <div class="left">
                 <img src="./assets/imgs/mine/notifation.png">
@@ -89,5 +111,5 @@
 
 <ng-container *ngIf="appVersionInfo.UpdateTips">
     <update-app (done)="appVersionInfo.UpdateTips = false" [AppUrl]="appVersionInfo.AppUrl"
-                [UpdateText]="appVersionInfo.UpdateText"></update-app>
+        [UpdateText]="appVersionInfo.UpdateText"></update-app>
 </ng-container>

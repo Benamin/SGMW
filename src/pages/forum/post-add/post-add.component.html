@@ -24,36 +24,17 @@
 <div class="buttom-div">
 
   <div class="img-div">
-    <div class="can-img">
-      <img src="./assets/imgs/forum/other/p771_img1@3x.jpg" alt="">
+    <div class="can-img" *ngFor="let item of imgitems">
+      <img src="{{item}}" alt="">
       <p>这里是一句描述</p>
     </div>
     <div class="can-img">
       <img src="./assets/imgs/forum/other/p771_img1@3x.jpg" alt="">
       <p>这里是一句描述</p>
     </div>
-    <div class="can-img">
-      <img src="./assets/imgs/forum/other/p771_img1@3x.jpg" alt="">
-      <p>这里是一句描述</p>
-    </div>
-    <div class="can-img">
-      <img src="./assets/imgs/forum/other/p771_img1@3x.jpg" alt="">
-      <p>这里是一句描述</p>
-    </div>
-    <div class="can-img">
-      <img src="./assets/imgs/forum/other/p771_img1@3x.jpg" alt="">
-      <p>这里是一句描述</p>
-    </div>
-    <div class="can-img">
-      <img src="./assets/imgs/forum/other/p771_img1@3x.jpg" alt="">
-      <p>这里是一句描述</p>
-    </div>
-    <div class="can-img">
-      <img src="./assets/imgs/forum/other/p771_img1@3x.jpg" alt="">
-      <p>这里是一句描述</p>
-    </div>
-    <div class="add-img">
-        <input type="file" id="pic_selector"  accept="image/*" multiple/>
+    <div id="test-div" [innerHtml]="data"></div>
+    <div class="add-img" >
+        <input type="file" id="pic_selector" (change)="uploadFile($event)"  accept="image/*" multiple/>
       <!-- <img src="./assets/imgs/forum/other/p71_add@3x.png" alt=""> -->
     </div>
   </div>

@@ -10,7 +10,7 @@
       <h3>最近浏览</h3>
     </div>
     <div class="list-con">
-        <div class="history-list" (click)="goPostlist()" *ngFor="let item of ForumHistory">
+        <div class="history-list" (click)="goPostlist(item)" *ngFor="let item of ForumHistory">
             <div class="img-div">
               <img [src]="item.CoverImage" alt="">
             </div>
@@ -60,6 +60,12 @@
       </div>  -->
   
   </div>
+  <ion-list text-center style="margin-top: 10rem" *ngIf="forumLIst.length == 0">
+    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+    <p text-center style="color: #666666;font-size: 16px">
+        暂无数据
+    </p>
+  </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
 </ion-infinite-scroll>

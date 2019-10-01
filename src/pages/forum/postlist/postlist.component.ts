@@ -11,7 +11,7 @@ import {PostAddComponent} from '../post-add/post-add.component';
 export class PostlistComponent implements OnInit {
   lidata={Id:""};
   IsTopOpt=null;
-  pageDate={
+  pageDate:any={
     creater: "",
     pageIndex: 1,
     pageSize: 10,
@@ -31,8 +31,37 @@ export class PostlistComponent implements OnInit {
   ngOnInit() {
     this.lidata = this.navParams.get('data');
     this.pageDate.topicPlateId=this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
-    this.forum_post_search();
+    // this.forum_post_search();
+    this.getUser();
+    // this.myfavorites();
   }
+
+  // this.forum_post_search();
+  // 获取指定用户发布的帖子
+  getUser(){
+    this.pageDate={
+      creater: "丁林玲",
+      pageIndex: 1,
+      pageSize: 10,
+      status: 2,
+      title: "",
+      // topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
+      total: 111,
+      OrderBy:'PostTimeFormatted',
+      OrderByDirection:'desc'
+    }
+      this.forum_post_search();
+  }
+  
+
+  // 我收藏的帖子
+  myfavorites(){
+    this.serve.myfavorites({"PageIndex": 1,"PageSize": 10}).subscribe(res => {
+      console.log('我收藏的帖子',res)
+    })
+  }
+  
+
   // 前往帖子详情
   goPostsContent(data) {
     this.navCtrl.push(PostsContentComponent,{data:data});
@@ -73,6 +102,7 @@ export class PostlistComponent implements OnInit {
        element.PostRelativeTime = element.PostRelativeTime.replace('second','秒');
        element.PostRelativeTime = element.PostRelativeTime.replace('minute','分钟');
        element.PostRelativeTime = element.PostRelativeTime.replace('hour','小时');
+       
        element.PostRelativeTime = element.PostRelativeTime.replace('day','天');
        element.PostRelativeTime = element.PostRelativeTime.replace('week','周');
        element.PostRelativeTime = element.PostRelativeTime.replace('month','个月');
@@ -81,6 +111,7 @@ export class PostlistComponent implements OnInit {
 
        element.PostRelativeTime = element.PostRelativeTime.replace(' ',"");
        element.PostRelativeTime = element.PostRelativeTime.replace(' ',"");
+       element.PostRelativeTime = element.PostRelativeTime.replace('s','');
        element.PostRelativeTime = element.PostRelativeTime.replace('ago',"前");
       });
 

@@ -9,7 +9,6 @@ import {ForumService} from './forum.service';
 import {ViewReplyComponent} from './view-reply/view-reply.component';
 import {PostAddComponent} from './post-add/post-add.component';
 
-
 @NgModule({
   imports: [
     IonicPageModule.forChild(ForumPage),

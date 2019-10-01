@@ -14,7 +14,8 @@ import {UpdateAppPage} from "./update-app/update-app";
 import {AppVersion} from "@ionic-native/app-version";
 import {LogoutService} from "../../secret/logout.service";
 import {CommonService} from "../../core/common.service";
-
+import {MyForumComponent} from "./my-forum/my-forum.component";
+import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
 
 @Component({
     selector: 'page-mine',
@@ -96,6 +97,16 @@ export class MinePage {
     //后台退出
     logoutApp() {
         this.logoutSer.logout();
+    }
+
+    // 我的帖子
+    goMyForum(){
+        this.navCtrl.push(MyForumComponent);
+    }
+
+    // 我的点赞
+    goMyThumbsUpComponent(){
+        this.navCtrl.push(MyThumbsUpComponent);
     }
 
     //检测版本
