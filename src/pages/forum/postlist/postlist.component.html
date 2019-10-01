@@ -21,9 +21,7 @@
     </div>
     <div class="hear-top" *ngIf="IsTopOpt">
       <span style="margin-right: 15px;">顶</span>
-      <span style="overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;">{{IsTopOpt.Title}}</span>
+      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{IsTopOpt.Title}}</span>
     </div>
   </div>
   <div class="content-div">
@@ -32,32 +30,6 @@
       <div (click)="avtNav('ReplyCount')">最热</div>
     </div>
     <div>
-      <div class="post-introduction" (click)="goPostsContent({})">
-        <div class="post-introduction-top">
-          <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-          <div class="name">秋国艳</div>
-          <div class="oldDate">1小时</div>
-        </div>
-        <div class="post-introduction-con">
-          <p>用车分享：大宝第十次的维修保养知识</p>
-          <div class="img-div img1">
-            <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-          </div>
-        </div>
-        <div class="post-introduction-buttom">
-          <span>
-            产品体验
-          </span>
-          <span>
-            <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-            134
-          </span>
-          <span>
-            <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-            134
-          </span>
-        </div>
-      </div>
       <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
         <div class="post-introduction-top">
           <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
@@ -84,14 +56,17 @@
           </span>
         </div>
       </div>
-
+      <ion-list text-center style="margin-top: 10rem" *ngIf="forumLIst.length == 0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+      </ion-list>
       <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </div>
-
   </div>
 </ion-content>
 <div class="new-add" (click)="PostAddComponent()">
-
 </div>
