@@ -11,6 +11,10 @@ import {ExamPage} from "./exam/exam";
 import {DoExamPage} from "./do-exam/do-exam";
 import {LookExamPage} from "./look-exam/look-exam";
 import {UpdateAppPage} from "./update-app/update-app";
+import {MyForumComponent} from "./my-forum/my-forum.component";
+import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
+
+
 
 @NgModule({
     declarations: [
@@ -23,6 +27,8 @@ import {UpdateAppPage} from "./update-app/update-app";
         DoExamPage,
         LookExamPage,
         UpdateAppPage,
+        MyForumComponent,
+        MyThumbsUpComponent
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -37,7 +43,9 @@ import {UpdateAppPage} from "./update-app/update-app";
         ExamPage,
         DoExamPage,
         LookExamPage,
-        UpdateAppPage
+        UpdateAppPage,
+        MyForumComponent,
+        MyThumbsUpComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
