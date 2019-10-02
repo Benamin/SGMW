@@ -89,16 +89,11 @@ export class MyApp {
 
     //骏客鉴权
     async trainAuth(token) {
-        const data = <any>{
-            "grant_type": "password",
-            "client_id": JunKe_client_id,
-        };
+        const data = <any>{};
         await this.loginSer.JunkeTrainAuth(token).subscribe(
             (res) => {
                 if (res.status) {
-                    data.username = res.data.userAccount;
-                    data.jxsh = res.data.dealerCode;
-                    this.initLogin(data);
+                    this.connectTokenByJunKe(res.data);
                 } else {
                     this.rootPage = LoginPage;
                     this.commonSer.toast(res.msg);
@@ -107,6 +102,29 @@ export class MyApp {
         ), (err) => {
             this.rootPage = LoginPage;
         };
+    }
+
+    //获取骏客用户信息
+    connectTokenByJunKe(res) {
+        const data = {
+            grant_type: "password",
+            client_id: JunKe_client_id,
+            username: res.userAccount,
+            jxsh: res.dealerCode,
+        };
+        this.loginSer.connectToken(data).subscribe(
+            (res) => {
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
+                } else {
+                    this.storage.clear();
+                    this.commonSer.alert(res.error);
+                }
+            }
+        )
     }
 
     /**

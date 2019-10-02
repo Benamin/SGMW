@@ -14,13 +14,7 @@ export class CourseCommentPage {
     starList = new Array(5);
 
     teacherList = [
-        {img: null, name: '全部讲师'},
-        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
-        {img: "./assets/imgs/home/goodTeacher.png", name: '秋国烟'},
+        {HeadPhoto: null, UserName: '全部讲师'},
     ];
     selectTeacher;
 
@@ -45,21 +39,37 @@ export class CourseCommentPage {
         this.placeholder = this.navParams.get("placeholder");
         if (this.TopicType != 'talk') this.getList();
         if (this.TopicType == 'talk') this.getTalkList();
+        if (this.TopicType == 'teacher') this.getTeacher();
     }
 
+    //评论信息
     getList() {
         const data = {
             pageSize: this.page.pageSize,
             page: this.page.page,
             TopicType: this.TopicType,   //teacher  course
             topicID: this.topicID
-        }
+        };
         this.learnSer.GetComment(data).subscribe(
             (res) => {
                 this.list = res.data.CommentItems;
                 this.page.total = res.data.TotalCount;
             }
         );
+    }
+
+    //讲师评价下-讲师列表
+    getTeacher() {
+        const data = {
+            id: this.navParams.get("PId")
+        }
+        this.learnSer.GetTeacherListByPID(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.teacherList = this.teacherList.concat(res.data);
+                }
+            }
+        )
     }
 
     getTalkList() {
