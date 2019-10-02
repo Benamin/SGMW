@@ -53,7 +53,7 @@ export class PostAddComponent implements OnInit {
     this.serve.forum_post_get({ postId: this.lidata.postId }).subscribe((res: any) => {
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       textareaImg.innerHTML=res.data.Content;
-      let imgDom = textareaImg.querySelectorAll('img');
+      let imgDom =<any> textareaImg.querySelectorAll('img');
       imgDom.forEach(e => {
        this.imgitems.push({
           src:e.src,

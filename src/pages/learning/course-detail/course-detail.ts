@@ -20,14 +20,16 @@ import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
-    @ViewChild('video') video: ElementRef;
+    @ViewChild('video')
+    public video: ElementRef;
     @ViewChild(Content) content: Content;
 
     pId;
     product = {
         detail: <any>null,
         chapter: null,
-        videoPath: null
+        videoSrc: null,
+        videoPoster: null
     };
     learnList = [];
     navbarList = [
@@ -98,7 +100,7 @@ export class CourseDetailPage {
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
             if (value) {
-                this.product.videoPath = value.fileUrl;
+                this.product.videoSrc = value.fileUrl;
             }
         });
     }
@@ -135,6 +137,7 @@ export class CourseDetailPage {
                 this.product.chapter = res.data;
                 this.product.chapter.Course.children.forEach(e => e.show = false);
                 this.f(this.product.chapter.Course.children);
+                this.product.videoPoster = this.product.chapter.Course.CoverUrl;
             }
         );
 
@@ -219,7 +222,7 @@ export class CourseDetailPage {
         if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
         } else if (this.files[0].icon.includes('mp4')) {
-            this.product.videoPath = this.files[0].fileUrl;
+            this.product.videoSrc = this.files[0].fileUrl;
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
         } else {
