@@ -10,7 +10,9 @@ import {CommonService} from "../../core/common.service";
 export class CommentComponent {
     @ViewChild('textAreaElement') textAreaElement: ElementRef;
 
-    teacher;
+    teacher = "";
+    teacherList;
+
     replyContent: string;
     placeholder: string;
     type: string;
@@ -18,10 +20,12 @@ export class CommentComponent {
     score;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private keyboard: Keyboard,private commonSer:CommonService,
+                private keyboard: Keyboard, private commonSer: CommonService,
                 public viewCtrl: ViewController) {
         this.placeholder = this.navParams.get('placeholder');
         this.type = this.navParams.get('type');
+        if (this.navParams.get('teacherList')) this.teacherList = this.navParams.get('teacherList');
+
         setTimeout(() => {
             this.textAreaElement.nativeElement.focus();
             this.keyboard.show();
@@ -54,18 +58,23 @@ export class CommentComponent {
     }
 
     submit() {
-        if(!this.replyContent || this.replyContent.trim() == ""){
+        if (!this.replyContent || this.replyContent.trim() == "") {
             this.commonSer.toast('请输入评价!');
             return
         }
-        if(this.type != 'talk' && !this.score){
+        if (this.type != 'talk' && !this.score) {
             this.commonSer.toast('请先打分!');
             return
         }
-        const data = {
+        if (this.type == "teacher" && this.teacher == "") {
+            this.commonSer.toast('请选择讲师!');
+            return
+        }
+        const data =<any> {
             'replyContent': this.replyContent,
             'score': this.score
         };
+        if(this.type == "teacher") data.TopicID = this.teacher;
         this.viewCtrl.dismiss(data);
     }
 

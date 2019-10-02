@@ -1,6 +1,15 @@
 page-exam {
   .item {
     position: relative;
+
+    .examScore {
+      font-size: 15px;
+      img {
+        width: 16px;
+        height: 16px;
+        vertical-align: sub;
+      }
+    }
   }
 
   .test-item {

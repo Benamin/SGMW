@@ -21,11 +21,13 @@ export class DoTestPage {
         qs: [],
         stuScore: null
     };
+    paper;  //试卷信息
     doneTotal = 0;
     opTips;
     score = {
         score: 100,
         show: false,
+        tips: false,
     };
 
     clock;  //倒计时的定时器
@@ -62,6 +64,8 @@ export class DoTestPage {
         this.mineSer.homeworkInit(data).subscribe(
             (res) => {
                 this.exam.qs = res.data.qs;
+                this.paper = res.data.paper;
+                this.score.tips = true;
                 this.exam.qs.forEach(e => e.QAnswer = '');
                 this.exam.stuScore = res.data.stuScore;
                 loading.dismiss();
@@ -97,13 +101,12 @@ export class DoTestPage {
             totalTime--;
             this.useTime++;
 
-            let hourse = (Math.floor(totalTime / 3600)).toString();
+            let hourse =<any> (Math.floor(totalTime / 3600)).toString();
             hourse = (hourse.length > 1 ? hourse : '0' + hourse);
-            let minutes = <any>Math.floor(totalTime / 60).toString();
+            let minutes = <any>Math.floor((totalTime - hourse * 3600) / 60).toString();
             minutes = minutes % 60 === 0 ? 0 : minutes;
             minutes = (minutes.length > 1 ? minutes : '0' + minutes);
             let seconds = Math.floor(totalTime % 60).toString();
-            console.log(seconds);
             seconds = (seconds.length > 1 ? seconds : '0' + seconds);
             if (hourse == "00") {
                 this.timeText = minutes + ":" + seconds;
@@ -143,9 +146,9 @@ export class DoTestPage {
     //确认提交
     submit() {
         let msg;
-        if(this.doneTotal < this.exam.qs.length){
+        if (this.doneTotal < this.exam.qs.length) {
             msg = "题目未答完，确定提交?"
-        }else{
+        } else {
             msg = `确认提交`;
         }
         this.commonSer.alert(`${msg}`, () => {
@@ -205,6 +208,11 @@ export class DoTestPage {
     hidden() {
         this.opTips = false;
         this.storage.set('opTips', 'false');
+    }
+
+    closeTips(e) {
+        // e.stopPropagation();
+        this.score.tips = false;
     }
 
     close(e) {

@@ -29,9 +29,15 @@
                     </div>
                 </div>
                 <p *ngIf="page.StudyState != 1" class="split"></p>
-                <p *ngIf="page.StudyState != 1">
+                <p *ngIf="page.StudyState == 2">
                     <span class="examScore">考试时间：{{item.ExamTimer}}分钟</span>
                     <span class="examTime">到期时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
+                </p>
+                <p *ngIf="page.StudyState == 3">
+                    <span class="examScore">
+                        <img src="./assets/imgs/mine/exam-submit.png">考试得分：{{item.PaperScore}}
+                    </span>
+                    <span class="examTime">提交时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
                 </p>
             </div>
         </ng-container>

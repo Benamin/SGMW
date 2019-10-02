@@ -10,7 +10,7 @@ tree-list {
   .more-icon {
     float: right;
     margin-top: 2px;
-    color: rgba(0,0,0,.3);
+    color: rgba(0, 0, 0, .3);
     margin-right: 10px;
   }
 
@@ -39,15 +39,24 @@ tree-list {
     height: 100%;
     background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
   }
-  .collection{
+
+  .collection {
     top: 25% !important;
     height: 90px !important;
-    img{
+
+    img {
       height: 90px !important;
     }
   }
-  .collection p{
+
+  .collection p {
     border: none !important;
     top: 65% !important;
+  }
+
+  .download-file {
+    height: 18px;
+    width: 18px;
+    float: right;
   }
 }

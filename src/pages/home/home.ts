@@ -60,7 +60,7 @@ export class HomePage {
         this.storage.get('user').then(value => {
             if (value) {
                 this.mineInfo = value;
-                if (this.mineInfo.UserName.length > 3) {
+                if (this.mineInfo.UserName && this.mineInfo.UserName.length > 3) {
                     this.mineInfo.UserName = this.mineInfo.UserName.slice(0, 3) + '...';
                 }
             }

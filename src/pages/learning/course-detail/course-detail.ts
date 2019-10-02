@@ -274,7 +274,6 @@ export class CourseDetailPage {
 
     //教师评价
     goTeacherComment() {
-        console.log(this.product.detail.Teachers[0].UserID)
         this.navCtrl.push(CourseCommentPage, {
             placeholder: '请输入你对讲师的评价...',
             TopicID: this.product.detail.Teachers[0].UserID,
@@ -366,10 +365,6 @@ export class CourseDetailPage {
     changeType(item) {
         this.bar.type = item.type;
         // this.done.emit(item);
-    }
-
-    getNavbar(e) {
-        console.log(e);
     }
 
     //播放视频
