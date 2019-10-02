@@ -13,7 +13,7 @@ import {LookExamPage} from "./look-exam/look-exam";
 import {UpdateAppPage} from "./update-app/update-app";
 import {MyForumComponent} from "./my-forum/my-forum.component";
 import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
-
+import {ForumService} from '../forum/forum.service';
 
 
 @NgModule({
@@ -34,6 +34,7 @@ import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
         IonicPageModule.forChild(MinePage),
         ComponentsModule,
     ],
+    providers:[ForumService],
     entryComponents: [
         MycollectionPage,
         MyCoursePage,

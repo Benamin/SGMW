@@ -4,6 +4,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
   <div class="con-div">
     <div class="list">
       <div class="img-div">
@@ -50,7 +54,7 @@
             <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
             {{item.ReplyCount}}
           </span>
-          <span>
+          <span >
             <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
             {{item.LikeCount}}
           </span>
@@ -68,5 +72,5 @@
     </div>
   </div>
 </ion-content>
-<div class="new-add" (click)="PostAddComponent()">
+<div class="new-add" (click)="PostAddComponent(lidata)">
 </div>

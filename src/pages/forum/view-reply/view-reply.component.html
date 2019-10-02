@@ -5,55 +5,54 @@
 </ion-header>
 <ion-content>
   <div class="original">
-      <div class="reply">
-          <div class="reply-top">
-            <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
-            <div class="text">
-              <h4>在水中</h4>
-              <p>2018-01-22 06:30</p>
-            </div>
-            <div class="comment">
-            </div>
-          </div>
-          <div class="reply-text">
-            顾问的服务态度，办事效率极佳，同时从专业的角度给我解答了商标的注册及使用。在出现材料问题也及时提出并给出应对的方法。
-          </div>
+    <div class="reply">
+      <div class="reply-top">
+        <img class="heard-img" src="{{data.ReplyHeadPhoto}}" alt="">
+        <div class="text">
+          <h4>{{data.PosterUserName}}</h4>
+          <p>{{data.ReplyTimeFormatted|date : 'yyyy-MM-dd hh:mm'}}</p>
         </div>
+        <div class="comment">
+        </div>
+      </div>
+      <div class="reply-text">
+        {{data.Content}}
+      </div>
+    </div>
   </div>
   <div class="discuss-list">
-    <p class="number-all">回复（134）</p>
-   
-    <div class="reply">
-        <div class="reply-top">
-          <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
-          <div class="text">
-            <h4>在水中<span class="label">楼主</span></h4>
-            <p>2018-01-22 06:30</p>
-          </div>
-          <div class="comment">
-          </div>
+    <p class="number-all">回复（{{data.CommentCount}}）</p>
+    <div class="reply" *ngFor="let item of data.Comments">
+      <div class="reply-top">
+        <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
+        <div class="text">
+          <h4>{{item.MentionUserName}}<span *ngIf="item.MentionUserName==data.PosterUserName" class="label">楼主</span></h4>
+          <p>{{item.CommentTimeFormatted|date : 'yyyy-MM-dd hh:mm'}}</p>
         </div>
-        <div class="reply-text">
-          顾问的服务态度，办事效率极佳，同时从专业的角度给我解答了商标的注册及使用。在出现材料问题也及时提出并给出应对的方法。
+        <div class="comment">
         </div>
-     
-      </div><div class="reply">
-          <div class="reply-top">
-            <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
-            <div class="text">
-              <h4 class="colour-blue">在水中</h4>
-              <p>2018-01-22 06:30</p>
-            </div>
-            <div class="comment">
-                  <span>
-                    <img class="comment_cai" src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-                  </span>
-            </div>
-          </div>
-          <div class="reply-text">
-            顾问的服务态度，办事效率极佳，同时从专业的角度给我解答了商标的注册及使用。在出现材料问题也及时提出并给出应对的方法。
-          </div>
+      </div>
+      <div class="reply-text">
+          {{item.Content}}
+      </div>
+    </div>
+    <!-- <div class="reply">
+      <div class="reply-top">
+        <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
+        <div class="text">
+          <h4 class="colour-blue">在水中</h4>
+          <p>2018-01-22 06:30</p>
         </div>
+        <div class="comment">
+          <span>
+            <img class="comment_cai" src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
+          </span>
+        </div>
+      </div>
+      <div class="reply-text">
+        顾问的服务态度，办事效率极佳，同时从专业的角度给我解答了商标的注册及使用。在出现材料问题也及时提出并给出应对的方法。
+      </div>
+    </div> -->
   </div>
 </ion-content>
 <div class="input-div" (click)="textareaclick()">
@@ -62,10 +61,11 @@
   </div>
 </div>
 <div class="inputshow" [ngClass]="{'textareaBlur': textareaBlur}" (click)="inputshow_on();">
-    <div class="input-div" (click)="$event.stopPropagation();">
-      <textarea id="textareainp"  placeholder='输入你的评论...'  (click)="textareaclick();$event.stopPropagation();" rows="3" [(ngModel)]="inputText"></textarea>
-    </div>
-    <div class="btn" (click)="$event.stopPropagation();">
-      发送
+  <div class="input-div" (click)="$event.stopPropagation();">
+    <textarea id="textareainpview" placeholder='输入你的评论...' (click)="textareaclick();$event.stopPropagation();" rows="3"
+      [(ngModel)]="inputText"></textarea>
+  </div>
+  <div class="btn" (click)="replycomment_add();$event.stopPropagation()">
+    发送
   </div>
 </div>

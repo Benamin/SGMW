@@ -1,43 +1,47 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>我的点赞</ion-title>
-    </ion-navbar>
-  </ion-header>
-  <ion-content>
-      <div class="post-introduction" (click)="goPostsContent({})">
-          <div class="post-introduction-top">
-            <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-            <div class="name">秋国艳</div>
-            <div class="oldDate">1小时</div>
-            <div style="flex: 1;">
-            </div>
-            <div class="edit-div">
-              <span class="edit-img">
-                  <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-              </span>
-               <span class="del-img">
-                  <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-              </span>
-              </div>
-          </div>
-          <div class="post-introduction-con">
-            <p>用车分享：大宝第十次的维修保养知识</p>
-            <div class="img-div img1">
-              <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-            </div>
-          </div>
-          <div class="post-introduction-buttom">
-            <span>
-              产品体验
-            </span>
-            <span>
-              <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-              134
-            </span>
-            <span>
-              <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-              134
-            </span>
-          </div>
+  <ion-navbar>
+    <ion-title>我的点赞</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+  <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of data;index as i">
+    <div class="post-introduction-top">
+      <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+      <div class="name">{{item.Poster}}</div>
+      <div class="oldDate">{{item.PostRelativeTime}}</div>
+    </div>
+    <div class="post-introduction-con">
+      <p>{{item.Title}}</p>
+      <div class="img-div img1">
+        <!-- <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt=""> -->
       </div>
-  </ion-content>
+    </div>
+    <div class="post-introduction-buttom">
+      <span>
+        {{item.TopicPlateName}}
+      </span>
+      <span>
+        <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+        {{item.ReplyCount}}
+      </span>
+      <span>
+      <!-- <span (click)="$event.stopPropagation();forum_post_cancellike(item,i)"> -->
+        <img src="./assets/imgs/forum/other/p41_likr@3x.png" alt="">
+        {{item.LikeCount}}
+      </span>
+    </div>
+  </div>
+  <ion-list text-center style="margin-top: 10rem" *ngIf="data.length == 0">
+    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+    <p text-center style="color: #666666;font-size: 16px">
+        暂无数据
+    </p>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="lodaData($event)" *ngIf="isdoInfinite">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

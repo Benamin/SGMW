@@ -20,16 +20,16 @@
     </div>
   </div>
   <div class="discuss-list">
-    <p class="number-all">评论（{{dataCon.Replyslength}}）</p>
-    <div class="reply">
+    <p class="number-all">评论（{{dataCon.ReplyCount}}）</p>
+    <div class="reply" *ngFor="let item of dataCon.Replys">
       <div class="reply-top">
-        <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
+        <img class="heard-img" src="{{item.ReplyHeadPhoto}}" alt="">
         <div class="text">
-          <h4>在水中</h4>
-          <p>2018-01-22 06:30</p>
+          <h4>{{item.PosterUserName}}</h4>
+          <p>{{item.ReplyTimeFormatted|date : 'yyyy-MM-dd hh:mm'}}</p>
         </div>
         <div class="comment">
-          <span>
+          <!-- <span>
             <img class="comment_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
             <span class="text-span">
               134
@@ -37,49 +37,20 @@
           </span>
           <span>
             <img class="comment_cai" src="./assets/imgs/forum/other/p771_comment_cai@3x.png" alt="">
-          </span>
+          </span> -->
         </div>
       </div>
-      <div class="reply-text">
-        顾问的服务态度，办事效率极佳，同时从专业的角度给我解答了商标的注册及使用。在出现材料问题也及时提出并给出应对的方法。
+      <div class="reply-text" (click)="showViewReply(item)">
+        {{item.Content}}
       </div>
-      <div class="reply-more" (click)="showViewReply()">
+      <div class="reply-more" (click)="showViewReply(item)">
         <span>
-          12条回复
+          {{item.CommentCount}}条回复
         </span>
         <img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt="">
       </div>
     </div>
-    <div class="reply">
-      <div class="reply-top">
-        <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
-        <div class="text">
-          <h4>在水中</h4>
-          <p>2018-01-22 06:30</p>
-        </div>
-        <div class="comment">
-          <span>
-            <img class="comment_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-            <span class="text-span">
-              134
-            </span>
-          </span>
-          <span>
-            <img class="comment_cai" src="./assets/imgs/forum/other/p771_comment_cai@3x.png" alt="">
-          </span>
-        </div>
-      </div>
-      <div class="reply-text">
-        顾问的服务态度，办事效率极佳，同时从专业的角度给我解答了商标的注册及使用。在出现材料问题也及时提出并给出应对的方法。
-      </div>
-      <div class="reply-more">
-        <span>
-          12条回复
-        </span>
-        <img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt="">
-      </div>
-    </div>
-    <div class="reply">
+    <!-- <div class="reply">
       <div class="reply-top">
         <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
         <div class="text">
@@ -107,36 +78,7 @@
         </span>
         <img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt="">
       </div>
-    </div>
-    <div class="reply">
-      <div class="reply-top">
-        <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
-        <div class="text">
-          <h4>在水中</h4>
-          <p>2018-01-22 06:30</p>
-        </div>
-        <div class="comment">
-          <span>
-            <img class="comment_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-            <span class="text-span">
-              134
-            </span>
-          </span>
-          <span>
-            <img class="comment_cai" src="./assets/imgs/forum/other/p771_comment_cai@3x.png" alt="">
-          </span>
-        </div>
-      </div>
-      <div class="reply-text">
-        顾问的服务态度，办事效率极佳，同时从专业的角度给我解答了商标的注册及使用。在出现材料问题也及时提出并给出应对的方法。
-      </div>
-      <div class="reply-more">
-        <span>
-          12条回复
-        </span>
-        <img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt="">
-      </div>
-    </div>
+    </div> -->
   </div>
   
   <!-- <textarea name="" id="" cols="30" rows="10" [(ngModel)]="inputText"></textarea> -->
@@ -146,21 +88,24 @@
     </div>
     <div class="icon-div">
       <div class="reply-more">
-        <img src="./assets/imgs/forum/other/p771_guanzhu@3x.png" alt="">
+        <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu@3x.png"  (click)=" favorites(dataCon);" alt="">
+        <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png" (click)=" cancelfavorites(dataCon);"  alt="">
         <span>
-          256
+          {{dataCon.FavoritesCount}}
         </span>
       </div>
       <div class="reply-more">
-        <img src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" alt="">
+        <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png"  (click)="forum_post_cancellike(dataCon);" alt="">
+        <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png" (click)="forum_post_like(dataCon);" alt="">
         <span>
-          256
+            {{dataCon.LikeCount}}
         </span>
       </div>
       <div class="reply-more">
-        <img src="./assets/imgs/forum/other/p771_collect@3x.png" alt="">
+        <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect@3x.png" (click)="follow(dataCon);"  alt="">
+        <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect_on@3x.png"  (click)="cancelfollow(dataCon);" alt="">
         <span>
-          256
+            {{dataCon.FollowCount}}
         </span>
       </div>
     </div>
@@ -170,7 +115,7 @@
   <div class="input-div" (click)="$event.stopPropagation();">
     <textarea id="textareainp"  placeholder='输入你的评论...'  (click)="textareaclick();$event.stopPropagation();" rows="3" [(ngModel)]="inputText"></textarea>
   </div>
-  <div class="btn" (click)="$event.stopPropagation();">
+  <div class="btn" (click)="$event.stopPropagation();reply_add()">
     发送
   </div>
   </div>

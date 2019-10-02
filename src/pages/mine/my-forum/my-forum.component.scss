@@ -164,6 +164,49 @@ page-my-forum{
             }
         }
     }
-
+.isOk{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #bfbfbf;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    .isOk-con{
+        overflow: hidden;
+        width: 200px;
+        height: 100px;
+        background: #fff;
+        border-radius: 10px;
+    }
+    .text-div{
+        height: 60px;
+        align-items:center;
+        justify-content:center;
+        display: flex;
+    }
+  
+    .btn-div{
+        display: flex;
+        align-items:center;
+        text-align: center;
+        div{
+            align-items:center;
+            justify-content:center;
+            display: flex;
+            flex: 1;
+            height: 40px;
+        }
+        .del-no{
+            background: #e0e0e0;
+        }
+        .del-ok{
+            background: #79c0ff;
+        }
+    }
+}
 
 }

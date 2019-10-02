@@ -1,192 +1,58 @@
-
 <ion-header>
   <ion-navbar>
     <ion-title>我的帖子</ion-title>
   </ion-navbar>
   <ion-header-bar>
     <div class="navul" #navul>
-        <div class="navli" [ngClass]="{'act': navli=='已发布'}" (click)="switchInformation('已发布')">
-            已发布
-        </div>
-        <div class="navli" [ngClass]="{'act': navli=='草稿箱'}" (click)="switchInformation('草稿箱')">
-            草稿箱
-        </div>
+      <div class="navli" [ngClass]="{'act': navli=='已发布'}" (click)="switchInformation('已发布',2)">
+        已发布
+      </div>
+      <div class="navli" [ngClass]="{'act': navli=='草稿箱'}" (click)="switchInformation('草稿箱',1)">
+        草稿箱
+      </div>
     </div>
   </ion-header-bar>
 </ion-header>
 <ion-content>
-    <div *ngIf="navli=='已发布'" class="content-div">
-        <div class="post-introduction" (click)="goPostsContent({})">
-            <div class="post-introduction-top">
-              <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">秋国艳</div>
-              <div class="oldDate">1小时</div>
-              <div style="flex: 1;">
-                </div>
-                <div class="edit-div">
-                   <span class="del-img">
-                      <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-                  </span>
-                  </div>
-            </div>
-            <div class="post-introduction-con">
-              <p>用车分享：大宝第十次的维修保养知识</p>
-              <div class="img-div img1">
-                <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-              </div>
-            </div>
-            <div class="post-introduction-buttom">
-              <span>
-                产品体验
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-                134
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-                134
-              </span>
-            </div>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+  <div *ngIf="navli=='已发布'" class="content-div">
+    <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
+      <div class="post-introduction-top">
+        <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+        <div class="name">{{item.Poster}}</div>
+        <div class="oldDate">{{item.PostRelativeTime}}</div>
+        <div style="flex: 1;">
         </div>
-        <div class="post-introduction" (click)="goPostsContent({})">
-            <div class="post-introduction-top">
-              <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">秋国艳</div>
-              <div class="oldDate">1小时</div>
-              <div style="flex: 1;">
-                </div>
-                <div class="edit-div">
-                   <span class="del-img">
-                      <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-                  </span>
-                  </div>
-            </div>
-            <div class="post-introduction-con">
-              <p>用车分享：大宝第十次的维修保养知识</p>
-              <div class="img-div img1">
-                <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-              </div>
-            </div>
-            <div class="post-introduction-buttom">
-              <span>
-                产品体验
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-                134
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-                134
-              </span>
-            </div>
+        <div class="edit-div" (click)="delITem(item);$event.stopPropagation()">
+          <span class="del-img">
+            <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
+          </span>
         </div>
-        <div class="post-introduction" (click)="goPostsContent({})">
-            <div class="post-introduction-top">
-              <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">秋国艳</div>
-              <div class="oldDate">1小时</div>
-              <div style="flex: 1;">
-                </div>
-                <div class="edit-div">
-                   <span class="del-img">
-                      <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-                  </span>
-                  </div>
-            </div>
-            <div class="post-introduction-con">
-              <p>用车分享：大宝第十次的维修保养知识</p>
-              <div class="img-div img1">
-                <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-              </div>
-            </div>
-            <div class="post-introduction-buttom">
-              <span>
-                产品体验
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-                134
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-                134
-              </span>
-            </div>
+      </div>
+      <div class="post-introduction-con" >
+        <p>{{item.Title}}</p>
+        <div class="img-div img1">
+          <!-- <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt=""> -->
         </div>
-        <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
-            <div class="post-introduction-top">
-              <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">{{item.Poster}}</div>
-              <div class="oldDate">{{item.PostRelativeTime}}</div>
-              <div style="flex: 1;">
-                </div>
-                <div class="edit-div">
-                   <span class="del-img">
-                      <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-                  </span>
-                  </div>
-            </div>
-            <div class="post-introduction-con">
-              <p>{{item.Title}}</p>
-              <div class="img-div img1">
-                <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-              </div>
-            </div>
-            <div class="post-introduction-buttom">
-              <span>
-                {{item.TopicPlateName}}
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-                {{item.ReplyCount}}
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-                {{item.LikeCount}}
-              </span>
-            </div>
-        </div>
+      </div>
+      <div class="post-introduction-buttom" >
+        <span>
+          {{item.TopicPlateName}}
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+          {{item.ReplyCount}}
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+          {{item.LikeCount}}
+        </span>
+      </div>
     </div>
-    <div *ngIf="navli=='草稿箱'" class="content-div">
-        <div class="post-introduction" (click)="goPostsContent({})">
-            <div class="post-introduction-top">
-              <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">秋国艳</div>
-              <div class="oldDate">1小时</div>
-              <div style="flex: 1;">
-              </div>
-              <div class="edit-div">
-                <span class="edit-img">
-                  <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
-                </span>
-                 <span class="del-img">
-                    <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-                </span>
-                </div>
-            </div>
-            <div class="post-introduction-con">
-              <p>用车分享：大宝第十次的维修保养知识</p>
-              <div class="img-div img1">
-                <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-              </div>
-            </div>
-            <div class="post-introduction-buttom">
-              <span>
-                产品体验
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-                134
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-                134
-              </span>
-            </div>
-        </div>
-        <div class="post-introduction" (click)="goPostsContent({})">
+    <!-- <div class="post-introduction" (click)="goPostsContent({})">
             <div class="post-introduction-top">
               <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
               <div class="name">秋国艳</div>
@@ -194,9 +60,6 @@
               <div style="flex: 1;">
                 </div>
                 <div class="edit-div">
-                  <span class="edit-img">
-                      <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
-                  </span>
                    <span class="del-img">
                       <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
                   </span>
@@ -221,83 +84,98 @@
                 134
               </span>
             </div>
+        </div> -->
+
+  </div>
+  <div *ngIf="navli=='草稿箱'" class="content-div">
+    <!-- <div class="post-introduction" >
+      <div class="post-introduction-top">
+        <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+        <div class="name">秋国艳</div>
+        <div class="oldDate">1小时</div>
+        <div style="flex: 1;">
         </div>
-        <div class="post-introduction" (click)="goPostsContent({})">
-            <div class="post-introduction-top">
-              <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">秋国艳</div>
-              <div class="oldDate">1小时</div>
-              <div style="flex: 1;">
-                </div>
-                <div class="edit-div">
-                  <span class="edit-img">
-                    <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
-                  </span>
-                   <span class="del-img">
-                      <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-                  </span>
-                  </div>
-            </div>
-            <div class="post-introduction-con">
-              <p>用车分享：大宝第十次的维修保养知识</p>
-              <div class="img-div img1">
-                <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-              </div>
-            </div>
-            <div class="post-introduction-buttom">
-              <span>
-                产品体验
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-                134
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-                134
-              </span>
-            </div>
+        <div class="edit-div">
+          <span class="edit-img">
+            <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
+          </span>
+          <span class="del-img">
+            <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
+          </span>
         </div>
-        <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
-            <div class="post-introduction-top">
-              <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">{{item.Poster}}</div>
-              <div class="oldDate">{{item.PostRelativeTime}}</div>
-              <div style="flex: 1;">
-                </div>
-                <div class="edit-div">
-                  <span class="edit-img">
-                    <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
-                  </span>
-                   <span class="del-img">
-                      <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-                  </span>
-                  </div>
-            </div>
-            <div class="post-introduction-con">
-              <p>{{item.Title}}</p>
-              <div class="img-div img1">
-                <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
-              </div>
-            </div>
-            <div class="post-introduction-buttom">
-              <span>
-                {{item.TopicPlateName}}
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-                {{item.ReplyCount}}
-              </span>
-              <span>
-                <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-                {{item.LikeCount}}
-              </span>
-            </div>
+      </div>
+      <div class="post-introduction-con">
+        <p>用车分享：大宝第十次的维修保养知识</p>
+        <div class="img-div img1">
+          <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt="">
         </div>
+      </div>
+      <div class="post-introduction-buttom">
+        <span>
+          产品体验
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+          134
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+          134
+        </span>
+      </div>
+    </div> -->
+    <div class="post-introduction"  *ngFor="let item of forumLIst">
+      <div class="post-introduction-top">
+        <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+        <div class="name">{{item.Poster}}</div>
+        <div class="oldDate">{{item.PostRelativeTime}}</div>
+        <div style="flex: 1;">
+        </div>
+        <div class="edit-div">
+          <span class="edit-img"  (click)="editITem(item)">
+            <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
+          </span>
+          <span class="del-img" (click)="$event.stopPropagation();delITem(item)">
+            <img src="./assets/imgs/forum/other/p771_delete@3x.png"   alt="">
+          </span>
+        </div>
+      </div>
+      <div class="post-introduction-con">
+        <p>{{item.Title}}</p>
+        <div class="img-div img1">
+          <!-- <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt=""> -->
+        </div>
+      </div>
+      <div class="post-introduction-buttom">
+        <span>
+          {{item.TopicPlateName}}
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+          {{item.ReplyCount}}
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="" >
+          {{item.LikeCount}}
+        </span>
+      </div>
     </div>
- 
+  
+  </div>
+
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
-</ion-infinite-scroll>
+  </ion-infinite-scroll>
 </ion-content>
 
+<div class="isOk" *ngIf="isDelShow">
+  <div class="isOk-con">
+        <div class="text-div">
+          确定删除吗？
+        </div>
+        <div class="btn-div">
+          <div class="del-ok" (click)="delOk()">确定</div>
+          <div class="del-no" (click)="isDelShow=false">取消</div>
+        </div>
+  </div>
+</div>

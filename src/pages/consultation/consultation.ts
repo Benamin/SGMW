@@ -12,7 +12,7 @@ export class ConsultationPage {
     navli:'新车资讯'|'行业新闻'|'培训资讯'='新车资讯';
     navliopt = {};
     dataPost={
-        "page": 1,
+        "page": 0,
         "pageSize": 10,
         "total": 0,
         "Title": "",
@@ -87,7 +87,7 @@ export class ConsultationPage {
     }
     doRefresh(e){
         console.log('刷新')
-        this.dataPost.page=1;
+        this.dataPost.page=0;
         this.dataList=[];
         this.getData();
         setTimeout(() => {

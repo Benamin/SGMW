@@ -3,11 +3,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { SERVER_API_URL } from "../../app/app.constants";
 import { HTTP } from "@ionic-native/http";
-
 import {DataFormatService} from "../../core/dataFormat.service";
-
-
-
+import { ToastController } from 'ionic-angular';
 
 /**
  * 
@@ -111,7 +108,10 @@ let aa = {
 @Injectable()
 export class ForumService {
 
-  constructor(private http: HttpClient, private nativeHttp: HTTP, private dataForm: DataFormatService) {
+  constructor(private http: HttpClient, 
+    private nativeHttp: HTTP, 
+    private dataForm: DataFormatService,
+    private toastCtrl: ToastController) {
   }
 
   // 获取 板块列表
@@ -154,10 +154,69 @@ export class ForumService {
     return this.http.post(SERVER_API_URL + '/forum/post/add', data);
   }
 
+
+//   /api/forum/post/follow 关注帖子,参数:postId,帖子编号
+// /api/forum/post/cancelfollow 取消关注帖子,参数:postId,帖子编号
+// /api/forum/post/myfollows 我关注的帖子列表,参数:{"PageIndex": int,"PageSize": int},参数描述:PageIndex:数据分页索引,PageSize:每页显示的记录数
+
+  // 关注帖子
+  follow(postId){
+    return this.http.post(SERVER_API_URL + '/forum/post/follow?postId='+postId, {postId:postId});
+  }
+   // 取消关注帖子
+   cancelfollow(postId){
+    return this.http.post(SERVER_API_URL + '/forum/post/cancelfollow?postId='+postId, {postId:postId});
+  }
+
+  // 我关注的帖子列表
+  myfollows(data){
+    return this.http.post(SERVER_API_URL + '/forum/post/myfollows', data);
+  }
+
+
+  // 收藏帖子
+  favorites(postId){
+    return this.http.post(SERVER_API_URL + '/forum/post/favorites?postId='+postId, {postId:postId});
+  }
+   // 取消收藏帖子
+   cancelfavorites(postId){
+    return this.http.post(SERVER_API_URL + '/forum/post/cancelfavorites?postId='+postId, {postId:postId});
+  }
+
   // 我收藏的帖子列表
   myfavorites(data){
     return this.http.post(SERVER_API_URL + '/forum/post/myfavorites', data);
   }
+
+  //  帖子点赞,参数:postId,帖子编号
+  forum_post_like(postId){
+    return this.http.post(SERVER_API_URL + '/forum/post/like?postId='+postId, {postId:postId});
+  }
+
+  // 取消点赞帖子,参数:postId,帖子编号
+  forum_post_cancellike(postId){
+    return this.http.post(SERVER_API_URL + '/forum/post/cancellike?postId='+postId, {postId:postId});
+  }
+  // 我点赞的帖子列表
+  mylikes(data){
+      return this.http.post(SERVER_API_URL + '/forum/post/mylikes', data);
+  }
+
+  // 评论帖子
+  reply_add(data){
+    return this.http.post(SERVER_API_URL + '/forum/reply/add', data);
+  }
+
+  // 回复评论
+  replycomment_add(data){
+    return this.http.post(SERVER_API_URL + '/forum/replycomment/add', data);
+  }
+
+  // 删除帖子
+  post_delete(postId){
+    return this.http.post(SERVER_API_URL + '/forum/post/delete?postId='+postId, {postId:postId});
+  }
+
   
   // 上传图片
   Upload_UploadFiles(formData){
@@ -176,8 +235,47 @@ export class ForumService {
     // return this.http.post(SERVER_API_URL + '/Upload/UploadFiles', data);
   }
 
+  // 过滤时间
+  PostRelativeTimeForm(text){
+    let newText="";
+    newText = text.replace('second','秒');
+    newText = text.replace('minute','分钟');
+    newText = text.replace('hour','小时');
+    
+    newText = text.replace('day','天');
+    newText = text.replace('week','周');
+    newText = text.replace('month','个月');
+    newText = text.replace('quarter','个季度');
+    newText = text.replace('year','年');
 
+    newText = text.replace(' ',"");
+    newText = text.replace(' ',"");
+    newText = text.replace('s','');
+    newText = text.replace('ago',"前");
+    return newText;
+  }
 
+  // 去重
+  listSplice(arr){
+    let arropt={};
+    for(let n=0;n<arr.length;n++){
+      if(!arropt[arr[n].Id]){
+        arropt[arr[n].Id]=arr[n];
+      }else{
+        arr.splice(n,1);
+      }
+    }
+  }
 
-
+  presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+    toast.present();
+  }
 }
