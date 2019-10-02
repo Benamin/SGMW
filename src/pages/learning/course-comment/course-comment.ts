@@ -3,6 +3,7 @@ import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angula
 import {CommentComponent} from "../../../components/comment/comment";
 import {LearnService} from "../learn.service";
 import {CommonService} from "../../../core/common.service";
+import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
 
 @Component({
     selector: 'page-course-comment',
@@ -16,7 +17,7 @@ export class CourseCommentPage {
     teacherList = [
         {HeadPhoto: null, UserName: '全部讲师'},
     ];
-    selectTeacher;
+    selectTeacher = 0;
 
     page = {
         pageSize: 1000,
@@ -26,6 +27,7 @@ export class CourseCommentPage {
     topicID;
     TopicType;
     placeholder;
+    defalutPhoto = defaultHeadPhoto;   //默认头像；
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private commonSer: CommonService,
@@ -42,7 +44,7 @@ export class CourseCommentPage {
         if (this.TopicType == 'teacher') this.getTeacher();
     }
 
-    //评论信息
+    //所有评论信息
     getList() {
         const data = {
             pageSize: this.page.pageSize,
@@ -72,6 +74,7 @@ export class CourseCommentPage {
         )
     }
 
+    //讨论列表
     getTalkList() {
         const data = {
             pageSize: this.page.pageSize,
@@ -87,12 +90,18 @@ export class CourseCommentPage {
         );
     }
 
+    //前往评论
     openComment() {
-        let modal = this.modalCtrl.create(CommentComponent, {placeholder: '请输入评价', type: this.TopicType});
+        let modal = this.modalCtrl.create(CommentComponent, {
+            placeholder: '请输入评价',
+            type: this.TopicType,
+            teacherList: this.teacherList.splice(0,1)
+        });
         modal.onDidDismiss(res => {
             if (res) {
                 if (this.TopicType == 'talk') this.talkhandle(res);
-                if (this.TopicType != 'talk') this.replyHandle(res);
+                if (this.TopicType == 'course') this.replyHandle(res);
+                if (this.TopicType == 'teacher') this.teacherHandle(res);
             }
         });
         modal.present();
@@ -113,7 +122,23 @@ export class CourseCommentPage {
         )
     }
 
-    //课程评价||教师评价
+    //课程评价
+    teacherHandle(res) {
+        const data = {
+            TopicID: res.teacher,
+            Score: res.score,
+            Contents: res.replyContent,
+            TopicType: this.TopicType
+        }
+        this.learnSer.SaveComment(data).subscribe(
+            (res) => {
+                this.commonSer.toast('评价成功');
+                this.getList();
+            }
+        )
+    }
+
+    //教师评价
     replyHandle(res) {
         const data = {
             TopicID: this.topicID,
@@ -129,9 +154,25 @@ export class CourseCommentPage {
         )
     }
 
-    //选择讲师
+    //选择讲师 --所有
     setTeacher(item, i) {
         this.selectTeacher = i;
+        if (i == 0) {
+            this.getList();
+            return;
+        }
+        const data = {
+            pageSize: this.page.pageSize,
+            page: this.page.page,
+            TopicType: 'teacher',   //teacher  course
+            topicID: item.UserID
+        };
+        this.learnSer.GetComment(data).subscribe(
+            (res) => {
+                this.list = res.data.CommentItems;
+                this.page.total = res.data.TotalCount;
+            }
+        );
     }
 
 }

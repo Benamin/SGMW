@@ -22,7 +22,7 @@ export class TreeListComponent {
 
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
                 private fileSer: FileService, private commonSer: CommonService,private learSer:LearnService,
-                private navCtrl:NavController) {
+                private navCtrl:NavController,) {
         timer(10).subscribe(
             (res) => {
                 this.treeList.forEach(e => e.show = true);
@@ -64,6 +64,12 @@ export class TreeListComponent {
             this.isSign = true;
             timer(2000).subscribe(()=>this.isSign = false);
         }
+    }
+
+    //下载文件
+    downLoad(file,e){
+        e.stopPropagation();
+        this.fileSer.downloadFile(file.fileUrl, file.filename);
     }
 
     //保存学习进度

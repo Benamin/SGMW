@@ -12,7 +12,7 @@
                     <div [ngClass]="selectTeacher == i?'teacher-item-select':''" tappable class="teacher-item"
                          (click)="setTeacher(teacher,i)">
                         <div class="flex-teacher">
-                            <img [src]="teacher.HeadPhoto" alt="">
+                            <img [src]="teacher.HeadPhoto || defalutPhoto" alt="">
                             <span class="teacher-desc">{{teacher.UserName}}</span>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                 </div>
                 <div *ngIf="TopicType == 'teacher'" class="item-teacher">
                     <div>
-                        <img src="./assets/imgs/home/goodTeacher.png" alt="">
+                        <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
                     </div>
                     <div>{{item.TeacherName}}</div>
                 </div>

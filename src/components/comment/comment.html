@@ -3,9 +3,8 @@
         <div class="comment" tappable (click)="stop($event)">
             <div *ngIf="type == 'teacher'" class="select">
                 <ion-select [(ngModel)]="teacher" cancelText="取消" interface="action-sheet" placeholder="选择讲师">
-                    <ion-option style="background-color: #cccccc" value="jxs">秋国烟</ion-option>
-                    <ion-option value="gys">秋国烟</ion-option>
-                    <ion-option value="yg">秋国烟</ion-option>
+                    <ion-option [value]="">选择讲师</ion-option>
+                    <ion-option *ngFor="let item of teacherList" [value]="item.UserID">{{item.UserName}}</ion-option>
                 </ion-select>
             </div>
             <div class="padding-10">
@@ -18,7 +17,7 @@
                 </ion-col>
                 <ion-col col-7 text-center class="img-star" *ngIf="type != 'talk'">
                     <ng-container *ngFor="let star of starList;let i = index;">
-                        <span  tappable (click)="checkStar(i)" [ngClass]="star" class="icon iconfont"></span>
+                        <span tappable (click)="checkStar(i)" [ngClass]="star" class="icon iconfont"></span>
                     </ng-container>
                 </ion-col>
             </ion-row>

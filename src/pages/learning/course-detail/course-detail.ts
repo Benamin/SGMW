@@ -10,6 +10,7 @@ import {FileService} from "../../../core/file.service";
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {ViewFilePage} from "../view-file/view-file";
 import {EmitService} from "../../../core/emit.service";
+import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
 
 
 @Component({
@@ -61,6 +62,7 @@ export class CourseDetailPage {
         show: false,
     };
     starList = new Array(5);
+    defalutPhoto = defaultHeadPhoto;   //默认头像；
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -272,7 +274,6 @@ export class CourseDetailPage {
 
     //教师评价
     goTeacherComment() {
-        console.log(this.product.detail.Teachers[0].UserID)
         this.navCtrl.push(CourseCommentPage, {
             placeholder: '请输入你对讲师的评价...',
             TopicID: this.product.detail.Teachers[0].UserID,
@@ -364,10 +365,6 @@ export class CourseDetailPage {
     changeType(item) {
         this.bar.type = item.type;
         // this.done.emit(item);
-    }
-
-    getNavbar(e) {
-        console.log(e);
     }
 
     //播放视频
