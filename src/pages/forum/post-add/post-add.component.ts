@@ -54,12 +54,17 @@ export class PostAddComponent implements OnInit {
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       textareaImg.innerHTML=res.data.Content;
       let imgDom = textareaImg.querySelectorAll('img');
-      imgDom.forEach(e => {
-       this.imgitems.push({
+     if(imgDom){
+       for(let n=0;n<imgDom.length;n++){
+         let e=imgDom[n];
+        this.imgitems.push({
           src:e.src,
           alt:e.alt,
        })
-      })
+       }
+  
+     }
+     
       console.log(imgDom);
     });
   }

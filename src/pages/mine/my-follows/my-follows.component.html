@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的关注</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="navul" #navul>
+      <div class="navli" [ngClass]="{'act': navli=='讲师'}" (click)="switchInformation('讲师')">
+        讲师
+      </div>
+      <div class="navli" [ngClass]="{'act': navli=='帖子'}" (click)="switchInformation('帖子')">
+        帖子
+      </div>
+    </div>
+  <div *ngIf="navli=='讲师'" class="subscribe-div">
+      <div class="GetSubscribeList" *ngFor="let item of collectionList" (click)="teachDetail(item)">
+        <div class="Head">
+          <img src="{{item.HeadPhoto}}" alt="">
+          <div class="name">
+            <div>
+              {{item.UserName}}
+            </div>
+            <div>
+              {{item.Position}}&nbsp;
+            </div>
+          </div>
+          <div class="stae">
+            已关注
+          </div>
+        </div>
+        <div style=" " class="Remark">
+            {{item.Remark}}
+        </div>
+      </div>
+  </div>
+
+  <!-- <course-list *ngIf="navli=='课程'" [list]="collectionList" (done)="goCourse($event)"></course-list> -->
+  <div *ngIf="navli=='帖子'" class="content-div">
+    <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of collectionList">
+      <div class="post-introduction-top">
+        <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+        <div class="name">{{item.Poster}}</div>
+        <div class="oldDate">{{item.PostRelativeTime}}</div>
+        <div style="flex: 1;">
+        </div>
+      </div>
+      <div class="post-introduction-con">
+        <p>{{item.Title}}</p>
+
+        <div class="img-div img1" *ngIf="item.Images.length==1">
+          <img src="{{item.Images[0].Src}}" alt="">
+        </div>
+        <div class="img-div img2" *ngIf="item.Images.length==2">
+          <div *ngFor="let img of item.Images">
+            <img src="{{img.Src}}" alt="">
+          </div>
+        </div>
+        <div class="img-div img3" *ngIf="item.Images.length>2">
+          <div *ngFor="let img of item.Images.slice(0,3)">
+            <img src="{{img.Src}}" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="post-introduction-buttom">
+        <span>
+          {{item.TopicPlateName}}
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+          {{item.ReplyCount}}
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+          {{item.LikeCount}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <ion-list text-center style="margin-top: 10rem" *ngIf="collectionList.length == 0">
+    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+    <p text-center style="color: #666666;font-size: 16px">
+      暂无数据
+    </p>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="isAddData($event)" *ngIf="isdoInfinite">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

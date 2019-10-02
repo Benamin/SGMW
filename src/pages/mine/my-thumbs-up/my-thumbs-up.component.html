@@ -16,9 +16,19 @@
     </div>
     <div class="post-introduction-con">
       <p>{{item.Title}}</p>
-      <div class="img-div img1">
-        <!-- <img src="./assets/imgs/forum/list/luntan_pic1@3x.jpg" alt=""> -->
-      </div>
+      <div class="img-div img1" *ngIf="item.Images.length==1">
+          <img src="{{item.Images[0].Src}}" alt="">
+        </div>
+        <div class="img-div img2" *ngIf="item.Images.length==2">
+          <div *ngFor="let img of item.Images">
+            <img src="{{img.Src}}" alt="">
+          </div>
+        </div>
+        <div class="img-div img3" *ngIf="item.Images.length>2">
+          <div *ngFor="let img of item.Images.slice(0,3)">
+            <img src="{{img.Src}}" alt="">
+          </div>
+        </div>
     </div>
     <div class="post-introduction-buttom">
       <span>

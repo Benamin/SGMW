@@ -13,6 +13,7 @@ import {LookExamPage} from "./look-exam/look-exam";
 import {UpdateAppPage} from "./update-app/update-app";
 import {MyForumComponent} from "./my-forum/my-forum.component";
 import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
+import {MyFollowsComponent} from './my-follows/my-follows.component';
 import {ForumService} from '../forum/forum.service';
 
 
@@ -28,7 +29,8 @@ import {ForumService} from '../forum/forum.service';
         LookExamPage,
         UpdateAppPage,
         MyForumComponent,
-        MyThumbsUpComponent
+        MyThumbsUpComponent,
+        MyFollowsComponent
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -46,7 +48,8 @@ import {ForumService} from '../forum/forum.service';
         LookExamPage,
         UpdateAppPage,
         MyForumComponent,
-        MyThumbsUpComponent
+        MyThumbsUpComponent,
+        MyFollowsComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

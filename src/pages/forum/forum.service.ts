@@ -217,6 +217,12 @@ export class ForumService {
     return this.http.post(SERVER_API_URL + '/forum/post/delete?postId='+postId, {postId:postId});
   }
 
+  // 关注的讲师列表
+  GetSubscribeList(data){
+    return this.http.post(SERVER_API_URL + '/EStudentSubscribe/GetSubscribeList', data);
+  }
+  
+
   
   // 上传图片
   Upload_UploadFiles(formData){

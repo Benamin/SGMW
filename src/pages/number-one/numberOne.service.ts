@@ -26,9 +26,11 @@ export class numberOneService {
     }
   
 
-    ///winnerNews/GetNewsByID?id=
     GetNewsByID(id): Observable<any> {
         return this.http.get(SERVER_API_URL + '/winnerNews/GetNewsByID?id='+id);
+    }
+    GetRelationNewsByID(id): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/winnerNews/GetRelationNewsByID?id='+id);
     }
 
 

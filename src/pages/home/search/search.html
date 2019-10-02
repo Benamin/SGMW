@@ -2,7 +2,7 @@
     <ion-navbar>
         <form class="search-header" action="#">
             <ion-icon class="search-icon" name="search"></ion-icon>
-            <ion-input type="search" placeholder="搜索课程" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
+            <ion-input type="search" placeholder="搜索{{navli=='论坛'?'帖子':'课程'}}" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
                        [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
             <span class="clear" tappable (click)="clear()">取消</span>
         </form>
@@ -10,16 +10,63 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher (ionRefresh)="Refresh($event)">
         <ion-refresher-content pullingText="下拉刷新"
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <course-list [list]="productList" (done)="goCourse($event)"></course-list>
+    <div class="navul" #navul>
+            <div class="navli" [ngClass]="{'act': navli=='课程'}" (click)="switchIn('课程')">
+                课程
+            </div>
+            <div class="navli" [ngClass]="{'act': navli=='论坛'}" (click)="switchIn('论坛')">
+                论坛
+            </div>
+    </div>
+    <div *ngIf="navli=='论坛'" style="margin-top: 10px;">
+            <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of productList">
+                    <div class="post-introduction-top">
+                      <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+                      <div class="name">{{item.Poster}}</div>
+                      <div class="oldDate">{{item.PostRelativeTime}}</div>
+                    </div>
+                    <div class="post-introduction-con">
+                      <p>{{item.Title}}</p>
+                      <div class="img-div img1" *ngIf="item.Images.length==1">
+                          <img src="{{item.Images[0].Src}}" alt="">
+                        </div>
+                        <div class="img-div img2" *ngIf="item.Images.length==2">
+                          <div *ngFor="let img of item.Images">
+                            <img src="{{img.Src}}" alt="">
+                          </div>
+                          </div>
+                          <div class="img-div img3" *ngIf="item.Images.length>2">
+                                  <div *ngFor="let img of item.Images.slice(0,3)">
+                                      <img src="{{img.Src}}" alt="">
+                                    </div>
+                            </div>
+                    </div>
+                    <div class="post-introduction-buttom">
+                      <span>
+                        {{item.TopicPlateName}}
+                      </span>
+                      <span>
+                        <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+                        {{item.ReplyCount}}
+                      </span>
+                      <span >
+                        <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+                        {{item.LikeCount}}
+                      </span>
+                    </div>
+                  </div>
+    </div>
+
+    <course-list  *ngIf="navli=='课程'" [list]="productList" (done)="goCourse($event)"></course-list>
     <ion-list text-center style="margin-top: 10rem" *ngIf="showTips">
         <img style="width: 15%;" src="./assets/imgs/tabs/tab3_off@3x.png">
         <p text-center style="color: #999;font-size: 16px;margin-top: 20px">
-            请搜索你想要查找的课程
+            请搜索你想要查找的{{navli=='论坛'?'帖子':'课程'}}
         </p>
     </ion-list>
     <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && productList.length == 0">
@@ -28,7 +75,7 @@
             暂无数据
         </p>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll (ionInfinite)="addData($event)">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
                 loadingText="加载中"></ion-infinite-scroll-content>
