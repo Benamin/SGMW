@@ -7,7 +7,10 @@ page-live {
     box-shadow:0px 2px 4px 0px rgba(78,78,78,0.11);
     border-radius:8px;
     .live-img{
+      height: 190px;
+      text-align: center;
       img{
+        max-height: 100%;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
       }
@@ -30,11 +33,12 @@ page-live {
       line-height: 24px;
       font-size: 1rem;
     }
+
     .live-status-1{
-      background:linear-gradient(90deg,rgba(52,117,245,1) 0%,rgba(11,197,244,1) 100%);
+      background:linear-gradient(270deg,rgba(241,144,88,1) 0%,rgba(242,84,50,1) 100%);
     }
     .live-status-2{
-      background:linear-gradient(270deg,rgba(241,144,88,1) 0%,rgba(242,84,50,1) 100%);
+      background:linear-gradient(90deg,rgba(52,117,245,1) 0%,rgba(11,197,244,1) 100%);
     }
     .live-status-3{
       background:linear-gradient(90deg,rgba(33,33,34,1) 0%,rgba(76,76,78,1) 100%);

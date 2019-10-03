@@ -21,8 +21,8 @@ export class TreeListComponent {
     isSign = false;
 
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
-                private fileSer: FileService, private commonSer: CommonService,private learSer:LearnService,
-                private navCtrl:NavController,) {
+                private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
+                private navCtrl: NavController,) {
         timer(10).subscribe(
             (res) => {
                 this.treeList.forEach(e => e.show = true);
@@ -57,31 +57,34 @@ export class TreeListComponent {
             }
             if (file.icon.includes('pdf')) this.openPDF(file);
             if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
-                // this.viewOfficeFile(file.fileUrl, file.filename);
                 this.fileSer.downloadFile(file.fileUrl, file.filename);
             }
         } else {
             this.isSign = true;
-            timer(2000).subscribe(()=>this.isSign = false);
+            timer(2000).subscribe(() => this.isSign = false);
         }
     }
 
     //下载文件
-    downLoad(file,e){
+    downLoad(file, e) {
         e.stopPropagation();
-        this.fileSer.downloadFile(file.fileUrl, file.filename);
+        if (file.icon == 'mp4') {
+            this.commonSer.toast('视频文件不能下载');
+            return
+        }
+        this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
     }
 
     //保存学习进度
-    saveProcess(file){
-            const data = {
-                EAttachmentID: file.ID
-            };
-            this.learSer.SaveStudy(data).subscribe(
-                (res) => {
-                    console.log(res.message);
-                }
-            )
+    saveProcess(file) {
+        const data = {
+            EAttachmentID: file.ID
+        };
+        this.learSer.SaveStudy(data).subscribe(
+            (res) => {
+                console.log(res.message);
+            }
+        )
     }
 
     //作业处理
