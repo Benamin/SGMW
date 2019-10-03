@@ -166,25 +166,6 @@ export class MyApp {
         });
     }
 
-
-    //获取权限 Authorization
-    initLogin(data) {
-        this.loginSer.connectToken(data).subscribe(
-            (res) => {
-                if (res.access_token) {
-                    this.storage.set('Authorization', res.access_token);
-                    timer(300).subscribe(e => {
-                        this.getUserInfo();
-                    })
-                } else {
-                    this.rootPage = LoginPage;
-                    this.storage.clear();
-                    this.commonSer.alert(res.error);
-                }
-            }
-        )
-    }
-
     //查询用户信息
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(

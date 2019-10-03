@@ -1,0 +1,10 @@
+<div class="main">
+    <div class="content" tappable (click)="close()">
+        <div class="comment" tappable (click)="stop($event)">
+            <div tappable *ngFor="let item of teacherList" (click)="chosseTeacher(item)">
+                <img [src]="item.HeadPhoto || defalutPhoto">{{item.UserName}}
+            </div>
+            <div (click)="close()">取消</div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,9 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {NavController, NavParams, ViewController} from "ionic-angular";
+import {ModalController, NavController, NavParams, ViewController} from "ionic-angular";
 import {Keyboard} from "@ionic-native/keyboard";
 import {CommonService} from "../../core/common.service";
+import {SelectTeacherComponent} from "../select-teacher/select-teacher";
+import {defaultHeadPhoto} from "../../app/app.constants";
 
 @Component({
     selector: 'comment',
@@ -10,7 +12,7 @@ import {CommonService} from "../../core/common.service";
 export class CommentComponent {
     @ViewChild('textAreaElement') textAreaElement: ElementRef;
 
-    teacher = "";
+    teacher;
     teacherList;
 
     replyContent: string;
@@ -19,9 +21,12 @@ export class CommentComponent {
     starList = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
     score;
 
+    defalutPhoto = defaultHeadPhoto;   //默认头像；
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private keyboard: Keyboard, private commonSer: CommonService,
-                public viewCtrl: ViewController) {
+                public viewCtrl: ViewController,
+                private modalCtrl: ModalController) {
         this.placeholder = this.navParams.get('placeholder');
         this.type = this.navParams.get('type');
         if (this.navParams.get('teacherList')) this.teacherList = this.navParams.get('teacherList');
@@ -57,6 +62,20 @@ export class CommentComponent {
         e.stopPropagation();
     }
 
+    //选择讲师
+    selectTeacher() {
+        let modal = this.modalCtrl.create(SelectTeacherComponent, {
+            teacherList: this.teacherList
+        });
+        modal.onDidDismiss(res => {
+            if (res) {
+                console.log(res);
+                this.teacher = res;
+            }
+        });
+        modal.present();
+    }
+
     submit() {
         if (!this.replyContent || this.replyContent.trim() == "") {
             this.commonSer.toast('请输入评价!');
@@ -66,15 +85,16 @@ export class CommentComponent {
             this.commonSer.toast('请先打分!');
             return
         }
-        if (this.type == "teacher" && this.teacher == "") {
+        if (this.type == "teacher" && !this.teacher) {
             this.commonSer.toast('请选择讲师!');
             return
         }
-        const data =<any> {
+        const data = <any>{
             'replyContent': this.replyContent,
             'score': this.score
         };
-        if(this.type == "teacher") data.TopicID = this.teacher;
+        if (this.type == "teacher") data.TopicID = this.teacher;
+        console.log(data);
         this.viewCtrl.dismiss(data);
     }
 

@@ -1,106 +1,165 @@
 page-live {
-  .live-all,.live-today{
-    padding: 15px;
+  .live-all, .live-today {
+    padding:0 15px;
   }
-  .live-all-item{
-    background:rgba(255,255,255,1);
-    box-shadow:0px 2px 4px 0px rgba(78,78,78,0.11);
-    border-radius:8px;
-    .live-img{
-      img{
+
+  .live-all-item.live-today-item {
+    position: relative;
+    box-shadow: 0px 2px 4px 0px rgba(78, 78, 78, 0.11);
+    border-radius: 8px;
+
+    .live-img {
+      height: 190px;
+      text-align: center;
+
+      img {
+        max-height: 100%;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
       }
     }
+
+    > p {
+      height: 40px;
+      padding-left: 30px;
+      line-height: 40px;
+      position: relative;
+    }
+    > p::before{
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 11px;
+      background-color: #999;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      z-index: 9999;
+    }
   }
-  .live-all-item + .live-all-item{
+
+  .live-all-item + .live-all-item {
     margin-top: 15px;
   }
-  .live-background{
+  .live-today-item + .live-today-item {
+    margin-top: 0px;
+  }
+
+  .live-today-item::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    width: 1px;
+    height: 40px;
+    background-color: #bbb;
+    z-index: 999;
+  }
+
+
+  .live-background {
     position: relative;
-    .live-status{
+
+    .live-status {
       position: absolute;
-      top: 1rem;
-      left: 1rem;
-      width:54px;
-      height:24px;
-      border-radius:12px;
+      top: 12px;
+      left: 12px;
+      width: 54px;
+      height: 24px;
+      border-radius: 12px;
       color: #ffffff;
       text-align: center;
       line-height: 24px;
       font-size: 1rem;
     }
-    .live-status-1{
-      background:linear-gradient(90deg,rgba(52,117,245,1) 0%,rgba(11,197,244,1) 100%);
+
+    .live-status-1 {
+      background: linear-gradient(270deg, rgba(241, 144, 88, 1) 0%, rgba(242, 84, 50, 1) 100%);
     }
-    .live-status-2{
-      background:linear-gradient(270deg,rgba(241,144,88,1) 0%,rgba(242,84,50,1) 100%);
+
+    .live-status-2 {
+      background: linear-gradient(90deg, rgba(52, 117, 245, 1) 0%, rgba(11, 197, 244, 1) 100%);
     }
-    .live-status-3{
-      background:linear-gradient(90deg,rgba(33,33,34,1) 0%,rgba(76,76,78,1) 100%);
+
+    .live-status-3 {
+      background: linear-gradient(90deg, rgba(33, 33, 34, 1) 0%, rgba(76, 76, 78, 1) 100%);
     }
-    .live-title{
+
+    .live-title {
       position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      width:230px;
-      height:44px;
-      font-size:16px;
-      font-family:PingFangSC-Semibold,PingFangSC;
-      font-weight:600;
-      color:rgba(255,255,255,1);
-      line-height:22px;
-      text-shadow:0px 1px 4px rgba(0,0,0,0.5);
+      bottom: 12px;
+      left: 12px;
+      width: 230px;
+      height: 44px;
+      font-size: 16px;
+      font-family: PingFangSC-Semibold, PingFangSC;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 1);
+      line-height: 22px;
+      text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
     }
-    .live-teacher{
+
+    .live-teacher {
       position: absolute;
-      right: 2rem;
+      right: 24px;
       bottom: -40px;
       text-align: center;
-      img{
+
+      img {
         width: 60px;
         height: 60px;
-        border:2px solid #ffffff;
+        border: 2px solid #ffffff;
         border-radius: 100px;
       }
-      div:last-child{
+
+      div:last-child {
         margin-top: 5px;
       }
     }
   }
-  .live-desc{
+
+  .live-desc {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 15px 0;
-    .live-more{
+    background: rgba(255, 255, 255, 1);
+
+    .live-more {
       width: 5%;
-      img{
+
+      img {
         width: 2px;
       }
     }
-    .live-button{
+
+    .live-button {
       width: 20%;
       text-align: center;
-      span{
+
+      span {
         display: inline-block;
-        border-radius:12px;
-        border:1px solid rgba(75,178,246,1);
-        font-size:1rem;
-        font-family:PingFangSC-Regular,PingFangSC;
-        font-weight:400;
-        color:rgba(30,159,244,1);
-        padding: 3px 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(75, 178, 246, 1);
+        font-size: 1rem;
+        font-family: PingFangSC-Regular, PingFangSC;
+        font-weight: 400;
+        color: rgba(30, 159, 244, 1);
+        width: 60px;
+        height: 25px;
+        line-height: 23px;
       }
     }
-    .live-time{
+
+    .live-time {
       width: 60%;
-      font-size:12px;
-      font-family:PingFangSC-Regular,PingFangSC;
-      font-weight:400;
-      color:rgba(0,0,0,.4);
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFangSC;
+      font-weight: 400;
+      color: rgba(0, 0, 0, .4);
     }
-    .live-teacher{
+
+    .live-teacher {
     }
   }
 }

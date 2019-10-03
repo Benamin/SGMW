@@ -9,6 +9,8 @@ import {QIndexComponent} from './q-index/q-index';
 import {CheckCodeComponent} from './check-code/check-code';
 import {UpdateAppComponent} from './update-app/update-app';
 import {VideojsComponent} from "./videojs/videojs";
+import { SelectTeacherComponent } from './select-teacher/select-teacher';
+
 
 @NgModule({
     declarations: [
@@ -22,6 +24,8 @@ import {VideojsComponent} from "./videojs/videojs";
         CheckCodeComponent,
         UpdateAppComponent,
         VideojsComponent,
+        SelectTeacherComponent,
+
     ],
     imports: [
         IonicPageModule
@@ -37,7 +41,8 @@ import {VideojsComponent} from "./videojs/videojs";
         CheckCodeComponent,
         UpdateAppComponent,
         VideojsComponent,
-        VideojsComponent,
+        SelectTeacherComponent,
+
     ],
     providers: [
         CommentComponent,
@@ -52,6 +57,7 @@ import {VideojsComponent} from "./videojs/videojs";
         CheckCodeComponent,
         UpdateAppComponent,
         VideojsComponent,
+        SelectTeacherComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
