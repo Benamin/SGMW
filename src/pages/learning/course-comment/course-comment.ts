@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import {CommentComponent} from "../../../components/comment/comment";
 import {LearnService} from "../learn.service";
 import {CommonService} from "../../../core/common.service";
@@ -14,10 +14,8 @@ export class CourseCommentPage {
     list = [];
     starList = new Array(5);
 
-    teacherList = [
-        {HeadPhoto: null, UserName: '全部讲师'},
-    ];
-    selectTeacher = 0;
+    teacherList = [];
+    selectTeacher = null;
 
     page = {
         pageSize: 1000,
@@ -31,7 +29,8 @@ export class CourseCommentPage {
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private commonSer: CommonService,
-                private modalCtrl: ModalController, private learnSer: LearnService) {
+                private modalCtrl: ModalController, private learnSer: LearnService,
+                private loadCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
@@ -46,6 +45,8 @@ export class CourseCommentPage {
 
     //所有评论信息
     getList() {
+        const load = this.loadCtrl.create();
+        load.present();
         const data = {
             pageSize: this.page.pageSize,
             page: this.page.page,
@@ -54,6 +55,7 @@ export class CourseCommentPage {
         };
         this.learnSer.GetComment(data).subscribe(
             (res) => {
+                load.dismiss();
                 this.list = res.data.CommentItems;
                 this.page.total = res.data.TotalCount;
             }
@@ -76,6 +78,8 @@ export class CourseCommentPage {
 
     //讨论列表
     getTalkList() {
+        const load = this.loadCtrl.create();
+        load.present();
         const data = {
             pageSize: this.page.pageSize,
             page: this.page.page,
@@ -84,6 +88,7 @@ export class CourseCommentPage {
         }
         this.learnSer.GetTalkList(data).subscribe(
             (res) => {
+                load.dismiss();
                 this.list = res.data.CommentItems;
                 this.page.total = res.data.TotalCount;
             }
@@ -95,7 +100,7 @@ export class CourseCommentPage {
         let modal = this.modalCtrl.create(CommentComponent, {
             placeholder: '请输入评价',
             type: this.TopicType,
-            teacherList: this.teacherList.splice(0,1)
+            teacherList: this.teacherList
         });
         modal.onDidDismiss(res => {
             if (res) {
@@ -125,7 +130,7 @@ export class CourseCommentPage {
     //课程评价
     teacherHandle(res) {
         const data = {
-            TopicID: res.teacher,
+            TopicID: res.TopicID,
             Score: res.score,
             Contents: res.replyContent,
             TopicType: this.TopicType
@@ -157,7 +162,7 @@ export class CourseCommentPage {
     //选择讲师 --所有
     setTeacher(item, i) {
         this.selectTeacher = i;
-        if (i == 0) {
+        if (i == null) {
             this.getList();
             return;
         }

@@ -10,87 +10,70 @@
         </ion-refresher-content>
     </ion-refresher>
     <navbar [list]="navbarList" [select]="list.changeType" (done)="changeType($event)"></navbar>
-    <div *ngIf="list.changeType == 0" class="live-all">
-        <div class="live-all-item" *ngFor="let item of list.all" tappable (click)="goDetail(item)">
-            <div class="live-background">
-                <div class="live-img">
-                    <img [src]="item.ImageUrl">
+    <div class="live-all">
+        <ng-container *ngFor="let item of list.all">
+            <div *ngIf="list.changeType == 0" class="live-all-item "  tappable (click)="goDetail(item)">
+                <div class="live-background">
+                    <div class="live-img">
+                        <img [src]="item.ImageUrl">
+                    </div>
+                    <span *ngIf="item.IsLive == 0" class="live-status live-status-1">未开始</span>
+                    <span *ngIf="item.IsLive == 1" class="live-status live-status-2">直播中</span>
+                    <span *ngIf="item.IsLive == 2" class="live-status live-status-3">已结束</span>
+                    <p class="live-title">{{item.Title}}</p>
+                    <!--          <div class="live-teacher">-->
+                    <!--            <div>-->
+                    <!--              <img src="./assets/imgs/home/goodTeacher.png" alt="">-->
+                    <!--            </div>-->
+                    <!--            <div>秋国烟</div>-->
+                    <!--          </div>-->
                 </div>
-                <span *ngIf="item.IsLive == 0" class="live-status live-status-1">未开始</span>
-                <span *ngIf="item.IsLive == 1" class="live-status live-status-2">直播中</span>
-                <span *ngIf="item.IsLive == 2" class="live-status live-status-3">已结束</span>
-                <p class="live-title">{{item.Title}}</p>
-                <!--          <div class="live-teacher">-->
-                <!--            <div>-->
-                <!--              <img src="./assets/imgs/home/goodTeacher.png" alt="">-->
-                <!--            </div>-->
-                <!--            <div>秋国烟</div>-->
-                <!--          </div>-->
+                <div class="live-desc">
+                    <div class="live-more">
+                        <img src="./assets/imgs/live/live-more@3x.png" alt="">
+                    </div>
+                    <div class="live-button">
+                        <span *ngIf="item.IsBuy">看直播</span>
+                        <span tappable (click)="signProduct(item,$event)" *ngIf="!item.IsBuy">报名</span>
+                    </div>
+                    <div class="live-time">{{item.StartTime | date:'yyyy-MM-dd HH:mm'}}</div>
+                </div>
             </div>
-            <div class="live-desc">
-                <div class="live-more">
-                    <img src="./assets/imgs/live/live-more@3x.png" alt="">
+            <div *ngIf="item.IsToday && list.changeType == 1" class="live-all-item live-today-item"  tappable (click)="goDetail(item)">
+                <p>今天 {{item.StartTime | date:'HH:mm'}}</p>
+                <div class="live-background">
+                    <div class="live-img">
+                        <img [src]="item.ImageUrl">
+                    </div>
+                    <span *ngIf="item.IsLive == 0" class="live-status live-status-1">未开始</span>
+                    <span *ngIf="item.IsLive == 1" class="live-status live-status-2">直播中</span>
+                    <span *ngIf="item.IsLive == 2" class="live-status live-status-3">已结束</span>
+                    <p class="live-title">{{item.Title}}</p>
+                    <!--          <div class="live-teacher">-->
+                    <!--            <div>-->
+                    <!--              <img src="./assets/imgs/home/goodTeacher.png" alt="">-->
+                    <!--            </div>-->
+                    <!--            <div>秋国烟</div>-->
+                    <!--          </div>-->
                 </div>
-                <div class="live-button">
-                    <span>看直播</span>
+                <div class="live-desc">
+                    <div class="live-more">
+                        <img src="./assets/imgs/live/live-more@3x.png" alt="">
+                    </div>
+                    <div class="live-button">
+                        <span *ngIf="item.IsBuy">看直播</span>
+                        <span tappable (click)="signProduct(item,$event)" *ngIf="!item.IsBuy">报名</span>
+                    </div>
+                    <div class="live-time">{{item.StartTime | date:'yyyy-MM-dd HH:mm:ss'}}</div>
                 </div>
-                <div class="live-time">{{item.StartTime | date:'yyyy-MM-dd HH:mm:ss'}}</div>
             </div>
-        </div>
+        </ng-container>
         <ion-list text-center style="margin-top: 10rem" *ngIf="list.all.length == 0 && list.load">
             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
             <p text-center style="color: #666666;font-size: 16px">
                 暂无数据
             </p>
         </ion-list>
-        <!--      <div class="live-all-item">-->
-        <!--      <div class="live-background">-->
-        <!--        <div class="live-img">-->
-        <!--          <img src="./assets/imgs/live/live-default@3x.jpg" alt="">-->
-        <!--        </div>-->
-        <!--        <span class="live-status live-status-2">未开始</span>-->
-        <!--        <p class="live-title">汽车智能驾控的发展产品线规划 技术路径测试培训</p>-->
-        <!--        <div class="live-teacher">-->
-        <!--          <div>-->
-        <!--            <img src="./assets/imgs/home/goodTeacher.png" alt="">-->
-        <!--          </div>-->
-        <!--          <div>徐晓丽</div>-->
-        <!--        </div>-->
-        <!--      </div>-->
-        <!--      <div class="live-desc">-->
-        <!--        <div class="live-more">-->
-        <!--          <img src="./assets/imgs/live/live-more@3x.png" alt="">-->
-        <!--        </div>-->
-        <!--        <div class="live-button">-->
-        <!--          <span>看直播</span>-->
-        <!--        </div>-->
-        <!--        <div class="live-time">2019-08-09 16:23</div>-->
-        <!--      </div>-->
-        <!--    </div>-->
-        <!--      <div class="live-all-item">-->
-        <!--      <div class="live-background">-->
-        <!--        <div class="live-img">-->
-        <!--          <img src="./assets/imgs/live/live-default@3x.jpg" alt="">-->
-        <!--        </div>-->
-        <!--        <span class="live-status live-status-3">已结束</span>-->
-        <!--        <p class="live-title">汽车智能驾控的发展产品线规划 技术路径测试培训</p>-->
-        <!--        <div class="live-teacher">-->
-        <!--          <div>-->
-        <!--            <img src="./assets/imgs/home/goodTeacher.png" alt="">-->
-        <!--          </div>-->
-        <!--          <div>陈斌建</div>-->
-        <!--        </div>-->
-        <!--      </div>-->
-        <!--      <div class="live-desc">-->
-        <!--        <div class="live-more">-->
-        <!--          <img src="./assets/imgs/live/live-more@3x.png" alt="">-->
-        <!--        </div>-->
-        <!--        <div class="live-button">-->
-        <!--          <span>看直播</span>-->
-        <!--        </div>-->
-        <!--        <div class="live-time">2019-08-09 16:23</div>-->
-        <!--      </div>-->
-        <!--    </div>-->
     </div>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content
@@ -98,3 +81,8 @@
                 loadingText="加载中"></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content>
+
+<div *ngIf="signObj.isSign" class="sign">
+    <img src="./assets/imgs/course/sign-success.png">
+    <p>报名成功</p>
+</div>

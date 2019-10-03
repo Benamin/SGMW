@@ -4,6 +4,7 @@ import {LearnService} from "../../learning/learn.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {timer} from "rxjs/observable/timer";
 import {DatePipe} from "@angular/common";
+import {CommonService} from "../../../core/common.service";
 
 @Component({
     selector: 'page-live',
@@ -13,7 +14,8 @@ export class LivePage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private learnSer: LearnService, private datePipe: DatePipe,
-                public loadCtrl: LoadingController) {
+                public loadCtrl: LoadingController, private learSer: LearnService,
+                private commonSer: CommonService) {
     }
 
     navbarList = [
@@ -39,6 +41,10 @@ export class LivePage {
         changeType: 0
     };
 
+    signObj = {
+        isSign: false,
+    };
+
     ionViewDidLoad() {
         this.getList();
         this.list.nowDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
@@ -47,7 +53,6 @@ export class LivePage {
     }
 
     changeType(e) {
-        console.log(e);
         this.list.changeType = e.type;
     }
 
@@ -115,6 +120,24 @@ export class LivePage {
                 this.list.all = this.list.all.concat(this.formatList(res.data.ProductList));
                 this.page.TotalCount = res.data.TotalCount;
                 e.complete();
+            }
+        )
+    }
+
+    //课程报名
+    signProduct(item, e) {
+        e.stopPropagation();
+        const data = {
+            pid: item.Id
+        };
+        this.learSer.BuyProduct(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.signObj.isSign = true;
+                    timer(1000).subscribe(() => this.signObj.isSign = false);
+                } else {
+                    this.commonSer.toast(res.message);
+                }
             }
         )
     }
