@@ -35,7 +35,10 @@
                 </p>
                 <p *ngIf="page.StudyState == 3">
                     <span class="examScore">
-                        <img src="./assets/imgs/mine/exam-submit.png">考试得分：{{item.PaperScore}}
+                        <img src="./assets/imgs/mine/exam-submit.png">考试得分：
+                        <ng-container *ngIf="item.PaperScore == item.TotalScore">{{item.TotalScore}}</ng-container>
+                        <ng-container *ngIf="item.TotalScore < item.PaperScore *0.6"> <span
+                                style="color: #C3190F">{{item.PaperScore}}/不及格</span></ng-container>
                     </span>
                     <span class="examTime">提交时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
                 </p>

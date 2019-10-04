@@ -3,11 +3,12 @@ page-exam {
     position: relative;
 
     .examScore {
-      font-size: 15px;
+      font-size: 15px !important;
+      line-height: 15px !important;
       img {
         width: 16px;
         height: 16px;
-        vertical-align: sub;
+        vertical-align: top;
       }
     }
   }
