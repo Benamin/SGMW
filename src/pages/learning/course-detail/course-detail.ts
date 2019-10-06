@@ -223,7 +223,7 @@ export class CourseDetailPage {
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
         } else {
-            this.fileSer.downloadFile(this.files[0].fileUrl, this.files[0].filename);
+            this.fileSer.viewFile(this.files[0].fileUrl, this.files[0].filename);
         }
         loading.dismiss();
     }

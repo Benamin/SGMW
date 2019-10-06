@@ -57,7 +57,7 @@ export class TreeListComponent {
             }
             if (file.icon.includes('pdf')) this.openPDF(file);
             if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
-                this.fileSer.downloadFile(file.fileUrl, file.filename);
+                this.fileSer.viewFile(file.fileUrl, file.filename);
             }
         } else {
             this.isSign = true;

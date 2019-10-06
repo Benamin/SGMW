@@ -1,3 +1,18 @@
 page-view-file {
-
+  .viewFile{
+    position: relative;
+    ion-icon{
+      top: 15px;
+      font-size: 40px;
+      z-index: 999;
+      font-weight: bold;
+      color: #666666;
+    }
+    ion-icon[name="add"]{
+      right: 15px;
+    }
+    ion-icon[name="remove"]{
+      left: 15px;
+    }
+  }
 }
