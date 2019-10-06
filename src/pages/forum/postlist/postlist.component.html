@@ -1,7 +1,9 @@
-<ion-header>
+<ion-header class="forum-header">
   <ion-navbar>
     <ion-title></ion-title>
+    
   </ion-navbar>
+  <img (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
 <ion-content>
     <ion-refresher (ionRefresh)="doRefresh($event)">

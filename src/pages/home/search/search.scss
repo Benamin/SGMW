@@ -213,5 +213,60 @@ page-search {
         }
     }
 }
+.topicplate-div{
+ .list{
+  display: flex;
+  padding: 0 15px;
+  padding-top: 15px;
+  .img-div{
+      width: 100px;
+      flex-shrink: 0;
+      border-radius: 5px;
+      overflow: hidden;
+      height: 80px;
+      background: #f7f7f7;
+      img{
+          width: 100%;
+      }
+  }
+  .text{
+      margin-left: 20px;
+      flex: 1;
+      .number-text{
+          position: relative;
+      }
+      .text-l{
+          font-size: 16px;
+          display: -webkit-box;
+          word-break: break-all;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          padding-right: 60px;
+      }
+  
 
+      .text-r{
+          color: #868686;
+          margin-left:10px; 
+          font-size: 12px;
+              position: absolute;
+              
+      right: 0;
+      top: 3px;
+      }
+      p{
+          margin-top: 15px;
+          line-height: 17px;
+          color: #868686;
+          font-size: 12px;
+          display: -webkit-box;
+          word-break: break-all;
+          text-overflow: ellipsis;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+      }
+  }
+}
+}
 }

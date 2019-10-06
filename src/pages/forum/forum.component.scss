@@ -1,4 +1,16 @@
 page-forum{
+    .forum-header{
+        img{
+            position: absolute;
+            right: 25px;
+            top: 12px;
+            width: 20px;
+        }
+        div{
+
+          background:   #343435;
+        }
+    }
     .left-bg{
         background: #fff;
         h3{
@@ -8,6 +20,7 @@ page-forum{
         font-weight: 700;
         padding-left: 15px;
       }
+
       h3::before{
         content: " ";
         display: block;
@@ -19,6 +32,9 @@ page-forum{
         margin-top: 10px;
         background: -webkit-linear-gradient(#FFF7CB, #FFC92D);
       }
+      .more{
+          font-size: 18px;
+        }
     }
     .history{
         margin-bottom:20px; 
@@ -76,13 +92,28 @@ page-forum{
             }
             .text{
                 margin-left: 20px;
+                flex: 1;
+                .number-text{
+                    position: relative;
+                }
                 .text-l{
                     font-size: 16px;
+                    display: -webkit-box;
+                    word-break: break-all;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    padding-right: 60px;
                 }
+            
+
                 .text-r{
                     color: #868686;
                     margin-left:10px; 
                     font-size: 12px;
+                        position: absolute;
+                        
+                right: 0;
+                top: 3px;
                 }
                 p{
                     margin-top: 15px;

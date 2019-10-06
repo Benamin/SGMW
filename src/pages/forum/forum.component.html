@@ -1,10 +1,15 @@
 
-<ion-header>
+<ion-header class="forum-header">
     <ion-navbar>
         <ion-title>论坛</ion-title>
     </ion-navbar>
+      <img (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
 <ion-content >
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
   <div class="history" *ngIf="ForumHistory.length>0">
     <div class="left-bg">
       <h3>最近浏览</h3>
@@ -24,7 +29,7 @@
   </div>
   <div class="more-com">
       <div class="left-bg">
-        <h3>更多专区</h3>
+        <h3 class="more">更多专区</h3>
       </div>
       <div class="con-div" *ngFor="let item of forumLIst" (click)="goPostlist(item)">
           <div class="list">
@@ -32,8 +37,8 @@
                   <img [src]="item.CoverImage" alt="">
               </div>
               <div class="text">
-                <div>
-                  <span  class="text-l">{{item.Name}}</span>
+                <div class="number-text">
+                  <span class="text-l" style="-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{item.Name}}</span>
                   <span class="text-r">[{{item.PostCount}}条帖子]</span>
                 </div>
                 <p style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
