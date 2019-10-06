@@ -89,13 +89,14 @@ export class NumberOne {
   };
 
   // 查看案例详情
-  // goComponentsdetails(data) {
-  //   this.navCtrl.push(NumberOneDetailsComponent, { data: data });
-  // }
+  goComponentsdetailsOne(data) {
+    data['Id']=data['ID'];
+    this.navCtrl.push(NumberOneDetailsComponent, { data: data });
+  }
   goComponentsdetails(data){
     data['GetNewsList']='xsal';
     this.navCtrl.push(Componentsdetails,{data:data});
-}
+  }
 
   // 请求数据
   getData() {

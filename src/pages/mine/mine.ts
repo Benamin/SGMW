@@ -15,7 +15,9 @@ import {AppVersion} from "@ionic-native/app-version";
 import {LogoutService} from "../../secret/logout.service";
 import {CommonService} from "../../core/common.service";
 import {MyForumComponent} from "./my-forum/my-forum.component";
+import {MyFollowsComponent} from './my-follows/my-follows.component';
 import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
+
 
 @Component({
     selector: 'page-mine',
@@ -102,6 +104,11 @@ export class MinePage {
     // 我的帖子
     goMyForum(){
         this.navCtrl.push(MyForumComponent);
+    }
+
+    // 我的关注
+    goMyFollowsComponent(){
+        this.navCtrl.push(MyFollowsComponent);
     }
 
     // 我的点赞

@@ -1,52 +1,120 @@
-page-my-forum{
-    .toolbar-background.toolbar-background-ios{
+page-my-follows {
+    background: #fff;
+
+    .toolbar-background.toolbar-background-ios {
         background-color: #343435;
-      }
-    .navul{
-        background: #fff;
+    }
+
+    .navul {
         // background: red;
+        background: white;
         display: flex;
-        .navli{
-          flex:1;
-          text-align: center;
-          position: relative; 
-          padding: 10px;
-          color: rgba(0,0,0,0.6);
-          transition: all 0.2s;
+
+        .navli {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            padding: 10px;
+            color: rgba(0, 0, 0, 0.6);
+            transition: all 0.2s;
         }
-        .navli::before{
-          background: linear-gradient(-90deg, #fff, #fff);
+
+        .navli::before {
+            background: linear-gradient(-90deg, #fff, #fff);
         }
-        .act{
-          color: rgba(0,0,0,1);
-          transition: all 0.2s;
+
+        .act {
+            color: rgba(0, 0, 0, 1);
+            transition: all 0.2s;
         }
-        .act::before{
-          content: " ";
-          display: block;
-          position: absolute;
-          width: 28px;
-          height: 4px;
-          margin-left: -10px;
-          left: 50%;
-          bottom: 0px;
-          transition: all 0.2s;
-          background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-          background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-          background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-          background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
-          border-radius: 2px;
+
+        .act::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 28px;
+            height: 4px;
+            margin-left: -10px;
+            left: 50%;
+            bottom: 0px;
+            transition: all 0.2s;
+            background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            border-radius: 2px;
         }
-      }
-      .content-div{
-          padding-top: 5px;
-      }
-      .post-introduction {
+    }
+
+    .content-div {
+        padding-top: 5px;
+    }
+
+    .subscribe-div {
+        background: #fff;
+        margin-top: 15px;
+    }
+
+    .GetSubscribeList {
+        border-bottom: 1px solid #E5E5E5;
+        margin-left: 20px;
+        padding-right: 20px;
+    }
+
+    .Head {
+        padding-bottom: 10px;
+        padding-top: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+        }
+        .name{
+            flex: 1;
+            margin-left: 15px;
+            div:nth-child(1){
+                font-size: 14px;
+                font-weight: 700;
+            }
+            div:nth-child(2){
+                font-size: 12px;
+                font-weight: 500;
+                color: #757575;
+            }
+        }
+ 
+    }
+    .stae{
+        width: 60px;
+    background: #CCCCCC;
+    height: 24px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    font-size: 12px;
+    }
+    .Remark{
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        margin-bottom: 15px;
+    }
+
+    .post-introduction {
         padding: 0 15px;
         background: #fff;
         padding-top: 20px;
         margin-bottom: 10px;
         margin-top: 10px;
+
         .post-introduction-top {
             display: flex;
             align-items: center;
@@ -55,13 +123,16 @@ page-my-forum{
                 width: 28px;
                 height: 28px;
             }
-            .edit-img,.del-img{
-                img{
+
+            .edit-img,
+            .del-img {
+                img {
                     width: 16px;
                     height: 16px;
                 }
             }
-            .del-img{
+
+            .del-img {
                 margin-left: 15px;
             }
 
@@ -163,50 +234,5 @@ page-my-forum{
                 align-items: center;
             }
         }
-        }
-.isOk{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: #bfbfbf;
-    display: flex;
-    align-items:center;
-    justify-content:center;
-    z-index: 99;
-    background: rgba(0, 0, 0, 0.2);
-    text-align: center;
-    .isOk-con{
-        overflow: hidden;
-        width: 200px;
-        height: 100px;
-        background: #fff;
-        border-radius: 10px;
     }
-    .text-div{
-        height: 60px;
-        align-items:center;
-        justify-content:center;
-        display: flex;
-    }
-  
-    .btn-div{
-        display: flex;
-        align-items:center;
-        text-align: center;
-        div{
-            align-items:center;
-            justify-content:center;
-            display: flex;
-            flex: 1;
-            height: 40px;
-        }
-        .del-no{
-            background: #e0e0e0;
-        }
-        .del-ok{
-            background: #79c0ff;
-        }
-    }
-}
-
 }

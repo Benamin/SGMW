@@ -2,8 +2,15 @@
     <ion-navbar>
         <ion-title>资讯中心</ion-title>
     </ion-navbar>
-    <ion-header-bar>
-        <div class="navul" #navul>
+</ion-header>
+
+
+<ion-content style="background: #fff;">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="navul" #navul>
             <div class="navli" [ngClass]="{'act': navli=='新车资讯'}" (click)="switchInformation('新车资讯')">
                 新车资讯
             </div>
@@ -13,16 +20,7 @@
             <div class="navli" [ngClass]="{'act': navli=='培训资讯'}" (click)="switchInformation('培训资讯')">
                 培训资讯
             </div>
-        </div>
-    </ion-header-bar>
-</ion-header>
-
-
-<ion-content style="background: #fff;">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
-        </ion-refresher-content>
-    </ion-refresher>
+    </div>
     <div class="information-ul">
         <div *ngIf="no_list" style="text-align: center;color: #737373;padding-top: 100px;">暂无数据</div>
         <ng-container *ngFor="let item of dataList">
