@@ -228,7 +228,12 @@ export class ForumService {
   Upload_UploadFiles(formData){
    return new Promise((resolve, reject) => {
       var oReq = new XMLHttpRequest();
-      oReq.open("POST", "/api/Upload/UploadFiles", true);
+
+      // export const UploadFilesSERVER_API_URL = '/api';
+      const UploadFilesSERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';
+      // export const UploadFilesSERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api';
+
+      oReq.open("POST", UploadFilesSERVER_API_URL+"/Upload/UploadFiles", true);
       oReq.onload = function(oEvent:any) {
         if (oReq.status == 200) {
           resolve( JSON.parse(oEvent.currentTarget.responseText));
