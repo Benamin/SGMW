@@ -38,6 +38,9 @@ page-forum{
     }
     .history{
         margin-bottom:20px; 
+        h3{
+            font-size: 18px;
+        }
     }
     .list-con{
         background: #fff;
@@ -58,11 +61,18 @@ page-forum{
                 height: 70px;
             }
             .text{
+                flex: 1;
                 h4{
                     font-weight: 700;
                     font-size: 16px;
                     margin-top: 14px;
                     line-height: 16px;
+                    display: -webkit-box;
+                    word-break: break-all;
+                    text-overflow: ellipsis;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    overflow: hidden;
                 }
                 p{
                     color: #868686;

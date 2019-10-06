@@ -12,7 +12,9 @@ export class ViewReplyComponent implements OnInit {
   data = { Id: "",PostId:"" };
   constructor(
     private serve: ForumService,
-    public navParams: NavParams, ) { }
+    public navParams: NavParams, 
+    private navCtrl: NavController,
+    ) { }
 
   ngOnInit() {
     this.data = this.navParams.get('data');
@@ -37,8 +39,11 @@ export class ViewReplyComponent implements OnInit {
       "MentionUser": "丁林玲",//回复用户的 loginName
       "CurrentUser":"丁林玲"
     }
-    this.serve.replycomment_add(data).subscribe(res => { 
+    this.serve.replycomment_add(data).subscribe((res:any) => { 
       console.log(res);
+      if(res.code==200){
+        this.navCtrl.pop();
+      }
     });
   }
 

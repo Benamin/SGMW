@@ -14,7 +14,7 @@ export class PostlistComponent implements OnInit {
   IsTopOpt=null;
   pageDate:any={
     creater: "",
-    pageIndex: 0,
+    pageIndex: 1,
     pageSize: 10,
     status: 2,
     title: "",

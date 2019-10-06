@@ -48,6 +48,10 @@ export class PostsContentComponent implements OnInit {
     this.forum_post_publish();
   }
 
+  ionViewDidEnter(){
+    this.reasizeData();
+  }
+
   textareaclick() {
     this.textareaBlur = true;
     let textDiv: HTMLElement = document.getElementById('textareainp');
