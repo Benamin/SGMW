@@ -35,26 +35,9 @@ export class PostlistComponent implements OnInit {
   ngOnInit() {
     this.lidata = this.navParams.get('data');
     this.pageDate.topicPlateId=this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
-    this.getUser();
+    this.forum_post_search();
   }
 
-  // this.forum_post_search();
-  // 获取指定用户发布的帖子
-  getUser(){
-    this.pageDate={
-      creater: "丁林玲",
-      pageIndex: 1,
-      pageSize: 10,
-      status: 2,
-      title: "",
-      // topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
-      total: 111,
-      OrderBy:'PostTimeFormatted',
-      OrderByDirection:'desc'
-    }
-      this.forum_post_search();
-  }
-  
 
   // 我收藏的帖子
   myfavorites(){

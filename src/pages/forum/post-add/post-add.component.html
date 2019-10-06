@@ -23,7 +23,7 @@
     </div>
   </div>
 </ion-content>
-<div class="buttom-div">
+<div class="buttom-div" [ngClass]="{'ame-r': ameR}">
   <div class="img-div">
     <div class="can-img" *ngFor="let item of imgitems" (click)="editimg(item)">
       <img src="{{item.src}}" alt="">
@@ -37,8 +37,8 @@
   </div>
   <input type="file" id="pic_selector" (change)="uploadFile($event)" accept="image/*" multiple />
   <div class="bun-buttom">
-    <span class="describe">
-      点击图片编辑描述
+    <span class="describe" [ngStyle]="{'opacity': imgitems.length>0?1:0}">
+        点击图片编辑描述
     </span>
     <div></div>
     <span class="seve-draft" (click)="forum_post_add(false)">

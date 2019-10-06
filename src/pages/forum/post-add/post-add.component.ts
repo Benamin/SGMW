@@ -43,8 +43,9 @@ export class PostAddComponent implements OnInit {
   }
 
 
-
+  ameR=false; 
   backPop(){
+    this.ameR=true;
     this.navCtrl.pop();
   }
 

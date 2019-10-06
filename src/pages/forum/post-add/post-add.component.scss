@@ -58,8 +58,11 @@ page-post-add {
         z-index: 6;
         width: 100%;
         padding-left: 20px;
+        transition: all 0.2s;
     }
-
+    .ame-r{
+        transform: translate(100%,0%);
+    }
     .img-div {
         display: flex;
         overflow: auto;
@@ -222,4 +225,5 @@ page-post-add {
             width: 45px;
         }
     }
+
 }
