@@ -26,7 +26,7 @@
       <div class="reply-top">
         <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
         <div class="text">
-          <h4>{{item.MentionUserName}}<span *ngIf="item.MentionUserName==data.PosterUserName" class="label">楼主</span></h4>
+          <h4>{{item.PosterUserName}}<span *ngIf="item.MentionUserName==data.PosterUserName" class="label">楼主</span></h4>
           <p>{{item.CommentTimeFormatted|date : 'yyyy-MM-dd hh:mm'}}</p>
         </div>
         <div class="comment">

@@ -16,7 +16,7 @@ export class MyForumComponent implements OnInit {
   forumLIst = [];
   pageDate={
     creater: "丁林玲",
-    pageIndex: 0,
+    pageIndex: 1,
     pageSize: 10,
     status: 2,
     title: "",
@@ -36,7 +36,7 @@ export class MyForumComponent implements OnInit {
   switchInformation(text,number) {
     this.navli = text;
     this.navli=text;
-    this.pageDate.pageIndex=0;
+    this.pageDate.pageIndex=1;
     this.pageDate.status=number;
     this.forumLIst=[];
     this.getData();
@@ -81,7 +81,7 @@ export class MyForumComponent implements OnInit {
   // 获取数据
   getData() {
     let loading = null;
-    if(this.pageDate.pageIndex==0){
+    if(this.pageDate.pageIndex==1){
       loading = this.loadCtrl.create({
         content:''
       });
@@ -89,7 +89,7 @@ export class MyForumComponent implements OnInit {
     }
     this.serve.forum_post_search(this.pageDate).subscribe((res:any) => {
       console.log('板块列表',res);
-      if(this.pageDate.pageIndex==0){
+      if(this.pageDate.pageIndex==1){
         loading.dismiss();
       }
       if(!res.data){
@@ -104,7 +104,7 @@ export class MyForumComponent implements OnInit {
       }
       this.forumLIst = this.forumLIst.concat(arr);
       this.serve.listSplice(this.forumLIst);
-      this.no_list= this.forumLIst.length == 0 ? true:false;
+  
     });
   }
 
@@ -119,7 +119,7 @@ export class MyForumComponent implements OnInit {
   }
   doRefresh(e){
     console.log('刷新')
-    this.pageDate.pageIndex=0;
+    this.pageDate.pageIndex=1;
     this.forumLIst=[];
     this.getData();
     setTimeout(() => {
