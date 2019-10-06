@@ -169,7 +169,6 @@ page-course-comment {
     line-height: 30px;
     display: inline-block;
     padding: 2px 8px;
-    margin-right: 10px;
 
     .flex-teacher {
       display: flex;
@@ -195,7 +194,7 @@ page-course-comment {
 
   div.teacher-item:first-child,
   div.teacher-item:last-child {
-    margin-left: 20px;
+    margin-left: 10px;
   }
 
   .teacher-item-select {

@@ -28,7 +28,7 @@ export class LivePage {
         pageSize: 10,
         TotalCount: 0,
         OrderBy: "StartTime",
-        Category: 'zb',
+        Category: 'xslb',
         IsAsc: "true"
     };
 

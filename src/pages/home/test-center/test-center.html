@@ -21,7 +21,7 @@
                     </div>
                     <div class="test-item-desc">
                         <p class="courseName">{{item.EName}}</p>
-                        <p class="eName"><img src="./assets/imgs/tabs/tab3_off@3x.png">{{item.EName}}</p>
+                        <p class="eName"><img src="./assets/imgs/test/cate@3x.png">{{item.EName}}</p>
                     </div>
                     <div *ngIf="page.StudyState == 3" class="test-leave">
                         <img *ngIf="item.TotalScore < item.PaperScore *0.6" src="./assets/imgs/test/bad@2x.png">
@@ -36,7 +36,7 @@
                 <p *ngIf="page.StudyState == 3">
                     <span class="examScore">
                         <img src="./assets/imgs/mine/exam-submit.png">考试得分：
-                        <ng-container *ngIf="item.PaperScore == item.TotalScore">{{item.TotalScore}}</ng-container>
+                        <ng-container *ngIf="item.PaperScore == item.TotalScore">{{item.TotalScoreion}}</ng-container>
                         <ng-container *ngIf="item.TotalScore < item.PaperScore *0.6"> <span
                                 style="color: #C3190F">{{item.PaperScore}}/不及格</span></ng-container>
                     </span>
