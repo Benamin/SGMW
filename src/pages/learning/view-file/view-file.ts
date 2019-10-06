@@ -11,6 +11,7 @@ export class ViewFilePage {
 
     displayData: any = {};
     totalPage;
+    currentZoom = 1;
     uploadLoading;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private commerSer: CommonService,
@@ -47,6 +48,12 @@ export class ViewFilePage {
     //加载出错
     onError(ev) {
         this.commerSer.alert(JSON.stringify(ev));
+    }
+
+    //放大or缩小
+    changeZoom(type){
+        if(type == "add") this.currentZoom += 0.2;
+        if(type == "remove") this.currentZoom -= 0.2;
     }
 
 }

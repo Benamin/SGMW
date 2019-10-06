@@ -10,11 +10,13 @@
     </ion-navbar>
 
 </ion-header>
-<ion-content padding>
+<ion-content padding class="viewFile">
+    <ion-icon ion-fixed name="add" tappable (click)="changeZoom('add')"></ion-icon>
+    <ion-icon ion-fixed name="remove" tappable (click)="changeZoom('remove')"></ion-icon>
     <pdf-viewer [src]="displayData.pdfSource"
                 [show-all]="true"
                 [original-size]="false"
-                [zoom]=1
+                [zoom]="currentZoom"
                 [render-text]="false"
                 [autoresize]="true"
                 (error)="onError($event)"
