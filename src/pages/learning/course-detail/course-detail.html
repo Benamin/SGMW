@@ -9,7 +9,7 @@
         <div class="background-image">
             <img [src]="product.detail?.ImageUrl" alt="">
         </div>
-        <div class="content" *ngIf="!product.videoPath">
+        <div class="content" *ngIf="product.videoSrc == null">
             <div class="content-info">
                 <div class="course-name">
                     {{product.detail?.Title}}
@@ -20,13 +20,8 @@
                 </div>
             </div>
         </div>
-        <div class="content video" [hidden]="!product.videoPath">
-            <video #video playsinline (canplaythrough)="startPlay($event)" width="100%" autoplay height="100%"
-                   poster="{{product.chapter?.Course?.CoverUrl}}"
-                   controls="controls">
-                <source [src]="product.videoPath">
-                您的浏览器不支持 html5。
-            </video>
+        <div id="videoTag" class="content video" [hidden]="product.videoSrc == null">
+            <videojs [src]="product.videoSrc" [poster]="product.videoPoster" ></videojs>
         </div>
     </div>
     <!--    <navbar #navbar [list]="navbarList" (done)="getNavbar($event)"></navbar>-->
