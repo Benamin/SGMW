@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage} from 'ionic-angular';
-import { NavController, NavParams} from "ionic-angular";
+import { NavController, NavParams,LoadingController} from "ionic-angular";
 import { Componentsdetails } from './componentsdetails/componentsdetails.component';
 import {ConsultationService} from './consultation.service';
 @IonicPage()
@@ -27,16 +27,25 @@ export class ConsultationPage {
     dataList=[];
     isdoInfinite=true;
     no_list=false;
-
-    constructor(private navCtrl:NavController,public navParams: NavParams,private serve:ConsultationService){
+    loading=null;
+    constructor(private navCtrl:NavController,
+        public navParams: NavParams,
+        private serve:ConsultationService,
+        private loadCtrl: LoadingController){
     }
     ngOnInit(): void {
         //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
         //Add 'implements OnInit' to the class.
         // this.getData();
+ 
         this.GetDictionaryByPCode();
     }
     GetDictionaryByPCode(){
+      
+        this.loading = this.loadCtrl.create({
+            content: '加载中...'
+        });
+        this.loading.present();
         this.serve.GetDictionaryByPCode().subscribe(res => {
             console.log('新闻列表',res);
             res.data.forEach(element => {
@@ -52,7 +61,7 @@ export class ConsultationPage {
         this.dataList=[];
         this.dataPost.TypeID=this.navliopt[title];
         this.dataPost.page=1;
-        this.getData();
+        this.loading.present();
     }
     
     goComponentsdetails(data){
@@ -87,7 +96,7 @@ export class ConsultationPage {
     }
     doRefresh(e){
         console.log('刷新')
-        this.dataPost.page=0;
+        this.dataPost.page=1;
         this.dataList=[];
         this.getData();
         setTimeout(() => {

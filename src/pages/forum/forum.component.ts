@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LoadingController, NavController, Slides} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {ForumService} from './forum.service';
-
+import {SearchPage} from "../home/search/search";
 import { PostlistComponent } from './postlist/postlist.component';
 import {PostsContentComponent} from './posts-content/posts-content.component';
 import {ViewReplyComponent} from './view-reply/view-reply.component';
@@ -24,6 +24,7 @@ export class ForumPage implements OnInit {
     pageSize: 10,
     total: 0,
   }
+  ForumHistory=[];
 
   constructor(public navCtrl: NavController,private serve:ForumService,private storage: Storage) {
   }
@@ -34,6 +35,10 @@ export class ForumPage implements OnInit {
     // this.showViewReply()
     this.getHistory();
     // this.PostAddComponent();
+  }
+  ionViewDidEnter(){
+    this.forum_topicplate_search();
+    this.getHistory();
   }
   // 前往 评论列表
   showViewReply(){
@@ -62,7 +67,7 @@ export class ForumPage implements OnInit {
         }
       });
     }
-    arr.length = arr.length>2?2:arr.length;
+    arr.length = arr.length>6?6:arr.length;
     window.localStorage.setItem('userForumHistory', JSON.stringify(arr));
     this.navCtrl.push(PostlistComponent,{data:data});
   }
@@ -92,16 +97,30 @@ export class ForumPage implements OnInit {
     })
   }
 
-  ForumHistory=[];
   // 获取 浏览历史 数据
   getHistory(){
     let userForumHistory:any= window.localStorage.getItem('userForumHistory');
     if(userForumHistory){
       this.ForumHistory=JSON.parse(userForumHistory);
+    }else{
+      this.ForumHistory=[];
     }
     console.log('历史记录',this.ForumHistory)
   }
+  doRefresh(e){
+    console.log('刷新')
+    this.pageDate.pageIndex=1;
+    this.forumLIst=[];
+    this.getHistory();
+    this.forum_topicplate_search();
+    setTimeout(() => {
+        e.complete();
+    }, 1000);
+  }
 
+  goToSearch() {
+    this.navCtrl.push(SearchPage,{type:'论坛'});
+  }
 
 
 

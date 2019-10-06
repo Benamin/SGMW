@@ -4,6 +4,7 @@ import { NavParams} from "ionic-angular";
 import {ForumService} from '../forum.service';
 import {PostsContentComponent} from '../posts-content/posts-content.component';
 import {PostAddComponent} from '../post-add/post-add.component';
+import {SearchPage} from "../../home/search/search";
 @Component({
   selector: 'page-postlist',
   templateUrl: './postlist.component.html'
@@ -42,7 +43,7 @@ export class PostlistComponent implements OnInit {
   getUser(){
     this.pageDate={
       creater: "丁林玲",
-      pageIndex: 0,
+      pageIndex: 1,
       pageSize: 10,
       status: 2,
       title: "",
@@ -57,7 +58,7 @@ export class PostlistComponent implements OnInit {
 
   // 我收藏的帖子
   myfavorites(){
-    this.serve.myfavorites({"PageIndex": 0,"PageSize": 10}).subscribe(res => {
+    this.serve.myfavorites({"PageIndex": 1,"PageSize": 10}).subscribe(res => {
       console.log('我收藏的帖子',res)
     })
   }
@@ -75,7 +76,7 @@ export class PostlistComponent implements OnInit {
   avtNav(type){
     this.isdoInfinite=true;
     this.forumLIst = [];
-    this.pageDate.pageIndex=0;
+    this.pageDate.pageIndex=1;
     this.pageDate.OrderBy=type;
 
     this.forum_post_search();
@@ -84,7 +85,7 @@ export class PostlistComponent implements OnInit {
   // 获取帖子列表
   forum_post_search(){
     let loading = null;
-    if(this.pageDate.PageIndex==0){
+    if(this.pageDate.PageIndex==1){
       loading = this.loadCtrl.create({
         content:''
       });
@@ -92,7 +93,7 @@ export class PostlistComponent implements OnInit {
     }
     this.serve.forum_post_search(this.pageDate).subscribe((res:any) => {
       console.log('板块列表',res);
-      if(this.pageDate.PageIndex==0){
+      if(this.pageDate.PageIndex==1){
         loading.dismiss();
       }
       if(!res.data){
@@ -134,11 +135,15 @@ export class PostlistComponent implements OnInit {
 
   doRefresh(e){
     console.log('刷新')
-    this.pageDate.page=0;
+    this.pageDate.page=1;
     this.forumLIst=[];
     this.forum_post_search();
     setTimeout(() => {
         e.complete();
     }, 1000);
+  }
+
+  goToSearch() {
+    this.navCtrl.push(SearchPage,{type:'论坛'});
   }
 }
