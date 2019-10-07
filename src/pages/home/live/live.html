@@ -21,12 +21,12 @@
                     <span *ngIf="item.IsLive == 1" class="live-status live-status-2">直播中</span>
                     <span *ngIf="item.IsLive == 2" class="live-status live-status-3">已结束</span>
                     <p class="live-title">{{item.Title}}</p>
-                    <!--          <div class="live-teacher">-->
-                    <!--            <div>-->
-                    <!--              <img src="./assets/imgs/home/goodTeacher.png" alt="">-->
-                    <!--            </div>-->
-                    <!--            <div>秋国烟</div>-->
-                    <!--          </div>-->
+                              <div class="live-teacher">
+                                <div>
+                                  <img [src]="item.UserImage || defaultPhoto" alt="">
+                                </div>
+                                <div>{{item.UserName}}</div>
+                              </div>
                 </div>
                 <div class="live-desc">
                     <div class="live-more">
@@ -39,7 +39,7 @@
                     <div class="live-time">{{item.StartTime | date:'yyyy-MM-dd HH:mm'}}</div>
                 </div>
             </div>
-            <div *ngIf="item.IsToday && list.changeType == 1" class="live-all-item live-today-item"  tappable (click)="goDetail(item)">
+            <div *ngIf="list.changeType == 1" class="live-all-item live-today-item"  tappable (click)="goDetail(item)">
                 <p>今天 {{item.StartTime | date:'HH:mm'}}</p>
                 <div class="live-background">
                     <div class="live-img">
@@ -49,12 +49,12 @@
                     <span *ngIf="item.IsLive == 1" class="live-status live-status-2">直播中</span>
                     <span *ngIf="item.IsLive == 2" class="live-status live-status-3">已结束</span>
                     <p class="live-title">{{item.Title}}</p>
-                    <!--          <div class="live-teacher">-->
-                    <!--            <div>-->
-                    <!--              <img src="./assets/imgs/home/goodTeacher.png" alt="">-->
-                    <!--            </div>-->
-                    <!--            <div>秋国烟</div>-->
-                    <!--          </div>-->
+                              <div class="live-teacher">
+                                  <div>
+                                      <img [src]="item.UserImage || defaultPhoto" alt="">
+                                  </div>
+                                  <div>{{item.UserName}}</div>
+                              </div>
                 </div>
                 <div class="live-desc">
                     <div class="live-more">

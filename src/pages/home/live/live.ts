@@ -5,6 +5,7 @@ import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {timer} from "rxjs/observable/timer";
 import {DatePipe} from "@angular/common";
 import {CommonService} from "../../../core/common.service";
+import {defaultHeadPhoto} from "../../../app/app.constants";
 
 @Component({
     selector: 'page-live',
@@ -28,8 +29,9 @@ export class LivePage {
         pageSize: 10,
         TotalCount: 0,
         OrderBy: "StartTime",
-        Category: 'xslb',
-        IsAsc: "true"
+        Category: 'zb',
+        IsToday: false,
+        IsAsc: "false"
     };
 
     list = {
@@ -44,6 +46,7 @@ export class LivePage {
     signObj = {
         isSign: false,
     };
+    defaultPhoto = defaultHeadPhoto;
 
     ionViewDidLoad() {
         this.getList();
@@ -53,7 +56,10 @@ export class LivePage {
     }
 
     changeType(e) {
+        if (e.type == "1") this.page.IsToday = true;
+        if (e.type == "0") this.page.IsToday = false;
         this.list.changeType = e.type;
+        this.getList();
     }
 
     getList() {
@@ -83,7 +89,6 @@ export class LivePage {
     //根据事件区分状态
     formatList(list) {
         list.forEach(e => {
-            e.IsToday = this.getFormat(e.StartTime) == this.list.nowDate;
             if (this.list.nowTime < this.getTime(e.StartTime)) e.IsLive = 0; //未开播
             if (this.getTime(e.StartTime) < this.list.nowTime && this.list.nowDate < this.getTime(e.EndTime)) e.IsLive = 1; //直播中
             if (this.list.nowTime > this.getTime(e.EndTime)) e.IsLive = 2;  //已结束
@@ -113,7 +118,8 @@ export class LivePage {
             pageSize: this.page.pageSize,
             OrderBy: "StartTime",
             Category: 'zb',
-            IsAsc: "true"
+            IsAsc: "true",
+            IsToday:this.page.IsToday
         };
         this.learnSer.GetProductList(data).subscribe(
             (res) => {

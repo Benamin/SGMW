@@ -38,11 +38,11 @@ export class TestCenterPage {
     }
 
     ionViewDidLoad() {
-        this.getList();
     }
 
     ionViewDidEnter(){
         this.checkTimeOut();
+        this.getList();
     }
 
     //答题超时检测

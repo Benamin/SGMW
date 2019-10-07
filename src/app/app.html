@@ -1,5 +1,5 @@
 <div *ngIf="showSplash" class="splash">
-    <img tappable (click)="openUrl()" [src]="load.imgUrl" alt="引导图">
+    <img (load)="imgLoad()" tappable (click)="openUrl()" [src]="load.imgUrl">
 </div>
 <ng-container *ngIf="!showSplash">
     <ion-nav [root]="rootPage"></ion-nav>

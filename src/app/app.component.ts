@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NavParams, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -18,6 +18,8 @@ import {AppUpdateService} from "../core/appUpdate.service";
     templateUrl: 'app.html'
 })
 export class MyApp {
+    @ViewChild('loadImg') loadImg: ElementRef;
+
     rootPage: any;
     showSplash = true;
 
@@ -63,13 +65,17 @@ export class MyApp {
                     });
                     timer(4000).subscribe(() => this.checkVersion())
                 } else {
+                    this.splashScreen.hide();
                     this.showSplash = false;
                     this.checkAuth();
                 }
-
-                timer(1000).subscribe(() => this.splashScreen.hide())
             }
         )
+    }
+
+    imgLoad() {
+        timer(500).subscribe(() => this.splashScreen.hide());
+        console.log('图片加载完成')
     }
 
     //鉴权
