@@ -14,17 +14,17 @@
 <ion-content>
   <div class="content-div">
     <div class="input-div">
-      <input type="text" name="" [(ngModel)]="Title" placeholder="请输入标题">
+      <input type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;" [(ngModel)]="Title" placeholder="请输入标题">
     </div>
     <div class="textarea-div">
-      <div (click)="doc_scrollTop()" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true" (keydown)="selectionStart($event)"
-        (blur)="selectionStart($event)">
+      <div  tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true" (keydown)="selectionStart($event)"
+        (blur)="selectionStart($event);focusAmeR=false;" (focus)="focusAmeR=true;">
       </div>
     </div>
   </div>
 </ion-content>
 <ion-footer>
-<div class="buttom-div" [ngClass]="{'ame-r': ameR}">
+<div class="buttom-div" [ngClass]="{'func-buttom-div': focusAmeR}">
   <div class="img-div">
     <div class="can-img" *ngFor="let item of imgitems" (click)="editimg(item)">
       <img src="{{item.src}}" alt="">

@@ -42,12 +42,11 @@ export class PostAddComponent implements OnInit {
    
   }
 
-
-  ameR=false; 
+  focusAmeR=false;
   backPop(){
-    this.ameR=true;
     this.navCtrl.pop();
   }
+
 
   // 获取帖子信息
   getData(){
@@ -223,10 +222,12 @@ src:''};
     });
   }
   doc_scrollTop(){
-    setTimeout(function(){
-      console.log('下拉滑动');
-      document.body.scrollTop = document.body.scrollHeight;
-    },20);
+    this.focusAmeR=true;
+
+    // setTimeout(function(){
+    //   console.log('下拉滑动');
+    //   document.body.scrollTop = document.body.scrollHeight;
+    // },20);
   }
 
 }
