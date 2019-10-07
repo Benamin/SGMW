@@ -10,93 +10,105 @@ page-my-thumbs-up{
       margin-bottom: 10px;
       margin-top: 10px;
       .post-introduction-top {
-          display: flex;
-          align-items: center;
+        display: flex;
+        align-items: center;
 
-          img {
-              width: 28px;
-              height: 28px;
-          }
-          .edit-img,.del-img{
-              img{
-                  width: 16px;
-                  height: 16px;
-              }
-          }
-          .del-img{
-              margin-left: 15px;
-          }
+        img {
+            width: 28px;
+            height: 28px;
+        }
 
-          .name {
-              margin: 0 10px;
-              font-size: 13px;
-          }
+        .edit-img,
+        .del-img {
+            img {
+                width: 16px;
+                height: 16px;
+            }
+        }
 
-          .oldDate {
-              color: #bfbfbf;
-              position: relative;
-              padding-left: 10px;
-              font-size: 11px;
-          }
+        .del-img {
+            margin-left: 15px;
+        }
 
-          .oldDate::before {
-              content: " ";
-              display: block;
-              position: absolute;
-              background: #bfbfbf;
-              width: 1px;
-              height: 13px;
-              left: 0;
-              top: 2px;
-          }
-      }
+        .name {
+            margin: 0 10px;
+            font-size: 13px;
+        
+        }
 
-      .post-introduction-con {
-          p {
-              font-size: 16px;
-              line-height: 22px;
-              margin: 12px 0;
-          }
+        .oldDate {
+            color: #bfbfbf;
+            position: relative;
+            padding-left: 10px;
+            font-size: 11px;
+        }
 
-          .img-div {
-              display: flex;
-              max-height: 140px;
-              overflow: hidden;
-              border-radius: 5px;
-          }
+        .oldDate::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            background: #bfbfbf;
+            width: 1px;
+            height: 13px;
+            left: 0;
+            top: 2px;
+        }
+    }
 
-          .img1 {
-              width: 240px;
-          }
+    .post-introduction-con {
+        p {
+            font-size: 16px;
+            line-height: 22px;
+            margin: 12px 0;
+        }
 
-          .img3 {
-              div {
-                  flex: 1;
-                  width: 33%;
-                  max-height: 114px;
-              }
+        .img-div {
+            display: flex;
+            max-height: 140px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
 
-              :nth-child(1) {
-                  // margin: 0 5px;
-              }
+        .img1 {
+            width: 240px;
+            height: 130px;
+            img{
+                width: 240px;
+            }
+        }
 
-              :nth-child(2) {
-                  margin: 0 5px;
-              }
-          }
+        .img3 {
+            div {
+                flex: 1;
+                width: 33%;
+                max-height: 114px;
+                height: 114px;
+                img{
+                    height: 100%;
+                }
+            }
 
-          .img2 {
-              div {
-                  width: 33%;
-                  max-height: 114px;
-              }
+            :nth-child(2) {
+                margin: 0 0.5%;
+            }
+        }
 
-              :nth-child(2) {
-                  margin: 0 5px;
-              }
-          }
+        .img2 {
+            div {
+                width: 33%;
+                max-height: 114px;
+                height: 114px;
+                img{
+                    height: 100%;
+                }
+            }
 
-      }
+            :nth-child(2) {
+                margin: 0 5px;
+            }
+        }
+
+    }
 
       .post-introduction-buttom {
           padding: 15px 0;

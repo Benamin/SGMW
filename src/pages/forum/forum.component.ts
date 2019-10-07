@@ -96,7 +96,7 @@ export class ForumPage implements OnInit {
       if(arr.length==0){
         this.isdoInfinite=false;
       }
-      // this.forumLIst = res.data.Items;
+  
       this.forumLIst = this.forumLIst.concat(arr);
       this.no_list= this.forumLIst.length == 0 ? true:false;
       loading.dismiss();
@@ -116,6 +116,7 @@ export class ForumPage implements OnInit {
   doRefresh(e){
     console.log('刷新')
     this.pageDate.pageIndex=1;
+    this.isdoInfinite=true;
     this.forumLIst=[];
     this.getHistory();
     this.forum_topicplate_search();

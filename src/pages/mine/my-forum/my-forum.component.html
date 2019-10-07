@@ -22,9 +22,10 @@
     <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
       <div class="post-introduction-top">
         <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-        <div class="name">{{item.Poster}}</div>
-        <div class="oldDate">{{item.PostRelativeTime}}</div>
+        <div class="name nowrap-1">{{item.PosterUserName}}</div>
+        <div class="oldDate nowrap-1">{{item.PostRelativeTime}}</div>
         <div style="flex: 1;">
+
         </div>
         <div class="edit-div" (click)="delITem(item);$event.stopPropagation()">
           <span class="del-img">
@@ -49,7 +50,7 @@
           </div>
       </div>
       <div class="post-introduction-buttom" >
-        <span>
+        <span class="nowrap-1">
           {{item.TopicPlateName}}
         </span>
         <span>
@@ -68,10 +69,7 @@
     <div class="post-introduction"  *ngFor="let item of forumLIst">
       <div class="post-introduction-top">
         <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-        <div class="name">{{item.Poster}}</div>
-        <div class="oldDate">{{item.PostRelativeTime}}</div>
-        <div style="flex: 1;">
-        </div>
+        <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
         <div class="edit-div">
           <span class="edit-img"  (click)="editITem(item)">
             <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
@@ -98,7 +96,7 @@
           </div>
       </div>
       <div class="post-introduction-buttom">
-        <span>
+        <span class="nowrap-1">
           {{item.TopicPlateName}}
         </span>
         <span>

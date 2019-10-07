@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController ,
         NavParams,
+        LoadingController,
         Img} from "ionic-angular";
 import {ForumService} from "../forum.service";
 declare let ImagePicker;
@@ -24,7 +25,8 @@ export class PostAddComponent implements OnInit {
   constructor(
     private navCtrl: NavController,
     private serve:ForumService,
-    public navParams: NavParams,) {
+    public navParams: NavParams,
+    private loadCtrl: LoadingController) {
 
     }
 
@@ -42,12 +44,11 @@ export class PostAddComponent implements OnInit {
    
   }
 
-
-  ameR=false; 
+  focusAmeR=false;
   backPop(){
-    this.ameR=true;
     this.navCtrl.pop();
   }
+
 
   // 获取帖子信息
   getData(){
@@ -146,6 +147,11 @@ export class PostAddComponent implements OnInit {
         let file: File = fileList[0];
         let formData: FormData = new FormData();
         formData.append('file', file);
+        let loading = this.loadCtrl.create({
+          content: '加载中...'
+      });
+    
+          loading.present();
         this.serve.Upload_UploadFiles(formData).then((res:any) => {
           this.imgitems.push({
             src:res.data,
@@ -156,6 +162,7 @@ export class PostAddComponent implements OnInit {
           }else{
             this.SetaddImg(res.data,'');
           }
+          loading.dismiss();
         });
     }
   }
@@ -222,4 +229,13 @@ src:''};
       }
     });
   }
+  doc_scrollTop(){
+    this.focusAmeR=true;
+
+    // setTimeout(function(){
+    //   console.log('下拉滑动');
+    //   document.body.scrollTop = document.body.scrollHeight;
+    // },20);
+  }
+
 }

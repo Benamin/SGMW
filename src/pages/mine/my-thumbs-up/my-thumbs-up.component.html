@@ -11,7 +11,7 @@
   <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of data;index as i">
     <div class="post-introduction-top">
       <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-      <div class="name">{{item.Poster}}</div>
+      <div class="name">{{item.PosterUserName}}</div>
       <div class="oldDate">{{item.PostRelativeTime}}</div>
     </div>
     <div class="post-introduction-con">
@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="post-introduction-buttom">
-      <span>
+      <span class="nowrap-1">
         {{item.TopicPlateName}}
       </span>
       <span>
@@ -40,7 +40,7 @@
       </span>
       <span>
       <!-- <span (click)="$event.stopPropagation();forum_post_cancellike(item,i)"> -->
-        <img src="./assets/imgs/forum/other/p41_likr@3x.png" alt="">
+        <img src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" alt="">
         {{item.LikeCount}}
       </span>
     </div>

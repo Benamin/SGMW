@@ -41,9 +41,6 @@ export class ConsultationPage {
         this.GetDictionaryByPCode();
     }
     GetDictionaryByPCode(){
-      
-     
-       
         this.serve.GetDictionaryByPCode().subscribe(res => {
             console.log('新闻列表',res);
             res.data.forEach(element => {
@@ -75,8 +72,6 @@ export class ConsultationPage {
             loading.present();
         }
         this.serve.GetNewsList(this.dataPost).subscribe(res => {
-            // this.dataPost.page++;
-            console.log(res);
             if(res.data.NewsItems.length==0){
                 this.isdoInfinite=false;
             }
@@ -86,7 +81,9 @@ export class ConsultationPage {
             });
             this.dataList=this.dataList.concat(arr);
             this.no_list=this.dataList.length==0?true:false;
-            loading.dismiss();
+            if(this.dataPost.page==1){
+                loading.dismiss();
+            }
         })
     }
 

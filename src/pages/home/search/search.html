@@ -24,7 +24,7 @@
             </div>
     </div>
     <div *ngIf="navli=='论坛'">
-      <div style="background: #fff;">
+      <div style="background: #fff; ">
           <div class="topicplate-div" *ngFor="let item of topicplate" (click)="goPostlist(item)">
               <div class="list">
                   <div class="img-div">
@@ -65,7 +65,7 @@
                             </div>
                     </div>
                     <div class="post-introduction-buttom">
-                      <span>
+                      <span class="nowrap-1">
                         {{item.TopicPlateName}}
                       </span>
                       <span>

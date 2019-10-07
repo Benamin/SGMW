@@ -27,7 +27,7 @@
         <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
         <div class="text">
           <h4>{{item.PosterUserName}}<span *ngIf="item.MentionUserName==data.PosterUserName" class="label">楼主</span></h4>
-          <p>{{item.CommentTimeFormatted|date : 'yyyy-MM-dd hh:mm'}}</p>
+          <p>{{item._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">
         </div>
@@ -36,23 +36,13 @@
           {{item.Content}}
       </div>
     </div>
-    <!-- <div class="reply">
-      <div class="reply-top">
-        <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
-        <div class="text">
-          <h4 class="colour-blue">在水中</h4>
-          <p>2018-01-22 06:30</p>
-        </div>
-        <div class="comment">
-          <span>
-            <img class="comment_cai" src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-          </span>
-        </div>
-      </div>
-      <div class="reply-text">
-        顾问的服务态度，办事效率极佳，同时从专业的角度给我解答了商标的注册及使用。在出现材料问题也及时提出并给出应对的方法。
-      </div>
-    </div> -->
+    <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="data.Comments.length==0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+      </ion-list>
+
   </div>
 </ion-content>
 <div class="input-div" (click)="textareaclick()">
@@ -61,7 +51,7 @@
   </div>
 </div>
 <div class="inputshow" [ngClass]="{'textareaBlur': textareaBlur}" (click)="inputshow_on();">
-  <div class="input-div" (click)="$event.stopPropagation();">
+  <div class="input-div" (click)="textareaclick();$event.stopPropagation();">
     <textarea id="textareainpview" placeholder='输入你的评论...' (click)="textareaclick();$event.stopPropagation();" rows="3"
       [(ngModel)]="inputText"></textarea>
   </div>
