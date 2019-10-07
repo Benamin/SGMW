@@ -12,7 +12,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div class="content-div">
+  <div class="content-div" [ngClass]="{'func-buttom-div': focusAmeR}">
     <div class="input-div">
       <input type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;" [(ngModel)]="Title" placeholder="请输入标题">
     </div>
