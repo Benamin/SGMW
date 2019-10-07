@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from "ionic-angular";
+import { NavController ,LoadingController} from "ionic-angular";
 import { NumberOneDetailsComponent } from "./numberOneDetails/numberOneDetails.component";
 import { numberOneService } from './numberOne.service';
 import { Componentsdetails } from '../consultation/componentsdetails/componentsdetails.component';
@@ -46,7 +46,9 @@ export class NumberOne {
 
   isdoInfinite = true;
   no_list = false;
-  constructor(private navCtrl: NavController, private serve: numberOneService) {
+  constructor(private navCtrl: NavController, 
+    private serve: numberOneService,
+    private loadCtrl: LoadingController) {
     this.getData();
   }
 
@@ -65,6 +67,12 @@ export class NumberOne {
 
   //销售案例
   newsGetNewsList() {
+    let loading = this.loadCtrl.create({
+      content: '加载中...'
+    });
+    if(this.dataPost.page==1){
+      loading.present();
+    }
     this.serve.newsGetNewsList(this.dataPost).subscribe(res => {
       if (res.data.NewsItems.length == 0) {
         this.isdoInfinite = false;
@@ -72,11 +80,20 @@ export class NumberOne {
       let arr = res.data.NewsItems;
       this.dataList = this.dataList.concat(arr);
       this.no_list = this.dataList.length == 0 ? true : false;
+      if(this.dataPost.page==1){
+        loading.dismiss();
+      }
     });
   }
 
   // 销冠风采
   GetNewsList() {
+    let loading = this.loadCtrl.create({
+      content: '加载中...'
+    });
+    if(this.dataPost.page==1){
+      loading.present();
+    }
     this.serve.GetNewsList(this.crownData).subscribe(res => {
       console.log('销冠风采', res);
       if (res.data.NewsItems.length == 0) {
@@ -85,6 +102,9 @@ export class NumberOne {
       let arr = res.data.NewsItems;
       this.crownList = this.crownList.concat(arr);
       this.no_list = this.crownList.length == 0 ? true : false;
+      if(this.dataPost.page==1){
+        loading.dismiss();
+      }
     });
   };
 
