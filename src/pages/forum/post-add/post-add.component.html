@@ -12,7 +12,8 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div class="content-div" [ngClass]="{'func-buttom-div': focusAmeR}">
+  <div class="content-div"  [ngStyle]="{'padding-bottom': paddingBottom}">
+  <!-- <div class="content-div" [ngClass]="{'func-buttom-div': focusAmeR}" [ngStyle]="{'padding-bottom': paddingBottom}"> -->
     <div class="input-div">
       <input type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;" [(ngModel)]="Title"
         placeholder="请输入标题">
@@ -20,14 +21,16 @@
     <div class="textarea-div">
       <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true"
         (keydown)="selectionStart($event)" (blur)="selectionStart($event);focusAmeR=false;" (focus)="htmlTextDle();focusAmeR=true;">
-        请输入正文
+        <span style="color: #ccc">请输入正文</span> 
       </div>
     </div>
   </div>
 
 </ion-content>
 <ion-footer>
-  <div class="buttom-div" [ngClass]="{'func-buttom-div': focusAmeR}">
+  <div class="buttom-div" [ngStyle]="{'padding-bottom': paddingBottom}">
+  <!-- <div class="buttom-div" [ngClass]="{'func-buttom-div': focusAmeR}" [ngStyle]="{'padding-bottom': paddingBottom}"> -->
+
     <div class="img-div">
       <div class="can-img" *ngFor="let item of imgitems" (click)="editimg(item)">
         <img src="{{item.src}}" alt="">

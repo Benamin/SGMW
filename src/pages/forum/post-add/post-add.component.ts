@@ -22,6 +22,8 @@ export class PostAddComponent implements OnInit {
   imgitems:any=[];
   editImgOk=false;
   editData=null;
+  innerHeightOld=0;
+  paddingBottom= '0px';
   constructor(
     private navCtrl: NavController,
     private serve:ForumService,
@@ -41,7 +43,8 @@ export class PostAddComponent implements OnInit {
       this.lidata=data;
     }
     console.log('新增帖子',this.lidata);
-   
+    this.innerHeightOld=window.innerHeight;
+    console.log('this.innerHeightOld',this.innerHeightOld)
   }
 
   focusAmeR=false;
@@ -95,6 +98,7 @@ export class PostAddComponent implements OnInit {
       this.focusNode=Selection.focusNode;
       this.anchorOffset=Selection.anchorOffset;
       (<any>document).getSelection().anchorOffset;
+      this.paddingBottom='0px';
       setTimeout(() => {
         this.ImgSome();
       }, 10);
@@ -166,12 +170,18 @@ export class PostAddComponent implements OnInit {
         });
     }
   }
+
+  // 获取焦点
   htmlTextDle(){
     let textareaImg:HTMLElement=document.getElementById('textareaImg');
     let innerText:any=textareaImg.innerText;
     if(innerText=='请输入正文'){
       textareaImg.innerText="";
     }
+    setTimeout(() => {
+      this.paddingBottom= this.innerHeightOld-window.innerHeight+20+"px";
+      console.log('this.innerHeightOld',this.innerHeightOld)
+    }, 100);
   }
 
   // 过滤删除图片
@@ -236,13 +246,10 @@ src:''};
       }
     });
   }
-  doc_scrollTop(){
-    this.focusAmeR=true;
-
+    // this.focusAmeR=true;
     // setTimeout(function(){
     //   console.log('下拉滑动');
     //   document.body.scrollTop = document.body.scrollHeight;
     // },20);
-  }
 
 }

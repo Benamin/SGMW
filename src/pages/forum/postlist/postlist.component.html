@@ -38,7 +38,7 @@
     <div>
       <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
         <div class="post-introduction-top">
-          <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+          <img src="{{item.PosterHeadPhoto}}" alt="">
           <div class="name nowrap-1">{{item.PosterUserName}}</div>
           <div class="oldDate">{{item.PostRelativeTime}}</div>
         </div>

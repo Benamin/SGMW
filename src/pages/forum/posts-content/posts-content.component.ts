@@ -42,9 +42,9 @@ export class PostsContentComponent implements OnInit {
     public navCtrl: NavController,
     private loadCtrl:LoadingController) { }
 
-  // ngOnInit() {
+  ngOnInit() {
     
-  // }
+  }
   ionViewDidEnter() {
     this.lidata = this.navParams.get('data');
     this.forum_post_publish();
