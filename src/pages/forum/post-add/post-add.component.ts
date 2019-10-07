@@ -39,7 +39,7 @@ export class PostAddComponent implements OnInit {
       this.lidata=data;
     }
     console.log('新增帖子',this.lidata);
-    // console.log(this.serve.Upload_UploadFiles);
+   
   }
 
 

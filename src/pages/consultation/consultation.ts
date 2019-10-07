@@ -27,7 +27,7 @@ export class ConsultationPage {
     dataList=[];
     isdoInfinite=true;
     no_list=false;
-    loading=null;
+  
     constructor(private navCtrl:NavController,
         public navParams: NavParams,
         private serve:ConsultationService,
@@ -42,32 +42,38 @@ export class ConsultationPage {
     }
     GetDictionaryByPCode(){
       
-        this.loading = this.loadCtrl.create({
-            content: '加载中...'
-        });
-        this.loading.present();
+     
+       
         this.serve.GetDictionaryByPCode().subscribe(res => {
             console.log('新闻列表',res);
             res.data.forEach(element => {
                 this.navliopt[element['label']]= element.value;
             });
             this.switchInformation('新车资讯');
+           
         })
     }
     switchInformation(title){
+    
         this.navli=title;
         this.no_list=true;
         this.isdoInfinite=true;
         this.dataList=[];
         this.dataPost.TypeID=this.navliopt[title];
         this.dataPost.page=1;
-        this.loading.present();
+        this.getData();
     }
     
     goComponentsdetails(data){
         this.navCtrl.push(Componentsdetails,{data:data});
     }
     getData(){
+        let loading = this.loadCtrl.create({
+            content: '加载中...'
+        });
+        if(this.dataPost.page==1){
+            loading.present();
+        }
         this.serve.GetNewsList(this.dataPost).subscribe(res => {
             // this.dataPost.page++;
             console.log(res);
@@ -77,12 +83,10 @@ export class ConsultationPage {
             let arr=res.data.NewsItems;
             arr.forEach((element,i) => {
                 element['imgarr']='img1';
-                // if(i%3==2){ // img1 img3 imgBig
-                //     element['imgarr']='imgBig';
-                // }
             });
             this.dataList=this.dataList.concat(arr);
             this.no_list=this.dataList.length==0?true:false;
+            loading.dismiss();
         })
     }
 

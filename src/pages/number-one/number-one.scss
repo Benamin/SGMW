@@ -91,10 +91,12 @@ page-number-one {
         overflow: hidden;
         display: flex;
         img{
-          flex:1;
+          // flex:1;
+          width: 33%;
+          background: #e4e4e4;
         }
         img:nth-child(2){
-          margin: 0 5px;
+          margin: 0 0.5%;
         }
       }
       .time{

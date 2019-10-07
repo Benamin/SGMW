@@ -26,17 +26,16 @@ export class ForumPage implements OnInit {
   }
   ForumHistory=[];
 
-  constructor(public navCtrl: NavController,private serve:ForumService,private storage: Storage) {
+  constructor(public navCtrl: NavController,private serve:ForumService,private storage: Storage,private loadCtrl: LoadingController) {
   }
 
   ngOnInit() {
-    this.forum_topicplate_search();
-    // this.goPostsContent();
-    // this.showViewReply()
-    this.getHistory();
-    // this.PostAddComponent();
+    // this.forum_topicplate_search();
+    // this.getHistory();
   }
   ionViewDidEnter(){
+    this.forumLIst=[];
+    this.pageDate.pageIndex=1;
     this.forum_topicplate_search();
     this.getHistory();
   }
@@ -82,6 +81,12 @@ export class ForumPage implements OnInit {
   }
 
   forum_topicplate_search(){
+    let loading = this.loadCtrl.create({
+      content: '加载中...'
+    });
+    if(this.pageDate.pageIndex==1){
+      loading.present();
+    }
     this.serve.forum_topicplate_search(this.pageDate).subscribe((res:any) => {
       console.log('板块列表',res);
       if(!res.data){
@@ -94,6 +99,7 @@ export class ForumPage implements OnInit {
       // this.forumLIst = res.data.Items;
       this.forumLIst = this.forumLIst.concat(arr);
       this.no_list= this.forumLIst.length == 0 ? true:false;
+      loading.dismiss();
     })
   }
 

@@ -31,6 +31,7 @@ page-post-add {
             padding: 15px 10px;
             background: #fff;
             height: calc(100% - 100px);
+            overflow: auto;
         }
 
         input {
@@ -47,6 +48,7 @@ page-post-add {
             min-height: 200px;
             width: 100%;
             // height: 100%;
+            padding: 20px 0;
             background: #fff;
         }
     }
