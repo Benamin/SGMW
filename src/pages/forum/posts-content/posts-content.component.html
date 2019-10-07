@@ -9,7 +9,7 @@
     <h3>{{dataCon.Title}}</h3>
     <div class="post-introduction-top">
       <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-      <div class="name">{{dataCon.Poster}}</div>
+      <div class="name nowrap-1">{{dataCon.Poster}}</div>
       <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
     </div>
     <div class="inner-html" [innerHTML]='dataCon.Content'>
@@ -23,10 +23,10 @@
     <p class="number-all">评论（{{dataCon.ReplyCount}}）</p>
     <div class="reply" *ngFor="let item of dataCon.Replys">
       <div class="reply-top">
-        <img class="heard-img" src="{{item.ReplyHeadPhoto}}" alt="">
+        <img class="heard-img" src="{{item.PosterHeadPhoto}}" alt="">
         <div class="text">
           <h4>{{item.PosterUserName}}</h4>
-          <p>{{item.ReplyTimeFormatted|date : 'yyyy-MM-dd hh:mm'}}</p>
+          <p>{{item._ReplyTimeFormatted|date : 'yyyy-MM-dd hh:mm'}}</p>
         </div>
         <div class="comment">
           <!-- <span>
@@ -82,37 +82,45 @@
   </div>
   
   <!-- <textarea name="" id="" cols="30" rows="10" [(ngModel)]="inputText"></textarea> -->
-  <div class="input-bttom">
-    <div class="input-div" >
-        <textarea placeholder='输入你的评论'  (click)="textareaclick();$event.stopPropagation();" class="input-div" rows="1" [(ngModel)]="inputText"></textarea>
-    </div>
-    <div class="icon-div">
-      <div class="reply-more">
-        <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu@3x.png"  (click)=" favorites(dataCon);" alt="">
-        <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png" (click)=" cancelfavorites(dataCon);"  alt="">
-        <span>
-          {{dataCon.FavoritesCount}}
-        </span>
-      </div>
-      <div class="reply-more">
-        <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png"  (click)="forum_post_cancellike(dataCon);" alt="">
-        <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png" (click)="forum_post_like(dataCon);" alt="">
-        <span>
-            {{dataCon.LikeCount}}
-        </span>
-      </div>
-      <div class="reply-more">
-        <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect@3x.png" (click)="follow(dataCon);"  alt="">
-        <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect_on@3x.png"  (click)="cancelfollow(dataCon);" alt="">
-        <span>
-            {{dataCon.FollowCount}}
-        </span>
-      </div>
-    </div>
-  </div>
+
 </ion-content>
+
+<ion-footer>
+    <!-- <ion-toolbar>
+      <ion-title> 这是底部</ion-title>
+    </ion-toolbar> -->
+    <div class="input-bttom">
+        <div class="input-div" >
+            <textarea placeholder='输入你的评论'  (click)="textareaclick();$event.stopPropagation();" class="input-div" rows="1" [(ngModel)]="inputText"></textarea>
+        </div>
+        <div class="icon-div">
+          <div class="reply-more">
+            <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu@3x.png"  (click)=" favorites(dataCon);" alt="">
+            <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png" (click)=" cancelfavorites(dataCon);"  alt="">
+            <span>
+              {{dataCon.FavoritesCount}}
+            </span>
+          </div>
+          <div class="reply-more">
+            <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png"  (click)="forum_post_cancellike(dataCon);" alt="">
+            <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png" (click)="forum_post_like(dataCon);" alt="">
+            <span>
+                {{dataCon.LikeCount}}
+            </span>
+          </div>
+          <div class="reply-more">
+            <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect@3x.png" (click)="follow(dataCon);"  alt="">
+            <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect_on@3x.png"  (click)="cancelfollow(dataCon);" alt="">
+            <span>
+                {{dataCon.FollowCount}}
+            </span>
+          </div>
+        </div>
+      </div>
+  </ion-footer>
+
 <div class="inputshow" [ngClass]="{'textareaBlur': textareaBlur}" (click)="inputshow_on();">
-  <div class="input-div" (click)="$event.stopPropagation();">
+  <div class="input-div" (click)="textareaclick();$event.stopPropagation();">
     <textarea id="textareainp"  placeholder='输入你的评论...'  (click)="textareaclick();$event.stopPropagation();" rows="3" [(ngModel)]="inputText"></textarea>
   </div>
   <div class="btn" (click)="$event.stopPropagation();reply_add()">

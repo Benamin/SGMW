@@ -20,6 +20,7 @@ page-posts-content{
         .name{
             margin:0 10px; 
             font-size: 13px;
+
         }
         .oldDate{
             color: #bfbfbf;
@@ -40,10 +41,12 @@ page-posts-content{
     }
     .inner-html{
         p{
+            margin-top: 20px;
             line-height: 22px;
-            img{
-                margin: 10px 0;
-            }
+        }
+        img{
+            // margin: 10px 0;
+            margin-top: 20px; 
         }
     }
     .type-label{
@@ -215,15 +218,17 @@ page-posts-content{
         background: rgba(169, 169, 169, 0.5803921568627451);
         height: 100%;
         z-index: 99;
+        padding-top: 120px;
         .input-div{
-            position: absolute;
-            width: 100%;
-            padding: 0 15px;
-            bottom: 0px;
-            width: 100%;
-            background: #fff;
-            padding-bottom: 40px;
-            padding-top: 10px;
+           
+    width: 100%;
+    padding: 0 15px;
+    bottom: 0px;
+    width: 100%;
+    background: #fff;
+    height: 100%;
+    padding-top: 20px;
+
             textarea{
                 resize:none;
                 outline:none;
@@ -244,7 +249,8 @@ page-posts-content{
             line-height: 28px;
             height: 26px;
             font-size: 12px;
-            bottom: 10px;
+            // bottom: 410px;
+            top: 210px;
         }
     }
 }

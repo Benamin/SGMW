@@ -16,11 +16,11 @@
         <img [src]="lidata.CoverImage" alt="">
       </div>
       <div class="text">
-        <div>
-          <span class="text-l">{{lidata.Name}}</span>
+        <div class="top-text-name">
+          <span class="text-l nowrap-1">{{lidata.Name}}</span>
           <span class="text-r">[{{lidata.PostCount}}条帖子]</span>
         </div>
-        <p style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
+        <p class="nowrap-2" >
           {{lidata.Description}}
         </p>
       </div>
@@ -39,7 +39,7 @@
       <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
         <div class="post-introduction-top">
           <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-          <div class="name">{{item.Poster}}</div>
+          <div class="name nowrap-1">{{item.PosterUserName}}</div>
           <div class="oldDate">{{item.PostRelativeTime}}</div>
         </div>
         <div class="post-introduction-con">
@@ -59,7 +59,7 @@
                 </div>
         </div>
         <div class="post-introduction-buttom">
-          <span>
+          <span class="nowrap-1">
             {{item.TopicPlateName}}
           </span>
           <span>
@@ -72,7 +72,7 @@
           </span>
         </div>
       </div>
-      <ion-list text-center style="margin-top: 10rem" *ngIf="forumLIst.length == 0">
+      <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="forumLIst.length == 0">
         <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
         <p text-center style="color: #666666;font-size: 16px">
             暂无数据

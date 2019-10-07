@@ -29,10 +29,12 @@
             </div>
           </div>
           <div class="stae">
-            已关注
+              <span *ngIf="item.IsDelete ==  true" tappable (click)="focusHandle(item);$event.stopPropagation()" class="focus focus-blue">关注</span>
+              <span *ngIf="item.IsDelete == false" tappable (click)="cancleFocusHandle(item);$event.stopPropagation()" class="focus noFocus-blue">已关注</span>
+            
           </div>
         </div>
-        <div style=" " class="Remark">
+        <div  class="Remark">
             {{item.Remark}}
         </div>
       </div>
@@ -43,10 +45,9 @@
     <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of collectionList">
       <div class="post-introduction-top">
         <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-        <div class="name">{{item.Poster}}</div>
+        <div class="name nowrap-1">{{item.PosterUserName}}</div>
         <div class="oldDate">{{item.PostRelativeTime}}</div>
-        <div style="flex: 1;">
-        </div>
+      
       </div>
       <div class="post-introduction-con">
         <p>{{item.Title}}</p>
@@ -65,8 +66,11 @@
           </div>
         </div>
       </div>
+      <!-- DislikeCount: 1
+FavoritesCount: 1
+FollowCount: 1 -->
       <div class="post-introduction-buttom">
-        <span>
+        <span class="nowrap-1">
           {{item.TopicPlateName}}
         </span>
         <span>

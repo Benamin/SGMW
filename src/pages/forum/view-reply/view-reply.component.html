@@ -61,7 +61,7 @@
   </div>
 </div>
 <div class="inputshow" [ngClass]="{'textareaBlur': textareaBlur}" (click)="inputshow_on();">
-  <div class="input-div" (click)="$event.stopPropagation();">
+  <div class="input-div" (click)="textareaclick();$event.stopPropagation();">
     <textarea id="textareainpview" placeholder='输入你的评论...' (click)="textareaclick();$event.stopPropagation();" rows="3"
       [(ngModel)]="inputText"></textarea>
   </div>

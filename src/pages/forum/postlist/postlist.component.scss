@@ -77,8 +77,12 @@ page-postlist {
             -webkit-line-clamp: 2;
             overflow: hidden;
             margin-left: 20px;
-
+            .top-text-name{
+                align-items: center;
+                display: flex;
+            }
             .text-l {
+                flex: 1;
                 color: #fff;
                 font-size: 16px;
             }
@@ -193,6 +197,10 @@ page-postlist {
 
             .img1 {
                 width: 240px;
+                height: 130px;
+                img{
+                    width: 240px;
+                }
             }
 
             .img3 {
@@ -200,6 +208,10 @@ page-postlist {
                     flex: 1;
                     width: 33%;
                     max-height: 114px;
+                    height: 114px;
+                    img{
+                        height: 100%;
+                    }
                 }
 
                 :nth-child(2) {
@@ -211,6 +223,10 @@ page-postlist {
                 div {
                     width: 33%;
                     max-height: 114px;
+                    height: 114px;
+                    img{
+                        height: 100%;
+                    }
                 }
 
                 :nth-child(2) {

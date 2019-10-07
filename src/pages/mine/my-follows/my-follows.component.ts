@@ -3,6 +3,9 @@ import { timer } from "rxjs/observable/timer";
 import { LoadingController, NavController } from 'ionic-angular';
 import {TeacherPage} from "../../learning/teacher/teacher";
 import { ForumService } from '../../forum/forum.service';
+import {LearnService} from "../../learning/learn.service";
+import {CommonService} from "../../../core/common.service";
+import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
 
 @Component({
   selector: 'page-my-follows',
@@ -21,7 +24,9 @@ export class MyFollowsComponent implements OnInit {
   constructor(
     public navCtrl: NavController,
     private loadCtrl: LoadingController,
-    private forumServe: ForumService) { }
+    private forumServe: ForumService,
+    private learnSer: LearnService,
+    private commonSer: CommonService) { }
 
   ngOnInit() {
     this.is_getData();
@@ -114,4 +119,34 @@ export class MyFollowsComponent implements OnInit {
     }, 1000);
   }
 
+
+  // 关注讲师
+ focusHandle(item) {
+    const data = {
+        TopicID: item.UserID
+    };
+     this.learnSer.SaveSubscribe(data).subscribe(
+        (res) => {
+          item['IsDelete']=false;
+          this.commonSer.toast('关注成功');
+        }
+    );
+  }
+
+  cancleFocusHandle(item) {
+    console.log(item);
+    const data = {
+        TopicID: item.UserID
+    };
+    this.learnSer.CancelSubscribe(data).subscribe(
+        (res) => {
+            item['IsDelete']=true;
+            this.commonSer.toast('取消关注成功')
+        }
+    )
+  }
+  // 前往帖子详情
+  goPostsContent(data) {
+    this.navCtrl.push(PostsContentComponent,{data:data});
+  }
 }

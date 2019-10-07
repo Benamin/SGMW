@@ -115,7 +115,9 @@ page-view-reply{
         background: rgba(169, 169, 169, 0.5803921568627451);
         height: 100%;
         z-index: 99;
+        padding-top: 120px;
         .input-div{
+            top: 120px;
             position: absolute;
             width: 100%;
             padding: 0 15px;
@@ -135,6 +137,7 @@ page-view-reply{
         }
         .btn{
             position: absolute;
+            top: 220px;
             z-index: 6;
             bottom: 0px;
             left: 15px;

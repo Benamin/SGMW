@@ -30,10 +30,10 @@ export class PostsContentComponent implements OnInit {
     "Poster": "",
      "PostTimeFormatted": "2019-09-29 14:26:39",
     "PostRelativeTime": "",
-     "FollowCount": 1,
-      "LikeCount": 0,
+    "FollowCount": '0',
+    "LikeCount": '0',
     "DislikeCount": 0, 
-    "FavoritesCount": 1,
+    "FavoritesCount":  '1',
      "ReplyCount": 1
   };
   // 查看帖子详情
@@ -46,10 +46,6 @@ export class PostsContentComponent implements OnInit {
     this.lidata = this.navParams.get('data');
     // console.log(this.lidata);
     this.forum_post_publish();
-  }
-
-  ionViewDidEnter(){
-    this.reasizeData();
   }
 
   textareaclick() {
@@ -80,6 +76,11 @@ export class PostsContentComponent implements OnInit {
       console.log(res);
       let element = res.data;
       element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
+
+      
+      res.data.Replys.forEach(element => {
+        element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-2)
+      });
       this.dataCon = res.data;
       this.dataCon['is_like'] = false;
       this.dataCon['is_guanzhu'] = false;
@@ -92,12 +93,20 @@ export class PostsContentComponent implements OnInit {
   }
 
   reasizeData(){
+    let loading = this.loadCtrl.create({
+      content:''
+    });
+     loading.present();
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
-      this.dataCon['FavoritesCount'] =  res.data.FavoritesCount;
-      this.dataCon['LikeCount'] =  res.data.LikeCount;
-      this.dataCon['FollowCount'] =  res.data.FollowCount;
-      this.dataCon['Replys'] =  res.data.Replys;
-
+      this.dataCon['ReplyCount'] =  res.data.ReplyCount;
+      res.data.Replys.forEach((element,i )=> {
+        if( !this.dataCon['Replys'][i] ){
+          element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-2)
+          this.dataCon['Replys'].push(element);
+        }
+      });
+      loading.dismiss();
+      // this.dataCon['Replys'] =  res.data.Replys;
     });
   }
 
@@ -130,55 +139,92 @@ export class PostsContentComponent implements OnInit {
       }
     });
   }
+
   
    // 关注
    follow(data) {
+    let loading = this.loadCtrl.create({
+      content:''
+    });
+    loading.present();
     this.serve.follow(data.Id).subscribe((res: any) => {
       console.log(res);
       data['is_guanzhu']=true;
-      this.reasizeData();
+      this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount'])+1+'';
+      loading.dismiss();
     });
   }  
    // 取消关注
   cancelfollow(data) {
+    let loading = this.loadCtrl.create({
+      content:''
+    });
+    loading.present();
     this.serve.cancelfollow(data.Id).subscribe((res: any) => {
       console.log(res);
       data['is_guanzhu']=false;
-      this.reasizeData();
+      this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount'])-1+'';
+      loading.dismiss();
+
+      // this.reasizeData();
     });
   }
 
     // 收藏
     favorites(data) {
+      let loading = this.loadCtrl.create({
+        content:''
+      });
+       loading.present();
       this.serve.favorites(data.Id).subscribe((res: any) => {
         console.log(res);
         data['is_collect']=true;
-        this.reasizeData();
+        this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount'])+1+'';
+         loading.dismiss();
+        // this.reasizeData();
       });
     }
   
     // 取消收藏
     cancelfavorites(data) {
+      let loading = this.loadCtrl.create({
+        content:''
+      });
+       loading.present();
       this.serve.cancelfavorites(data.Id).subscribe((res: any) => {
         data['is_collect']=false;
-        this.reasizeData();
+        this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount'])-1+'';
+         loading.dismiss();
+        // this.reasizeData();
       });
     }
 
   // 点赞
   forum_post_like(data) {
+    let loading = this.loadCtrl.create({
+      content:''
+    });
+     loading.present();
     this.serve.forum_post_like(data.Id).subscribe((res: any) => {
       console.log(res);
       data['is_like']=true;
-      this.reasizeData();
+      this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount'])+1+'';
+       loading.dismiss();
+      // this.reasizeData();
     });
   }
 
   // 取消点赞
   forum_post_cancellike(data) {
+    let loading = this.loadCtrl.create({
+      content:''
+    });
+     loading.present();
     this.serve.forum_post_cancellike(data.Id).subscribe((res: any) => {
       data['is_like']=false;
-      this.reasizeData();
+      this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount'])-1+'';
+       loading.dismiss();
+      // this.reasizeData();
     });
   }
 
@@ -191,10 +237,11 @@ export class PostsContentComponent implements OnInit {
     let data =  {
         "PostId":  this.dataCon.Id,//帖子编号
         "Content": this.inputText,//回帖内容
-     
       }
+  
     this.serve.reply_add(data).subscribe((res:any) => {
-      console.log(res)
+      console.log(res);
+      this.inputText="";
       if(res.code==200){
         this.textareaBlur = false;
         this.reasizeData();
