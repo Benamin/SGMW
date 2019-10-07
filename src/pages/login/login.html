@@ -33,16 +33,16 @@
                     <ion-slide>
                         <div class="login-input">
                             <div class="input-input">
-                                <input [(ngModel)]="jxs.xszs.jxsh" placeholder="请输入经销商号"/>
+                                <input type="text" [(ngModel)]="jxs.xszs.jxsh" placeholder="请输入经销商号"/>
                             </div>
                             <div class="input-input">
-                                <input [(ngModel)]="jxs.xszs.czymc" placeholder="请输入操作员名"/>
+                                <input type="text" [(ngModel)]="jxs.xszs.czymc" placeholder="请输入操作员名"/>
                             </div>
                             <div class="input-input">
-                                <input [(ngModel)]="jxs.xszs.pwd" type="password" placeholder="请输入密码"/>
+                                <input type="password" [(ngModel)]="jxs.xszs.pwd"  placeholder="请输入密码"/>
                             </div>
                             <div class="check input-input">
-                                <input [(ngModel)]="jxs.xszs.inputCode" placeholder="请输入验证码"/>
+                                <input type="text" [(ngModel)]="jxs.xszs.inputCode" placeholder="请输入验证码"/>
                                 <check-code class="checkCode" #checkCodeXszs (done)="getCodeXszs($event)"></check-code>
                                 <img tappable (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png" alt="">
                             </div>
@@ -55,13 +55,13 @@
                     <ion-slide>
                         <div class="login-input">
                             <div class="input-input">
-                                <input [(ngModel)]="jxs.junke.username" placeholder="请输入操作员名"/>
+                                <input type="text" [(ngModel)]="jxs.junke.username" placeholder="请输入操作员名"/>
                             </div>
                             <div class="input-input">
-                                <input [(ngModel)]="jxs.junke.password" type="password" placeholder="请输入密码"/>
+                                <input type="password" [(ngModel)]="jxs.junke.password"  placeholder="请输入密码"/>
                             </div>
                             <div class="check input-input">
-                                <input [(ngModel)]="jxs.junke.inputCode" placeholder="请输入验证码"/>
+                                <input type="text" [(ngModel)]="jxs.junke.inputCode" placeholder="请输入验证码"/>
                                 <check-code class="checkCode" #checkCodeJunke (done)="getCodeJunke($event)"></check-code>
                                 <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                             </div>
@@ -75,13 +75,13 @@
             <div [hidden]="loginObj.type != 'gys'">
                 <div class="login-input">
                     <div class="input-input">
-                        <input [(ngModel)]="gysObj.username" placeholder="请输入供应商名"/>
+                        <input type="text" [(ngModel)]="gysObj.username" placeholder="请输入供应商名"/>
                     </div>
                     <div class="input-input">
-                        <input [(ngModel)]="gysObj.password" type="password" placeholder="请输入密码"/>
+                        <input type="password" [(ngModel)]="gysObj.password"  placeholder="请输入密码"/>
                     </div>
                     <div class="check input-input">
-                        <input [(ngModel)]="gysObj.inputCode" placeholder="请输入验证码"/>
+                        <input type="text" [(ngModel)]="gysObj.inputCode" placeholder="请输入验证码"/>
                         <check-code class="checkCode" #checkCodeGys (done)="getCodeGys($event)"></check-code>
                         <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                     </div>
@@ -93,13 +93,13 @@
             <div [hidden]="loginObj.type != 'yg'">
                 <div class="login-input">
                     <div class="input-input">
-                        <input [(ngModel)]="ygObj.username" placeholder="请输入员工名"/>
+                        <input type="text" [(ngModel)]="ygObj.username" placeholder="请输入员工名"/>
                     </div>
                     <div class="input-input">
-                        <input [(ngModel)]="ygObj.password" type="password" placeholder="请输入密码"/>
+                        <input type="password" [(ngModel)]="ygObj.password"  placeholder="请输入密码"/>
                     </div>
                     <div class="check input-input">
-                        <input [(ngModel)]="ygObj.inputCode" placeholder="请输入验证码"/>
+                        <input type="text" [(ngModel)]="ygObj.inputCode" placeholder="请输入验证码"/>
                         <check-code class="checkCode" #checkCodeYG (done)="getCodeYg($event)"></check-code>
                         <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                     </div>
