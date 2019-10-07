@@ -4,6 +4,9 @@ import { NavController ,
         LoadingController,
         Img} from "ionic-angular";
 import {ForumService} from "../forum.service";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+
 declare let ImagePicker;
 
 
@@ -29,6 +32,34 @@ export class PostAddComponent implements OnInit {
     private serve:ForumService,
     public navParams: NavParams,
     private loadCtrl: LoadingController) {
+
+
+      Observable.fromEvent(window, "native.keyboardshow")
+      .debounceTime(100)
+      .subscribe((event: any) => {
+          // alert('显示:'+JSON.stringify(event))
+
+          this.paddingBottom=event.keyboardHeight+20+'px';
+          let paddingBottomdom=document.getElementById('buttomImgDiv');
+          paddingBottomdom.style.paddingBottom=this.paddingBottom;
+        console.log(paddingBottomdom);
+          //this.keyboardshowHeightBottom=event.keyboardHeight+'px';
+      });
+
+
+
+      Observable.fromEvent(window, "native.keyboardhide")
+      .debounceTime(100)
+      .subscribe((event: any) => {
+        this.paddingBottom=0+'px';
+        document.getElementById('buttomImgDiv').style.paddingBottom=this.paddingBottom;
+
+      });
+
+       
+
+
+
 
     }
 
@@ -98,7 +129,6 @@ export class PostAddComponent implements OnInit {
       this.focusNode=Selection.focusNode;
       this.anchorOffset=Selection.anchorOffset;
       (<any>document).getSelection().anchorOffset;
-      this.paddingBottom='0px';
       setTimeout(() => {
         this.ImgSome();
       }, 10);
@@ -178,10 +208,7 @@ export class PostAddComponent implements OnInit {
     if(innerText=='请输入正文'){
       textareaImg.innerText="";
     }
-    setTimeout(() => {
-      this.paddingBottom= this.innerHeightOld-window.innerHeight+20+"px";
-      console.log('this.innerHeightOld',this.innerHeightOld)
-    }, 100);
+
   }
 
   // 过滤删除图片
