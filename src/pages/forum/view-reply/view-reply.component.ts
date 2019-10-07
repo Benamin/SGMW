@@ -18,8 +18,7 @@ export class ViewReplyComponent implements OnInit {
 
   ngOnInit() {
     this.data = this.navParams.get('data');
-
-    if(this.data.Comments.length>0){
+    if(this.data.Comments&&this.data.Comments.length>0){
       this.data.Comments.forEach((element,i )=> {
           element['_ReplyTimeFormatted']=element.CommentTimeFormatted.slice(0,-3)
       });
