@@ -21,7 +21,7 @@ export class ViewReplyComponent implements OnInit {
 
     if(this.data.Comments.length>0){
       this.data.Comments.forEach((element,i )=> {
-          element['_ReplyTimeFormatted']=element.CommentTimeFormatted.slice(0,-2)
+          element['_ReplyTimeFormatted']=element.CommentTimeFormatted.slice(0,-3)
       });
     }
     

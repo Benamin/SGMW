@@ -79,7 +79,7 @@ export class PostsContentComponent implements OnInit {
 
       if(res.data.Replys){
         res.data.Replys.forEach(element => {
-          element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-2)
+          element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-3)
         });
       }
       this.dataCon = res.data;
@@ -104,7 +104,7 @@ export class PostsContentComponent implements OnInit {
       if(res.data.Replys){
         res.data.Replys.forEach((element,i )=> {
           if( !this.dataCon['Replys'][i] ){
-            element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-2)
+            element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-3)
             this.dataCon['Replys'].push(element);
           }
         });
