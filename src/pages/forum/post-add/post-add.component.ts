@@ -222,4 +222,11 @@ src:''};
       }
     });
   }
+  doc_scrollTop(){
+    setTimeout(function(){
+      console.log('下拉滑动');
+      document.body.scrollTop = document.body.scrollHeight;
+    },20);
+  }
+
 }

@@ -17,7 +17,7 @@
       <input type="text" name="" [(ngModel)]="Title" placeholder="请输入标题">
     </div>
     <div class="textarea-div">
-      <div tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true" (keydown)="selectionStart($event)"
+      <div (click)="doc_scrollTop()" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true" (keydown)="selectionStart($event)"
         (blur)="selectionStart($event)">
       </div>
     </div>
@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="img-div">
-            <img src="./assets/imgs/forum/other/p771_img1@3x.jpg" alt="这是一句话">
+            <img src="{{editImg.src}}" alt="{{editImg.alt}}">
         </div>
         <div class="input-div">
           <input type="text" [(ngModel)]="editImg.newalt" placeholder="请给图片一个描述吧…" name="" id="">
