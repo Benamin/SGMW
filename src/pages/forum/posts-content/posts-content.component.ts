@@ -77,10 +77,11 @@ export class PostsContentComponent implements OnInit {
       let element = res.data;
       element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
 
-      
-      res.data.Replys.forEach(element => {
-        element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-2)
-      });
+      if(res.data.Replys){
+        res.data.Replys.forEach(element => {
+          element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-2)
+        });
+      }
       this.dataCon = res.data;
       this.dataCon['is_like'] = false;
       this.dataCon['is_guanzhu'] = false;
@@ -96,17 +97,19 @@ export class PostsContentComponent implements OnInit {
     let loading = this.loadCtrl.create({
       content:''
     });
-     loading.present();
+    loading.present();
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
       this.dataCon['ReplyCount'] =  res.data.ReplyCount;
-      res.data.Replys.forEach((element,i )=> {
-        if( !this.dataCon['Replys'][i] ){
-          element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-2)
-          this.dataCon['Replys'].push(element);
-        }
-      });
+      this.dataCon['Replys']=this.dataCon['Replys']?this.dataCon['Replys']:[];
+      if(res.data.Replys){
+        res.data.Replys.forEach((element,i )=> {
+          if( !this.dataCon['Replys'][i] ){
+            element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-2)
+            this.dataCon['Replys'].push(element);
+          }
+        });
+      }
       loading.dismiss();
-      // this.dataCon['Replys'] =  res.data.Replys;
     });
   }
 
