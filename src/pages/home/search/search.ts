@@ -13,7 +13,7 @@ import {PostsContentComponent} from '../../forum/posts-content/posts-content.com
     templateUrl: 'search.html',
 })
 export class SearchPage {
-    navli: '论坛' | '课程' = '论坛';
+    navli: '论坛' | '课程'|null = null;
     productList = [];
     page = {
         title: '',
@@ -40,20 +40,15 @@ export class SearchPage {
         private keyboard: Keyboard,
         private learnSer: LearnService,
         private loadCtrl: LoadingController,
-        private forumService: ForumService) {
+        private forumService: ForumService,
+       ) {
         this.show = true;
         this.navli = this.navParams.get('type') ? this.navParams.get('type') : '课程';
     }
+    postList=[];
+    navulShow=false;
     switchIn(text) {
         this.navli = text;
-        this.productList = [];
-        this.page.page = 1;
-        this.pageDate.pageIndex = 1;
-        this.topicplate = [];
-        if (!this.page.title) {
-            return
-        }
-        this.is_getData();
     }
     ionViewDidLoad() {
         console.log('ionViewDidLoad SearchPage');
@@ -74,27 +69,43 @@ export class SearchPage {
         }
     }
 
+    loadingNum=0;
+    loading=null;
     search(event) {
         if (event && event.keyCode == 13) {
-            if (this.navli == '课程') {
-                this.GetProductList(event);
-            } else {
-                this.pageDate.pageIndex = 1;
-                this.productList = [];
-                this.forum_post_search();
-                this.forum_topicplate_search();
-            }
+            this.pageDate.pageIndex = 1;
+            this.page.page = 1;
+
+            this.productList = [];
+            this.topicplate=[];
+            this.postList=[];
+           
+            this.loading = this.loadCtrl.create({
+              content:''
+            });
+
+            this.loading.present();
+            this.loadingNum=0;
+            setTimeout(() => {
+                this.loading.dismiss();
+                this.navulShow=true;
+            }, 1200);
+
+            this.GetProductList(event);
+            this.forum_post_search();
+            this.forum_topicplate_search();
         }
     }
     addData(e) {
         if (this.navli == '课程') {
             this.doInfinite(e);
         } else {
-            if (this.pageDate.TotalCount && this.pageDate.TotalCount == this.productList.length || this.productList.length > this.page.TotalCount) {
+            if (this.pageDate.TotalCount && this.pageDate.TotalCount == this.postList.length || this.postList.length > this.page.TotalCount) {
                 e.complete();
                 return
             }
-            this.forum_post_search();
+            this.pageDate.pageIndex ++;
+            this.forum_post_search(e);
         }
     }
     Refresh(event) {
@@ -103,13 +114,15 @@ export class SearchPage {
         } else {
             this.pageDate.pageIndex = 1;
             this.productList = [];
+           
+
             this.forum_post_search();
             this.forum_topicplate_search();
         }
     }
 
 
-    forum_post_search() {
+    forum_post_search(e=null) {
         this.pageDate.Title = this.page.title;
         this.showTips = false;
         this.forumService.forum_post_search(this.pageDate).subscribe((res: any) => {
@@ -117,12 +130,13 @@ export class SearchPage {
             arr.forEach(element => {
                 element.PostRelativeTime = this.forumService.PostRelativeTimeForm(element.PostRelativeTime);
             });
-            this.productList = this.productList.concat(arr);
-            this.pageDate.TotalCount = res.data.TotalCount;
+            this.postList = this.postList.concat(arr);
+            this.pageDate.TotalCount = res.data.TotalItems;
+            if(e){
+                e.complete();
+            }
         });
-
-        // topicplate/search
-
+     
     }
 
     forum_topicplate_search() {

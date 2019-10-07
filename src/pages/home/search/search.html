@@ -10,12 +10,12 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher (ionRefresh)="Refresh($event)">
+    <!-- <ion-refresher (ionRefresh)="Refresh($event)">
         <ion-refresher-content pullingText="下拉刷新"
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
-    </ion-refresher>
-    <div class="navul" #navul>
+    </ion-refresher> -->
+    <div class="navul" #navul *ngIf="navulShow">
             <div class="navli" [ngClass]="{'act': navli=='课程'}" (click)="switchIn('课程')">
                 课程
             </div>
@@ -42,7 +42,7 @@
               </div>
           </div>  
       </div>
-        <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of productList">
+        <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of postList">
                     <div class="post-introduction-top">
                       <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
                       <div class="name">{{item.Poster}}</div>
@@ -50,15 +50,15 @@
                     </div>
                     <div class="post-introduction-con">
                       <p>{{item.Title}}</p>
-                      <div class="img-div img1" *ngIf="item.Images.length==1">
+                      <div class="img-div img1" *ngIf="item.Images&&item.Images.length==1">
                           <img src="{{item.Images[0].Src}}" alt="">
                         </div>
-                        <div class="img-div img2" *ngIf="item.Images.length==2">
+                        <div class="img-div img2" *ngIf="item.Images&&item.Images.length==2">
                           <div *ngFor="let img of item.Images">
                             <img src="{{img.Src}}" alt="">
                           </div>
                           </div>
-                          <div class="img-div img3" *ngIf="item.Images.length>2">
+                          <div class="img-div img3" *ngIf="item.Images&&item.Images.length>2">
                                   <div *ngFor="let img of item.Images.slice(0,3)">
                                       <img src="{{img.Src}}" alt="">
                                     </div>
@@ -78,22 +78,30 @@
                       </span>
                     </div>
         </div>
+        <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && topicplate.length==0">
+            <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+            <p text-center style="color: #666666;font-size: 16px">
+                暂无数据
+            </p>
+        </ion-list>
     </div>
-
-    <course-list  *ngIf="navli=='课程'" [list]="productList" (done)="goCourse($event)"></course-list>
+    <div *ngIf="navli=='课程'">
+      <course-list   [list]="productList" (done)="goCourse($event)"></course-list>
+      <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && productList.length == 0">
+          <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+          <p text-center style="color: #666666;font-size: 16px">
+              暂无数据
+          </p>
+      </ion-list>
+    </div>
     <ion-list text-center style="margin-top: 10rem" *ngIf="showTips">
         <img style="width: 15%;" src="./assets/imgs/tabs/tab3_off@3x.png">
         <p text-center style="color: #999;font-size: 16px;margin-top: 20px">
             请搜索你想要查找的{{navli=='论坛'?'帖子':'课程'}}
         </p>
     </ion-list>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && productList.length == 0">
-        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-        <p text-center style="color: #666666;font-size: 16px">
-            暂无数据
-        </p>
-    </ion-list>
-    <ion-infinite-scroll (ionInfinite)="addData($event)">
+
+    <ion-infinite-scroll (ionInfinite)="addData($event)" >
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
                 loadingText="加载中"></ion-infinite-scroll-content>

@@ -11,7 +11,7 @@ import { ViewReplyComponent } from '../view-reply/view-reply.component';
 export class PostsContentComponent implements OnInit {
   lidata = { Id: '', TopicPlateId: "", Name: "" };
   inputText = "";
-  textareaBlur = false;
+  textareaBlur = true;
   dataCon = {
     "SetTopTime": "0001-01-01T00:00:00",
     "LockTime": "0001-01-01T00:00:00",
@@ -44,21 +44,20 @@ export class PostsContentComponent implements OnInit {
 
   ngOnInit() {
     this.lidata = this.navParams.get('data');
-    // console.log(this.lidata);
     this.forum_post_publish();
   }
 
   textareaclick() {
     this.textareaBlur = true;
-    let textDiv: HTMLElement = document.getElementById('textareainp');
-    setTimeout(() => {
-      textDiv.focus();
-    }, 20);
+    // setTimeout(() => {
+    //   let textDiv: HTMLElement = document.getElementById('textareainp');
+    //   console.log(textDiv);
+    //   textDiv.focus();
+    // }, 20);
   }
   inputshow_on() {
     this.textareaBlur = false;
   }
-
 
   // 前往回复列表
   showViewReply(data) {
@@ -71,7 +70,7 @@ export class PostsContentComponent implements OnInit {
       let loading = this.loadCtrl.create({
         content:''
       });
-      loading.present();
+      // loading.present();
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
       console.log(res);
       let element = res.data;
@@ -81,6 +80,7 @@ export class PostsContentComponent implements OnInit {
         res.data.Replys.forEach(element => {
           element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-3)
         });
+        res.data.Replys.reverse();
       }
       this.dataCon = res.data;
       this.dataCon['is_like'] = false;
@@ -105,7 +105,7 @@ export class PostsContentComponent implements OnInit {
         res.data.Replys.forEach((element,i )=> {
           if( !this.dataCon['Replys'][i] ){
             element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-3)
-            this.dataCon['Replys'].push(element);
+            this.dataCon['Replys'].unshift(element);
           }
         });
       }
@@ -142,7 +142,6 @@ export class PostsContentComponent implements OnInit {
       }
     });
   }
-
   
    // 关注
    follow(data) {

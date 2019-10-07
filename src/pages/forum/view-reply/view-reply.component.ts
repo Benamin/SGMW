@@ -22,6 +22,7 @@ export class ViewReplyComponent implements OnInit {
       this.data.Comments.forEach((element,i )=> {
           element['_ReplyTimeFormatted']=element.CommentTimeFormatted.slice(0,-3)
       });
+      this.data.Comments.reverse();
     }
     
     console.log(this.data);

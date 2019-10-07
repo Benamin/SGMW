@@ -84,9 +84,9 @@ export class ForumPage implements OnInit {
     let loading = this.loadCtrl.create({
       content: '加载中...'
     });
-    if(this.pageDate.pageIndex==1){
-      loading.present();
-    }
+    // if(this.pageDate.pageIndex==1){
+    //   loading.present();
+    // }
     this.serve.forum_topicplate_search(this.pageDate).subscribe((res:any) => {
       console.log('板块列表',res);
       if(!res.data){

@@ -23,7 +23,9 @@ export class PostlistComponent implements OnInit {
     OrderBy:'PostTimeFormatted',
     OrderByDirection:'desc'
   }
-  forumLIst=[];
+  forumLIst=[{
+    Images:[]
+  }];
   isdoInfinite=true;
   no_list=false;
   
@@ -61,7 +63,6 @@ export class PostlistComponent implements OnInit {
     this.forumLIst = [];
     this.pageDate.pageIndex=1;
     this.pageDate.OrderBy=type;
-
     this.forum_post_search();
   }
 
