@@ -14,7 +14,7 @@
     <div class="exam">
         <ng-container *ngFor="let item of examList">
             <div class="space"></div>
-            <div class="item" tappable (click)="goExam(item)">
+            <div class="item" style="padding: 10px 5px;" tappable (click)="goExam(item)">
                 <div class="test-item">
                     <div class="test-item-image">
                         <img [src]="item.PictureSrc" alt="">
@@ -45,7 +45,7 @@
             </div>
         </ng-container>
     </div>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="examList.length == 0">
+    <ion-list text-center style="margin-top: 10rem" *ngIf="examList.length == 0 && page.load">
         <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
         <p text-center style="color: #666666;font-size: 16px">
             暂无数据

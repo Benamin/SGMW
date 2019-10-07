@@ -46,7 +46,8 @@ export class DoTestPage {
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            this.commonSer.alert("确定要放弃答案吗？", (res) => {
+            this.commonSer.alert("考试过程中退出即视为提交试卷，无法重考", (res) => {
+                this.forceSubmit();
                 this.navCtrl.pop();
             })
         };
@@ -92,7 +93,6 @@ export class DoTestPage {
             }
         )
     }
-
 
     //倒计时
     countTime() {
