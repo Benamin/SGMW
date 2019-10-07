@@ -29,7 +29,6 @@
           <p>{{item._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">
-         
         </div>
       </div>
       <div class="reply-text" (click)="showViewReply(item)">
@@ -51,10 +50,9 @@
   </div>
 </ion-content>
 <ion-footer>
- 
     <div class="input-bttom">
         <div class="input-div" >
-            <textarea placeholder='输入你的评论'  (click)="textareaclick();$event.stopPropagation();" class="input-div" rows="1" [(ngModel)]="inputText"></textarea>
+            <div   (click)="textareaclick();$event.stopPropagation();" class="input-div" rows="1" >输入你的评论</div>
         </div>
         <div class="icon-div">
           <div class="reply-more">
