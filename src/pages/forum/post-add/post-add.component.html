@@ -14,71 +14,68 @@
 <ion-content>
   <div class="content-div" [ngClass]="{'func-buttom-div': focusAmeR}">
     <div class="input-div">
-      <input type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;" [(ngModel)]="Title" placeholder="请输入标题">
+      <input type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;" [(ngModel)]="Title"
+        placeholder="请输入标题">
     </div>
     <div class="textarea-div">
-      <div  tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true" (keydown)="selectionStart($event)"
-        (blur)="selectionStart($event);focusAmeR=false;" (focus)="focusAmeR=true;">
+      <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true"
+        (keydown)="selectionStart($event)" (blur)="selectionStart($event);focusAmeR=false;" (focus)="htmlTextDle();focusAmeR=true;">
+        请输入正文
       </div>
     </div>
   </div>
-  
+
 </ion-content>
 <ion-footer>
-<div class="buttom-div" [ngClass]="{'func-buttom-div': focusAmeR}">
-  <div class="img-div">
-    <div class="can-img" *ngFor="let item of imgitems" (click)="editimg(item)">
-      <img src="{{item.src}}" alt="">
-      <p>{{item.alt}}</p>
+  <div class="buttom-div" [ngClass]="{'func-buttom-div': focusAmeR}">
+    <div class="img-div">
+      <div class="can-img" *ngFor="let item of imgitems" (click)="editimg(item)">
+        <img src="{{item.src}}" alt="">
+        <p>{{item.alt}}</p>
+      </div>
+      <div class="add-img" (click)="addImg()">
+        <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
+      </div>
     </div>
-
-    <!-- <div id="test-div" [innerHtml]="data">asd</div> -->
-    <div class="add-img" (click)="addImg()">
-      <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
+    <input type="file" id="pic_selector" (change)="uploadFile($event)" accept="image/*" multiple />
+    <div class="bun-buttom">
+      <span class="describe" [ngStyle]="{'opacity': imgitems.length>0?1:0}">
+        点击图片编辑描述
+      </span>
+      <div></div>
+      <span class="seve-draft" (click)="forum_post_add(false)">
+        <img src="./assets/imgs/forum/other/p71_save@3x.png" alt="">
+        <span>
+          保存草稿
+        </span>
+      </span>
     </div>
   </div>
-  <input type="file" id="pic_selector" (change)="uploadFile($event)" accept="image/*" multiple />
-  <div class="bun-buttom">
-    <span class="describe" [ngStyle]="{'opacity': imgitems.length>0?1:0}">
-        点击图片编辑描述
-    </span>
-    <div></div>
-    <span class="seve-draft" (click)="forum_post_add(false)">
-      <img src="./assets/imgs/forum/other/p71_save@3x.png" alt="">
-      <span>
-        保存草稿
+</ion-footer>
+<div class="edit-pictures" *ngIf="iseditImg">
+  <div class="navbar-div">
+    <div (click)="iseditImg=false"><img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt=""></div>
+    <div>编辑图片</div>
+    <div>
+      <span class="release" (click)="editPicturesOk()">
+        完成
       </span>
-    </span>
+    </div>
+  </div>
+  <div class="img-div">
+    <img src="{{editImg.src}}" alt="{{editImg.alt}}">
+  </div>
+  <div class="input-div">
+    <input type="text" [(ngModel)]="editImg.newalt" placeholder="请给图片一个描述吧…" name="" id="">
   </div>
 </div>
-</ion-footer>
-    <div class="edit-pictures" *ngIf="iseditImg">
-        <div class="navbar-div">
-          <div (click)="iseditImg=false"><img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt=""></div>
-          <div>编辑图片</div>
-          <div>
-              <span class="release" (click)="editPicturesOk()">
-                  完成
-              </span>
-          </div>
-        </div>
-        <div class="img-div">
-            <img src="{{editImg.src}}" alt="{{editImg.alt}}">
-        </div>
-        <div class="input-div">
-          <input type="text" [(ngModel)]="editImg.newalt" placeholder="请给图片一个描述吧…" name="" id="">
-        </div>
-      </div>
-
-
-
 <div class="editImg-ok" *ngIf="editImgOk">
-    <div class="img-div">
-      <div>
-        <img src="./assets/imgs/forum/other/p71_sucess@3x.png" alt="">
-      </div>
-      <div>
-        {{editImgOkText}}
-        </div>
+  <div class="img-div">
+    <div>
+      <img src="./assets/imgs/forum/other/p71_sucess@3x.png" alt="">
     </div>
+    <div>
+      {{editImgOkText}}
+    </div>
+  </div>
 </div>

@@ -73,6 +73,7 @@ page-number-one {
       display: flex;
       .list-time{
         flex: 1;
+        display: inline-grid;
       }
       .imgdiv{
         background: #e4e4e4;

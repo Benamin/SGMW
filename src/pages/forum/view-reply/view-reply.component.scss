@@ -116,6 +116,7 @@ page-view-reply{
         height: 100%;
         z-index: 99;
         padding-top: 120px;
+        top: 0;
         .input-div{
             top: 120px;
             position: absolute;
@@ -150,6 +151,29 @@ page-view-reply{
             font-size: 12px;
             bottom: 10px;
         }
+    }
+    .textarea-blur{
+        position: fixed;
+        bottom: 0;
+        z-index: 99;
+        width: 100%;
+        height: 45px;
+        opacity: 0;
+        resize:none;
+        outline:none;
+        border: none;
+        background: #f3f3f3;
+        border-radius: 5px;
+    }
+    .textarea-focus{
+        z-index: 100;
+        background: #d8d8d8;
+        position: fixed;
+        top: 130px;
+        width: 90%;
+        margin: 0 5%;
+        height: 60px;
+        opacity: 1;
     }
     
 }

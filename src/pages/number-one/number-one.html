@@ -17,9 +17,9 @@
         <ng-container *ngFor="let item of dataList">
             <div class="information-list img1" *ngIf="item.IsSingle" (click)="goComponentsdetails(item)">
                     <div class="list-time">
-                        <h4>{{item.Title}}</h4>
+                        <h4 class="nowrap-2">{{item.Title}}</h4>
                         <div class="time">
-                            {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                            {{item.ReleaseTime}}
                         </div>
                     </div>
                     <div class="imgdiv">
@@ -33,7 +33,7 @@
                      
                     </div>
                     <div class="time">
-                        {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                        {{item.ReleaseTime}}
                     </div>
                 </div>
         </ng-container>
@@ -97,7 +97,7 @@
                     </span>
                 </div>
                 <div class="volume-number">
-                    <img style="width: 16px;" src="./assets/imgs/numberone/share@3x.png" alt="">
+                    <img style="width: 16px;" src="./assets/imgs/consultation/share@3x.png" alt="">
                 </div>
             </div>
         </div>

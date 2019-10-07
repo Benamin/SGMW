@@ -7,7 +7,7 @@
 <ion-content>
     <div class="details">
         <h4>{{data.Name}}</h4>
-        <div class="time">{{data.LableName}} /  {{data.ModifyTime|date:'yyyy-MM-dd hh:mm'}}</div>
+        <div class="time">{{data.LableName}} /  {{data.ModifyTime}}</div>
         <div class="inner-html">
           <span [innerHTML]='data.Mark'></span>
         </div>
@@ -17,9 +17,9 @@
         <h3>相关推荐</h3>
         <div class="information-list img1" (click)="goComponentsdetails(item)" *ngFor="let item of RelationArr">
             <div class="list-time">
-                <h4>{{item.Name}}</h4>
+                <h4 class="nowrap-2">{{item.Name}}</h4>
                 <div class="time">
-                  {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                  {{item.ReleaseTime}}
                 </div>
             </div>
             <div class="imgdiv">

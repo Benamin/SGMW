@@ -53,7 +53,7 @@ export class ConsultationPage {
     switchInformation(title){
     
         this.navli=title;
-        this.no_list=true;
+        this.no_list=false;
         this.isdoInfinite=true;
         this.dataList=[];
         this.dataPost.TypeID=this.navliopt[title];

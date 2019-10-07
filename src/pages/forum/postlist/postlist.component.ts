@@ -10,6 +10,9 @@ import {SearchPage} from "../../home/search/search";
   templateUrl: './postlist.component.html'
 })
 export class PostlistComponent implements OnInit {
+  ngOnInit(): void {
+    // throw new Error("Method not implemented.");
+  }
   lidata={Id:""};
   IsTopOpt=null;
   pageDate:any={
@@ -23,9 +26,7 @@ export class PostlistComponent implements OnInit {
     OrderBy:'PostTimeFormatted',
     OrderByDirection:'desc'
   }
-  forumLIst=[{
-    Images:[]
-  }];
+  forumLIst=[];
   isdoInfinite=true;
   no_list=false;
   
@@ -33,10 +34,13 @@ export class PostlistComponent implements OnInit {
     public navParams: NavParams,
     public navCtrl: NavController,
     private loadCtrl:LoadingController){ }
-  
-  ngOnInit() {
+  OnInit(){}
+  ionViewDidEnter() {
     this.lidata = this.navParams.get('data');
     this.pageDate.topicPlateId=this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
+    this.forumLIst = [];
+    this.pageDate.PageIndex=1;
+    this.no_list= false;
     this.forum_post_search();
   }
 
@@ -110,7 +114,7 @@ export class PostlistComponent implements OnInit {
 
   doInfinite(e){
     console.log('加载');
-    this.pageDate.pageIndex++;
+    this.pageDate.PageIndex++;
     this.forum_post_search();
     setTimeout(() => {
         e.complete();
@@ -119,7 +123,7 @@ export class PostlistComponent implements OnInit {
 
   doRefresh(e){
     console.log('刷新')
-    this.pageDate.page=1;
+    this.pageDate.PageIndex=1;
     this.forumLIst=[];
     this.forum_post_search();
     setTimeout(() => {

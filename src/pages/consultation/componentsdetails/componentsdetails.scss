@@ -53,6 +53,7 @@ page-componentsdetails{
     overflow: hidden;
     .list-time{
       flex:1;
+      display: inline-grid;
     }
     h4{
       color: rgba(0,0,0,0.8);

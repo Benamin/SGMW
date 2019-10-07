@@ -29,10 +29,10 @@ export class ViewReplyComponent implements OnInit {
   }
   textareaclick() {
     this.textareaBlur = true;
-    let textDiv: HTMLElement = document.getElementById('textareainpview');
-    setTimeout(() => {
-      textDiv.focus();
-    }, 20);
+    // let textDiv: HTMLElement = document.getElementById('textareainpview');
+    // setTimeout(() => {
+    //   textDiv.focus();
+    // }, 20);
   }
   inputshow_on() {
     this.textareaBlur = false;

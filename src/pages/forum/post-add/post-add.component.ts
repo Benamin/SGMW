@@ -166,6 +166,13 @@ export class PostAddComponent implements OnInit {
         });
     }
   }
+  htmlTextDle(){
+    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let innerText:any=textareaImg.innerText;
+    if(innerText=='请输入正文'){
+      textareaImg.innerText="";
+    }
+  }
 
   // 过滤删除图片
   ImgSome(){
