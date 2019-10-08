@@ -45,6 +45,9 @@ comment {
   }
 
   .img-star {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     span {
       color: #facd70;
       font-size: 3rem;

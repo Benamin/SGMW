@@ -93,7 +93,7 @@ export class CommentComponent {
             'replyContent': this.replyContent,
             'score': this.score
         };
-        if (this.type == "teacher") data.TopicID = this.teacher;
+        if (this.type == "teacher") data.TopicID = this.teacher.UserID;
         console.log(data);
         this.viewCtrl.dismiss(data);
     }

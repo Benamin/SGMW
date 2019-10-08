@@ -26,7 +26,7 @@ export class TestCenterPage {
         EName: '',
         StudyState: 1,
         EType: 4,  /// 3-预习作业 4-课后作业
-        load:false
+        load: false
     };
 
     examList = [];
@@ -40,7 +40,7 @@ export class TestCenterPage {
     ionViewDidLoad() {
     }
 
-    ionViewDidEnter(){
+    ionViewDidEnter() {
         this.checkTimeOut();
         this.getList();
     }
@@ -101,10 +101,9 @@ export class TestCenterPage {
         this.homeSer.getSysDateTime().subscribe(
             (res) => {
                 const sysDate = new Date(res.data).getTime();
-                // if (sysDate < ExamBegin) this.commonSer.toast('考试未开始');
-                // if (sysDate > ExamEnd) this.commonSer.toast('当前时间不可考试');
-                // if (ExamBegin < sysDate && sysDate < ExamEnd) this.navCtrl.push(DoTestPage, {item: item});
-                this.navCtrl.push(DoTestPage, {item: item});
+                if (sysDate < ExamBegin) this.commonSer.toast('考试未开始');
+                if (sysDate > ExamEnd) this.commonSer.toast('当前时间不可考试');
+                if (ExamBegin < sysDate && sysDate < ExamEnd) this.navCtrl.push(DoTestPage, {item: item});
             }
         )
     }

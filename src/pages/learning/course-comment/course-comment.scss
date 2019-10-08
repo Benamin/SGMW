@@ -54,7 +54,7 @@ page-course-comment {
           img {
             width: 3rem;
             height: 3rem;
-            border-radius: 50%;
+            border-radius: 40%;
           }
         }
 
@@ -78,7 +78,7 @@ page-course-comment {
         }
 
         > div:last-child {
-          width: 40%;
+          width: 50%;
           text-align: right;
         }
       }
@@ -114,6 +114,9 @@ page-course-comment {
     flex-direction: column;
     flex-flow: column;
     color: #facd70;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     span {
       font-size: 2rem;
@@ -128,14 +131,16 @@ page-course-comment {
     .Contents {
       width: 80%;
     }
-    div.Contents:last-child{
+
+    div.Contents:last-child {
       width: 100%;
     }
 
     .item-teacher {
-      img{
+      img {
         width: 24px;
       }
+
       text-align: center;
       width: 20%;
       font-size: 1.2rem;
