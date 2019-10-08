@@ -87,6 +87,7 @@ page-login {
       border: 1px solid #ffffff;
       border-radius: 50px;
       padding-left: 20px;
+      -webkit-user-select: text !important;
     }
 
     input {
@@ -96,6 +97,7 @@ page-login {
       border: 0;
       font-size: 1.5rem;
       background: transparent;
+      -webkit-user-select: text !important;
     }
 
     .check {

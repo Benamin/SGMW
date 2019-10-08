@@ -135,6 +135,7 @@ export class CourseDetailPage {
                 this.product.chapter = res.data;
                 this.product.chapter.Course.children.forEach(e => e.show = false);
                 this.f(this.product.chapter.Course.children);
+                this.loading.dismiss();
             }
         );
 
@@ -152,7 +153,6 @@ export class CourseDetailPage {
 
             }
         );
-        this.loading.dismiss();
     }
 
 
@@ -278,7 +278,7 @@ export class CourseDetailPage {
             placeholder: '请输入你对讲师的评价...',
             TopicID: this.product.detail.Teachers[0].UserID,
             TopicType: 'teacher',
-            PId:this.pId,
+            PId: this.pId,
             title: '讲师评价'
         });
     }

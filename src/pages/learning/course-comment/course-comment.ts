@@ -39,7 +39,7 @@ export class CourseCommentPage {
         this.TopicType = this.navParams.get("TopicType");
         this.title = this.navParams.get("title");
         this.placeholder = this.navParams.get("placeholder");
-        if (this.TopicType == 'course') this.getList();
+        if (this.TopicType != 'talk') this.getList();
         if (this.TopicType == 'talk') this.getTalkList();
         if (this.TopicType == 'teacher') this.getTeacher();
     }

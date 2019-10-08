@@ -31,7 +31,7 @@ export class LivePage {
         OrderBy: "StartTime",
         TeachTypeCode: "zb",
         IsToday: false,
-        sortdir : "Desc"
+        sortdir: "Desc"
     };
 
     list = {
@@ -57,6 +57,8 @@ export class LivePage {
     changeType(e) {
         if (e.type == "1") this.page.IsToday = true;
         if (e.type == "0") this.page.IsToday = false;
+        this.list.all = [];
+        this.list.load = false;
         this.list.changeType = e.type;
         this.getList();
     }

@@ -20,6 +20,7 @@ export class CoursePage {
         pageSize: 10,
         studystate: 2,
         TotalCount: 0,
+        load:false
     };
 
     courseList = [];
@@ -55,6 +56,7 @@ export class CoursePage {
                 this.courseList = res.data.ProductList;
                 this.page.TotalCount = res.data.TotalCount
                 loading.dismiss();
+                this.page.load = true;
             }
         )
     }
@@ -62,6 +64,7 @@ export class CoursePage {
     changeType(e) {
         this.page.page = 1;
         this.page.studystate = e.type;
+        this.page.load = false;
         this.getList();
     }
 

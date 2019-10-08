@@ -93,6 +93,11 @@ export class LoginPage {
         this.slides.slideTo(index, 100);
     }
 
+    slideChange() {
+        if( this.slides.realIndex == 0) this.loginObj.platform = "xszs";
+        if( this.slides.realIndex == 1) this.loginObj.platform = "junke";
+    }
+
     //员工
     ygLogin() {
         if (!this.ygObj.LoginName || !this.ygObj.Password) {

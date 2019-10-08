@@ -27,6 +27,7 @@ export class ExamPage {
     };
 
     examList = [];
+    IsLoad = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private loadCtrl: LoadingController) {
@@ -36,11 +37,11 @@ export class ExamPage {
         this.getList();
     }
 
-    doRefresh(e) {
+    //切换tab
+    changeType(e) {
+        this.IsLoad = false;
+        this.page.StudyState = e.type;
         this.getList();
-        timer(1000).subscribe((res) => {
-            e.complete()
-        });
     }
 
     getList() {
@@ -64,17 +65,11 @@ export class ExamPage {
                         res.data.forEach(e=>e.EType = "课后作业");
                         this.examList = this.examList.concat(res.data);
                         loading.dismiss();
+                        this.IsLoad = true;
                     }
                 );
             }
         );
-    }
-
-    changeType(e) {
-        console.log(e);
-        // this.page.EType = 1;
-        this.page.StudyState = e.type;
-        this.getList();
     }
 
     goExam(item) {
@@ -83,6 +78,15 @@ export class ExamPage {
         } else {
             this.navCtrl.push(DoExamPage, {item: item});
         }
+    }
+
+
+    doRefresh(e) {
+        this.IsLoad = false;
+        this.getList();
+        timer(1000).subscribe((res) => {
+            e.complete()
+        });
     }
 
 }

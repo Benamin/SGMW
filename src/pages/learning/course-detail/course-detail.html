@@ -57,7 +57,7 @@
         <p>章节</p>
         <div class="chapter">
             <ng-container *ngFor="let item of product.chapter?.Course?.children">
-                <p style="font-weight: bold" tappable (click)="getMore(item)">
+                <p tappable (click)="getMore(item)">
                     {{item.title}}
                     <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon"
                               name="arrow-forward"></ion-icon>
