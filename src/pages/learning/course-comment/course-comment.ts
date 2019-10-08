@@ -39,12 +39,12 @@ export class CourseCommentPage {
         this.TopicType = this.navParams.get("TopicType");
         this.title = this.navParams.get("title");
         this.placeholder = this.navParams.get("placeholder");
-        if (this.TopicType != 'talk') this.getList();
+        if (this.TopicType == 'course') this.getList();
         if (this.TopicType == 'talk') this.getTalkList();
         if (this.TopicType == 'teacher') this.getTeacher();
     }
 
-    //所有评论信息
+    //课程评价
     getList() {
         const load = this.loadCtrl.create();
         load.present();
@@ -59,6 +59,7 @@ export class CourseCommentPage {
                 load.dismiss();
                 this.list = res.data.CommentItems;
                 this.page.total = res.data.TotalCount;
+                this.page.load = true;
             }
         );
     }
@@ -93,6 +94,7 @@ export class CourseCommentPage {
                 load.dismiss();
                 this.list = res.data.CommentItems;
                 this.page.total = res.data.TotalCount;
+                this.page.load = true;
             }
         );
     }
