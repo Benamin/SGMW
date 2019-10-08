@@ -156,6 +156,11 @@ export class ForumService {
     return this.http.post(SERVER_API_URL + '/forum/post/add', data);
   }
 
+  // 修改 帖子
+  forum_post_edit(data){
+    return this.http.post(SERVER_API_URL + '/forum/post/edit', data);
+  }
+
 
   //   /api/forum/post/follow 关注帖子,参数:postId,帖子编号
   // /api/forum/post/cancelfollow 取消关注帖子,参数:postId,帖子编号

@@ -86,6 +86,7 @@ export class MyFollowsComponent implements OnInit {
   }
   teachDetail(data) {
     console.log(data);
+    data['UserID']=data.TopicID;
     data['IsSubscribe'] = true;
     this.navCtrl.push(TeacherPage, {item: data});
 }
@@ -130,7 +131,7 @@ export class MyFollowsComponent implements OnInit {
   // 关注讲师
  focusHandle(item) {
     const data = {
-        TopicID: item.UserID
+        TopicID: item.TopicID 
     };
      this.learnSer.SaveSubscribe(data).subscribe(
         (res) => {
@@ -143,7 +144,7 @@ export class MyFollowsComponent implements OnInit {
   cancleFocusHandle(item) {
     console.log(item);
     const data = {
-        TopicID: item.UserID
+        TopicID: item.TopicID
     };
     this.learnSer.CancelSubscribe(data).subscribe(
         (res) => {

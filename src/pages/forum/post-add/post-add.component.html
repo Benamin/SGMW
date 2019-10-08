@@ -6,17 +6,20 @@
     <ion-title>
       发布帖子
     </ion-title>
-    <span class="release" (click)="forum_post_add(true)">
+    <span class="release" (click)="sevrData(true)">
       发布
     </span>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content style="background: #fff">
   <div class="content-div"  [ngStyle]="{'padding-bottom': paddingBottom}">
   <!-- <div class="content-div" [ngClass]="{'func-buttom-div': focusAmeR}" [ngStyle]="{'padding-bottom': paddingBottom}"> -->
     <div class="input-div">
       <input type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;" [(ngModel)]="Title"
         placeholder="请输入标题">
+    </div>
+    <div style="height: 10px;width: 100%; background: #f2f2f2;">
+
     </div>
     <div class="textarea-div">
       <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true"
@@ -46,7 +49,7 @@
         点击图片编辑描述
       </span>
       <div></div>
-      <span class="seve-draft" (click)="forum_post_add(false)">
+      <span class="seve-draft" (click)="sevrData(false)">
         <img src="./assets/imgs/forum/other/p71_save@3x.png" alt="">
         <span>
           保存草稿
@@ -65,8 +68,8 @@
       </span>
     </div>
   </div>
-  <div class="img-div">
-    <img style="width: auto;height: auto;max-width: 100%;max-height: 80%;" src="{{editImg.src}}" alt="{{editImg.alt}}">
+  <div class="img-div" [ngStyle]="{'background-image': 'url('+editImg.src+')','background-size':'contain'}" style="max-width: 100%;max-height: 80%;background-size: contain;background: no-repeat center;">
+    <!-- <img style="width: auto;height: auto;max-width: 100%;max-height: 80%;" src="{{editImg.src}}" alt="{{editImg.alt}}"> -->
   </div>
   <div class="input-div">
     <input type="text" [(ngModel)]="editImg.newalt" placeholder="请给图片一个描述吧…" name="" id="">

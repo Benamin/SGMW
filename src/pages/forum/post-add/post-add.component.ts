@@ -19,8 +19,9 @@ export class PostAddComponent implements OnInit {
   data: string = "";  
   lidata={
     Id:"7051bb5e-8729-49f4-b95a-016d7d8474ce", // 板块id
-    postId:''  // 帖子Id
-};
+    postId:'',  // 帖子Id
+    Status:null
+  };
   Title="";
   imgitems:any=[];
   editImgOk=false;
@@ -60,6 +61,7 @@ export class PostAddComponent implements OnInit {
     if(data.Status==1){
       this.lidata.Id=data.TopicPlateId;
       this.lidata.postId=data.Id;
+      this.lidata.Status=data.Status;
       this.Title=data.Title;
       this.getData();
     }else{
@@ -234,20 +236,59 @@ src:''};
     this.iseditImg=false;
   }
 
-  editImgOkText="";
-  // 新增 或 保存草稿
-  forum_post_add(IsSaveAndPublish){
-    let textareaImg:HTMLElement=document.getElementById('textareaImg');
-    let textInnerHTML:any=textareaImg.innerHTML;
+
+  sevrData(IsSaveAndPublish){
+
     if(!this.Title){
       return;
     }
+    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let textInnerHTML:any=textareaImg.innerHTML;
+    
+
+    if(this.lidata.Status==1){ // 草稿帖子 修改帖子
+      this.forum_post_edit(IsSaveAndPublish,textInnerHTML);
+    }else{
+      this.forum_post_add(IsSaveAndPublish,textInnerHTML);
+    }
+  }
+  forum_post_edit(IsSaveAndPublish,textInnerHTML){
+    let data={
+      "Id":this.lidata.postId,//帖子编号
+      "Title": this.Title,//帖子标题
+      "TopicPlateId": this.lidata.Id,//帖子所属板块编号
+      "Content": textInnerHTML,//帖子内容
+      "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
+    }
+    this.serve.forum_post_edit(data).subscribe((res:any) => {
+      console.log(res);
+      if(res.code == 200){
+        if(IsSaveAndPublish){
+          this.editImgOkText='帖子发布成功';
+        }else{
+          this.editImgOkText='保存成功';
+        }
+        this.editImgOk=true;
+        setTimeout(() => {
+          this.editImgOk=false;
+          this.backPop();
+        }, 2000);
+      }
+    })
+  }
+
+  editImgOkText="";
+
+
+  // 新增 或 保存草稿
+  forum_post_add(IsSaveAndPublish,textInnerHTML){
+
     let data={
       "Title": this.Title,//帖子标题
       "TopicPlateId": this.lidata.Id,//帖子所属板块编号
       "Content": textInnerHTML,//帖子内容
       "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
-      "Id":this.lidata.postId?this.lidata.postId:""
+     
     }
     this.serve.forum_post_add(data).subscribe((res:any) => {
       console.log(res);
