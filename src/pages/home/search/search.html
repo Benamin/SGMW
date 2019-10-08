@@ -50,7 +50,7 @@
       </div>
       <div class="post-introduction-con">
         <p>{{item.Title}}</p>
-        <div class="img-div img1" *ngIf="item.Images&&item.Images.length==1"
+        <!-- <div class="img-div img1" *ngIf="item.Images&&item.Images.length==1"
         [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
         style="background-size: cover;background: no-repeat center;">
         </div>
@@ -67,9 +67,9 @@
                 [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
               </div>
             </div>
-          </div>
+          </div> -->
 
-        <!-- <div class="img-div img1" *ngIf="item.Images&&item.Images.length==1">
+        <div class="img-div img1" *ngIf="item.Images&&item.Images.length==1">
           <img src="{{item.Images[0].Src}}" alt="">
         </div>
         <div class="img-div img2" *ngIf="item.Images&&item.Images.length==2">
@@ -81,7 +81,7 @@
           <div *ngFor="let img of item.Images.slice(0,3)">
             <img src="{{img.Src}}" alt="">
           </div>
-        </div> -->
+        </div>
       </div>
       <div class="post-introduction-buttom">
         <span class="nowrap-1">
