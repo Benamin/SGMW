@@ -35,7 +35,6 @@ export class MyForumComponent implements OnInit {
   // 切换已发布/草稿箱
   switchInformation(text,number) {
     this.navli = text;
-    this.navli=text;
     this.pageDate.pageIndex=1;
     this.pageDate.status=number;
     this.forumLIst=[];

@@ -10,7 +10,7 @@
         <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <div class="navul" #navul>
+    <div class="navul">
             <div class="navli" [ngClass]="{'act': navli=='新车资讯'}" (click)="switchInformation('新车资讯')">
                 新车资讯
             </div>
@@ -27,14 +27,14 @@
                     <p text-center style="color: #666666;font-size: 16px">
                         暂无数据
                     </p>
-                  </ion-list>
+            </ion-list>
 
         <ng-container *ngFor="let item of dataList">
             <div class="information-list img1" *ngIf="item.IsSingle" (click)="goComponentsdetails(item)">
                 <div class="list-time">
-                    <h4>{{item.Title}}</h4>
+                    <h4 class="nowrap-2">{{item.Title}}</h4>
                     <div class="time">
-                        {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                        {{item.ReleaseTime}}
                     </div>
                 </div>
                 <div class="imgdiv">
@@ -49,18 +49,10 @@
                     <img [src]="item.SourceUrl" alt=""> -->
                 </div>
                 <div class="time">
-                    {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                    {{item.ReleaseTime}}
                 </div>
             </div>
-            <!-- <div class="information-list imgBig" *ngIf="item.imgarr=='imgBig'" (click)="goComponentsdetails(item)">
-                <h4>{{item.Title}}</h4>
-                <div class="imgdiv-flex">
-                    <img [src]="item.SourceUrl" alt="">
-                </div>
-                <div class="time">
-                    {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
-                </div>
-            </div> -->
+       
         </ng-container>
         <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
             <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>

@@ -4,6 +4,9 @@ import { NavController ,
         LoadingController,
         Img} from "ionic-angular";
 import {ForumService} from "../forum.service";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+
 declare let ImagePicker;
 
 
@@ -22,11 +25,41 @@ export class PostAddComponent implements OnInit {
   imgitems:any=[];
   editImgOk=false;
   editData=null;
+  innerHeightOld=0;
+  paddingBottom= '0px';
   constructor(
     private navCtrl: NavController,
     private serve:ForumService,
     public navParams: NavParams,
     private loadCtrl: LoadingController) {
+
+
+      Observable.fromEvent(window, "native.keyboardshow")
+      .debounceTime(100)
+      .subscribe((event: any) => {
+          // alert('显示:'+JSON.stringify(event))
+
+          this.paddingBottom=event.keyboardHeight+20+'px';
+          let paddingBottomdom=document.getElementById('buttomImgDiv');
+          paddingBottomdom.style.paddingBottom=this.paddingBottom;
+        console.log(paddingBottomdom);
+          //this.keyboardshowHeightBottom=event.keyboardHeight+'px';
+      });
+
+
+
+      Observable.fromEvent(window, "native.keyboardhide")
+      .debounceTime(100)
+      .subscribe((event: any) => {
+        this.paddingBottom=0+'px';
+        document.getElementById('buttomImgDiv').style.paddingBottom=this.paddingBottom;
+
+      });
+
+       
+
+
+
 
     }
 
@@ -41,7 +74,8 @@ export class PostAddComponent implements OnInit {
       this.lidata=data;
     }
     console.log('新增帖子',this.lidata);
-   
+    this.innerHeightOld=window.innerHeight;
+    console.log('this.innerHeightOld',this.innerHeightOld)
   }
 
   focusAmeR=false;
@@ -167,6 +201,16 @@ export class PostAddComponent implements OnInit {
     }
   }
 
+  // 获取焦点
+  htmlTextDle(){
+    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let innerText:any=textareaImg.innerText;
+    if(innerText=='请输入正文'){
+      textareaImg.innerText="";
+    }
+
+  }
+
   // 过滤删除图片
   ImgSome(){
     let textareaImg:HTMLElement=document.getElementById('textareaImg');
@@ -229,13 +273,10 @@ src:''};
       }
     });
   }
-  doc_scrollTop(){
-    this.focusAmeR=true;
-
+    // this.focusAmeR=true;
     // setTimeout(function(){
     //   console.log('下拉滑动');
     //   document.body.scrollTop = document.body.scrollHeight;
     // },20);
-  }
 
 }

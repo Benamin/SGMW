@@ -11,7 +11,7 @@ import { ViewReplyComponent } from '../view-reply/view-reply.component';
 export class PostsContentComponent implements OnInit {
   lidata = { Id: '', TopicPlateId: "", Name: "" };
   inputText = "";
-  textareaBlur = true;
+  textareaBlur = false;
   dataCon = {
     "SetTopTime": "0001-01-01T00:00:00",
     "LockTime": "0001-01-01T00:00:00",
@@ -43,6 +43,9 @@ export class PostsContentComponent implements OnInit {
     private loadCtrl:LoadingController) { }
 
   ngOnInit() {
+    
+  }
+  ionViewDidEnter() {
     this.lidata = this.navParams.get('data');
     this.forum_post_publish();
   }
@@ -70,7 +73,7 @@ export class PostsContentComponent implements OnInit {
       let loading = this.loadCtrl.create({
         content:''
       });
-      // loading.present();
+      loading.present();
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
       console.log(res);
       let element = res.data;

@@ -2,8 +2,13 @@
   <ion-navbar>
     <ion-title>我的帖子</ion-title>
   </ion-navbar>
-  <ion-header-bar>
-      <div class="navul" #navul>
+</ion-header>
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="navul">
         <div class="navli" [ngClass]="{'act': navli=='已发布'}" (click)="switchInformation('已发布',2)">
           已发布
         </div>
@@ -11,17 +16,10 @@
           草稿箱
         </div>
       </div>
-    </ion-header-bar>
-</ion-header>
-<ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
-        </ion-refresher-content>
-    </ion-refresher>
   <div *ngIf="navli=='已发布'" class="content-div">
     <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
       <div class="post-introduction-top">
-        <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+        <img src="{{item.PosterHeadPhoto}}" alt="">
         <div class="name nowrap-1">{{item.PosterUserName}}</div>
         <div class="oldDate nowrap-1">{{item.PostRelativeTime}}</div>
         <div style="flex: 1;">
@@ -68,7 +66,7 @@
   <div *ngIf="navli=='草稿箱'" class="content-div">
     <div class="post-introduction"  *ngFor="let item of forumLIst">
       <div class="post-introduction-top">
-        <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+        <img src="{{item.PosterHeadPhoto}}" alt="">
         <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
         <div class="edit-div">
           <span class="edit-img"  (click)="editITem(item)">

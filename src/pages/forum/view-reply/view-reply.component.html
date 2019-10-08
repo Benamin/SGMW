@@ -7,7 +7,7 @@
   <div class="original">
     <div class="reply">
       <div class="reply-top">
-        <img class="heard-img" src="{{data.ReplyHeadPhoto}}" alt="">
+        <img class="heard-img" src="{{data.PosterHeadPhoto}}" alt="">
         <div class="text">
           <h4>{{data.PosterUserName}}</h4>
           <p>{{data._ReplyTimeFormatted}}</p>
@@ -24,7 +24,9 @@
     <p class="number-all">回复（{{data.CommentCount}}）</p>
     <div class="reply" *ngFor="let item of data.Comments">
       <div class="reply-top">
-        <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt="">
+        <!-- <img class="heard-img" src="./assets/imgs/forum/other/p771_avatar2@3x.jpg" alt=""> -->
+        <img class="heard-img" src="{{item.PosterHeadPhoto}}" alt="">
+
         <div class="text">
           <h4>{{item.PosterUserName}}<span *ngIf="item.MentionUserName==data.PosterUserName" class="label">楼主</span></h4>
           <p>{{item._ReplyTimeFormatted}}</p>
@@ -36,26 +38,27 @@
           {{item.Content}}
       </div>
     </div>
-    <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="data.Comments.length==0">
-        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-        <p text-center style="color: #666666;font-size: 16px">
-            暂无数据
-        </p>
-      </ion-list>
 
   </div>
+  <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="data.Comments.length==0">
+      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+      <p text-center style="color: #666666;font-size: 16px">
+          暂无评论
+      </p>
+  </ion-list>
 </ion-content>
-<div class="input-div" (click)="textareaclick()">
-  <div>
-    输入你的评论
-  </div>
-</div>
-<div class="inputshow" [ngClass]="{'textareaBlur': textareaBlur}" (click)="inputshow_on();">
-  <div class="input-div" (click)="textareaclick();$event.stopPropagation();">
-    <textarea id="textareainpview" placeholder='输入你的评论...' (click)="textareaclick();$event.stopPropagation();" rows="3"
-      [(ngModel)]="inputText"></textarea>
-  </div>
-  <div class="btn" (click)="replycomment_add();$event.stopPropagation()">
-    发送
-  </div>
-</div>
+<ion-footer>
+    <div class="input-div" (click)="textareaclick()">
+        <div>
+          输入你的评论
+        </div>
+      </div>
+      <div class="inputshow" [ngClass]="{'textareaBlur': textareaBlur}" (click)="inputshow_on();">
+        <div class="input-div" (click)="textareaclick();$event.stopPropagation();">
+        </div>
+        <div class="btn" (click)="replycomment_add();$event.stopPropagation()">
+          发送
+        </div>
+      </div>
+      <textarea id="textareainpview" placeholder='输入你的评论...' class="textarea-blur" [ngClass]="{'textarea-focus': textareaBlur}" (focus)="textareaclick();$event.stopPropagation();" rows="1" [(ngModel)]="inputText"></textarea>
+</ion-footer>

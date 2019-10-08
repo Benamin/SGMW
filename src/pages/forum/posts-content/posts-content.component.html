@@ -8,7 +8,7 @@
   <div class="cons">
     <h3>{{dataCon.Title}}</h3>
     <div class="post-introduction-top">
-      <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+      <img src="{{dataCon.PosterHeadPhoto}}" alt="">
       <div class="name nowrap-1">{{dataCon.PosterUserName}}</div>
       <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
     </div>
@@ -41,13 +41,14 @@
         <img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt="">
       </div>
     </div>
-    <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="!dataCon.Replys">
+
+  </div>
+  <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="!dataCon.Replys">
       <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
       <p text-center style="color: #666666;font-size: 16px">
-        暂无数据
+        暂无评论
       </p>
     </ion-list>
-  </div>
 </ion-content>
 <ion-footer>
   <div class="input-bttom">

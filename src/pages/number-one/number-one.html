@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-        <div class="navul" #navul>
+        <div class="navul">
                 <div class="navli" [ngClass]="{'act': navli=='销冠风采'}" (click)="switchInformation('销冠风采')">
                     销冠风采
                 </div>
@@ -17,9 +17,9 @@
         <ng-container *ngFor="let item of dataList">
             <div class="information-list img1" *ngIf="item.IsSingle" (click)="goComponentsdetails(item)">
                     <div class="list-time">
-                        <h4>{{item.Title}}</h4>
+                        <h4 class="nowrap-2">{{item.Title}}</h4>
                         <div class="time">
-                            {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                            {{item.ReleaseTime}}
                         </div>
                     </div>
                     <div class="imgdiv">
@@ -33,7 +33,7 @@
                      
                     </div>
                     <div class="time">
-                        {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                        {{item.ReleaseTime}}
                     </div>
                 </div>
         </ng-container>
@@ -44,7 +44,7 @@
             <div class="heard">
                 <div class="heard-img">
                     <img class="crown-img" src="./assets/imgs/numberone/numberOne-AnCrown@3x.png" alt="">
-                    <img class="user-heard" src="./assets/imgs/numberone/numberOne-head@3x.jpg" alt="">
+                    <img class="user-heard" src="{{item.ImageURL}}" alt="">
                 </div>
                 <div class="name">
                     <p class="name-p"> {{item.Name}}</p>
@@ -97,7 +97,7 @@
                     </span>
                 </div>
                 <div class="volume-number">
-                    <img style="width: 16px;" src="./assets/imgs/numberone/share@3x.png" alt="">
+                    <img style="width: 16px;" src="./assets/imgs/consultation/share@3x.png" alt="">
                 </div>
             </div>
         </div>

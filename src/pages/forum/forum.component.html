@@ -47,25 +47,8 @@
               </div>
           </div>
       </div>  
-      <!-- <div class="con-div" (click)="goPostlist()">
-          <div class="list">
-              <div class="img-div">
-                  <img src="./assets/imgs/forum/other/hha2.png" alt="">
-              </div>
-              <div class="text">
-                <div>
-                  <span  class="text-l">吐槽大会</span>
-                  <span class="text-r">[2341条帖子]</span>
-                </div>
-                <p>
-                    新宝骏RM-5 RC-6 全擎上市全擎在线、智能出行，全系标配新宝骏…
-                </p>
-              </div>
-          </div>
-      </div>  -->
-  
   </div>
-  <ion-list text-center style="margin-top: 10rem" *ngIf="forumLIst.length == 0">
+  <ion-list text-center style="margin-top: 10rem" *ngIf="no_list ">
     <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
     <p text-center style="color: #666666;font-size: 16px">
         暂无数据

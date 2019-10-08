@@ -11,7 +11,7 @@
                            refreshingSpinner="bubbles">
     </ion-refresher-content>
   </ion-refresher>
-  <div class="navul" #navul>
+  <div class="navul">
       <div class="navli" [ngClass]="{'act': navli=='课程'}" (click)="switchInformation('课程')">
           课程
       </div>
@@ -23,7 +23,7 @@
   <div *ngIf="navli=='帖子'" class="content-div">
       <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of collectionList">
         <div class="post-introduction-top">
-          <img src="./assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+          <img src="{{item.PosterHeadPhoto}}" alt="">
           <div class="name">{{item.PosterUserName}}</div>
           <div class="oldDate">{{item.PostRelativeTime}}</div>
         </div>

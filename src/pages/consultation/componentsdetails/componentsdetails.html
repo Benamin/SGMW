@@ -7,7 +7,7 @@
 <ion-content >
   <div class="details">
       <h4>{{data.Title}}</h4>
-      <div class="time">新车资讯 /  {{data.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}</div>
+      <div class="time">新车资讯 /  {{data.ReleaseTime}}</div>
       <div class="inner-html">
         <span [innerHTML]='data.Text'></span>
       </div>
@@ -19,7 +19,7 @@
           <div class="list-time">
               <h4>{{item.Title}}</h4>
               <div class="time">
-                {{item.ReleaseTime|date:'yyyy-MM-dd hh:mm'}}
+                {{item.ReleaseTime}}
               </div>
           </div>
           <div class="imgdiv">

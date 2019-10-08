@@ -73,6 +73,7 @@ page-number-one {
       display: flex;
       .list-time{
         flex: 1;
+        display: inline-grid;
       }
       .imgdiv{
         background: #e4e4e4;
@@ -135,6 +136,7 @@ page-number-one {
           }
           .user-heard{
             border-radius: 50%;
+            height: 100%;
           }
         }
         .name{
