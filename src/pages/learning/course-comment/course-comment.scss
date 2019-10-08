@@ -52,9 +52,9 @@ page-course-comment {
 
         .headPhoto {
           img {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 40%;
+            width: 36px;
+            height: 36px;
+            border-radius: 100px;
           }
         }
 
@@ -64,7 +64,7 @@ page-course-comment {
 
         > div:nth-child(2) {
           padding-left: 10px;
-          width: 50%;
+          width: 40%;
 
           p:first-child {
             font-size: 13px;
@@ -130,6 +130,7 @@ page-course-comment {
 
     .Contents {
       width: 80%;
+      padding-right: 10px;
     }
 
     div.Contents:last-child {

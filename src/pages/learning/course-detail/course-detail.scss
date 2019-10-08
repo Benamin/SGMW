@@ -1,7 +1,8 @@
 page-course-detail {
-  .scroll-content{
+  .scroll-content {
     -webkit-overflow-scrolling: auto;
   }
+
   .banner {
     height: 180px;
     background-color: rgba(0, 0, 0, .4);
@@ -59,7 +60,8 @@ page-course-detail {
           margin-right: 15px;
           display: flex;
           align-items: center;
-          img{
+
+          img {
             width: 18px;
             margin-right: 5px;
           }
@@ -236,9 +238,10 @@ page-course-detail {
 
         .Contents {
           width: 80%;
+          padding-right: 10px;
         }
 
-        div.Contents:last-child{
+        div.Contents:last-child {
           width: 100%;
         }
 
@@ -347,6 +350,11 @@ page-course-detail {
   }
 
   .chapter {
+    > p {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
     > div p {
       padding: 8px 0;
       border-bottom: 1px solid #dddddd;

@@ -44,7 +44,7 @@ export class CourseCommentPage {
         if (this.TopicType == 'teacher') this.getTeacher();
     }
 
-    //所有评论信息
+    //课程评价
     getList() {
         const load = this.loadCtrl.create();
         load.present();
@@ -59,6 +59,7 @@ export class CourseCommentPage {
                 load.dismiss();
                 this.list = res.data.CommentItems;
                 this.page.total = res.data.TotalCount;
+                this.page.load = true;
             }
         );
     }
@@ -93,6 +94,7 @@ export class CourseCommentPage {
                 load.dismiss();
                 this.list = res.data.CommentItems;
                 this.page.total = res.data.TotalCount;
+                this.page.load = true;
             }
         );
     }

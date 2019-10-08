@@ -108,6 +108,12 @@ export class LoginPage {
         this.slides.slideTo(index, 100);
     }
 
+    //slide改变
+    slideChange() {
+        if( this.slides.realIndex == 0) this.loginObj.platform = "xszs";
+        if( this.slides.realIndex == 1) this.loginObj.platform = "junke";
+    }
+
     //员工
     ygLogin() {
         if (!this.ygObj.username || !this.ygObj.password) {
@@ -310,12 +316,6 @@ export class LoginPage {
             this.storage.set('user', res.data);
             this.navCtrl.setRoot(TabsPage);
         }
-    }
-
-    //slide改变
-    slideChange() {
-        console.log('slidechange')
-        this.loginObj.platform = this.loginObj.platform == "xszs" ? "junke" : "xszs";
     }
 
     //重新获取验证码
