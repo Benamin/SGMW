@@ -21,7 +21,10 @@
                     </div>
                     <div class="test-item-desc">
                         <p class="courseName">{{item.EName}}</p>
-                        <p class="eName"><img src="./assets/imgs/test/cate@3x.png">{{item.EName}}</p>
+                        <p class="eName">
+                            <img src="./assets/imgs/test/cate@3x.png">
+                            <span>{{item.EName}}</span>
+                        </p>
                     </div>
                     <div *ngIf="page.StudyState == 3" class="test-leave">
                         <img *ngIf="item.TotalScore < item.PaperScore *0.6" src="./assets/imgs/test/bad@2x.png">

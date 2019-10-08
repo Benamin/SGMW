@@ -372,14 +372,18 @@ page-course-detail {
       }
 
       > div:nth-of-type(2) {
-        width: 15%;
+        width: 20%;
         text-align: center;
+        overflow: hidden;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
       }
 
       > div:last-child {
         text-align: right;
         padding-right: 10px;
-        width: 75%;
+        width: 70%;
         font-size: 1rem;
         font-family: PingFangSC-Regular, PingFangSC;
         font-weight: 400;

@@ -2,7 +2,7 @@
     <ion-navbar>
         <form class="search-header" action="#">
             <ion-icon class="search-icon" name="search"></ion-icon>
-            <ion-input type="search" placeholder="搜索{{navli=='论坛'?'帖子':'课程'}}" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
+            <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
                        [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
             <span class="clear" tappable (click)="clear()">取消</span>
         </form>
@@ -97,7 +97,7 @@
     <ion-list text-center style="margin-top: 10rem" *ngIf="showTips">
         <img style="width: 15%;" src="./assets/imgs/tabs/tab3_off@3x.png">
         <p text-center style="color: #999;font-size: 16px;margin-top: 20px">
-            请搜索你想要查找的{{navli=='论坛'?'帖子':'课程'}}
+            请搜索你想要查找的内容
         </p>
     </ion-list>
 

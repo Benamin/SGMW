@@ -33,7 +33,7 @@
                 <div class="headPhoto">
                     <img [src]="item.HeadPhoto" alt="">
                 </div>
-                <div>
+                <div style="text-align: left">
                     <p>{{item.UserName}}</p>
                     <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
                 </div>
@@ -52,12 +52,12 @@
                     <div>
                         <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
                     </div>
-                    <div>{{item.TeacherName}}</div>
+                    <div >{{item.TeacherName}}</div>
                 </div>
             </div>
         </div>
     </div>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="list.length == 0">
+    <ion-list text-center style="margin-top: 10rem" *ngIf="list.length == 0 && page.load">
         <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
         <p text-center style="color: #666666;font-size: 16px">
             暂无数据

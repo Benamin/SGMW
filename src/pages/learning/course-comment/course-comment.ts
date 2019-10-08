@@ -20,7 +20,8 @@ export class CourseCommentPage {
     page = {
         pageSize: 1000,
         page: 1,
-        total: null
+        total: null,
+        load:false
     };
     topicID;
     TopicType;
@@ -72,6 +73,7 @@ export class CourseCommentPage {
                 if (res.data) {
                     this.teacherList = this.teacherList.concat(res.data);
                 }
+                this.page.load = true;
             }
         )
     }
@@ -97,6 +99,10 @@ export class CourseCommentPage {
 
     //前往评论
     openComment() {
+        if (!this.page.load){
+            this.commonSer.toast("信息加载中...");
+            return
+        }
         let modal = this.modalCtrl.create(CommentComponent, {
             placeholder: '请输入评价',
             type: this.TopicType,
