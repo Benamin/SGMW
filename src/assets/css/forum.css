@@ -38,21 +38,25 @@
 
 .post-introduction-con>.img-div>div{
     background: #f2f2f2;
+    overflow: hidden;
 }
 .post-introduction-con>.img1{
     background-size: cover;
     background: #f2f2f2;
+    overflow: hidden;
 }
 
 .post-introduction-con>.img2{
     display: flex;
+      overflow: hidden;
 }
 .post-introduction-con>.img3{
     display: flex;
+      overflow: hidden;
 }
 .post-introduction-con>.img3>div>div,
 .post-introduction-con>.img2>div>div{
     background-size: cover;
-
+    overflow: hidden;
 }
 

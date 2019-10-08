@@ -12,13 +12,27 @@ import {SearchPage} from "../../home/search/search";
 export class PostlistComponent implements OnInit {
   ngOnInit(): void {
     // throw new Error("Method not implemented.");
+    this.lidata = this.navParams.get('data');
+    let userForumHistory:any= window.localStorage.getItem('userForumHistory');
+    let arr=[this.lidata];
+    if(userForumHistory){
+      userForumHistory=JSON.parse(userForumHistory);
+      userForumHistory.forEach(element => {
+        if(this.lidata.Id!==element.Id){
+          arr.push(element);
+        }
+      });
+    }
+    arr.length = arr.length>6?6:arr.length;
+    window.localStorage.setItem('userForumHistory', JSON.stringify(arr));
+
   }
   lidata={Id:""};
   IsTopOpt=null;
   pageDate:any={
     creater: "",
     pageIndex: 1,
-    pageSize: 10,
+    pageSize: 5,
     status: 2,
     title: "",
     topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
@@ -34,7 +48,7 @@ export class PostlistComponent implements OnInit {
     public navParams: NavParams,
     public navCtrl: NavController,
     private loadCtrl:LoadingController){ }
-  OnInit(){}
+
   ionViewDidEnter() {
     this.lidata = this.navParams.get('data');
     this.pageDate.topicPlateId=this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
@@ -78,6 +92,9 @@ export class PostlistComponent implements OnInit {
         content:''
       });
       loading.present();
+      setTimeout(() => {
+        loading.present();
+      }, 5000);
     }
     this.serve.forum_post_search(this.pageDate).subscribe((res:any) => {
       console.log('板块列表',res);

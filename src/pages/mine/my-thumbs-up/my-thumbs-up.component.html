@@ -4,10 +4,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
-        </ion-refresher-content>
-    </ion-refresher>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+    </ion-refresher-content>
+  </ion-refresher>
   <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of data;index as i">
     <div class="post-introduction-top">
       <img src="{{item.PosterUserHeadPhoto}}" alt="">
@@ -17,24 +17,23 @@
     <div class="post-introduction-con">
       <p>{{item.Title}}</p>
       <div class="img-div img1" *ngIf="item.Images.length==1"
-      [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
-      style="background-size: cover;background: no-repeat center;">
-
-    </div>
-    <div class="img-div img2" *ngIf="item.Images.length==2">
-      <div *ngFor="let img of item.Images">
-        <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
-          [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+        [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
+        style="background-size: cover;background: no-repeat center;">
+      </div>
+      <div class="img-div img2" *ngIf="item.Images.length==2">
+        <div *ngFor="let img of item.Images">
+          <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
+            [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="img-div img3" *ngIf="item.Images.length>2">
-      <div *ngFor="let img of item.Images.slice(0,3)">
-        <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
-          [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+      <div class="img-div img3" *ngIf="item.Images.length>2">
+        <div *ngFor="let img of item.Images.slice(0,3)">
+          <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
+            [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+          </div>
         </div>
       </div>
-    </div>
     </div>
     <div class="post-introduction-buttom">
       <span class="nowrap-1">
@@ -45,7 +44,7 @@
         {{item.ReplyCount}}
       </span>
       <span>
-      <!-- <span (click)="$event.stopPropagation();forum_post_cancellike(item,i)"> -->
+        <!-- <span (click)="$event.stopPropagation();forum_post_cancellike(item,i)"> -->
         <img src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" alt="">
         {{item.LikeCount}}
       </span>
@@ -54,7 +53,7 @@
   <ion-list text-center style="margin-top: 10rem" *ngIf="data.length == 0">
     <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
     <p text-center style="color: #666666;font-size: 16px">
-        暂无数据
+      暂无数据
     </p>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="lodaData($event)" *ngIf="isdoInfinite">
