@@ -10,6 +10,8 @@ import {PostsContentComponent} from '../../forum/posts-content/posts-content.com
 export class MyThumbsUpComponent implements OnInit {
 
   data=[];
+  page={"PageIndex": 1,"PageSize": 10};
+
   isdoInfinite=true;
   constructor(private serve :ForumService,
     public navCtrl: NavController,
@@ -18,10 +20,14 @@ export class MyThumbsUpComponent implements OnInit {
   }
 
   ngOnInit() {
+   
+  }
+  ionViewDidEnter() {
+    this.data=[];
+    this.page.PageIndex=1;
     this.mylikes();
   }
 
-  page={"PageIndex": 1,"PageSize": 10};
   mylikes(){
     let loading = null;
     if(this.page.PageIndex==1){

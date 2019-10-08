@@ -26,8 +26,12 @@ export class MycollectionPage {
         private forumServe: ForumService) {
     }
 
-    ionViewDidLoad() {
-        this.getList();
+    ionViewDidEnter() {
+        this.collectionList=[];
+        this.isdoInfinite=true;
+        this.page.page=1;
+        this.myfavoritespage.PageIndex=1;
+        this.is_getData();
     }
     switchInformation(text) {
         this.collectionList=[];

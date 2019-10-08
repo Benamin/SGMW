@@ -16,6 +16,7 @@ page-my-thumbs-up{
         img {
             width: 28px;
             height: 28px;
+            border-radius: 50%;
         }
 
         .edit-img,
@@ -23,6 +24,7 @@ page-my-thumbs-up{
             img {
                 width: 16px;
                 height: 16px;
+                border-radius: 0;
             }
         }
 
@@ -72,9 +74,7 @@ page-my-thumbs-up{
         .img1 {
             width: 240px;
             height: 130px;
-            img{
-                width: 240px;
-            }
+    
         }
 
         .img3 {
@@ -98,9 +98,7 @@ page-my-thumbs-up{
                 width: 33%;
                 max-height: 114px;
                 height: 114px;
-                img{
-                    height: 100%;
-                }
+               
             }
 
             :nth-child(2) {

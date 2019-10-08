@@ -36,8 +36,24 @@ export class NumberOneDetailsComponent implements OnInit {
     loading.present();
     this.serve.GetRelationNewsByID(id).subscribe(res1 => {
       this.serve.GetNewsByID(id).subscribe((res2:any) => {
+
+        res1.data.forEach(item => {
+          if(!item.ReleaseTime){
+            item.ReleaseTime=item.ModifyTime;
+          }
+          item.ReleaseTime=item.ReleaseTime.replace('T',' ');
+          item.ReleaseTime=item.ReleaseTime.slice(0,16);
+        });
+
+        if(!res2.data.ReleaseTime){
+          res2.data.ReleaseTime= this.serve.formatDate(new Date(res2.data.ModifyTime),4);
+        }
+        res2.data.ReleaseTime=res2.data.ReleaseTime.replace('T',' ');
+        res2.data.ReleaseTime=res2.data.ReleaseTime.slice(0,16);
+
         this.data=res2.data;
         this.RelationArr=res1.data;
+
         loading.dismiss();
       });
     });

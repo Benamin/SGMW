@@ -57,6 +57,7 @@ page-numberonedetails{
       display: inline-grid;
     }
     h4{
+     
       color: rgba(0,0,0,0.8);
       font-size: 16px;
       margin-top: 0px;
@@ -75,6 +76,9 @@ page-numberonedetails{
   }
   .img1{
     display: flex;
+    h4{
+      height: 40px;
+    }
     .imgdiv{
       background: #e4e4e4;
       height: 70px !important;

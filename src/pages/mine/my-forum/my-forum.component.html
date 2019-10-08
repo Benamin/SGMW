@@ -19,7 +19,7 @@
   <div *ngIf="navli=='已发布'" class="content-div">
     <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
       <div class="post-introduction-top">
-        <img src="{{item.PosterHeadPhoto}}" alt="">
+        <img src="{{item.PosterUserHeadPhoto}}" alt="">
         <div class="name nowrap-1">{{item.PosterUserName}}</div>
         <div class="oldDate nowrap-1">{{item.PostRelativeTime}}</div>
         <div style="flex: 1;">
@@ -66,7 +66,7 @@
   <div *ngIf="navli=='草稿箱'" class="content-div">
     <div class="post-introduction"  *ngFor="let item of forumLIst">
       <div class="post-introduction-top">
-        <img src="{{item.PosterHeadPhoto}}" alt="">
+        <img src="{{item.PosterUserHeadPhoto}}" alt="">
         <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
         <div class="edit-div">
           <span class="edit-img"  (click)="editITem(item)">

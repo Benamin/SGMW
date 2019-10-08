@@ -54,6 +54,7 @@ page-my-forum{
             img {
                 width: 28px;
                 height: 28px;
+                border-radius: 50%;
             }
 
             .edit-img,
@@ -114,9 +115,7 @@ page-my-forum{
             .img1 {
                 width: 240px;
                 height: 130px;
-                img{
-                    width: 240px;
-                }
+           
             }
 
             .img3 {
@@ -125,9 +124,7 @@ page-my-forum{
                     width: 33%;
                     max-height: 114px;
                     height: 114px;
-                    img{
-                        height: 100%;
-                    }
+                  
                 }
 
                 :nth-child(2) {
@@ -140,9 +137,7 @@ page-my-forum{
                     width: 33%;
                     max-height: 114px;
                     height: 114px;
-                    img{
-                        height: 100%;
-                    }
+                  
                 }
 
                 :nth-child(2) {
