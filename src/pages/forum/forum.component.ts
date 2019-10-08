@@ -56,18 +56,7 @@ export class ForumPage implements OnInit {
 
   // 前往发帖列表
   goPostlist(data) {
-    let userForumHistory:any= window.localStorage.getItem('userForumHistory');
-    let arr=[data];
-    if(userForumHistory){
-      userForumHistory=JSON.parse(userForumHistory);
-      userForumHistory.forEach(element => {
-        if(data.Id!==element.Id){
-          arr.push(element);
-        }
-      });
-    }
-    arr.length = arr.length>6?6:arr.length;
-    window.localStorage.setItem('userForumHistory', JSON.stringify(arr));
+
     this.navCtrl.push(PostlistComponent,{data:data});
   }
 
