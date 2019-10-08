@@ -29,9 +29,9 @@ export class LivePage {
         pageSize: 10,
         TotalCount: 0,
         OrderBy: "StartTime",
-        Category: 'zb',
+        TeachTypeCode: "zb",
         IsToday: false,
-        IsAsc: "false"
+        sortdir : "Desc"
     };
 
     list = {
@@ -52,7 +52,6 @@ export class LivePage {
         this.getList();
         this.list.nowDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
         this.list.nowTime = new Date().getTime();
-
     }
 
     changeType(e) {
@@ -119,7 +118,7 @@ export class LivePage {
             OrderBy: "StartTime",
             Category: 'zb',
             IsAsc: "true",
-            IsToday:this.page.IsToday
+            IsToday: this.page.IsToday
         };
         this.learnSer.GetProductList(data).subscribe(
             (res) => {
