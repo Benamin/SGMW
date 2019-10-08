@@ -149,6 +149,8 @@ export class PostAddComponent implements OnInit {
     let textareaImg:any=document.getElementById('textareaImg');
     if(textareaImg){
       textareaImg.append('<img alt="'+alt+'" src="'+imgSrc+'"> ');
+      textareaImg.append('<div> </div>');
+
     }
     //  if(this.anchorOffset==0&&this.focusNode.id=='textareaImg'){
     //     textareaImg.append('<img src="'+imgSrc+'" title=""> ');

@@ -75,6 +75,9 @@ export class ForumPage implements OnInit {
     });
     if(this.pageDate.pageIndex==1){
       loading.present();
+      setTimeout(() => {
+        loading.present();
+      }, 7000);
     }
     this.serve.forum_topicplate_search(this.pageDate).subscribe((res:any) => {
       console.log('板块列表',res);
