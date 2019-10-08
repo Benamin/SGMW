@@ -64,7 +64,7 @@ export class PostsContentComponent implements OnInit {
 
   // 前往回复列表
   showViewReply(data) {
-    this.navCtrl.push(ViewReplyComponent,{data:data});
+    this.navCtrl.push(ViewReplyComponent,{data:data,lidata:this.lidata});
   }
 
   forum_post_publish() {

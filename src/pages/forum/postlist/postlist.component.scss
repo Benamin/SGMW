@@ -1,5 +1,4 @@
 page-postlist {
-    font-family: PingFangSC-Regular, PingFangSC;
     .forum-header{
         img{
             position: absolute;
@@ -12,6 +11,7 @@ page-postlist {
           background:   #343435;
         }
     }
+    
     .con-div {
         background: #343435;
         // background: linear-gradient(122deg,rgba(33,33,34,1) 0%,rgba(76,76,78,1) 100%);
@@ -190,7 +190,6 @@ page-postlist {
             }
 
             .img-div {
-                display: flex;
                 max-height: 140px;
                 overflow: hidden;
                 border-radius: 5px;
@@ -199,6 +198,7 @@ page-postlist {
             .img1 {
                 width: 240px;
                 height: 130px;
+                background-size: cover;
                 // img{
                 //     width: 240px;
                 // }

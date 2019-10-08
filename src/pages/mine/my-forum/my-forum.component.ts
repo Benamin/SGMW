@@ -31,6 +31,7 @@ export class MyForumComponent implements OnInit {
 
     ionViewDidEnter() {
       this.pageDate.pageIndex=1;
+      console.log('刷新数据');
       this.forumLIst=[];
       this.getData();
     }

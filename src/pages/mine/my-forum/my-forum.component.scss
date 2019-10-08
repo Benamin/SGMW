@@ -75,6 +75,9 @@ page-my-forum{
            
             }
             .edit-div{
+                img{
+                    border-radius: 0;
+                }
                 flex-shrink: 0;
             }
             .oldDate {
@@ -106,7 +109,6 @@ page-my-forum{
             }
 
             .img-div {
-                display: flex;
                 max-height: 140px;
                 overflow: hidden;
                 border-radius: 5px;

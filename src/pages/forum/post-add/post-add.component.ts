@@ -18,8 +18,8 @@ export class PostAddComponent implements OnInit {
   url:any;  
   data: string = "";  
   lidata={
-    Id:"7051bb5e-8729-49f4-b95a-016d7d8474ce",
-    postId:''
+    Id:"7051bb5e-8729-49f4-b95a-016d7d8474ce", // 板块id
+    postId:''  // 帖子Id
 };
   Title="";
   imgitems:any=[];
@@ -66,7 +66,6 @@ export class PostAddComponent implements OnInit {
       this.lidata=data;
     }
     console.log('新增帖子',this.lidata);
-    this.innerHeightOld=window.innerHeight;
     console.log('this.innerHeightOld',this.innerHeightOld)
   }
 
@@ -247,7 +246,8 @@ src:''};
       "Title": this.Title,//帖子标题
       "TopicPlateId": this.lidata.Id,//帖子所属板块编号
       "Content": textInnerHTML,//帖子内容
-      "IsSaveAndPublish": IsSaveAndPublish//是否保存并提交
+      "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
+      "Id":this.lidata.postId?this.lidata.postId:""
     }
     this.serve.forum_post_add(data).subscribe((res:any) => {
       console.log(res);
