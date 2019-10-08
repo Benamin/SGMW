@@ -54,13 +54,15 @@ page-exam {
       > p.eName {
         width: 100%;
         align-self: flex-end;
-        overflow: hidden;
-        display: -webkit-box;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
         display: flex;
         align-items: center;
+        span{
+          overflow: hidden;
+          display: -webkit-box;
+          text-overflow: ellipsis;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+        }
       }
     }
   }
