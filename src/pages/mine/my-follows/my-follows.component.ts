@@ -29,6 +29,13 @@ export class MyFollowsComponent implements OnInit {
     private commonSer: CommonService) { }
 
   ngOnInit() {
+   
+  }
+  ionViewDidEnter() {
+    this.collectionList=[];
+    this.GetSubscribeListpage.page=1;
+    this.myfavoritespage.PageIndex=1;
+
     this.is_getData();
   }
 

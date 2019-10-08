@@ -21,7 +21,7 @@
     <div class="textarea-div">
       <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true"
         (keydown)="selectionStart($event)" (blur)="selectionStart($event);focusAmeR=false;" (focus)="htmlTextDle();focusAmeR=true;">
-        <span style="color: #ccc">请输入正文</span> 
+        <span style="color: #808080">请输入正文</span> 
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@
     </div>
   </div>
   <div class="img-div">
-    <img src="{{editImg.src}}" alt="{{editImg.alt}}">
+    <img style="width: auto;height: auto;max-width: 100%;max-height: 80%;" src="{{editImg.src}}" alt="{{editImg.alt}}">
   </div>
   <div class="input-div">
     <input type="text" [(ngModel)]="editImg.newalt" placeholder="请给图片一个描述吧…" name="" id="">

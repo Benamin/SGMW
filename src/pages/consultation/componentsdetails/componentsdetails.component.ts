@@ -37,8 +37,16 @@ export class Componentsdetails {
     loading.present();
     this.serve.GetRelationNewsByID(id).subscribe(res1 => {
       this.serve.GetNewsByID(id).subscribe((res2: any) => {
+
+        res1.data.forEach(item => {
+          item.ReleaseTime=item.ReleaseTime.replace('T',' ');
+          item.ReleaseTime=item.ReleaseTime.slice(0,16);
+        });
+
         this.RelationArr = res1.data;
         this.data = res2.data;
+        this.data.ReleaseTime=this.data.ReleaseTime.replace('T',' ');
+        this.data.ReleaseTime=this.data.ReleaseTime.slice(0,16);
         loading.dismiss();
       });
     });

@@ -81,7 +81,7 @@ export class PostsContentComponent implements OnInit {
 
       if(res.data.Replys){
         res.data.Replys.forEach(element => {
-          element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-3)
+          element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-3);
         });
         res.data.Replys.reverse();
       }

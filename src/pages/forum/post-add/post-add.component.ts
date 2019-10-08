@@ -33,34 +33,26 @@ export class PostAddComponent implements OnInit {
     public navParams: NavParams,
     private loadCtrl: LoadingController) {
 
-
-      Observable.fromEvent(window, "native.keyboardshow")
-      .debounceTime(100)
-      .subscribe((event: any) => {
-          // alert('显示:'+JSON.stringify(event))
-
-          this.paddingBottom=event.keyboardHeight+20+'px';
-          let paddingBottomdom=document.getElementById('buttomImgDiv');
-          paddingBottomdom.style.paddingBottom=this.paddingBottom;
-        console.log(paddingBottomdom);
-          //this.keyboardshowHeightBottom=event.keyboardHeight+'px';
-      });
-
-
-
-      Observable.fromEvent(window, "native.keyboardhide")
-      .debounceTime(100)
-      .subscribe((event: any) => {
-        this.paddingBottom=0+'px';
-        document.getElementById('buttomImgDiv').style.paddingBottom=this.paddingBottom;
-
-      });
-
-       
-
-
-
-
+      if(this.serve.iosOrAndroid()=="Ios"){
+        Observable.fromEvent(window, "native.keyboardshow")
+        .debounceTime(100)
+        .subscribe((event: any) => {
+            // alert('显示:'+JSON.stringify(event))
+  
+            this.paddingBottom=event.keyboardHeight+20+'px';
+            let paddingBottomdom=document.getElementById('buttomImgDiv');
+            paddingBottomdom.style.paddingBottom=this.paddingBottom;
+            console.log(paddingBottomdom);
+            //this.keyboardshowHeightBottom=event.keyboardHeight+'px';
+        });
+  
+        Observable.fromEvent(window, "native.keyboardhide")
+        .debounceTime(100)
+        .subscribe((event: any) => {
+          this.paddingBottom=0+'px';
+          document.getElementById('buttomImgDiv').style.paddingBottom=this.paddingBottom;
+        });
+      }
     }
 
   ngOnInit() {

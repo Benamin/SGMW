@@ -28,9 +28,14 @@ export class MyForumComponent implements OnInit {
   constructor(public navCtrl: NavController,
     private serve:ForumService,
     private loadCtrl:LoadingController) { }
-  ngOnInit() {
-    this.getData();
-  }
+
+    ionViewDidEnter() {
+      this.pageDate.pageIndex=1;
+      this.forumLIst=[];
+      this.getData();
+    }
+    ngOnInit() {
+    }
 
   // 切换已发布/草稿箱
   switchInformation(text,number) {

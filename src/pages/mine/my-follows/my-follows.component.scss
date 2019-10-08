@@ -123,6 +123,7 @@ page-my-follows {
             img {
                 width: 28px;
                 height: 28px;
+                border-radius: 50%;
             }
 
             .edit-img,
@@ -178,10 +179,7 @@ page-my-follows {
 
             .img1 {
                 width: 240px;
-                height: 130px;
-                img{
-                    width: 240px;
-                }
+
             }
 
             .img3 {
@@ -205,9 +203,6 @@ page-my-follows {
                     width: 33%;
                     max-height: 114px;
                     height: 114px;
-                    img{
-                        height: 100%;
-                    }
                 }
 
                 :nth-child(2) {

@@ -154,6 +154,7 @@ page-postlist {
             img {
                 width: 28px;
                 height: 28px;
+                border-radius: 50%;
             }
 
             .name {
@@ -198,9 +199,9 @@ page-postlist {
             .img1 {
                 width: 240px;
                 height: 130px;
-                img{
-                    width: 240px;
-                }
+                // img{
+                //     width: 240px;
+                // }
             }
 
             .img3 {
@@ -209,9 +210,7 @@ page-postlist {
                     width: 33%;
                     max-height: 114px;
                     height: 114px;
-                    img{
-                        height: 100%;
-                    }
+                    background: #f3f3f3;
                 }
 
                 :nth-child(2) {
@@ -224,9 +223,9 @@ page-postlist {
                     width: 33%;
                     max-height: 114px;
                     height: 114px;
-                    img{
-                        height: 100%;
-                    }
+                    // img{
+                    //     height: 100%;
+                    // }
                 }
 
                 :nth-child(2) {
