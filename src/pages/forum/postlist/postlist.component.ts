@@ -18,7 +18,7 @@ export class PostlistComponent implements OnInit {
   pageDate:any={
     creater: "",
     pageIndex: 1,
-    pageSize: 10,
+    pageSize: 5,
     status: 2,
     title: "",
     topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
