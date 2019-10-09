@@ -237,7 +237,8 @@ export class ForumService {
       var oReq = new XMLHttpRequest();
 
       // export const UploadFilesSERVER_API_URL = '/api';
-      const UploadFilesSERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';  //测试
+      // const UploadFilesSERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';  //开发
+      const UploadFilesSERVER_API_URL = 'http://sitapi.chinacloudsites.cn/api';  //sit
       // export const UploadFilesSERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api'; // 正式
 
       oReq.open("POST", UploadFilesSERVER_API_URL + "/Upload/UploadFiles", true);
