@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{index +1}}/{{exam.qs.length}}</ion-title>
+        <ion-title>{{index + 1}}/{{exam.qs.length}}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -206,5 +206,15 @@
         <p class="number">{{score.score}}</p>
         <p>作业得分</p>
         <div>完成</div>
+    </div>
+</div>
+<div *ngIf="score.isDone" class="score" tappable (click)="closeDone($event)">
+    <div class="content" style="width: 60%">
+        <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
+        <p>温馨提示</p>
+        <p class="number  test">
+            题目未完成，无法提交作业，请左右滑动切换完成全部题目。
+        </p>
+        <div>我知道了</div>
     </div>
 </div>

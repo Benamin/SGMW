@@ -1,8 +1,9 @@
 page-live {
   .live-all, .live-today {
-    padding:0 15px;
+    padding: 0 15px;
   }
-  .live-all{
+
+  .live-all {
     padding: 15px;
   }
 
@@ -29,7 +30,8 @@ page-live {
       line-height: 40px;
       position: relative;
     }
-    > p::before{
+
+    > p::before {
       content: "";
       position: absolute;
       top: 16px;
@@ -45,6 +47,7 @@ page-live {
   .live-all-item + .live-all-item {
     margin-top: 15px;
   }
+
   .live-today-item + .live-today-item {
     margin-top: 0px;
   }
@@ -101,6 +104,8 @@ page-live {
       color: rgba(255, 255, 255, 1);
       line-height: 22px;
       text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: flex-end;
     }
 
     .live-teacher {

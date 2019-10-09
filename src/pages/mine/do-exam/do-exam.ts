@@ -24,6 +24,7 @@ export class DoExamPage {
     score = {
         score: 100,
         show: false,
+        isDone: false,
     };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
@@ -85,13 +86,24 @@ export class DoExamPage {
 
     //确认提交
     submit() {
+        let countDone = 0;
+        this.exam.qs.forEach(e => {
+                if (e.QAnswer.length > 0) {
+                    countDone++;
+                }
+            }
+        );
+        if (countDone < this.exam.qs.length) {
+            this.score.isDone = true;
+            return
+        }
         this.commonSer.alert('确认提交?', () => {
             const loading = this.loadCtrl.create({
                 content: '提交中...'
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split().sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
             });
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
@@ -114,6 +126,9 @@ export class DoExamPage {
                 content: '提交中...'
             });
             loading.present();
+            this.exam.qs.forEach(e => {
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
+            });
             this.mineSer.saveStuExams(this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
@@ -148,8 +163,14 @@ export class DoExamPage {
         this.storage.set('opTips', 'false');
     }
 
+    //考分提示
     close(e) {
         this.score.show = false;
         this.navCtrl.pop();
+    }
+
+    //未做完提示关闭
+    closeDone(e) {
+        this.score.isDone = false;
     }
 }
