@@ -28,7 +28,7 @@ export class DoTestPage {
         score: 100,
         show: false,
         tips: false,
-        isDone:false
+        isDone: false,
     };
 
     clock;  //倒计时的定时器
@@ -73,10 +73,12 @@ export class DoTestPage {
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
                 });
+                if (this.paper.PaperTimer > 0) {
+                    this.paperLeave(item.ID);
+                }
             }
         );
 
-        this.paperLeave(item.ID);
 
     }
 
@@ -101,7 +103,7 @@ export class DoTestPage {
             totalTime--;
             this.useTime++;
 
-            let hourse =<any> (Math.floor(totalTime / 3600)).toString();
+            let hourse = <any>(Math.floor(totalTime / 3600)).toString();
             hourse = (hourse.length > 1 ? hourse : '0' + hourse);
             let minutes = <any>Math.floor((totalTime - hourse * 3600) / 60).toString();
             minutes = minutes % 60 === 0 ? 0 : minutes;
