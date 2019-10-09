@@ -13,6 +13,7 @@ export class NoDevPage {
 
     ionViewDidLoad() {
         this.title = this.navParams.get('title');
+        this.title=this.title?this.title:'论坛';
     }
 
 }

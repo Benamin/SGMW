@@ -15,6 +15,7 @@ page-consultation {
         padding: 10px;
         color: rgba(0,0,0,0.6);
         transition: all 0.2s;
+        min-width: 80px;
       }
       .navli::before{
         background: linear-gradient(-90deg, #fff, #fff);
