@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController, LoadingController } from "ionic-angular";
 import { ConsultationService } from '../consultation.service';
+import {InAppBrowser} from "@ionic-native/in-app-browser";
+
 @Component({
   selector: 'page-componentsdetails',
   templateUrl: 'componentsdetails.html',
@@ -13,7 +15,8 @@ export class Componentsdetails {
   constructor(public navParams: NavParams,
     private serve: ConsultationService,
     public navCtrl: NavController,
-    private loadCtrl: LoadingController) {
+    private loadCtrl: LoadingController,
+    private inAppBrowser: InAppBrowser) {
 
   }
   ngOnInit(): void {
@@ -48,8 +51,32 @@ export class Componentsdetails {
         this.data.ReleaseTime=this.data.ReleaseTime.replace('T',' ');
         this.data.ReleaseTime=this.data.ReleaseTime.slice(0,16);
         loading.dismiss();
+        setTimeout(() => {
+            this.ModifyALabelSkip();
+        }, 30);
       });
     });
+  }
+  ModifyALabelSkip(){
+    let innerHtml=document.getElementById('innerHtml');
+    let allA=innerHtml.querySelectorAll('a');
+
+    for(let n=0;n<allA.length;n++){
+        let onedom=allA[n];
+        let _href=onedom.getAttribute('href');
+        if(_href){
+          console.log(_href);
+          onedom.setAttribute('_href',_href);
+          onedom.setAttribute('href','javascript:void(0);');
+          onedom.addEventListener('click',(e:any) => {
+            console.log(e.target.getAttribute('_href'));
+            let url_href=e.target.getAttribute('_href');
+            this.inAppBrowser.create(url_href, '_system');
+          })
+        }
+    }
+    
+    console.log(innerHtml,allA);
   }
 
 
