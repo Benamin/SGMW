@@ -54,6 +54,9 @@
     display: flex;
       overflow: hidden;
 }
+.post-introduction-con>.img3>div>div{
+    height: 97px;
+}
 .post-introduction-con>.img3>div>div,
 .post-introduction-con>.img2>div>div{
     background-size: cover;
