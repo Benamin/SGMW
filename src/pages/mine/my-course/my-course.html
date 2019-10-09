@@ -14,10 +14,7 @@
   <div class="learn-list">
     <div class="course-item" tappable *ngFor="let item of courseList" (click)="goCourse(item)">
       <div class="item-img">
-        <div class="round">
-          <img src="./assets/imgs/course/round.png" alt="">
-          <span class="tage"><span>{{item.overpercentage}}</span>%</span>
-        </div>
+        <img [src]="item?.ImageUrl">
       </div>
       <div class="item-desc">
         <p>{{item.Title}}</p>
@@ -26,6 +23,13 @@
           <span><img src="./assets/imgs/learn/like@2x.png" alt="">{{item?.ZanCount}}</span>
           <span><img src="./assets/imgs/learn/collect@2x.png" alt="">{{item?.CollectionCount}}</span>
         </div>
+        <div class="outer">
+          <div class="inner" [style.width]="(item.overpercentage)+'%'"></div>
+        </div>
+      </div>
+      <div class="item-process">
+        <span>{{item.overpercentage}}</span>
+        <span>%</span>
       </div>
     </div>
   </div>

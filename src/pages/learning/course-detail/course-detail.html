@@ -15,9 +15,9 @@
                     {{product.detail?.Title}}
                 </div>
                 <div class="course-desc">
-                    <span><img src="./assets/imgs/learn/like_white@2x.png" alt="">{{product.detail?.ZanCount}}</span>
-                    <span><img src="./assets/imgs/learn/collect_white@2x.png" alt="">{{product.detail?.CollectionCount}}</span>
-                    <span><img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount}}</span>
+                    <span><img src="./assets/imgs/learn/like_white@2x.png" alt="">{{product.detail?.ZanCount || "0"}}</span>
+                    <span><img src="./assets/imgs/learn/collect_white@2x.png" alt="">{{product.detail?.CollectionCount || "0"}}</span>
+                    <span><img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}人报名</span>
                 </div>
             </div>
         </div>
