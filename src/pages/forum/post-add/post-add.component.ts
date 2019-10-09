@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
 import { NavController ,
         NavParams,
         LoadingController,
@@ -32,7 +32,9 @@ export class PostAddComponent implements OnInit {
     private navCtrl: NavController,
     private serve:ForumService,
     public navParams: NavParams,
-    private loadCtrl: LoadingController) {
+    private loadCtrl: LoadingController,
+    private zone: NgZone
+    ) {
 
       if(this.serve.iosOrAndroid()=="Ios"){
         Observable.fromEvent(window, "native.keyboardshow")
@@ -168,6 +170,9 @@ export class PostAddComponent implements OnInit {
       textInnerHTML= textInnerHTML.replace('&lt;','<');
       textInnerHTML= textInnerHTML.replace('&gt;','>');
       textareaImg.innerHTML=textInnerHTML;
+      this.zone.run(() => {
+        textareaImg.innerHTML=textInnerHTML;
+      })
   }
 
   // 上传图片
