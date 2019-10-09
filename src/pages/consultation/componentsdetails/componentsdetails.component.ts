@@ -12,26 +12,24 @@ export class Componentsdetails {
   title = "";
   data: any = { Title: '', ReleaseTime: '', Text: '' };
   RelationArr = [];
+  navli='';
   constructor(public navParams: NavParams,
     private serve: ConsultationService,
     public navCtrl: NavController,
     private loadCtrl: LoadingController,
     private inAppBrowser: InAppBrowser) {
-
   }
   ngOnInit(): void {
     this.lidata = this.navParams.get('data');
+    this.navli = this.navParams.get('navli');
+
     console.log(this.lidata);
+    
     this.title = this.lidata.GetNewsList == 'xsal' ? "详情" : '详情中心'
-    // this.GetNewsByID(this.lidata.Id);
+
     this.GetRelationNewsByID(this.lidata.Id);
   }
-  // GetNewsByID(id){
-  //   this.serve.GetNewsByID(id).subscribe((res:any) => {
-  //     console.log(res);
-  //     this.data=res.data;
-  //   });
-  // }
+
   GetRelationNewsByID(id) {
     let loading = this.loadCtrl.create({
       content: '加载中...'
@@ -60,12 +58,10 @@ export class Componentsdetails {
   ModifyALabelSkip(){
     let innerHtml=document.getElementById('innerHtml');
     let allA=innerHtml.querySelectorAll('a');
-
     for(let n=0;n<allA.length;n++){
         let onedom=allA[n];
         let _href=onedom.getAttribute('href');
         if(_href){
-          console.log(_href);
           onedom.setAttribute('_href',_href);
           onedom.setAttribute('href','javascript:void(0);');
           onedom.addEventListener('click',(e:any) => {
@@ -75,8 +71,6 @@ export class Componentsdetails {
           })
         }
     }
-    
-    console.log(innerHtml,allA);
   }
 
 

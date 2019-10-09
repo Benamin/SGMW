@@ -111,7 +111,7 @@ export class NumberOne {
   // 查看案例详情
   goComponentsdetailsOne(data) {
     data['Id']=data['ID'];
-    this.navCtrl.push(NumberOneDetailsComponent, { data: data });
+    this.navCtrl.push(NumberOneDetailsComponent, { data: data ,navli:'销售案例'});
   }
   goComponentsdetails(data){
     data['GetNewsList']='xsal';
