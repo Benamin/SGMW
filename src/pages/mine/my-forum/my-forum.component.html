@@ -17,6 +17,7 @@
     </div>
   </div>
   <div *ngIf="navli=='已发布'" class="content-div">
+  
     <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
       <div class="post-introduction-top">
         <img src="{{item.PosterUserHeadPhoto}}" alt="">
@@ -119,7 +120,7 @@
     </div>
 
   </div>
-  <ion-list text-center style="margin-top: 10rem" *ngIf="forumLIst_length_0">
+  <ion-list text-center style="margin-top: 10rem" *ngIf="forumLIst.length==0">
       <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
       <p text-center style="color: #666666;font-size: 16px">
         暂无数据

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
 import {LoadingController, NavController, Slides} from 'ionic-angular';
 import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
 import {ForumService} from '../../forum/forum.service';
@@ -28,7 +28,7 @@ export class MyForumComponent implements OnInit {
   }
   constructor(public navCtrl: NavController,
     private serve:ForumService,
-    private loadCtrl:LoadingController) { }
+    private loadCtrl:LoadingController, private zone: NgZone) { }
 
     ionViewDidEnter() {
       this.pageDate.pageIndex=1;
@@ -100,6 +100,10 @@ export class MyForumComponent implements OnInit {
         loading.dismiss();
       }
       if(!res.data){
+        this.isdoInfinite=false;
+        this.zone.run(() => {
+         
+        })
         return
       }
       let arr=res.data.Items;
@@ -112,7 +116,9 @@ export class MyForumComponent implements OnInit {
       this.forumLIst = this.forumLIst.concat(arr);
       this.serve.listSplice(this.forumLIst);
       this.forumLIst_length_0 = this.forumLIst.length == 0 ?true:false;
-  
+      this.zone.run(() => {
+      
+      })
     });
   }
 
