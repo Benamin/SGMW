@@ -28,6 +28,7 @@ export class DoTestPage {
         score: 100,
         show: false,
         tips: false,
+        isDone: false,
     };
 
     clock;  //倒计时的定时器
@@ -72,10 +73,12 @@ export class DoTestPage {
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
                 });
+                if (this.paper.PaperTimer > 0) {
+                    this.paperLeave(item.ID);
+                }
             }
         );
 
-        this.paperLeave(item.ID);
 
     }
 
@@ -100,7 +103,7 @@ export class DoTestPage {
             totalTime--;
             this.useTime++;
 
-            let hourse =<any> (Math.floor(totalTime / 3600)).toString();
+            let hourse = <any>(Math.floor(totalTime / 3600)).toString();
             hourse = (hourse.length > 1 ? hourse : '0' + hourse);
             let minutes = <any>Math.floor((totalTime - hourse * 3600) / 60).toString();
             minutes = minutes % 60 === 0 ? 0 : minutes;
@@ -144,19 +147,24 @@ export class DoTestPage {
 
     //确认提交
     submit() {
-        let msg;
-        if (this.doneTotal < this.exam.qs.length) {
-            msg = "题目未答完，确定提交?"
-        } else {
-            msg = `确认提交`;
+        let countDone = 0;
+        this.exam.qs.forEach(e => {
+                if (e.QAnswer.length > 0) {
+                    countDone++;
+                }
+            }
+        );
+        if (countDone < this.exam.qs.length) {
+            this.score.isDone = true;
+            return
         }
-        this.commonSer.alert(`${msg}`, () => {
+        this.commonSer.alert(`确认提交?`, () => {
             const loading = this.loadCtrl.create({
                 content: '提交中...'
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split().sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
             });
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
@@ -175,7 +183,7 @@ export class DoTestPage {
     //自动提交
     forceSubmit() {
         this.exam.qs.forEach(e => {
-            if (e.QType == 2) e.QAnswer = e.QAnswer.split().sort().join(',');
+            if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
         });
         this.mineSer.submitStuExams(this.exam).subscribe(
             (res) => {
@@ -209,14 +217,22 @@ export class DoTestPage {
         this.storage.set('opTips', 'false');
     }
 
+    //关闭时间提示
     closeTips(e) {
         // e.stopPropagation();
         this.score.tips = false;
     }
 
+    //关闭分数提示
     close(e) {
         this.score.show = false;
         this.navCtrl.pop();
+    }
+
+    //关闭题目未做完提示
+    //未做完提示关闭
+    closeDone(e) {
+        this.score.isDone = false;
     }
 
 }

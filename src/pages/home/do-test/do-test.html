@@ -172,7 +172,9 @@
     <div class="footer">
         <div class="test-process">
             <div class="doIt">已完成：{{doneTotal}}/{{exam.qs.length}}题</div>
-            <div class="countTime">倒计时：{{timeText}}</div>
+            <div class="countTime">
+                <ng-container *ngIf="paper?.PaperTimer > 0">倒计时：{{timeText}}</ng-container>
+            </div>
         </div>
         <div class="outer">
             <div class="inner" [style.width]="(doneTotal/exam.qs.length)*100 +'%'"></div>
@@ -201,7 +203,7 @@
 
 <div *ngIf="score.show" class="score" tappable (click)="close($event)">
     <div class="content">
-        <img  src="./assets/imgs/mine/exam-submit.png" alt="">
+        <img src="./assets/imgs/mine/exam-submit.png" alt="">
         <p>试卷提交成功</p>
         <p class="number">{{score.score}}</p>
         <p>试卷得分</p>
@@ -213,7 +215,19 @@
         <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
         <p>温馨提示</p>
         <p class="number  test">
-            试卷时长{{paper?.PaperTimer}}分钟，请在规定时间内完成，时间到达后将自动提交，考试过程中不可退出
+<!--            <ng-container *ngIf="paper?.PaperTimer == 0">本次考试不限制时间，考试过程中不可退出</ng-container>-->
+            <ng-container *ngIf="paper?.PaperTimer > 0">试卷时长{{paper?.PaperTimer}}分钟，请在规定时间内完成，时间到达后将自动提交，考试过程中不可退出
+            </ng-container>
+        </p>
+        <div>我知道了</div>
+    </div>
+</div>
+<div *ngIf="score.isDone" class="score" tappable (click)="closeDone($event)">
+    <div class="content" style="width: 60%">
+        <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
+        <p>温馨提示</p>
+        <p class="number  test">
+            题目未完成，无法提交作业，请左右滑动切换完成全部题目。
         </p>
         <div>我知道了</div>
     </div>
