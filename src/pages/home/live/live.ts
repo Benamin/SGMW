@@ -98,10 +98,6 @@ export class LivePage {
     }
 
     goDetail(item) {
-        if(item.IsLive == 0){
-            this.commonSer.toast('直播未开始');
-            return
-        }
         this.navCtrl.push(CourseDetailPage, {id: item.Id});
     }
 

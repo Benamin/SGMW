@@ -48,20 +48,31 @@ export class TreeListComponent {
 
     //文件处理
     handle(file, event) {
-        event.stopPropagation();
         console.log(file);
-        if (this.IsBuy) {
-            this.saveProcess(file);
-            if (file.icon.includes('mp4')) {
-                this.appSer.setFile(file);
-            }
-            if (file.icon.includes('pdf')) this.openPDF(file);
-            if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
-                this.fileSer.viewFile(file.fileUrl, file.filename);
-            }
-        } else {
+
+        //未报名
+        if (!this.IsBuy) {
             this.isSign = true;
             timer(2000).subscribe(() => this.isSign = false);
+            return;
+        }
+
+        //课程未开始
+        const nowTime = new Date().getTime();
+        const planStartTime = new Date(file.PlanStartTimeStr).getTime();
+        if (nowTime < planStartTime) {
+            this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
+            return
+        }
+
+        event.stopPropagation();
+        this.saveProcess(file);
+        if (file.icon.includes('mp4')) {
+            this.appSer.setFile(file);
+        }
+        if (file.icon.includes('pdf')) this.openPDF(file);
+        if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
+            this.fileSer.viewFile(file.fileUrl, file.filename);
         }
     }
 

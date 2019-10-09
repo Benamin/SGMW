@@ -217,6 +217,13 @@ export class CourseDetailPage {
 
     //立即学习
     studyNow() {
+        console.log(this.files[0]);
+        const nowTime = new Date().getTime();
+        const planStartTime = new Date(this.files[0].PlanStartTimeStr).getTime();
+        if (nowTime < planStartTime) {
+            this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
+            return
+        }
         const loading = this.loadCtrl.create();
         loading.present();
         if (this.files.length == 0) {
