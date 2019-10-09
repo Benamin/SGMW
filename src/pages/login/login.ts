@@ -110,8 +110,8 @@ export class LoginPage {
 
     //slide改变
     slideChange() {
-        if( this.slides.realIndex == 0) this.loginObj.platform = "xszs";
-        if( this.slides.realIndex == 1) this.loginObj.platform = "junke";
+        if (this.slides.realIndex == 0) this.loginObj.platform = "xszs";
+        if (this.slides.realIndex == 1) this.loginObj.platform = "junke";
     }
 
     //员工
@@ -266,7 +266,10 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.msg);
                 }
-            }
+            }, (error => {
+                loading.dismiss();
+                this.commonSer.alert(error.error.errorMsg);
+            })
         )
     }
 
@@ -288,6 +291,9 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
+            }, error1 => {
+                const error = error1.error.split(`{"error":"invalid_grant"}`)[0];
+                this.commonSer.alert(JSON.parse(error).error);
             }
         )
     }

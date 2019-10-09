@@ -2,24 +2,6 @@ page-course {
   .learn-list {
     padding: 10px;
 
-    .round{
-      position: relative;
-      text-align: center;
-      .tage{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        font-size: 1rem;
-        span{
-          font-weight: bold;
-          font-size: 18px;
-        }
-      }
-      img{
-        width: 80%;
-      }
-    }
     .course-item {
       display: flex;
       padding: 15px 10px;
@@ -29,22 +11,30 @@ page-course {
       .item-img {
         width: 30%;
         padding-right: 5px;
-        text-align: center;
+        display: flex;
+        height: 75px;
+        align-items: center;
+
+        img {
+          border-radius: 5px;
+          height: 75px;
+          width: 100%;
+        }
       }
 
       .item-desc {
-        width: 70%;
+        width: 55%;
         padding-left: 5px;
         display: flex;
         flex-direction: column;
         flex-flow: row wrap;
-
+        height: 75px;
         > p {
           align-self: flex-start;
-          font-size:16px;
-          font-weight:500;
-          color:rgba(0,0,0,.8);
-          line-height:1.83rem;
+          font-size: 16px;
+          font-weight: 500;
+          color: rgba(0, 0, 0, .8);
+          line-height: 1.83rem;
           overflow: hidden;
           display: -webkit-box;
           text-overflow: ellipsis;
@@ -53,22 +43,24 @@ page-course {
         }
 
         .desc {
-          align-self: flex-end;
           width: 100%;
           color: #999999;
           margin-top: 10px;
           display: flex;
-          img{
+
+          img {
             margin-right: 2px;
             width: 18px;
           }
+
           > span {
             margin-right: 8px;
             display: flex;
             align-items: center;
             font-size: 14px;
           }
-          > span:first-child{
+
+          > span:first-child {
             font-size: 12px;
             flex: 4;
           }
@@ -78,9 +70,45 @@ page-course {
           }
         }
       }
+
+      .item-process{
+        width: 15%;
+        display: flex;
+        align-items: flex-end;
+        height: 78px;
+        justify-content: center;
+        span:first-child{
+          font-weight: bold;
+          font-size: 14px;
+        }
+        span:last-child{
+          font-size: 12px;
+          transform: scale(0.8);
+          display: inline-block;
+        }
+      }
     }
-    .course-item + .course-item{
+
+    .course-item + .course-item {
       margin-top: 10px;
+    }
+  }
+  .outer {
+    height: 6px;
+    background-color: #bee1ec;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    align-self: flex-end;
+    display: flex;
+
+    .inner {
+      background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+      height: 6px;
+      transition: all 500ms;
+      border-radius: 10px;
+
     }
   }
 }

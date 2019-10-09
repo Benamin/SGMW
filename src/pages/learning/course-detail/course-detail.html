@@ -17,11 +17,12 @@
                 <div class="course-desc">
                     <span><img src="./assets/imgs/learn/like_white@2x.png" alt="">{{product.detail?.ZanCount}}</span>
                     <span><img src="./assets/imgs/learn/collect_white@2x.png" alt="">{{product.detail?.CollectionCount}}</span>
+                    <span><img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount}}</span>
                 </div>
             </div>
         </div>
         <div id="videoTag" class="content video" [hidden]="product.videoSrc == null">
-            <videojs [src]="product.videoSrc" [poster]="product.videoPoster" ></videojs>
+            <videojs [src]="product.videoSrc" [poster]="product.videoPoster"></videojs>
         </div>
     </div>
     <!--    <navbar #navbar [list]="navbarList" (done)="getNavbar($event)"></navbar>-->
@@ -78,7 +79,8 @@
     <div id="talk" class="item">
         <p>课程讨论
             <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end class="look">更多</span>
-            <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()" class="focus focus-blue">去讨论</span>
+            <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()"
+                  class="focus focus-blue">去讨论</span>
         </p>
         <div class="comment-list">
             <div class="comment-item" *ngFor="let item of comment.talk;">
@@ -105,8 +107,10 @@
     <div class="space"></div>
     <div id="comment" class="item">
         <p>课程评价
-            <span *ngIf="comment.course.length > 0" tappable class="look" float-end (click)="goCourseComment()">更多</span>
-            <span *ngIf="comment.course.length == 0" tappable class="focus-blue focus" (click)="goCourseComment()">去评价</span>
+            <span *ngIf="comment.course.length > 0" tappable class="look" float-end
+                  (click)="goCourseComment()">更多</span>
+            <span *ngIf="comment.course.length == 0" tappable class="focus-blue focus"
+                  (click)="goCourseComment()">去评价</span>
         </p>
         <div class="comment-list">
             <div class="comment-item" *ngFor="let item of comment.course;">
@@ -158,8 +162,10 @@
     <div class="space"></div>
     <div class="item">
         <p>讲师评价
-            <span *ngIf="comment.teacher.length > 0" tappable (click)="goTeacherComment()" float-end class="look">更多</span>
-            <span *ngIf="comment.teacher.length == 0" tappable (click)="goTeacherComment()" class="focus focus-blue">去评价</span>
+            <span *ngIf="comment.teacher.length > 0" tappable (click)="goTeacherComment()" float-end
+                  class="look">更多</span>
+            <span *ngIf="comment.teacher.length == 0" tappable (click)="goTeacherComment()"
+                  class="focus focus-blue">去评价</span>
         </p>
         <div class="comment-list">
             <div class="comment-item" *ngFor="let item of comment.teacher;">
