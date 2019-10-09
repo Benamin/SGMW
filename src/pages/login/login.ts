@@ -196,8 +196,6 @@ export class LoginPage {
             sign: this.randomWord.hex_md5(sign)
         };
 
-        console.log(header);
-        console.log(this.jxs.xszs);
         this.loginSer.sgmwLogin(this.jxs.xszs, header).subscribe(
             (res) => {
                 loading.dismiss();
@@ -252,7 +250,6 @@ export class LoginPage {
         encrypt.setPublicKey(JunKe_PRIVATE_KEY);
 
         const password = encrypt.encrypt(this.jxs.junke.password);
-        console.log(password);
         const data = {
             "userName": this.jxs.junke.username,
             "password": password
