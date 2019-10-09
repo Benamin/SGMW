@@ -60,6 +60,10 @@ page-number-one {
         overflow: hidden;
         height: 50px;
         border-radius: 6px;
+        div{
+          width: 100%;
+          height: 100%;
+        }
       }
   
       .time{
@@ -82,10 +86,11 @@ page-number-one {
         height: 70px !important;
         width: 125px !important;
         flex-shrink:0;
-        img{
-          width: 100%;
-          // height: 100%;
-        }
+        // div{
+        //   width: 100%;
+        //   height: 100%;
+        // }
+    
       }
     }
     .img3{
@@ -93,13 +98,12 @@ page-number-one {
         border-radius: 6px;
         overflow: hidden;
         display: flex;
-        img{
-          // flex:1;
+        div{
           width: 33%;
           height: 97px;
           background: #e4e4e4;
         }
-        img:nth-child(2){
+        div:nth-child(2){
           margin: 0 0.5%;
         }
       }

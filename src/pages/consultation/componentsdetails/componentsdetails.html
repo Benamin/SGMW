@@ -23,7 +23,8 @@
               </div>
           </div>
           <div class="imgdiv">
-              <img [src]="item.SourceURL" alt="">
+                <div [ngStyle]="{'background-image': 'url('+item.SourceURL+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
+                </div> 
           </div>
       </div>
   </div>

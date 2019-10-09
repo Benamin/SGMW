@@ -14,6 +14,7 @@ export class MyForumComponent implements OnInit {
   isdoInfinite = true;
   no_list = false;
   forumLIst = [];
+  forumLIst_length_0=false;
   pageDate={
     creater: "丁林玲",
     pageIndex: 1,
@@ -79,6 +80,7 @@ export class MyForumComponent implements OnInit {
             n--;
           }
         }
+        
       }
     });
   }
@@ -109,6 +111,7 @@ export class MyForumComponent implements OnInit {
       }
       this.forumLIst = this.forumLIst.concat(arr);
       this.serve.listSplice(this.forumLIst);
+      this.forumLIst_length_0 = this.forumLIst.length == 0 ?true:false;
   
     });
   }
