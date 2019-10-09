@@ -179,26 +179,35 @@ export class PostAddComponent implements OnInit {
   uploadFile(event) {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
-        let file: File = fileList[0];
-        let formData: FormData = new FormData();
-        formData.append('file', file);
-        let loading = this.loadCtrl.create({
-          content: '加载中...'
+      const loading = this.loadCtrl.create({
+        content: '加载中...'
       });
-    
-          loading.present();
-        this.serve.Upload_UploadFiles(formData).then((res:any) => {
-          this.imgitems.push({
-            src:res.data,
-            alt:'',
-          })
-          if(!this.focusNode.data){
-            this.DomAddImg(res.data,'');
-          }else{
-            this.SetaddImg(res.data,'');
-          }
-          loading.dismiss();
-        });
+      loading.present();
+      const addImgS = (fileList_n,index) =>{
+          let formData: FormData = new FormData();
+          formData.append('file', fileList_n);
+      
+          this.serve.Upload_UploadFiles(formData).then((res:any) => {
+            this.imgitems.push({
+              src:res.data,
+              alt:'',
+            })
+            if(!this.focusNode.data){
+              this.DomAddImg(res.data,'');
+            }else{
+              this.SetaddImg(res.data,'');
+            }
+            if(fileList.length-1>index){
+              addImgS(fileList[index+1],index+1);
+            }else{
+              loading.dismiss();
+            }
+          });
+      }
+      addImgS(fileList[0],0);
+
+     
+        
     }
   }
 
