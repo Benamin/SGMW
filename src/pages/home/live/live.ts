@@ -91,7 +91,7 @@ export class LivePage {
     formatList(list) {
         list.forEach(e => {
             if (this.list.nowTime < this.getTime(e.StartTime)) e.IsLive = 0; //未开播
-            if (this.getTime(e.StartTime) < this.list.nowTime && this.list.nowDate < this.getTime(e.EndTime)) e.IsLive = 1; //直播中
+            if (this.getTime(e.StartTime) < this.list.nowTime && this.list.nowTime < this.getTime(e.EndTime)) e.IsLive = 1; //直播中
             if (this.list.nowTime > this.getTime(e.EndTime)) e.IsLive = 2;  //已结束
         });
         return list;
