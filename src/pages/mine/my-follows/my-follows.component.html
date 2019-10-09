@@ -9,15 +9,15 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="navul" >
-      <div class="navli" [ngClass]="{'act': navli=='讲师'}" (click)="switchInformation('讲师')">
+      <div class="navli" [ngClass]="{'act': navli=='讲师'}" tappable (click)="switchInformation('讲师')">
         讲师
       </div>
-      <div class="navli" [ngClass]="{'act': navli=='帖子'}" (click)="switchInformation('帖子')">
+      <div class="navli" [ngClass]="{'act': navli=='帖子'}" tappable (click)="switchInformation('帖子')">
         帖子
       </div>
     </div>
   <div *ngIf="navli=='讲师'" class="subscribe-div">
-      <div class="GetSubscribeList" *ngFor="let item of collectionList" (click)="teachDetail(item)">
+      <div class="GetSubscribeList" *ngFor="let item of collectionList" tappable (click)="teachDetail(item)">
         <div class="Head">
           <img src="{{item.HeadPhoto}}" alt="">
           <div class="name">
@@ -42,7 +42,7 @@
 
   <!-- <course-list *ngIf="navli=='课程'" [list]="collectionList" (done)="goCourse($event)"></course-list> -->
   <div *ngIf="navli=='帖子'" class="content-div">
-    <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of collectionList">
+    <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of collectionList">
       <div class="post-introduction-top">
         <img src="{{item.PosterUserHeadPhoto}}" alt="">
         <div class="name nowrap-1">{{item.PosterUserName}}</div>

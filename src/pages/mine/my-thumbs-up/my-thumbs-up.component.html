@@ -8,7 +8,7 @@
     <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
     </ion-refresher-content>
   </ion-refresher>
-  <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of data;index as i">
+  <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of data;index as i">
     <div class="post-introduction-top">
       <img src="{{item.PosterUserHeadPhoto}}" alt="">
       <div class="name">{{item.PosterUserName}}</div>

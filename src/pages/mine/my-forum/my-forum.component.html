@@ -9,15 +9,15 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="navul">
-    <div class="navli" [ngClass]="{'act': navli=='已发布'}" (click)="switchInformation('已发布',2)">
+    <div class="navli" [ngClass]="{'act': navli=='已发布'}" tappable (click)="switchInformation('已发布',2)">
       已发布
     </div>
-    <div class="navli" [ngClass]="{'act': navli=='草稿箱'}" (click)="switchInformation('草稿箱',1)">
+    <div class="navli" [ngClass]="{'act': navli=='草稿箱'}" tappable (click)="switchInformation('草稿箱',1)">
       草稿箱
     </div>
   </div>
   <div *ngIf="navli=='已发布'" class="content-div">
-    <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
+    <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
       <div class="post-introduction-top">
         <img src="{{item.PosterUserHeadPhoto}}" alt="">
         <div class="name nowrap-1">{{item.PosterUserName}}</div>
@@ -25,7 +25,7 @@
         <div style="flex: 1;">
 
         </div>
-        <div class="edit-div" (click)="delITem(item);$event.stopPropagation()">
+        <div class="edit-div" tappable (click)="delITem(item);$event.stopPropagation()">
           <span class="del-img">
             <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
           </span>
@@ -74,10 +74,10 @@
         <img src="{{item.PosterUserHeadPhoto}}" alt="">
         <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
         <div class="edit-div">
-          <span class="edit-img" (click)="editITem(item)">
+          <span class="edit-img" tappable (click)="editITem(item)">
             <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
           </span>
-          <span class="del-img" (click)="$event.stopPropagation();delITem(item)">
+          <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item)">
             <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
           </span>
         </div>
@@ -131,8 +131,8 @@
       确定删除吗？
     </div>
     <div class="btn-div">
-      <div class="del-ok" (click)="delOk()">确定</div>
-      <div class="del-no" (click)="isDelShow=false">取消</div>
+      <div class="del-ok" tappable (click)="delOk()">确定</div>
+      <div class="del-no" tappable (click)="isDelShow=false">取消</div>
     </div>
   </div>
 </div>

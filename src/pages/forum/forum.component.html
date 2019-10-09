@@ -3,7 +3,7 @@
     <ion-navbar>
         <ion-title>论坛</ion-title>
     </ion-navbar>
-      <img (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
+      <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
 <ion-content >
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -15,7 +15,7 @@
       <h3>最近浏览</h3>
     </div>
     <div class="list-con">
-        <div class="history-list" (click)="goPostlist(item)" *ngFor="let item of ForumHistory">
+        <div class="history-list" tappable (click)="goPostlist(item)" *ngFor="let item of ForumHistory">
             <div class="img-div">
               <img [src]="item.CoverImage" alt="">
             </div>
@@ -31,7 +31,7 @@
       <div class="left-bg">
         <h3 class="more">全部专区</h3>
       </div>
-      <div class="con-div" *ngFor="let item of forumLIst" (click)="goPostlist(item)">
+      <div class="con-div" *ngFor="let item of forumLIst" tappable (click)="goPostlist(item)">
           <div class="list">
               <div class="img-div">
                   <img [src]="item.CoverImage" alt="">

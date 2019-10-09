@@ -3,7 +3,7 @@
     <ion-title></ion-title>
     
   </ion-navbar>
-  <img (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
+  <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
 <ion-content>
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -32,12 +32,12 @@
   </div>
   <div class="content-div" [ngStyle]="{'margin-top': IsTopOpt?'30px':'10px'}">
     <div class="div-nav">
-      <div [ngClass]="{'act': pageDate.OrderBy=='PostTimeFormatted'}" (click)="avtNav('PostTimeFormatted')">最新</div>
-      <div [ngClass]="{'act': pageDate.OrderBy=='ReplyCount'}" (click)="avtNav('ReplyCount')">最热</div>
+      <div [ngClass]="{'act': pageDate.OrderBy=='PostTimeFormatted'}" tappable (click)="avtNav('PostTimeFormatted')">最新</div>
+      <div [ngClass]="{'act': pageDate.OrderBy=='ReplyCount'}" tappable (click)="avtNav('ReplyCount')">最热</div>
     </div>
     <div>
       
-      <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
+      <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
         <div class="post-introduction-top">
           <img src="{{item.PosterUserHeadPhoto}}" alt="">
           <div class="name nowrap-1">{{item.PosterUserName}}</div>
@@ -87,5 +87,5 @@
     </div>
   </div>
 </ion-content>
-<div class="new-add" (click)="PostAddComponent(lidata)">
+<div class="new-add" tappable (click)="PostAddComponent(lidata)">
 </div>

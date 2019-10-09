@@ -6,16 +6,16 @@
 
 <ion-content>
         <div class="navul">
-                <div class="navli" [ngClass]="{'act': navli=='销冠风采'}" (click)="switchInformation('销冠风采')">
+                <div class="navli" [ngClass]="{'act': navli=='销冠风采'}" tappable (click)="switchInformation('销冠风采')">
                     销冠风采
                 </div>
-                <div class="navli" [ngClass]="{'act': navli=='销售案例'}" (click)="switchInformation('销售案例')">
+                <div class="navli" [ngClass]="{'act': navli=='销售案例'}" tappable (click)="switchInformation('销售案例')">
                     销售案例
                 </div>
             </div>
     <div class="information-ul" *ngIf="navli=='销售案例'">
         <ng-container *ngFor="let item of dataList">
-            <div class="information-list img1" *ngIf="item.IsSingle" (click)="goComponentsdetails(item)">
+            <div class="information-list img1" *ngIf="item.IsSingle" tappable (click)="goComponentsdetails(item)">
                     <div class="list-time">
                         <h4 class="nowrap-2">{{item.Title}}</h4>
                         <div class="time">
@@ -26,7 +26,7 @@
                         <img [src]="img" *ngFor="let img of item.SourceURLList.slice(0,1)" alt="">
                     </div>
                 </div>
-                <div class="information-list img3" *ngIf="!item.IsSingle" (click)="goComponentsdetails(item)">
+                <div class="information-list img3" *ngIf="!item.IsSingle" tappable (click)="goComponentsdetails(item)">
                     <h4>{{item.Title}}</h4>
                     <div class="imgdiv-flex">
                         <img [src]="img" *ngFor="let img of item.SourceURLList" alt="">
@@ -40,7 +40,7 @@
    
     </div>
     <div *ngIf="navli=='销冠风采'" class="crown-list">
-        <div class="crown" *ngFor="let item of crownList" (click)="goComponentsdetailsOne(item)">
+        <div class="crown" *ngFor="let item of crownList" tappable (click)="goComponentsdetailsOne(item)">
             <div class="heard">
                 <div class="heard-img">
                     <img class="crown-img" src="./assets/imgs/numberone/numberOne-AnCrown@3x.png" alt="">

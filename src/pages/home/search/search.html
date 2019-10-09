@@ -16,16 +16,16 @@
         </ion-refresher-content>
     </ion-refresher> -->
   <div class="navul" *ngIf="navulShow">
-    <div class="navli" [ngClass]="{'act': navli=='课程'}" (click)="switchIn('课程')">
+    <div class="navli" [ngClass]="{'act': navli=='课程'}" tappable (click)="switchIn('课程')">
       课程
     </div>
-    <div class="navli" [ngClass]="{'act': navli=='论坛'}" (click)="switchIn('论坛')">
+    <div class="navli" [ngClass]="{'act': navli=='论坛'}" tappable (click)="switchIn('论坛')">
       论坛
     </div>
   </div>
   <div *ngIf="navli=='论坛'">
     <div style="background: #fff; ">
-      <div class="topicplate-div" *ngFor="let item of topicplate" (click)="goPostlist(item)">
+      <div class="topicplate-div" *ngFor="let item of topicplate" tappable (click)="goPostlist(item)">
         <div class="list">
           <div class="img-div">
             <img [src]="item.CoverImage" alt="">
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="post-introduction" (click)="goPostsContent(item)" *ngFor="let item of postList">
+    <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of postList">
       <div class="post-introduction-top">
         <img src="{{item.PosterUserHeadPhoto}}" alt="">
         <div class="name">{{item.PosterUserName}}</div>
