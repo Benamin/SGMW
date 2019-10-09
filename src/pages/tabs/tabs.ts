@@ -9,6 +9,7 @@ import {BackButtonService} from "../../core/backButton.service";
 import {LoginPage} from "../login/login";
 import {TabService} from "../../core/tab.service";
 import { ForumPage } from '../forum/forum.component';
+import {NoDevPage} from "../home/no-dev/no-dev";
 @Component({
     templateUrl: 'tabs.html'
 })
@@ -35,7 +36,7 @@ export class TabsPage {
             index: 1
         },
         {
-            root: ForumPage,
+            root: NoDevPage,
             tabTitle: '论坛',
             tabIconOn: 'custom-forum-on',
             tabIconOff: 'custom-forum-off',
@@ -76,7 +77,7 @@ export class TabsPage {
         this.tabsIndex = e;
         this.myTabs.select(e);
     }
-
+    // this.navCtrl.push(NoDevPage, {title: title});
     listenEvents() {
         this.events.subscribe('toLogin', () => {
             this.nav.setRoot(LoginPage);
