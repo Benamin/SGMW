@@ -84,7 +84,7 @@ export class CoursePage {
             pageSize: this.page.pageSize,
             studystate: this.page.studystate
         };
-        this.mineSer.GetMyCollectionProductList(data).subscribe(
+        this.mineSer.GetMyProductList(data).subscribe(
             (res) => {
                 this.courseList = this.courseList.concat(res.data.ProductList);
                 this.page.TotalCount = res.data.TotalCount;
