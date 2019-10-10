@@ -289,8 +289,8 @@ export class LoginPage {
                     this.commonSer.alert(res.error);
                 }
             }, error1 => {
-                const error = error1.error.split(`{"error":"invalid_grant"}`)[0];
-                this.commonSer.alert(JSON.parse(error).error);
+                const error = error1.error.error;
+                this.commonSer.alert(error);
             }
         )
     }

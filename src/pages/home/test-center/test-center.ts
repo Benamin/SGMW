@@ -6,6 +6,7 @@ import {HomeService} from "../home.service";
 import {LookTestPage} from "../look-test/look-test";
 import {DoTestPage} from "../do-test/do-test";
 import {CommonService} from "../../../core/common.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'page-exam',
@@ -32,7 +33,7 @@ export class TestCenterPage {
     examList = [];
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
-                private homeSer: HomeService,
+                private homeSer: HomeService, private datePipe: DatePipe,
                 private commonSer: CommonService,
                 private loadCtrl: LoadingController) {
     }
@@ -96,8 +97,8 @@ export class TestCenterPage {
 
     //考试有效期校验
     checkTesttime(item) {
-        const ExamBegin = new Date(item.ExamBegin).getTime();
-        const ExamEnd = new Date(item.ExamEnd).getTime();
+        const ExamBegin = new Date(this.datePipe.transform(item.ExamBegin, 'yyyy/MM/dd HH:mm:ss')).getTime();
+        const ExamEnd = new Date(this.datePipe.transform(item.ExamEnd, 'yyyy/MM/dd HH:mm:ss')).getTime();
         this.homeSer.getSysDateTime().subscribe(
             (res) => {
                 const sysDate = new Date(res.data).getTime();

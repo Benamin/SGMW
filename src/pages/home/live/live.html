@@ -60,8 +60,7 @@
                         <img src="./assets/imgs/live/live-more@3x.png" alt="">
                     </div>
                     <div class="live-button">
-                        <span *ngIf="item.IsBuy">看直播</span>
-                        <span tappable (click)="signProduct(item,$event)" *ngIf="!item.IsBuy">报名</span>
+                        <span>看直播</span>
                     </div>
                     <div class="live-time">{{item.StartTime | date:'yyyy-MM-dd HH:mm:ss'}}</div>
                 </div>

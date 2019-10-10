@@ -223,27 +223,48 @@ export class CourseDetailPage {
 
     //立即学习
     studyNow() {
+        if (this.files.length == 0) {
+            this.commonSer.toast('暂无学习文件');
+            return;
+        }
+
         console.log(this.files[0]);
         const nowTime = new Date().getTime();
-        const planStartTime = new Date(this.files[0].PlanStartTime).getTime();
+        const startTimeStr = this.files[0].PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
+        const planStartTime = new Date(startTimeStr).getTime();
+
         if (nowTime < planStartTime) {
             this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
             return
         }
+
         const loading = this.loadCtrl.create();
         loading.present();
-        if (this.files.length == 0) {
-            this.commonSer.toast('暂无学习文件');
-        } else if (this.files[0].icon.includes('mp4')) {
+        this.saveProcess(this.files[0]);
+        if (this.files[0].icon.includes('mp4')) {
             this.product.videoSrc = this.files[0].fileUrl;
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
         } else {
             this.fileSer.viewFile(this.files[0].fileUrl, this.files[0].filename);
         }
+
         loading.dismiss();
     }
 
+    //更新学习进度
+    saveProcess(file) {
+        const data = {
+            EAttachmentID: file.ID
+        };
+        this.learSer.SaveStudy(data).subscribe(
+            (res) => {
+                console.log(res.message);
+            }
+        )
+    }
+
+    //打开pdf文件
     openPDF(file) {
         console.log(file);
         let modal = this.modalCtrl.create(ViewFilePage, {
@@ -260,6 +281,7 @@ export class CourseDetailPage {
         event.stopPropagation();
     }
 
+    //教师详情
     teachDetail() {
         this.navCtrl.push(TeacherPage, {item: this.product.detail.Teachers[0]});
     }
@@ -327,10 +349,6 @@ export class CourseDetailPage {
     //报名
     sign() {
         const nowTime = new Date().getTime();
-        if (nowTime < this.getTime(this.product.detail.StartTime)) {
-            this.commonSer.toast('课程还未开始...');
-            return
-        }
         if (nowTime > this.getTime(this.product.detail.EndTime)) {
             this.commonSer.toast(`课程已经结束...`);
             return
