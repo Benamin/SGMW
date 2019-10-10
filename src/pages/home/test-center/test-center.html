@@ -28,7 +28,8 @@
                     </div>
                     <div *ngIf="page.StudyState == 3" class="test-leave">
                         <img *ngIf="item.TotalScore < item.PaperScore *0.6" src="./assets/imgs/test/bad@2x.png">
-                        <img *ngIf="item.PaperScore == item.TotalScore" src="./assets/imgs/test/best@2x.png">
+                        <img *ngIf="item.PaperScore *0.59 < item.TotalScore && item.TotalScore < item.PaperScore *0.91" src="./assets/imgs/test/gofighting@2x.png">
+                        <img *ngIf="item.PaperScore *0.9 < item.TotalScore" src="./assets/imgs/test/best@2x.png">
                     </div>
                 </div>
                 <p *ngIf="page.StudyState != 1" class="split"></p>

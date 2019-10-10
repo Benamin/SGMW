@@ -61,8 +61,8 @@ export class TreeListComponent {
         }
 
         //课程未开始
-        // const startTimeStr = file.PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
-        const planStartTime = new Date(file.PlanStartTime).getTime();
+        const startTimeStr = file.PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
+        const planStartTime = new Date(startTimeStr).getTime();
         if (this.nowTime < planStartTime) {
             this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
             return
@@ -93,7 +93,7 @@ export class TreeListComponent {
         this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
     }
 
-    //保存学习进度
+    //更新学习进度
     saveProcess(file) {
         const data = {
             EAttachmentID: file.ID
