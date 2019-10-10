@@ -134,6 +134,16 @@ export class LivePage {
     //课程报名
     signProduct(item, e) {
         e.stopPropagation();
+
+        if (item.IsLive == 0) {
+            this.commonSer.toast('直播还未开始...');
+            return;
+        }
+        if (item.IsLive == 2) {
+            this.commonSer.toast('直播已经结束...');
+            return;
+        }
+
         const data = {
             pid: item.Id
         };

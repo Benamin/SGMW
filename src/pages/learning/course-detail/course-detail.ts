@@ -326,6 +326,15 @@ export class CourseDetailPage {
 
     //报名
     sign() {
+        const nowTime = new Date().getTime();
+        if (nowTime < this.getTime(this.product.detail.StartTime)) {
+            this.commonSer.toast('课程还未开始...');
+            return
+        }
+        if (nowTime > this.getTime(this.product.detail.EndTime)) {
+            this.commonSer.toast(`课程已经结束...`);
+            return
+        }
         const data = {
             pid: this.pId
         };
@@ -392,5 +401,10 @@ export class CourseDetailPage {
 
     getMore(e) {
         e.show = !e.show;
+    }
+
+    //获取时间戳
+    getTime(date) {
+        return new Date(date).getTime();
     }
 }
