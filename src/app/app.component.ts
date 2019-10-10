@@ -130,8 +130,8 @@ export class MyApp {
                 }
             }, error1 => {
                 this.rootPage = LoginPage;
-                const error = error1.error.split(`{"error":"invalid_grant"}`)[0];
-                this.commonSer.alert(JSON.parse(error).error);
+                const error = error1.error.error;
+                this.commonSer.alert(error);
             }
         )
     }
@@ -163,8 +163,8 @@ export class MyApp {
                 }
             }, error1 => {
                 this.rootPage = LoginPage;
-                const error = error1.error.split(`{"error":"invalid_grant"}`)[0];
-                this.commonSer.alert(JSON.parse(error).error);
+                const error = error1.error.error;
+                this.commonSer.alert(error);
             }
         )
     }
