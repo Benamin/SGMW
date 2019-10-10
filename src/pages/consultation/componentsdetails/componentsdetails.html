@@ -13,7 +13,7 @@
       </div>
   </div>
 
-  <div class="information-ul">
+  <div class="information-ul" *ngIf="RelationArr.length>0" >
       <h3>相关推荐</h3>
       <div class="information-list img1" tappable (click)="goComponentsdetails(item)" *ngFor="let item of RelationArr">
           <div class="list-time">
