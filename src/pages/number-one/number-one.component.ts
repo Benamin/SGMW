@@ -43,13 +43,14 @@ export class NumberOne {
     "IsAsc": true,
     "SortDir": "ReleaseTime"
   };
-
+  navliArr=[];
   isdoInfinite = true;
   no_list = false;
+  navliopt={};
   constructor(private navCtrl: NavController, 
     private serve: numberOneService,
     private loadCtrl: LoadingController) {
-    this.getData();
+      this.GetDictionaryByPCode();
   }
 
   // 切换 '销冠风采'|'销售案例' 
@@ -59,6 +60,7 @@ export class NumberOne {
     this.isdoInfinite = true;
     this.dataList = [];
     this.crownList = [];
+    this.dataPost.TypeID=this.navliopt[title];
     this.dataPost.page = 1;
     this.crownData.page = 1;
     this.navli = title;
@@ -84,6 +86,25 @@ export class NumberOne {
         loading.dismiss();
       }
     });
+  }
+
+  GetDictionaryByPCode(){
+      this.serve.GetDictionaryByPCode().subscribe(res => {
+          console.log(res);
+          if(!res.data){
+            return
+          }
+          res.data.forEach(item => {
+            if(item.TypeCode=='zys'){
+              this.navliArr=item.children;
+              item.children.forEach(e => {
+                this.navliopt[e['label']] = e.value;
+              });
+              this.dataPost.TypeID=item.children[0].value;
+            }
+          });
+          this.getData();
+      });
   }
 
   // 销冠风采

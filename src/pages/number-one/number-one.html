@@ -10,12 +10,16 @@
                 </ion-refresher-content>
               </ion-refresher>
         <div class="navul">
-                <div class="navli" [ngClass]="{'act': navli=='销冠风采'}" tappable (click)="switchInformation('销冠风采')">
+                
+                <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable (click)="switchInformation(item.label)">
+                        {{item.label}}
+                </div>
+                <!-- <div class="navli" [ngClass]="{'act': navli=='销冠风采'}" tappable (click)="switchInformation('销冠风采')">
                     销冠风采
                 </div>
                 <div class="navli" [ngClass]="{'act': navli=='销售案例'}" tappable (click)="switchInformation('销售案例')">
                     销售案例
-                </div>
+                </div> -->
             </div>
     <div class="information-ul" *ngIf="navli=='销售案例'">
         <ng-container *ngFor="let item of dataList">
