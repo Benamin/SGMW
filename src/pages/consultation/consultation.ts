@@ -21,9 +21,9 @@ export class ConsultationPage {
         "SubTitle": "",
         "TypeID":"xyxw", 
         "States": "1",  
-        "OrderBy": "IsStick",
         "IsAsc": true,
-        "SortDir": "DESC"
+        "SortDir": "DESC",
+        "OrderBy": "ReleaseTime",
     }
     dataList=[];
     isdoInfinite=true;

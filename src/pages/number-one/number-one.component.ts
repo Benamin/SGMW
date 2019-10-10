@@ -22,7 +22,7 @@ export class NumberOne {
     States: '-1',
     OrderBy: 'Sort',//排序字段
     IsAsc: true, //是否升序
-    SortDir: 'DESC'
+    SortDir: 'ReleaseTime'
   };
 
   // 销售案例 列表
@@ -39,9 +39,9 @@ export class NumberOne {
     "SubTitle": "",
     "TypeID": "xsal",
     "States": "1",
-    "OrderBy": "IsStick",
+    "OrderBy": "ReleaseTime",
     "IsAsc": true,
-    "SortDir": "DESC"
+    "SortDir": "ReleaseTime"
   };
 
   isdoInfinite = true;
@@ -138,4 +138,19 @@ export class NumberOne {
     }, 1000);
   }
 
+
+  // 下拉刷新
+  doRefresh(e){
+    this.isdoInfinite = true;
+    this.no_list = true;
+    this.isdoInfinite = true;
+    this.dataList = [];
+    this.crownList = [];
+    this.dataPost.page = 1;
+    this.crownData.page = 1;
+    this.getData();
+    setTimeout(() => {
+        e.complete();
+    }, 1000);
+  }
 }
