@@ -19,6 +19,7 @@ export class TreeListComponent {
     @Output() fileData = new EventEmitter<any>();
 
     isSign = false;
+    nowTime;
 
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
@@ -28,6 +29,8 @@ export class TreeListComponent {
                 this.treeList.forEach(e => e.show = true);
             }
         )
+       this.nowTime = new Date().getTime();
+
     }
 
     openPDF(file) {
@@ -58,9 +61,9 @@ export class TreeListComponent {
         }
 
         //课程未开始
-        const nowTime = new Date().getTime();
-        const planStartTime = new Date(file.PlanStartTimeStr).getTime();
-        if (nowTime < planStartTime) {
+        // const startTimeStr = file.PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
+        const planStartTime = new Date(file.PlanStartTime).getTime();
+        if (this.nowTime < planStartTime) {
             this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
             return
         }
@@ -74,6 +77,10 @@ export class TreeListComponent {
         if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
+    }
+
+    getTime(time){
+        return new Date(time).getTime();
     }
 
     //下载文件
