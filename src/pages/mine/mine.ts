@@ -120,7 +120,7 @@ export class MinePage {
     checkVersion() {
         let versionCode;
         let platform;
-        if (this.platform.is('ios')) platform = 'ios';
+        if (this.platform.is('ios')) platform = 'IOS';
         if (this.platform.is('android')) platform = 'android';
         this.appVersion.getVersionNumber().then((version: string) => {
             versionCode = version;
