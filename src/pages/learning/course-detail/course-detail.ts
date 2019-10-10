@@ -225,7 +225,7 @@ export class CourseDetailPage {
     studyNow() {
         console.log(this.files[0]);
         const nowTime = new Date().getTime();
-        const planStartTime = new Date(this.files[0].PlanStartTimeStr).getTime();
+        const planStartTime = new Date(this.files[0].PlanStartTime).getTime();
         if (nowTime < planStartTime) {
             this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
             return
