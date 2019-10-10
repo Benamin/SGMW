@@ -253,7 +253,7 @@ export class LoginPage {
         const data = {
             "userName": this.jxs.junke.username,
             "password": password
-        }
+        };
         this.loginSer.JunkeAppAuthCas(data).subscribe(
             (res) => {
                 loading.dismiss();

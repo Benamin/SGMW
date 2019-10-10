@@ -61,14 +61,13 @@ export class MyApp {
                     this.load.httpUrl = res.data.NewsItems[0].SubTitle;
                     timer(3000).subscribe(() => {
                         this.showSplash = false;
-                        this.checkAuth();
                     });
                     timer(4000).subscribe(() => this.checkVersion())
                 } else {
                     this.splashScreen.hide();
                     this.showSplash = false;
-                    this.checkAuth();
                 }
+                this.checkAuth();
             }
         )
     }
@@ -130,6 +129,7 @@ export class MyApp {
                     this.commonSer.alert(res.error);
                 }
             }, error1 => {
+                this.rootPage = LoginPage;
                 const error = error1.error.split(`{"error":"invalid_grant"}`)[0];
                 this.commonSer.alert(JSON.parse(error).error);
             }
@@ -162,6 +162,7 @@ export class MyApp {
                     this.commonSer.alert(res.error);
                 }
             }, error1 => {
+                this.rootPage = LoginPage;
                 const error = error1.error.split(`{"error":"invalid_grant"}`)[0];
                 this.commonSer.alert(JSON.parse(error).error);
             }
@@ -198,7 +199,6 @@ export class MyApp {
             this.rootPage = LoginPage;
             this.commonSer.alert(this.noUserMsg);
         } else {   //用户存在
-            this.storage.set('Authorization', res.data.Token);
             this.storage.set('user', res.data);
             timer(300).subscribe(e => {
                 this.rootPage = TabsPage;
