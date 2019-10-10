@@ -66,12 +66,15 @@ export class CourseDetailPage {
     starList = new Array(5);
     defalutPhoto = defaultHeadPhoto;   //默认头像；
 
+    text;   //直播模块跳转过来的
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
+        this.text = this.navParams.get('text');
     }
 
     ionViewDidLoad() {
@@ -233,8 +236,9 @@ export class CourseDetailPage {
         const startTimeStr = this.files[0].PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
         const planStartTime = new Date(startTimeStr).getTime();
 
+        let text = this.text ? "直播" : "课程";
         if (nowTime < planStartTime) {
-            this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
+            this.commonSer.toast(`${text}还未开始，请等待开始后再观看`);
             return
         }
 
@@ -324,10 +328,11 @@ export class CourseDetailPage {
     //课程评价
     goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你对课程的评价...',
+            placeholder: '请输入你的评价...',
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
-            title: '课程评价'
+            title: this.text ? '直播评价' : '课程评价',
+            text: this.text
         });
     }
 
@@ -337,7 +342,8 @@ export class CourseDetailPage {
             placeholder: '请输入你要讨论的内容...',
             TopicID: this.product.detail.PrId,
             TopicType: 'talk',
-            title: '课程讨论'
+            title: this.text ? '直播评价' : '课程讨论',
+            text: this.text
         });
     }
 
@@ -348,9 +354,10 @@ export class CourseDetailPage {
 
     //报名
     sign() {
+        let text = this.text ? "直播" : "课程";
         const nowTime = new Date().getTime();
         if (nowTime > this.getTime(this.product.detail.EndTime)) {
-            this.commonSer.toast(`课程已经结束...`);
+            this.commonSer.toast(`${text}已经结束...`);
             return
         }
         const data = {
@@ -408,13 +415,6 @@ export class CourseDetailPage {
     changeType(item) {
         this.bar.type = item.type;
         // this.done.emit(item);
-    }
-
-    //播放视频
-    startPlay(video) {
-        console.log(video);
-        video.target.play();
-        video.target.requestFullscreen();
     }
 
     getMore(e) {

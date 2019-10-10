@@ -98,7 +98,7 @@ export class LivePage {
     }
 
     goDetail(item) {
-        this.navCtrl.push(CourseDetailPage, {id: item.Id});
+        this.navCtrl.push(CourseDetailPage, {id: item.Id,text:'直播'});
     }
 
     //下啦刷新
