@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content>
+ 
         <ion-refresher (ionRefresh)="doRefresh($event)">
                 <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
                 </ion-refresher-content>
@@ -21,6 +22,13 @@
                     销售案例
                 </div> -->
             </div>
+
+            <ion-list text-center style="  background: #fff;margin: 0;padding-bottom: 400px;padding-top: 200px;" *ngIf="no_list">
+                    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                    <p text-center style="color: #666666;font-size: 16px">
+                        暂无数据
+                    </p>
+            </ion-list>
     <div class="information-ul" *ngIf="navli=='销售案例'">
         <ng-container *ngFor="let item of dataList">
             <div class="information-list img1" *ngIf="item.IsSingle" tappable (click)="goComponentsdetails(item)">
