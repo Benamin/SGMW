@@ -4,7 +4,11 @@
         <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon" name="arrow-forward"></ion-icon>
         <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon" name="arrow-down"></ion-icon>
     </p>
-    <tree-list *ngIf="item.children.length > 0 && !item.show" [IsBuy]="IsBuy" [treeList]="item.children"></tree-list>
+    <tree-list *ngIf="item.children.length > 0 && !item.show"
+               [IsBuy]="IsBuy"
+               [TeachTypeName]="TeachTypeName"
+               [treeList]="item.children"
+    ></tree-list>
     <div *ngFor="let item of item.files">
         <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" tappable (click)="handle(item,$event)">
             <img *ngIf="item.icon != 'mp4'" src="./assets/imgs/learn/file.png">

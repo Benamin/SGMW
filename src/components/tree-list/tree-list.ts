@@ -16,6 +16,7 @@ import {LearnService} from "../../pages/learning/learn.service";
 export class TreeListComponent {
     @Input() treeList = [];
     @Input() IsBuy = [];
+    @Input() TeachTypeName;
     @Output() fileData = new EventEmitter<any>();
 
     isSign = false;
@@ -29,7 +30,7 @@ export class TreeListComponent {
                 this.treeList.forEach(e => e.show = true);
             }
         )
-       this.nowTime = new Date().getTime();
+        this.nowTime = new Date().getTime();
 
     }
 
@@ -60,11 +61,12 @@ export class TreeListComponent {
             return;
         }
 
+        let text = this.TeachTypeName == "直播" ? "直播" : "课程";
         //课程未开始
         const startTimeStr = file.PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
         const planStartTime = new Date(startTimeStr).getTime();
         if (this.nowTime < planStartTime) {
-            this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
+            this.commonSer.toast(`${text}还未开始，请等待开始后再观看`);
             return
         }
 
@@ -79,7 +81,7 @@ export class TreeListComponent {
         }
     }
 
-    getTime(time){
+    getTime(time) {
         return new Date(time).getTime();
     }
 
@@ -109,11 +111,6 @@ export class TreeListComponent {
     handleExam(exam, ev) {
         ev.stopPropagation();
         this.navCtrl.push(ExamPage);
-    }
-
-    viewOfficeFile(fileUrl, DisplayName) {
-        this.fileSer.downloadFile(fileUrl, DisplayName);
-        // this.inAppBrowser.create(`https://view.officeapps.live.com/op/view.aspx?src=${fileUrl}`, '_system');
     }
 
     getMore(e) {

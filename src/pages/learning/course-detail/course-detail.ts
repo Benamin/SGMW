@@ -233,8 +233,9 @@ export class CourseDetailPage {
         const startTimeStr = this.files[0].PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
         const planStartTime = new Date(startTimeStr).getTime();
 
+        let text = this.text ? "直播" : "课程";
         if (nowTime < planStartTime) {
-            this.commonSer.toast(`课程还未开始，请等待开始后再观看`);
+            this.commonSer.toast(`${text}还未开始，请等待开始后再观看`);
             return
         }
 
@@ -324,10 +325,11 @@ export class CourseDetailPage {
     //课程评价
     goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你对课程的评价...',
+            placeholder: '请输入你的评价...',
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
-            title: '课程评价'
+            title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
+            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         });
     }
 
@@ -337,7 +339,8 @@ export class CourseDetailPage {
             placeholder: '请输入你要讨论的内容...',
             TopicID: this.product.detail.PrId,
             TopicType: 'talk',
-            title: '课程讨论'
+            title: this.product.detail.TeachTypeName == "直播" ? '直播讨论' : '课程讨论',
+            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         });
     }
 
@@ -348,9 +351,10 @@ export class CourseDetailPage {
 
     //报名
     sign() {
+        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         const nowTime = new Date().getTime();
         if (nowTime > this.getTime(this.product.detail.EndTime)) {
-            this.commonSer.toast(`课程已经结束...`);
+            this.commonSer.toast(`${text}已经结束...`);
             return
         }
         const data = {
@@ -408,13 +412,6 @@ export class CourseDetailPage {
     changeType(item) {
         this.bar.type = item.type;
         // this.done.emit(item);
-    }
-
-    //播放视频
-    startPlay(video) {
-        console.log(video);
-        video.target.play();
-        video.target.requestFullscreen();
     }
 
     getMore(e) {

@@ -37,7 +37,6 @@ export class LivePage {
     list = {
         all: [],
         today: [],
-        nowDate: null,
         nowTime: null,
         load: false,
         changeType: 0
@@ -50,7 +49,6 @@ export class LivePage {
 
     ionViewDidLoad() {
         this.getList();
-        this.list.nowDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
         this.list.nowTime = new Date().getTime();
     }
 
@@ -80,7 +78,7 @@ export class LivePage {
 
     //获取 yyyy-MM-dd
     getFormat(date) {
-        return this.datePipe.transform(date, "yyyy-MM-dd");
+        return this.datePipe.transform(date, "yyyy/MM/dd");
     }
 
     getTime(date) {
