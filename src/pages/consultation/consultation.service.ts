@@ -8,7 +8,7 @@ import {Componentsdetails} from './componentsdetails/componentsdetails.component
 import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
 import { CourseDetailPage } from "../learning/course-detail/course-detail";
 
-const SERVER_HTTP_URL = ['chinacloudsites.cn', 'sgmw.com.cn'];
+const SERVER_HTTP_URL = ['chinacloudsites.cn', 'sgmw.com.cn','elearningapi.sgmw.com'];
 
 
 @Injectable()

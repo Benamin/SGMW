@@ -8,7 +8,7 @@ import {Componentsdetails} from '../consultation/componentsdetails/componentsdet
 import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
 import { CourseDetailPage } from "../learning/course-detail/course-detail";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
-const SERVER_HTTP_URL = ['chinacloudsites.cn', 'sgmw.com.cn'];
+const SERVER_HTTP_URL = ['chinacloudsites.cn', 'sgmw.com.cn','elearningapi.sgmw.com'];
 @Injectable()
 export class numberOneService {
   APP_URL_JUMP = [
