@@ -28,6 +28,7 @@ page-my-course {
         flex-direction: column;
         flex-flow: row wrap;
         height: 75px;
+
         > p {
           align-self: flex-start;
           font-size: 16px;
@@ -52,7 +53,7 @@ page-my-course {
             width: 18px;
           }
 
-          > span {
+          > span:not(:first-child) {
             margin-right: 8px;
             display: flex;
             align-items: center;
@@ -62,6 +63,13 @@ page-my-course {
           > span:first-child {
             font-size: 12px;
             flex: 4;
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            margin-right: 8px;
+            align-self: center;
           }
 
           > span:nth-of-type(2) {
@@ -70,17 +78,19 @@ page-my-course {
         }
       }
 
-      .item-process{
+      .item-process {
         width: 15%;
         display: flex;
         align-items: flex-end;
         height: 78px;
         justify-content: center;
-        span:first-child{
+
+        span:first-child {
           font-weight: bold;
           font-size: 14px;
         }
-        span:last-child{
+
+        span:last-child {
           font-size: 12px;
           transform: scale(0.8);
           display: inline-block;
@@ -92,6 +102,7 @@ page-my-course {
       margin-top: 10px;
     }
   }
+
   .outer {
     height: 6px;
     background-color: #bee1ec;
