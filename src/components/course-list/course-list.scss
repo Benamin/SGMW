@@ -47,15 +47,23 @@ course-list {
             margin-right: 2px;
             width: 18px;
           }
-          > span {
+          > span:not(:first-child) {
             margin-right: 8px;
             display: flex;
             align-items: center;
             font-size: 14px;
           }
-          > span:first-child{
+
+          > span:first-child {
             font-size: 12px;
             flex: 4;
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            margin-right: 8px;
+            align-self: center;
           }
 
           > span:nth-of-type(2) {
