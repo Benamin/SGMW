@@ -56,7 +56,7 @@ export class NumberOne {
   // 切换 '销冠风采'|'销售案例' 
   switchInformation(title) {
     this.isdoInfinite = true;
-    this.no_list = true;
+    this.no_list = false;
     this.isdoInfinite = true;
     this.dataList = [];
     this.crownList = [];
@@ -91,8 +91,12 @@ export class NumberOne {
   GetDictionaryByPCode(){
       this.serve.GetDictionaryByPCode().subscribe(res => {
           console.log(res);
+        
           if(!res.data){
             return
+          }
+          if (res.data.length == 0) {
+            this.isdoInfinite = false;
           }
           res.data.forEach(item => {
             if(item.TypeCode=='zys'){
@@ -163,7 +167,7 @@ export class NumberOne {
   // 下拉刷新
   doRefresh(e){
     this.isdoInfinite = true;
-    this.no_list = true;
+    this.no_list = false;
     this.isdoInfinite = true;
     this.dataList = [];
     this.crownList = [];
