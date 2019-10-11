@@ -220,7 +220,7 @@
         <ion-buttons tappable>立即报名</ion-buttons>
     </ion-toolbar>
     <ion-toolbar tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100" (click)="studyNow()">
-        <ion-buttons tappable>回顾{{text || "课程"}}</ion-buttons>
+        <ion-buttons tappable>回顾{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}</ion-buttons>
     </ion-toolbar>
     <ion-toolbar tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100" (click)="studyNow()">
         <ion-buttons tappable>立即学习</ion-buttons>
