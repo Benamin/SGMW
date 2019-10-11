@@ -29,7 +29,8 @@ export class ConsultationPage {
     isdoInfinite=true;
     no_list=false;
   
-    constructor(private navCtrl:NavController,
+    constructor(
+        public navCtrl:NavController,
         public navParams: NavParams,
         private serve:ConsultationService,
         private loadCtrl: LoadingController){

@@ -23,6 +23,9 @@ import {ConsultationPage} from '../consultation/consultation';
 import {NumberOne} from '../number-one/number-one.component';
 import {LivePage} from "./live/live";
 import {ForumPage} from '../forum/forum.component';
+import {Componentsdetails} from '../consultation/componentsdetails/componentsdetails.component';
+import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
+
 
 @Component({
     selector: 'page-home',
@@ -270,7 +273,17 @@ export class HomePage {
             if (e.HttpURL.includes(this.httpUrl)) {
                 const arr = e.HttpURL.split('/');
                 this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
-            } else {
+            }else if(e.HttpURL.includes('#/notice/detail/')){
+                const arr = e.HttpURL.split('/');
+                this.navCtrl.push(Componentsdetails, { data:{
+                    Id: arr[arr.length - 1]
+                }});
+            } else if(e.HttpURL.includes('#/notice/xsgjdetail/')){
+                const arr = e.HttpURL.split('/');
+                this.navCtrl.push(NumberOneDetailsComponent, { data:{
+                    Id: arr[arr.length - 1]
+                }});
+            }else {
                 this.commonSer.openUrlByBrowser(e.HttpURL);
             }
         }

@@ -3,6 +3,7 @@ import { NavParams, NavController,LoadingController} from "ionic-angular";
 import {numberOneService} from '../numberOne.service';
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 
+
 @Component({
   selector: 'page-numberOneDetails',
   templateUrl: './numberOneDetails.component.html',
@@ -16,16 +17,19 @@ export class NumberOneDetailsComponent implements OnInit {
     private serve :numberOneService,
     public navCtrl: NavController,
     private loadCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser) {}
+    private inAppBrowser: InAppBrowser
+  ) {}
 
   ngOnInit(): void {
-    this.lidata = this.navParams.get('data');
-    console.log(this.lidata);
-    this.title=this.lidata.GetNewsList=='xsal'?"详情":'详情中心'
-    // this.GetNewsByID(this.lidata.ID);
-    this.GetRelationNewsByID(this.lidata.ID);
+   
 }
-
+ionViewDidEnter() {
+  this.lidata = this.navParams.get('data');
+  console.log(this.lidata);
+  this.title=this.lidata.GetNewsList=='xsal'?"详情":'详情中心'
+  // this.GetNewsByID(this.lidata.ID);
+  this.GetRelationNewsByID(this.lidata.ID);
+};
   GetRelationNewsByID(id){
     let loading = this.loadCtrl.create({
       content: '加载中...'
@@ -54,7 +58,11 @@ export class NumberOneDetailsComponent implements OnInit {
 
         loading.dismiss();
         setTimeout(() => {
-          this.ModifyALabelSkip();
+          let innerHtml:any=document.querySelectorAll('.inner-html');
+          console.log(innerHtml);
+          for(let n=0;n<innerHtml.length;n++){
+            this.serve.ModifyALabelSkip(innerHtml[n],this.navCtrl);
+          }
         }, 30);
       });
     });
@@ -63,22 +71,5 @@ export class NumberOneDetailsComponent implements OnInit {
     this.navCtrl.push(NumberOneDetailsComponent,{data:data});
   }
 
-  ModifyALabelSkip(){
-    let innerHtml=document.getElementById('innerHtml');
-    let allA=innerHtml.querySelectorAll('a');
-    for(let n=0;n<allA.length;n++){
-        let onedom=allA[n];
-        let _href=onedom.getAttribute('href');
-        if(_href){
-          onedom.setAttribute('_href',_href);
-          onedom.setAttribute('href','javascript:void(0);');
-          onedom.addEventListener('click',(e:any) => {
-            console.log(e.target.getAttribute('_href'));
-            let url_href=e.target.getAttribute('_href');
-            this.inAppBrowser.create(url_href, '_system');
-          })
-        }
-    }
-  }
 
 }

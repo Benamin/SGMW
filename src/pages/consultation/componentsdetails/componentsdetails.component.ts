@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController, LoadingController } from "ionic-angular";
 import { ConsultationService } from '../consultation.service';
-import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 @Component({
   selector: 'page-componentsdetails',
@@ -15,18 +14,18 @@ export class Componentsdetails {
   navli='';
   constructor(public navParams: NavParams,
     private serve: ConsultationService,
-    public navCtrl: NavController,
+    private navCtrl: NavController,
     private loadCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser) {
+    ) {
   }
   ngOnInit(): void {
+
+  }
+  ionViewDidEnter() {
     this.lidata = this.navParams.get('data');
     this.navli = this.navParams.get('navli');
-
     console.log(this.lidata);
-    
     this.title = this.lidata.GetNewsList == 'xsal' ? "详情" : '详情中心'
-
     this.GetRelationNewsByID(this.lidata.Id);
   }
 
@@ -50,28 +49,17 @@ export class Componentsdetails {
         this.data.ReleaseTime=this.data.ReleaseTime.slice(0,16);
         loading.dismiss();
         setTimeout(() => {
-            this.ModifyALabelSkip();
+          // let innerHtml=document.getElementById('innerHtml');
+          let innerHtml:any=document.querySelectorAll('.inner-html');
+          console.log(innerHtml);
+          for(let n=0;n<innerHtml.length;n++){
+            this.serve.ModifyALabelSkip(innerHtml[n],this.navCtrl);
+          }
         }, 30);
       });
     });
   }
-  ModifyALabelSkip(){
-    let innerHtml=document.getElementById('innerHtml');
-    let allA=innerHtml.querySelectorAll('a');
-    for(let n=0;n<allA.length;n++){
-        let onedom=allA[n];
-        let _href=onedom.getAttribute('href');
-        if(_href){
-          onedom.setAttribute('_href',_href);
-          onedom.setAttribute('href','javascript:void(0);');
-          onedom.addEventListener('click',(e:any) => {
-            console.log(e.target.getAttribute('_href'));
-            let url_href=e.target.getAttribute('_href');
-            this.inAppBrowser.create(url_href, '_system');
-          })
-        }
-    }
-  }
+
 
 
   goComponentsdetails(data) {

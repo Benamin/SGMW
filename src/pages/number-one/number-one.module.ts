@@ -6,6 +6,7 @@ import {ComponentsModule} from "../../components/components.module";
 import { NumberOne } from './number-one.component';
 import { NumberOneDetailsComponent } from './numberOneDetails/numberOneDetails.component';
 // import { Componentsdetails } from '../consultation/componentsdetails/componentsdetails.component';
+import {ConsultationService} from '../consultation/consultation.service';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { NumberOneDetailsComponent } from './numberOneDetails/numberOneDetails.c
     entryComponents: [
         NumberOneDetailsComponent
     ],
-    providers: [numberOneService],
+    providers: [numberOneService,ConsultationService],
     schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NumberOneModule {
