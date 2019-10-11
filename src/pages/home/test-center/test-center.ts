@@ -103,8 +103,9 @@ export class TestCenterPage {
             (res) => {
                 const sysDate = new Date(res.data).getTime();
                 if (sysDate < ExamBegin) this.commonSer.toast('考试未开始');
-                if (sysDate > ExamEnd) this.commonSer.toast('当前时间不可考试');
-                if (ExamBegin < sysDate && sysDate < ExamEnd) this.navCtrl.push(DoTestPage, {item: item});
+                if (sysDate > ExamEnd && this.page.StudyState == 1) this.commonSer.toast('当前时间不可考试');
+                if (ExamBegin < sysDate && sysDate < ExamEnd) this.navCtrl.push(DoTestPage, {item: item});  //未开始
+                if (this.page.StudyState == 2) this.navCtrl.push(DoTestPage, {item: item});  //未完成
             }
         )
     }
