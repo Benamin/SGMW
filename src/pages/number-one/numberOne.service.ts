@@ -7,7 +7,8 @@ import { DatePipe } from '@angular/common';
 import {Componentsdetails} from '../consultation/componentsdetails/componentsdetails.component';
 import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
 import { CourseDetailPage } from "../learning/course-detail/course-detail";
-
+import { InAppBrowser } from "@ionic-native/in-app-browser";
+const SERVER_HTTP_URL = ['chinacloudsites.cn', 'sgmw.com.cn'];
 @Injectable()
 export class numberOneService {
   APP_URL_JUMP = [
@@ -44,7 +45,7 @@ export class numberOneService {
     }
 
 ]
-    constructor(private http: HttpClient,private nativeHttp:HTTP,private datePipe: DatePipe) {
+    constructor(private http: HttpClient,private nativeHttp:HTTP,private datePipe: DatePipe,private inAppBrowser: InAppBrowser) {
     }
 
     
