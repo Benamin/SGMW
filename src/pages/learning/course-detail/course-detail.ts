@@ -66,15 +66,12 @@ export class CourseDetailPage {
     starList = new Array(5);
     defalutPhoto = defaultHeadPhoto;   //默认头像；
 
-    text;   //直播模块跳转过来的
-
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
-        this.text = this.navParams.get('text');
     }
 
     ionViewDidLoad() {
@@ -331,8 +328,8 @@ export class CourseDetailPage {
             placeholder: '请输入你的评价...',
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
-            title: this.text ? '直播评价' : '课程评价',
-            text: this.text
+            title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
+            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         });
     }
 
@@ -342,8 +339,8 @@ export class CourseDetailPage {
             placeholder: '请输入你要讨论的内容...',
             TopicID: this.product.detail.PrId,
             TopicType: 'talk',
-            title: this.text ? '直播评价' : '课程讨论',
-            text: this.text
+            title: this.product.detail.TeachTypeName == "直播" ? '直播讨论' : '课程讨论',
+            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         });
     }
 
@@ -354,7 +351,7 @@ export class CourseDetailPage {
 
     //报名
     sign() {
-        let text = this.text ? "直播" : "课程";
+        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         const nowTime = new Date().getTime();
         if (nowTime > this.getTime(this.product.detail.EndTime)) {
             this.commonSer.toast(`${text}已经结束...`);

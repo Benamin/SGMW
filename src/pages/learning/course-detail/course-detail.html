@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{text || "课程"}}详情</ion-title>
+        <ion-title>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}详情</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -15,9 +15,12 @@
                     {{product.detail?.Title}}
                 </div>
                 <div class="course-desc">
-                    <span><img src="./assets/imgs/learn/like_white@2x.png" alt="">{{product.detail?.ZanCount || "0"}}</span>
-                    <span><img src="./assets/imgs/learn/collect_white@2x.png" alt="">{{product.detail?.CollectionCount || "0"}}</span>
-                    <span><img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}人报名</span>
+                    <span><img src="./assets/imgs/learn/like_white@2x.png"
+                               alt="">{{product.detail?.ZanCount || "0"}}</span>
+                    <span><img src="./assets/imgs/learn/collect_white@2x.png"
+                               alt="">{{product.detail?.CollectionCount || "0"}}</span>
+                    <span><img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
+                        人报名</span>
                 </div>
             </div>
         </div>
@@ -70,14 +73,18 @@
                     </div>
                 </div>
                 <div *ngIf="item.children && item.show">
-                    <tree-list [treeList]="item.children" [IsBuy]="product.detail?.IsBuy"></tree-list>
+                    <tree-list
+                            [treeList]="item.children"
+                            [IsBuy]="product.detail?.IsBuy"
+                            [TeachTypeName]="product.detail?.TeachTypeName"
+                    ></tree-list>
                 </div>
             </ng-container>
         </div>
     </div>
     <div class="space"></div>
     <div id="talk" class="item">
-        <p>{{text || "课程"}}讨论
+        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
             <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end class="look">更多</span>
             <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()"
                   class="focus focus-blue">去讨论</span>
@@ -101,12 +108,12 @@
             </div>
         </div>
         <div class="no-comment" *ngIf="comment.talk.length == 0">
-            <p>暂无{{text || "课程"}}讨论，快去发一条吧～</p>
+            <p>暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
         </div>
     </div>
     <div class="space"></div>
     <div id="comment" class="item">
-        <p>{{text || "课程"}}评价
+        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
             <span *ngIf="comment.course.length > 0" tappable class="look" float-end
                   (click)="goCourseComment()">更多</span>
             <span *ngIf="comment.course.length == 0" tappable class="focus-blue focus"
@@ -135,7 +142,7 @@
             </div>
         </div>
         <div class="no-comment" *ngIf="comment.course.length == 0">
-            <p>暂无{{text || "课程"}}评价，快去发一条吧～</p>
+            <p>暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价，快去发一条吧～</p>
         </div>
     </div>
     <div class="space"></div>
