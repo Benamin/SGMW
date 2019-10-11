@@ -108,7 +108,8 @@ export class numberOneService {
       for (let n = 0; n < allA.length; n++) {
           let onedom = allA[n];
           let _href = onedom.getAttribute('href');
-          if (_href) {
+          let is_href=onedom.getAttribute('_href');
+          if (_href&&!is_href) {
               onedom.setAttribute('_href', _href);
               onedom.setAttribute('href', 'javascript:void(0);');
               onedom.addEventListener('click', (e: any) => {
