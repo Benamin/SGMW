@@ -7,13 +7,13 @@
 <ion-content >
   <div class="details">
       <h4>{{data.Title}}</h4>
-      <div class="time">新车资讯 /  {{data.ReleaseTime}}</div>
-      <div class="inner-html">
+      <div class="time">{{navli}} /  {{data.ReleaseTime}}</div>
+      <div class="inner-html" id="innerHtml">
         <span [innerHTML]='data.Text'></span>
       </div>
   </div>
 
-  <div class="information-ul">
+  <div class="information-ul" *ngIf="RelationArr.length>0" >
       <h3>相关推荐</h3>
       <div class="information-list img1" tappable (click)="goComponentsdetails(item)" *ngFor="let item of RelationArr">
           <div class="list-time">
@@ -23,7 +23,8 @@
               </div>
           </div>
           <div class="imgdiv">
-              <img [src]="item.SourceURL" alt="">
+                <div [ngStyle]="{'background-image': 'url('+item.SourceURL+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
+                </div> 
           </div>
       </div>
   </div>

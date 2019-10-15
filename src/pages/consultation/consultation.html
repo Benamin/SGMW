@@ -11,15 +11,9 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="navul">
-            <div class="navli" [ngClass]="{'act': navli=='新车资讯'}" tappable (click)="switchInformation('新车资讯')">
-                新车资讯
-            </div>
-            <div class="navli" [ngClass]="{'act': navli=='行业新闻'}" tappable (click)="switchInformation('行业新闻')">
-                行业新闻
-            </div>
-            <div class="navli" [ngClass]="{'act': navli=='培训资讯'}" tappable (click)="switchInformation('培训资讯')">
-                培训资讯
-            </div>
+        <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable (click)="switchInformation(item.label)">
+                {{item.label}}
+        </div>
     </div>
     <div class="information-ul">
             <ion-list text-center style="margin-top: 10rem" *ngIf="no_list">
@@ -38,15 +32,15 @@
                     </div>
                 </div>
                 <div class="imgdiv">
-                    <img [src]="img" *ngFor="let img of item.SourceURLList.slice(0,1)" alt="">
+                   <div [ngStyle]="{'background-image': 'url('+item.SourceURLList[0]+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
+                   </div> 
                 </div>
             </div>
             <div class="information-list img3" *ngIf="!item.IsSingle" tappable (click)="goComponentsdetails(item)">
                 <h4>{{item.Title}}</h4>
                 <div class="imgdiv-flex">
-                    <img [src]="img" *ngFor="let img of item.SourceURLList" alt="">
-                    <!-- <img [src]="item.SourceUrl" alt="">
-                    <img [src]="item.SourceUrl" alt=""> -->
+                    <div *ngFor="let img of item.SourceURLList" [ngStyle]="{'background-image': 'url('+img+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
+                    </div>
                 </div>
                 <div class="time">
                     {{item.ReleaseTime}}

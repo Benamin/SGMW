@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController, LoadingController } from "ionic-angular";
 import { ConsultationService } from '../consultation.service';
+
 @Component({
   selector: 'page-componentsdetails',
   templateUrl: 'componentsdetails.html',
@@ -10,25 +11,24 @@ export class Componentsdetails {
   title = "";
   data: any = { Title: '', ReleaseTime: '', Text: '' };
   RelationArr = [];
+  navli='';
   constructor(public navParams: NavParams,
     private serve: ConsultationService,
-    public navCtrl: NavController,
-    private loadCtrl: LoadingController) {
-
+    private navCtrl: NavController,
+    private loadCtrl: LoadingController,
+    ) {
   }
   ngOnInit(): void {
+
+  }
+  ionViewDidEnter() {
     this.lidata = this.navParams.get('data');
+    this.navli = this.navParams.get('navli');
     console.log(this.lidata);
     this.title = this.lidata.GetNewsList == 'xsal' ? "详情" : '详情中心'
-    // this.GetNewsByID(this.lidata.Id);
     this.GetRelationNewsByID(this.lidata.Id);
   }
-  // GetNewsByID(id){
-  //   this.serve.GetNewsByID(id).subscribe((res:any) => {
-  //     console.log(res);
-  //     this.data=res.data;
-  //   });
-  // }
+
   GetRelationNewsByID(id) {
     let loading = this.loadCtrl.create({
       content: '加载中...'
@@ -48,9 +48,18 @@ export class Componentsdetails {
         this.data.ReleaseTime=this.data.ReleaseTime.replace('T',' ');
         this.data.ReleaseTime=this.data.ReleaseTime.slice(0,16);
         loading.dismiss();
+        setTimeout(() => {
+          // let innerHtml=document.getElementById('innerHtml');
+          let innerHtml:any=document.querySelectorAll('.inner-html');
+          console.log(innerHtml);
+          for(let n=0;n<innerHtml.length;n++){
+            this.serve.ModifyALabelSkip(innerHtml[n],this.navCtrl);
+          }
+        }, 30);
       });
     });
   }
+
 
 
   goComponentsdetails(data) {

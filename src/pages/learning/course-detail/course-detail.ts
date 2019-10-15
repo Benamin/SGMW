@@ -233,7 +233,7 @@ export class CourseDetailPage {
         const startTimeStr = this.files[0].PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
         const planStartTime = new Date(startTimeStr).getTime();
 
-        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
+        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         if (nowTime < planStartTime) {
             this.commonSer.toast(`${text}还未开始，请等待开始后再观看`);
             return

@@ -22,7 +22,7 @@ export class NumberOne {
     States: '-1',
     OrderBy: 'Sort',//排序字段
     IsAsc: true, //是否升序
-    SortDir: 'DESC'
+    SortDir: 'ReleaseTime'
   };
 
   // 销售案例 列表
@@ -39,26 +39,28 @@ export class NumberOne {
     "SubTitle": "",
     "TypeID": "xsal",
     "States": "1",
-    "OrderBy": "IsStick",
+    "OrderBy": "ReleaseTime",
     "IsAsc": true,
-    "SortDir": "DESC"
+    "SortDir": "ReleaseTime"
   };
-
+  navliArr=[];
   isdoInfinite = true;
   no_list = false;
+  navliopt={};
   constructor(private navCtrl: NavController, 
     private serve: numberOneService,
     private loadCtrl: LoadingController) {
-    this.getData();
+      this.GetDictionaryByPCode();
   }
 
   // 切换 '销冠风采'|'销售案例' 
   switchInformation(title) {
     this.isdoInfinite = true;
-    this.no_list = true;
+    this.no_list = false;
     this.isdoInfinite = true;
     this.dataList = [];
     this.crownList = [];
+    this.dataPost.TypeID=this.navliopt[title];
     this.dataPost.page = 1;
     this.crownData.page = 1;
     this.navli = title;
@@ -86,6 +88,29 @@ export class NumberOne {
     });
   }
 
+  GetDictionaryByPCode(){
+      this.serve.GetDictionaryByPCode().subscribe(res => {
+          console.log(res);
+        
+          if(!res.data){
+            return
+          }
+          if (res.data.length == 0) {
+            this.isdoInfinite = false;
+          }
+          res.data.forEach(item => {
+            if(item.TypeCode=='zys'){
+              this.navliArr=item.children;
+              item.children.forEach(e => {
+                this.navliopt[e['label']] = e.value;
+              });
+              this.dataPost.TypeID=item.children[0].value;
+            }
+          });
+          this.getData();
+      });
+  }
+
   // 销冠风采
   GetNewsList() {
     let loading = this.loadCtrl.create({
@@ -111,11 +136,11 @@ export class NumberOne {
   // 查看案例详情
   goComponentsdetailsOne(data) {
     data['Id']=data['ID'];
-    this.navCtrl.push(NumberOneDetailsComponent, { data: data });
+    this.navCtrl.push(NumberOneDetailsComponent, { data: data});
   }
   goComponentsdetails(data){
     data['GetNewsList']='xsal';
-    this.navCtrl.push(Componentsdetails,{data:data});
+    this.navCtrl.push(Componentsdetails,{data:data, navli:'销售案例'});
   }
 
   // 请求数据
@@ -138,4 +163,19 @@ export class NumberOne {
     }, 1000);
   }
 
+
+  // 下拉刷新
+  doRefresh(e){
+    this.isdoInfinite = true;
+    this.no_list = false;
+    this.isdoInfinite = true;
+    this.dataList = [];
+    this.crownList = [];
+    this.dataPost.page = 1;
+    this.crownData.page = 1;
+    this.getData();
+    setTimeout(() => {
+        e.complete();
+    }, 1000);
+  }
 }

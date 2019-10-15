@@ -11,6 +11,7 @@ import {ConsultationService} from './consultation.service';
 export class ConsultationPage {
     navli:'新车资讯'|'行业新闻'|'培训资讯'='新车资讯';
     navliopt = {};
+    navliArr=[];
     dataPost={
         "page": 0,
         "pageSize": 10,
@@ -20,24 +21,21 @@ export class ConsultationPage {
         "SubTitle": "",
         "TypeID":"xyxw", 
         "States": "1",  
-        "OrderBy": "IsStick",
         "IsAsc": true,
-        "SortDir": "DESC"
+        "SortDir": "DESC",
+        "OrderBy": "ReleaseTime",
     }
     dataList=[];
     isdoInfinite=true;
     no_list=false;
   
-    constructor(private navCtrl:NavController,
+    constructor(
+        public navCtrl:NavController,
         public navParams: NavParams,
         private serve:ConsultationService,
         private loadCtrl: LoadingController){
     }
     ngOnInit(): void {
-        //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-        //Add 'implements OnInit' to the class.
-        // this.getData();
- 
         this.GetDictionaryByPCode();
     }
     GetDictionaryByPCode(){
@@ -46,8 +44,8 @@ export class ConsultationPage {
             res.data.forEach(element => {
                 this.navliopt[element['label']]= element.value;
             });
-            this.switchInformation('新车资讯');
-           
+            this.navliArr=res.data;
+            this.switchInformation(res.data[0].label);
         })
     }
     switchInformation(title){
@@ -62,7 +60,7 @@ export class ConsultationPage {
     }
     
     goComponentsdetails(data){
-        this.navCtrl.push(Componentsdetails,{data:data});
+        this.navCtrl.push(Componentsdetails,{data:data,navli:this.navli});
     }
     getData(){
         let loading = this.loadCtrl.create({
