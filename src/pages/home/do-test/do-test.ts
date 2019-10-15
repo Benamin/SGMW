@@ -55,7 +55,7 @@ export class DoTestPage {
 
     ionViewDidEnter() {
         const loading = this.loadCtrl.create({
-            content: '作业加载中...'
+            content: '考试加载中...'
         });
         loading.present();
         const item = this.navParams.get('item');
@@ -67,8 +67,9 @@ export class DoTestPage {
                 this.exam.qs = res.data.qs;
                 this.paper = res.data.paper;
                 this.score.tips = true;
-                this.exam.qs.forEach(e => e.QAnswer = '');
+                this.exam.qs.forEach(e => e.QAnswer = e.QAnswer ? e.QAnswer : "");
                 this.exam.stuScore = res.data.stuScore;
+                this.slideChanged();
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
@@ -125,6 +126,7 @@ export class DoTestPage {
         }, 1000);
     }
 
+    //题目完成数量
     slideChanged() {
         this.index = this.slides.realIndex;
         this.doneTotal = 0;
@@ -143,6 +145,30 @@ export class DoTestPage {
         } else {
             this.exam.qs[i].QAnswer += option + '';
         }
+    }
+
+    //暂存提交
+    saveStuExams() {
+        this.commonSer.alert('确定暂存答案?', () => {
+            const loading = this.loadCtrl.create({
+                content: '提交中...'
+            });
+            loading.present();
+            this.exam.qs.forEach(e => {
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
+            });
+            this.mineSer.saveStuExams(this.exam).subscribe(
+                (res) => {
+                    loading.dismiss();
+                    if (res.code == 200) {
+                        this.navCtrl.pop();
+                        this.commonSer.toast('已暂存');
+                    } else {
+                        this.commonSer.toast(res.Message);
+                    }
+                }
+            )
+        });
     }
 
     //确认提交

@@ -79,7 +79,7 @@
                                 <ng-container *ngIf="item.QType == 2">
                                     <p *ngIf="item.ChoiceA">
                                         <label>
-                                            <input type="checkbox" (change)="mutiSelect(i,'A')"
+                                            <input type="checkbox" [checked]="item.QAnswer.includes('A')" (change)="mutiSelect(i,'A')"
                                                    value="A" [name]="item.ID">
                                             <span class="input-duox selectIndex">A</span>&nbsp;&nbsp;
                                             {{item.ChoiceA}}
@@ -87,7 +87,7 @@
                                     </p>
                                     <p *ngIf="item.ChoiceB">
                                         <label>
-                                            <input type="checkbox" (change)="mutiSelect(i,'B')"
+                                            <input type="checkbox" [checked]="item.QAnswer.includes('B')" (change)="mutiSelect(i,'B')"
                                                    value="B" [name]="item.ID">
                                             <span class="input-duox selectIndex">B</span>&nbsp;&nbsp;
                                             {{item.ChoiceB}}
@@ -95,7 +95,7 @@
                                     </p>
                                     <p *ngIf="item.ChoiceC">
                                         <label>
-                                            <input type="checkbox" (change)="mutiSelect(i,'C')"
+                                            <input type="checkbox" [checked]="item.QAnswer.includes('C')" (change)="mutiSelect(i,'C')"
                                                    value="C" [name]="item.ID">
                                             <span class="input-duox selectIndex">C</span>&nbsp;&nbsp;
                                             {{item.ChoiceC}}
@@ -103,7 +103,7 @@
                                     </p>
                                     <p *ngIf="item.ChoiceD">
                                         <label>
-                                            <input type="checkbox" (change)="mutiSelect(i,'D')"
+                                            <input type="checkbox" [checked]="item.QAnswer.includes('D')" (change)="mutiSelect(i,'D')"
                                                    value="D" [name]="item.ID">
                                             <span class="input-duox selectIndex">D</span>&nbsp;&nbsp;
                                             {{item.ChoiceD}}
@@ -111,7 +111,7 @@
                                     </p>
                                     <p *ngIf="item.ChoiceE">
                                         <label>
-                                            <input type="checkbox" (change)="mutiSelect(i,'E')"
+                                            <input type="checkbox" [checked]="item.QAnswer.includes('E')" (change)="mutiSelect(i,'E')"
                                                    value="E" [name]="item.ID">
                                             <span class="input-duox selectIndex">E</span>&nbsp;&nbsp;
                                             {{item.ChoiceE}}
@@ -119,7 +119,7 @@
                                     </p>
                                     <p *ngIf="item.ChoiceF">
                                         <label>
-                                            <input type="checkbox" (change)="mutiSelect(i,'F')"
+                                            <input type="checkbox" [checked]="item.QAnswer.includes('F')" (change)="mutiSelect(i,'F')"
                                                    value="F" [name]="item.ID">
                                             <span class="input-duox selectIndex">F</span>&nbsp;&nbsp;
                                             {{item.ChoiceF}}
@@ -127,7 +127,7 @@
                                     </p>
                                     <p *ngIf="item.ChoiceG">
                                         <label>
-                                            <input type="checkbox" (change)="mutiSelect(i,'G')"
+                                            <input type="checkbox" [checked]="item.QAnswer.includes('G')" (change)="mutiSelect(i,'G')"
                                                    value="G" [name]="item.ID">
                                             <span class="input-duox selectIndex">G</span>&nbsp;&nbsp;
                                             {{item.ChoiceG}}
@@ -182,6 +182,9 @@
         <div class="footer-subject">
             <div class="submit" tappable (click)="submit()">
                 <div>确认提交</div>
+            </div>
+            <div class="saveStuExams" tappable (click)="saveStuExams()">
+                <div>暂存答案</div>
             </div>
             <div class="more" tappable (click)="moreChoice()">
                 <ion-icon name="list"></ion-icon>

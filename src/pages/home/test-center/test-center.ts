@@ -31,6 +31,7 @@ export class TestCenterPage {
     };
 
     examList = [];
+    clickDisable = true;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService, private datePipe: DatePipe,
@@ -97,15 +98,25 @@ export class TestCenterPage {
 
     //考试有效期校验
     checkTesttime(item) {
+        const loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
         const ExamBegin = new Date(this.datePipe.transform(item.ExamBegin, 'yyyy/MM/dd HH:mm:ss')).getTime();
         const ExamEnd = new Date(this.datePipe.transform(item.ExamEnd, 'yyyy/MM/dd HH:mm:ss')).getTime();
         this.homeSer.getSysDateTime().subscribe(
             (res) => {
+                loading.dismiss();
                 const sysDate = new Date(res.data).getTime();
-                if (sysDate < ExamBegin) this.commonSer.toast('考试未开始');
-                if (sysDate > ExamEnd && this.page.StudyState == 1) this.commonSer.toast('当前时间不可考试');
-                if (ExamBegin < sysDate && sysDate < ExamEnd) this.navCtrl.push(DoTestPage, {item: item});  //未开始
-                if (this.page.StudyState == 2) this.navCtrl.push(DoTestPage, {item: item});  //未完成
+                if (sysDate < ExamBegin) {
+                    this.commonSer.toast('考试未开始');
+                } else if (sysDate > ExamEnd && this.page.StudyState == 1) {
+                    this.commonSer.toast('当前时间不可考试');
+                } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
+                    this.navCtrl.push(DoTestPage, {item: item});  //未开始
+                } else if (this.page.StudyState == 2) {                    //未完成
+                    this.navCtrl.push(DoTestPage, {item: item});
+                }
             }
         )
     }
