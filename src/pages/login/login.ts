@@ -186,7 +186,7 @@ export class LoginPage {
         });
         loading.present();
 
-        const timestamp = this.datePipe.transform(new Date(), 'yyyyMMddHHmmss')
+        const timestamp = this.datePipe.transform(new Date(), 'yyyyMMddHHmmss');
         const nonce = this.randomWord.uuid();
         const sign = XSZS_appId + XSZS_appKey + timestamp + nonce;
         const header = {
@@ -205,6 +205,9 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
+            },error1 => {
+                const error = error1.error.error;
+                this.commonSer.alert(error);
             }
         )
     }

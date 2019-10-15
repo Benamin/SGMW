@@ -103,10 +103,11 @@ export class MyApp {
                     this.rootPage = LoginPage;
                     this.commonSer.toast(res.msg);
                 }
+            },
+            (err) => {
+                this.rootPage = LoginPage;
             }
-        ), (err) => {
-            this.rootPage = LoginPage;
-        };
+        )
     }
 
     //获取骏客用户信息
