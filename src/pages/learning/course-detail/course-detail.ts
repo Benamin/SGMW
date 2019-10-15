@@ -351,7 +351,7 @@ export class CourseDetailPage {
 
     //报名
     sign() {
-        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
+        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
         const nowTime = new Date().getTime();
         if (nowTime > this.getTime(this.product.detail.EndTime)) {
             this.commonSer.toast(`${text}已经结束...`);

@@ -229,6 +229,10 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
+            },
+            (error1) => {
+                const error = error1.error.error;
+                this.commonSer.alert(error);
             }
         )
     }
