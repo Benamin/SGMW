@@ -75,7 +75,7 @@
                     <div class="volume-text">
                         {{item.MonthName}}月销售
                     </div>
-                    <div class="percentage blue-bg" style="width: 50%;">
+                    <div class="percentage blue-bg" [ngStyle]="{'width': item.MonthPercentage+'%'}">
                     </div>
                 </div>
                 <div class="volume-number blue">{{item.MonthCount}}</div>
@@ -85,7 +85,7 @@
                     <div class="volume-text">
                         年累计销售
                     </div>
-                    <div class="percentage red-bg">
+                    <div class="percentage red-bg" [ngStyle]="{'width': item.YearPercentage+'%'}">
                     </div>
                 </div>
                 <div class="volume-number red">{{item.YearCount}}</div>
