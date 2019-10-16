@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>下载管理</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <p *ngFor="let file of fileList">
+    文件名：{{file.name}}
+    文件路径：{{file.nativeURL}}
+  </p>
+</ion-content>

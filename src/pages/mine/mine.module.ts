@@ -15,6 +15,7 @@ import {MyForumComponent} from "./my-forum/my-forum.component";
 import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
 import {MyFollowsComponent} from './my-follows/my-follows.component';
 import {ForumService} from '../forum/forum.service';
+import {MyFilePage} from "./my-file/my-file";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {ForumService} from '../forum/forum.service';
         UpdateAppPage,
         MyForumComponent,
         MyThumbsUpComponent,
-        MyFollowsComponent
+        MyFollowsComponent,
+        MyFilePage
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -49,7 +51,8 @@ import {ForumService} from '../forum/forum.service';
         UpdateAppPage,
         MyForumComponent,
         MyThumbsUpComponent,
-        MyFollowsComponent
+        MyFollowsComponent,
+        MyFilePage
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

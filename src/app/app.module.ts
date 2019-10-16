@@ -21,6 +21,7 @@ import {InterceptorProvider} from "../core/auth.interceptor";
 import {LoginService} from "../pages/login/login.service";
 import {HomeService} from "../pages/home/home.service";
 import {IonicStorageModule} from "@ionic/storage";
+import {FileTransfer, FileTransferObject} from "@ionic-native/file-transfer";
 import {CommonService} from "../core/common.service";
 import {HTTP} from "@ionic-native/http";
 import {LearnService} from "../pages/learning/learn.service";
@@ -51,6 +52,7 @@ import {ForumModule} from '../pages/forum/forum.module';
 import {ForumPage} from '../pages/forum/forum.component';
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
+import {DownloadFileService} from "../core/downloadFile.service";
 
 
 @NgModule({
@@ -100,6 +102,8 @@ import {RandomWordService} from "../secret/randomWord.service";
         InAppBrowser,
         AppVersion,
         File,
+        FileTransfer,
+        FileTransfer,
         TabService,
         LoginService,
         HomeService,
@@ -118,6 +122,7 @@ import {RandomWordService} from "../secret/randomWord.service";
         AppUpdateService,
         DatePipe,
         RandomWordService,
+        DownloadFileService,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

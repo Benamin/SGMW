@@ -17,6 +17,7 @@ import {CommonService} from "../../core/common.service";
 import {MyForumComponent} from "./my-forum/my-forum.component";
 import {MyFollowsComponent} from './my-follows/my-follows.component';
 import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
+import {MyFilePage} from "./my-file/my-file";
 
 
 @Component({
@@ -89,6 +90,11 @@ export class MinePage {
     //通知中心
     goToNoti() {
         this.navCtrl.push(NotificationPage);
+    }
+
+    //下载管理
+    goToFile(){
+        this.navCtrl.push(MyFilePage);
     }
 
     //意见反馈
