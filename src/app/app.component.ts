@@ -104,7 +104,8 @@ export class MyApp {
                     this.commonSer.toast(res.msg);
                 }
             },
-            (err) => {
+            (error) => {
+                this.commonSer.alert(error.error.errorMsg);
                 this.rootPage = LoginPage;
             }
         )
@@ -139,7 +140,8 @@ export class MyApp {
 
     /**
      * 销售助手app跳转登录
-     * @param req jxsh->经销商号  jxsmc->经销商名称 czydm->操作员代码 czymc->操作员名称 czyzw->操作员职位
+     * @param req jxsh->经销商号  jxsmc->经销商名称 czydm->操作员代码
+     * czymc->操作员名称 czyzw->操作员职位
      * @constructor
      */
     XSZSLogin(req) {

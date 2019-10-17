@@ -140,6 +140,11 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
+            },
+            error1 => {
+                loading.dismiss();
+                const error = error1.error.error;
+                this.commonSer.alert(error);
             }
         )
     }
@@ -170,6 +175,11 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
+            },
+            error1 => {
+                loading.dismiss();
+                const error = error1.error.error;
+                this.commonSer.alert(error);
             }
         )
     }
@@ -205,7 +215,8 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
-            },error1 => {
+            }, error1 => {
+                loading.dismiss();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -270,10 +281,10 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.msg);
                 }
-            }, (error => {
+            }, error => {
                 loading.dismiss();
                 this.commonSer.alert(error.error.errorMsg);
-            })
+            }
         )
     }
 

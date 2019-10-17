@@ -47,9 +47,7 @@ export class DoTestPage {
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            this.commonSer.alert("考试过程中退出即视为提交试卷，无法重考", (res) => {
-                this.forceSubmit();
-            })
+            this.submit();
         };
     }
 
