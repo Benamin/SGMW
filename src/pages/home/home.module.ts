@@ -9,6 +9,9 @@ import {TestCenterPage} from "./test-center/test-center";
 import {DoTestPage} from "./do-test/do-test";
 import {LookTestPage} from "./look-test/look-test";
 import {LivePage} from "./live/live";
+import {DoQuestionPage} from "./question/do-question/do-question";
+import {LookQuestion} from "./question/look-question/look-question";
+import {MyQuestion} from "./question/my-question/my-question";
 
 @NgModule({
     declarations: [
@@ -20,6 +23,9 @@ import {LivePage} from "./live/live";
         DoTestPage,
         LookTestPage,
         LivePage,
+        DoQuestionPage,
+        LookQuestion,
+        MyQuestion
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -33,6 +39,9 @@ import {LivePage} from "./live/live";
         DoTestPage,
         LookTestPage,
         LivePage,
+        DoQuestionPage,
+        LookQuestion,
+        MyQuestion
     ]
 })
 export class HomeModule {
