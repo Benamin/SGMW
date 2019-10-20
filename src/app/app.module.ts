@@ -48,6 +48,8 @@ import {NumberOne} from '../pages/number-one/number-one.component';
 import {NumberOneModule} from '../pages/number-one/number-one.module';
 import {AppUpdateService} from "../core/appUpdate.service";
 import {ForumModule} from '../pages/forum/forum.module';
+import {RankingModule} from '../pages/ranking/ranking.module';
+import { RankingComponent } from '../pages/ranking/ranking.component';
 import {ForumPage} from '../pages/forum/forum.component';
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
@@ -80,7 +82,8 @@ import {RandomWordService} from "../secret/randomWord.service";
         ComponentsModule,
         ConsultationPageModule,
         NumberOneModule,
-        ForumModule
+        ForumModule,
+        RankingModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -90,7 +93,8 @@ import {RandomWordService} from "../secret/randomWord.service";
         TabsPage,
         ConsultationPage,
         NumberOne,
-        ForumPage
+        ForumPage,
+        RankingComponent
     ],
     providers: [
         StatusBar,

@@ -25,19 +25,17 @@ export class ForumPage implements OnInit {
     total: 0,
   }
   ForumHistory=[];
+  navli :'热帖'|'板块'='热帖';
 
   constructor(public navCtrl: NavController,private serve:ForumService,private storage: Storage,private loadCtrl: LoadingController) {
   }
 
   ngOnInit() {
-    // this.forum_topicplate_search();
-    // this.getHistory();
   }
   ionViewDidEnter(){
     this.forumLIst=[];
     this.pageDate.pageIndex=1;
-    this.forum_topicplate_search();
-    this.getHistory();
+    this.initData();
   }
   // 前往 评论列表
   showViewReply(){
@@ -56,10 +54,17 @@ export class ForumPage implements OnInit {
 
   // 前往发帖列表
   goPostlist(data) {
-
     this.navCtrl.push(PostlistComponent,{data:data});
   }
+  initData(){
+    if(this.navli=='板块'){
+      this.forum_topicplate_search();
+      this.getHistory();
+    }else{
+      this.getLIistData();
+    }
 
+  }
   doInfinite(e){
     console.log('加载');
     this.pageDate.pageIndex++;
@@ -120,8 +125,46 @@ export class ForumPage implements OnInit {
   goToSearch() {
     this.navCtrl.push(SearchPage,{type:'论坛'});
   }
+  
+  switchInformation(text){
+    this.navli=text;
+    this.forumLIst=[];
+    this.pageDate.pageIndex=1;
+    this.initData();
+  }
 
-
-
+  getLIistData(){
+    this.forumLIst=[{
+      PosterUserHeadPhoto:'./assets/imgs/forum/other/p771_avatar1@3x.jpg',
+      PosterUserName:'秋国艳',
+      PostRelativeTime:'1小时前',
+      Title:'用车分享：大宝第十次的维修保养知识',
+      Images:[{Src:'./assets/imgs/forum/other/p771_img1@3x.jpg'}],
+      TopicPlateName:'产品体验',
+      ReplyCount:'123',
+      LikeCount:'345',
+    },
+    {
+      PosterUserHeadPhoto:'./assets/imgs/forum/other/p771_avatar1@3x.jpg',
+      PosterUserName:'秋国艳',
+      PostRelativeTime:'1小时前',
+      Title:'用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识',
+      Images:[],
+      TopicPlateName:'产品体验',
+      ReplyCount:'123',
+      LikeCount:'345',
+    },
+    {
+      PosterUserHeadPhoto:'./assets/imgs/forum/other/p771_avatar1@3x.jpg',
+      PosterUserName:'秋国艳',
+      PostRelativeTime:'1小时前',
+      Title:'用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识',
+      Images:[{Src:'./assets/imgs/forum/other/p771_img1@3x.jpg'},{Src:'./assets/imgs/forum/other/p771_img1@3x.jpg'},{Src:'./assets/imgs/forum/other/p771_img1@3x.jpg'}],
+      TopicPlateName:'产品体验',
+      ReplyCount:'123',
+      LikeCount:'345',
+    }
+    ];
+  }
 
 }
