@@ -8,6 +8,7 @@ import {CommonService} from "../../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {ExamPage} from "../../pages/mine/exam/exam";
 import {LearnService} from "../../pages/learning/learn.service";
+import {DownloadFileService} from "../../core/downloadFile.service";
 
 @Component({
     selector: 'tree-list',
@@ -24,7 +25,8 @@ export class TreeListComponent {
 
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
-                private navCtrl: NavController,) {
+                private navCtrl: NavController,
+                private downloadSer: DownloadFileService) {
         timer(10).subscribe(
             (res) => {
                 this.treeList.forEach(e => e.show = true);
@@ -88,11 +90,13 @@ export class TreeListComponent {
     //下载文件
     downLoad(file, e) {
         e.stopPropagation();
-        if (file.icon == 'mp4') {
-            this.commonSer.toast('视频文件不能下载');
-            return
+        let fileUrl;
+        if (file.icon.includes('mp4')) {
+            fileUrl = file.DownloadUrl;
+        } else {
+            fileUrl = file.fileUrl;
         }
-        this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
+        this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl)
     }
 
     //更新学习进度

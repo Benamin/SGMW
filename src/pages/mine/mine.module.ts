@@ -16,6 +16,7 @@ import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
 import {MyFollowsComponent} from './my-follows/my-follows.component';
 import {ForumService} from '../forum/forum.service';
 import {MedalComponent} from './medal/medal.component';
+import {MyFilePage} from "./my-file/my-file";
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {MedalComponent} from './medal/medal.component';
         MyForumComponent,
         MyThumbsUpComponent,
         MyFollowsComponent,
-        MedalComponent
+        MedalComponent,
+        MyFilePage
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -52,7 +54,8 @@ import {MedalComponent} from './medal/medal.component';
         MyForumComponent,
         MyThumbsUpComponent,
         MyFollowsComponent,
-        MedalComponent
+        MedalComponent,
+        MyFilePage
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

@@ -47,9 +47,18 @@ export class DoTestPage {
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            this.commonSer.alert("考试过程中退出即视为提交试卷，无法重考", (res) => {
-                this.forceSubmit();
-            })
+            let countDone = 0;
+            this.exam.qs.forEach(e => {
+                    if (e.QAnswer.length > 0) {
+                        countDone++;
+                    }
+                }
+            );
+            if (countDone < this.exam.qs.length) {
+                this.score.isDone = true;
+                return
+            }
+            this.submit();
         };
     }
 
@@ -67,7 +76,7 @@ export class DoTestPage {
                 this.exam.qs = res.data.qs;
                 this.paper = res.data.paper;
                 this.score.tips = true;
-                this.exam.qs.forEach(e => e.QAnswer = e.QAnswer ? e.QAnswer : "");
+                this.exam.qs.forEach(e => e.QAnswer = e.QAnswer ? e.QAnswer.replace(',','') : "");
                 this.exam.stuScore = res.data.stuScore;
                 this.slideChanged();
                 loading.dismiss();
@@ -128,7 +137,7 @@ export class DoTestPage {
 
     //题目完成数量
     slideChanged() {
-        this.index = this.slides.realIndex;
+        this.index = this.slides.realIndex || 0;
         this.doneTotal = 0;
         this.exam.qs.forEach(e => {
                 if (e.QAnswer.length > 0) {
@@ -145,6 +154,7 @@ export class DoTestPage {
         } else {
             this.exam.qs[i].QAnswer += option + '';
         }
+        console.log(this.exam.qs[i].QAnswer);
     }
 
     //暂存提交
@@ -153,9 +163,9 @@ export class DoTestPage {
             const loading = this.loadCtrl.create({
                 content: '提交中...'
             });
-            loading.present();
+            // loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.replace(',', '').split("").sort().join(',');
             });
             this.mineSer.saveStuExams(this.exam).subscribe(
                 (res) => {
@@ -190,7 +200,7 @@ export class DoTestPage {
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.replace(',', '').split("").sort().join(',');
             });
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {

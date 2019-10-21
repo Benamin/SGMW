@@ -18,6 +18,8 @@ import {MyForumComponent} from "./my-forum/my-forum.component";
 import {MyFollowsComponent} from './my-follows/my-follows.component';
 import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
 import {MedalComponent} from './medal/medal.component';
+import {MyFilePage} from "./my-file/my-file";
+
 
 @Component({
     selector: 'page-mine',
@@ -94,6 +96,11 @@ export class MinePage {
     // 设置勋章
     goMedal(){
         this.navCtrl.push(MedalComponent);
+    }
+
+    //下载管理
+    goToFile(){
+        this.navCtrl.push(MyFilePage);
     }
 
     //意见反馈
