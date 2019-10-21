@@ -34,6 +34,16 @@ export class RankingComponent implements OnInit {
     student:'头衔榜',
     examination:'区域'
   };
+  dataList=[
+    {name:'秋国艳',index:'4',src:'/assets/imgs/forum/other/p771_avatar1@3x.jpg',grade:'至尊王者 I'},
+    {name:'秋国艳',index:'5',src:'/assets/imgs/forum/other/p771_avatar1@3x.jpg',grade:'至尊王者 I'},
+    {name:'秋国艳',index:'6',src:'/assets/imgs/forum/other/p771_avatar1@3x.jpg',grade:'至尊王者 I'},
+    {name:'秋国艳',index:'7',src:'/assets/imgs/forum/other/p771_avatar1@3x.jpg',grade:'至尊王者 I'},
+    {name:'秋国艳',index:'8',src:'/assets/imgs/forum/other/p771_avatar1@3x.jpg',grade:'至尊王者 I'},
+    {name:'秋国艳',index:'9',src:'/assets/imgs/forum/other/p771_avatar1@3x.jpg',grade:'至尊王者 I'},
+    {name:'秋国艳',index:'10',src:'/assets/imgs/forum/other/p771_avatar1@3x.jpg',grade:'至尊王者 I'},
+
+  ];
   constructor() {}
 
   ngOnInit() {

@@ -1,0 +1,102 @@
+page-medal{
+    .current-medal{
+        color: #fff;    margin: 15px 10px;
+        .background-img{
+            width: 100%;
+            z-index: -1;
+        }
+    }
+    .current-medal-title{
+        position: absolute;
+        display: flex;
+        top: 20px;
+        margin-top: 20px;
+        align-items: center;
+        width: calc(100% - 20px);
+        .current-medal-title-name{
+            margin-left: 20px;
+            font-size: 17px;
+            flex: 1;
+        }
+        .current-medal-title-more{
+            margin-right: 20px;
+            color: #67BBFF;
+            display: flex;
+            align-items: center;
+            img{
+                height: 12px;
+            }
+        }
+    }
+    .current-medal-div{
+        text-align: center;
+        position: absolute;
+        display: flex;
+        top: 75px;
+        width: calc(100% - 20px);
+        align-items: flex-end;
+        .current-medal-type{
+            width: 50%;
+        }
+        .current-medal-type-img{
+            width: 103px; 
+        }
+        .current-medal-type-name{
+            margin-top: 14px;
+            font-size: 20px;
+        }
+    }
+    @media screen and (max-width: 340px){
+        .current-medal-type{
+            transform: scale(0.7);
+        }
+    }
+    .my-have-medal{
+        margin: 10px;
+        border: 1px solid #979797;
+        border-radius: 5px;
+        margin-top: 24px;
+        .my-have-medal-title{
+            color: #979797;
+            margin-top: -10px;
+            font-size: 13px;
+            margin-left: 20px;
+        }
+        .my-have-medal-div{
+            display: flex;
+            flex-wrap: wrap;
+            padding-bottom: 30px;
+        }
+        .my-have-medal-type{
+            width: 33%;
+            color: #979797;
+            text-align: center;
+            margin-top: 38px;
+            .my-have-medal-type-name{
+                margin-top:15px ;
+                display: inline-block;
+                font-size: 13px;
+            }
+            .type-name-selection{
+                color: #67BBFF;
+                position: relative;
+            }
+            .type-name-selection::after{
+                position: absolute;
+                display: block;
+                content: " ";
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #67BBFF;
+                top: 7px;
+                left: -10px;
+            }
+
+            img{
+                width: 82px;
+                max-width: 95px;
+            }
+        }
+    }
+}

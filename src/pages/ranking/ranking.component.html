@@ -11,9 +11,9 @@
     <div class="navli" [ngClass]="{'act': navli=='student'}" tappable (click)="switchInformation('student')">
       学员榜
     </div>
-    <div class="navli" [ngClass]="{'act': navli=='examination'}" tappable (click)="switchInformation('examination')">
+    <!-- <div class="navli" [ngClass]="{'act': navli=='examination'}" tappable (click)="switchInformation('examination')">
       考试榜
-    </div>
+    </div> -->
   </div>
   <div class="test-paper" *ngIf="navli=='examination'">
     <p class="nowrap-1">
@@ -42,7 +42,7 @@
               <div class="name">张丽莉</div>
               <div class="user-label">
                 最强王者
-            </div>
+              </div>
             </div>
           <img class="phb_2bg" src="assets/imgs/ranking/phb_2@2x.png" >
       </div>
@@ -60,7 +60,7 @@
           <div class="name-div">
               <img class="user-head" src="/assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
               <div class="name">张丽莉</div>
-              <div  class="user-label">
+              <div class="user-label">
                 最强王者
               </div>
             </div>
@@ -69,18 +69,44 @@
     
     </div>
   </div>
-  <div style="background: #fff;">
-    <div>
-        aaaa
+  <div style="background: #fff;padding: 0px 22px;">
+    <div class="list-user" *ngFor="let item of dataList" >
+      <div style="border-top: 1px solid #F1F1F1;">
+      </div>
+        <span class="index">
+          {{item.index}}
+        </span>
+        <img class="user-heard-img" src="{{item.src}}" alt="">
+        <span class="user-name nowrap-1">
+            {{item.name}}
+        </span>
+        <span class="user-grade">
+            {{item.grade}}
+        </span>
     </div>
-    <div>
-        aaaa
-    </div><div>
-        aaaa
-    </div><div>
-        aaaa
-    </div><div>
-        aaaa
+    <div class="list-user">
+        <div style="border-top: 1px solid #F1F1F1;">
+  
+        </div>
+          <span class="index">
+            4
+          </span>
+          <img class="user-heard-img" src="/assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
+          <span class="user-name nowrap-1">
+            秋国艳
+          </span>
+          <span class="user-grade stars">
+            <span class="img-star">
+                <span class="icon iconfont icon-star-fill"></span>
+                <span class="icon iconfont icon-star-fill"></span>
+                <span class="icon iconfont icon-star-fill"></span>
+                <span class="icon iconfont icon-star-fill"></span>
+                <span class="icon iconfont icon-star"></span>
+            </span>
+            <span style="padding-left: 5px;">
+              4.0
+            </span>
+          </span>
     </div>
   </div>
 </ion-content>
