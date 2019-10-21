@@ -1,0 +1,32 @@
+page-do-exam {
+  .test-process {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .doIt {
+      width: 50%;
+    }
+
+    .countTime {
+      width: 50%;
+      text-align: right;
+      color: #EF0E0F;
+      padding-right: 20px;
+      font-size:15px;
+      font-weight:400;
+      line-height:18px;
+      letter-spacing: 1px;
+    }
+  }
+  .score .content .test.number{
+    font-size: 13px;
+    font-weight: normal;
+    margin: 30px 0;
+  }
+  .score .content img.tips{
+    background-color: #fff;
+    border-radius: 100%;
+    border: 3px solid #fff;
+  }
+}

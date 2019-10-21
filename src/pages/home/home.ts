@@ -25,6 +25,7 @@ import {LivePage} from "./live/live";
 import {ForumPage} from '../forum/forum.component';
 import {Componentsdetails} from '../consultation/componentsdetails/componentsdetails.component';
 import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
+import {MyQuestion} from "./question/my-question/my-question";
 
 
 @Component({
@@ -307,5 +308,10 @@ export class HomePage {
     //前往直播
     goLive() {
         this.navCtrl.push(LivePage);
+    }
+
+    //前往问卷
+    goQuestion(){
+        this.navCtrl.push(MyQuestion);
     }
 }

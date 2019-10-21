@@ -1,5 +1,5 @@
 import {Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
-import {Content, IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Content, IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
@@ -20,6 +20,7 @@ import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild(Slides) slides: Slides;
     @ViewChild('video')
     public video: ElementRef;
     @ViewChild(Content) content: Content;
@@ -33,12 +34,12 @@ export class CourseDetailPage {
     };
     learnList = [];
     navbarList = [
-        {type: '1', name: '简介', code: 'desc'},
-        {type: '2', name: '章节', code: 'chapter'},
-        {type: '3', name: '讨论', code: 'talk'},
-        {type: '4', name: '讲师', code: 'teacher'},
-        {type: '5', name: '评价', code: 'comment'},
-        {type: '6', name: '相关', code: 'relation'},
+        {type: 1, name: '简介', code: 'desc'},
+        {type: 2, name: '章节', code: 'chapter'},
+        {type: 3, name: '讨论', code: 'talk'},
+        {type: 4, name: '讲师', code: 'teacher'},
+        {type: 5, name: '评价', code: 'comment'},
+        {type: 6, name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -60,7 +61,7 @@ export class CourseDetailPage {
 
     loading;
     bar = {
-        type: "1",
+        type: 1,
         show: false,
     };
     starList = new Array(5);
@@ -411,7 +412,7 @@ export class CourseDetailPage {
 
     changeType(item) {
         this.bar.type = item.type;
-        // this.done.emit(item);
+        this.slides.slideTo(item.type -1, 100);
     }
 
     getMore(e) {
@@ -421,5 +422,10 @@ export class CourseDetailPage {
     //获取时间戳
     getTime(date) {
         return new Date(date).getTime();
+    }
+
+    //切换slide
+    slideChanged() {
+        this.bar.type = this.slides.realIndex +1;
     }
 }

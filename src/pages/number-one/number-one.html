@@ -11,18 +11,10 @@
                 </ion-refresher-content>
               </ion-refresher>
         <div class="navul">
-                
                 <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable (click)="switchInformation(item.label)">
                         {{item.label}}
                 </div>
-                <!-- <div class="navli" [ngClass]="{'act': navli=='销冠风采'}" tappable (click)="switchInformation('销冠风采')">
-                    销冠风采
-                </div>
-                <div class="navli" [ngClass]="{'act': navli=='销售案例'}" tappable (click)="switchInformation('销售案例')">
-                    销售案例
-                </div> -->
             </div>
-
             <ion-list text-center style="  background: #fff;margin: 0;padding-bottom: 400px;padding-top: 200px;" *ngIf="no_list">
                     <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
                     <p text-center style="color: #666666;font-size: 16px">
@@ -44,7 +36,7 @@
                     </div>
                 </div>
                 <div class="information-list img3" *ngIf="!item.IsSingle" tappable (click)="goComponentsdetails(item)">
-                    <h4>{{item.Title}}</h4>
+                    <h4 class="nowrap-2">{{item.Title}}</h4>
                     <div class="imgdiv-flex">
                             <div *ngFor="let img of item.SourceURLList" [ngStyle]="{'background-image': 'url('+img+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
                                 </div>
@@ -83,7 +75,7 @@
                     <div class="volume-text">
                         {{item.MonthName}}月销售
                     </div>
-                    <div class="percentage blue-bg" style="width: 50%;">
+                    <div class="percentage blue-bg" [ngStyle]="{'width': item.MonthPercentage+'%'}">
                     </div>
                 </div>
                 <div class="volume-number blue">{{item.MonthCount}}</div>
@@ -93,7 +85,7 @@
                     <div class="volume-text">
                         年累计销售
                     </div>
-                    <div class="percentage red-bg">
+                    <div class="percentage red-bg" [ngStyle]="{'width': item.YearPercentage+'%'}">
                     </div>
                 </div>
                 <div class="volume-number red">{{item.YearCount}}</div>

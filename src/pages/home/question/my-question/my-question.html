@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>考试中心</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新"
+                               refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <navbar [list]="navbarList" [select]="1" (done)="changeType($event)"></navbar>
+    <div class="exam">
+        <ng-container *ngFor="let item of examList">
+            <div class="space"></div>
+            <div class="item" style="padding: 10px 5px;" tappable (click)="goExam(item)">
+                <div class="test-item">
+                    <div class="test-item-image">
+                        <img [src]="item.PictureSrc" alt="">
+                    </div>
+                    <div class="test-item-desc">
+                        <p class="courseName">{{item.EName}}</p>
+                        <p class="eName">
+                            <img src="./assets/imgs/test/cate@3x.png">
+                            <span>{{item.EName}}</span>
+                        </p>
+                    </div>
+                    <div *ngIf="page.StudyState == 3" class="test-leave">
+                        <img *ngIf="item.TotalScore < item.PaperScore *0.6" src="./assets/imgs/test/bad@2x.png">
+                        <img *ngIf="item.PaperScore *0.59 < item.TotalScore && item.TotalScore < item.PaperScore *0.9" src="./assets/imgs/test/gofighting@2x.png">
+                        <img *ngIf="item.PaperScore *0.89 < item.TotalScore" src="./assets/imgs/test/best@2x.png">
+                    </div>
+                </div>
+                <p *ngIf="page.StudyState != 1" class="split"></p>
+                <p *ngIf="page.StudyState == 2">
+                    <span class="examScore">考试时间：{{item.ExamTimer}}分钟</span>
+                    <span class="examTime">到期时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
+                </p>
+                <p *ngIf="page.StudyState == 3">
+                    <span class="examScore">
+                        <img src="./assets/imgs/mine/exam-submit.png">考试得分：
+                        <ng-container *ngIf="item.PaperScore *0.59 < item.TotalScore">{{item.TotalScore}}</ng-container>
+                        <ng-container *ngIf="item.TotalScore < item.PaperScore *0.6">
+                            <span style="color: #C3190F">{{item.TotalScore}}/不及格</span></ng-container>
+                    </span>
+                    <span class="examTime">提交时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
+                </p>
+            </div>
+        </ng-container>
+    </div>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="examList.length == 0 && page.load">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+    </ion-list>
+</ion-content>

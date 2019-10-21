@@ -14,13 +14,33 @@
                 <div class="course-name">
                     {{product.detail?.Title}}
                 </div>
+                <div class="course-button">
+                    <div tappable *ngIf="!product.detail?.IsBuy" (click)="sign()">
+                        立即报名
+                    </div>
+                    <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100"
+                         (click)="studyNow()">
+                        回顾{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}
+                    </div>
+                    <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100" (click)="studyNow()">
+                        立即学习
+                    </div>
+                </div>
+                <div class="course-desc" style="margin: 30px auto;">
+                    <span>学习截止:
+                        {{product.detail?.EndTime | date:'yyyy-MM-dd'}}
+                    </span>
+                    <span>
+                        <img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
+                        人报名</span>
+                </div>
                 <div class="course-desc">
-                    <span><img src="./assets/imgs/learn/like_white@2x.png"
+                    <span><img src="./assets/imgs/course/hua@2x.png"
                                alt="">{{product.detail?.ZanCount || "0"}}</span>
+                    <span><img src="./assets/imgs/course/jd@2x.png"
+                               alt="">{{product.detail?.CollectionCount || "0"}}</span>
                     <span><img src="./assets/imgs/learn/collect_white@2x.png"
                                alt="">{{product.detail?.CollectionCount || "0"}}</span>
-                    <span><img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
-                        人报名</span>
                 </div>
             </div>
         </div>
@@ -32,187 +52,207 @@
     <div [hidden]="bar.show" #navbar class="navbar">
         <ng-container *ngFor="let item of navbarList;let i = index;">
             <div class="navbar-item" tappable (click)="changeType(item)">
-                <a href="#{{item.code}}" class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</a>
+                <a class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</a>
             </div>
         </ng-container>
     </div>
     <div [hidden]="!bar.show" class="navbar" ion-fixed>
         <ng-container *ngFor="let item of navbarList;let i = index;">
             <div class="navbar-item" tappable (click)="changeType(item)">
-                <a href="#{{item.code}}" class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</a>
+                <a class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</a>
             </div>
         </ng-container>
     </div>
 
     <div #space class="space"></div>
-    <div id="desc" class="item">
-        <p>简介</p>
-        <div class="introduction">
-            {{product.detail?.Description}}
-        </div>
-    </div>
-    <div class="space"></div>
-    <div id="chapter" class="item">
-        <p>章节</p>
-        <div class="chapter">
-            <ng-container *ngFor="let item of product.chapter?.Course?.children">
-                <p tappable (click)="getMore(item)">
-                    {{item.title}}
-                    <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon"
-                              name="arrow-forward"></ion-icon>
-                    <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon"
-                              name="arrow-down"></ion-icon>
-                </p>
-                <div *ngIf="item.show" class="chapter-teacher">
-                    <div>
-                        <img src="./assets/imgs/home/goodTeacher.png" alt="">
-                    </div>
-                    <div>{{item.UserName}}</div>
-                    <div>
-                        上课时间：{{item.StartTime | date:"yyyy-MM-dd"}}至{{item.EndTime | date:"yyyy-MM-dd"}}
+
+    <ion-slides (ionSlideDidChange)="slideChanged()">
+        <ng-container *ngIf="navbarList.length > 0">
+            <!--      简介      -->
+            <ion-slide>
+                <div id="desc" class="item">
+                    <p>简介</p>
+                    <div class="introduction">
+                        {{product.detail?.Description}}
                     </div>
                 </div>
-                <div *ngIf="item.children && item.show">
-                    <tree-list
-                            [treeList]="item.children"
-                            [IsBuy]="product.detail?.IsBuy"
-                            [TeachTypeName]="product.detail?.TeachTypeName"
-                    ></tree-list>
-                </div>
-            </ng-container>
-        </div>
-    </div>
-    <div class="space"></div>
-    <div id="talk" class="item">
-        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
-            <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end class="look">更多</span>
-            <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()"
-                  class="focus focus-blue">去讨论</span>
-        </p>
-        <div class="comment-list">
-            <div class="comment-item" *ngFor="let item of comment.talk;">
-                <div class="first">
-                    <div class="headPhoto">
-                        <img [src]="item.HeadPhoto" alt="">
-                    </div>
-                    <div>
-                        <p>{{item.UserName}}</p>
-                        <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
-                    </div>
-                    <div class="img-star">
-                    </div>
-                </div>
-                <div class="last">
-                    {{item.Contents}}
-                </div>
-            </div>
-        </div>
-        <div class="no-comment" *ngIf="comment.talk.length == 0">
-            <p>暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
-        </div>
-    </div>
-    <div class="space"></div>
-    <div id="comment" class="item">
-        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
-            <span *ngIf="comment.course.length > 0" tappable class="look" float-end
-                  (click)="goCourseComment()">更多</span>
-            <span *ngIf="comment.course.length == 0" tappable class="focus-blue focus"
-                  (click)="goCourseComment()">去评价</span>
-        </p>
-        <div class="comment-list">
-            <div class="comment-item" *ngFor="let item of comment.course;">
-                <div class="first">
-                    <div class="headPhoto">
-                        <img [src]="item.UserImage || defalutPhoto" alt="">
-                    </div>
-                    <div>
-                        <p>{{item.UserName}}</p>
-                        <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
-                    </div>
-                    <div class="img-star">
-                        <ng-container *ngFor="let st of starList;let i = index">
-                            <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
-                                  class="icon iconfont "></span>
+            </ion-slide>
+            <!--      章节      -->
+            <ion-slide>
+                <div id="chapter" class="item">
+                    <p>章节</p>
+                    <div class="chapter">
+                        <ng-container *ngFor="let item of product.chapter?.Course?.children">
+                            <p tappable (click)="getMore(item)">
+                                {{item.title}}
+                                <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon"
+                                          name="arrow-forward"></ion-icon>
+                                <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon"
+                                          name="arrow-down"></ion-icon>
+                            </p>
+                            <div *ngIf="item.show" class="chapter-teacher">
+                                <div>
+                                    <img src="./assets/imgs/home/goodTeacher.png" alt="">
+                                </div>
+                                <div>{{item.UserName}}</div>
+                                <div>
+                                    上课时间：{{item.StartTime | date:"yyyy-MM-dd"}}至{{item.EndTime | date:"yyyy-MM-dd"}}
+                                </div>
+                            </div>
+                            <div *ngIf="item.children && item.show">
+                                <tree-list
+                                        [treeList]="item.children"
+                                        [IsBuy]="product.detail?.IsBuy"
+                                        [TeachTypeName]="product.detail?.TeachTypeName"
+                                ></tree-list>
+                            </div>
                         </ng-container>
                     </div>
                 </div>
-                <div class="last">
-                    {{item.Contents}}
+            </ion-slide>
+            <!--      讨论      -->
+            <ion-slide>
+                <div id="talk" class="item">
+                    <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
+                        <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end
+                              class="look">更多</span>
+                        <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()"
+                              class="focus focus-blue">去讨论</span>
+                    </p>
+                    <div class="comment-list">
+                        <div class="comment-item" *ngFor="let item of comment.talk;">
+                            <div class="first">
+                                <div class="headPhoto">
+                                    <img [src]="item.HeadPhoto" alt="">
+                                </div>
+                                <div>
+                                    <p>{{item.UserName}}</p>
+                                    <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
+                                </div>
+                                <div class="img-star">
+                                </div>
+                            </div>
+                            <div class="last">
+                                {{item.Contents}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-comment" *ngIf="comment.talk.length == 0">
+                        <p>暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="no-comment" *ngIf="comment.course.length == 0">
-            <p>暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价，快去发一条吧～</p>
-        </div>
-    </div>
-    <div class="space"></div>
-    <div id="teacher" class="item">
-        <p>讲师
-            <span (click)="teachDetail()" tappable float-end class="look">查看</span>
-        </p>
-        <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
-            <div class="img">
-                <img [src]="item.HeadPhoto  || defalutPhoto">
-            </div>
-            <div class="position">
-                <p style="margin-left: -10px">{{item.UserName}}</p>
-                <p style="margin-left: -10px">{{item.Position}}</p>
-            </div>
-            <div>
+            </ion-slide>
+            <!--      讲师      -->
+            <ion-slide>
+                <div id="teacher" class="item">
+                    <p>讲师
+                        <span (click)="teachDetail()" tappable float-end class="look">查看</span>
+                    </p>
+                    <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
+                        <div class="img">
+                            <img [src]="item.HeadPhoto  || defalutPhoto">
+                        </div>
+                        <div class="position">
+                            <p style="margin-left: -10px">{{item.UserName}}</p>
+                            <p style="margin-left: -10px">{{item.Position}}</p>
+                        </div>
+                        <div>
                 <span *ngIf="item.IsSubscribe == false" tappable (click)="focusHandle(item.UserID)"
                       class="focus focus-blue">关注</span>
-                <span *ngIf="item.IsSubscribe == true" tappable (click)="cancleFocusHandle(item.UserID)"
-                      class="focus noFocus-blue">已关注</span>
-            </div>
-        </div>
-    </div>
-    <div class="space"></div>
-    <div class="item">
-        <p>讲师评价
-            <span *ngIf="comment.teacher.length > 0" tappable (click)="goTeacherComment()" float-end
-                  class="look">更多</span>
-            <span *ngIf="comment.teacher.length == 0" tappable (click)="goTeacherComment()"
-                  class="focus focus-blue">去评价</span>
-        </p>
-        <div class="comment-list">
-            <div class="comment-item" *ngFor="let item of comment.teacher;">
-                <div class="first">
-                    <div class="headPhoto">
-                        <img [src]="item.HeadPhoto  || defalutPhoto" alt="">
+                            <span *ngIf="item.IsSubscribe == true" tappable (click)="cancleFocusHandle(item.UserID)"
+                                  class="focus noFocus-blue">已关注</span>
+                        </div>
                     </div>
-                    <div>
-                        <p>{{item.UserName}}</p>
-                        <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
-                    </div>
-                    <div class="img-star">
-                        <ng-container *ngFor="let st of starList;let i = index">
+                </div>
+                <div class="space"></div>
+                <div class="item">
+                    <p>讲师评价
+                        <span *ngIf="comment.teacher.length > 0" tappable (click)="goTeacherComment()" float-end
+                              class="look">更多</span>
+                        <span *ngIf="comment.teacher.length == 0" tappable (click)="goTeacherComment()"
+                              class="focus focus-blue">去评价</span>
+                    </p>
+                    <div class="comment-list">
+                        <div class="comment-item" *ngFor="let item of comment.teacher;">
+                            <div class="first">
+                                <div class="headPhoto">
+                                    <img [src]="item.HeadPhoto  || defalutPhoto" alt="">
+                                </div>
+                                <div>
+                                    <p>{{item.UserName}}</p>
+                                    <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
+                                </div>
+                                <div class="img-star">
+                                    <ng-container *ngFor="let st of starList;let i = index">
                             <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
                                   class="icon iconfont "></span>
-                        </ng-container>
-                    </div>
-                </div>
-                <div class="last teacher">
-                    <div class="Contents">
-                        {{item.Contents}}
-                    </div>
-                    <div class="item-teacher">
-                        <div>
-                            <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="last teacher">
+                                <div class="Contents">
+                                    {{item.Contents}}
+                                </div>
+                                <div class="item-teacher">
+                                    <div>
+                                        <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
+                                    </div>
+                                    <div>{{item.TeacherName}}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div>{{item.TeacherName}}</div>
+                    </div>
+                    <div class="no-comment" *ngIf="comment.teacher.length == 0">
+                        <p>暂无讲师评价，快去发一条吧～</p>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="no-comment" *ngIf="comment.teacher.length == 0">
-            <p>暂无讲师评价，快去发一条吧～</p>
-        </div>
-    </div>
-    <div class="space"></div>
-    <div id="relation" class="item" style="margin-bottom: 5rem">
-        <p>相关推荐</p>
-<!--        <course-list [list]="learnList" (done)="goCourse($event)"></course-list>-->
-    </div>
+            </ion-slide>
+            <!--      评价      -->
+            <ion-slide>
+                <div id="comment" class="item">
+                    <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
+                        <span *ngIf="comment.course.length > 0" tappable class="look" float-end
+                              (click)="goCourseComment()">更多</span>
+                        <span *ngIf="comment.course.length == 0" tappable class="focus-blue focus"
+                              (click)="goCourseComment()">去评价</span>
+                    </p>
+                    <div class="comment-list">
+                        <div class="comment-item" *ngFor="let item of comment.course;">
+                            <div class="first">
+                                <div class="headPhoto">
+                                    <img [src]="item.UserImage || defalutPhoto" alt="">
+                                </div>
+                                <div>
+                                    <p>{{item.UserName}}</p>
+                                    <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
+                                </div>
+                                <div class="img-star">
+                                    <ng-container *ngFor="let st of starList;let i = index">
+                            <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
+                                  class="icon iconfont "></span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="last">
+                                {{item.Contents}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-comment" *ngIf="comment.course.length == 0">
+                        <p>暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价，快去发一条吧～</p>
+                    </div>
+                </div>
+
+            </ion-slide>
+            <!--      相关      -->
+            <ion-slide>
+                <div id="relation" class="item" style="margin-bottom: 5rem">
+                    <p>相关推荐</p>
+                    <!--        <course-list [list]="learnList" (done)="goCourse($event)"></course-list>-->
+                </div>
+            </ion-slide>
+        </ng-container>
+    </ion-slides>
 </ion-content>
 
 <ion-footer class="course-footer" *ngIf="showFooter">
