@@ -17,7 +17,7 @@ import {MyFollowsComponent} from './my-follows/my-follows.component';
 import {ForumService} from '../forum/forum.service';
 import {MedalComponent} from './medal/medal.component';
 import {MyFilePage} from "./my-file/my-file";
-
+import {MineService} from './medal/medal.serve';
 
 @NgModule({
     declarations: [
@@ -40,7 +40,7 @@ import {MyFilePage} from "./my-file/my-file";
         IonicPageModule.forChild(MinePage),
         ComponentsModule,
     ],
-    providers:[ForumService],
+    providers:[ForumService,MineService],
     entryComponents: [
         MycollectionPage,
         MyCoursePage,

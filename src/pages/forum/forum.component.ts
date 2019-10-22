@@ -37,14 +37,15 @@ export class ForumPage implements OnInit {
     this.pageDate.pageIndex=1;
     this.initData();
   }
+  
   // 前往 评论列表
   showViewReply(){
     this.navCtrl.push(ViewReplyComponent);
   }
 
   // 前往帖子详情
-  goPostsContent() {
-    this.navCtrl.push(PostsContentComponent);
+  goPostsContent(data) {
+    this.navCtrl.push(PostsContentComponent,{data:data});
   }
 
   // 新增帖子
@@ -134,37 +135,18 @@ export class ForumPage implements OnInit {
   }
 
   getLIistData(){
-    this.forumLIst=[{
-      PosterUserHeadPhoto:'./assets/imgs/forum/other/p771_avatar1@3x.jpg',
-      PosterUserName:'秋国艳',
-      PostRelativeTime:'1小时前',
-      Title:'用车分享：大宝第十次的维修保养知识',
-      Images:[{Src:'./assets/imgs/forum/other/p771_img1@3x.jpg'}],
-      TopicPlateName:'产品体验',
-      ReplyCount:'123',
-      LikeCount:'345',
-    },
-    {
-      PosterUserHeadPhoto:'./assets/imgs/forum/other/p771_avatar1@3x.jpg',
-      PosterUserName:'秋国艳',
-      PostRelativeTime:'1小时前',
-      Title:'用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识',
-      Images:[],
-      TopicPlateName:'产品体验',
-      ReplyCount:'123',
-      LikeCount:'345',
-    },
-    {
-      PosterUserHeadPhoto:'./assets/imgs/forum/other/p771_avatar1@3x.jpg',
-      PosterUserName:'秋国艳',
-      PostRelativeTime:'1小时前',
-      Title:'用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识用车分享：大宝第十次的维修保养知识',
-      Images:[{Src:'./assets/imgs/forum/other/p771_img1@3x.jpg'},{Src:'./assets/imgs/forum/other/p771_img1@3x.jpg'},{Src:'./assets/imgs/forum/other/p771_img1@3x.jpg'}],
-      TopicPlateName:'产品体验',
-      ReplyCount:'123',
-      LikeCount:'345',
-    }
-    ];
+    let loading = this.loadCtrl.create({
+      content: '加载中...'
+    });
+    loading.present();
+    this.serve.GetPostSearchhotpost().subscribe((res:any) => {
+      loading.dismiss();
+      if(res.data){
+        this.forumLIst=res.data.UnTopPosts.Items;
+        this.no_list=this.forumLIst.length>0?false:true;
+      }
+      console.log(res);
+    });
   }
 
 }
