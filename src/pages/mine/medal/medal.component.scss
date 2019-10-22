@@ -99,4 +99,25 @@ page-medal{
             }
         }
     }
+    .action-sheet {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 99;
+    }
+
+    .medal-list-div {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: #f1f1f1;
+        transition: all 0.2s;
+        transform: translate(0%,100%);
+    }
+    .medal-list-div-show{
+        transform: translate(0%,0);
+    }
 }

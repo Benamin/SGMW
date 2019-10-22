@@ -6,9 +6,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MedalComponent implements OnInit {
 
+  medalListDivShow=false;
+  actionSheet=false;
   constructor() { }
-
   ngOnInit() {
   }
+  setCurrentMedal(){
+    this.actionSheet=true;
+    setTimeout(() => {
+      this.medalListDivShow = true;
+    }, 20);
+  }
 
+  setCurrentMedalHide(){
+    this.medalListDivShow = false;
+    setTimeout(() => {
+      this.actionSheet=false;
+    }, 200);
+  }
 }
