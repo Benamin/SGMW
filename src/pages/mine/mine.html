@@ -21,11 +21,12 @@
                     </div>
                 </div>
                 <div class="info-name">
-                    <p>{{mineInfo?.UserName}}</p>
-                </div>
-                <div class="info-position">
-                    <!--                        <img src="./assets/imgs/mine/student.png">-->
-                    <img src="./assets/imgs/mine/xueyuan.png">
+                    <p>
+                        <span>{{mineInfo?.UserName}}</span>
+                        <span *ngIf="userInfo?.TitleInfo?.ForumTitle" class="forumTitle">{{userInfo?.TitleInfo?.ForumTitle}}</span>
+                        <span *ngIf="userInfo?.TitleInfo?.Credit" class="credit">积分：{{userInfo?.TitleInfo?.Credit}}</span>
+                    </p>
+                    <p></p>
                 </div>
             </div>
             <div class="info-item item-type">

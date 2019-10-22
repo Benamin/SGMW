@@ -53,6 +53,7 @@ import {ForumPage} from '../pages/forum/forum.component';
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
 import {DownloadFileService} from "../core/downloadFile.service";
+import {CourseDetailPage} from "../pages/learning/course-detail/course-detail";
 
 
 @NgModule({
@@ -70,66 +71,70 @@ import {DownloadFileService} from "../core/downloadFile.service";
         HomeModule,
         IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
-            tabsHideOnSubPages: 'true',
-            backButtonText: '',   //返回按钮显示中文
-            statusbarPadding: false,
-            iconModel: 'ios',   //icon显示图标为IOS版
-            mode: 'ios',   //安卓和IOS的样式以IOS样式为准
-            modalEnter: 'modal-slide-in',
-            modalLeave: 'modal-slide-out',
-            swipeBackEnabled: false
-        }),
+                tabsHideOnSubPages: 'true',
+                backButtonText: '',   //返回按钮显示中文
+                statusbarPadding: false,
+                iconModel: 'ios',   //icon显示图标为IOS版
+                mode: 'ios',   //安卓和IOS的样式以IOS样式为准
+                modalEnter: 'modal-slide-in',
+                modalLeave: 'modal-slide-out',
+                swipeBackEnabled: false
+            },
+        ),
         ComponentsModule,
         ConsultationPageModule,
         NumberOneModule,
         ForumModule
     ],
     bootstrap: [IonicApp],
-    entryComponents: [
-        MyApp,
-        HomePage,
-        CoursePage,
-        TabsPage,
-        ConsultationPage,
-        NumberOne,
-        ForumPage
-    ],
-    providers: [
-        StatusBar,
-        SplashScreen,
-        Keyboard,
-        FileOpener,
-        InAppBrowser,
-        AppVersion,
-        File,
-        FileTransfer,
-        FileTransfer,
-        TabService,
-        LoginService,
-        HomeService,
-        CommonService,
-        LearnService,
-        MineService,
-        HTTP,
-        AppService,
-        DataFormatService,
-        BackButtonService,
-        EmitService,
-        FileService,
-        UntilService,
-        LogoutService,
-        GetRequestService,
-        AppUpdateService,
-        DatePipe,
-        RandomWordService,
-        DownloadFileService,
-        {provide: ErrorHandler, useClass: IonicErrorHandler},
-        {
-            provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
-        },
-    ],
+    entryComponents:
+        [
+            MyApp,
+            HomePage,
+            CoursePage,
+            TabsPage,
+            ConsultationPage,
+            NumberOne,
+            ForumPage
+        ],
+    providers:
+        [
+            StatusBar,
+            SplashScreen,
+            Keyboard,
+            FileOpener,
+            InAppBrowser,
+            AppVersion,
+            File,
+            FileTransfer,
+            FileTransfer,
+            TabService,
+            LoginService,
+            HomeService,
+            CommonService,
+            LearnService,
+            MineService,
+            HTTP,
+            AppService,
+            DataFormatService,
+            BackButtonService,
+            EmitService,
+            FileService,
+            UntilService,
+            LogoutService,
+            GetRequestService,
+            AppUpdateService,
+            DatePipe,
+            RandomWordService,
+            DownloadFileService,
+            {provide: ErrorHandler, useClass: IonicErrorHandler},
+            {
+                provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
+            },
+        ],
 
 })
+
 export class AppModule {
     constructor(public config: Config) {
         this.setCustomTransitions();

@@ -26,6 +26,7 @@ import {MyFilePage} from "./my-file/my-file";
 })
 export class MinePage {
     mineInfo;
+    userInfo;
     number;
     version;
 
@@ -56,6 +57,20 @@ export class MinePage {
         )
     }
 
+    ionViewDidEnter() {
+        this.getUserInfo();
+    }
+
+    //获取用户积分和勋章
+    getUserInfo() {
+        this.mineSer.GetMyInfo().subscribe(
+            (res) => {
+                this.userInfo = res.data;
+            }
+        )
+    }
+
+    //检测当前版本
     getVersion() {
         //检测是否需要更新
         this.appVersion.getVersionNumber().then((version: string) => {
@@ -67,6 +82,7 @@ export class MinePage {
 
     doRefresh(e) {
         this.ionViewDidLoad();
+        this.getUserInfo();
         timer(1000).subscribe((res) => {
             e.complete()
         });
@@ -93,7 +109,7 @@ export class MinePage {
     }
 
     //下载管理
-    goToFile(){
+    goToFile() {
         this.navCtrl.push(MyFilePage);
     }
 
@@ -108,17 +124,17 @@ export class MinePage {
     }
 
     // 我的帖子
-    goMyForum(){
+    goMyForum() {
         this.navCtrl.push(MyForumComponent);
     }
 
     // 我的关注
-    goMyFollowsComponent(){
+    goMyFollowsComponent() {
         this.navCtrl.push(MyFollowsComponent);
     }
 
     // 我的点赞
-    goMyThumbsUpComponent(){
+    goMyThumbsUpComponent() {
         this.navCtrl.push(MyThumbsUpComponent);
     }
 
