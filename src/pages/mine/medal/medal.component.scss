@@ -105,17 +105,61 @@ page-medal{
         position: fixed;
         top: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0);
         z-index: 99;
+        .action-sheet-title{
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            font-size: 15px;
+
+            color: #999999;
+        }
+        .medal-list{
+            display: flex;
+            align-items: center;
+            padding: 10px 0px;
+            border-top: 1px solid #E4E4E4;
+        }
+        .medal-list-img{
+            max-width: 30px;
+            max-height: 36px;
+            margin: 0 20px;
+        }
+        .medal-list-name{
+            flex: 1;
+        }
+        .medal-list-check{
+            width: 16px;
+            margin: 0 22px;
+        }
+        .action-sheet-bg{
+            height: 10px;
+            background: #f5f5f5;
+        }
+        .medal-btn{
+            div{
+                height: 50px;
+                line-height: 50px;
+                font-size: 15px;
+                text-align: center;
+            }
+            .medal-btn-on{
+                border-top: 1px solid #E4E4E4;
+            }
+        }
     }
 
     .medal-list-div {
         position: absolute;
         bottom: 0;
         width: 100%;
-        background: #f1f1f1;
+        background: #fff;
         transition: all 0.2s;
         transform: translate(0%,100%);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+     
     }
     .medal-list-div-show{
         transform: translate(0%,0);
