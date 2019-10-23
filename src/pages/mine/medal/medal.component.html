@@ -17,14 +17,14 @@
         </span>
       </div>
       <div class="current-medal-div">
-        <div class="current-medal-type">
-          <img class="current-medal-type-img" src="/assets/imgs/mine/medal/yyzx_wdxz@2x.png" alt="">
-          <p class="current-medal-type-name">运营之星</p>
+        <div class="current-medal-type" *ngFor="let item of badgeShowArr" >
+          <img class="current-medal-type-img" src="{{item.BadgeIcon}}" alt="">
+          <p class="current-medal-type-name">{{item.BadgeName}}</p>
         </div>
-        <div class="current-medal-type">
+        <!-- <div class="current-medal-type">
             <img class="current-medal-type-img"  src="/assets/imgs/mine/medal/cptyzj_wdxz@2x.png" alt="">
             <p class="current-medal-type-name">产品体验专家</p>
-          </div>
+          </div> -->
       </div>
     </div>
     <div class="my-have-medal">
@@ -34,20 +34,8 @@
       <div class="my-have-medal-div">
           <div class="my-have-medal-type" *ngFor="let item of actionSheetList" >
               <img class="my-have-medal-type-img" src="{{item.BadgeIcon}}" alt="">
-              <p class="my-have-medal-type-name type-name-selection">{{item.BadgeName}}</p>
+              <p class="my-have-medal-type-name " [ngClass]="{'type-name-selection':item.IsDisplay}" >{{item.BadgeName}}</p>
           </div>
-          <!-- <div class="my-have-medal-type">
-              <img class="my-have-medal-type-img" src="/assets/imgs/mine/medal/cptyzj_wdxz@2x.png" alt="">
-              <p class="my-have-medal-type-name type-name-selection">产品体验专家</p>
-          </div>
-          <div class="my-have-medal-type">
-              <img class="my-have-medal-type-img" src="/assets/imgs/mine/medal/yyzx_wdxz@2x.png" alt="">
-              <p class="my-have-medal-type-name">运营之星</p>
-          </div>
-          <div class="my-have-medal-type">
-              <img class="my-have-medal-type-img" src="/assets/imgs/mine/medal/yyzx_wdxz@2x.png" alt="">
-              <p class="my-have-medal-type-name">运营之星</p>
-          </div> -->
       </div>
     </div>
   </div>
@@ -57,21 +45,17 @@
       <div class="action-sheet-title">
           请选择更换勋章
       </div>
-      <div class="medal-list" *ngFor="let item of actionSheetList" >
+      <div class="medal-list" *ngFor="let item of actionSheetList" (click)="showOrhide(item)">
           <img class="medal-list-img" src="{{item.BadgeIcon}}" alt="">
           <span class="medal-list-name nowrap-1">{{item.BadgeName}}</span>
-          <img class="medal-list-check" src="/assets/imgs/mine/medal/check-mark.png" alt="">
-      </div>
-      <div class="medal-list">
-          <img class="medal-list-img" src="/assets/imgs/mine/medal/yyzx_wdxz@2x.png" alt="">
-          <span  class="medal-list-name nowrap-1">更新版本</span>
-          <img class="medal-list-check"  src="/assets/imgs/mine/medal/check-mark-no.png" alt="">
+          <img *ngIf="setBadge[item.BadgeId]"  class="medal-list-check"  src="/assets/imgs/mine/medal/check-mark.png" alt="">
+          <img *ngIf="!setBadge[item.BadgeId]" class="medal-list-check"  src="/assets/imgs/mine/medal/check-mark-no.png" alt="">
       </div>
       <div class="action-sheet-bg">
         
       </div>
       <div class="medal-btn">
-          <div (click)="SetUserbadgeAssign()" >确定</div>
+          <div (click)="SetUserbadge()" >确定</div>
           <div class="medal-btn-on" (click)="setCurrentMedalHide()">取消</div>
       </div>
   </div>

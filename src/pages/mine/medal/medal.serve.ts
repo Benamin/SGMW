@@ -18,5 +18,14 @@ export class MineService {
     SetUserbadgeAssign(data){
         return this.http.post(SERVER_API_URL + '/forum/userbadge/assign',data)
     }
+
+    // 显示勋章
+    showSserbadge(badgeId){
+        return this.http.post(SERVER_API_URL + '/forum/userbadge/show?badgeId='+badgeId,{badgeId})
+    }
+    // 不显示勋章
+    hideSserbadge(badgeId){
+        return this.http.post(SERVER_API_URL + '/forum/userbadge/hide?badgeId='+badgeId,{badgeId})
+    }
     
 }
