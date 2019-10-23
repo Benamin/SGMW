@@ -65,10 +65,12 @@ export class DoTestPage {
                 this.exam.qs = res.data.qs;
                 this.paper = res.data.paper;
                 this.score.tips = true;
-                this.exam.qs.forEach(e => e.QAnswer = e.QAnswer ? e.QAnswer.replace(/,/g,'') : "");
-                console.log(this.exam.qs);
+                this.exam.qs.forEach(e => {
+                    e.QAnswer = e.QAnswer ? e.QAnswer.replace(/,/g, '') : "";
+                    if (e.QAnswer) this.doneTotal++;
+                })
+
                 this.exam.stuScore = res.data.stuScore;
-                this.slideChanged();
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
@@ -154,7 +156,7 @@ export class DoTestPage {
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.replace(/,/g,'').split("").sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.replace(/,/g, '').split("").sort().join(',');
             });
             this.mineSer.saveStuExams(this.exam).subscribe(
                 (res) => {
@@ -189,7 +191,7 @@ export class DoTestPage {
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.replace(/,/g,'').split("").sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.replace(/,/g, '').split("").sort().join(',');
             });
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
