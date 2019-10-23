@@ -216,13 +216,13 @@ export class MyApp {
         if (this.platform.is('ios')) platform = 'IOS';
         if (this.platform.is('android')) platform = 'android';
         this.appVersion.getVersionNumber().then((version: string) => {
-            versionCode = version.replace(/./g,'');
+            versionCode = version.split('.').join('');
             const data = {
                 code: platform
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
-                    const onlineVersion = res.data.AppVersion.replace(/./g,'');
+                    const onlineVersion = res.data.AppVersion.split('.').join('');
                     if (versionCode < onlineVersion) {
                         this.app.UpdateTips = true;
                         this.app.AppUrl = res.data.AppUrl;
