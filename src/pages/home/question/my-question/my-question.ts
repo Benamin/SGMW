@@ -19,17 +19,16 @@ export class MyQuestion {
 
     navbarList = [
         {type: '1', name: '未开始'},
-        {type: '2', name: '未完成'},
-        {type: '3', name: '已完成'},
+        {type: '2', name: '进行中'},
+        {type: '3', name: '已结束'},
     ];
 
     /// 1-未开始
     /// 2-进行中
     /// 3-已完成
     page = {
-        EName: '',
         StudyState: 1,
-        EType: 4,  /// 3-预习作业 4-课后作业
+        EGroup: 1,  /// 1-普通问卷 2-投票
         load: false
     };
 
@@ -46,18 +45,9 @@ export class MyQuestion {
     }
 
     ionViewDidEnter() {
-        this.checkTimeOut();
         this.getList();
     }
 
-    //答题超时检测
-    checkTimeOut() {
-        this.homeSer.checkTimeOutByStu().subscribe(
-            (res) => {
-
-            }
-        )
-    }
 
     doRefresh(e) {
         this.getList();
@@ -73,13 +63,12 @@ export class MyQuestion {
         });
         loading.present();
         const data = {
-            ExamState: '-1',
             StudyState: this.page.StudyState,
-            EType: 2,
+            EGroup: this.page.EGroup,  /// 1-普通问卷 2-投票
         };
-        this.homeSer.getMyScoreList(data).subscribe(
+        this.homeSer.searchQnaListForStu(data).subscribe(
             (res) => {
-                this.examList = res.data;
+                this.examList = res.data.Views;
                 this.page.load = true;
                 loading.dismiss();
             }
