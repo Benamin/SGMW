@@ -1,13 +1,11 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs/Observable";
 import {SERVER_API_URL} from "../../../app/app.constants";
 import {HTTP} from "@ionic-native/http";
-import {DataFormatService} from "../../../core/dataFormat.service";
 
 @Injectable()
 export class MineService {
-    constructor(private http: HttpClient, private nativeHttp: HTTP, private dataForm: DataFormatService) {
+    constructor(private http: HttpClient, private nativeHttp: HTTP) {
     }
 
     // 获取勋章列表

@@ -5,10 +5,10 @@
 </ion-header>
 <ion-content>
   <div class="navul">
-    <div class="navli" [ngClass]="{'act': navli=='teacher'}" tappable (click)="switchInformation('teacher')">
+    <div class="navli" [ngClass]="{'act': navli=='TeacherViewModel'}" tappable (click)="switchInformation('TeacherViewModel')">
       讲师榜
     </div>
-    <div class="navli" [ngClass]="{'act': navli=='student'}" tappable (click)="switchInformation('student')">
+    <div class="navli" [ngClass]="{'act': navli=='StudentModel'}" tappable (click)="switchInformation('StudentModel')">
       学员榜
     </div>
     <!-- <div class="navli" [ngClass]="{'act': navli=='examination'}" tappable (click)="switchInformation('examination')">
@@ -29,84 +29,98 @@
     </div>
   </div>
   <div class="list-type">
-    <div [ngClass]="{'act-div': listTypeName[navli]==item.name}" tappable (click)="switchInListType(item)"
+    <div [ngClass]="{'act-div': listTypeName[navli].key==item.key}" tappable (click)="switchInListType(item)"
       *ngFor="let item of navlistType">
       {{item.name}}
     </div>
   </div>
-  <div class="podium">
+  <div *ngIf="!no_list"  class="podium">
     <div class="podium-pg">
       <div class="phb_2">
           <div class="name-div">
-              <img class="user-head" src="/assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">张丽莉</div>
-              <div class="user-label">
-                最强王者
+              <img class="user-head" src="{{phb_2?.HeadPhoto}}" alt="">
+              <div class="name">{{phb_2?.UserName}}</div>
+              <div class="user-label" *ngIf="phb_2?.ForumTitle">
+                {{phb_2?.ForumTitle}}
               </div>
+              <span class="user-grade stars" *ngIf="phb_2?.ScoreAvg">
+                <span class="img-star">
+                    <span class="icon iconfont " *ngFor="let s of phb_2.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
+                </span>
+                <span class="scoreavg-label">
+                  {{phb_2?.ScoreAvg}}
+                </span>
+              </span>
             </div>
           <img class="phb_2bg" src="assets/imgs/ranking/phb_2@2x.png" >
       </div>
       <div class="phb_1">
         <div class="name-div">
-          <img class="user-head" src="/assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-          <div class="name">张丽莉</div>
-          <div  class="user-label">
-            最强王者
+          <img class="user-head" src="{{phb_1?.HeadPhoto}}" alt="">
+          <div class="name">{{phb_1?.UserName}}</div>
+          <div class="user-label" *ngIf="phb_2?.ForumTitle" >
+            {{phb_1?.ForumTitle}}
           </div>
+          <span class="user-grade stars" *ngIf="phb_1?.ScoreAvg">
+            <span class="img-star">
+                <span class="icon iconfont " *ngFor="let s of phb_1.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
+            </span>
+            <span class="scoreavg-label">
+              {{phb_1?.ScoreAvg}}
+            </span>
+          </span>
         </div>
         <img  class="phb_1bg" src="assets/imgs/ranking/phb_1@2x.png" alt="">
       </div>
       <div class="phb_3">
           <div class="name-div">
-              <img class="user-head" src="/assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-              <div class="name">张丽莉</div>
-              <div class="user-label">
-                最强王者
+              <img class="user-head" src="{{phb_3?.HeadPhoto}}" alt="">
+              <div class="name">{{phb_3?.UserName}}</div>
+              <div class="user-label" *ngIf="phb_3?.ForumTitle" >
+                {{phb_3?.ForumTitle}}
               </div>
             </div>
+            <span class="user-grade stars" *ngIf="phb_3?.ScoreAvg">
+              <span class="img-star">
+                  <span class="icon iconfont " *ngFor="let s of phb_3.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
+              </span>
+              <span class="scoreavg-label">
+                {{phb_3?.ScoreAvg}}
+              </span>
+            </span>
           <img  class="phb_3bg" src="assets/imgs/ranking/phb_3@2x.png" alt="">
       </div>
-    
     </div>
   </div>
-  <div style="background: #fff;padding: 0px 22px;">
-    <div class="list-user" *ngFor="let item of dataList" >
+  <div *ngIf="!no_list"  style="background: #fff;padding: 0px 22px;">
+    <div class="list-user" *ngFor="let item of dataList;index as i" >
       <div style="border-top: 1px solid #F1F1F1;">
       </div>
         <span class="index">
-          {{item.index}}
+          {{i+3}}
         </span>
-        <img class="user-heard-img" src="{{item.src}}" alt="">
+        <img class="user-heard-img" src="{{item?.HeadPhoto}}" alt="">
         <span class="user-name nowrap-1">
-            {{item.name}}
+            {{item?.UserName}}
         </span>
-        <span class="user-grade">
-            {{item.grade}}
+        <span class="user-grade" *ngIf="item.ForumTitle" >
+            {{item?.ForumTitle}}
         </span>
-    </div>
-    <div class="list-user">
-        <div style="border-top: 1px solid #F1F1F1;">
-  
-        </div>
-          <span class="index">
-            4
+        <span class="user-grade stars" *ngIf="item?.ScoreAvg">
+          <span class="img-star">
+              <span class="icon iconfont " *ngFor="let s of item.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
           </span>
-          <img class="user-heard-img" src="/assets/imgs/forum/other/p771_avatar1@3x.jpg" alt="">
-          <span class="user-name nowrap-1">
-            秋国艳
+          <span style="padding-left: 5px;">
+            {{item?.ScoreAvg}}
           </span>
-          <span class="user-grade stars">
-            <span class="img-star">
-                <span class="icon iconfont icon-star-fill"></span>
-                <span class="icon iconfont icon-star-fill"></span>
-                <span class="icon iconfont icon-star-fill"></span>
-                <span class="icon iconfont icon-star-fill"></span>
-                <span class="icon iconfont icon-star"></span>
-            </span>
-            <span style="padding-left: 5px;">
-              4.0
-            </span>
-          </span>
+        </span>
     </div>
   </div>
+
+  <ion-list text-center style="margin-top: 10rem" *ngIf="no_list">
+    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+    <p text-center style="color: #666666;font-size: 16px">
+        暂无数据
+    </p>
+</ion-list>
 </ion-content>
