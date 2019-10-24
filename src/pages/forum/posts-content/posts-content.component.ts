@@ -66,15 +66,17 @@ export class PostsContentComponent implements OnInit {
   showViewReply(data) {
     this.navCtrl.push(ViewReplyComponent,{data:data,lidata:this.lidata});
   }
-  loading
+  loading;
   async forum_post_publish() {
     console.log('查看帖子详情');
       this.loading = this.loadCtrl.create({
         content:''
       });
       this.loading.present();
+      this.lidata.Id='236e62ac-3425-4f2c-8a90-016df43c37e5';
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
       console.log(res);
+   
       let element = res.data;
       element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
 
@@ -92,6 +94,7 @@ export class PostsContentComponent implements OnInit {
       p.then(res => {
         this.loading.dismiss();
       });
+
     });
   }
 

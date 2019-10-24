@@ -24,7 +24,15 @@
       <div class="reply-top">
         <img class="heard-img" src="{{item.PosterHeadPhoto}}" alt="">
         <div class="text">
-          <h4>{{item.PosterUserName}}</h4>
+          <h4>{{item.PosterUserName}} 
+            <span class="ForumTitle">{{item.PosterUserForumTitle.ForumTitle}}</span> 
+            <span class="PosterBadges" *ngFor="let data of item.PosterBadges" >
+              <img src="{{data.BadgeIcon}}" alt="">
+              <span class="PosterBadges-BadgeName">
+                  {{data.BadgeName}}
+              </span>
+            </span>  
+          </h4>
           <p>{{item._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">
