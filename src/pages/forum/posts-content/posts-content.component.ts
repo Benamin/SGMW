@@ -66,14 +66,13 @@ export class PostsContentComponent implements OnInit {
   showViewReply(data) {
     this.navCtrl.push(ViewReplyComponent,{data:data,lidata:this.lidata});
   }
-
-  forum_post_publish() {
-    // this.lidata.Id='C1F48775-C0EE-4A32-87BB-016D7D4C5F08';
+  loading
+  async forum_post_publish() {
     console.log('查看帖子详情');
-      let loading = this.loadCtrl.create({
+      this.loading = this.loadCtrl.create({
         content:''
       });
-      loading.present();
+      this.loading.present();
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
       console.log(res);
       let element = res.data;
@@ -89,10 +88,10 @@ export class PostsContentComponent implements OnInit {
       this.dataCon['is_like'] = false;
       this.dataCon['is_guanzhu'] = false;
       this.dataCon['is_collect'] = false;
-      this.is_like(this.dataCon);
-      this.is_guanzhu(this.dataCon);
-      this.is_collect(this.dataCon);
-      loading.dismiss();
+      const p= Promise.all([this.is_like(this.dataCon),this.is_guanzhu(this.dataCon),this.is_collect(this.dataCon)]);
+      p.then(res => {
+        this.loading.dismiss();
+      });
     });
   }
 
@@ -112,22 +111,42 @@ export class PostsContentComponent implements OnInit {
           }
         });
       }
-      loading.dismiss();
+      // GetForumInfoGetMyInfo
+      this.dataCon['Replys'].forEach(time => {
+
+      });
+    //   const data = {
+    //     pageSize: this.page.pageSize,
+    //     page: this.page.page,
+    //     TopicType: this.TopicType,   //teacher  course
+    //     topicID: this.topicID
+    // };
+    // this.serve.GeECommentGetComment(data).subscribe(res => {
+      
+    // })
+
+      this.dataCon['is_like'] = false;
+      this.dataCon['is_guanzhu'] = false;
+      this.dataCon['is_collect'] = false;
+      const p= Promise.all([this.is_like(this.dataCon),this.is_guanzhu(this.dataCon),this.is_collect(this.dataCon)]);
+      p.then(res => {
+        loading.dismiss();
+      });
     });
   }
 
-  is_like(data) {
-    this.serve.forum_post_like(data.Id).subscribe((res: any) => {
+  async is_like(data) {
+    await  this.serve.forum_post_like(data.Id).subscribe((res: any) => {
       if(res.code==200){
-        this.serve.forum_post_cancellike(data.Id).subscribe((res: any) => {});
+        this.serve.forum_post_cancellike(data.Id);
       }else if(res.code==300){
         data['is_like']=true;
       }
     });
   }
 
-  is_guanzhu(data){
-    this.serve.follow(data.Id).subscribe((res: any) => {
+  async is_guanzhu(data){
+    await this.serve.follow(data.Id).subscribe((res: any) => {
       if(res.code==200){
         this.serve.cancelfollow(data.Id).subscribe((res: any) => {});
       }else if(res.code==300){
@@ -136,8 +155,8 @@ export class PostsContentComponent implements OnInit {
     });
   }
 
-  is_collect(data){  // 收藏
-    this.serve.favorites(data.Id).subscribe((res: any) => {
+  async is_collect(data){  // 收藏
+    await this.serve.favorites(data.Id).subscribe((res: any) => {
       if(res.code==200){
         this.serve.cancelfavorites(data.Id).subscribe((res: any) => {});
       }else if(res.code==300){
