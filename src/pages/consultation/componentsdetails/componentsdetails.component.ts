@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ElementRef } from '@angular/core';
 import { NavParams, NavController, LoadingController } from "ionic-angular";
 import { ConsultationService } from '../consultation.service';
 
@@ -16,6 +16,7 @@ export class Componentsdetails {
     private serve: ConsultationService,
     private navCtrl: NavController,
     private loadCtrl: LoadingController,
+    private el:ElementRef
     ) {
   }
   ngOnInit(): void {
@@ -43,10 +44,13 @@ export class Componentsdetails {
           item.ReleaseTime=item.ReleaseTime.slice(0,16);
         });
 
+    
         this.RelationArr = res1.data;
         this.data = res2.data;
         this.data.ReleaseTime=this.data.ReleaseTime.replace('T',' ');
         this.data.ReleaseTime=this.data.ReleaseTime.slice(0,16);
+        console.log(this.el.nativeElement);
+        this.el.nativeElement.querySelector('.inner-html').innerHTML=this.data.Text;
         loading.dismiss();
         setTimeout(() => {
           // let innerHtml=document.getElementById('innerHtml');

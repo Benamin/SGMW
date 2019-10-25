@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef } from '@angular/core';
 import { NavParams, NavController,LoadingController} from "ionic-angular";
 import {numberOneService} from '../numberOne.service';
 import {InAppBrowser} from "@ionic-native/in-app-browser";
@@ -17,7 +17,8 @@ export class NumberOneDetailsComponent implements OnInit {
     private serve :numberOneService,
     public navCtrl: NavController,
     private loadCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private el:ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +56,7 @@ ionViewDidEnter() {
 
         this.data=res2.data;
         this.RelationArr=res1.data;
+        this.el.nativeElement.querySelector('.inner-html').innerHTML=this.data.Text;
 
         loading.dismiss();
         setTimeout(() => {
