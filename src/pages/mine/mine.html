@@ -26,7 +26,12 @@
                         <span *ngIf="userInfo?.TitleInfo?.ForumTitle" class="forumTitle">{{userInfo?.TitleInfo?.ForumTitle}}</span>
                         <span *ngIf="userInfo?.TitleInfo?.Credit" class="credit">积分：{{userInfo?.TitleInfo?.Credit}}</span>
                     </p>
-                    <p></p>
+                    <p class="badge">
+                        <span *ngFor="let badge of userInfo?.Badges">
+                            <img [src]="badge.BadgeIcon">
+                            <span>{{badge.BadgeName}}</span>
+                        </span>
+                    </p>
                 </div>
             </div>
             <div class="info-item item-type">

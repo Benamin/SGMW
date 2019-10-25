@@ -4,9 +4,11 @@ page-mine {
     background-color: #343435;
     position: relative;
   }
-  .logo{
+
+  .logo {
     text-align: center;
-    img{
+
+    img {
       width: 50%;
     }
   }
@@ -21,78 +23,90 @@ page-mine {
     height: 90%;
     background-color: #fff;
     border-radius: 6px;
-    padding:15px 20px;
+    padding: 15px 20px;
   }
 
-  .info-item{
+  .info-item {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    > div:nth-child(2n +1){
+    > div:nth-child(2n +1) {
       width: 25%;
     }
-    > div:nth-child(2n){
+
+    > div:nth-child(2n) {
       width: 25%;
       // padding-left: 10px;
     }
-    .info-name{
+
+    .info-name {
       flex: 1;
-      p:first-child{
+
+      p:first-child {
         font-weight: bold;
         font-size: 20px;
         display: flex;
         align-items: center;
       }
-      .forumTitle{
-        border-radius:4px;
-        border:1px solid rgba(235,192,68,1);
-        font-size:12px;
-        font-family:PingFangSC-Semibold,PingFang SC;
-        font-weight:600;
-        color:rgba(235,192,68,1);
-        line-height:14px;
+
+      .forumTitle {
+        border-radius: 4px;
+        border: 1px solid rgba(235, 192, 68, 1);
+        font-size: 12px;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        color: rgba(235, 192, 68, 1);
+        line-height: 14px;
         display: inline-block;
         transform: scale(0.8);
         margin: 0 10px;
         padding: 2px 4px;
       }
-      .credit{
-        font-size:13px;
-        font-family:PingFangSC-Regular,PingFang SC;
-        font-weight:400;
-        color:rgba(0,0,0,1);
-        line-height:18px;
+
+      .credit {
+        font-size: 13px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 1);
+        line-height: 18px;
       }
     }
-    .info-position{
+
+    .info-position {
       font-size: 12px;
-      a{
+
+      a {
         color: #333333;
-        background-image: linear-gradient(to right , #feca46, #fee6a3);
+        background-image: linear-gradient(to right, #feca46, #fee6a3);
         padding: 4px 5px;
         border-radius: 4px;
       }
-      img{
+
+      img {
         max-width: 100%;
         vertical-align: sub;
         margin-right: 5px;
       }
     }
   }
-  .item-type{
+
+  .item-type {
     text-align: center;
-    > div > p:first-child{
+
+    > div > p:first-child {
       font-size: 4rem;
       font-weight: 400;
       color: #333333;
     }
-    > div > p:last-child{
-      font-size:12px;
+
+    > div > p:last-child {
+      font-size: 12px;
       color: #999999;
     }
   }
-  .info-item + .info-item{
+
+  .info-item + .info-item {
     margin-top: 10px;
   }
 
@@ -108,9 +122,11 @@ page-mine {
     align-items: center;
     justify-content: center;
     padding: 15px;
-    img{
+
+    img {
       width: 20px;
     }
+
     > div:nth-child(2n +1) {
       display: flex;
       align-items: center;
@@ -121,12 +137,14 @@ page-mine {
     > div:nth-child(2n) {
       width: 80%;
       padding-left: 10px;
-      span{
+
+      span {
         color: #C4C4C4;
         letter-spacing: 1px;
       }
     }
-    .right{
+
+    .right {
       font-size: 1.6rem;
       color: #999999;
       height: 20px;
@@ -136,18 +154,19 @@ page-mine {
   .item + .item {
     border-top: 0.1rem solid #e3e3e3;
   }
-  .mask1{
-    display:inline-block;
-    position:relative;
-    width:4rem;
-    height:4rem;
-    overflow:hidden;
-    border-radius:50%;
-  }
-  .img3{
-    width:auto;
-    height:100%;
-    //margin-left:0;
+
+  .mask1 {
+    display: inline-block;
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: 50%;
   }
 
+  .img3 {
+    width: auto;
+    height: 100%;
+    //margin-left:0;
+  }
 }

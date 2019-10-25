@@ -169,7 +169,7 @@ export class CourseDetailPage {
     //课程评价
     getCommentList() {
         const data1 = {
-            pageSize: 1,
+            pageSize: 5,
             page: 1,
             TopicType: 'teacher',   //teacher  course
             topicID: this.product.detail.Teachers[0].UserID,
@@ -183,7 +183,7 @@ export class CourseDetailPage {
         );
 
         const data2 = {
-            pageSize: 1,
+            pageSize: 5,
             page: 1,
             TopicType: 'course',   //teacher  course
             topicID: this.product.detail.PrId
@@ -197,7 +197,7 @@ export class CourseDetailPage {
         );
 
         const data3 = {
-            pageSize: 1,
+            pageSize: 5,
             page: 1,
             TopicType: 'talk',   //teacher  course
             topicID: this.product.detail.PrId

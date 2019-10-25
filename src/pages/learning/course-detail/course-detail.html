@@ -26,7 +26,7 @@
                         立即学习
                     </div>
                 </div>
-                <div class="course-desc" style="margin: 30px auto;">
+                <div class="course-desc" style="margin: 15px auto;">
                     <span>学习截止:
                         {{product.detail?.EndTime | date:'yyyy-MM-dd'}}
                     </span>
@@ -254,29 +254,6 @@
         </ng-container>
     </ion-slides>
 </ion-content>
-
-<ion-footer class="course-footer" *ngIf="showFooter">
-    <ion-toolbar tappable *ngIf="!product.detail?.IsBuy" (click)="sign()">
-        <ion-buttons tappable>立即报名</ion-buttons>
-    </ion-toolbar>
-    <ion-toolbar tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100" (click)="studyNow()">
-        <ion-buttons tappable>回顾{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}</ion-buttons>
-    </ion-toolbar>
-    <ion-toolbar tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100" (click)="studyNow()">
-        <ion-buttons tappable>立即学习</ion-buttons>
-    </ion-toolbar>
-    <ion-toolbar tappable *ngIf="!product.detail?.IsCollection" (click)="collection()">
-        <ion-buttons>收藏</ion-buttons>
-    </ion-toolbar>
-
-    <ion-toolbar tappable *ngIf="product.detail?.IsCollection" (click)="cancleCollection()">
-        <ion-buttons class="collectionDone">
-            <ion-icon style="vertical-align: middle" name="heart"></ion-icon>
-            已收藏
-        </ion-buttons>
-    </ion-toolbar>
-
-</ion-footer>
 
 <div *ngIf="signObj.isSign" class="sign">
     <img src="./assets/imgs/course/sign-success.png">

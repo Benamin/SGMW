@@ -13,6 +13,7 @@ import {GetRequestService} from "../secret/getRequest.service";
 import {JunKe_client_id, NoUserMsg} from "./app.constants";
 import {AppVersion} from "@ionic-native/app-version";
 import {AppUpdateService} from "../core/appUpdate.service";
+import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 
 @Component({
     templateUrl: 'app.html'
@@ -39,10 +40,13 @@ export class MyApp {
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService, private appVersion: AppVersion,
                 private appUpdate: AppUpdateService,
+                private mobileAccess: MobileAccessibility,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
 
+            //app字体不跟随手机字体大小变化
+            this.mobileAccess.usePreferredTextZoom(false);
             this.splashScreen.show();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
@@ -62,11 +66,11 @@ export class MyApp {
                     timer(3000).subscribe(() => {
                         this.showSplash = false;
                     });
-                    timer(4000).subscribe(() => this.checkVersion())
                 } else {
                     this.splashScreen.hide();
                     this.showSplash = false;
                 }
+                timer(4000).subscribe(() => this.checkVersion())
                 this.checkAuth();
             }
         )

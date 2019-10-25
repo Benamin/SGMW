@@ -26,11 +26,6 @@
                             <span>{{item.EName}}</span>
                         </p>
                     </div>
-                    <div *ngIf="page.StudyState == 3" class="test-leave">
-                        <img *ngIf="item.TotalScore < item.PaperScore *0.6" src="./assets/imgs/test/bad@2x.png">
-                        <img *ngIf="item.PaperScore *0.59 < item.TotalScore && item.TotalScore < item.PaperScore *0.9" src="./assets/imgs/test/gofighting@2x.png">
-                        <img *ngIf="item.PaperScore *0.89 < item.TotalScore" src="./assets/imgs/test/best@2x.png">
-                    </div>
                 </div>
                 <p *ngIf="page.StudyState != 1" class="split"></p>
                 <p *ngIf="page.StudyState == 2">
@@ -39,10 +34,7 @@
                 </p>
                 <p *ngIf="page.StudyState == 3">
                     <span class="examScore">
-                        <img src="./assets/imgs/mine/exam-submit.png">考试得分：
-                        <ng-container *ngIf="item.PaperScore *0.59 < item.TotalScore">{{item.TotalScore}}</ng-container>
-                        <ng-container *ngIf="item.TotalScore < item.PaperScore *0.6">
-                            <span style="color: #C3190F">{{item.TotalScore}}/不及格</span></ng-container>
+                        <img src="./assets/imgs/mine/exam-submit.png">已提交
                     </span>
                     <span class="examTime">提交时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
                 </p>

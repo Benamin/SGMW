@@ -54,7 +54,10 @@ export class DoExamPage {
         this.mineSer.homeworkInit(data).subscribe(
             (res) => {
                 this.exam.qs = res.data.qs;
-                this.exam.qs.forEach(e => e.QAnswer = e.QAnswer ? e.QAnswer.replace(',', '') : "");
+                this.exam.qs.forEach(e =>{
+                    e.QAnswer = e.QAnswer ? e.QAnswer.split(',').join('') : "";
+                    this.doneTotal ++;
+                });
                 this.exam.stuScore = res.data.stuScore;
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
@@ -103,7 +106,7 @@ export class DoExamPage {
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.replace(',', '').split("").sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').join("").sort().join(',');
             });
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
@@ -127,7 +130,7 @@ export class DoExamPage {
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) if (e.QType == 2) e.QAnswer = e.QAnswer.replace(',', '').split("").sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').join("").sort().join(',');
             });
             this.mineSer.saveStuExams(this.exam).subscribe(
                 (res) => {

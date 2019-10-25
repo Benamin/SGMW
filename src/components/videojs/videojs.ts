@@ -1,5 +1,7 @@
 import {Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
 import {timer} from "rxjs/observable/timer";
+import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
+import {ScreenOrientation} from "@ionic-native/screen-orientation";
 
 declare let videojs: any;
 
@@ -7,20 +9,35 @@ declare let videojs: any;
     selector: 'videojs',
     templateUrl: 'videojs.html'
 })
-export class VideojsComponent implements OnDestroy{
+export class VideojsComponent implements OnDestroy {
     @ViewChild('example_video') example_video: ElementRef;
 
     videoPoster: string;
     videoSrc: string;
     video;
 
-    constructor() {
+    constructor(private mobileAccess: MobileAccessibility,
+                private screenOrientation: ScreenOrientation) {
         timer(100).subscribe(() => {
             this.video = videojs("#example_video", {
                 muted: false,
                 controls: true,
                 autoplay: true
-            },(e)=>{
+            }, (event) => {
+                this.screenOrientation.onChange().subscribe(
+                    (res) => {
+                        console.log(res);
+                    }
+                );
+                this.video.on('fullscreenchange', () => {
+                    if (this.video.isFullscreen()) {  //全屏
+                        this.screenOrientation.lock('landscape');  //横屏
+                    }
+                    if (!this.video.isFullscreen()) {
+                        this.screenOrientation.lock('portrait');  //锁定竖屏
+                    }
+                    console.log(this.video.isFullscreen());
+                })
                 console.log('videojs播放器初始化成功')
             })
         });

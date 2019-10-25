@@ -54,6 +54,8 @@ import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
 import {DownloadFileService} from "../core/downloadFile.service";
 import {CourseDetailPage} from "../pages/learning/course-detail/course-detail";
+import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
+import {ScreenOrientation} from "@ionic-native/screen-orientation";
 
 
 @NgModule({
@@ -78,7 +80,7 @@ import {CourseDetailPage} from "../pages/learning/course-detail/course-detail";
                 mode: 'ios',   //安卓和IOS的样式以IOS样式为准
                 modalEnter: 'modal-slide-in',
                 modalLeave: 'modal-slide-out',
-                swipeBackEnabled: false
+                swipeBackEnabled: true
             },
         ),
         ComponentsModule,
@@ -108,6 +110,8 @@ import {CourseDetailPage} from "../pages/learning/course-detail/course-detail";
             File,
             FileTransfer,
             FileTransfer,
+            MobileAccessibility,
+            ScreenOrientation,
             TabService,
             LoginService,
             HomeService,

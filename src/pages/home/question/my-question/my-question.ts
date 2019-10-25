@@ -29,7 +29,9 @@ export class MyQuestion {
     page = {
         StudyState: 1,
         EGroup: 1,  /// 1-普通问卷 2-投票
-        load: false
+        load: false,
+        Page:1,
+        PageSize:10
     };
 
     examList = [];
@@ -57,18 +59,22 @@ export class MyQuestion {
     }
 
     //考试列表
+    //EType  /// 1-等级考试 2-普通考试 3-课堂练习（预习作业）4-课后作业 5-调查问卷
     getList() {
         const loading = this.loadCtrl.create({
             content: ''
         });
         loading.present();
         const data = {
-            StudyState: this.page.StudyState,
-            EGroup: this.page.EGroup,  /// 1-普通问卷 2-投票
+            StudyState: [this.page.StudyState],
+            EType:[5],
+            EGroup: [this.page.EGroup],  /// 1-普通问卷 2-投票
+            Page:this.page.Page,
+            PageSize:this.page.PageSize
         };
-        this.homeSer.searchQnaListForStu(data).subscribe(
+        this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
-                this.examList = res.data.Views;
+                this.examList = res.data.Items;
                 this.page.load = true;
                 loading.dismiss();
             }
@@ -84,34 +90,8 @@ export class MyQuestion {
         if (this.page.StudyState == 3) {
             this.navCtrl.push(LookQuestion, {item: item});
         } else {
-            this.checkTesttime(item);
+            this.navCtrl.push(DoQuestionPage, {item: item});
         }
     }
-
-    //考试有效期校验
-    checkTesttime(item) {
-        const loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
-        const ExamBegin = new Date(this.datePipe.transform(item.ExamBegin, 'yyyy/MM/dd HH:mm:ss')).getTime();
-        const ExamEnd = new Date(this.datePipe.transform(item.ExamEnd, 'yyyy/MM/dd HH:mm:ss')).getTime();
-        this.homeSer.getSysDateTime().subscribe(
-            (res) => {
-                loading.dismiss();
-                const sysDate = new Date(res.data).getTime();
-                if (sysDate < ExamBegin) {
-                    this.commonSer.toast('考试未开始');
-                } else if (sysDate > ExamEnd && this.page.StudyState == 1) {
-                    this.commonSer.toast('当前时间不可考试');
-                } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
-                    this.navCtrl.push(DoQuestionPage, {item: item});  //未开始
-                } else if (this.page.StudyState == 2) {                    //未完成
-                    this.navCtrl.push(DoQuestionPage, {item: item});
-                }
-            }
-        )
-    }
-
 
 }

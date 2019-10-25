@@ -16,12 +16,12 @@ export class DoQuestionPage {
     @ViewChild(Slides) slides: Slides;
     @ViewChild(Navbar) navbar: Navbar;
 
+    //学生的答案字段是StuAnswer   学生状态为3的时候，QAnswer才会有数据
     index = 0;  //当前题目的序号
     exam = {
-        qs: [],
-        stuScore: null
+        QnAInfos: [],
+        ExamInfo: [],   //2-保存 3-提交
     };
-    paper;  //试卷信息
     doneTotal = 0;
     opTips;
     score = {
@@ -47,91 +47,46 @@ export class DoQuestionPage {
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            this.commonSer.alert("考试过程中退出即视为提交试卷，无法重考", (res) => {
-                this.forceSubmit();
-            })
+            this.submit(2);
         };
     }
 
     ionViewDidEnter() {
         const loading = this.loadCtrl.create({
-            content: '考试加载中...'
+            content: '问卷加载中...'
         });
         loading.present();
         const item = this.navParams.get('item');
         const data = {
-            fid: item.ID
+            Eid: item.Eid
         };
-        this.mineSer.homeworkInit(data).subscribe(
+        this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
-                this.exam.qs = res.data.qs;
-                this.paper = res.data.paper;
+                this.exam.QnAInfos = res.data.QnAInfos;
+                this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;
-                this.exam.qs.forEach(e => e.QAnswer = e.QAnswer ? e.QAnswer : "");
-                this.exam.stuScore = res.data.stuScore;
-                this.slideChanged();
+                this.exam.QnAInfos.forEach(e => {
+                    if (e.StuAnswer != "") {
+                        e.StuAnswer = e.StuAnswer.split(',').join('');
+                        this.doneTotal++;
+                    }
+                });
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
                 });
-                if (this.paper.PaperTimer > 0) {
-                    this.paperLeave(item.ID);
-                }
             }
         );
 
 
     }
 
-    //查询考试剩余时间
-    paperLeave(id) {
-        const data = {
-            fid: id
-        };
-        this.homeSer.getStuSurplu(data).subscribe(
-            (res) => {
-                const time = res.data / 1000;
-                this.totalTime = Math.floor(time);
-                this.countTime();
-            }
-        )
-    }
-
-    //倒计时
-    countTime() {
-        let totalTime = this.totalTime;
-        this.clock = window.setInterval(() => {
-            totalTime--;
-            this.useTime++;
-
-            let hourse = <any>(Math.floor(totalTime / 3600)).toString();
-            hourse = (hourse.length > 1 ? hourse : '0' + hourse);
-            let minutes = <any>Math.floor((totalTime - hourse * 3600) / 60).toString();
-            minutes = minutes % 60 === 0 ? 0 : minutes;
-            minutes = (minutes.length > 1 ? minutes : '0' + minutes);
-            let seconds = Math.floor(totalTime % 60).toString();
-            seconds = (seconds.length > 1 ? seconds : '0' + seconds);
-            if (hourse == "00") {
-                this.timeText = minutes + ":" + seconds;
-            } else {
-                this.timeText = hourse + ":" + minutes + ":" + seconds;
-            }
-
-            if (totalTime < 0) {
-                this.useTime = this.totalTime;
-                window.clearInterval(this.clock);
-                this.timeText = "00:00:00";
-                this.forceSubmit();
-            }
-        }, 1000);
-    }
-
     //题目完成数量
     slideChanged() {
         this.index = this.slides.realIndex;
         this.doneTotal = 0;
-        this.exam.qs.forEach(e => {
-                if (e.QAnswer.length > 0) {
+        this.exam.QnAInfos.forEach(e => {
+                if (e.StuAnswer.length > 0) {
                     this.doneTotal++;
                 }
             }
@@ -140,64 +95,46 @@ export class DoQuestionPage {
 
     //多选
     mutiSelect(i, option) {
-        if (this.exam.qs[i].QAnswer && this.exam.qs[i].QAnswer.includes(option)) {
-            this.exam.qs[i].QAnswer = this.exam.qs[i].QAnswer.replace(option, '');
+        if (this.exam.QnAInfos[i].StuAnswer && this.exam.QnAInfos[i].StuAnswer.includes(option)) {
+            this.exam.QnAInfos[i].StuAnswer = this.exam.QnAInfos[i].StuAnswer.replace(option, '');
         } else {
-            this.exam.qs[i].QAnswer += option + '';
+            this.exam.QnAInfos[i].StuAnswer += option + '';
         }
     }
 
-    //暂存提交
-    saveStuExams() {
-        this.commonSer.alert('确定暂存答案?', () => {
-            const loading = this.loadCtrl.create({
-                content: '提交中...'
-            });
-            loading.present();
-            this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
-            });
-            this.mineSer.saveStuExams(this.exam).subscribe(
-                (res) => {
-                    loading.dismiss();
-                    if (res.code == 200) {
-                        this.navCtrl.pop();
-                        this.commonSer.toast('已暂存');
-                    } else {
-                        this.commonSer.toast(res.Message);
-                    }
-                }
-            )
-        });
-    }
-
     //确认提交
-    submit() {
+    submit(status) {
         let countDone = 0;
-        this.exam.qs.forEach(e => {
-                if (e.QAnswer.length > 0) {
+        this.exam.QnAInfos.forEach(e => {
+                if (e.StuAnswer.length > 0) {
                     countDone++;
                 }
             }
         );
-        if (countDone < this.exam.qs.length) {
+        if (countDone < this.exam.QnAInfos.length && status == 3) {
             this.score.isDone = true;
             return
         }
-        this.commonSer.alert(`确认提交?`, () => {
+        let msg;
+        if (status == 2) msg = '暂存';
+        if (status == 3) msg = '提交';
+        this.commonSer.alert(`确认${msg}?`, () => {
             const loading = this.loadCtrl.create({
                 content: '提交中...'
             });
             loading.present();
-            this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
+            this.exam.QnAInfos.forEach(e => {
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').join("").sort().join(',');
             });
-            this.mineSer.submitStuExams(this.exam).subscribe(
+            const data = {
+                submitType: status
+            }
+            this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
                     if (res.code == 200) {
-                        this.score.score = res.message;
-                        this.score.show = true;
+                        this.navCtrl.pop();
+                        this.commonSer.toast(`${msg}成功`);
                     } else {
                         this.commonSer.toast(res.Message);
                     }
@@ -206,26 +143,9 @@ export class DoQuestionPage {
         });
     }
 
-    //自动提交
-    forceSubmit() {
-        this.exam.qs.forEach(e => {
-            if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
-        });
-        this.mineSer.submitStuExams(this.exam).subscribe(
-            (res) => {
-                if (res.code == 200) {
-                    this.score.score = res.message;
-                    this.score.show = true;
-                } else {
-                    this.commonSer.toast(res.Message);
-                }
-            }
-        )
-    }
-
     //查看题目
     moreChoice() {
-        let modal = this.modalCtrl.create(QIndexComponent, {list: this.exam.qs},
+        let modal = this.modalCtrl.create(QIndexComponent, {list: this.exam.QnAInfos},
             {
                 enterAnimation: 'modal-from-right-enter',
                 leaveAnimation: 'modal-from-right-leave'
@@ -260,5 +180,4 @@ export class DoQuestionPage {
     closeDone(e) {
         this.score.isDone = false;
     }
-
 }
