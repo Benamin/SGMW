@@ -106,7 +106,7 @@ export class DoExamPage {
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').join("").sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').sort().join(',');
             });
             this.mineSer.submitStuExams(this.exam).subscribe(
                 (res) => {
@@ -130,7 +130,7 @@ export class DoExamPage {
             });
             loading.present();
             this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').join("").sort().join(',');
+                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').sort().join(',');
             });
             this.mineSer.saveStuExams(this.exam).subscribe(
                 (res) => {
