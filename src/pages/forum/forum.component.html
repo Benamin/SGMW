@@ -1,60 +1,116 @@
-
 <ion-header class="forum-header">
-    <ion-navbar>
-        <ion-title>论坛</ion-title>
-    </ion-navbar>
-      <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
+  <ion-navbar>
+    <ion-title>论坛</ion-title>
+  </ion-navbar>
+  <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
-<ion-content >
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
-        </ion-refresher-content>
-    </ion-refresher>
-  <div class="history" *ngIf="ForumHistory.length>0">
-    <div class="left-bg">
-      <h3>最近浏览</h3>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="navul">
+    <div class="navli" [ngClass]="{'act': navli=='热帖'}" tappable (click)="switchInformation('热帖')">
+      热帖
     </div>
-    <div class="list-con">
-        <div class="history-list" tappable (click)="goPostlist(item)" *ngFor="let item of ForumHistory">
-            <div class="img-div">
-              <img [src]="item.CoverImage" alt="">
-            </div>
-            <div class='text'>
-                <h4>{{item.Name}}</h4>
-                <p>[{{item.PostCount}}条帖子]</p>
-            </div>
-        </div>
+    <div class="navli" [ngClass]="{'act': navli=='板块'}" tappable (click)="switchInformation('板块')">
+      板块
     </div>
-    
   </div>
-  <div class="more-com">
+  <div *ngIf="navli=='热帖'">
+    <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
+      <div class="post-introduction-top">
+        <img src="{{item.PosterUserHeadPhoto}}" alt="">
+        <div class="name nowrap-1">{{item.PosterUserName}}</div>
+        <div class="oldDate">{{item.PostRelativeTime}}</div>
+      </div>
+      <div class="post-introduction-con">
+        <p class="nowrap-3">{{item.Title}}</p>
+        <div class="img-div img1" *ngIf="item.Images.length==1"
+          [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
+          style="background-size: cover;background: no-repeat center;">
+
+        </div>
+        <div class="img-div img2" *ngIf="item.Images.length==2">
+          <div *ngFor="let img of item.Images">
+            <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
+              [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+            </div>
+          </div>
+        </div>
+        <div class="img-div img3" *ngIf="item.Images.length>2">
+          <div *ngFor="let img of item.Images.slice(0,3)">
+            <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
+              [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="post-introduction-buttom">
+        <span class="nowrap-1">
+          {{item.TopicPlateName}}
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+          {{item.ReplyCount}}
+        </span>
+        <span>
+          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+          {{item.LikeCount}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="navli=='板块'">
+    <div class="history" *ngIf="ForumHistory.length>0">
+      <div class="left-bg">
+        <h3>最近浏览</h3>
+      </div>
+      <div class="list-con">
+        <div class="history-list" tappable (click)="goPostlist(item)" *ngFor="let item of ForumHistory">
+          <div class="img-div">
+            <img [src]="item.CoverImage" alt="">
+          </div>
+          <div class='text'>
+            <h4>{{item.Name}}</h4>
+            <p>[{{item.PostCount}}条帖子]</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="more-com">
       <div class="left-bg">
         <h3 class="more">全部专区</h3>
       </div>
       <div class="con-div" *ngFor="let item of forumLIst" tappable (click)="goPostlist(item)">
-          <div class="list">
-              <div class="img-div">
-                  <img [src]="item.CoverImage" alt="">
-              </div>
-              <div class="text">
-                <div class="number-text">
-                  <span class="text-l" style="-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{item.Name}}</span>
-                  <span class="text-r">[{{item.PostCount}}条帖子]</span>
-                </div>
-                <p style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
-                   {{item.Description}}
-                </p>
-              </div>
+        <div class="list">
+          <div class="img-div">
+            <img [src]="item.CoverImage" alt="">
           </div>
-      </div>  
+          <div class="text">
+            <div class="number-text">
+              <span class="text-l" style="-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{item.Name}}</span>
+              <span class="text-r">[{{item.PostCount}}条帖子]</span>
+            </div>
+            <p style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
+              {{item.Description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
+
   <ion-list text-center style="margin-top: 10rem" *ngIf="no_list ">
     <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
     <p text-center style="color: #666666;font-size: 16px">
-        暂无数据
+      暂无数据
     </p>
   </ion-list>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
-</ion-infinite-scroll>
+
 </ion-content>

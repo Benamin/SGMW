@@ -25,28 +25,27 @@ export class ForumPage implements OnInit {
     total: 0,
   }
   ForumHistory=[];
+  navli :'热帖'|'板块'='热帖';
 
   constructor(public navCtrl: NavController,private serve:ForumService,private storage: Storage,private loadCtrl: LoadingController) {
   }
 
   ngOnInit() {
-    // this.forum_topicplate_search();
-    // this.getHistory();
   }
   ionViewDidEnter(){
     this.forumLIst=[];
     this.pageDate.pageIndex=1;
-    this.forum_topicplate_search();
-    this.getHistory();
+    this.initData();
   }
+  
   // 前往 评论列表
   showViewReply(){
     this.navCtrl.push(ViewReplyComponent);
   }
 
   // 前往帖子详情
-  goPostsContent() {
-    this.navCtrl.push(PostsContentComponent);
+  goPostsContent(data) {
+    this.navCtrl.push(PostsContentComponent,{data:data});
   }
 
   // 新增帖子
@@ -56,10 +55,17 @@ export class ForumPage implements OnInit {
 
   // 前往发帖列表
   goPostlist(data) {
-
     this.navCtrl.push(PostlistComponent,{data:data});
   }
+  initData(){
+    if(this.navli=='板块'){
+      this.forum_topicplate_search();
+      this.getHistory();
+    }else{
+      this.getLIistData();
+    }
 
+  }
   doInfinite(e){
     console.log('加载');
     this.pageDate.pageIndex++;
@@ -120,8 +126,27 @@ export class ForumPage implements OnInit {
   goToSearch() {
     this.navCtrl.push(SearchPage,{type:'论坛'});
   }
+  
+  switchInformation(text){
+    this.navli=text;
+    this.forumLIst=[];
+    this.pageDate.pageIndex=1;
+    this.initData();
+  }
 
-
-
+  getLIistData(){
+    let loading = this.loadCtrl.create({
+      content: '加载中...'
+    });
+    loading.present();
+    this.serve.GetPostSearchhotpost().subscribe((res:any) => {
+      loading.dismiss();
+      if(res.data){
+        this.forumLIst=res.data.UnTopPosts.Items;
+        this.no_list=this.forumLIst.length>0?false:true;
+      }
+      console.log(res);
+    });
+  }
 
 }

@@ -26,7 +26,7 @@ import {ForumPage} from '../forum/forum.component';
 import {Componentsdetails} from '../consultation/componentsdetails/componentsdetails.component';
 import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
 import {MyQuestion} from "./question/my-question/my-question";
-
+import {RankingComponent} from "../ranking/ranking.component";
 
 @Component({
     selector: 'page-home',
@@ -303,6 +303,11 @@ export class HomePage {
     // 前往状元说
     goNumberOne() {
         this.navCtrl.push(NumberOne);
+    }
+
+    // 前往排行榜
+    goRanking() {
+        this.navCtrl.push(RankingComponent);
     }
 
     //前往直播

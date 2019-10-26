@@ -101,9 +101,40 @@ page-posts-content {
                 margin-left: 10px;
 
                 h4 {
+                    display: flex;
                     margin: 0;
                     font-size: 14px;
                     line-height: 17px;
+                    align-items: center;
+                }
+                .ForumTitle{
+                    border-radius: 4px;
+                    border: 1px solid #EBC044;
+                    padding: 4px;
+                    font-size: 10px;
+                    padding-top: 3px;
+                    transform: scale(0.7);
+                    color: #EBC044;
+                    font-size: 13px;
+                }
+                .PosterBadges{
+                    transform: scale(0.8) translate(-10px, 0px);
+                    display: flex;
+                    align-items: center;
+                    background: #ecc551;
+                    padding: 0px 0;
+                    padding-right: 6px;
+                    margin-left: 10px;
+                    border-top-right-radius: 9px;
+                    border-bottom-right-radius: 9px;
+                    height: 22px;
+                    img{
+                        transform: translate(-50%, 0px);
+                        max-height: 30px;
+                    }
+                    .PosterBadges-BadgeName{
+                        margin-left: -10px;
+                    }
                 }
 
                 p {

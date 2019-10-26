@@ -1,0 +1,126 @@
+<ion-header class="forum-header">
+  <ion-navbar>
+    <ion-title>论坛</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="navul">
+    <div class="navli" [ngClass]="{'act': navli=='TeacherViewModel'}" tappable (click)="switchInformation('TeacherViewModel')">
+      讲师榜
+    </div>
+    <div class="navli" [ngClass]="{'act': navli=='StudentModel'}" tappable (click)="switchInformation('StudentModel')">
+      学员榜
+    </div>
+    <!-- <div class="navli" [ngClass]="{'act': navli=='examination'}" tappable (click)="switchInformation('examination')">
+      考试榜
+    </div> -->
+  </div>
+  <div class="test-paper" *ngIf="navli=='examination'">
+    <p class="nowrap-1">
+      汽车智能驾控的发展产品线规划-技术路径测试技术路径测试技术路径测试
+    </p>
+    <div class="test-paper-label">
+      <span>
+        产品体验 - 新宝骏 - R-S5
+      </span>
+      <span class='test-paper-results'>
+        满分：100
+      </span>
+    </div>
+  </div>
+  <div class="list-type">
+    <div [ngClass]="{'act-div': listTypeName[navli].key==item.key}" tappable (click)="switchInListType(item)"
+      *ngFor="let item of navlistType">
+      {{item.name}}
+    </div>
+  </div>
+  <div *ngIf="!no_list"  class="podium">
+    <div class="podium-pg">
+      <div class="phb_2">
+          <div class="name-div">
+              <img class="user-head" src="{{phb_2?.HeadPhoto}}" alt="">
+              <div class="name">{{phb_2?.UserName}}</div>
+              <div class="user-label" *ngIf="phb_2?.ForumTitle">
+                {{phb_2?.ForumTitle}}
+              </div>
+              <span class="user-grade stars" *ngIf="phb_2?.ScoreAvg">
+                <span class="img-star">
+                    <span class="icon iconfont " *ngFor="let s of phb_2.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
+                </span>
+                <span class="scoreavg-label">
+                  {{phb_2?.ScoreAvg}}
+                </span>
+              </span>
+            </div>
+          <img class="phb_2bg" src="assets/imgs/ranking/phb_2@2x.png" >
+      </div>
+      <div class="phb_1">
+        <div class="name-div">
+          <img class="user-head" src="{{phb_1?.HeadPhoto}}" alt="">
+          <div class="name">{{phb_1?.UserName}}</div>
+          <div class="user-label" *ngIf="phb_2?.ForumTitle" >
+            {{phb_1?.ForumTitle}}
+          </div>
+          <span class="user-grade stars" *ngIf="phb_1?.ScoreAvg">
+            <span class="img-star">
+                <span class="icon iconfont " *ngFor="let s of phb_1.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
+            </span>
+            <span class="scoreavg-label">
+              {{phb_1?.ScoreAvg}}
+            </span>
+          </span>
+        </div>
+        <img  class="phb_1bg" src="assets/imgs/ranking/phb_1@2x.png" alt="">
+      </div>
+      <div class="phb_3">
+          <div class="name-div">
+              <img class="user-head" src="{{phb_3?.HeadPhoto}}" alt="">
+              <div class="name">{{phb_3?.UserName}}</div>
+              <div class="user-label" *ngIf="phb_3?.ForumTitle" >
+                {{phb_3?.ForumTitle}}
+              </div>
+            </div>
+            <span class="user-grade stars" *ngIf="phb_3?.ScoreAvg">
+              <span class="img-star">
+                  <span class="icon iconfont " *ngFor="let s of phb_3.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
+              </span>
+              <span class="scoreavg-label">
+                {{phb_3?.ScoreAvg}}
+              </span>
+            </span>
+          <img  class="phb_3bg" src="assets/imgs/ranking/phb_3@2x.png" alt="">
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!no_list"  style="background: #fff;padding: 0px 22px;">
+    <div class="list-user" *ngFor="let item of dataList;index as i" >
+      <div style="border-top: 1px solid #F1F1F1;">
+      </div>
+        <span class="index">
+          {{i+3}}
+        </span>
+        <img class="user-heard-img" src="{{item?.HeadPhoto}}" alt="">
+        <span class="user-name nowrap-1">
+            {{item?.UserName}}
+        </span>
+        <span class="user-grade" *ngIf="item.ForumTitle" >
+            {{item?.ForumTitle}}
+        </span>
+        <span class="user-grade stars" *ngIf="item?.ScoreAvg">
+          <span class="img-star">
+              <span class="icon iconfont " *ngFor="let s of item.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
+          </span>
+          <span style="padding-left: 5px;">
+            {{item?.ScoreAvg}}
+          </span>
+        </span>
+    </div>
+  </div>
+
+  <ion-list text-center style="margin-top: 10rem" *ngIf="no_list">
+    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+    <p text-center style="color: #666666;font-size: 16px">
+        暂无数据
+    </p>
+</ion-list>
+</ion-content>

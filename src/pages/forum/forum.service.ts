@@ -229,6 +229,11 @@ export class ForumService {
     return this.http.post(SERVER_API_URL + '/EStudentSubscribe/GetSubscribeList', data);
   }
 
+  // 热门帖子
+  GetPostSearchhotpost(data={}){
+    return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
+  }
+
 
 
   // 上传图片

@@ -36,7 +36,7 @@ export class TabsPage {
             index: 1
         },
         {
-            root: NoDevPage,
+            root: ForumPage,
             tabTitle: '论坛',
             tabIconOn: 'custom-forum-on',
             tabIconOff: 'custom-forum-off',

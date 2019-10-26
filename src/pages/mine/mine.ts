@@ -17,6 +17,7 @@ import {CommonService} from "../../core/common.service";
 import {MyForumComponent} from "./my-forum/my-forum.component";
 import {MyFollowsComponent} from './my-follows/my-follows.component';
 import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
+import {MedalComponent} from './medal/medal.component';
 import {MyFilePage} from "./my-file/my-file";
 
 
@@ -106,6 +107,11 @@ export class MinePage {
     //通知中心
     goToNoti() {
         this.navCtrl.push(NotificationPage);
+    }
+    
+    // 设置勋章
+    goMedal(){
+        this.navCtrl.push(MedalComponent);
     }
 
     //下载管理
