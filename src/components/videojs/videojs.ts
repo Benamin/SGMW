@@ -2,6 +2,7 @@ import {Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core'
 import {timer} from "rxjs/observable/timer";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
+import {StatusBar} from "@ionic-native/status-bar";
 
 declare let videojs: any;
 
@@ -17,6 +18,7 @@ export class VideojsComponent implements OnDestroy {
     video;
 
     constructor(private mobileAccess: MobileAccessibility,
+                private statusBar:StatusBar,
                 private screenOrientation: ScreenOrientation) {
         timer(100).subscribe(() => {
             this.video = videojs("#example_video", {
@@ -32,9 +34,11 @@ export class VideojsComponent implements OnDestroy {
                 this.video.on('fullscreenchange', () => {
                     if (this.video.isFullscreen()) {  //全屏
                         this.screenOrientation.lock('landscape');  //横屏
+                        this.statusBar.hide();
                     }
                     if (!this.video.isFullscreen()) {
                         this.screenOrientation.lock('portrait');  //锁定竖屏
+                        this.statusBar.show();
                     }
                     console.log(this.video.isFullscreen());
                 })
