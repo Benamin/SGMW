@@ -1,6 +1,6 @@
 <ion-header class="forum-header">
   <ion-navbar>
-    <ion-title>论坛</ion-title>
+    <ion-title>排行榜</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -43,6 +43,10 @@
               <div class="user-label" *ngIf="phb_2?.ForumTitle">
                 {{phb_2?.ForumTitle}}
               </div>
+              <div class="user-label" *ngIf="phb_2?.FinishCount">
+                {{phb_2?.FinishCount}}
+              </div>
+              
               <span class="user-grade stars" *ngIf="phb_2?.ScoreAvg">
                 <span class="img-star">
                     <span class="icon iconfont " *ngFor="let s of phb_2.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
@@ -61,6 +65,9 @@
           <div class="user-label" *ngIf="phb_2?.ForumTitle" >
             {{phb_1?.ForumTitle}}
           </div>
+          <div class="user-label" *ngIf="phb_1?.FinishCount">
+            {{phb_1?.FinishCount}}
+          </div>
           <span class="user-grade stars" *ngIf="phb_1?.ScoreAvg">
             <span class="img-star">
                 <span class="icon iconfont " *ngFor="let s of phb_1.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
@@ -78,6 +85,9 @@
               <div class="name">{{phb_3?.UserName}}</div>
               <div class="user-label" *ngIf="phb_3?.ForumTitle" >
                 {{phb_3?.ForumTitle}}
+              </div>
+              <div class="user-label" *ngIf="phb_3?.FinishCount">
+                {{phb_3?.FinishCount}}
               </div>
             </div>
             <span class="user-grade stars" *ngIf="phb_3?.ScoreAvg">
@@ -106,6 +116,9 @@
         <span class="user-grade" *ngIf="item.ForumTitle" >
             {{item?.ForumTitle}}
         </span>
+        <span class="user-grade" *ngIf="item.FinishCount" >
+          {{item?.FinishCount}}
+      </span>
         <span class="user-grade stars" *ngIf="item?.ScoreAvg">
           <span class="img-star">
               <span class="icon iconfont " *ngFor="let s of item.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
