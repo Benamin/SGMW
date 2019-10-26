@@ -177,9 +177,9 @@ page-do-exam {
 
   label {
     position: relative;
-    display: inline-block;
-    height: 2rem;
-    line-height: 2rem;
+    height: 24px;
+    display: flex;
+    align-items: center;
 
     input {
       display: none;

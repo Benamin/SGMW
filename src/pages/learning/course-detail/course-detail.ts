@@ -136,7 +136,7 @@ export class CourseDetailPage {
         await this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
-                this.product.chapter.Course.children.forEach(e => e.show = false);
+                this.product.chapter.Course.children.forEach(e => e.show = true);
                 this.f(this.product.chapter.Course.children);
                 this.files.forEach(e => {
                     if (e.PlanStartTime) {
@@ -384,14 +384,30 @@ export class CourseDetailPage {
         )
     }
 
+    //课程详情
+    getCourseDetail(){
+        this.learSer.GetProductById(this.pId).subscribe(
+            (res) => {
+                this.loading.dismiss();
+                this.product.detail = res.data;
+            }
+        );
+    }
+
     //收藏
-    collection() {
+    saveCollection() {
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
         const data = {
             CSID: this.product.detail.PrId
         };
         this.learSer.SaveCollectionByCSID(data).subscribe(
             (res) => {
-                this.ionViewDidEnter();
+                this.getCourseDetail();
                 this.collectionObj.isCollection = true;
                 timer(1000).subscribe(() => this.collectionObj.isCollection = false);
             }
@@ -400,12 +416,91 @@ export class CourseDetailPage {
 
     //取消收藏
     cancleCollection() {
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
         const data = {
             CSID: this.product.detail.PrId
         };
         this.learSer.CancelCollectionByCSID(data).subscribe(
             (res) => {
-                this.ionViewDidEnter();
+                this.getCourseDetail();
+            }
+        )
+    }
+
+    //点赞
+    savePraise(){
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            TopicID:this.product.detail.PrId
+        }
+        this.learnSer.SavePraise(data).subscribe(
+            (res)=>{
+                this.getCourseDetail();
+            }
+        )
+
+    }
+
+    //取消点赞
+    cancelPraise(){
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            TopicID:this.product.detail.PrId
+        }
+        this.learnSer.CancelPraise(data).subscribe(
+            (res)=>{
+                this.getCourseDetail();
+            }
+        )
+    }
+
+    //扔鸡蛋
+    saveHate(){
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            TopicID:this.product.detail.PrId
+        }
+        this.learnSer.SaveHate(data).subscribe(
+            (res)=>{
+                this.getCourseDetail();
+            }
+        )
+    }
+
+    //取消扔鸡蛋
+    cancelHate(){
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            TopicID:this.product.detail.PrId
+        }
+        this.learnSer.CancelHate(data).subscribe(
+            (res)=>{
+                this.getCourseDetail();
             }
         )
     }

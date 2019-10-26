@@ -139,6 +139,36 @@ page-course-detail {
     }
   }
 
+  .last.teacher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Contents {
+      width: 80%;
+      padding-right: 10px;
+    }
+
+    div.Contents:last-child {
+      width: 100%;
+    }
+
+    .item-teacher {
+      img {
+        width: 24px;
+      }
+
+      text-align: center;
+      width: 20%;
+      font-size: 1.2rem;
+      font-family: PingFangSC;
+      font-weight: 400;
+      color: rgba(51, 51, 51, 1);
+      line-height: 20px;
+      border-left: 1px solid #d8d8d8;
+    }
+  }
+
   //课程评价 //教师评价
   .course-comment, .teacher-comment {
     .no-comment {
@@ -194,6 +224,7 @@ page-course-detail {
     background-color: #fff;
 
     .comment-item {
+      padding: 20px 0;
 
       .first {
         display: flex;
@@ -201,9 +232,9 @@ page-course-detail {
 
         .headPhoto {
           img {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            border-radius: 100px;
           }
         }
 
@@ -213,7 +244,7 @@ page-course-detail {
 
         > div:nth-child(2) {
           padding-left: 10px;
-          width: 50%;
+          width: 90%;
 
           p:first-child {
             font-size: 13px;
@@ -223,42 +254,12 @@ page-course-detail {
           p:last-child {
             color: #999999;
             font-size: 12px;
+            display: flex;
+            align-items: center;
+            > span{
+              margin-right: 10px;
+            }
           }
-        }
-
-        > div:last-child {
-          width: 40%;
-          text-align: right;
-        }
-      }
-
-      .last.teacher {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .Contents {
-          width: 80%;
-          padding-right: 10px;
-        }
-
-        div.Contents:last-child {
-          width: 100%;
-        }
-
-        .item-teacher {
-          img {
-            width: 2rem;
-          }
-
-          text-align: center;
-          width: 20%;
-          font-size: 1.2rem;
-          font-family: PingFangSC;
-          font-weight: 400;
-          color: rgba(51, 51, 51, 1);
-          line-height: 20px;
-          border-left: 1px solid #d8d8d8;
         }
       }
     }
@@ -562,5 +563,22 @@ page-course-detail {
     align-items: start;
     justify-content: start;
     font-size: inherit;
+    overflow-y: scroll;
+  }
+  .forumTitle {
+    border-radius: 4px;
+    border: 1px solid rgba(235, 192, 68, 1);
+    font-size: 12px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: rgba(235, 192, 68, 1);
+    line-height: 14px;
+    display: inline-block;
+    transform: scale(0.8);
+    padding: 2px 4px;
+  }
+  .badge{
+    display: flex;
+    align-items: center;
   }
 }

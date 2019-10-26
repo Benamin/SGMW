@@ -34,14 +34,27 @@
                     <img [src]="item.HeadPhoto" alt="">
                 </div>
                 <div style="text-align: left">
-                    <p>{{item.UserName}}</p>
-                    <p>{{item.CreateTime | date:'yyyy-MM-dd'}}</p>
-                </div>
-                <div class="img-star" *ngIf="TopicType != 'talk'">
-                    <ng-container *ngFor="let st of starList;let i = index">
-                            <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
+                    <p class="badge">
+                        <span>
+                            {{item.UserName}}
+                        </span>
+                        <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
+                            {{item?.TitleInfo?.ForumTitle}}
+                        </span>
+                        <span class="badgeSpan" *ngFor="let badge of item?.Badges">
+                            <img [src]="badge.BadgeIcon">
+                            <span>{{badge.BadgeName}}</span>
+                        </span>
+                    </p>
+                    <p>
+                        <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
+                        <span class="img-star" *ngIf="TopicType != 'talk'">
+                            <ng-container *ngFor="let st of starList;let i = index">
+                                <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
                                   class="icon iconfont "></span>
-                    </ng-container>
+                            </ng-container>
+                        </span>
+                    </p>
                 </div>
             </div>
             <div class="last teacher">

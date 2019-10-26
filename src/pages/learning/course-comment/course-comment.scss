@@ -64,7 +64,7 @@ page-course-comment {
 
         > div:nth-child(2) {
           padding-left: 10px;
-          width: 40%;
+          width: 90%;
 
           p:first-child {
             font-size: 13px;
@@ -74,12 +74,12 @@ page-course-comment {
           p:last-child {
             color: #999999;
             font-size: 12px;
+            display: flex;
+            align-items: center;
+            > span{
+              margin-right: 10px;
+            }
           }
-        }
-
-        > div:last-child {
-          width: 50%;
-          text-align: right;
         }
       }
     }
@@ -117,6 +117,7 @@ page-course-comment {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    margin-left: auto;
 
     span {
       font-size: 2rem;
@@ -207,5 +208,21 @@ page-course-comment {
   .teacher-item-select {
     border: 1px solid #f2f2f2;
     background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+  }
+  .forumTitle {
+    border-radius: 4px;
+    border: 1px solid rgba(235, 192, 68, 1);
+    font-size: 12px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: rgba(235, 192, 68, 1);
+    line-height: 14px;
+    display: inline-block;
+    transform: scale(0.8);
+    padding: 2px 4px;
+  }
+  .badge{
+    display: flex;
+    align-items: center;
   }
 }
