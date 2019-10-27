@@ -126,7 +126,7 @@ page-medal{
             border-top: 1px solid #E4E4E4;
         }
         .medal-list-img{
-            max-width: 30px;
+            width: 30px;
             max-height: 36px;
             margin: 0 20px;
         }
@@ -163,6 +163,8 @@ page-medal{
         transform: translate(0%,100%);
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+        overflow: auto;
+        max-height: 100%;
      
     }
     .medal-list-div-show{
