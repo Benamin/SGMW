@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content style="background: #131415;">
-  <div>
+  <div *ngIf="!no_list">
     <div class="current-medal">
       <img src="./assets/imgs/mine/medal/background@2x.png" alt="">
       <div  class="current-medal-title">
@@ -21,10 +21,6 @@
           <img class="current-medal-type-img" src="{{item.BadgeIcon}}" alt="">
           <p class="current-medal-type-name">{{item.BadgeName}}</p>
         </div>
-        <!-- <div class="current-medal-type">
-            <img class="current-medal-type-img"  src="/assets/imgs/mine/medal/cptyzj_wdxz@2x.png" alt="">
-            <p class="current-medal-type-name">产品体验专家</p>
-          </div> -->
       </div>
     </div>
     <div class="my-have-medal">
@@ -33,12 +29,20 @@
       </div>
       <div class="my-have-medal-div">
           <div class="my-have-medal-type" *ngFor="let item of actionSheetList" >
-              <img class="my-have-medal-type-img" src="{{item.BadgeIcon}}" alt="">
+              <div class="my-have-medal-type-div">
+                <img class="my-have-medal-type-img" src="{{item.BadgeIcon}}" alt="">
+              </div>
               <p class="my-have-medal-type-name " [ngClass]="{'type-name-selection':item.IsDisplay}" >{{item.BadgeName}}</p>
           </div>
       </div>
     </div>
   </div>
+  <ion-list text-center style="margin-top: 10rem" *ngIf="no_list">
+      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+      <p text-center style="color: #666666;font-size: 16px">
+        暂无勋章
+      </p>
+    </ion-list>
 </ion-content>
 <div class="action-sheet" *ngIf="actionSheet" (click)="setCurrentMedalHide()">
   <div class="medal-list-div" [ngClass]="{'medal-list-div-show':medalListDivShow}" (click)="$event.stopPropagation();">
@@ -48,8 +52,8 @@
       <div class="medal-list" *ngFor="let item of actionSheetList" (click)="showOrhide(item)">
           <img class="medal-list-img" src="{{item.BadgeIcon}}" alt="">
           <span class="medal-list-name nowrap-1">{{item.BadgeName}}</span>
-          <img *ngIf="setBadge[item.BadgeId]"  class="medal-list-check"  src="/assets/imgs/mine/medal/check-mark.png" alt="">
-          <img *ngIf="!setBadge[item.BadgeId]" class="medal-list-check"  src="/assets/imgs/mine/medal/check-mark-no.png" alt="">
+          <img *ngIf="setBadge[item.BadgeId]"  class="medal-list-check"  src="./assets/imgs/mine/medal/check-mark.png" alt="">
+          <img *ngIf="!setBadge[item.BadgeId]" class="medal-list-check"  src="./assets/imgs/mine/medal/check-mark-no.png" alt="">
       </div>
       <div class="action-sheet-bg">
       </div>

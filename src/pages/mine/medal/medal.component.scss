@@ -53,7 +53,7 @@ page-medal{
     }
     .my-have-medal{
         margin: 10px;
-        border: 1px solid #979797;
+        border: 1px solid #212122;
         border-radius: 5px;
         margin-top: 24px;
         .my-have-medal-title{
@@ -72,6 +72,10 @@ page-medal{
             color: #979797;
             text-align: center;
             margin-top: 38px;
+            .my-have-medal-type-div{
+                height: 95px;
+                overflow: hidden;
+            }
             .my-have-medal-type-name{
                 margin-top:15px ;
                 display: inline-block;

@@ -113,14 +113,19 @@ export class ForumPage implements OnInit {
   }
   doRefresh(e){
     console.log('刷新')
+    setTimeout(() => {
+      e.complete();
+     }, 1000);
+    if(this.navli == '热帖') {
+      return this.switchInformation('热帖')
+    };
+
     this.pageDate.pageIndex=1;
     this.isdoInfinite=true;
     this.forumLIst=[];
     this.getHistory();
     this.forum_topicplate_search();
-    setTimeout(() => {
-        e.complete();
-    }, 1000);
+ 
   }
 
   goToSearch() {

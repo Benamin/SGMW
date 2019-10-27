@@ -14,5 +14,10 @@ export class RankingService {
         return this.http.get(SERVER_API_URL + '/forum/userbadge/rankList')
     }
 
+    // 获取用户积分和头衔列表
+    GetUsertitleSearch(data){
+        return this.http.post(SERVER_API_URL + '/forum/usertitle/search',data);
+    }
+    
     
 }

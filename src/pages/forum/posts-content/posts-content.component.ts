@@ -73,7 +73,7 @@ export class PostsContentComponent implements OnInit {
         content:''
       });
       this.loading.present();
-      this.lidata.Id='236e62ac-3425-4f2c-8a90-016df43c37e5';
+      // this.lidata.Id='236e62ac-3425-4f2c-8a90-016df43c37e5';
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
       console.log(res);
    
@@ -82,6 +82,20 @@ export class PostsContentComponent implements OnInit {
 
       if(res.data.Replys){
         res.data.Replys.forEach(element => {
+          if(element['PosterUserName'].length>4){
+            element['PosterUserName']=element.PosterUserName.slice(0,4)+'...';
+          }
+          if(element['PosterUserForumTitle'].ForumTitle.length>3){
+            element['PosterUserForumTitle'].ForumTitle=element['PosterUserForumTitle'].ForumTitle.slice(0,3)+'...';
+          } 
+          if(element.PosterBadges){
+            element.PosterBadges.forEach(e => {
+              if(e['BadgeName'].length>4){
+                e['BadgeName']=e['BadgeName'].slice(0,4)+'...';
+              } 
+            });
+          }
+        
           element['_ReplyTimeFormatted']=element.ReplyTimeFormatted.slice(0,-3);
         });
         res.data.Replys.reverse();

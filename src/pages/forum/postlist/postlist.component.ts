@@ -31,7 +31,7 @@ export class PostlistComponent implements OnInit {
   IsTopOpt=null;
   pageDate:any={
     creater: "",
-    pageIndex: 1,
+    PageIndex: 1,
     pageSize: 5,
     status: 2,
     title: "",
@@ -77,10 +77,17 @@ export class PostlistComponent implements OnInit {
   }
 
   avtNav(type){
+    this.no_list=false;
+    if(type=='ReplyCount'){
+      this.pageDate.OrderByDirection='DESC';
+    }else{
+      this.pageDate.OrderByDirection='';
+    }
     this.isdoInfinite=true;
     this.forumLIst = [];
-    this.pageDate.pageIndex=1;
+    this.pageDate.PageIndex=1;
     this.pageDate.OrderBy=type;
+    
     this.forum_post_search();
   }
 

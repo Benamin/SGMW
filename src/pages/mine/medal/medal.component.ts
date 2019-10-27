@@ -15,6 +15,7 @@ export class MedalComponent implements OnInit {
   actionSheetList=[];
   badgeShowArr=[];
   setBadge={};
+  no_list=false;
   constructor(private serve:MineService,private storage: Storage,private loadCtrl: LoadingController) {
     this.storage.get('user').then(value => {
       if (value) {
@@ -57,6 +58,10 @@ export class MedalComponent implements OnInit {
       if(!res.data){
         return;
       }
+      if(res.data.Items[0].Badges.length==0){
+        this.no_list=true;
+      }
+      
       this.actionSheetList=res.data.Items[0].Badges;
       this.badgeShowArr= this.actionSheetList.filter(e => e.IsDisplay);
     });

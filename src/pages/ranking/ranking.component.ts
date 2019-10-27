@@ -1,5 +1,7 @@
+import { GetRequestService } from './../../secret/getRequest.service';
 import { Component, OnInit } from '@angular/core';
 import { RankingService} from './ranking.serve';
+import { Storage } from "@ionic/storage";
 import { LoadingController} from "ionic-angular";
 @Component({
   selector: 'page-app-ranking',
@@ -51,15 +53,27 @@ export class RankingComponent implements OnInit {
   phb_1={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null};
   phb_2={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null};
   phb_3={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null};
-
+  mineInfo=null;
   dataList=[
   ];
-  constructor(private serve:RankingService,private loadCtrl: LoadingController) {}
+  constructor(private serve:RankingService,private loadCtrl: LoadingController,private storage: Storage,) {
+
+  }
   
   ngOnInit() {
     console.log('排行榜');
-    this.navlistType=this.listType.TeacherViewModel;
-    this.GetRankList();
+    this.storage.get('user').then(value => {
+      if (value) {
+          this.mineInfo = value;
+          if (this.mineInfo.UserName && this.mineInfo.UserName.length > 3) {
+              this.mineInfo.UserName = this.mineInfo.UserName.slice(0, 3) + '...';
+          }
+      }
+      this.navlistType=this.listType.TeacherViewModel;
+      this.GetRankList();
+      this.GetUsertitleSearch();
+    });
+
   }
   switchInformation(text){
     this.navli = text;
@@ -123,7 +137,20 @@ export class RankingComponent implements OnInit {
       loading.dismiss();
     })
   }
-
+  
+  
+  GetUsertitleSearch(){
+    console.log(this.mineInfo);
+    let data={
+      forumTitleId: "",
+    pageIndex: 1,
+    pageSize: 10,
+    total: 0,
+    userName: this.mineInfo.UserName};
+    this.serve.GetUsertitleSearch(data).subscribe(res => {
+      console.log(res);
+    })
+  }
   // /forum/userbadge/rankList
 
 }
