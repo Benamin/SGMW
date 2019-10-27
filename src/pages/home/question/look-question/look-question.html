@@ -176,14 +176,6 @@
                 </ng-container>
               </div>
             </div>
-            <div class="item-answer">
-              答案：
-              <ng-container *ngIf="item.QType == 3">{{item.QAnswer == 1 ? 'A' : 'B'}}</ng-container>
-              <ng-container *ngIf="item.QType != 3">{{item.QAnswer}}</ng-container>
-            </div>
-            <div class="item-explain">
-              解析：{{item.Explain}}
-            </div>
           </div>
         </div>
       </ion-slide>

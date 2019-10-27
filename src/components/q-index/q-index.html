@@ -5,7 +5,7 @@
     </p>
     <ion-row>
       <ion-col col-3 *ngFor="let item of list;let i = index" tappable (click)="chooseItem(item,i)">
-        <div class="item-style" [ngClass]="item.QAnswer != ''?'select':''">
+        <div class="item-style" [ngClass]="item.QAnswer != ''?'select':'' || item.StuAnswer != ''?'select':''">
           {{i +1}}
         </div>
       </ion-col>
