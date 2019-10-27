@@ -76,7 +76,7 @@ export class CourseDetailPage {
     }
 
     ionViewDidLoad() {
-        this.scrollHeight();
+        this.slides.autoHeight = true;
     }
 
     async ionViewDidEnter() {
@@ -110,22 +110,6 @@ export class CourseDetailPage {
     ionViewWillLeave() {
         this.showFooter = false;
         this.appSer.setFile(null);
-    }
-
-    //固定navbar
-    scrollHeight() {
-        const height = this.banner.nativeElement.offsetHeight;
-        this.content.ionScroll.subscribe(($event) => {
-            this.zone.run(() => {
-                if (this.content.scrollTop > height) {
-                    this.bar.show = true;
-                    this.renderer.addClass(this.navbar.nativeElement, 'tabs-fixed-scroll')
-                } else {
-                    this.bar.show = false;
-                    this.renderer.removeClass(this.navbar.nativeElement, 'tabs-fixed-scroll')
-                }
-            })
-        })
     }
 
     //课程详情、课程章节、相关课程、课程评价
@@ -385,7 +369,7 @@ export class CourseDetailPage {
     }
 
     //课程详情
-    getCourseDetail(){
+    getCourseDetail() {
         this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.loading.dismiss();
@@ -433,7 +417,7 @@ export class CourseDetailPage {
     }
 
     //点赞
-    savePraise(){
+    savePraise() {
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -441,10 +425,10 @@ export class CourseDetailPage {
         });
         this.loading.present();
         const data = {
-            TopicID:this.product.detail.PrId
+            TopicID: this.product.detail.PrId
         }
         this.learnSer.SavePraise(data).subscribe(
-            (res)=>{
+            (res) => {
                 this.getCourseDetail();
             }
         )
@@ -452,7 +436,7 @@ export class CourseDetailPage {
     }
 
     //取消点赞
-    cancelPraise(){
+    cancelPraise() {
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -460,17 +444,17 @@ export class CourseDetailPage {
         });
         this.loading.present();
         const data = {
-            TopicID:this.product.detail.PrId
+            TopicID: this.product.detail.PrId
         }
         this.learnSer.CancelPraise(data).subscribe(
-            (res)=>{
+            (res) => {
                 this.getCourseDetail();
             }
         )
     }
 
     //扔鸡蛋
-    saveHate(){
+    saveHate() {
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -478,17 +462,17 @@ export class CourseDetailPage {
         });
         this.loading.present();
         const data = {
-            TopicID:this.product.detail.PrId
+            TopicID: this.product.detail.PrId
         }
         this.learnSer.SaveHate(data).subscribe(
-            (res)=>{
+            (res) => {
                 this.getCourseDetail();
             }
         )
     }
 
     //取消扔鸡蛋
-    cancelHate(){
+    cancelHate() {
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -496,10 +480,10 @@ export class CourseDetailPage {
         });
         this.loading.present();
         const data = {
-            TopicID:this.product.detail.PrId
+            TopicID: this.product.detail.PrId
         }
         this.learnSer.CancelHate(data).subscribe(
-            (res)=>{
+            (res) => {
                 this.getCourseDetail();
             }
         )
@@ -507,7 +491,7 @@ export class CourseDetailPage {
 
     changeType(item) {
         this.bar.type = item.type;
-        this.slides.slideTo(item.type -1, 100);
+        this.slides.slideTo(item.type - 1, 100);
     }
 
     getMore(e) {
@@ -521,6 +505,6 @@ export class CourseDetailPage {
 
     //切换slide
     slideChanged() {
-        this.bar.type = this.slides.realIndex +1;
+        this.bar.type = this.slides.realIndex + 1;
     }
 }

@@ -2,6 +2,9 @@ page-course-detail {
   .scroll-content {
     -webkit-overflow-scrolling: auto;
   }
+  .fixed-top{
+    width: 100%;
+  }
 
   .banner {
     height: 200px;
@@ -256,6 +259,9 @@ page-course-detail {
             font-size: 12px;
             display: flex;
             align-items: center;
+            .img-star{
+              margin-left: auto;
+            }
             > span{
               margin-right: 10px;
             }
@@ -426,63 +432,12 @@ page-course-detail {
     transform: translateZ(0);
   }
 
-  .navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 36px;
-    background-color: #fff;
-    width: 100%;
-
-    a {
-      text-decoration: none;
-      color: #333;
-    }
-  }
-
-  .duty-state {
-    border: 1px solid #f8ac56;
-    font-size: 1.3rem;
-    border-radius: 4px;
-    padding: 1px 4px;
-    color: #f8ac56;
-  }
-
-  .navbar > div {
-    width: 50%;
-    text-align: center;
-    position: relative;
-    height: 36px;
-    line-height: 36px;
-  }
-
-  .duty-title {
-    position: relative;
-    //color: #e42417;
-  }
-
-  .duty-title::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    bottom: -10px;
-    left: 0;
-    border-radius: 4px;
-    height: 4px;
-    background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
-  }
-
   .span-btn {
     background-color: #e42417;
     font-size: 1.4rem;
     padding: 4px 6px;
     color: #fff;
     border-radius: 3px;
-  }
-
-  .dutyItem > div {
-    margin-bottom: 10px;
   }
 
   //课程评价 //教师评价
@@ -557,6 +512,9 @@ page-course-detail {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  ion-slides{
+    height: auto;
   }
 
   .swiper-slide {
