@@ -18,7 +18,6 @@ import {timer} from "rxjs/observable/timer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppService} from "../../app/app.service";
 import {StatusBar} from "@ionic-native/status-bar";
-import {TestCenterPage} from "./test-center/test-center";
 import {ConsultationPage} from '../consultation/consultation';
 import {NumberOne} from '../number-one/number-one.component';
 import {LivePage} from "./live/live";
@@ -26,6 +25,7 @@ import {ForumPage} from '../forum/forum.component';
 import {Componentsdetails} from '../consultation/componentsdetails/componentsdetails.component';
 import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
 import {MyQuestion} from "./question/my-question/my-question";
+import {TestCenterPage} from "./test/test-center/test-center";
 
 
 @Component({

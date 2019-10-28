@@ -21,7 +21,13 @@
                 <p class="courseName">{{item.CourseName}}</p>
                 <p class="eName">
                     <img src="./assets/imgs/tabs/tab3_off@3x.png">
-                    {{item.EType}} - {{item.EName}}
+                    <ng-container *ngIf="item.EType == 3">
+                        预习作业
+                    </ng-container>
+                    <ng-container *ngIf="item.EType == 4">
+                        课后作业
+                    </ng-container>
+                     - {{item.EName}}
                 </p>
                 <p *ngIf="page.StudyState == 3" class="split"></p>
                 <p *ngIf="page.StudyState == 3">
@@ -38,4 +44,9 @@
             暂无数据
         </p>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

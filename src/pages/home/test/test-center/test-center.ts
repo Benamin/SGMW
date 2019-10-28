@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
-import {MineService} from "../../mine/mine.service";
+import {MineService} from "../../../mine/mine.service";
 import {timer} from "rxjs/observable/timer";
-import {HomeService} from "../home.service";
+import {HomeService} from "../../home.service";
 import {LookTestPage} from "../look-test/look-test";
 import {DoTestPage} from "../do-test/do-test";
-import {CommonService} from "../../../core/common.service";
+import {CommonService} from "../../../../core/common.service";
 import {DatePipe} from "@angular/common";
 
 @Component({
@@ -27,7 +27,10 @@ export class TestCenterPage {
         EName: '',
         StudyState: 1,
         EType: 4,  /// 3-预习作业 4-课后作业
-        load: false
+        load: false,
+        Page:1,
+        PageSize:10,
+        TotalItems:0,
     };
 
     examList = [];
@@ -43,7 +46,7 @@ export class TestCenterPage {
     }
 
     ionViewDidEnter() {
-        this.checkTimeOut();
+        // this.checkTimeOut();
         this.getList();
     }
 
@@ -63,21 +66,25 @@ export class TestCenterPage {
         });
     }
 
-    //考试列表
+    //考试列表-EType
+    //EType  1-等级考试 2-普通考试 3-课堂练习（预习作业）4-课后作业 5-调查问卷
     getList() {
         const loading = this.loadCtrl.create({
             content: ''
         });
         loading.present();
         const data = {
-            ExamState: '-1',
-            StudyState: this.page.StudyState,
-            EType: 2,
+            StudyState: [this.page.StudyState],
+            EType:[2],
+            Page:this.page.Page,
+            PageSize:this.page.PageSize,
+            EGroup:[1,2]
         };
-        this.homeSer.getMyScoreList(data).subscribe(
+        this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
-                this.examList = res.data;
+                this.examList = res.data.Items;
                 this.page.load = true;
+                this.page.TotalItems = res.data.TotalItems;
                 loading.dismiss();
             }
         )
@@ -119,6 +126,30 @@ export class TestCenterPage {
                 }
             }
         )
+    }
+
+    //加载更多
+    doInfinite(e) {
+        console.log('doInfinite')
+        if (this.page.TotalItems < this.examList.length || this.page.TotalItems == this.examList.length) {
+            e.complete();
+            return
+        }
+        this.page.Page++;
+        const data = {
+            StudyState: [this.page.StudyState],
+            EGroup: [1],
+            Page: this.page.Page,
+            EType: this.page.EType,
+            PageSize: this.page.PageSize,
+        };
+        this.homeSer.searchExamByStu(data).subscribe(
+            (res) => {
+                this.examList = this.examList.concat(res.data.Items);
+                this.page.TotalItems = res.data.TotalItems;
+                e.complete();
+            }
+        );
     }
 
 

@@ -129,6 +129,7 @@ export class CourseDetailPage {
                 });
                 console.log(this.files);
                 this.product.videoPoster = this.product.chapter.Course.CoverUrl;
+                this.loading.dismiss();
             }
         );
 
@@ -146,7 +147,6 @@ export class CourseDetailPage {
 
             }
         );
-        this.loading.dismiss();
     }
 
 

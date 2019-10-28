@@ -58,7 +58,7 @@ export class DoQuestionPage {
         loading.present();
         const item = this.navParams.get('item');
         const data = {
-            Eid: item.Eid
+            Fid: item.Fid
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
@@ -128,7 +128,7 @@ export class DoQuestionPage {
             });
             const data = {
                 submitType: status
-            }
+            };
             this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
