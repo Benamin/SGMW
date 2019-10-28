@@ -1,11 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
 import {IonicPage, LoadingController, ModalController, Navbar, NavController, NavParams, Slides} from 'ionic-angular';
-import {MineService} from "../../mine/mine.service";
+import {MineService} from "../../../mine/mine.service";
 import {Storage} from "@ionic/storage";
-import {CommonService} from "../../../core/common.service";
-import {EmitService} from "../../../core/emit.service";
-import {QIndexComponent} from "../../../components/q-index/q-index";
-import {HomeService} from "../home.service";
+import {CommonService} from "../../../../core/common.service";
+import {EmitService} from "../../../../core/emit.service";
+import {QIndexComponent} from "../../../../components/q-index/q-index";
+import {HomeService} from "../../home.service";
 
 
 @Component({
@@ -18,10 +18,9 @@ export class DoTestPage {
 
     index = 0;  //当前题目的序号
     exam = {
-        qs: [],
-        stuScore: null
+        QnAInfos: [],  //题目信息
+        ExamInfo: null  //试卷信息
     };
-    paper;  //试卷信息
     doneTotal = 0;
     opTips;
     score = {
@@ -48,13 +47,13 @@ export class DoTestPage {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
             let countDone = 0;
-            this.exam.qs.forEach(e => {
-                    if (e.QAnswer.length > 0) {
+            this.exam.QnAInfos.forEach(e => {
+                    if (e.StuAnswer.length > 0) {
                         countDone++;
                     }
                 }
             );
-            if (countDone < this.exam.qs.length) {
+            if (countDone < this.exam.QnAInfos.length) {
                 this.score.isDone = true;
                 return
             }
@@ -69,23 +68,22 @@ export class DoTestPage {
         loading.present();
         const item = this.navParams.get('item');
         const data = {
-            fid: item.ID
+            Fid: item.Fid
         };
-        this.mineSer.homeworkInit(data).subscribe(
+        this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
-                this.exam.qs = res.data.qs;
-                this.paper = res.data.paper;
+                this.exam.QnAInfos = res.data.QnAInfos;
                 this.score.tips = true;
-                this.exam.qs.forEach(e =>{
-                    e.QAnswer = e.QAnswer ? e.QAnswer.split(',').join('') : "";
+                this.exam.QnAInfos.forEach(e =>{
+                    e.StuAnswer = e.StuAnswer ? e.StuAnswer.split(',').join('') : "";
                     this.doneTotal ++;
                 });
-                this.exam.stuScore = res.data.stuScore;
+                this.exam.ExamInfo = res.data.stuScore;
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
                 });
-                if (this.paper.PaperTimer > 0) {
+                if (this.exam.ExamInfo.PaperTimer > 0) {
                     this.paperLeave(item.ID);
                 }
             }
@@ -141,7 +139,7 @@ export class DoTestPage {
     slideChanged() {
         this.index = this.slides.realIndex || 0;
         this.doneTotal = 0;
-        this.exam.qs.forEach(e => {
+        this.exam.QnAInfos.forEach(e => {
                 if (e.QAnswer.length > 0) {
                     this.doneTotal++;
                 }
@@ -151,12 +149,12 @@ export class DoTestPage {
 
     //多选
     mutiSelect(i, option) {
-        if (this.exam.qs[i].QAnswer && this.exam.qs[i].QAnswer.includes(option)) {
-            this.exam.qs[i].QAnswer = this.exam.qs[i].QAnswer.replace(option, '');
+        if (this.exam.QnAInfos[i].QAnswer && this.exam.QnAInfos[i].QAnswer.includes(option)) {
+            this.exam.QnAInfos[i].QAnswer = this.exam.QnAInfos[i].QAnswer.replace(option, '');
         } else {
-            this.exam.qs[i].QAnswer += option + '';
+            this.exam.QnAInfos[i].QAnswer += option + '';
         }
-        console.log(this.exam.qs[i].QAnswer);
+        console.log(this.exam.QnAInfos[i].QAnswer);
     }
 
     //暂存提交
@@ -166,8 +164,8 @@ export class DoTestPage {
                 content: '提交中...'
             });
             // loading.present();
-            this.exam.qs.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').sort().join(',');
+            this.exam.QnAInfos.forEach(e => {
+                if (e.QType == 2) e.StuAnswer = e.StuAnswer.split(',').sort().join(',');
             });
             this.mineSer.saveStuExams(this.exam).subscribe(
                 (res) => {
@@ -186,13 +184,13 @@ export class DoTestPage {
     //确认提交
     submit() {
         let countDone = 0;
-        this.exam.qs.forEach(e => {
-                if (e.QAnswer.length > 0) {
+        this.exam.QnAInfos.forEach(e => {
+                if (e.StuAnswer.length > 0) {
                     countDone++;
                 }
             }
         );
-        if (countDone < this.exam.qs.length) {
+        if (countDone < this.exam.QnAInfos.length) {
             this.score.isDone = true;
             return
         }
@@ -201,7 +199,7 @@ export class DoTestPage {
                 content: '提交中...'
             });
             loading.present();
-            this.exam.qs.forEach(e => {
+            this.exam.QnAInfos.forEach(e => {
                 if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').sort().join(',');
             });
             this.mineSer.submitStuExams(this.exam).subscribe(
@@ -220,7 +218,7 @@ export class DoTestPage {
 
     //自动提交
     forceSubmit() {
-        this.exam.qs.forEach(e => {
+        this.exam.QnAInfos.forEach(e => {
             if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
         });
         this.mineSer.submitStuExams(this.exam).subscribe(
@@ -237,7 +235,7 @@ export class DoTestPage {
 
     //查看题目
     moreChoice() {
-        let modal = this.modalCtrl.create(QIndexComponent, {list: this.exam.qs},
+        let modal = this.modalCtrl.create(QIndexComponent, {list: this.exam.QnAInfos},
             {
                 enterAnimation: 'modal-from-right-enter',
                 leaveAnimation: 'modal-from-right-leave'
@@ -257,7 +255,6 @@ export class DoTestPage {
 
     //关闭时间提示
     closeTips(e) {
-        // e.stopPropagation();
         this.score.tips = false;
     }
 

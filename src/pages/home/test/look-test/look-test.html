@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{index + 1}}/{{exam.stuExamInfo.length}}</ion-title>
+    <ion-title>{{index + 1}}/{{exam.QnAInfos.length}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content style="background-color: #ffffff">
   <ion-slides (ionSlideDidChange)="slideChanged()">
-    <ng-container *ngIf="exam.stuExamInfo.length > 0">
-      <ion-slide *ngFor="let item of exam.stuExamInfo;let i = index;">
+    <ng-container *ngIf="exam.QnAInfos.length > 0">
+      <ion-slide *ngFor="let item of exam.QnAInfos;let i = index;">
         <div class="learn-item">
           <div class="item-container">
             <div class="item-title">
@@ -199,7 +199,7 @@
         <div class="submit-score"><img src="./assets/imgs/mine/exam-submit.png">试卷得分：{{exam.stuScore?.TotalScore}}</div>
       </div>
       <div class="saveStuExams">
-        <div>提交时间:{{exam.stuScore?.ModifyTime | date:'MM-dd HH:mm' }}</div>
+        <div>提交时间:{{exam.ExamInfo?.EndTime | date:'MM-dd HH:mm' }}</div>
       </div>
       <div class="more" tappable (click)="moreChoice()">
         <ion-icon name="list"></ion-icon>

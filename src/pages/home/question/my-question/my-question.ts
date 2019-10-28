@@ -30,8 +30,10 @@ export class MyQuestion {
         StudyState: 1,
         EGroup: 1,  /// 1-普通问卷 2-投票
         load: false,
+        EType:5,
         Page:1,
-        PageSize:10
+        PageSize:10,
+        TotalItems:0
     };
 
     examList = [];
@@ -51,13 +53,6 @@ export class MyQuestion {
     }
 
 
-    doRefresh(e) {
-        this.getList();
-        timer(1000).subscribe((res) => {
-            e.complete()
-        });
-    }
-
     //考试列表
     //EType  /// 1-等级考试 2-普通考试 3-课堂练习（预习作业）4-课后作业 5-调查问卷
     getList() {
@@ -67,7 +62,7 @@ export class MyQuestion {
         loading.present();
         const data = {
             StudyState: [this.page.StudyState],
-            EType:[5],
+            EType:[this.page.EType],
             EGroup: [this.page.EGroup],  /// 1-普通问卷 2-投票
             Page:this.page.Page,
             PageSize:this.page.PageSize
@@ -76,6 +71,7 @@ export class MyQuestion {
             (res) => {
                 this.examList = res.data.Items;
                 this.page.load = true;
+                this.page.TotalItems = res.data.TotalItems;
                 loading.dismiss();
             }
         )
@@ -92,6 +88,38 @@ export class MyQuestion {
         } else {
             this.navCtrl.push(DoQuestionPage, {item: item});
         }
+    }
+
+    doRefresh(e) {
+        this.page.Page = 1;
+        this.getList();
+        timer(1000).subscribe((res) => {
+            e.complete()
+        });
+    }
+
+    //加载更多
+    doInfinite(e) {
+        console.log('doInfinite')
+        if (this.page.TotalItems < this.examList.length || this.page.TotalItems == this.examList.length) {
+            e.complete();
+            return
+        }
+        this.page.Page++;
+        const data = {
+            StudyState: [this.page.StudyState],
+            EGroup: [1],
+            Page: this.page.Page,
+            EType: this.page.EType,
+            PageSize: this.page.PageSize,
+        };
+        this.homeSer.searchExamByStu(data).subscribe(
+            (res) => {
+                this.examList = this.examList.concat(res.data.Items);
+                this.page.TotalItems = res.data.TotalItems;
+                e.complete();
+            }
+        );
     }
 
 }

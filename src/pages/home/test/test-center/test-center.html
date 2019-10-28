@@ -23,12 +23,13 @@
                         <p class="courseName">{{item.EName}}</p>
                         <p class="eName">
                             <img src="./assets/imgs/test/cate@3x.png">
-                            <span>{{item.EName}}</span>
+                            <span>{{item.SubjectName}}</span>
                         </p>
                     </div>
                     <div *ngIf="page.StudyState == 3" class="test-leave">
                         <img *ngIf="item.TotalScore < item.PaperScore *0.6" src="./assets/imgs/test/bad@2x.png">
-                        <img *ngIf="item.PaperScore *0.59 < item.TotalScore && item.TotalScore < item.PaperScore *0.9" src="./assets/imgs/test/gofighting@2x.png">
+                        <img *ngIf="item.PaperScore *0.59 < item.TotalScore && item.TotalScore < item.PaperScore *0.9"
+                             src="./assets/imgs/test/gofighting@2x.png">
                         <img *ngIf="item.PaperScore *0.89 < item.TotalScore" src="./assets/imgs/test/best@2x.png">
                     </div>
                 </div>
@@ -55,4 +56,9 @@
             暂无数据
         </p>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

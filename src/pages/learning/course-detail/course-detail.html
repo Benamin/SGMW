@@ -62,7 +62,7 @@
     <div style="margin-top: 236px" #space class="space"></div>
 
     <ion-slides  (ionSlideDidChange)="slideChanged()">
-        <ng-container *ngIf="product.detail?.Description">
+        <ng-container *ngIf="files.length > 0">
             <!--      简介      -->
             <ion-slide>
                 <div class="item">
