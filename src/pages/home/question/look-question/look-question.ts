@@ -15,7 +15,7 @@ export class LookQuestion {
     index = 0;  //当前题目的序号
     exam = {
         QnAInfos: [],
-        stuScore: null
+        ExamInfo: null
     };
     doneTotal = 0;
     opTips;
@@ -41,7 +41,7 @@ export class LookQuestion {
                     e.StuAnswer = e.StuAnswer ? e.StuAnswer : '';
                 })
                 this.exam.QnAInfos = res.data.QnAInfos;
-                this.exam.stuScore = res.data.stuScore;
+                this.exam.ExamInfo = res.data.ExamInfo;
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';

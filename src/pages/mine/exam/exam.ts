@@ -96,8 +96,8 @@ export class ExamPage {
         const data = {
             StudyState: [this.page.StudyState],
             EGroup: [1],
-            Page: this.page.Page,
             EType: this.page.EType,
+            Page: this.page.Page,
             PageSize: this.page.PageSize,
         };
         this.homeSer.searchExamByStu(data).subscribe(
