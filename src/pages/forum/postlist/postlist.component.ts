@@ -100,7 +100,7 @@ export class PostlistComponent implements OnInit {
       });
       loading.present();
       setTimeout(() => {
-        loading.present();
+        loading.dismiss();
       }, 5000);
     }
     this.serve.forum_post_search(this.pageDate).subscribe((res:any) => {

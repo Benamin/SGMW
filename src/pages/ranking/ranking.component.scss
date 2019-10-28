@@ -79,13 +79,14 @@ page-app-ranking{
     }
     .podium{
         text-align: center;
-        padding-top: 19px;
+        padding-top: 25px;
         .podium-pg{
             display: flex;
             align-items: flex-end;
             justify-content: center;
             .name-div{
                 padding-top: 2px;
+                margin-top:-15px; 
                 .user-label{
                     display: inline-block;
                     padding: 0 5px;
@@ -95,8 +96,16 @@ page-app-ranking{
                     color: #fff;
                 }
                 .name{
+                    margin: auto;
                     font-size: 12px;
                     margin-bottom: 5px;
+                    max-width:  70px;
+                }
+                .type-name{
+                    font-size: 12px;
+                    transform: scale(0.9);
+                    color: #f3f3f3;
+                    color: rgba(0, 0, 0, 0.6);
                 }
             }
         
@@ -168,6 +177,11 @@ page-app-ranking{
             height: 45px;
         }
     }
+    .MyRankingData{
+        margin-top: 8px;
+        margin-bottom: 8px;
+        background: #FFFBED;
+    }
     .list-user{
         display: flex;
         align-items: center;
@@ -180,7 +194,7 @@ page-app-ranking{
             margin-left: -10px;
         }
         .user-heard-img{
-            width: 28px;
+            height: 28px;
             width: 28px;
             margin-left: 26px;
             border-radius: 50%;

@@ -38,7 +38,7 @@ export class ViewReplyComponent implements OnInit {
     this.textareaBlur = false;
   }
 
-
+  
   replycomment_add() {
     let data = {
       "PostReplyId": this.data.Id,//评论的回帖编号
@@ -50,10 +50,10 @@ export class ViewReplyComponent implements OnInit {
       content:''
     });
     this.loading.present();
+    this.textareaBlur = false;
     this.serve.replycomment_add(data).subscribe((res:any) => { 
       console.log(res);
       if(res.code==200){
-        // this.navCtrl.pop();
         this.forum_post_publish();
       }
     });
@@ -71,7 +71,6 @@ export class ViewReplyComponent implements OnInit {
           }
       });
       this.inputText="";
-      this.textareaBlur = false;
       this.loading.dismiss();
     });
   }
