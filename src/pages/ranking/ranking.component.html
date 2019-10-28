@@ -133,6 +133,35 @@
     </div>
   </div>
 
+  <div style="background: #FFFBED;padding: 0px 22px;" class="MyRankingData" *ngIf=" navli=='StudentModel'&&MyRankingData">
+    <div class="list-user" >
+      <div style="border-top: 1px solid #F1F1F1;">
+      </div>
+        <span class="index">
+          {{MyRankingData.RankNum}}
+        </span>
+        <img class="user-heard-img" src="{{MyRankingData?.HeadPhoto}}" alt="">
+        <span class="user-name nowrap-1">
+          <span *ngIf="MyRankingData.AgentName" >{{MyRankingData.AgentName}}</span>   {{MyRankingData?.UserName}}
+        </span>
+        <span class="user-grade" *ngIf="MyRankingData.ForumTitle" >
+            {{MyRankingData?.ForumTitle}}
+        </span>
+        <span class="user-grade" *ngIf="MyRankingData.FinishCount" >
+          {{MyRankingData?.FinishCount}}
+      </span>
+        <span class="user-grade stars" *ngIf="MyRankingData?.ScoreAvg">
+          <span class="img-star">
+              <span class="icon iconfont " *ngFor="let s of MyRankingData.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
+          </span>
+          <span style="padding-left: 5px;">
+            {{MyRankingData?.ScoreAvg}}
+          </span>
+        </span>
+    </div>
+  </div>
+ 
+
   <ion-list text-center style="margin-top: 10rem" *ngIf="no_list">
     <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
     <p text-center style="color: #666666;font-size: 16px">

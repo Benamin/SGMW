@@ -177,6 +177,11 @@ page-app-ranking{
             height: 45px;
         }
     }
+    .MyRankingData{
+        margin-top: 8px;
+        margin-bottom: 8px;
+        background: #FFFBED;
+    }
     .list-user{
         display: flex;
         align-items: center;
@@ -189,7 +194,7 @@ page-app-ranking{
             margin-left: -10px;
         }
         .user-heard-img{
-            width: 28px;
+            height: 28px;
             width: 28px;
             margin-left: 26px;
             border-radius: 50%;

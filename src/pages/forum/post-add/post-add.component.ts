@@ -252,13 +252,18 @@ src:''};
     console.log(ImgDom);
     this.iseditImg=false;
   }
-
-
+  
+  loading=null;
+  sevrData_click=false;
   sevrData(IsSaveAndPublish){
-
-    if(!this.Title){
+    
+    if(!this.Title||this.sevrData_click){
       return;
     }
+    this.loading = this.loadCtrl.create({
+      content:''
+    });
+    this.loading.present();
     let textareaImg:HTMLElement=document.getElementById('textareaImg');
     let textInnerHTML:any=textareaImg.innerHTML;
     
@@ -268,6 +273,7 @@ src:''};
     }else{
       this.forum_post_add(IsSaveAndPublish,textInnerHTML);
     }
+    this.sevrData_click=true;
   }
   forum_post_edit(IsSaveAndPublish,textInnerHTML){
     let data={
@@ -286,11 +292,16 @@ src:''};
           this.editImgOkText='保存成功';
         }
         this.editImgOk=true;
+        this.loading.dismiss();
+        
         setTimeout(() => {
           this.editImgOk=false;
           this.backPop();
         }, 2000);
+      }else{
+        this.sevrData_click=false;
       }
+
     })
   }
 
@@ -316,10 +327,13 @@ src:''};
           this.editImgOkText='保存成功';
         }
         this.editImgOk=true;
+        this.loading.dismiss();
         setTimeout(() => {
           this.editImgOk=false;
           this.backPop();
         }, 2000);
+      }else{
+        this.sevrData_click=false;
       }
     });
   }

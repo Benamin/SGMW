@@ -33,8 +33,8 @@ export class PostsContentComponent implements OnInit {
     "FollowCount": '0',
     "LikeCount": '0',
     "DislikeCount": 0, 
-    "FavoritesCount":  '1',
-     "ReplyCount": 1
+    "FavoritesCount":  null,
+     "ReplyCount": null
   };
   // 查看帖子详情
   constructor(private serve: ForumService, 
@@ -68,19 +68,19 @@ export class PostsContentComponent implements OnInit {
   }
   loading;
   async forum_post_publish() {
-    console.log('查看帖子详情');
       this.loading = this.loadCtrl.create({
         content:''
       });
       this.loading.present();
-      // this.lidata.Id='236e62ac-3425-4f2c-8a90-016df43c37e5';
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
-      console.log(res);
-   
+  
+     if(res.code!=200){
+       return this.loading.dismiss();
+     }
       let element = res.data;
       element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
 
-      if(res.data.Replys){
+      if(res.data.Replys&&res.code==200){
         res.data.Replys.forEach(element => {
           if(element['PosterUserName'].length>4){
             element['PosterUserName']=element.PosterUserName.slice(0,4)+'...';
@@ -265,7 +265,7 @@ export class PostsContentComponent implements OnInit {
     let loading = this.loadCtrl.create({
       content:''
     });
-     loading.present();
+    loading.present();
     this.serve.forum_post_cancellike(data.Id).subscribe((res: any) => {
       data['is_like']=false;
       this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount'])-1+'';
@@ -276,6 +276,7 @@ export class PostsContentComponent implements OnInit {
 
 
   // 评论帖子
+  reply_add_click=false;
   reply_add(){
     if(!this.inputText){
       return 
@@ -284,14 +285,20 @@ export class PostsContentComponent implements OnInit {
         "PostId":  this.dataCon.Id,//帖子编号
         "Content": this.inputText,//回帖内容
       }
-  
+      let loading = this.loadCtrl.create({
+        content:''
+      });
+      loading.present();
+    this.reply_add_click=true
     this.serve.reply_add(data).subscribe((res:any) => {
       console.log(res);
       this.inputText="";
       if(res.code==200){
         this.textareaBlur = false;
+        this.reply_add_click=false;
         this.reasizeData();
       }
+      loading.dismiss();
     });
   }
 
