@@ -85,6 +85,11 @@ export class PostsContentComponent implements OnInit {
           if(element['PosterUserName'].length>4){
             element['PosterUserName']=element.PosterUserName.slice(0,4)+'...';
           }
+          if(!element['PosterUserForumTitle']){
+            element['PosterUserForumTitle']={
+              ForumTitle:'',
+            };
+          }
           if(element['PosterUserForumTitle'].ForumTitle.length>3){
             element['PosterUserForumTitle'].ForumTitle=element['PosterUserForumTitle'].ForumTitle.slice(0,3)+'...';
           } 

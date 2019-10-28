@@ -39,7 +39,8 @@
       <div class="phb_2">
           <div class="name-div">
               <img class="user-head" src="{{phb_2?.HeadPhoto}}" alt="">
-              <div class="name">{{phb_2?.UserName}}</div>
+              <div class="name type-name nowrap-1">{{phb_2?.AgentName}}</div>
+              <div class="name  nowrap-1">{{phb_2?.UserName}}</div>
               <div class="user-label" *ngIf="phb_2?.ForumTitle">
                 {{phb_2?.ForumTitle}}
               </div>
@@ -61,7 +62,8 @@
       <div class="phb_1">
         <div class="name-div">
           <img class="user-head" src="{{phb_1?.HeadPhoto}}" alt="">
-          <div class="name">{{phb_1?.UserName}}</div>
+          <div class="name type-name nowrap-1">{{phb_2?.AgentName}}</div>
+          <div class="name nowrap-1">{{phb_1?.UserName}}</div>
           <div class="user-label" *ngIf="phb_2?.ForumTitle" >
             {{phb_1?.ForumTitle}}
           </div>
@@ -82,7 +84,8 @@
       <div class="phb_3">
           <div class="name-div">
               <img class="user-head" src="{{phb_3?.HeadPhoto}}" alt="">
-              <div class="name">{{phb_3?.UserName}}</div>
+              <div class="name type-name nowrap-1">{{phb_3?.AgentName}}</div>
+              <div class="name nowrap-1">{{phb_3?.UserName}}</div>
               <div class="user-label" *ngIf="phb_3?.ForumTitle" >
                 {{phb_3?.ForumTitle}}
               </div>
@@ -111,7 +114,7 @@
         </span>
         <img class="user-heard-img" src="{{item?.HeadPhoto}}" alt="">
         <span class="user-name nowrap-1">
-            {{item?.UserName}}
+          <span *ngIf="item.AgentName" >{{item.AgentName}}</span>   {{item?.UserName}}
         </span>
         <span class="user-grade" *ngIf="item.ForumTitle" >
             {{item?.ForumTitle}}

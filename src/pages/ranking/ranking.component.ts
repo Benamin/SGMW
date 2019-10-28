@@ -50,9 +50,9 @@ export class RankingComponent implements OnInit {
     examination:'区域'
   };
   GetRankListArr=null;
-  phb_1={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null};
-  phb_2={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null};
-  phb_3={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null};
+  phb_1={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null};
+  phb_2={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null};
+  phb_3={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null};
   mineInfo=null;
   dataList=[
   ];
