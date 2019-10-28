@@ -75,4 +75,15 @@ page-exam {
     width: 80px;
     height: 80px;
   }
+  .outer {
+    height: 3px;
+    background-color: #bee1ec;
+    position: relative;
+
+    .inner {
+      background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+      height: 3px;
+      transition: all 500ms;
+    }
+  }
 }

@@ -26,7 +26,7 @@ export class TestCenterPage {
     page = {
         EName: '',
         StudyState: 1,
-        EType: 4,  /// 3-预习作业 4-课后作业
+        EType: 2,
         load: false,
         Page:1,
         PageSize:10,
@@ -75,7 +75,7 @@ export class TestCenterPage {
         loading.present();
         const data = {
             StudyState: [this.page.StudyState],
-            EType:[2],
+            EType:[this.page.EType],
             Page:this.page.Page,
             PageSize:this.page.PageSize,
             EGroup:[1,2]
@@ -138,10 +138,10 @@ export class TestCenterPage {
         this.page.Page++;
         const data = {
             StudyState: [this.page.StudyState],
-            EGroup: [1],
-            Page: this.page.Page,
-            EType: this.page.EType,
-            PageSize: this.page.PageSize,
+            EGroup:[1],
+            EType:[this.page.EType],
+            Page:this.page.Page,
+            PageSize:this.page.PageSize,
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {

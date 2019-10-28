@@ -100,7 +100,7 @@ export class DoExamPage {
                 }
             }
         );
-        if (countDone < this.exam.QnAInfos.length) {
+        if (countDone < this.exam.QnAInfos.length && status == 3) {
             this.score.isDone = true;
             return
         }
@@ -113,17 +113,21 @@ export class DoExamPage {
             });
             loading.present();
             this.exam.QnAInfos.forEach(e => {
-                if (e.QType == 2) e.StuAnswer = e.StuAnswer.split(',').sort().join(',');
+                if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
             });
             const data = {
                 submitType: status
             };
+            console.log(this.exam);
             this.homeSer.submitPaper(data,this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
-                    if (res.code == 200) {
+                    if (res.code == 200  && status == 3) {
                         this.score.score = res.message;
                         this.score.show = true;
+                    }else if(res.code == 200 && status == 2){
+                        this.commonSer.toast('暂存成功');
+                        this.navCtrl.pop();
                     } else {
                         this.commonSer.toast(res.Message);
                     }

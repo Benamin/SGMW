@@ -124,7 +124,7 @@ export class DoQuestionPage {
             });
             loading.present();
             this.exam.QnAInfos.forEach(e => {
-                if (e.QType == 2) e.StuAnswer = e.StuAnswer.split(',').sort().join(',');
+                if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
             });
             const data = {
                 submitType: status

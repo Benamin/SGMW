@@ -27,8 +27,11 @@
                         </p>
                     </div>
                 </div>
-                <p *ngIf="page.StudyState != 1" class="split"></p>
-                <p *ngIf="page.StudyState == 3">
+                <div *ngIf="page.StudyState != 1" class="outer">
+                    <div class="inner" [style.width]="(item.FinishCount/item.QuesCount)*100 +'%'"></div>
+                </div>
+                <p style="margin-top: 10px" *ngIf="page.StudyState == 2">已完成: {{((item.FinishCount/item.QuesCount)*100).toFixed(0) +'%'}}</p>
+                <p style="margin-top: 10px" *ngIf="page.StudyState == 3">
                     <span class="examScore">
                         <img src="./assets/imgs/mine/exam-submit.png">已提交
                     </span>

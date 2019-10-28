@@ -57,7 +57,7 @@ export class DoTestPage {
                 this.score.isDone = true;
                 return
             }
-            this.submit();
+            this.submit(3);
         };
     }
 
@@ -73,19 +73,21 @@ export class DoTestPage {
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
                 this.exam.QnAInfos = res.data.QnAInfos;
+                this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;
-                this.exam.QnAInfos.forEach(e =>{
-                    e.StuAnswer = e.StuAnswer ? e.StuAnswer.split(',').join('') : "";
-                    this.doneTotal ++;
+                this.exam.QnAInfos.forEach(e => {
+                    if (e.StuAnswer != "") {
+                        e.StuAnswer = e.StuAnswer.split(',').join('');
+                        this.doneTotal++;
+                    }
                 });
-                this.exam.ExamInfo = res.data.stuScore;
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
                 });
-                if (this.exam.ExamInfo.PaperTimer > 0) {
-                    this.paperLeave(item.ID);
-                }
+                // if (this.exam.ExamInfo.PaperTimer > 0) {
+                this.paperLeave(item.Fid);
+                // }
             }
         );
 
@@ -93,9 +95,9 @@ export class DoTestPage {
     }
 
     //查询考试剩余时间
-    paperLeave(id) {
+    paperLeave(Fid) {
         const data = {
-            fid: id
+            Fid: Fid
         };
         this.homeSer.getStuSurplu(data).subscribe(
             (res) => {
@@ -140,7 +142,7 @@ export class DoTestPage {
         this.index = this.slides.realIndex || 0;
         this.doneTotal = 0;
         this.exam.QnAInfos.forEach(e => {
-                if (e.QAnswer.length > 0) {
+                if (e.StuAnswer.length > 0) {
                     this.doneTotal++;
                 }
             }
@@ -149,40 +151,16 @@ export class DoTestPage {
 
     //多选
     mutiSelect(i, option) {
-        if (this.exam.QnAInfos[i].QAnswer && this.exam.QnAInfos[i].QAnswer.includes(option)) {
-            this.exam.QnAInfos[i].QAnswer = this.exam.QnAInfos[i].QAnswer.replace(option, '');
+        if (this.exam.QnAInfos[i].StuAnswer && this.exam.QnAInfos[i].StuAnswer.includes(option)) {
+            this.exam.QnAInfos[i].StuAnswer = this.exam.QnAInfos[i].StuAnswer.replace(option, '');
         } else {
-            this.exam.QnAInfos[i].QAnswer += option + '';
+            this.exam.QnAInfos[i].StuAnswer += option + '';
         }
-        console.log(this.exam.QnAInfos[i].QAnswer);
-    }
-
-    //暂存提交
-    saveStuExams() {
-        this.commonSer.alert('确定暂存答案?', () => {
-            const loading = this.loadCtrl.create({
-                content: '提交中...'
-            });
-            // loading.present();
-            this.exam.QnAInfos.forEach(e => {
-                if (e.QType == 2) e.StuAnswer = e.StuAnswer.split(',').sort().join(',');
-            });
-            this.mineSer.saveStuExams(this.exam).subscribe(
-                (res) => {
-                    loading.dismiss();
-                    if (res.code == 200) {
-                        this.navCtrl.pop();
-                        this.commonSer.toast('已暂存');
-                    } else {
-                        this.commonSer.toast(res.Message);
-                    }
-                }
-            )
-        });
+        console.log(this.exam.QnAInfos[i].StuAnswer);
     }
 
     //确认提交
-    submit() {
+    submit(status) {
         let countDone = 0;
         this.exam.QnAInfos.forEach(e => {
                 if (e.StuAnswer.length > 0) {
@@ -190,24 +168,33 @@ export class DoTestPage {
                 }
             }
         );
-        if (countDone < this.exam.QnAInfos.length) {
+        if (countDone < this.exam.QnAInfos.length && status == 3) {
             this.score.isDone = true;
             return
         }
-        this.commonSer.alert(`确认提交?`, () => {
+        let msg;
+        if (status == 2) msg = '暂存';
+        if (status == 3) msg = '提交';
+        this.commonSer.alert(`确认${msg}?`, () => {
             const loading = this.loadCtrl.create({
                 content: '提交中...'
             });
             loading.present();
             this.exam.QnAInfos.forEach(e => {
-                if (e.QType == 2) e.QAnswer = e.QAnswer.split(',').sort().join(',');
+                if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
             });
-            this.mineSer.submitStuExams(this.exam).subscribe(
+            const data = {
+                submitType: status
+            };
+            this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
-                    if (res.code == 200) {
+                    if (res.code == 200 && status == 3) {
                         this.score.score = res.message;
                         this.score.show = true;
+                    }else if(res.code == 200 && status == 2){
+                        this.commonSer.toast('暂存成功');
+                        this.navCtrl.pop();
                     } else {
                         this.commonSer.toast(res.Message);
                     }
@@ -219,9 +206,12 @@ export class DoTestPage {
     //自动提交
     forceSubmit() {
         this.exam.QnAInfos.forEach(e => {
-            if (e.QType == 2) e.QAnswer = e.QAnswer.split("").sort().join(',');
+            if (e.QType == 2) e.StuAnswer = e.StuAnswer.split("").sort().join(',');
         });
-        this.mineSer.submitStuExams(this.exam).subscribe(
+        const data = {
+            submitType: 3
+        };
+        this.homeSer.submitPaper(data, this.exam).subscribe(
             (res) => {
                 if (res.code == 200) {
                     this.score.score = res.message;

@@ -173,17 +173,17 @@
         <div class="test-process">
             <div class="doIt">已完成：{{doneTotal}}/{{exam.QnAInfos.length}}题</div>
             <div class="countTime">
-                <ng-container *ngIf="exam.ExamInfo?.PaperTimer > 0">倒计时：{{timeText}}</ng-container>
+                <ng-container>倒计时：{{timeText}}</ng-container>
             </div>
         </div>
         <div class="outer">
             <div class="inner" [style.width]="(doneTotal/exam.QnAInfos.length)*100 +'%'"></div>
         </div>
         <div class="footer-subject">
-            <div class="submit" tappable (click)="submit()">
+            <div class="submit" tappable (click)="submit(3)">
                 <div>确认提交</div>
             </div>
-            <div class="saveStuExams" tappable (click)="saveStuExams()">
+            <div class="saveStuExams" tappable (click)="submit(2)">
                 <div>暂存答案</div>
             </div>
             <div class="more" tappable (click)="moreChoice()">
