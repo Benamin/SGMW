@@ -131,7 +131,8 @@ export class PostAddComponent implements OnInit {
 
   // 选择图片
   addImg(){
-    let pic_selector:HTMLElement=document.getElementById('pic_selector');
+    let pic_selector:any=document.getElementById('pic_selector');
+    pic_selector.value = '';
     console.log();
     pic_selector.click();
   }
