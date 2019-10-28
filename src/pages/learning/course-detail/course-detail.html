@@ -23,7 +23,8 @@
                              (click)="studyNow()">
                             回顾{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}
                         </div>
-                        <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100" (click)="studyNow()">
+                        <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100"
+                             (click)="studyNow()">
                             立即学习
                         </div>
                     </div>
@@ -37,18 +38,24 @@
                     </div>
                     <div class="course-desc">
                     <span>  <!--点赞-->
-                        <img tappable (click)="savePraise()" *ngIf="!product.detail?.IsPraise" src="./assets/imgs/course/hua@2x.png" alt="">
-                        <img tappable (click)="cancelPraise()" *ngIf="product.detail?.IsPraise" src="./assets/imgs/course/hua_y@2x.png" alt="">
+                        <img tappable (click)="savePraise()" *ngIf="!product.detail?.IsPraise"
+                             src="./assets/imgs/course/hua@2x.png" alt="">
+                        <img tappable (click)="cancelPraise()" *ngIf="product.detail?.IsPraise"
+                             src="./assets/imgs/course/hua_y@2x.png" alt="">
                         {{product.detail?.ZanCount || "0"}}
                     </span>
                         <span>  <!--扔鸡蛋-->
-                        <img tappable (click)="saveHate()" *ngIf="!product.detail?.IsHate" src="./assets/imgs/course/jd@2x.png" alt="">
-                        <img tappable (click)="cancelHate()" *ngIf="product.detail?.IsHate" src="./assets/imgs/course/jd_y@2x.png" alt="">
+                        <img tappable (click)="saveHate()" *ngIf="!product.detail?.IsHate"
+                             src="./assets/imgs/course/jd@2x.png" alt="">
+                        <img tappable (click)="cancelHate()" *ngIf="product.detail?.IsHate"
+                             src="./assets/imgs/course/jd_y@2x.png" alt="">
                             {{product.detail?.HateCount || "0"}}
                     </span>
                         <span>  <!--收藏-->
-                        <img tappable (click)="saveCollection()" *ngIf="!product.detail?.IsCollection" src="./assets/imgs/course/sc@2x.png" alt="">
-                        <img tappable (click)="cancleCollection()" *ngIf="product.detail?.IsCollection" src="./assets/imgs/course/sc_y@2x.png" alt="">
+                        <img tappable (click)="saveCollection()" *ngIf="!product.detail?.IsCollection"
+                             src="./assets/imgs/course/sc@2x.png" alt="">
+                        <img tappable (click)="cancleCollection()" *ngIf="product.detail?.IsCollection"
+                             src="./assets/imgs/course/sc_y@2x.png" alt="">
                             {{product.detail?.CollectionCount || "0"}}</span>
                     </div>
                 </div>
@@ -61,7 +68,7 @@
     </div>
     <div style="margin-top: 236px" #space class="space"></div>
 
-    <ion-slides  (ionSlideDidChange)="slideChanged()">
+    <ion-slides (ionSlideDidChange)="slideChanged()">
         <ng-container *ngIf="files.length > 0">
             <!--      简介      -->
             <ion-slide>
@@ -107,7 +114,7 @@
             </ion-slide>
             <!--      讨论      -->
             <ion-slide>
-                <div  class="item">
+                <div class="item">
                     <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
                         <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end
                               class="look">更多</span>
@@ -130,7 +137,7 @@
                                         </span>
                                         <span class="badgeSpan" *ngFor="let badge of item?.Badges">
                                             <img [src]="badge.BadgeIcon">
-                                            <span>{{badge.BadgeName}}</span>
+                                            <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
                                         </span>
                                     </p>
                                     <p>
@@ -148,30 +155,38 @@
                     <div class="no-comment" *ngIf="comment.talk.length == 0">
                         <ion-list text-center style="margin-top: 40px">
                             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                            <p style="color: #666666;font-size: 16px">暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
+                            <p style="color: #666666;font-size: 16px">
+                                暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
                         </ion-list>
                     </div>
                 </div>
             </ion-slide>
             <!--      讲师      -->
             <ion-slide>
-                <div  class="item">
+                <div class="item">
                     <p>讲师
-                        <span (click)="teachDetail()" tappable float-end class="look">查看</span>
+<!--                        <span  tappable float-end class="look">查看</span>-->
                     </p>
-                    <div class="teacher-info" *ngFor="let item of  product.detail?.Teachers">
-                        <div class="img">
-                            <img [src]="item.HeadPhoto  || defalutPhoto">
-                        </div>
-                        <div class="position">
-                            <p style="margin-left: -10px">{{item.UserName}}</p>
-                            <p style="margin-left: -10px">{{item.Position}}</p>
-                        </div>
-                        <div>
-                        <span *ngIf="item.IsSubscribe == false" tappable (click)="focusHandle(item.UserID)"
-                            class="focus focus-blue">关注</span>
-                            <span *ngIf="item.IsSubscribe == true" tappable (click)="cancleFocusHandle(item.UserID)"
-                                  class="focus noFocus-blue">已关注</span>
+                    <div class="sale-box">
+                        <div class="scroll-tab">
+                            <div class="sale-content">
+                                <div class="teacher-info" *ngFor="let item of  teacherList" [ngStyle]="{'width' : teacherList.length>1?'60%':'100%'}">
+                                    <div class="teacher-item" (click)="teachDetail(item)">
+                                        <div class="img">
+                                            <img [src]="item.HeadPhoto  || defalutPhoto">
+                                        </div>
+                                        <div class="position">
+                                            <p>{{item.UserName}}</p>
+                                            <p>{{item.Position}}</p>
+                                        </div>
+                                        <div>
+                                         <span *ngIf="item.IsSubscribe == false" tappable (click)="focusHandle(item.UserID)"
+                                               class="focus focus-blue">关注</span>
+                                            <span *ngIf="item.IsSubscribe == true" tappable (click)="cancleFocusHandle(item.UserID)" class="focus noFocus-blue">已关注</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -199,7 +214,7 @@
                                         </span>
                                         <span class="badgeSpan" *ngFor="let badge of item?.Badges">
                                             <img [src]="badge.BadgeIcon">
-                                            <span>{{badge.BadgeName}}</span>
+                                            <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
                                         </span>
                                     </p>
                                     <p>
@@ -221,7 +236,7 @@
                                     <div>
                                         <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
                                     </div>
-                                    <div >{{item.TeacherName}}</div>
+                                    <div>{{item.TeacherName}}</div>
                                 </div>
                             </div>
                         </div>
@@ -236,7 +251,7 @@
             </ion-slide>
             <!--      评价      -->
             <ion-slide>
-                <div  class="item">
+                <div class="item">
                     <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
                         <span *ngIf="comment.course.length > 0" tappable class="look" float-end
                               (click)="goCourseComment()">更多</span>
@@ -254,12 +269,12 @@
                                         <span>
                                             {{item.UserName}}
                                         </span>
-                                         <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
+                                        <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                                             {{item?.TitleInfo?.ForumTitle}}
                                          </span>
-                                         <span class="badgeSpan" *ngFor="let badge of item?.Badges">
+                                        <span class="badgeSpan" *ngFor="let badge of item?.Badges">
                                                 <img [src]="badge.BadgeIcon">
-                                                <span>{{badge.BadgeName}}</span>
+                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
                                         </span>
                                     </p>
                                     <p>
@@ -293,9 +308,9 @@
             </ion-slide>
             <!--      相关      -->
             <ion-slide>
-                <div  class="item" style="margin-bottom: 5rem">
+                <div class="item" style="margin-bottom: 5rem">
                     <p>相关推荐</p>
-                            <course-list [list]="learnList" (done)="goCourse($event)"></course-list>
+                    <course-list [list]="learnList" (done)="goCourse($event)"></course-list>
                 </div>
             </ion-slide>
         </ng-container>

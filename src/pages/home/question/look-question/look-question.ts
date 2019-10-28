@@ -33,7 +33,7 @@ export class LookQuestion {
         loading.present();
         const item = this.navParams.get('item');
         const data = {
-            Eid: item.Eid
+            Fid: item.Fid
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {

@@ -66,6 +66,7 @@ export class CourseDetailPage {
     };
     starList = new Array(5);
     defalutPhoto = defaultHeadPhoto;   //默认头像；
+    teacherList;  //讲师列表
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -77,6 +78,8 @@ export class CourseDetailPage {
 
     ionViewDidLoad() {
         this.slides.autoHeight = true;
+        this.slides.onlyExternal = true;
+        this.getTeacher();
     }
 
     async ionViewDidEnter() {
@@ -147,6 +150,20 @@ export class CourseDetailPage {
 
             }
         );
+    }
+
+    //讲师评价下-讲师列表
+    getTeacher() {
+        const data = {
+            id: this.pId
+        }
+        this.learnSer.GetTeacherListByPID(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.teacherList = res.data;
+                }
+            }
+        )
     }
 
 
@@ -268,8 +285,8 @@ export class CourseDetailPage {
     }
 
     //教师详情
-    teachDetail() {
-        this.navCtrl.push(TeacherPage, {item: this.product.detail.Teachers[0]});
+    teachDetail(item) {
+        this.navCtrl.push(TeacherPage, {item: item});
     }
 
     async focusHandle(UserID) {
@@ -507,4 +524,5 @@ export class CourseDetailPage {
     slideChanged() {
         this.bar.type = this.slides.realIndex + 1;
     }
+
 }
