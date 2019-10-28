@@ -111,30 +111,28 @@ export class DoExamPage {
             const loading = this.loadCtrl.create({
                 content: '提交中...'
             });
-            // loading.present();
+            loading.present();
             this.exam.QnAInfos.forEach(e => {
-                if (e.QType == 2){
-                    e.StuAnswer = e.StuAnswer.replace(/,/g).split('').sort().join(',');
-                }
+                if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
             });
             const data = {
                 submitType: status
             };
             console.log(this.exam);
-            // this.homeSer.submitPaper(data,this.exam).subscribe(
-            //     (res) => {
-            //         loading.dismiss();
-            //         if (res.code == 200  && status == 3) {
-            //             this.score.score = res.message;
-            //             this.score.show = true;
-            //         }else if(res.code == 200 && status == 2){
-            //             this.commonSer.toast('暂存成功');
-            //             this.navCtrl.pop();
-            //         } else {
-            //             this.commonSer.toast(res.Message);
-            //         }
-            //     }
-            // )
+            this.homeSer.submitPaper(data,this.exam).subscribe(
+                (res) => {
+                    loading.dismiss();
+                    if (res.code == 200  && status == 3) {
+                        this.score.score = res.message;
+                        this.score.show = true;
+                    }else if(res.code == 200 && status == 2){
+                        this.commonSer.toast('暂存成功');
+                        this.navCtrl.pop();
+                    } else {
+                        this.commonSer.toast(res.Message);
+                    }
+                }
+            )
         });
     }
 
