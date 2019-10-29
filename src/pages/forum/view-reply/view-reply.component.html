@@ -29,7 +29,7 @@
       <div class="reply-top">
         <img class="heard-img" src="{{item.PosterHeadPhoto}}" alt="">
         <div class="text">
-          <h4>{{item.PosterUserName}}<span *ngIf="item.MentionUserName==data.PosterUserName" class="label">楼主</span></h4>
+          <h4>{{item.PosterUserName}}<span *ngIf="item.PosterUserName==data.PosterUserName" class="label">楼主</span></h4>
           <p>{{item._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">

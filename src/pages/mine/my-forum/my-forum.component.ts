@@ -89,7 +89,6 @@ export class MyForumComponent implements OnInit {
         }
       }else{
         this.presentToast(res.message);
-       
       }
       if(loading){
         loading.dismiss();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController, LoadingController } from "ionic-angular";
 import { ForumService } from '../forum.service';
+import {Storage} from "@ionic/storage";
 @Component({
   selector: 'page-view-reply',
   templateUrl: './view-reply.component.html'
@@ -11,17 +12,23 @@ export class ViewReplyComponent implements OnInit {
   data = { Id: "",PostId:"" ,Comments:[]};
   lidata = { Id: '', TopicPlateId: "", Name: "" };
   loading=null;
+  mineInfo=null;
   constructor(
     private serve: ForumService,
     public navParams: NavParams, 
     private navCtrl: NavController,
     private loadCtrl:LoadingController,
+    private storage: Storage
 
     ) { }
 
   ngOnInit() {
     this.data = this.navParams.get('data');
     this.lidata = this.navParams.get('lidata');
+    this.storage.get('user').then(value => {
+      this.mineInfo = value;
+      console.log(this.mineInfo )
+    })
     if(this.data.Comments&&this.data.Comments.length>0){
       this.data.Comments.forEach((element,i )=> {
           element['_ReplyTimeFormatted']=element.CommentTimeFormatted.slice(0,-3)
@@ -46,7 +53,7 @@ export class ViewReplyComponent implements OnInit {
     let data = {
       "PostReplyId": this.data.Id,//评论的回帖编号
       "Content": this.inputText,//评论内容
-      "MentionUser": "",//回复用户的 loginName
+      "MentionUser": this.mineInfo.UserId,//回复用户的 loginName
       "CurrentUser":""
     }
     this.loading = this.loadCtrl.create({
