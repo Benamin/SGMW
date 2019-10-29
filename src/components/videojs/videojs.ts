@@ -8,7 +8,7 @@ declare let videojs: any;
     selector: 'videojs',
     templateUrl: 'videojs.html'
 })
-export class VideojsComponent implements OnDestroy{
+export class VideojsComponent implements OnDestroy {
     @ViewChild('example_video') example_video: ElementRef;
 
     videoPoster: string;
@@ -16,7 +16,7 @@ export class VideojsComponent implements OnDestroy{
     video;
     videoEle;
 
-    constructor(private globleData:GlobalData) {
+    constructor(private globleData: GlobalData) {
         const videoNum = this.globleData.videoNumber;
         this.videoEle = `video${videoNum}`;
         timer(100).subscribe(() => {
@@ -24,17 +24,24 @@ export class VideojsComponent implements OnDestroy{
                 muted: false,
                 controls: true,
                 autoplay: true
-            },(e)=>{
+            }, (e) => {
+                this.globleData.videoNumber++;
                 console.log('videojs播放器初始化成功')
             })
         });
     }
 
-    pageLeave(){
-        this.video.pause();
+    pageLeave() {
+        if(this.video['player_']){
+            this.video.pause();
+        }
     }
 
     ngOnDestroy(): void {
+
+    }
+
+    destroy(){
         this.video.dispose();
     }
 

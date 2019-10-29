@@ -112,7 +112,7 @@ export class CourseDetailPage {
         this.showFooter = false;
         this.appSer.setFile(null);
         const arr = this.navCtrl.getViews().filter(e=>e.name == 'CourseDetailPage')
-        if(arr.length == 1) this.videojsCom.ngOnDestroy();
+        if(arr.length == 1) this.videojsCom.destroy();
         this.videojsCom.pageLeave();
     }
 
