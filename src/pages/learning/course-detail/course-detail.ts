@@ -117,7 +117,7 @@ export class CourseDetailPage {
         this.appSer.setFile(null);
         this.videojsCom.pageLeave();
         const arr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
-        if (arr.length == 1) this.videojsCom.ngOnDestroy();
+        if (arr.length == 1) this.videojsCom.destroy();
     }
 
     //课程详情、课程章节、相关课程、课程评价
