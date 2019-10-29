@@ -2,7 +2,7 @@ import { Component, OnInit,NgZone } from '@angular/core';
 import { NavController ,
         NavParams,
         LoadingController,
-        Img} from "ionic-angular";
+        ToastController ,} from "ionic-angular";
 import {ForumService} from "../forum.service";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -33,19 +33,17 @@ export class PostAddComponent implements OnInit {
     private serve:ForumService,
     public navParams: NavParams,
     private loadCtrl: LoadingController,
-    private zone: NgZone
+    private zone: NgZone,
+    private toastCtrl: ToastController
     ) {
 
       if(this.serve.iosOrAndroid()=="Ios"){
         Observable.fromEvent(window, "native.keyboardshow")
         .debounceTime(100)
         .subscribe((event: any) => {
-            // alert('显示:'+JSON.stringify(event))
-  
             this.paddingBottom=event.keyboardHeight+20+'px';
             let paddingBottomdom=document.getElementById('buttomImgDiv');
             paddingBottomdom.style.paddingBottom=this.paddingBottom;
-            console.log(paddingBottomdom);
             //this.keyboardshowHeightBottom=event.keyboardHeight+'px';
         });
   
@@ -96,7 +94,6 @@ export class PostAddComponent implements OnInit {
   
      }
      
-      console.log(imgDom);
     });
   }
 
@@ -138,7 +135,7 @@ export class PostAddComponent implements OnInit {
   }
   //  在文文字中插入图片
   SetaddImg(imgSrc,alt){ 
-    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    // let textareaImg:HTMLElement=document.getElementById('textareaImg');
     let textArr=this.focusNode.data.split('');
     textArr.splice(this.anchorOffset,0,'<img alt="'+alt+'" src="'+imgSrc+'"> ');
     let NewText="";
@@ -156,12 +153,6 @@ export class PostAddComponent implements OnInit {
       newDiv.innerHTML="&nbsp;";
       textareaImg.append(newDiv);
     }
-    //  if(this.anchorOffset==0&&this.focusNode.id=='textareaImg'){
-    //     textareaImg.append('<img src="'+imgSrc+'" title=""> ');
-    //  }else if(this.anchorOffset==0&&!this.focusNode.id){
-    //     textareaImg.append('<img src="'+imgSrc+'" title=""> ');
-    //  }else if(this.focusNode.id=='textareaImg'){
-    //  }
      this.replaceText();
   }
   
@@ -258,6 +249,10 @@ src:''};
   sevrData_click=false;
   sevrData(IsSaveAndPublish){
     
+    if(this.Title.length>50){
+      this.serve.presentToast('标题不能超过50个字符');
+      return ;
+    }
     if(!this.Title||this.sevrData_click){
       return;
     }
@@ -268,6 +263,11 @@ src:''};
     let textareaImg:HTMLElement=document.getElementById('textareaImg');
     let textInnerHTML:any=textareaImg.innerHTML;
     
+    let textInnerTEXT:any=textareaImg.innerText;
+    if(textInnerTEXT.length > 5000){
+      this.serve.presentToast('帖子内容不能超过5000个字符');
+      return
+    }
 
     if(this.lidata.Status==1){ // 草稿帖子 修改帖子
       this.forum_post_edit(IsSaveAndPublish,textInnerHTML);
@@ -343,5 +343,18 @@ src:''};
     //   console.log('下拉滑动');
     //   document.body.scrollTop = document.body.scrollHeight;
     // },20);
+
+
+presentToast(text) {
+  let toast = this.toastCtrl.create({
+    message: text,
+    duration: 3000,//3秒后自动消失
+    position: 'top',//位置
+    showCloseButton:true,
+    closeButtonText:"关闭"
+   }); 
+    toast.onDidDismiss(() => { console.log('toast被关闭之后执行'); });
+    toast.present();//符合触发条件后立即执行显示。一定不能忘了这个
+  }
 
 }

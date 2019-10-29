@@ -94,12 +94,13 @@ page-app-ranking{
                     font-size: 10px;
                     border-radius: 10px;
                     color: #fff;
+                    width:  65px;
                 }
                 .name{
                     margin: auto;
                     font-size: 12px;
                     margin-bottom: 5px;
-                    max-width:  70px;
+                    width:  65px;
                 }
                 .type-name{
                     font-size: 12px;
@@ -205,7 +206,6 @@ page-app-ranking{
             margin-right:10px ;
         }
         .user-name{
-            display: flex;
             flex:1;
         }
         .user-grade{

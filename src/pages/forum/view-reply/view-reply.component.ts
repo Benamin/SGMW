@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController, LoadingController } from "ionic-angular";
-
 import { ForumService } from '../forum.service';
 @Component({
   selector: 'page-view-reply',
@@ -16,7 +15,8 @@ export class ViewReplyComponent implements OnInit {
     private serve: ForumService,
     public navParams: NavParams, 
     private navCtrl: NavController,
-    private loadCtrl:LoadingController
+    private loadCtrl:LoadingController,
+
     ) { }
 
   ngOnInit() {
@@ -40,6 +40,10 @@ export class ViewReplyComponent implements OnInit {
 
   
   replycomment_add() {
+    if(!this.inputText){
+      this.serve.presentToast('请输入内容');
+      return ;
+    }
     let data = {
       "PostReplyId": this.data.Id,//评论的回帖编号
       "Content": this.inputText,//评论内容
@@ -52,16 +56,22 @@ export class ViewReplyComponent implements OnInit {
     this.loading.present();
     this.textareaBlur = false;
     this.serve.replycomment_add(data).subscribe((res:any) => { 
-      console.log(res);
+      
       if(res.code==200){
         this.forum_post_publish();
+      }else{
+        this.loading.dismiss();
+        return  this.serve.presentToast(res.message);
       }
     });
   }
 
   forum_post_publish() {
     this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
-      console.log(res);
+      if(res.code!=200){
+        this.loading.dismiss();
+        return  this.serve.presentToast(res.message);
+      }
       res.data.Replys.forEach((element,i )=> {
           if(element.Id==this.data.Id){
             let huifu=element.Comments[element.Comments.length-1];
@@ -74,5 +84,7 @@ export class ViewReplyComponent implements OnInit {
       this.loading.dismiss();
     });
   }
+
+
 
 }

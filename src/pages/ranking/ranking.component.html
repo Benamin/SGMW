@@ -41,13 +41,16 @@
               <img class="user-head" src="{{phb_2?.HeadPhoto}}" alt="">
               <div class="name type-name nowrap-1">{{phb_2?.AgentName}}</div>
               <div class="name  nowrap-1">{{phb_2?.UserName}}</div>
-              <div class="user-label" *ngIf="phb_2?.ForumTitle">
+              <div class="user-label nowrap-1" *ngIf="phb_2?.ForumTitle">
                 {{phb_2?.ForumTitle}}
               </div>
-              <div class="user-label" *ngIf="phb_2?.FinishCount">
+              <div class="user-label nowrap-1" *ngIf="phb_2?.FinishCount">
                 {{phb_2?.FinishCount}}
               </div>
-              
+              <div class="user-label nowrap-1" *ngIf="phb_2?.TotalCount">
+                  {{phb_2?.TotalCount}}
+                </div>
+            
               <span class="user-grade stars" *ngIf="phb_2?.ScoreAvg">
                 <span class="img-star">
                     <span class="icon iconfont " *ngFor="let s of phb_2.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
@@ -62,14 +65,17 @@
       <div class="phb_1">
         <div class="name-div">
           <img class="user-head" src="{{phb_1?.HeadPhoto}}" alt="">
-          <div class="name type-name nowrap-1">{{phb_2?.AgentName}}</div>
+          <div class="name type-name nowrap-1">{{phb_1?.AgentName}}</div>
           <div class="name nowrap-1">{{phb_1?.UserName}}</div>
-          <div class="user-label" *ngIf="phb_2?.ForumTitle" >
+          <div class="user-label nowrap-1" *ngIf="phb_1?.ForumTitle" >
             {{phb_1?.ForumTitle}}
           </div>
-          <div class="user-label" *ngIf="phb_1?.FinishCount">
+          <div class="user-label nowrap-1" *ngIf="phb_1?.FinishCount">
             {{phb_1?.FinishCount}}
           </div>
+          <div class="user-label nowrap-1" *ngIf="phb_2?.TotalCount">
+              {{phb_1?.TotalCount}}
+            </div>
           <span class="user-grade stars" *ngIf="phb_1?.ScoreAvg">
             <span class="img-star">
                 <span class="icon iconfont " *ngFor="let s of phb_1.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
@@ -85,13 +91,16 @@
           <div class="name-div">
               <img class="user-head" src="{{phb_3?.HeadPhoto}}" alt="">
               <div class="name type-name nowrap-1">{{phb_3?.AgentName}}</div>
-              <div class="name nowrap-1">{{phb_3?.UserName}}</div>
-              <div class="user-label" *ngIf="phb_3?.ForumTitle" >
+              <div class="name nowrap-1">{{phb_3?.UserName}}</div>    
+              <div class="user-label nowrap-1" *ngIf="phb_3?.ForumTitle" >
                 {{phb_3?.ForumTitle}}
               </div>
-              <div class="user-label" *ngIf="phb_3?.FinishCount">
+              <div class="user-label nowrap-1" *ngIf="phb_3?.FinishCount">
                 {{phb_3?.FinishCount}}
               </div>
+              <div class="user-label nowrap-1" *ngIf="phb_2?.TotalCount">
+                  {{phb_3?.TotalCount}}
+                </div>
             </div>
             <span class="user-grade stars" *ngIf="phb_3?.ScoreAvg">
               <span class="img-star">
@@ -114,17 +123,18 @@
         </span>
         <img class="user-heard-img" src="{{item?.HeadPhoto}}" alt="">
         <span class="user-name nowrap-1">
-          <span *ngIf="item.AgentName" class="AgentName nowrap-1">{{item.AgentName}}</span> 
-          <span *ngIf="item.AgentName">
-            —
-          </span>  {{item?.UserName}}
+          <span *ngIf="item.AgentName" >{{item.AgentName}} — </span> 
+           {{item?.UserName}}
         </span>
         <span class="user-grade" *ngIf="item.ForumTitle" >
             {{item?.ForumTitle}}
         </span>
         <span class="user-grade" *ngIf="item.FinishCount" >
           {{item?.FinishCount}}
-      </span>
+        </span>
+        <span class="user-grade" *ngIf="item.TotalCount" >
+            {{item?.TotalCount}}
+          </span>
         <span class="user-grade stars" *ngIf="item?.ScoreAvg">
           <span class="img-star">
               <span class="icon iconfont " *ngFor="let s of item.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
@@ -145,10 +155,8 @@
         </span>
         <img class="user-heard-img" src="{{MyRankingData?.HeadPhoto}}" alt="">
         <span class="user-name nowrap-1">
-          <span *ngIf="MyRankingData.AgentName" class="AgentName nowrap-1">{{MyRankingData.AgentName}}</span>
-           <span *ngIf="MyRankingData.AgentName">
-            —
-          </span>   {{MyRankingData?.UserName}}
+          <span *ngIf="MyRankingData.AgentName" >{{MyRankingData.AgentName}}—</span>
+            {{MyRankingData?.UserName}}
         </span>
         <span class="user-grade" *ngIf="MyRankingData.ForumTitle" >
             {{MyRankingData?.ForumTitle}}

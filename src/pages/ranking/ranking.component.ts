@@ -50,9 +50,9 @@ export class RankingComponent implements OnInit {
     examination:'区域'
   };
   GetRankListArr=null;
-  phb_1={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null};
-  phb_2={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null};
-  phb_3={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null};
+  phb_1={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null,TotalCount:null};
+  phb_2={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null,TotalCount:null};
+  phb_3={HeadPhoto:'',UserName:'',ForumTitle:'',ScoreAvg:null,star:null,FinishCount:null,AgentName:null,TotalCount:null};
   mineInfo=null;
   dataList=[];
   constructor(private serve:RankingService,private loadCtrl: LoadingController,private storage: Storage,) {
@@ -121,7 +121,9 @@ export class RankingComponent implements OnInit {
     if(arr[2]){
       this.phb_3=arr[2];
     }
-    this.dataList = arr.slice(3,10);
+    // this.dataList = arr.slice(3,10);
+    this.dataList = arr.slice(0,10);
+
     // this.MyRankingData = arr.slice(11);
     this.MyRankingData = arr[11];
     console.log(this.MyRankingData);

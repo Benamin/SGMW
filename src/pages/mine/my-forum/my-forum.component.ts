@@ -1,5 +1,5 @@
 import { Component, OnInit,NgZone } from '@angular/core';
-import {LoadingController, NavController, Slides} from 'ionic-angular';
+import {LoadingController, NavController, Slides,ToastController} from 'ionic-angular';
 import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
 import {ForumService} from '../../forum/forum.service';
 import {PostAddComponent} from '../../forum/post-add/post-add.component';
@@ -28,7 +28,9 @@ export class MyForumComponent implements OnInit {
   }
   constructor(public navCtrl: NavController,
     private serve:ForumService,
-    private loadCtrl:LoadingController, private zone: NgZone) { }
+    private loadCtrl:LoadingController, 
+    private zone: NgZone,
+    private toastCtrl: ToastController) { }
 
     ionViewDidEnter() {
       this.pageDate.pageIndex=1;
@@ -71,6 +73,11 @@ export class MyForumComponent implements OnInit {
   delOk(){
     this.isDelShow=false;
     console.log(this.delData);
+    let loading = null;
+    loading = this.loadCtrl.create({
+      content:''
+    });
+    loading.present();
     this.serve.post_delete(this.delData.Id).subscribe((res:any )=> {
       console.log(res);
       if(res.code==200){
@@ -80,9 +87,27 @@ export class MyForumComponent implements OnInit {
             n--;
           }
         }
-        
+      }else{
+        this.presentToast(res.message);
+       
       }
+      if(loading){
+        loading.dismiss();
+      }
+      
     });
+  }
+  presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'top',
+      closeButtonText:"关闭"
+    });
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+    toast.present();
   }
 
   // 获取数据
@@ -96,7 +121,7 @@ export class MyForumComponent implements OnInit {
     }
     this.serve.forum_post_search(this.pageDate).subscribe((res:any) => {
       console.log('板块列表',res);
-      if(this.pageDate.pageIndex==1){
+      if(loading){
         loading.dismiss();
       }
       if(!res.data){
@@ -119,6 +144,8 @@ export class MyForumComponent implements OnInit {
       this.zone.run(() => {
       
       })
+
+
     });
   }
 

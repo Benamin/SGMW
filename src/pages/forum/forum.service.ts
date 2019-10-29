@@ -125,7 +125,7 @@ export class ForumService {
   // https://devapi.chinacloudsites.cn/api/forum/post/get?postId=C1F48775-C0EE-4A32-87BB-016D7D4C5F08
   forum_post_get(postId) {
     return this.http.post(SERVER_API_URL + '/forum/post/get?postId=' + postId.postId, { postId });
-
+    
     // return this.http.post(SERVER_API_URL + '/forum/post/get',{postId});
   }
 
@@ -295,7 +295,8 @@ export class ForumService {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'top'
+      position: 'top',
+      closeButtonText:"关闭"
     });
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');
@@ -316,4 +317,5 @@ export class ForumService {
     }
 
   }
+
 }

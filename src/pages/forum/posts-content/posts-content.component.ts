@@ -72,9 +72,10 @@ export class PostsContentComponent implements OnInit {
         content:''
       });
       this.loading.present();
-    this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
-  
+      this.serve.forum_post_get({ postId: this.lidata.Id }).subscribe((res: any) => {
+      
      if(res.code!=200){
+       this.serve.presentToast(res.message);
        return this.loading.dismiss();
      }
       let element = res.data;
@@ -279,7 +280,7 @@ export class PostsContentComponent implements OnInit {
   reply_add_click=false;
   reply_add(){
     if(!this.inputText){
-      return 
+      return this.serve.presentToast('请输入评论内容');
     }
     let data =  {
         "PostId":  this.dataCon.Id,//帖子编号
@@ -301,5 +302,6 @@ export class PostsContentComponent implements OnInit {
       loading.dismiss();
     });
   }
+
 
 }
