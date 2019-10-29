@@ -100,7 +100,7 @@ export class MyForumComponent implements OnInit {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'top',
+      position: 'middle',
       closeButtonText:"关闭"
     });
     toast.onDidDismiss(() => {
@@ -118,7 +118,13 @@ export class MyForumComponent implements OnInit {
       });
       loading.present();
     }
-    this.serve.forum_post_search(this.pageDate).subscribe((res:any) => {
+    let data={
+      pageIndex: this.pageDate.pageIndex,
+      pageSize: this.pageDate.pageSize,
+      status: this.pageDate.status,
+    }
+    // GetMypost
+    this.serve.GetMypost(data).subscribe((res:any) => {
       console.log('板块列表',res);
       if(loading){
         loading.dismiss();
@@ -130,7 +136,7 @@ export class MyForumComponent implements OnInit {
         })
         return
       }
-      let arr=res.data.Items;
+      let arr=res.data.Posts.Items;
       arr.forEach(element => {
         element.PostRelativeTime=this.serve.PostRelativeTimeForm(element.PostRelativeTime);
       });
