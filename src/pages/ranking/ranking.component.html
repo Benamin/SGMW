@@ -114,7 +114,10 @@
         </span>
         <img class="user-heard-img" src="{{item?.HeadPhoto}}" alt="">
         <span class="user-name nowrap-1">
-          <span *ngIf="item.AgentName" >{{item.AgentName}}</span>   {{item?.UserName}}
+          <span *ngIf="item.AgentName" class="AgentName nowrap-1">{{item.AgentName}}</span> 
+          <span *ngIf="item.AgentName">
+            —
+          </span>  {{item?.UserName}}
         </span>
         <span class="user-grade" *ngIf="item.ForumTitle" >
             {{item?.ForumTitle}}
@@ -142,7 +145,10 @@
         </span>
         <img class="user-heard-img" src="{{MyRankingData?.HeadPhoto}}" alt="">
         <span class="user-name nowrap-1">
-          <span *ngIf="MyRankingData.AgentName" >{{MyRankingData.AgentName}}</span>   {{MyRankingData?.UserName}}
+          <span *ngIf="MyRankingData.AgentName" class="AgentName nowrap-1">{{MyRankingData.AgentName}}</span>
+           <span *ngIf="MyRankingData.AgentName">
+            —
+          </span>   {{MyRankingData?.UserName}}
         </span>
         <span class="user-grade" *ngIf="MyRankingData.ForumTitle" >
             {{MyRankingData?.ForumTitle}}
