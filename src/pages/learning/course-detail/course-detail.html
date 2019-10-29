@@ -25,7 +25,7 @@
             </div>
         </div>
         <div id="videoTag" class="content video" [hidden]="product.videoSrc == null">
-            <videojs [src]="product.videoSrc" [poster]="product.videoPoster"></videojs>
+            <videojs #videojsCom [src]="product.videoSrc" [poster]="product.videoPoster"></videojs>
         </div>
     </div>
     <!--    <navbar #navbar [list]="navbarList" (done)="getNavbar($event)"></navbar>-->

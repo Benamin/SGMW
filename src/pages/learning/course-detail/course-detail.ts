@@ -11,6 +11,7 @@ import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {ViewFilePage} from "../view-file/view-file";
 import {EmitService} from "../../../core/emit.service";
 import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
+import {VideojsComponent} from "../../../components/videojs/videojs";
 
 
 @Component({
@@ -20,6 +21,7 @@ import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild('videojsCom') videojsCom: VideojsComponent;
     @ViewChild('video')
     public video: ElementRef;
     @ViewChild(Content) content: Content;
@@ -109,6 +111,9 @@ export class CourseDetailPage {
     ionViewWillLeave() {
         this.showFooter = false;
         this.appSer.setFile(null);
+        const arr = this.navCtrl.getViews().filter(e=>e.name == 'CourseDetailPage')
+        if(arr.length == 1) this.videojsCom.ngOnDestroy();
+        this.videojsCom.pageLeave();
     }
 
     //固定navbar

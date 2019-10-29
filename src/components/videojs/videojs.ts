@@ -1,5 +1,6 @@
 import {Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
 import {timer} from "rxjs/observable/timer";
+import {GlobalData} from "../../core/GlobleData";
 
 declare let videojs: any;
 
@@ -13,10 +14,13 @@ export class VideojsComponent implements OnDestroy{
     videoPoster: string;
     videoSrc: string;
     video;
+    videoEle;
 
-    constructor() {
+    constructor(private globleData:GlobalData) {
+        const videoNum = this.globleData.videoNumber;
+        this.videoEle = `video${videoNum}`;
         timer(100).subscribe(() => {
-            this.video = videojs("#example_video", {
+            this.video = videojs(this.videoEle, {
                 muted: false,
                 controls: true,
                 autoplay: true
@@ -24,6 +28,10 @@ export class VideojsComponent implements OnDestroy{
                 console.log('videojs播放器初始化成功')
             })
         });
+    }
+
+    pageLeave(){
+        this.video.pause();
     }
 
     ngOnDestroy(): void {

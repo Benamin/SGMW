@@ -51,6 +51,7 @@ import {ForumModule} from '../pages/forum/forum.module';
 import {ForumPage} from '../pages/forum/forum.component';
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
+import {GlobalData} from "../core/GlobleData";
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import {RandomWordService} from "../secret/randomWord.service";
         AppUpdateService,
         DatePipe,
         RandomWordService,
+        GlobalData,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
