@@ -82,6 +82,8 @@ export class MyQuestion {
     }
 
     changeType(e) {
+        this.page.load = false;
+        this.examList = [];
         this.page.StudyState = e.type;
         this.getList();
     }
@@ -104,7 +106,6 @@ export class MyQuestion {
 
     //加载更多
     doInfinite(e) {
-        console.log('doInfinite')
         if (this.page.TotalItems < this.examList.length || this.page.TotalItems == this.examList.length) {
             e.complete();
             return
