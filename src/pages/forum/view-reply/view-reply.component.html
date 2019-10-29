@@ -9,7 +9,18 @@
       <div class="reply-top">
         <img class="heard-img" src="{{data.PosterHeadPhoto}}" alt="">
         <div class="text">
-          <h4>{{data.PosterUserName}}</h4>
+          <h4>
+              <span class="PosterUserName">
+                  {{data.PosterUserName}} 
+              </span>
+            <span class="ForumTitle">{{data.PosterUserForumTitle.ForumTitle}}</span> 
+            <span class="PosterBadges" *ngFor="let data of data.PosterBadges" >
+              <img src="{{data.BadgeIcon}}" alt="">
+              <span class="PosterBadges-BadgeName">
+                  {{data.BadgeName}}
+              </span>
+            </span>  
+          </h4>
           <p>{{data._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">
@@ -29,7 +40,20 @@
       <div class="reply-top">
         <img class="heard-img" src="{{item.PosterHeadPhoto}}" alt="">
         <div class="text">
-          <h4>{{item.PosterUserName}}<span *ngIf="item.PosterUserName==data.PosterUserName" class="label">楼主</span></h4>
+          <h4>
+            <!-- <span *ngIf="item.PosterUserName==lidata.PosterUserName" class="label">楼主</span> -->
+            <span class="PosterUserName">
+                {{item.PosterUserName}} 
+            </span>
+          <span class="ForumTitle">{{item.PosterUserForumTitle.ForumTitle}}</span> 
+          <span class="PosterBadges" *ngFor="let n of item.PosterBadges" >
+            <img src="{{n.BadgeIcon}}" alt="">
+            <span class="PosterBadges-BadgeName">
+                {{n.BadgeName}}
+            </span>
+          </span>  
+          
+          </h4>
           <p>{{item._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">

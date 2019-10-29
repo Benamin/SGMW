@@ -10,7 +10,7 @@ export class ViewReplyComponent implements OnInit {
   textareaBlur = false;
   inputText = "";
   data = { Id: "",PostId:"" ,Comments:[]};
-  lidata = { Id: '', TopicPlateId: "", Name: "" };
+  lidata = { Id: '', TopicPlateId: "", Name: "" ,PosterUserName:""};
   loading=null;
   mineInfo=null;
   constructor(
@@ -31,7 +31,17 @@ export class ViewReplyComponent implements OnInit {
     })
     if(this.data.Comments&&this.data.Comments.length>0){
       this.data.Comments.forEach((element,i )=> {
-          element['_ReplyTimeFormatted']=element.CommentTimeFormatted.slice(0,-3)
+          element['_ReplyTimeFormatted']=element.CommentTimeFormatted.slice(0,-3);
+          if(element['PosterUserName'].length>4){
+            element['PosterUserName']=element.PosterUserName.slice(0,4)+'...';
+          }
+          element.PosterBadges.forEach(e => {
+            if(e['BadgeName'].length>4){
+              e['BadgeName']=e['BadgeName'].slice(0,4)+'...';
+            } 
+          
+          });
+       
       });
       this.data.Comments.reverse();
     }
