@@ -126,7 +126,6 @@ export class RankingComponent implements OnInit {
 
     // this.MyRankingData = arr.slice(11);
     this.MyRankingData = arr[11];
-    console.log(this.MyRankingData);
 
   }
 
@@ -138,7 +137,6 @@ export class RankingComponent implements OnInit {
     loading.present();
     
     this.serve.GetRankList().subscribe((res:any) => {
-      console.log(res);
       this.GetRankListArr=res.data;
       this.switchInListType({key: "TeacherTitleModels",name: "头衔榜"});
       loading.dismiss();
@@ -147,7 +145,6 @@ export class RankingComponent implements OnInit {
   
   
   GetUsertitleSearch(){
-    console.log(this.mineInfo);
     let data={
       forumTitleId: "",
     pageIndex: 1,
