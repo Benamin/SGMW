@@ -121,8 +121,8 @@ export class RankingComponent implements OnInit {
     if(arr[2]){
       this.phb_3=arr[2];
     }
-    // this.dataList = arr.slice(3,10);
-    this.dataList = arr.slice(0,10);
+    this.dataList = arr.slice(3,10);
+    // this.dataList = arr.slice(0,10);
 
     // this.MyRankingData = arr.slice(11);
     this.MyRankingData = arr[11];

@@ -349,7 +349,7 @@ presentToast(text) {
   let toast = this.toastCtrl.create({
     message: text,
     duration: 3000,//3秒后自动消失
-    position: 'top',//位置
+    position: 'middle',//位置
     showCloseButton:true,
     closeButtonText:"关闭"
    }); 

@@ -234,6 +234,12 @@ export class ForumService {
     return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
   }
 
+  // 我我发布的 帖子
+  GetMypost(data){
+    return this.http.post(SERVER_API_URL + '/forum/post/my', data);
+
+  }
+
 
 
   // 上传图片
@@ -295,7 +301,7 @@ export class ForumService {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'top',
+      position: 'middle',
       closeButtonText:"关闭"
     });
     toast.onDidDismiss(() => {
