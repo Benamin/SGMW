@@ -4,6 +4,7 @@ import {MineService} from "../mine.service";
 import {QIndexComponent} from "../../../components/q-index/q-index";
 import {Storage} from "@ionic/storage";
 import {HomeService} from "../../home/home.service";
+import {CommonService} from "../../../core/common.service";
 
 @Component({
     selector: 'page-look-exam',
@@ -21,7 +22,8 @@ export class LookExamPage {
     opTips;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController,
-                private homeSer:HomeService,
+                private homeSer: HomeService,
+                private commonSer: CommonService,
                 private mineSer: MineService, private loadCtrl: LoadingController, private storage: Storage) {
 
     }
@@ -37,6 +39,9 @@ export class LookExamPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
+                if (res.Result == 1) {
+                    this.commonSer.toast(res.Message);
+                }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
                 loading.dismiss();

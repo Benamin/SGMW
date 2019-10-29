@@ -28,9 +28,9 @@ export class TestCenterPage {
         StudyState: 1,
         EType: 2,
         load: false,
-        Page:1,
-        PageSize:10,
-        TotalItems:0,
+        Page: 1,
+        PageSize: 10,
+        TotalItems: 0,
     };
 
     examList = [];
@@ -75,16 +75,19 @@ export class TestCenterPage {
         loading.present();
         const data = {
             StudyState: [this.page.StudyState],
-            EType:[this.page.EType],
-            Page:this.page.Page,
-            PageSize:this.page.PageSize,
-            EGroup:[1,2]
+            EType: [this.page.EType],
+            Page: this.page.Page,
+            PageSize: this.page.PageSize,
+            EGroup: [1]
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
+                if (res.Result == 1) {
+                    this.commonSer.toast(res.Message);
+                }
                 this.examList = res.data.Items;
-                this.page.load = true;
                 this.page.TotalItems = res.data.TotalItems;
+                this.page.load = true;
                 loading.dismiss();
             }
         )
@@ -138,13 +141,16 @@ export class TestCenterPage {
         this.page.Page++;
         const data = {
             StudyState: [this.page.StudyState],
-            EGroup:[1],
-            EType:[this.page.EType],
-            Page:this.page.Page,
-            PageSize:this.page.PageSize,
+            EGroup: [1],
+            EType: [this.page.EType],
+            Page: this.page.Page,
+            PageSize: this.page.PageSize,
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
+                if (res.Result == 1) {
+                    this.commonSer.toast(res.Message);
+                }
                 this.examList = this.examList.concat(res.data.Items);
                 this.page.TotalItems = res.data.TotalItems;
                 e.complete();

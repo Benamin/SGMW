@@ -173,7 +173,8 @@
         <div class="test-process">
             <div class="doIt">已完成：{{doneTotal}}/{{exam.QnAInfos.length}}题</div>
             <div class="countTime">
-                <ng-container>倒计时：{{timeText}}</ng-container>
+                <ng-container *ngIf="exam.ExamInfo?.ExamTimer > 0">倒计时：{{timeText}}</ng-container>
+                <ng-container *ngIf="exam.ExamInfo?.ExamTimer == 0">不限制时长</ng-container>
             </div>
         </div>
         <div class="outer">

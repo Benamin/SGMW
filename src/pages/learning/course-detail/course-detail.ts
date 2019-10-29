@@ -67,6 +67,7 @@ export class CourseDetailPage {
     starList = new Array(5);
     defalutPhoto = defaultHeadPhoto;   //默认头像；
     teacherList;  //讲师列表
+    isLoad = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -79,7 +80,6 @@ export class CourseDetailPage {
     ionViewDidLoad() {
         this.slides.autoHeight = true;
         this.slides.onlyExternal = true;
-        this.getTeacher();
     }
 
     async ionViewDidEnter() {
@@ -95,7 +95,7 @@ export class CourseDetailPage {
                 this.product.detail = res.data;
                 this.getProductInfo();
                 this.getFileInfo();
-                this.getCommentList();
+                this.getTeacher();
             }
         );
     }
@@ -133,6 +133,7 @@ export class CourseDetailPage {
                 console.log(this.files);
                 this.product.videoPoster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
+                this.isLoad = true;
             }
         );
 
@@ -161,6 +162,7 @@ export class CourseDetailPage {
             (res) => {
                 if (res.data) {
                     this.teacherList = res.data;
+                    this.getCommentList();
                 }
             }
         )
@@ -169,19 +171,21 @@ export class CourseDetailPage {
 
     //课程评价
     getCommentList() {
-        const data1 = {
-            pageSize: 5,
-            page: 1,
-            TopicType: 'teacher',   //teacher  course
-            topicID: this.product.detail.Teachers[0].UserID,
-        }
-        this.learnSer.GetComment(data1).subscribe(
-            (res) => {
-                if (res.data) {
-                    this.comment.teacher = res.data.CommentItems;
-                }
+        if(this.teacherList.length > 0){
+            const data1 = {
+                pageSize: 5,
+                page: 1,
+                TopicType: 'teacher',   //teacher  course
+                topicID: this.teacherList[0].UserID,
             }
-        );
+            this.learnSer.GetComment(data1).subscribe(   //讲师评价
+                (res) => {
+                    if (res.data) {
+                        this.comment.teacher = res.data.CommentItems;
+                    }
+                }
+            );
+        }
 
         const data2 = {
             pageSize: 5,
@@ -189,7 +193,7 @@ export class CourseDetailPage {
             TopicType: 'course',   //teacher  course
             topicID: this.product.detail.PrId
         }
-        this.learnSer.GetComment(data2).subscribe(
+        this.learnSer.GetComment(data2).subscribe(  //课程评价
             (res) => {
                 if (res.data) {
                     this.comment.course = res.data.CommentItems;
@@ -203,7 +207,7 @@ export class CourseDetailPage {
             TopicType: 'talk',   //teacher  course
             topicID: this.product.detail.PrId
         }
-        this.learnSer.GetTalkList(data3).subscribe(
+        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
             (res) => {
                 if (res.data) {
                     this.comment.talk = res.data.CommentItems;

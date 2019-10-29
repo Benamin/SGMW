@@ -12,12 +12,6 @@
           <div class="item-container">
             <div class="item-title">
               <!--判断题目类型-->
-              <span class="isRight" *ngIf="item.IsOk == 1">
-                                <span style="font-size: 1.7rem" class="icon iconfont icon-duihao"></span>
-                            </span>
-              <span class="isError" *ngIf="item.IsOk == 2 || item.IsOk == 3">
-                                <span style="padding-left: 2px" class="icon iconfont icon-error"></span>
-                            </span>
               <p>
                 {{i + 1}}:
                 <span *ngIf="item.QType == -1">(不限)</span>
@@ -188,7 +182,7 @@
     </div>
     <div class="footer-subject">
       <div class="submit">
-        <div class="submit-score"><img src="./assets/imgs/mine/exam-submit.png">提交成功</div>
+        <div class="submit-score" style="justify-content: end;padding-left: 15px"><img src="./assets/imgs/mine/exam-submit.png">提交成功</div>
       </div>
       <div class="saveStuExams">
         <div>提交时间:{{exam.ExamInfo?.EndTime | date:'MM-dd HH:mm' }}</div>

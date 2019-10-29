@@ -72,6 +72,9 @@ export class DoTestPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
+                if (res.Result == 1) {
+                    this.commonSer.toast(res.Message);
+                }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;
@@ -85,9 +88,9 @@ export class DoTestPage {
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
                 });
-                // if (this.exam.ExamInfo.PaperTimer > 0) {
-                this.paperLeave(item.Fid);
-                // }
+                if (this.exam.ExamInfo.ExamTimer > 0) {
+                    this.paperLeave(item.Fid);
+                }
             }
         );
 
@@ -192,7 +195,7 @@ export class DoTestPage {
                     if (res.code == 200 && status == 3) {
                         this.score.score = res.message;
                         this.score.show = true;
-                    }else if(res.code == 200 && status == 2){
+                    } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');
                         this.navCtrl.pop();
                     } else {
@@ -206,7 +209,7 @@ export class DoTestPage {
     //自动提交
     forceSubmit() {
         this.exam.QnAInfos.forEach(e => {
-            if (e.QType == 2) e.StuAnswer = e.StuAnswer.split("").sort().join(',');
+            if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
         });
         const data = {
             submitType: 3

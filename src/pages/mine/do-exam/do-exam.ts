@@ -55,6 +55,9 @@ export class DoExamPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
+                if(res.Result == 1){
+                    this.commonSer.toast(res.Message);
+                }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.exam.QnAInfos.forEach(e => {

@@ -43,7 +43,7 @@
                         </span>
                         <span class="badgeSpan" *ngFor="let badge of item?.Badges">
                             <img [src]="badge.BadgeIcon">
-                            <span>{{badge.BadgeName}}</span>
+                            <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
                         </span>
                     </p>
                     <p>
