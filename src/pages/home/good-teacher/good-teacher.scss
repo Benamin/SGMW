@@ -8,14 +8,14 @@ page-good-teacher {
     justify-content: center;
     .headPhoto{
       img{
-        width: 4rem;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
       }
       text-align: center;
     }
 
     > div {
-      flex: 1;
     }
     > div:nth-child(2){
       flex: 2;
@@ -26,11 +26,11 @@ page-good-teacher {
     border-top: 1px solid #dddddd;
   }
   .infomation{
-    color: #666666;
+    color: #999999;
     overflow: hidden;
     display: -webkit-box;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
   }
 }

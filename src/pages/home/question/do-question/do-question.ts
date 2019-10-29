@@ -62,6 +62,9 @@ export class DoQuestionPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
+                if(res.Result == 1){
+                    this.commonSer.toast(res.Message);
+                }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;
@@ -175,7 +178,6 @@ export class DoQuestionPage {
         this.navCtrl.pop();
     }
 
-    //关闭题目未做完提示
     //未做完提示关闭
     closeDone(e) {
         this.score.isDone = false;

@@ -47,7 +47,7 @@ page-look-exam {
 
   .item-container {
     background-color: #fff;
-    height: calc(100% - 4rem);
+    height: calc(100% - 2px);
     border-bottom-left-radius: .8rem;
     border-bottom-right-radius: .8rem;
     overflow-y: scroll;
@@ -73,7 +73,7 @@ page-look-exam {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 5rem;
+    height: 50px;
     width: 100%;
     z-index: 999;
   }

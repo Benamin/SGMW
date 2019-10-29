@@ -47,7 +47,7 @@ page-do-exam {
 
   .item-container {
     background-color: #fff;
-    height: 100%;
+    height: calc(100% - 50px);
     border-bottom-left-radius: .8rem;
     border-bottom-right-radius: .8rem;
     overflow-y: scroll;

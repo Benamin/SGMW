@@ -5,6 +5,7 @@ import {DoExamPage} from "../do-exam/do-exam";
 import {LookExamPage} from "../look-exam/look-exam";
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home/home.service";
+import {CommonService} from "../../../core/common.service";
 
 @Component({
     selector: 'page-exam',
@@ -32,6 +33,7 @@ export class ExamPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService,
+                private commonSer: CommonService,
                 private loadCtrl: LoadingController) {
     }
 
@@ -60,9 +62,12 @@ export class ExamPage {
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
+                if (res.Result == 1) {
+                    this.commonSer.toast(res.Message);
+                }
                 this.examList = res.data.Items;
-                this.IsLoad = true;
                 this.page.TotalItems = res.data.TotalItems;
+                this.IsLoad = true;
                 loading.dismiss();
             }
         );
@@ -102,6 +107,9 @@ export class ExamPage {
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
+                if (res.Result == 1) {
+                    this.commonSer.toast(res.Message);
+                }
                 this.examList = this.examList.concat(res.data.Items);
                 this.page.TotalItems = res.data.TotalItems;
                 e.complete();

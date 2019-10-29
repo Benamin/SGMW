@@ -69,9 +69,13 @@ export class MyQuestion {
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
-                this.examList = res.data.Items;
+                if(res.Result == 0){
+                    this.examList = res.data.Items;
+                    this.page.TotalItems = res.data.TotalItems;
+                }else{
+                    this.commonSer.toast(res.Message);
+                }
                 this.page.load = true;
-                this.page.TotalItems = res.data.TotalItems;
                 loading.dismiss();
             }
         )
