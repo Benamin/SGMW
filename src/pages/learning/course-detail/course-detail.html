@@ -81,7 +81,7 @@
             </ion-slide>
             <!--      章节      -->
             <ion-slide>
-                <div id="chapter" class="item">
+                <div id="chapter" class="item" style="min-height: 350px">
                     <p>章节</p>
                     <div class="chapter">
                         <ng-container *ngFor="let item of product.chapter?.Course?.children">
@@ -114,7 +114,7 @@
             </ion-slide>
             <!--      讨论      -->
             <ion-slide>
-                <div class="item">
+                <div class="item" style="min-height: 350px">
                     <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
                         <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end
                               class="look">更多</span>
@@ -155,7 +155,7 @@
                     <div class="no-comment" *ngIf="comment.talk.length == 0">
                         <ion-list text-center style="margin-top: 40px">
                             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                            <p style="color: #666666;font-size: 16px">
+                            <p style="color: #666666;font-size: 13px">
                                 暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
                         </ion-list>
                     </div>
@@ -191,7 +191,7 @@
                     </div>
                 </div>
                 <div class="space"></div>
-                <div class="item">
+                <div class="item" style="min-height: 290px">
                     <p>讲师评价
                         <span *ngIf="comment.teacher.length > 0" tappable (click)="goTeacherComment()" float-end
                               class="look">更多</span>
@@ -244,14 +244,14 @@
                     <div class="no-comment" *ngIf="comment.teacher.length == 0">
                         <ion-list text-center style="margin-top: 40px">
                             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                            <p style="color: #666666;font-size: 16px">暂无讲师评价，快去发一条吧～</p>
+                            <p style="color: #666666;font-size: 13px">暂无讲师评价，快去发一条吧～</p>
                         </ion-list>
                     </div>
                 </div>
             </ion-slide>
             <!--      评价      -->
             <ion-slide>
-                <div class="item">
+                <div class="item" style="min-height: 350px">
                     <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
                         <span *ngIf="comment.course.length > 0" tappable class="look" float-end
                               (click)="goCourseComment()">更多</span>
@@ -298,7 +298,7 @@
                     <div class="no-comment" *ngIf="comment.course.length == 0">
                         <ion-list text-center style="margin-top: 40px">
                             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                            <p style="color: #666666;font-size: 16px">
+                            <p style="color: #666666;font-size: 13px">
                                 暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价，快去发一条吧～
                             </p>
                         </ion-list>
