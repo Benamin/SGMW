@@ -23,9 +23,9 @@ export class VideojsComponent implements OnDestroy {
                 private statusBar: StatusBar,
                 private globleData: GlobalData,
                 private screenOrientation: ScreenOrientation) {
+        const videoNum = this.globleData.videoNum;
+        this.videoEle = `video${videoNum}`;
         timer(100).subscribe(() => {
-            const videoNum = this.globleData.videoStatus;
-            this.videoEle = `video${videoNum}`;
             this.video = videojs(this.videoEle, {
                 muted: false,
                 controls: true,
@@ -48,7 +48,7 @@ export class VideojsComponent implements OnDestroy {
                     console.log(this.video.isFullscreen());
                 })
                 console.log('videojs播放器初始化成功');
-                this.globleData.videoStatus++;
+                this.globleData.videoNum++;
             })
         });
     }
