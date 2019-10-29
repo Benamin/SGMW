@@ -3,6 +3,7 @@ import {timer} from "rxjs/observable/timer";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {StatusBar} from "@ionic-native/status-bar";
+import {GlobalData} from "../../core/GlobleData";
 
 declare let videojs: any;
 
@@ -16,12 +17,16 @@ export class VideojsComponent implements OnDestroy {
     videoPoster: string;
     videoSrc: string;
     video;
+    videoEle;
 
     constructor(private mobileAccess: MobileAccessibility,
-                private statusBar:StatusBar,
+                private statusBar: StatusBar,
+                private globleData: GlobalData,
                 private screenOrientation: ScreenOrientation) {
         timer(100).subscribe(() => {
-            this.video = videojs("#example_video", {
+            const videoNum = this.globleData.videoStatus;
+            this.videoEle = `video${videoNum}`;
+            this.video = videojs(this.videoEle, {
                 muted: false,
                 controls: true,
                 autoplay: true
@@ -42,9 +47,15 @@ export class VideojsComponent implements OnDestroy {
                     }
                     console.log(this.video.isFullscreen());
                 })
-                console.log('videojs播放器初始化成功')
+                console.log('videojs播放器初始化成功');
+                this.globleData.videoStatus++;
             })
         });
+    }
+
+    //页面离开暂停
+    pageLeave(){
+        this.video.pause();
     }
 
     ngOnDestroy(): void {

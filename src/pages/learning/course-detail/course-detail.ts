@@ -11,6 +11,7 @@ import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {ViewFilePage} from "../view-file/view-file";
 import {EmitService} from "../../../core/emit.service";
 import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
+import {VideojsComponent} from "../../../components/videojs/videojs";
 
 
 @Component({
@@ -20,6 +21,7 @@ import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild('videojsCom') videojsCom: VideojsComponent;
     @ViewChild(Slides) slides: Slides;
     @ViewChild('video')
     public video: ElementRef;
@@ -113,6 +115,9 @@ export class CourseDetailPage {
     ionViewWillLeave() {
         this.showFooter = false;
         this.appSer.setFile(null);
+        this.videojsCom.pageLeave();
+        const arr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
+        if (arr.length == 1) this.videojsCom.ngOnDestroy();
     }
 
     //课程详情、课程章节、相关课程、课程评价
@@ -171,7 +176,7 @@ export class CourseDetailPage {
 
     //课程评价
     getCommentList() {
-        if(this.teacherList.length > 0){
+        if (this.teacherList.length > 0) {
             const data1 = {
                 pageSize: 5,
                 page: 1,

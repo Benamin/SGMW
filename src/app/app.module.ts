@@ -58,6 +58,7 @@ import {DownloadFileService} from "../core/downloadFile.service";
 import {CourseDetailPage} from "../pages/learning/course-detail/course-detail";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
+import {GlobalData} from "../core/GlobleData";
 
 
 @NgModule({
@@ -135,6 +136,7 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
             DatePipe,
             RandomWordService,
             DownloadFileService,
+            GlobalData,
             {provide: ErrorHandler, useClass: IonicErrorHandler},
             {
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
