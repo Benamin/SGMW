@@ -135,10 +135,12 @@
                                         <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                                             {{item?.TitleInfo?.ForumTitle}}
                                         </span>
-                                        <span class="badgeSpan" *ngFor="let badge of item?.Badges">
-                                            <img [src]="badge.BadgeIcon">
-                                            <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
-                                        </span>
+                                        <ng-container *ngFor="let badge of item?.Badges;let i = index;">
+                                            <span class="badgeSpan" *ngIf="i < 2">
+                                                <img [src]="badge.BadgeIcon">
+                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
+                                            </span>
+                                        </ng-container>
                                     </p>
                                     <p>
                                         <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
@@ -212,10 +214,12 @@
                                         <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                                             {{item?.TitleInfo?.ForumTitle}}
                                         </span>
-                                        <span class="badgeSpan" *ngFor="let badge of item?.Badges">
-                                            <img [src]="badge.BadgeIcon">
-                                            <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
-                                        </span>
+                                        <ng-container *ngFor="let badge of item?.Badges;let i = index;">
+                                            <span class="badgeSpan" *ngIf="i < 2">
+                                                <img [src]="badge.BadgeIcon">
+                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
+                                            </span>
+                                        </ng-container>
                                     </p>
                                     <p>
                                         <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
@@ -272,10 +276,12 @@
                                         <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                                             {{item?.TitleInfo?.ForumTitle}}
                                          </span>
-                                        <span class="badgeSpan" *ngFor="let badge of item?.Badges">
+                                        <ng-container *ngFor="let badge of item?.Badges;let i = index;">
+                                            <span class="badgeSpan" *ngIf="i < 2">
                                                 <img [src]="badge.BadgeIcon">
                                                 <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
-                                        </span>
+                                            </span>
+                                        </ng-container>
                                     </p>
                                     <p>
                                         <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>

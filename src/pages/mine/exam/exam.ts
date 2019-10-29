@@ -43,6 +43,7 @@ export class ExamPage {
 
     //切换tab
     changeType(e) {
+        this.examList = [];
         this.IsLoad = false;
         this.page.StudyState = e.type;
         this.getList();
@@ -92,7 +93,6 @@ export class ExamPage {
 
     //加载更多
     doInfinite(e) {
-        console.log('doInfinite')
         if (this.page.TotalItems < this.examList.length || this.page.TotalItems == this.examList.length) {
             e.complete();
             return

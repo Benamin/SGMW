@@ -46,17 +46,7 @@ export class TestCenterPage {
     }
 
     ionViewDidEnter() {
-        // this.checkTimeOut();
         this.getList();
-    }
-
-    //答题超时检测
-    checkTimeOut() {
-        this.homeSer.checkTimeOutByStu().subscribe(
-            (res) => {
-
-            }
-        )
     }
 
     doRefresh(e) {
@@ -94,6 +84,8 @@ export class TestCenterPage {
     }
 
     changeType(e) {
+        this.page.load = false;
+        this.examList = [];
         this.page.StudyState = e.type;
         this.getList();
     }
