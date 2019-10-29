@@ -126,7 +126,7 @@ export class CourseCommentPage {
             TopicID: this.topicID,
             Contents: res.replyContent,
             TopicType: 'talk'
-        }
+        };
         this.learnSer.Savetalk(data).subscribe(
             (res) => {
                 this.commonSer.toast('发表成功');
@@ -142,11 +142,15 @@ export class CourseCommentPage {
             Score: res.score,
             Contents: res.replyContent,
             TopicType: this.TopicType
-        }
+        };
         this.learnSer.SaveComment(data).subscribe(
             (res) => {
-                this.commonSer.toast('评价成功');
-                this.getList();
+                if(res.data){
+                    this.commonSer.toast('评价成功');
+                    this.getList();
+                }else{
+                    this.commonSer.toast(`每人只能评价一次`);
+                }
             }
         )
     }
@@ -158,11 +162,16 @@ export class CourseCommentPage {
             Score: res.score,
             Contents: res.replyContent,
             TopicType: this.TopicType
-        }
+        };
         this.learnSer.SaveComment(data).subscribe(
             (res) => {
-                this.commonSer.toast('评价成功');
-                this.getList();
+                if(res.data){
+                    this.commonSer.toast('评价成功');
+                    this.getList();
+                }else{
+                    this.commonSer.toast(`每人只能评价一次`);
+                }
+
             }
         )
     }
