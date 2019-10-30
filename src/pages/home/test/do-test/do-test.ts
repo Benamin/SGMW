@@ -79,7 +79,7 @@ export class DoTestPage {
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;
                 this.exam.QnAInfos.forEach(e => {
-                    if (e.StuAnswer != "") {
+                    if (e.StuAnswer && e.StuAnswer != "") {
                         e.StuAnswer = e.StuAnswer.split(',').join('');
                         this.doneTotal++;
                     }
@@ -145,7 +145,7 @@ export class DoTestPage {
         this.index = this.slides.realIndex || 0;
         this.doneTotal = 0;
         this.exam.QnAInfos.forEach(e => {
-                if (e.StuAnswer.length > 0) {
+                if (e.StuAnswer && e.StuAnswer.length > 0) {
                     this.doneTotal++;
                 }
             }
