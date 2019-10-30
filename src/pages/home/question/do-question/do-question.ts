@@ -86,7 +86,7 @@ export class DoQuestionPage {
 
     //题目完成数量
     slideChanged() {
-        this.index = this.slides.realIndex;
+        if(this.slides.realIndex) this.index = this.slides.realIndex;
         this.doneTotal = 0;
         this.exam.QnAInfos.forEach(e => {
                 if (e.StuAnswer && e.StuAnswer.length > 0) {
