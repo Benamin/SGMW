@@ -38,8 +38,8 @@ export class DoExamPage {
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            this.commonSer.alert("确定要放弃答案吗？", (res) => {
-                this.navCtrl.pop();
+            this.commonSer.alert("确定暂存答案吗？", (res) => {
+                this.backSubmit();
             })
         };
     }
@@ -94,6 +94,31 @@ export class DoExamPage {
         }
     }
 
+    //返回键触犯暂存
+    backSubmit(){
+        const loading = this.loadCtrl.create({
+            content: `暂存中...`
+        });
+        loading.present();
+        this.exam.QnAInfos.forEach(e => {
+            if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
+        });
+        const data = {
+            submitType: 2
+        };
+        this.homeSer.submitPaper(data,this.exam).subscribe(
+            (res) => {
+                loading.dismiss();
+                if (res.code == 200) {
+                    this.commonSer.toast('暂存成功');
+                    this.navCtrl.pop();
+                }else {
+                    this.commonSer.toast(res.Message);
+                }
+            }
+        )
+    }
+
     //确认提交 status 2-暂存 3-提交
     submit(status) {
         let countDone = 0;
@@ -112,7 +137,7 @@ export class DoExamPage {
         if (status == 3) msg = '提交';
         this.commonSer.alert(`确认${msg}?`, () => {
             const loading = this.loadCtrl.create({
-                content: '提交中...'
+                content: `${msg}中...`
             });
             loading.present();
             this.exam.QnAInfos.forEach(e => {

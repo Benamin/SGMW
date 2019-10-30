@@ -7,6 +7,7 @@ import {LookTestPage} from "../look-test/look-test";
 import {DoTestPage} from "../do-test/do-test";
 import {CommonService} from "../../../../core/common.service";
 import {DatePipe} from "@angular/common";
+import {EmitService} from "../../../../core/emit.service";
 
 @Component({
     selector: 'page-exam',
@@ -39,6 +40,7 @@ export class TestCenterPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService, private datePipe: DatePipe,
                 private commonSer: CommonService,
+                public eventEmitSer: EmitService,
                 private loadCtrl: LoadingController) {
     }
 
@@ -46,6 +48,7 @@ export class TestCenterPage {
     }
 
     ionViewDidEnter() {
+        this.eventEmitSer.eventEmit.emit('false');
         this.getList();
     }
 

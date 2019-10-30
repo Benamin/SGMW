@@ -6,6 +6,7 @@ import {LookExamPage} from "../look-exam/look-exam";
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home/home.service";
 import {CommonService} from "../../../core/common.service";
+import {EmitService} from "../../../core/emit.service";
 
 @Component({
     selector: 'page-exam',
@@ -34,10 +35,12 @@ export class ExamPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService,
                 private commonSer: CommonService,
+                public eventEmitSer: EmitService,
                 private loadCtrl: LoadingController) {
     }
 
     ionViewDidEnter() {
+        this.eventEmitSer.eventEmit.emit('false');
         this.getList();
     }
 
