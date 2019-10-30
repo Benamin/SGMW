@@ -42,6 +42,7 @@ export class MyQuestion {
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService, private datePipe: DatePipe,
                 private commonSer: CommonService,
+                public eventEmitSer: EmitService,
                 private loadCtrl: LoadingController) {
     }
 
@@ -49,6 +50,7 @@ export class MyQuestion {
     }
 
     ionViewDidEnter() {
+        this.eventEmitSer.eventEmit.emit('false');
         this.getList();
     }
 
