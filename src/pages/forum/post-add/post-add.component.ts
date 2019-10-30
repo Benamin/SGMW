@@ -134,14 +134,21 @@ export class PostAddComponent implements OnInit {
     pic_selector.click();
   }
   //  在文文字中插入图片
-  SetaddImg(imgSrc,alt){ 
+  SetaddImg(imgSrcArr,alt){ 
     // let textareaImg:HTMLElement=document.getElementById('textareaImg');
-    let textArr=this.focusNode.data.split('');
-    textArr.splice(this.anchorOffset,0,'<img alt="'+alt+'" src="'+imgSrc+'"> ');
+    let textArr = [];
+    if(this.focusNode){
+        textArr = this.focusNode.data.split('');
+    }
+    imgSrcArr.reverse();
+    imgSrcArr.forEach(imgSrc => {
+      textArr.splice(this.anchorOffset,0,'<img alt="'+alt+'" src="'+imgSrc+'"> ');
+    });
     let NewText="";
     textArr.forEach(element => {
-      NewText+=element;
+      NewText += element;
     });
+
     this.focusNode.data=NewText;
     this.replaceText();
   }
@@ -157,10 +164,11 @@ export class PostAddComponent implements OnInit {
   }
   
   replaceText(){
+      // this.focusNode.data=NewText;
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       let textInnerHTML:any=textareaImg.innerHTML;
-      textInnerHTML= textInnerHTML.replace('&lt;','<');
-      textInnerHTML= textInnerHTML.replace('&gt;','>');
+      textInnerHTML= textInnerHTML.replace(/\&lt;/g,'<');
+      textInnerHTML= textInnerHTML.replace(/\&gt;/g,'>');
       textareaImg.innerHTML=textInnerHTML;
       this.zone.run(() => {
         textareaImg.innerHTML=textInnerHTML;
@@ -175,6 +183,7 @@ export class PostAddComponent implements OnInit {
         content: '加载中...'
       });
       loading.present();
+      let srcArr=[];
       const addImgS = (fileList_n,index) =>{
           let formData: FormData = new FormData();
           formData.append('file', fileList_n);
@@ -184,22 +193,19 @@ export class PostAddComponent implements OnInit {
               src:res.data,
               alt:'',
             })
+            srcArr.push(res.data);
             if(!this.focusNode.data){
               this.DomAddImg(res.data,'');
-            }else{
-              this.SetaddImg(res.data,'');
             }
             if(fileList.length-1>index){
               addImgS(fileList[index+1],index+1);
             }else{
+              this.SetaddImg( srcArr,'');
               loading.dismiss();
             }
           });
       }
       addImgS(fileList[0],0);
-
-     
-        
     }
   }
 
