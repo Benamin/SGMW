@@ -194,9 +194,10 @@ page-app-ranking{
         position: relative;
         border-bottom: 1px solid #f1f1f1;
         .index{
-            width: 20px;
-            text-align: right;
-            margin-left: -10px;
+            min-width: 20px;
+            text-align: center;
+            margin-left: -0px;
+            max-width: 60px;
         }
         .user-heard-img{
             height: 28px;
