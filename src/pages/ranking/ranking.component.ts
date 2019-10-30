@@ -112,6 +112,14 @@ export class RankingComponent implements OnInit {
           }
         })
     }
+
+    arr.sort((a,b) => {
+      if(a.RankNum){
+        return parseInt(a.RankNum) - parseInt(b.RankNum);
+      }
+     
+    });
+
     if(arr[0]){
       this.phb_1=arr[0];
     }
@@ -125,7 +133,9 @@ export class RankingComponent implements OnInit {
     // this.dataList = arr.slice(0,10);
 
     // this.MyRankingData = arr.slice(11);
-    this.MyRankingData = arr[11];
+    if(arr[10]){
+      this.MyRankingData = arr[10];
+    }
 
   }
 
