@@ -140,6 +140,12 @@ export class PostAddComponent implements OnInit {
   }
   //  在文文字中插入图片
   SetaddImg(imgSrcArr,alt){ 
+    if(!this.focusNode){
+      imgSrcArr.forEach(element => {
+        this.DomAddImg(element,'');
+      });
+      return
+    }
     // let textareaImg:HTMLElement=document.getElementById('textareaImg');
     let textArr = [];
     if(this.focusNode){
@@ -157,6 +163,8 @@ export class PostAddComponent implements OnInit {
     this.focusNode.data=NewText;
     this.replaceText();
   }
+
+  // 在Dom中插入图片
   DomAddImg(imgSrc,alt){
     let textareaImg:any=document.getElementById('textareaImg');
     if(textareaImg){
@@ -165,9 +173,7 @@ export class PostAddComponent implements OnInit {
         <img alt='${alt}' src='${imgSrc}'>
         <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${imgSrc}'>${alt}</div>
       </div>`;
-
       textareaImg.append(domText);
-
       let newDiv=document.createElement("div");
       newDiv.innerHTML="&nbsp;";
       textareaImg.append(newDiv);
@@ -204,7 +210,7 @@ export class PostAddComponent implements OnInit {
               alt:'',
             })
             srcArr.push(res.data);
-            if(!this.focusNode.data){
+            if(!this.focusNode.data&&fileList.length==1){
               this.DomAddImg(res.data,'');
               loading.dismiss();
               return
@@ -256,12 +262,21 @@ src:''};
   // 编辑图片完成
   editPicturesOk(){
     this.editImg['alt']= this.editImg['newalt'];
-    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let textareaImg:any=document.getElementById('textareaImg');
     let ImgDom:any= textareaImg.querySelector(`img[src='${this.editImg.src}']`);
     let DivDom:any= textareaImg.querySelector(`div[src='${this.editImg.src}']`);
-
+    
+    if(!DivDom){
+      let newDiv=document.createElement("div");
+      newDiv.innerHTML=`
+        <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${this.editImg.src}'>${this.editImg.newalt}</div>
+        <div>&nbsp;</div>
+      `;
+      ImgDom.parentNode.append(newDiv);
+    }else{
+      DivDom.innerText=this.editImg['newalt'];
+    }
     ImgDom.alt=this.editImg['newalt'];
-    DivDom.innerText=this.editImg['newalt'];
     console.log(ImgDom);
     this.iseditImg=false;
   }
