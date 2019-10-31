@@ -10,6 +10,8 @@ import {LoginPage} from "../login/login";
 import {TabService} from "../../core/tab.service";
 import { ForumPage } from '../forum/forum.component';
 import {NoDevPage} from "../home/no-dev/no-dev";
+import {Gesture} from "ionic-angular";
+
 @Component({
     templateUrl: 'tabs.html'
 })

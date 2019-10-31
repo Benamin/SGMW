@@ -17,6 +17,7 @@ page-course-detail {
       text-align: center;
       position: relative;
       height: 100%;
+      filter: blur(1px);
 
       img {
         position: absolute;
