@@ -130,7 +130,7 @@
                                 <div style="text-align: left">
                                     <p class="badge">
                                         <span>
-                                            {{item.UserName}}
+                                            {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
                                         </span>
                                         <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                                             {{item?.TitleInfo?.ForumTitle}}
@@ -138,7 +138,7 @@
                                         <ng-container *ngFor="let badge of item?.Badges;let i = index;">
                                             <span class="badgeSpan" *ngIf="i < 2">
                                                 <img [src]="badge.BadgeIcon">
-                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
+                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0, 4) + '...' : badge.BadgeName}}</span>
                                             </span>
                                         </ng-container>
                                     </p>
@@ -167,12 +167,13 @@
             <ion-slide>
                 <div class="item">
                     <p>讲师
-<!--                        <span  tappable float-end class="look">查看</span>-->
+                        <!--                        <span  tappable float-end class="look">查看</span>-->
                     </p>
                     <div class="sale-box">
                         <div class="scroll-tab">
                             <div class="sale-content">
-                                <div class="teacher-info" *ngFor="let item of  teacherList" [ngStyle]="{'width' : teacherList.length>1?'60%':'100%'}">
+                                <div class="teacher-info" *ngFor="let item of  teacherList"
+                                     [ngStyle]="{'width' : teacherList.length>1?'60%':'100%'}">
                                     <div class="teacher-item" (click)="teachDetail(item)">
                                         <div class="img">
                                             <img [src]="item.HeadPhoto  || defalutPhoto">
@@ -182,9 +183,11 @@
                                             <p>{{item.Position}}</p>
                                         </div>
                                         <div>
-                                         <span *ngIf="item.IsSubscribe == false" tappable (click)="focusHandle(item.UserID)"
+                                         <span *ngIf="item.IsSubscribe == false" tappable
+                                               (click)="focusHandle(item.UserID)"
                                                class="focus focus-blue">关注</span>
-                                            <span *ngIf="item.IsSubscribe == true" tappable (click)="cancleFocusHandle(item.UserID)" class="focus noFocus-blue">已关注</span>
+                                            <span *ngIf="item.IsSubscribe == true" tappable
+                                                  (click)="cancleFocusHandle(item.UserID)" class="focus noFocus-blue">已关注</span>
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +212,7 @@
                                 <div style="text-align: left">
                                     <p class="badge">
                                         <span>
-                                            {{item.UserName}}
+                                            {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
                                         </span>
                                         <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                                             {{item?.TitleInfo?.ForumTitle}}
@@ -217,7 +220,7 @@
                                         <ng-container *ngFor="let badge of item?.Badges;let i = index;">
                                             <span class="badgeSpan" *ngIf="i < 2">
                                                 <img [src]="badge.BadgeIcon">
-                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
+                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0, 4) + '...' : badge.BadgeName}}</span>
                                             </span>
                                         </ng-container>
                                     </p>
@@ -271,7 +274,7 @@
                                 <div style="text-align: left">
                                     <p class="badge">
                                         <span>
-                                            {{item.UserName}}
+                                            {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
                                         </span>
                                         <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                                             {{item?.TitleInfo?.ForumTitle}}
@@ -279,7 +282,7 @@
                                         <ng-container *ngFor="let badge of item?.Badges;let i = index;">
                                             <span class="badgeSpan" *ngIf="i < 2">
                                                 <img [src]="badge.BadgeIcon">
-                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,4) + '...' : badge.BadgeName}}</span>
+                                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0, 4) + '...' : badge.BadgeName}}</span>
                                             </span>
                                         </ng-container>
                                     </p>

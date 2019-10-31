@@ -163,7 +163,7 @@ export class MinePage {
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
                     const onlineVersion = res.data.AppVersion.split('.').join('');
-                    if (versionCode < onlineVersion) {
+                    if (versionCode != onlineVersion) {
                         this.appVersionInfo.UpdateTips = true;
                         this.appVersionInfo.AppUrl = res.data.AppUrl;
                         this.appVersionInfo.UpdateText = res.data.UpdateText;
