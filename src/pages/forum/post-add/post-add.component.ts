@@ -142,7 +142,7 @@ export class PostAddComponent implements OnInit {
     }
     imgSrcArr.reverse();
     imgSrcArr.forEach(imgSrc => {
-      textArr.splice(this.anchorOffset,0,'<img alt="'+alt+'" src="'+imgSrc+'"> ');
+      textArr.splice(this.anchorOffset,0,'<div style="display: inline-block; text-align: center; padding-top: 9px;padding-bottom: 17px;"><img alt="'+alt+'" src="'+imgSrc+'"> <div src="'+imgSrc+'">'+alt+'</div></div>');
     });
     let NewText="";
     textArr.forEach(element => {
@@ -155,7 +155,14 @@ export class PostAddComponent implements OnInit {
   DomAddImg(imgSrc,alt){
     let textareaImg:any=document.getElementById('textareaImg');
     if(textareaImg){
-      textareaImg.append('<img alt="'+alt+'" src="'+imgSrc+'"> ');
+      let domText=`
+      <div style="display: inline-block; text-align: center;padding-top: 9px;padding-bottom: 17px;">
+        <img alt="${alt}" src="${imgSrc}">
+        <div src="${imgSrc}">${alt}</div>
+      </div>`;
+
+      textareaImg.append(domText);
+
       let newDiv=document.createElement("div");
       newDiv.innerHTML="&nbsp;";
       textareaImg.append(newDiv);
@@ -196,11 +203,13 @@ export class PostAddComponent implements OnInit {
             srcArr.push(res.data);
             if(!this.focusNode.data){
               this.DomAddImg(res.data,'');
+              loading.dismiss();
+              return
             }
             if(fileList.length-1>index){
               addImgS(fileList[index+1],index+1);
             }else{
-              this.SetaddImg( srcArr,'');
+              this.SetaddImg(srcArr,'');
               loading.dismiss();
             }
           });
@@ -246,7 +255,10 @@ src:''};
     this.editImg['alt']= this.editImg['newalt'];
     let textareaImg:HTMLElement=document.getElementById('textareaImg');
     let ImgDom:any= textareaImg.querySelector(`img[src='${this.editImg.src}']`);
+    let DivDom:any= textareaImg.querySelector(`div[src='${this.editImg.src}']`);
+
     ImgDom.alt=this.editImg['newalt'];
+    DivDom.innerText=this.editImg['newalt'];
     console.log(ImgDom);
     this.iseditImg=false;
   }
