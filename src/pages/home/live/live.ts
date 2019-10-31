@@ -49,7 +49,6 @@ export class LivePage {
 
     ionViewDidLoad() {
         this.getList();
-        this.list.nowTime = new Date().getTime();
     }
 
     changeType(e) {
@@ -62,6 +61,7 @@ export class LivePage {
     }
 
     getList() {
+        this.list.nowTime = new Date().getTime();
         const load = this.loadCtrl.create();
         load.present();
         this.learnSer.GetProductList(this.page).subscribe(
@@ -82,6 +82,7 @@ export class LivePage {
     }
 
     getTime(date) {
+        date = this.datePipe.transform(date, "yyyy/MM/dd HH:mm:ss");
         return new Date(date).getTime();
     }
 
