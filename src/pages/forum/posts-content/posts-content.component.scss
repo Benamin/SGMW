@@ -141,6 +141,8 @@ page-posts-content {
                     .PosterBadges-BadgeName{
                         margin-left: -5px;
                         transform: scale(0.9) translate(-10px, 0px);
+                        max-width: 80px;
+                        display: inline-block;
                     }
                 }
 

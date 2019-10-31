@@ -38,10 +38,7 @@ page-view-reply{
     .reply-top{
         display: flex;
 
-        .PosterBadges-BadgeName{
-            margin-left: -5px;
-            transform: scale(0.9) translate(-10px, 0px);
-        }
+
         .ForumTitle{
             border-radius: 4px;
             border: 1px solid #EBC044;
@@ -116,6 +113,10 @@ page-view-reply{
            
         }
     }
+    .PosterBadges-BadgeName{
+        max-width: 80px;
+        display: inline-block;
+    }
     .reply-top {
         display: flex;
         .PosterUserName,.ForumTitle,.PosterBadges-BadgeName{
@@ -170,6 +171,7 @@ page-view-reply{
                     max-height: 30px;
                 }
                 .PosterBadges-BadgeName{
+            
                     margin-left: -5px;
                     transform: scale(0.9) translate(-10px, 0px);
                 }
