@@ -54,14 +54,16 @@ export class VideojsComponent implements OnDestroy {
     }
 
     //页面离开暂停
-    pageLeave(){
-        if(this.video['player_']){
+    pageLeave() {
+        if (this.video['player_']) {
             this.video.pause();
         }
     }
 
-    destroy(){
-        this.video.dispose();
+    destroy() {
+        if (this.video) {
+            this.video.dispose();
+        }
     }
 
     ngOnDestroy(): void {

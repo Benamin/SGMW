@@ -59,6 +59,7 @@ import {CourseDetailPage} from "../pages/learning/course-detail/course-detail";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {GlobalData} from "../core/GlobleData";
+import {Hammer} from "ionic-angular/gestures/hammer";
 
 
 @NgModule({
@@ -83,7 +84,7 @@ import {GlobalData} from "../core/GlobleData";
                 mode: 'ios',   //安卓和IOS的样式以IOS样式为准
                 modalEnter: 'modal-slide-in',
                 modalLeave: 'modal-slide-out',
-                swipeBackEnabled: true
+                swipeBackEnabled: false
             },
         ),
         ComponentsModule,

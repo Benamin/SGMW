@@ -363,11 +363,6 @@ export class CourseDetailPage {
     //报名
     sign() {
         let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
-        const nowTime = new Date().getTime();
-        if (nowTime > this.getTime(this.product.detail.EndTime)) {
-            this.commonSer.toast(`${text}已经结束...`);
-            return
-        }
         const data = {
             pid: this.pId
         };
@@ -383,11 +378,10 @@ export class CourseDetailPage {
 
     //初始化作业
     initStudy() {
-        console.log(this.product.detail.PrId)
         const data = {
-            TopicID: this.product.detail.PrId,
+            CSID: this.product.detail.PrId,
         };
-        this.learSer.examByStudy(data).subscribe(
+        this.learSer.initStuHomework(data).subscribe(
             (res) => {
 
             }

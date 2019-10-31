@@ -53,9 +53,7 @@ export class LookTestPage {
     }
 
     slideChanged() {
-        if (this.slides.realIndex) {
-            this.index = this.slides.realIndex;
-        }
+        if(this.slides.realIndex) this.index = this.slides.realIndex;
     }
 
     //查看题目
