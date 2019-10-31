@@ -1,4 +1,9 @@
 page-post-add {
+    div[src]{
+        text-align: center;
+        font-size: 12px;
+        color: #6F6F6F;
+    }
     input::-webkit-input-placeholder{
         color:rgb(134, 134, 134);
     }
@@ -56,6 +61,7 @@ page-post-add {
             background: #fff;
             height: 100%;
             overflow: auto;
+            overflow-x: hidden;
         }
     }
 

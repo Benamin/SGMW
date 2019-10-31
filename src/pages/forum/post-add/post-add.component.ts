@@ -82,16 +82,21 @@ export class PostAddComponent implements OnInit {
     this.serve.forum_post_get({ postId: this.lidata.postId }).subscribe((res: any) => {
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       textareaImg.innerHTML=res.data.Content;
-    let imgDom = textareaImg.querySelectorAll('img');
+      let imgDom = textareaImg.querySelectorAll('img');
+      let DivDom:any = textareaImg.querySelectorAll('div[src]');
+      if(DivDom){
+        for(let n=0;n<DivDom.length;n++){
+          DivDom[n].contenteditable=false;
+        }
+      }
      if(imgDom){
        for(let n=0;n<imgDom.length;n++){
          let e=imgDom[n];
-        this.imgitems.push({
+          this.imgitems.push({
           src:e.src,
           alt:e.alt,
        })
        }
-  
      }
      
     });
@@ -135,6 +140,12 @@ export class PostAddComponent implements OnInit {
   }
   //  在文文字中插入图片
   SetaddImg(imgSrcArr,alt){ 
+    if(!this.focusNode){
+      imgSrcArr.forEach(element => {
+        this.DomAddImg(element,'');
+      });
+      return
+    }
     // let textareaImg:HTMLElement=document.getElementById('textareaImg');
     let textArr = [];
     if(this.focusNode){
@@ -142,7 +153,7 @@ export class PostAddComponent implements OnInit {
     }
     imgSrcArr.reverse();
     imgSrcArr.forEach(imgSrc => {
-      textArr.splice(this.anchorOffset,0,'<img alt="'+alt+'" src="'+imgSrc+'"> ');
+      textArr.splice(this.anchorOffset,0,`<div style='display: inline-block; text-align: center; padding-top: 9px;padding-bottom: 17px;font-size: 12px;color: #6F6F6F;'><img alt='${alt}+' src='${imgSrc}'> <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${imgSrc}'>${alt}</div></div>`);
     });
     let NewText="";
     textArr.forEach(element => {
@@ -152,10 +163,17 @@ export class PostAddComponent implements OnInit {
     this.focusNode.data=NewText;
     this.replaceText();
   }
+
+  // 在Dom中插入图片
   DomAddImg(imgSrc,alt){
     let textareaImg:any=document.getElementById('textareaImg');
     if(textareaImg){
-      textareaImg.append('<img alt="'+alt+'" src="'+imgSrc+'"> ');
+      let domText=`
+      <div style='display: inline-block; padding-top: 9px;padding-bottom: 17px;color: #6F6F6F;'>
+        <img alt='${alt}' src='${imgSrc}'>
+        <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${imgSrc}'>${alt}</div>
+      </div>`;
+      textareaImg.append(domText);
       let newDiv=document.createElement("div");
       newDiv.innerHTML="&nbsp;";
       textareaImg.append(newDiv);
@@ -164,7 +182,6 @@ export class PostAddComponent implements OnInit {
   }
   
   replaceText(){
-      // this.focusNode.data=NewText;
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       let textInnerHTML:any=textareaImg.innerHTML;
       textInnerHTML= textInnerHTML.replace(/\&lt;/g,'<');
@@ -187,20 +204,21 @@ export class PostAddComponent implements OnInit {
       const addImgS = (fileList_n,index) =>{
           let formData: FormData = new FormData();
           formData.append('file', fileList_n);
-      
           this.serve.Upload_UploadFiles(formData).then((res:any) => {
             this.imgitems.push({
               src:res.data,
               alt:'',
             })
             srcArr.push(res.data);
-            if(!this.focusNode.data){
+            if(!this.focusNode.data&&fileList.length==1){
               this.DomAddImg(res.data,'');
+              loading.dismiss();
+              return
             }
             if(fileList.length-1>index){
               addImgS(fileList[index+1],index+1);
             }else{
-              this.SetaddImg( srcArr,'');
+              this.SetaddImg(srcArr,'');
               loading.dismiss();
             }
           });
@@ -244,8 +262,20 @@ src:''};
   // 编辑图片完成
   editPicturesOk(){
     this.editImg['alt']= this.editImg['newalt'];
-    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let textareaImg:any=document.getElementById('textareaImg');
     let ImgDom:any= textareaImg.querySelector(`img[src='${this.editImg.src}']`);
+    let DivDom:any= textareaImg.querySelector(`div[src='${this.editImg.src}']`);
+    
+    if(!DivDom){
+      let newDiv=document.createElement("div");
+      newDiv.innerHTML=`
+        <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${this.editImg.src}'>${this.editImg.newalt}</div>
+        <div>&nbsp;</div>
+      `;
+      ImgDom.parentNode.append(newDiv);
+    }else{
+      DivDom.innerText=this.editImg['newalt'];
+    }
     ImgDom.alt=this.editImg['newalt'];
     console.log(ImgDom);
     this.iseditImg=false;
@@ -253,6 +283,7 @@ src:''};
   
   loading=null;
   sevrData_click=false;
+
   sevrData(IsSaveAndPublish){
     
     if(this.Title.length>50){
@@ -274,7 +305,7 @@ src:''};
       this.serve.presentToast('帖子内容不能超过5000个字符');
       return
     }
-
+  console.log(textInnerHTML);
     if(this.lidata.Status==1){ // 草稿帖子 修改帖子
       this.forum_post_edit(IsSaveAndPublish,textInnerHTML);
     }else{
@@ -282,6 +313,7 @@ src:''};
     }
     this.sevrData_click=true;
   }
+
   forum_post_edit(IsSaveAndPublish,textInnerHTML){
     let data={
       "Id":this.lidata.postId,//帖子编号
