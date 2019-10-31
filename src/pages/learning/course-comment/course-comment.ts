@@ -21,12 +21,14 @@ export class CourseCommentPage {
         pageSize: 1000,
         page: 1,
         total: null,
-        load:false
+        load: false
     };
     topicID;
     TopicType;
     placeholder;
     defalutPhoto = defaultHeadPhoto;   //默认头像；
+
+    test;
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private commonSer: CommonService,
@@ -41,7 +43,10 @@ export class CourseCommentPage {
         this.placeholder = this.navParams.get("placeholder");
         if (this.TopicType != 'talk') this.getList();
         if (this.TopicType == 'talk') this.getTalkList();
-        if (this.TopicType == 'teacher') this.getTeacher();
+        if (this.TopicType == 'teacher') {
+            this.getTeacher();
+            this.setTeacher("", null)
+        }
     }
 
     //课程评价
@@ -101,7 +106,7 @@ export class CourseCommentPage {
 
     //前往评论
     openComment() {
-        if (!this.page.load){
+        if (!this.page.load) {
             this.commonSer.toast("信息加载中...");
             return
         }
@@ -145,10 +150,10 @@ export class CourseCommentPage {
         };
         this.learnSer.SaveComment(data).subscribe(
             (res) => {
-                if(res.data){
+                if (res.data) {
                     this.commonSer.toast('评价成功');
                     this.getList();
-                }else{
+                } else {
                     this.commonSer.toast(`每人只能评价一次`);
                 }
             }
@@ -165,10 +170,10 @@ export class CourseCommentPage {
         };
         this.learnSer.SaveComment(data).subscribe(
             (res) => {
-                if(res.data){
+                if (res.data) {
                     this.commonSer.toast('评价成功');
                     this.getList();
-                }else{
+                } else {
                     this.commonSer.toast(`每人只能评价一次`);
                 }
 
@@ -179,15 +184,12 @@ export class CourseCommentPage {
     //选择讲师 --所有
     setTeacher(item, i) {
         this.selectTeacher = i;
-        if (i == null) {
-            this.getList();
-            return;
-        }
         const data = {
             pageSize: this.page.pageSize,
             page: this.page.page,
             TopicType: 'teacher',   //teacher  course
-            topicID: item.UserID
+            topicID: item.UserID ? item.UserID : "",
+            PID: this.navParams.get("PId")
         };
         this.learnSer.GetComment(data).subscribe(
             (res) => {
