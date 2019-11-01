@@ -26,4 +26,9 @@ export class MineService {
         return this.http.post(SERVER_API_URL + '/forum/userbadge/hide?badgeId='+badgeId,{badgeId})
     }
     
+    // 批量设置显示勋章
+    userbadgeShowlist(data) {
+        return this.http.post(SERVER_API_URL + '/forum/userbadge/showlist',data)
+        // userbadge/showlist
+    }
 }
