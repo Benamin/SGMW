@@ -7,27 +7,27 @@
   <div class="original">
     <div class="reply">
       <div class="reply-top">
-        <img class="heard-img" src="{{data.PosterHeadPhoto}}" alt="">
+        <img class="heard-img" src="{{data?.PosterHeadPhoto}}" alt="">
         <div class="text">
           <h4>
               <span class="PosterUserName">
-                  {{data.PosterUserName}} 
+                  {{data?.PosterUserName}}
               </span>
-            <span class="ForumTitle" *ngIf="data.PosterUserForumTitle" >{{data.PosterUserForumTitle?data.PosterUserForumTitle.ForumTitle:''}}</span> 
-            <span class="PosterBadges" *ngFor="let data of data.PosterBadges" >
-              <img src="{{data.BadgeIcon}}" alt="">
-              <span class="PosterBadges-BadgeName nowrap-1">
-                  {{data.BadgeName}}
+            <span class="ForumTitle">{{data?.PosterUserForumTitle?.ForumTitle}}</span>
+            <span class="PosterBadges" *ngFor="let data of data?.PosterBadges" >
+              <img src="{{data?.BadgeIcon}}" alt="">
+              <span class="PosterBadges-BadgeName">
+                  {{data?.BadgeName}}
               </span>
             </span>  
           </h4>
-          <p>{{data._ReplyTimeFormatted}}</p>
+          <p>{{data?._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">
         </div>
       </div>
       <div class="reply-text">
-        {{data.Content}}
+        {{data?.Content}}
       </div>
     </div>
   </div>
@@ -35,18 +35,18 @@
 
   </div>
   <div class="discuss-list">
-    <p class="number-all">回复（{{data.CommentCount}}）</p>
-    <div class="reply" *ngFor="let item of data.Comments">
+    <p class="number-all">回复（{{data?.CommentCount}}）</p>
+    <div class="reply" *ngFor="let item of data?.Comments">
       <div class="reply-top">
-        <img class="heard-img" src="{{item.PosterHeadPhoto}}" alt="">
+        <img class="heard-img" src="{{item?.PosterHeadPhoto}}" alt="">
         <div class="text">
           <h4>
             <!-- <span *ngIf="item.PosterUserName==lidata.PosterUserName" class="label">楼主</span> -->
             <span class="PosterUserName">
-                {{item.PosterUserName}} 
+                {{item?.PosterUserName}}
             </span>
-          <span class="ForumTitle" *ngIf="item.PosterUserForumTitle">{{item.PosterUserForumTitle?item.PosterUserForumTitle.ForumTitle:''}}</span> 
-          <span class="PosterBadges" *ngFor="let n of item.PosterBadges" >
+          <span class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
+          <span class="PosterBadges" *ngFor="let n of item?.PosterBadges" >
             <img src="{{n.BadgeIcon}}" alt="">
             <span class="PosterBadges-BadgeName">
                 {{n.BadgeName}}
@@ -54,13 +54,13 @@
           </span>  
           
           </h4>
-          <p>{{item._ReplyTimeFormatted}}</p>
+          <p>{{item?._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">
         </div>
       </div>
       <div class="reply-text">
-          {{item.Content}}
+          {{item?.Content}}
       </div>
     </div>
 
