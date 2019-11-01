@@ -343,6 +343,7 @@ src:''};
       return ;
     }
     if(!this.Title||this.sevrData_click){
+      this.serve.presentToast('请填写帖子或者标题内容');
       return;
     }
     this.loading = this.loadCtrl.create({

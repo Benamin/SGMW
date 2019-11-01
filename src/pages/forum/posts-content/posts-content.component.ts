@@ -110,10 +110,21 @@ export class PostsContentComponent implements OnInit {
       this.dataCon['is_like'] = false;
       this.dataCon['is_guanzhu'] = false;
       this.dataCon['is_collect'] = false;
-      const p= Promise.all([this.is_like(this.dataCon),this.is_guanzhu(this.dataCon),this.is_collect(this.dataCon)]);
-      p.then(res => {
+
+      this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((res:any)  => {
+        this.dataCon['is_like'] = res.is_like;
+        this.dataCon[' is_guanzhu'] = res.is_guanzhu;
+        this.dataCon['is_collect'] = res.is_collect;
         this.loading.dismiss();
+      },err => {
+        this.loading.dismiss();
+
       });
+
+      // const p= Promise.all([this.is_like(this.dataCon),this.is_guanzhu(this.dataCon),this.is_collect(this.dataCon)]);
+      // p.then(res => {
+      //   this.loading.dismiss();
+      // });
 
     });
   }
