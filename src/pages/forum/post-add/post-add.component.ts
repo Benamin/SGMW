@@ -342,7 +342,11 @@ src:''};
       this.serve.presentToast('标题不能超过50个字符');
       return ;
     }
-    if(!this.Title||this.sevrData_click){
+    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let textInnerHTML:any=textareaImg.innerHTML;
+    let textInnerText:any=textareaImg.innerText;
+    let textInnerTEXT:any=textareaImg.innerText;
+    if(!this.Title||textInnerText=='请输入正文'){
       this.serve.presentToast('请填写帖子或者标题内容');
       return;
     }
@@ -350,9 +354,6 @@ src:''};
       content:''
     });
     this.loading.present();
-    let textareaImg:HTMLElement=document.getElementById('textareaImg');
-    let textInnerHTML:any=textareaImg.innerHTML;
-    let textInnerTEXT:any=textareaImg.innerText;
     if(textInnerTEXT.length > 20000){
       this.serve.presentToast('帖子内容不能超过20000个字符');
       return
