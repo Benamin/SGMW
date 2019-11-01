@@ -222,4 +222,53 @@ page-app-ranking{
         color: #facd70;
         font-size: 12px;
     }
+    .StudentModel{
+        display: flex;
+        flex-direction: column;
+    }
+    .myAgentName{
+        font-size: 12px;
+        color: #959595;
+    }
+    .UserName,.myUserName{
+        display: block;
+        max-width: 120px;
+    }
+    @media screen and (max-width: 520px) {
+        .UserName,.myUserName,.myAgentName{
+            display: block;
+            max-width: 280px;
+        }
+    }
+    @media screen and (max-width: 480px) {
+        .UserName,.myUserName,.myAgentName{
+            display: block;
+            max-width: 240px;
+        }
+    }
+    @media screen and (max-width: 440px) {
+        .UserName,.myUserName,.myAgentName{
+            display: block;
+            max-width: 200px;
+        }
+    }
+    @media screen and (max-width: 400px) {
+        .UserName,.myUserName,.myAgentName{
+            display: block;
+            max-width: 160px;
+        }
+    }
+    @media screen and (max-width: 360px) {
+        .UserName,.myUserName,.myAgentName{
+            display: block;
+            max-width: 120px;
+        }
+    }
+    @media screen and (max-width: 320px) {
+        .UserName,.myUserName,.myAgentName{
+            display: block;
+            max-width: 90px;
+        }
+    }
+  
 }

@@ -73,9 +73,9 @@
           <div class="user-label nowrap-1" *ngIf="phb_1?.FinishCount">
             {{phb_1?.FinishCount}}
           </div>
-          <div class="user-label nowrap-1" *ngIf="phb_2?.TotalCount">
-              {{phb_1?.TotalCount}}
-            </div>
+          <div class="user-label nowrap-1" *ngIf="phb_1?.TotalCount">
+              <span>{{phb_1?.TotalCount}}</span>
+          </div>
           <span class="user-grade stars" *ngIf="phb_1?.ScoreAvg">
             <span class="img-star">
                 <span class="icon iconfont " *ngFor="let s of phb_1.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
@@ -122,10 +122,22 @@
           {{i+4}}
         </span>
         <img class="user-heard-img" src="{{item?.HeadPhoto}}" alt="">
-        <span class="user-name nowrap-1">
+        <!-- <span class="user-name nowrap-1">
           <span *ngIf="item.AgentName" >{{item.AgentName}} — </span> 
            {{item?.UserName}}
-        </span>
+        </span> -->
+
+        <span class="user-name StudentModel" *ngIf="navli=='StudentModel'">
+            <span class="myUserName nowrap-1">{{item?.UserName}}</span>
+            <span class="myAgentName nowrap-1" *ngIf="item.AgentName" >{{item.AgentName}}</span>
+          </span>
+          <span class="user-name " *ngIf="navli!='StudentModel'" >
+                {{item?.UserName}}
+          </span>
+          
+
+
+
         <span class="user-grade" *ngIf="item.ForumTitle" >
             {{item?.ForumTitle}}
         </span>
@@ -154,10 +166,14 @@
           {{MyRankingData.RankNum}}
         </span>
         <img class="user-heard-img" src="{{MyRankingData?.HeadPhoto}}" alt="">
-        <span class="user-name nowrap-1">
-          <span *ngIf="MyRankingData.AgentName" >{{MyRankingData.AgentName}}—</span>
-            {{MyRankingData?.UserName}}
+        <span class="user-name StudentModel nowrap-1" *ngIf="navli=='StudentModel'"> 
+          <span class="myUserName nowrap-1">{{MyRankingData?.UserName}}</span>
+          <span class="myAgentName nowrap-1" *ngIf="MyRankingData.AgentName" >{{MyRankingData.AgentName}}</span>
         </span>
+        <span class="user-name " *ngIf="navli!='StudentModel'" >
+              {{MyRankingData?.UserName}}
+        </span>
+        
         <span class="user-grade" *ngIf="MyRankingData.ForumTitle" >
             {{MyRankingData?.ForumTitle}}
         </span>
