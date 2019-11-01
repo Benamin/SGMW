@@ -45,7 +45,7 @@
             <span class="PosterUserName">
                 {{item?.PosterUserName}}
             </span>
-          <span class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
+          <span *ngIf="item?.PosterUserForumTitle?.ForumTitle" class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
           <span class="PosterBadges" *ngFor="let n of item?.PosterBadges" >
             <img src="{{n.BadgeIcon}}" alt="">
             <span class="PosterBadges-BadgeName">

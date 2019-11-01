@@ -323,7 +323,7 @@ export class PostAddComponent implements OnInit {
       }
     }
   }
-    editImg={newalt:"",rc:''};
+    editImg={newalt:"",src:''};
   iseditImg=false;
 
   editimg(data){
