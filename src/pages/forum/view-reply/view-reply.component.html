@@ -13,7 +13,7 @@
               <span class="PosterUserName">
                   {{data.PosterUserName}} 
               </span>
-            <span class="ForumTitle">{{data.PosterUserForumTitle.ForumTitle}}</span> 
+            <span class="ForumTitle" *ngIf="data.PosterUserForumTitle" >{{data.PosterUserForumTitle?data.PosterUserForumTitle.ForumTitle:''}}</span> 
             <span class="PosterBadges" *ngFor="let data of data.PosterBadges" >
               <img src="{{data.BadgeIcon}}" alt="">
               <span class="PosterBadges-BadgeName nowrap-1">
@@ -45,7 +45,7 @@
             <span class="PosterUserName">
                 {{item.PosterUserName}} 
             </span>
-          <span class="ForumTitle">{{item.PosterUserForumTitle.ForumTitle}}</span> 
+          <span class="ForumTitle" *ngIf="item.PosterUserForumTitle">{{item.PosterUserForumTitle?item.PosterUserForumTitle.ForumTitle:''}}</span> 
           <span class="PosterBadges" *ngFor="let n of item.PosterBadges" >
             <img src="{{n.BadgeIcon}}" alt="">
             <span class="PosterBadges-BadgeName">

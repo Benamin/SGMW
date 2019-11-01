@@ -133,45 +133,97 @@ export class PostAddComponent implements OnInit {
 
   // 选择图片
   addImg(){
+    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let innerText:any=textareaImg.innerText;
+    if(innerText=='请输入正文'){
+      textareaImg.innerText="";
+    }
+
     let pic_selector:any=document.getElementById('pic_selector');
     pic_selector.value = '';
     console.log();
     pic_selector.click();
   }
-  //  在文文字中插入图片
-  SetaddImg(imgSrcArr,alt){ 
+  
+  letfImgSrc='';
+  addImgDom(insert_element,target_element){
+    let newDiv=document.createElement("div");
+    newDiv.innerHTML=insert_element;
+    var parent = target_element.parentNode;
+    //最后一个子节点 lastElementChild兼容其他浏览器 lastChild  兼容ie678;
+    var last_element = parent.lastElementChild || parent.lastChild;
+    //兄弟节点同样也是有兼容性
+    var target_sibling = target_element.nextElementSibling || target_element.nextSibling;
+    if (last_element == target_element)
+    {//先判断目标节点是不是父级的最后一个节点，如果是的话，直接给父级加子节点就好
+        parent.appendChild(newDiv);
+    }
+    else
+    {//不是最好后一个节点  那么插入到目标元素的下一个兄弟节点之前（就相当于目标元素的insertafter）
+        parent.insertBefore(newDiv,target_sibling);
+    }
+  }
+
+  // 在文文字中插入图片
+  SetaddImg(imgSrcArr,alt){
+
     if(!this.focusNode){
       imgSrcArr.forEach(element => {
         this.DomAddImg(element,'');
       });
       return
     }
-    // let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    
+    if(!this.focusNode.parentElement){
+      imgSrcArr.forEach(imgSrc => {
+        let domText=`
+        <div style='display: inline-block; padding-top: 9px;padding-bottom: 17px;color: #6F6F6F;'>
+          <img alt='${alt}' src='${imgSrc}'>
+          <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${imgSrc}'>${alt}</div>
+        </div>`;
+        let ImgDom:any= textareaImg.querySelector(`img[src='${this.letfImgSrc}']`);
+        let imgParentNode = ImgDom.parentNode;
+        this.addImgDom(domText,imgParentNode);
+        this.letfImgSrc=imgSrc;
+      });
+
+      this.replaceText();
+      return
+    }
     let textArr = [];
-    if(this.focusNode){
+    if(this.focusNode&&this.focusNode.data){
         textArr = this.focusNode.data.split('');
     }
+    
     imgSrcArr.reverse();
     imgSrcArr.forEach(imgSrc => {
-      textArr.splice(this.anchorOffset,0,`<div style='display: inline-block; text-align: center; padding-top: 9px;padding-bottom: 17px;font-size: 12px;color: #6F6F6F;'><img alt='${alt}+' src='${imgSrc}'> <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${imgSrc}'>${alt}</div></div>`);
+      this.letfImgSrc=imgSrc;
+      textArr.splice(this.anchorOffset,0,`<div style='display: inline-block; text-align: center; padding-top: 9px;padding-bottom: 17px;font-size: 12px;'><img alt='${alt}+' src='${imgSrc}'> <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${imgSrc}'>${alt}</div></div>`);
     });
     let NewText="";
     textArr.forEach(element => {
       NewText += element;
     });
-
-    this.focusNode.data=NewText;
+    
+    if(this.focusNode.id== "textareaImg"){
+      textareaImg.innerHTML=NewText;
+    }else{
+      this.focusNode.data=NewText;
+    }
+    
     this.replaceText();
   }
 
   // 在Dom中插入图片
   DomAddImg(imgSrc,alt){
+    this.letfImgSrc=imgSrc;
     let textareaImg:any=document.getElementById('textareaImg');
     if(textareaImg){
       let domText=`
-      <div style='display: inline-block; padding-top: 9px;padding-bottom: 17px;color: #6F6F6F;'>
+      <div style='display: inline-block; padding-top: 9px;padding-bottom: 17px;'>
         <img alt='${alt}' src='${imgSrc}'>
-        <div contenteditable='false' style='text-align: center;font-size: 12px;' src='${imgSrc}'>${alt}</div>
+        <div contenteditable='false' style='text-align: center;font-size: 12px;color: #6F6F6F;' src='${imgSrc}'>${alt}</div>
       </div>`;
       textareaImg.append(domText);
       let newDiv=document.createElement("div");
@@ -299,13 +351,12 @@ src:''};
     this.loading.present();
     let textareaImg:HTMLElement=document.getElementById('textareaImg');
     let textInnerHTML:any=textareaImg.innerHTML;
-    
     let textInnerTEXT:any=textareaImg.innerText;
-    if(textInnerTEXT.length > 5000){
-      this.serve.presentToast('帖子内容不能超过5000个字符');
+    if(textInnerTEXT.length > 20000){
+      this.serve.presentToast('帖子内容不能超过20000个字符');
       return
     }
-  console.log(textInnerHTML);
+    // console.log(textInnerHTML);
     if(this.lidata.Status==1){ // 草稿帖子 修改帖子
       this.forum_post_edit(IsSaveAndPublish,textInnerHTML);
     }else{
@@ -393,6 +444,18 @@ presentToast(text) {
    }); 
     toast.onDidDismiss(() => { console.log('toast被关闭之后执行'); });
     toast.present();//符合触发条件后立即执行显示。一定不能忘了这个
+  }
+
+  del_img(item,i){
+    this.imgitems.splice(i,1);
+
+    let textareaImg:any=document.getElementById('textareaImg');
+    let ImgDom:any= textareaImg.querySelector(`img[src='${item.src}']`);
+    let DivDom:any= textareaImg.querySelector(`div[src='${item.src}']`);
+    ImgDom.parentNode.removeChild(ImgDom);
+    DivDom.parentNode.removeChild(DivDom);
+
+    // let imgParentNode = ImgDom.parentNode;
   }
 
 }

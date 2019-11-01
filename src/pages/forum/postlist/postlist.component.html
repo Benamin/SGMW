@@ -25,7 +25,7 @@
         </p>
       </div>
     </div>
-    <div class="hear-top" *ngIf="IsTopOpt">
+    <div class="hear-top" *ngIf="IsTopOpt" (click)="goPostsContent(IsTopOpt)">
       <span style="margin-right: 15px;">顶</span>
       <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{IsTopOpt.Title}}</span>
     </div>
@@ -36,7 +36,6 @@
       <div [ngClass]="{'act': pageDate.OrderBy=='ReplyCount'}" tappable (click)="avtNav('ReplyCount')">最热</div>
     </div>
     <div>
-      
       <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
         <div class="post-introduction-top">
           <img src="{{item.PosterUserHeadPhoto}}" alt="">
