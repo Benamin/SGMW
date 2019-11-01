@@ -22,31 +22,31 @@
     <p class="number-all">评论（{{dataCon.ReplyCount}}）</p>
     <div class="reply" *ngFor="let item of dataCon.Replys">
       <div class="reply-top">
-        <img class="heard-img" src="{{item.PosterHeadPhoto}}" alt="">
+        <img class="heard-img" src="{{item?.PosterHeadPhoto}}" alt="">
         <div class="text">
           <h4>
             <span class="PosterUserName">
-              {{item.PosterUserName}} 
+              {{item?.PosterUserName}}
             </span>
-            <span class="ForumTitle">{{item.PosterUserForumTitle.ForumTitle}}</span> 
-            <span class="PosterBadges" *ngFor="let data of item.PosterBadges" >
+            <span class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
+            <span class="PosterBadges" *ngFor="let data of item?.PosterBadges" >
               <img src="{{data.BadgeIcon}}" alt="">
               <span class="PosterBadges-BadgeName">
                   {{data.BadgeName}}
               </span>
             </span>  
           </h4>
-          <p>{{item._ReplyTimeFormatted}}</p>
+          <p>{{item?._ReplyTimeFormatted}}</p>
         </div>
         <div class="comment">
         </div>
       </div>
       <div class="reply-text" (click)="showViewReply(item)">
-        {{item.Content}}
+        {{item?.Content}}
       </div>
       <div class="reply-more" (click)="showViewReply(item)">
         <span>
-          {{item.CommentCount}}条回复
+          {{item?.CommentCount}}条回复
         </span>
         <img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt="">
       </div>
