@@ -74,16 +74,16 @@ export class MedalComponent implements OnInit {
     }
   }
   showSheet(item){
-      let IsDisplayNum=0; // 最多只能显示两个勋章
+      let IsDisplayNum=0; // 最多只能显示两个
       for(let n in this.setBadge){
         if(this.setBadge[n]){
           IsDisplayNum++;
         }
         if(IsDisplayNum==2){
-          this.setBadge[n]=false;
+          this.setBadge[n] = false;
         }
       }
-      this.setBadge[item.BadgeId]=true;
+      this.setBadge[item.BadgeId] = true;
   }
   hideSheet(item){
       this.setBadge[item.BadgeId]=false;
@@ -94,20 +94,27 @@ export class MedalComponent implements OnInit {
       content: '加载中...'
     });
     loading.present();
+    let arr = [];
     for(let n in this.setBadge){
       if(this.setBadge[n]){
-        await this.serve.showSserbadge(n).subscribe(res =>{
-          console.log('>>??')
-        });
-      }else{
-        await this.serve.hideSserbadge(n).subscribe(res =>{
-          console.log('>>??')
-        });
+        arr.push(n);
       }
     }
-    loading.dismiss();
-    this.setCurrentMedalHide();
-    this.GetUserbadgeSearch();
+    const loadData=() => {
+      loading.dismiss();
+      this.setCurrentMedalHide();
+      this.GetUserbadgeSearch();
+    }
+
+    let badgeIds={
+      badgeIds:arr
+    }
+    this.serve.userbadgeShowlist(arr).subscribe(res => {
+      console.log('tag', '设置完成');
+      loading.dismiss();
+      this.setCurrentMedalHide();
+      this.GetUserbadgeSearch();
+    });
   }
 
   // hideSserbadge
