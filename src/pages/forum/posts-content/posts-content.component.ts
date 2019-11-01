@@ -113,7 +113,7 @@ export class PostsContentComponent implements OnInit {
 
       this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((res:any)  => {
         this.dataCon['is_like'] = res.data.is_like;
-        this.dataCon[' is_guanzhu'] = res.data.is_guanzhu;
+        this.dataCon['is_guanzhu'] = res.data.is_guanzhu;
         this.dataCon['is_collect'] = res.data.is_collect;
         this.loading.dismiss();
       },err => {
@@ -164,7 +164,7 @@ export class PostsContentComponent implements OnInit {
 
       this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((res:any)  => {
         this.dataCon['is_like'] = res.data.is_like;
-        this.dataCon[' is_guanzhu'] = res.data.is_guanzhu;
+        this.dataCon['is_guanzhu'] = res.data.is_guanzhu;
         this.dataCon['is_collect'] = res.data.is_collect;
         this.loading.dismiss();
       },err => {
