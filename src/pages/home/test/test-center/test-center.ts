@@ -53,6 +53,7 @@ export class TestCenterPage {
     }
 
     doRefresh(e) {
+        this.page.Page = 1;
         this.getList();
         timer(1000).subscribe((res) => {
             e.complete()
@@ -71,7 +72,9 @@ export class TestCenterPage {
             EType: [this.page.EType],
             Page: this.page.Page,
             PageSize: this.page.PageSize,
-            EGroup: [1]
+            EGroup: [1],
+            OrderBy:'EndTime',
+            IsAsc:false
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
@@ -140,6 +143,8 @@ export class TestCenterPage {
             EType: [this.page.EType],
             Page: this.page.Page,
             PageSize: this.page.PageSize,
+            OrderBy:'EndTime',
+            IsAsc:false
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {

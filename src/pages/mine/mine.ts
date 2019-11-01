@@ -51,8 +51,9 @@ export class MinePage {
         })
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.getVersion();
+        this.getUserInfo();
         this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {
             this.mineSer.GetMyProductCountInfo().subscribe(
                 (res2) => {
@@ -61,10 +62,6 @@ export class MinePage {
                 }
             )
         });
-    }
-
-    ionViewDidEnter() {
-        this.getUserInfo();
     }
 
     //获取用户积分和勋章
@@ -87,7 +84,6 @@ export class MinePage {
     }
 
     doRefresh(e) {
-        this.ionViewDidLoad();
         this.getUserInfo();
         timer(1000).subscribe((res) => {
             e.complete()
