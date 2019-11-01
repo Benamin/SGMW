@@ -118,9 +118,27 @@ export class PostAddComponent implements OnInit {
   focusNode:any ="";
   anchorOffset=0;
 
+  // 光标失去焦点
+  blurSelectionStart(element){
+    console.log(element);
+      
+    let Selection=(<any>document).getSelection();
+    console.log(Selection);
+    this.focusNode=Selection.focusNode;
+    this.anchorOffset=Selection.anchorOffset;
+    (<any>document).getSelection().anchorOffset;
+    setTimeout(() => {
+      this.ImgSome();
+      let textareaImg:HTMLElement=document.getElementById('textareaImg');
+      this.zone.run(() => {
+      })
+    }, 2000);
+  }
+
   // 光标变化 获取光标位置
   selectionStart(element){
       console.log(element);
+      
       let Selection=(<any>document).getSelection();
       console.log(Selection);
       this.focusNode=Selection.focusNode;
@@ -131,7 +149,7 @@ export class PostAddComponent implements OnInit {
         let textareaImg:HTMLElement=document.getElementById('textareaImg');
         this.zone.run(() => {
         })
-      }, 10);
+      }, 100);
   }
 
   // 选择图片
@@ -305,8 +323,7 @@ export class PostAddComponent implements OnInit {
       }
     }
   }
-  editImg={newalt:"",
-src:''};
+    editImg={newalt:"",rc:''};
   iseditImg=false;
 
   editimg(data){
