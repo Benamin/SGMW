@@ -132,7 +132,7 @@ export class PostAddComponent implements OnInit {
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       this.zone.run(() => {
       })
-    }, 2000);
+    }, 50);
   }
 
   // 光标变化 获取光标位置
