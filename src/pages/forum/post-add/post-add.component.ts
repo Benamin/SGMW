@@ -128,6 +128,9 @@ export class PostAddComponent implements OnInit {
       (<any>document).getSelection().anchorOffset;
       setTimeout(() => {
         this.ImgSome();
+        let textareaImg:HTMLElement=document.getElementById('textareaImg');
+        this.zone.run(() => {
+        })
       }, 10);
   }
 
@@ -347,7 +350,7 @@ src:''};
     let textInnerText:any=textareaImg.innerText;
     let textInnerTEXT:any=textareaImg.innerText;
     if(!this.Title||textInnerText=='请输入正文'){
-      this.serve.presentToast('请填写帖子或者标题内容');
+      this.serve.presentToast('请填写帖子或者内容');
       return;
     }
     this.loading = this.loadCtrl.create({
