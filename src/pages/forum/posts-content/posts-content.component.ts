@@ -166,9 +166,9 @@ export class PostsContentComponent implements OnInit {
         this.dataCon['is_like'] = res.data.is_like;
         this.dataCon['is_guanzhu'] = res.data.is_guanzhu;
         this.dataCon['is_collect'] = res.data.is_collect;
-        this.loading.dismiss();
+        loading.dismiss();
       },err => {
-        this.loading.dismiss();
+        loading.dismiss();
       });
 
 
