@@ -94,7 +94,7 @@
                             </p>
                             <div *ngIf="item.show" class="chapter-teacher">
                                 <div>
-                                    <img src="./assets/imgs/home/goodTeacher.png" alt="">
+                                    <img [src]="item.UserImage" alt="">
                                 </div>
                                 <div>{{item.UserName}}</div>
                                 <div>
