@@ -96,8 +96,8 @@ export class TreeListComponent {
         } else {
             fileUrl = file.fileUrl;
         }
-        this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
-        //this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl)
+        // this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + fileUrl.icon);
+        this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl)
     }
 
     //更新学习进度

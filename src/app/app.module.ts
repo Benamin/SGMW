@@ -50,7 +50,7 @@ import {NumberOneModule} from '../pages/number-one/number-one.module';
 import {AppUpdateService} from "../core/appUpdate.service";
 import {ForumModule} from '../pages/forum/forum.module';
 import {RankingModule} from '../pages/ranking/ranking.module';
-import { RankingComponent } from '../pages/ranking/ranking.component';
+import {RankingComponent} from '../pages/ranking/ranking.component';
 import {ForumPage} from '../pages/forum/forum.component';
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
@@ -60,6 +60,8 @@ import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {GlobalData} from "../core/GlobleData";
 import {Hammer} from "ionic-angular/gestures/hammer";
+import {VideoJsProvider} from '../providers/video-js/video-js';
+import {PipesModule} from "../pipes/pipes.module";
 
 
 @NgModule({
@@ -91,7 +93,7 @@ import {Hammer} from "ionic-angular/gestures/hammer";
         ConsultationPageModule,
         NumberOneModule,
         ForumModule,
-        RankingModule
+        RankingModule,
     ],
     bootstrap: [IonicApp],
     entryComponents:
@@ -142,6 +144,7 @@ import {Hammer} from "ionic-angular/gestures/hammer";
             {
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
             },
+            VideoJsProvider,
         ],
 
 })

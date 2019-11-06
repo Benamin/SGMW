@@ -4,6 +4,7 @@ import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {StatusBar} from "@ionic-native/status-bar";
 import {GlobalData} from "../../core/GlobleData";
+import {VideoJsProvider} from "../../providers/video-js/video-js";
 
 declare let videojs: any;
 
@@ -22,6 +23,7 @@ export class VideojsComponent implements OnDestroy {
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
                 private globleData: GlobalData,
+                private vjsProvider:VideoJsProvider,
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.globleData.videoNum;
         this.videoEle = `video${videoNum}`;
@@ -50,6 +52,7 @@ export class VideojsComponent implements OnDestroy {
                 console.log('videojs播放器初始化成功');
                 this.globleData.videoNum++;
             })
+            this.video.addChild('TitleBar', {text: "标题"})
         });
     }
 
