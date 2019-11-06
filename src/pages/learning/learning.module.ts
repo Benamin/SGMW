@@ -7,6 +7,7 @@ import {ComponentsModule} from "../../components/components.module";
 import {TeacherPage} from "./teacher/teacher";
 import {ViewFilePage} from "./view-file/view-file";
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import {PipesModule} from "../../pipes/pipes.module";
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
     ],
     imports: [
         PdfViewerModule,
+        PipesModule,
         IonicPageModule.forChild(LearningPage),
         ComponentsModule,
     ],

@@ -44,7 +44,7 @@
                         <ng-container *ngFor="let badge of item?.Badges;let i = index;">
                             <span class="badgeSpan" *ngIf="i < 2">
                                 <img [src]="badge.BadgeIcon">
-                                <span>{{badge.BadgeName.length > 4 ? badge.BadgeName.slice(0,3) + '...' : badge.BadgeName}}</span>
+                                <span>{{badge.BadgeName | stringSlice:4:3}}</span>
                             </span>
                         </ng-container>
                     </p>
