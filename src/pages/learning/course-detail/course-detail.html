@@ -10,7 +10,7 @@
             <div class="background-image">
                 <img [src]="product.detail?.ImageUrl" alt="">
             </div>
-            <div class="content" *ngIf="product.videoSrc == null">
+            <div class="content" *ngIf="videoInfo.video == null">
                 <div class="content-info">
                     <div class="course-name">
                         {{product.detail?.Title}}
@@ -60,8 +60,8 @@
                     </div>
                 </div>
             </div>
-            <div id="videoTag" class="content video" [hidden]="product.videoSrc == null">
-                <videojs #videojsCom [src]="product.videoSrc" [poster]="product.videoPoster"></videojs>
+            <div id="videoTag" class="content video" [hidden]="videoInfo.video == null">
+                <videojs #videojsCom [GetVideo]="videoInfo.video" [poster]="videoInfo.poster"></videojs>
             </div>
         </div>
         <navbar #navbar [select]="bar.type" [list]="navbarList" (done)="changeType($event)"></navbar>
@@ -94,7 +94,7 @@
                             </p>
                             <div *ngIf="item.show" class="chapter-teacher">
                                 <div>
-                                    <img src="./assets/imgs/home/goodTeacher.png" alt="">
+                                    <img [src]="item.UserImage" alt="">
                                 </div>
                                 <div>{{item.UserName}}</div>
                                 <div>

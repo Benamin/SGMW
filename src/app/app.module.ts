@@ -61,8 +61,7 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {GlobalData} from "../core/GlobleData";
 import {Hammer} from "ionic-angular/gestures/hammer";
 import {VideoJsProvider} from '../providers/video-js/video-js';
-import {PipesModule} from "../pipes/pipes.module";
-
+import {PhotoLibrary} from "@ionic-native/photo-library";
 
 @NgModule({
     declarations: [
@@ -120,6 +119,7 @@ import {PipesModule} from "../pipes/pipes.module";
             FileTransfer,
             MobileAccessibility,
             ScreenOrientation,
+            PhotoLibrary,
             TabService,
             LoginService,
             HomeService,

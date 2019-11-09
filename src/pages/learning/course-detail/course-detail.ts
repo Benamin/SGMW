@@ -31,9 +31,11 @@ export class CourseDetailPage {
     product = {
         detail: <any>null,
         chapter: null,
-        videoSrc: null,
-        videoPoster: null
     };
+    videoInfo = {
+        poster: null,
+        video: null,
+    };  //视频播放的信息
     learnList = [];
     navbarList = [
         {type: 1, name: '简介', code: 'desc'},
@@ -105,9 +107,8 @@ export class CourseDetailPage {
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
-            if (value) {
-                this.product.videoSrc = value.fileUrl;
-            }
+            this.videoInfo.video = value;
+            this.videoInfo.poster = value;
         });
     }
 
@@ -136,7 +137,7 @@ export class CourseDetailPage {
                     }
                 });
                 console.log(this.files);
-                this.product.videoPoster = this.product.chapter.Course.CoverUrl;
+                this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
                 this.isLoad = true;
             }
@@ -254,7 +255,7 @@ export class CourseDetailPage {
         loading.present();
         this.saveProcess(this.files[0]);
         if (this.files[0].icon.includes('mp4')) {
-            this.product.videoSrc = this.files[0].fileUrl;
+            this.videoInfo.video = this.files[0];
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
         } else {
@@ -278,7 +279,6 @@ export class CourseDetailPage {
 
     //打开pdf文件
     openPDF(file) {
-        console.log(file);
         let modal = this.modalCtrl.create(ViewFilePage, {
             displayData: {
                 pdfSource: {

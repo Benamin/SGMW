@@ -35,7 +35,7 @@ export class LearningPage {
                 private learnSer: LearnService, private homeSer: HomeService, private storage: Storage) {
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.storage.get('course').then((value => {
             if (value) {   //其他路径转入
                 this.page.SubjectID = value.item.ID;
@@ -57,7 +57,7 @@ export class LearningPage {
     }
 
     ionViewWillLeave() {
-        this.productList = [];
+        // this.productList = [];
         this.storage.set('course', null);
     }
 
@@ -83,7 +83,7 @@ export class LearningPage {
         this.page.page = 1;
         this.headType = index;
         this.loading = this.loadCtrl.create({
-            content: '加载中...'
+            content: ''
         });
         this.loading.present();
         this.scrollTabs.isShow = false;

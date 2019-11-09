@@ -58,8 +58,7 @@ export class TreeListComponent {
 
         //未报名
         if (!this.IsBuy) {
-            this.isSign = true;
-            timer(2000).subscribe(() => this.isSign = false);
+            this.commonSer.toast("请先报名!");
             return;
         }
 

@@ -1,3 +1,29 @@
 videojs {
+  .vjs-title-bar {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
 
+  .vjs-danmu {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+  }
+
+  .vjs-right {
+    position: absolute;
+    visibility: hidden;
+    white-space: nowrap;
+    transform: translate(375px);
+  }
+
+  .vjs-left {
+    position: absolute;
+    white-space: nowrap;
+    user-select: none;
+    transition: transform 10s linear;
+  }
 }

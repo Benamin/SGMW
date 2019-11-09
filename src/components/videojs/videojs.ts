@@ -16,14 +16,14 @@ export class VideojsComponent implements OnDestroy {
     @ViewChild('example_video') example_video: ElementRef;
 
     videoPoster: string;
-    videoSrc: string;
+    videoInfo ;
     video;
     videoEle;
 
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
                 private globleData: GlobalData,
-                private vjsProvider:VideoJsProvider,
+                private vjsProvider: VideoJsProvider,
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.globleData.videoNum;
         this.videoEle = `video${videoNum}`;
@@ -47,12 +47,11 @@ export class VideojsComponent implements OnDestroy {
                         this.screenOrientation.lock('portrait');  //锁定竖屏
                         this.statusBar.show();
                     }
-                    console.log(this.video.isFullscreen());
-                })
+                });
+                this.video.addChild(`danmu${videoNum}`,{text: `${videoNum}`});
                 console.log('videojs播放器初始化成功');
                 this.globleData.videoNum++;
-            })
-            this.video.addChild('TitleBar', {text: "标题"})
+            });
         });
     }
 
@@ -69,19 +68,12 @@ export class VideojsComponent implements OnDestroy {
         }
     }
 
+    removeDanmu(){
+        this.video.removeChild('danmu');
+    }
+
     ngOnDestroy(): void {
 
-    }
-
-    get src() {
-        return this.videoSrc;
-    }
-
-    @Input() set src(src) {
-        if (this.video && src) {
-            this.video.src({type: 'application/x-mpegURL', src: src});
-            this.videoSrc = src;
-        }
     }
 
     get poster() {
@@ -90,6 +82,19 @@ export class VideojsComponent implements OnDestroy {
 
     @Input() set poster(poster) {
         this.videoPoster = poster;
+    }
+
+    get GetVideo(){
+        return this.videoInfo;
+    }
+
+    @Input() set GetVideo(videoInfo){
+        if (this.video && videoInfo) {
+            this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl});
+            this.videoInfo = videoInfo;
+            this.video.removeChild('TitleBar');
+            this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
+        }
     }
 
 }
