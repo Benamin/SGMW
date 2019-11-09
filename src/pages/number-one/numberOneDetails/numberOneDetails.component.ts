@@ -56,7 +56,9 @@ ionViewDidEnter() {
 
         this.data=res2.data;
         this.RelationArr=res1.data;
-        this.el.nativeElement.querySelector('.inner-html').innerHTML=this.data.Text;
+      
+        // this.data.Text 是简介
+        this.el.nativeElement.querySelector('.inner-html').innerHTML=this.data.Mark ?this.data.Mark:'';
 
         loading.dismiss();
         setTimeout(() => {
