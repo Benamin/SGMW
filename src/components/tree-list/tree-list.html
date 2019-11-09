@@ -14,7 +14,7 @@
             <img *ngIf="item.icon != 'mp4'" src="./assets/imgs/learn/file.png">
             <img *ngIf="item.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
             {{item.DisplayName}}<span class="file-icon">{{item.icon}}</span>
-            <img *ngIf="nowTime > item.PlanStartTime_time && IsBuy && item.icon != 'mp4'" tappable
+            <img *ngIf="nowTime > item.PlanStartTime_time && IsBuy" tappable
                  (click)="downLoad(item,$event)" class="download-file" src="./assets/imgs/learn/download-file.png">
         </p>
     </div>

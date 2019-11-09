@@ -92,11 +92,11 @@ export class TreeListComponent {
         let fileUrl;
         if (file.icon.includes('mp4')) {
             fileUrl = file.DownloadUrl;
+            this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl)
         } else {
             fileUrl = file.fileUrl;
+            this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + fileUrl.icon);
         }
-        // this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + fileUrl.icon);
-        this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl)
     }
 
     //更新学习进度
