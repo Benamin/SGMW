@@ -48,7 +48,6 @@ export class VideojsComponent implements OnDestroy {
                         this.statusBar.show();
                     }
                 });
-                this.video.addChild(`danmu${videoNum}`,{text: `${videoNum}`});
                 console.log('videojs播放器初始化成功');
                 this.globleData.videoNum++;
             });
@@ -93,6 +92,7 @@ export class VideojsComponent implements OnDestroy {
             this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
             this.video.removeChild('TitleBar');
+            this.video.addChild(`danmu`,{text: `弹幕`});
             this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
         }
     }

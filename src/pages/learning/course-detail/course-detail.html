@@ -82,7 +82,7 @@
             <!--      章节      -->
             <ion-slide>
                 <div id="chapter" class="item" style="min-height: 350px">
-                    <p>章节</p>
+                    <p (click)="videojsCom.removeDanmu()">章节</p>
                     <div class="chapter">
                         <ng-container *ngFor="let item of product.chapter?.Course?.children">
                             <p tappable (click)="getMore(item)">

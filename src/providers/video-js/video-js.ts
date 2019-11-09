@@ -60,14 +60,17 @@ export class VideoJsProvider {
             '座中泣下谁最多？ 江州司马青衫湿。'
         ];
         let hasPosition = [];
-
+        let danmuInterval;
         let component = videojs.getComponent('Component');
         let danmu = videojs.extend(component, {
             constructor(player, options) {
                 console.log(options);
                 component.apply(this, arguments);
                 this.init();
-                setInterval(() => {
+
+            },
+            start(){
+                danmuInterval = setInterval(() => {
                     let channel;
                     if (danmuPool.length && (channel = this.getChannel()) != -1) {
                         let dom = domPool[channel].shift();
