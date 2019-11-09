@@ -44,9 +44,12 @@
             暂无数据
         </p>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll *ngIf="this.page.TotalItems > this.examList.length" (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
                 loadingText="加载中"></ion-infinite-scroll-content>
     </ion-infinite-scroll>
+    <p class="list-footer-page"
+       *ngIf="IsLoad && this.page.TotalItems == this.examList.length && this.page.TotalItems > 5">
+        没有更多了~~~</p>
 </ion-content>

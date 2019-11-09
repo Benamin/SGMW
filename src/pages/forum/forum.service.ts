@@ -79,7 +79,7 @@ import { ToastController } from 'ionic-angular';
 /api/forum/post/mydislikes 我点踩的帖子列表,参数:{"PageIndex": int,"PageSize": int},参数描述:PageIndex:数据分页索引,PageSize:每页显示的记录数
 /api/forum/badge/mybadges 我的论坛勋章,参数:无
 
-
+/api/forum/post/GetForumPostOtherStatus 获取用户是否已点赞、关注、收藏帖子
 
 
  * */
@@ -237,16 +237,20 @@ export class ForumService {
   // 我我发布的 帖子
   GetMypost(data){
     return this.http.post(SERVER_API_URL + '/forum/post/my', data);
-
+  }
+  // 我是否关注收/收藏/点赞帖子
+  GetForumPostOtherStatus(postId){
+    return this.http.post(SERVER_API_URL + '/forum/post/GetForumPostOtherStatus?postId=' + postId, { postId: postId });
   }
 
+  // /api/forum/post/GetForumPostOtherStatus
 
 
   // 上传图片
   Upload_UploadFiles(formData) {
     return new Promise((resolve, reject) => {
       var oReq = new XMLHttpRequest();
-
+      
       // export const UploadFilesSERVER_API_URL = '/api';
       // const UploadFilesSERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';  //测试
       //   const UploadFilesSERVER_API_URL = 'http://sitapi.chinacloudsites.cn/api';  //sit

@@ -58,8 +58,7 @@ export class TreeListComponent {
 
         //未报名
         if (!this.IsBuy) {
-            this.isSign = true;
-            timer(2000).subscribe(() => this.isSign = false);
+            this.commonSer.toast("请先报名!");
             return;
         }
 
@@ -96,8 +95,8 @@ export class TreeListComponent {
         } else {
             fileUrl = file.fileUrl;
         }
-        this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
-        //this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl)
+        // this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + fileUrl.icon);
+        this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl)
     }
 
     //更新学习进度

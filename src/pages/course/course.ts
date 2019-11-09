@@ -19,7 +19,7 @@ export class CoursePage {
         page: 1,
         pageSize: 10,
         studystate: 2,
-        TotalCount: 0,
+        TotalItems: 0,
         load:false
     };
 
@@ -54,7 +54,7 @@ export class CoursePage {
         this.mineSer.GetMyProductList(data).subscribe(
             (res) => {
                 this.courseList = res.data.ProductList;
-                this.page.TotalCount = res.data.TotalCount
+                this.page.TotalItems = res.data.TotalCount;
                 loading.dismiss();
                 this.page.load = true;
             }
@@ -74,7 +74,7 @@ export class CoursePage {
 
     //下拉加载更多
     doInfinite(e) {
-        if (this.courseList.length == this.page.TotalCount || this.courseList.length > this.page.TotalCount) {
+        if (this.courseList.length == this.page.TotalItems || this.courseList.length > this.page.TotalItems) {
             e.complete();
             return;
         }
@@ -87,7 +87,7 @@ export class CoursePage {
         this.mineSer.GetMyProductList(data).subscribe(
             (res) => {
                 this.courseList = this.courseList.concat(res.data.ProductList);
-                this.page.TotalCount = res.data.TotalCount;
+                this.page.TotalItems = res.data.TotalCount;
                 e.complete();
             }
         )

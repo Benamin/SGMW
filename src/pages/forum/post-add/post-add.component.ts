@@ -118,9 +118,27 @@ export class PostAddComponent implements OnInit {
   focusNode:any ="";
   anchorOffset=0;
 
+  // 光标失去焦点
+  blurSelectionStart(element){
+    console.log(element);
+      
+    let Selection=(<any>document).getSelection();
+    console.log(Selection);
+    this.focusNode=Selection.focusNode;
+    this.anchorOffset=Selection.anchorOffset;
+    (<any>document).getSelection().anchorOffset;
+    setTimeout(() => {
+      this.ImgSome();
+      let textareaImg:HTMLElement=document.getElementById('textareaImg');
+      this.zone.run(() => {
+      })
+    }, 50);
+  }
+
   // 光标变化 获取光标位置
   selectionStart(element){
       console.log(element);
+      
       let Selection=(<any>document).getSelection();
       console.log(Selection);
       this.focusNode=Selection.focusNode;
@@ -128,7 +146,10 @@ export class PostAddComponent implements OnInit {
       (<any>document).getSelection().anchorOffset;
       setTimeout(() => {
         this.ImgSome();
-      }, 10);
+        let textareaImg:HTMLElement=document.getElementById('textareaImg');
+        this.zone.run(() => {
+        })
+      }, 100);
   }
 
   // 选择图片
@@ -302,8 +323,7 @@ export class PostAddComponent implements OnInit {
       }
     }
   }
-  editImg={newalt:"",
-src:''};
+    editImg={newalt:"",src:''};
   iseditImg=false;
 
   editimg(data){
@@ -342,16 +362,18 @@ src:''};
       this.serve.presentToast('标题不能超过50个字符');
       return ;
     }
-    if(!this.Title||this.sevrData_click){
+    let textareaImg:HTMLElement=document.getElementById('textareaImg');
+    let textInnerHTML:any=textareaImg.innerHTML;
+    let textInnerText:any=textareaImg.innerText;
+    let textInnerTEXT:any=textareaImg.innerText;
+    if(!this.Title||textInnerText=='请输入正文'){
+      this.serve.presentToast('请填写帖子或者内容');
       return;
     }
     this.loading = this.loadCtrl.create({
       content:''
     });
     this.loading.present();
-    let textareaImg:HTMLElement=document.getElementById('textareaImg');
-    let textInnerHTML:any=textareaImg.innerHTML;
-    let textInnerTEXT:any=textareaImg.innerText;
     if(textInnerTEXT.length > 20000){
       this.serve.presentToast('帖子内容不能超过20000个字符');
       return
