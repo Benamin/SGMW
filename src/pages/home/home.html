@@ -28,7 +28,8 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="banner">
-        <div [ngClass]="{'slideInDown':wow == true}" class="img wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="20" >
+        <div [ngClass]="{'slideInDown':wow == true}" class="img wow" data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="20">
             <ion-slides *ngIf="bannerList.length > 0" #slides pager autoplay="3000" (ionSlideAutoplayStop)="aotuPlay()">
                 <ion-slide *ngFor="let item of bannerList" tappable (click)="goCourseBanner(item)">
                     <img [src]="item.SourceUrl">
@@ -37,36 +38,48 @@
         </div>
     </div>
     <!--  新模块  -->
-    <div class="new-module" >
-        <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goConsultation()">
+    <div class="new-module">
+        <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="30" (click)="goConsultation()">
             <img src="./assets/imgs/home/news@2x.png" alt="">
             <p>资讯</p>
         </div>
-        <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goNumberOne()">
+        <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="30" (click)="goNumberOne()">
             <img src="./assets/imgs/home/zys@2x.png" alt="">
             <p>状元说</p>
         </div>
-        <div tappable [ngClass]="wow == true?'slideInRight':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goRanking()">
+        <div tappable [ngClass]="wow == true?'slideInRight':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="30" (click)="goRanking()">
             <img src="./assets/imgs/home/rank@2x.png" alt="">
             <p>排行榜</p>
         </div>
-        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goTest()">
+        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="30" (click)="goTest()">
             <img src="./assets/imgs/home/ks@2x.png" alt="">
             <p>考试中心</p>
         </div>
     </div>
     <div class="new-module" style="margin-top: 20px">
-        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goLive()">
+        <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="30" (click)="goLive()">
             <img src="./assets/imgs/home/zb@2x.png" alt="">
             <p>直播</p>
         </div>
-        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goQuestion()">
+        <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="30" (click)="goQuestion()">
             <img style="width: 33px;" src="./assets/imgs/home/home_wenjuan@2x.png" alt="">
             <p>问卷</p>
         </div>
-        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s" data-wow-offset="30" (click)="goDev('敬请期待')">
-            <img style="width: 32px;" src="./assets/imgs/home/home_jqqd@2x.png" alt="">
-            <p>更多</p>
+        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="30" (click)="goInnerTrain()">
+            <img src="./assets/imgs/home/home_neixun@2x.png" alt="">
+            <p>内训</p>
+        </div>
+        <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
+             data-wow-offset="30" (click)="goFocusTrain()">
+            <img src="./assets/imgs/home/home_jzpx@2x.png" alt="">
+            <p>集中培训</p>
         </div>
     </div>
     <!--  热门课程-->
@@ -88,7 +101,8 @@
         <div class="sale-box">
             <div class="scroll-tab">
                 <div class="sale-content">
-                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" tappable (click)="saleToLearn(sale,i)">
+                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" tappable
+                         (click)="saleToLearn(sale,i)">
                         <img src="./assets/imgs/home/shop{{i+1+'.png'}}" alt="">
                         <div class="sale-desc">
                             {{sale.TypeName}}
@@ -98,7 +112,7 @@
             </div>
         </div>
     </div>
-    <div class="person" >
+    <div class="person">
         <p>金牌讲师<span class="float-more" (click)="moreTeacher()" tappable>
            更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
         </p>

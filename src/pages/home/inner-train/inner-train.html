@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>内训</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新"
+                               refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="learn-list">
+        <ng-container *ngFor="let item of page.list">
+            <div class="course-item" tappable (click)="getItem(item)">
+                <div class="item-img">
+                    <img [src]="item?.ImageUrl || defaultImg">
+                </div>
+                <div class="item-desc">
+                    <p>{{item?.Title}}</p>
+                    <div class="desc">
+                        <!--           <span>{{item?.SubjectName}}</span>-->
+                        <span><img style="width: 16px;" src="./assets/imgs/learn/person_gray@2x.png"
+                                   alt="">{{item?.ManCount}}</span>
+                        <span><img src="./assets/imgs/course/hua_h@2x.png" alt="">{{item?.ZanCount}}</span>
+                        <span><img src="./assets/imgs/learn/collect@2x.png" alt="">{{item?.CollectionCount}}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="page.list.length == 0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+    </ion-list>
+    <ion-infinite-scroll *ngIf="this.page.TotalItems > this.page.list.length" (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <p class="list-footer-page"
+       *ngIf="page.isLoad && this.page.TotalItems == this.page.list.length && this.page.TotalItems > 5">
+        没有更多了~~~</p>
+</ion-content>

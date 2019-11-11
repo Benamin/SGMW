@@ -43,7 +43,8 @@ export class CourseDetailPage {
         {type: 3, name: '讨论', code: 'talk'},
         {type: 4, name: '讲师', code: 'teacher'},
         {type: 5, name: '评价', code: 'comment'},
-        {type: 6, name: '相关', code: 'relation'},
+        {type: 6, name: '作业', code: 'task'},
+        {type: 7, name: '相关', code: 'relation'},
     ];
 
     signObj = {

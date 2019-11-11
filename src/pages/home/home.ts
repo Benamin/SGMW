@@ -27,7 +27,8 @@ import {Componentsdetails} from '../consultation/componentsdetails/componentsdet
 import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
 import {MyQuestion} from "./question/my-question/my-question";
 import {RankingComponent} from "../ranking/ranking.component";
-
+import {FocusTrainPage} from "./focus-train/focus-train";
+import {InnerTrainPage} from "./inner-train/inner-train";
 
 @Component({
     selector: 'page-home',
@@ -275,17 +276,21 @@ export class HomePage {
             if (e.HttpURL.includes(this.httpUrl)) {
                 const arr = e.HttpURL.split('/');
                 this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
-            }else if(e.HttpURL.includes('#/notice/detail/')){
+            } else if (e.HttpURL.includes('#/notice/detail/')) {
                 const arr = e.HttpURL.split('/');
-                this.navCtrl.push(Componentsdetails, { data:{
-                    Id: arr[arr.length - 1]
-                }});
-            } else if(e.HttpURL.includes('#/notice/xsgjdetail/')){
+                this.navCtrl.push(Componentsdetails, {
+                    data: {
+                        Id: arr[arr.length - 1]
+                    }
+                });
+            } else if (e.HttpURL.includes('#/notice/xsgjdetail/')) {
                 const arr = e.HttpURL.split('/');
-                this.navCtrl.push(NumberOneDetailsComponent, { data:{
-                    Id: arr[arr.length - 1]
-                }});
-            }else {
+                this.navCtrl.push(NumberOneDetailsComponent, {
+                    data: {
+                        Id: arr[arr.length - 1]
+                    }
+                });
+            } else {
                 this.commonSer.openUrlByBrowser(e.HttpURL);
             }
         }
@@ -317,7 +322,17 @@ export class HomePage {
     }
 
     //前往问卷
-    goQuestion(){
+    goQuestion() {
         this.navCtrl.push(MyQuestion);
+    }
+
+    //前往内训
+    goInnerTrain() {
+        this.navCtrl.push(InnerTrainPage);
+    }
+
+    //前往集中培训
+    goFocusTrain() {
+        this.navCtrl.push(FocusTrainPage);
     }
 }

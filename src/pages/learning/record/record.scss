@@ -1,0 +1,38 @@
+page-record {
+  .col-item {
+    padding: 10px;
+    p{
+      margin-top: 12px;
+      text-align: center;
+    }
+  }
+
+  .record-item {
+    position: relative;
+    height: 142px;
+    box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .file-type {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    background: rgba(99, 158, 238, 1);
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    line-height: 14px;
+    padding: 2px 5px;
+  }
+
+  .record-item img {
+    width: 33px;
+    height: 39px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

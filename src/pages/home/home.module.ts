@@ -12,6 +12,8 @@ import {LivePage} from "./live/live";
 import {DoQuestionPage} from "./question/do-question/do-question";
 import {LookQuestion} from "./question/look-question/look-question";
 import {MyQuestion} from "./question/my-question/my-question";
+import {InnerTrainPage} from "./inner-train/inner-train";
+import {FocusTrainPage} from "./focus-train/focus-train";
 
 @NgModule({
     declarations: [
@@ -25,7 +27,9 @@ import {MyQuestion} from "./question/my-question/my-question";
         LivePage,
         DoQuestionPage,
         LookQuestion,
-        MyQuestion
+        MyQuestion,
+        InnerTrainPage,
+        FocusTrainPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -41,7 +45,9 @@ import {MyQuestion} from "./question/my-question/my-question";
         LivePage,
         DoQuestionPage,
         LookQuestion,
-        MyQuestion
+        MyQuestion,
+        InnerTrainPage,
+        FocusTrainPage
     ]
 })
 export class HomeModule {

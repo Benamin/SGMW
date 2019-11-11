@@ -25,6 +25,7 @@ hooks/
 platforms/
 /www
 /plugins
+*.apk
 
 plugins/android.json
 plugins/ios.json

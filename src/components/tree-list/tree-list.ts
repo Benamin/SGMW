@@ -9,6 +9,7 @@ import {timer} from "rxjs/observable/timer";
 import {ExamPage} from "../../pages/mine/exam/exam";
 import {LearnService} from "../../pages/learning/learn.service";
 import {DownloadFileService} from "../../core/downloadFile.service";
+import {DownloadFileProvider} from "../../providers/download-file/download-file";
 
 @Component({
     selector: 'tree-list',
@@ -26,6 +27,7 @@ export class TreeListComponent {
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
                 private navCtrl: NavController,
+                private downloadPro: DownloadFileProvider,
                 private downloadSer: DownloadFileService) {
         timer(10).subscribe(
             (res) => {
@@ -90,10 +92,11 @@ export class TreeListComponent {
     downLoad(file, e) {
         e.stopPropagation();
         let fileUrl;
-        if (file.icon.includes('mp4')) {
+        if (file.icon.includes('mp4')) {   //视频
             fileUrl = file.DownloadUrl;
-            this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl)
-        } else {
+            // this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
+            this.downloadPro.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
+        } else {   //文档
             fileUrl = file.fileUrl;
             this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + fileUrl.icon);
         }

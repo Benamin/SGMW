@@ -102,9 +102,7 @@
       "cordova-plugin-screen-orientation": {},
       "phonegap-plugin-mobile-accessibility": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-photo-library": {
-        "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
-      }
+      "cordova-plugin-photo-library": {}
     },
     "platforms": [
       "browser",

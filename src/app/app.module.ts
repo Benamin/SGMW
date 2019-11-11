@@ -62,6 +62,7 @@ import {GlobalData} from "../core/GlobleData";
 import {Hammer} from "ionic-angular/gestures/hammer";
 import {VideoJsProvider} from '../providers/video-js/video-js';
 import {PhotoLibrary} from "@ionic-native/photo-library";
+import {DownloadFileProvider} from '../providers/download-file/download-file';
 
 @NgModule({
     declarations: [
@@ -145,6 +146,7 @@ import {PhotoLibrary} from "@ionic-native/photo-library";
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
             },
             VideoJsProvider,
+            DownloadFileProvider,
         ],
 
 })
