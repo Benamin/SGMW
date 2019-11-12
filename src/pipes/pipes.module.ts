@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { StringSlicePipe } from './string-slice/string-slice';
+import { LineFeedPipe } from './line-feed/line-feed';
 @NgModule({
-	declarations: [StringSlicePipe],
+	declarations: [StringSlicePipe,
+    LineFeedPipe],
 	imports: [],
-	exports: [StringSlicePipe]
+	exports: [StringSlicePipe,
+    LineFeedPipe]
 })
 export class PipesModule {}

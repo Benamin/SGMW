@@ -11,6 +11,9 @@ import {PipesModule} from "../../pipes/pipes.module";
 import {RecordPage} from "./record/record";
 import {ChapterPage} from "./chapter/chapter";
 import {CommentListPage} from "./comment-list/comment-list";
+import {FocusCoursePage} from "./focus-course/focus-course";
+import {InnerCoursePage} from "./inner-course/inner-course";
+import {CourseFilePage} from "./course-file/course-file";
 
 @NgModule({
     declarations: [
@@ -21,7 +24,10 @@ import {CommentListPage} from "./comment-list/comment-list";
         ViewFilePage,
         RecordPage,
         ChapterPage,
-        CommentListPage
+        CommentListPage,
+        FocusCoursePage,
+        InnerCoursePage,
+        CourseFilePage,
     ],
     imports: [
         PdfViewerModule,
@@ -36,7 +42,10 @@ import {CommentListPage} from "./comment-list/comment-list";
         ViewFilePage,
         RecordPage,
         ChapterPage,
-        CommentListPage
+        CommentListPage,
+        FocusCoursePage,
+        InnerCoursePage,
+        CourseFilePage,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @Component({
@@ -6,6 +6,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'record.html',
 })
 export class RecordPage {
+  @Input() fileList;
+  @Input() maxNum;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

@@ -3,6 +3,7 @@ import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angu
 import {MineService} from "../mine/mine.service";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
 import {timer} from "rxjs/observable/timer";
+import {LogService} from "../../service/log.service";
 
 @IonicPage()
 @Component({
@@ -26,10 +27,12 @@ export class CoursePage {
     courseList = [];
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
+                private logSer:LogService,
                 private loadCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
+        this.logSer.visitLog('wdxx');
         this.getList();
     }
 

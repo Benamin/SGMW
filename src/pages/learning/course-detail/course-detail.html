@@ -74,9 +74,7 @@
             <ion-slide>
                 <div class="item">
                     <p>简介</p>
-                    <div class="introduction">
-                        {{product.detail?.Description}}
-                    </div>
+                    <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
                 </div>
             </ion-slide>
             <!--      章节      -->

@@ -19,7 +19,6 @@
                 <div class="item-desc">
                     <p>{{item?.Title}}</p>
                     <div class="desc">
-                        <!--           <span>{{item?.SubjectName}}</span>-->
                         <span><img style="width: 16px;" src="./assets/imgs/learn/person_gray@2x.png"
                                    alt="">{{item?.ManCount}}</span>
                         <span><img src="./assets/imgs/course/hua_h@2x.png" alt="">{{item?.ZanCount}}</span>
@@ -29,7 +28,7 @@
             </div>
         </ng-container>
     </div>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="page.list.length == 0">
+    <ion-list text-center style="margin-top: 10rem" *ngIf="page.list.length == 0 && page.isLoad">
         <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
         <p text-center style="color: #666666;font-size: 16px">
             暂无数据

@@ -4,6 +4,12 @@ page-record {
     p{
       margin-top: 12px;
       text-align: center;
+      overflow: hidden;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+
     }
   }
 

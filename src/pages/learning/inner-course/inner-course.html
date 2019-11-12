@@ -1,0 +1,109 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{product.detail?.SubjectName}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div ion-fixed class="fixed-top">
+        <div #banner class="banner">
+            <div class="background-image">
+                <img [src]="product.detail?.ImageUrl" alt="">
+            </div>
+            <div class="content" *ngIf="videoInfo.video == null">
+                <div class="content-info">
+                    <div class="course-name">
+                        {{product.detail?.Title}}
+                    </div>
+                    <div class="course-button">
+                        <div tappable *ngIf="!product.detail?.IsBuy" (click)="sign()">
+                            立即报名
+                        </div>
+                        <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100"
+                             (click)="studyNow()">
+                            回顾{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}
+                        </div>
+                        <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100"
+                             (click)="studyNow()">
+                            立即学习
+                        </div>
+                    </div>
+                    <div class="course-desc" style="margin: 15px auto;">
+                    <span>报名截止:
+                        {{product.detail?.EndTime | date:'yyyy-MM-dd'}}
+                    </span>
+                        <span>
+                        <img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
+                            人学习</span>
+                    </div>
+                </div>
+            </div>
+            <div id="videoTag" class="content video" [hidden]="videoInfo.video == null">
+                <videojs #videojsCom [GetVideo]="videoInfo.video" [poster]="videoInfo.poster"></videojs>
+            </div>
+        </div>
+        <navbar #navbar [select]="bar.type" [list]="navbarList" (done)="changeType($event)"></navbar>
+    </div>
+    <div style="margin-top: 236px" #space class="space"></div>
+
+    <ion-slides (ionSlideDidChange)="slideChanged()">
+        <ng-container *ngIf="isLoad">
+            <!--      简介      -->
+            <ion-slide>
+                <div class="item">
+                    <p>简介</p>
+                    <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
+                </div>
+            </ion-slide>
+            <!--      章节      -->
+            <ion-slide>
+                <div id="chapter" class="item" style="min-height: 350px">
+                    <p>章节</p>
+                    <page-chapter
+                            [chapter]="product.chapter?.Course?.children"
+                            [IsBuy]="product.detail?.IsBuy"
+                            [TeachTypeName]="product.detail?.TeachTypeName"
+                    ></page-chapter>
+                </div>
+            </ion-slide>
+            <!--      讨论      -->
+            <ion-slide>
+                <div class="item" style="min-height: 350px">
+                    <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
+                        <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end
+                              class="look">更多</span>
+                        <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()"
+                              class="focus focus-blue">去讨论</span>
+                    </p>
+                    <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
+                    <div class="no-comment" *ngIf="comment.talk.length == 0">
+                        <ion-list text-center style="margin-top: 40px">
+                            <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                            <p style="color: #666666;font-size: 13px">
+                                暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
+                        </ion-list>
+                    </div>
+                </div>
+            </ion-slide>
+            <!--记录-->
+            <ion-slide>
+                <div class="item" style="margin-bottom: 5rem;min-height: 350px">
+                    <p>已上传作业
+                        <span *ngIf="mainFile.length > 4" tappable (click)="goMainFile()" float-end
+                              class="look">更多</span>
+                    </p>
+                    <page-record [fileList]="mainFile" [maxNum]="4"></page-record>
+                </div>
+            </ion-slide>
+        </ng-container>
+    </ion-slides>
+</ion-content>
+
+<div *ngIf="signObj.isSign" class="sign">
+    <img src="./assets/imgs/course/sign-success.png">
+    <p>报名成功</p>
+</div>
+<div *ngIf="collectionObj.isCollection" class="collection">
+    <img src="./assets/imgs/course/collection-success.png">
+    <p>收藏成功</p>
+</div>
