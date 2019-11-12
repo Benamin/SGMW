@@ -63,6 +63,7 @@ import {Hammer} from "ionic-angular/gestures/hammer";
 import {VideoJsProvider} from '../providers/video-js/video-js';
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {DownloadFileProvider} from '../providers/download-file/download-file';
+import {LogService} from "../service/log.service";
 
 @NgModule({
     declarations: [
@@ -141,6 +142,7 @@ import {DownloadFileProvider} from '../providers/download-file/download-file';
             RandomWordService,
             DownloadFileService,
             GlobalData,
+            LogService,
             {provide: ErrorHandler, useClass: IonicErrorHandler},
             {
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

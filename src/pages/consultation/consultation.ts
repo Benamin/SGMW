@@ -3,6 +3,7 @@ import {IonicPage} from 'ionic-angular';
 import { NavController, NavParams,LoadingController} from "ionic-angular";
 import { Componentsdetails } from './componentsdetails/componentsdetails.component';
 import {ConsultationService} from './consultation.service';
+import {LogService} from "../../service/log.service";
 @IonicPage()
 @Component({
     selector: 'page-consultation',
@@ -33,9 +34,11 @@ export class ConsultationPage {
         public navCtrl:NavController,
         public navParams: NavParams,
         private serve:ConsultationService,
+        private logSer:LogService,
         private loadCtrl: LoadingController){
     }
     ngOnInit(): void {
+        this.logSer.visitLog('zx');
         this.GetDictionaryByPCode();
     }
     GetDictionaryByPCode(){

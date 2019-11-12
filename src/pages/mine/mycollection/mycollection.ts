@@ -6,6 +6,7 @@ import { CourseDetailPage } from "../../learning/course-detail/course-detail";
 import { timer } from "rxjs/observable/timer";
 import { ForumService } from '../../forum/forum.service';
 import {MyFollowsComponent} from '../my-follows/my-follows.component';
+import {LogService} from "../../../service/log.service";
 
 @Component({
     selector: 'page-mycollection',
@@ -23,10 +24,12 @@ export class MycollectionPage {
     isdoInfinite=true;
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
         private loadCtrl: LoadingController,
+        private logSer:LogService,
         private forumServe: ForumService) {
     }
 
     ionViewDidEnter() {
+        this.logSer.visitLog('wdsc');
         this.collectionList=[];
         this.isdoInfinite=true;
         this.page.page=1;

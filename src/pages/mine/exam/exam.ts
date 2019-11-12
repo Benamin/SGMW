@@ -7,6 +7,7 @@ import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home/home.service";
 import {CommonService} from "../../../core/common.service";
 import {EmitService} from "../../../core/emit.service";
+import {LogService} from "../../../service/log.service";
 
 @Component({
     selector: 'page-exam',
@@ -36,10 +37,12 @@ export class ExamPage {
                 private homeSer: HomeService,
                 private commonSer: CommonService,
                 public eventEmitSer: EmitService,
+                private logSer:LogService,
                 private loadCtrl: LoadingController) {
     }
 
     ionViewDidEnter() {
+        this.logSer.visitLog('wdzy');
         this.eventEmitSer.eventEmit.emit('false');
         this.getList();
     }

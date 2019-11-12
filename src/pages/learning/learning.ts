@@ -7,6 +7,7 @@ import {HomeService} from "../home/home.service";
 import {Storage} from "@ionic/storage";
 import {ScrollTabsComponent} from "../../components/scroll-tabs/scroll-tabs";
 import {timer} from "rxjs/observable/timer";
+import {LogService} from "../../service/log.service";
 
 
 @IonicPage()
@@ -32,10 +33,12 @@ export class LearningPage {
     loading;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
+                private logSer:LogService,
                 private learnSer: LearnService, private homeSer: HomeService, private storage: Storage) {
     }
 
     ionViewDidLoad() {
+        this.logSer.visitLog('zxkc');
         this.storage.get('course').then((value => {
             if (value) {   //其他路径转入
                 this.page.SubjectID = value.item.ID;

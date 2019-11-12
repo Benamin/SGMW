@@ -10,6 +10,7 @@ import {DatePipe} from "@angular/common";
 import {timer} from "rxjs/observable/timer";
 import {LookQuestion} from "../look-question/look-question";
 import {DoQuestionPage} from "../do-question/do-question";
+import {LogService} from "../../../../service/log.service";
 
 @Component({
     selector: 'page-exam',
@@ -42,11 +43,13 @@ export class MyQuestion {
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService, private datePipe: DatePipe,
                 private commonSer: CommonService,
+                private logSer:LogService,
                 public eventEmitSer: EmitService,
                 private loadCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
+        this.logSer.visitLog('wj');
     }
 
     ionViewDidEnter() {

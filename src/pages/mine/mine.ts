@@ -20,6 +20,7 @@ import {MyThumbsUpComponent} from './my-thumbs-up/my-thumbs-up.component';
 import {MedalComponent} from './medal/medal.component';
 import {MyFilePage} from "./my-file/my-file";
 import {ForumService} from "../forum/forum.service";
+import {LogService} from "../../service/log.service";
 
 
 @Component({
@@ -42,6 +43,7 @@ export class MinePage {
                 private mineSer: MineService, private events: Events, private appVersion: AppVersion,
                 private loginSer: LoginService, private inAppBrowser: InAppBrowser,
                 private platform: Platform,
+                private logSer:LogService,
                 private forumServe: ForumService,
                 private commonSer: CommonService,
                 private appSer: AppService, private app: App, private storage: Storage) {
@@ -52,6 +54,7 @@ export class MinePage {
     }
 
     ionViewDidEnter() {
+        this.logSer.visitLog('grzx');
         this.getVersion();
         this.getUserInfo();
         this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {

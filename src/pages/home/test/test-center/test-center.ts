@@ -8,6 +8,7 @@ import {DoTestPage} from "../do-test/do-test";
 import {CommonService} from "../../../../core/common.service";
 import {DatePipe} from "@angular/common";
 import {EmitService} from "../../../../core/emit.service";
+import {LogService} from "../../../../service/log.service";
 
 @Component({
     selector: 'page-exam',
@@ -41,6 +42,7 @@ export class TestCenterPage {
                 private homeSer: HomeService, private datePipe: DatePipe,
                 private commonSer: CommonService,
                 public eventEmitSer: EmitService,
+                private logSer:LogService,
                 private loadCtrl: LoadingController) {
     }
 
@@ -48,6 +50,7 @@ export class TestCenterPage {
     }
 
     ionViewDidEnter() {
+        this.logSer.visitLog('kszx');
         this.eventEmitSer.eventEmit.emit('false');
         this.getList();
     }

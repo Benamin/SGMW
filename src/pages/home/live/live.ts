@@ -6,6 +6,7 @@ import {timer} from "rxjs/observable/timer";
 import {DatePipe} from "@angular/common";
 import {CommonService} from "../../../core/common.service";
 import {defaultHeadPhoto} from "../../../app/app.constants";
+import {LogService} from "../../../service/log.service";
 
 @Component({
     selector: 'page-live',
@@ -16,6 +17,7 @@ export class LivePage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private learnSer: LearnService, private datePipe: DatePipe,
                 public loadCtrl: LoadingController, private learSer: LearnService,
+                private logSer:LogService,
                 private commonSer: CommonService) {
     }
 
@@ -48,6 +50,7 @@ export class LivePage {
     defaultPhoto = defaultHeadPhoto;
 
     ionViewDidLoad() {
+        this.logSer.visitLog('zhibo');
         this.getList();
     }
 
