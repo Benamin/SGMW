@@ -1,0 +1,55 @@
+page-chapter {
+  .chapter {
+    > p {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    > div p {
+      padding: 8px 0;
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .list:last-child > p:last-child {
+      border-bottom: none;
+    }
+
+    .chapter-teacher {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-bottom: 1px solid #dddddd;
+
+      > div:first-child {
+        width: 10%;
+
+        img {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+        }
+      }
+
+      > div:nth-of-type(2) {
+        width: 20%;
+        text-align: center;
+        overflow: hidden;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+
+      > div:last-child {
+        text-align: right;
+        padding-right: 10px;
+        width: 70%;
+        font-size: 1rem;
+        font-family: PingFangSC-Regular, PingFangSC;
+        font-weight: 400;
+        color: rgba(0, 0, 0, .4);
+        line-height: 13px;
+      }
+    }
+  }
+}

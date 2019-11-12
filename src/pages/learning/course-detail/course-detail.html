@@ -82,34 +82,12 @@
             <!--      章节      -->
             <ion-slide>
                 <div id="chapter" class="item" style="min-height: 350px">
-                    <p (click)="videojsCom.removeDanmu()">章节</p>
-                    <div class="chapter">
-                        <ng-container *ngFor="let item of product.chapter?.Course?.children">
-                            <p tappable (click)="getMore(item)">
-                                {{item.title}}
-                                <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon"
-                                          name="arrow-forward"></ion-icon>
-                                <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon"
-                                          name="arrow-down"></ion-icon>
-                            </p>
-                            <div *ngIf="item.show" class="chapter-teacher">
-                                <div>
-                                    <img [src]="item.UserImage" alt="">
-                                </div>
-                                <div>{{item.UserName}}</div>
-                                <div>
-                                    上课时间：{{item.StartTime | date:"yyyy-MM-dd"}}至{{item.EndTime | date:"yyyy-MM-dd"}}
-                                </div>
-                            </div>
-                            <div *ngIf="item.children && item.show">
-                                <tree-list
-                                        [treeList]="item.children"
-                                        [IsBuy]="product.detail?.IsBuy"
-                                        [TeachTypeName]="product.detail?.TeachTypeName"
-                                ></tree-list>
-                            </div>
-                        </ng-container>
-                    </div>
+                    <p>章节</p>
+                    <page-chapter
+                            [chapter]="product.chapter?.Course?.children"
+                            [IsBuy]="product.detail?.IsBuy"
+                            [TeachTypeName]="product.detail?.TeachTypeName"
+                    ></page-chapter>
                 </div>
             </ion-slide>
             <!--      讨论      -->
@@ -121,39 +99,7 @@
                         <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()"
                               class="focus focus-blue">去讨论</span>
                     </p>
-                    <div class="comment-list">
-                        <div class="comment-item" *ngFor="let item of comment.talk;">
-                            <div class="first">
-                                <div class="headPhoto">
-                                    <img [src]="item.HeadPhoto" alt="">
-                                </div>
-                                <div style="text-align: left">
-                                    <p class="badge">
-                                        <span>
-                                            {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
-                                        </span>
-                                        <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
-                                            {{item?.TitleInfo?.ForumTitle}}
-                                        </span>
-                                        <ng-container *ngFor="let badge of item?.Badges;let i = index;">
-                                            <span class="badgeSpan" *ngIf="i < 2">
-                                                <img [src]="badge.BadgeIcon">
-                                                <span>{{badge.BadgeName | stringSlice:4:4}}</span>
-                                            </span>
-                                        </ng-container>
-                                    </p>
-                                    <p>
-                                        <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="last teacher">
-                                <div class="Contents">
-                                    {{item.Contents}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
                     <div class="no-comment" *ngIf="comment.talk.length == 0">
                         <ion-list text-center style="margin-top: 40px">
                             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
@@ -203,51 +149,7 @@
                         <span *ngIf="comment.teacher.length == 0" tappable (click)="goTeacherComment()"
                               class="focus focus-blue">去评价</span>
                     </p>
-                    <div class="comment-list">
-                        <div class="comment-item" *ngFor="let item of comment.teacher;">
-                            <div class="first">
-                                <div class="headPhoto">
-                                    <img [src]="item.HeadPhoto" alt="">
-                                </div>
-                                <div style="text-align: left">
-                                    <p class="badge">
-                                        <span>
-                                            {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
-                                        </span>
-                                        <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
-                                            {{item?.TitleInfo?.ForumTitle}}
-                                        </span>
-                                        <ng-container *ngFor="let badge of item?.Badges;let i = index;">
-                                            <span class="badgeSpan" *ngIf="i < 2">
-                                                <img [src]="badge.BadgeIcon">
-                                                <span>{{badge.BadgeName | stringSlice:4:4}}</span>
-                                            </span>
-                                        </ng-container>
-                                    </p>
-                                    <p>
-                                        <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
-                                        <span class="img-star">
-                                            <ng-container *ngFor="let st of starList;let i = index">
-                                                <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
-                                                      class="icon iconfont "></span>
-                                            </ng-container>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="last teacher">
-                                <div class="Contents">
-                                    {{item.Contents}}
-                                </div>
-                                <div class="item-teacher">
-                                    <div>
-                                        <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
-                                    </div>
-                                    <div>{{item.TeacherName}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <page-comment-list [cList]="comment.teacher" [TopicType]="'teacher'"></page-comment-list>
                     <div class="no-comment" *ngIf="comment.teacher.length == 0">
                         <ion-list text-center style="margin-top: 40px">
                             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
@@ -265,45 +167,7 @@
                         <span *ngIf="comment.course.length == 0" tappable class="focus-blue focus"
                               (click)="goCourseComment()">去评价</span>
                     </p>
-                    <div class="comment-list">
-                        <div class="comment-item" *ngFor="let item of comment.course;">
-                            <div class="first">
-                                <div class="headPhoto">
-                                    <img [src]="item.HeadPhoto" alt="">
-                                </div>
-                                <div style="text-align: left">
-                                    <p class="badge">
-                                        <span>
-                                            {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
-                                        </span>
-                                        <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
-                                            {{item?.TitleInfo?.ForumTitle}}
-                                         </span>
-                                        <ng-container *ngFor="let badge of item?.Badges;let i = index;">
-                                            <span class="badgeSpan" *ngIf="i < 2">
-                                                <img [src]="badge.BadgeIcon">
-                                                <span>{{badge.BadgeName | stringSlice:4:4}}</span>
-                                            </span>
-                                        </ng-container>
-                                    </p>
-                                    <p>
-                                        <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
-                                        <span class="img-star">
-                                        <ng-container *ngFor="let st of starList;let i = index">
-                                            <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
-                                                  class="icon iconfont "></span>
-                                        </ng-container>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="last teacher">
-                                <div class="Contents">
-                                    {{item.Contents}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <page-comment-list [cList]="comment.course" [TopicType]="'course'"></page-comment-list>
                     <div class="no-comment" *ngIf="comment.course.length == 0">
                         <ion-list text-center style="margin-top: 40px">
                             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">

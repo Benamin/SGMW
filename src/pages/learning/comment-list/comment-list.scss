@@ -1,0 +1,55 @@
+page-comment-list {
+  .comment-list {
+    background-color: #fff;
+
+    .comment-item {
+      padding: 20px 0;
+
+      .first {
+        display: flex;
+        margin-bottom: 10px;
+
+        .headPhoto {
+          img {
+            width: 36px;
+            height: 36px;
+            border-radius: 100px;
+          }
+        }
+
+        > div:first-child {
+          width: 10%;
+        }
+
+        > div:nth-child(2) {
+          padding-left: 10px;
+          width: 90%;
+
+          p:first-child {
+            font-size: 13px;
+            margin-bottom: 5px;
+          }
+
+          p:last-child {
+            color: #999999;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+
+            .img-star {
+              margin-left: auto;
+            }
+
+            > span {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .comment-item + .comment-item {
+      border-top: 1px solid #e3e3e3;
+    }
+  }
+}

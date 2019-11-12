@@ -9,6 +9,8 @@ import {ViewFilePage} from "./view-file/view-file";
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import {PipesModule} from "../../pipes/pipes.module";
 import {RecordPage} from "./record/record";
+import {ChapterPage} from "./chapter/chapter";
+import {CommentListPage} from "./comment-list/comment-list";
 
 @NgModule({
     declarations: [
@@ -18,6 +20,8 @@ import {RecordPage} from "./record/record";
         TeacherPage,
         ViewFilePage,
         RecordPage,
+        ChapterPage,
+        CommentListPage
     ],
     imports: [
         PdfViewerModule,
@@ -30,7 +34,9 @@ import {RecordPage} from "./record/record";
         CourseDetailPage,
         TeacherPage,
         ViewFilePage,
-        RecordPage
+        RecordPage,
+        ChapterPage,
+        CommentListPage
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

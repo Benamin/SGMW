@@ -1,0 +1,28 @@
+<!--章节-->
+<div class="chapter">
+    <ng-container *ngFor="let item of chapter">
+        <p tappable (click)="getMore(item)">
+            {{item.title}}
+            <ion-icon *ngIf="item.children.length > 0 && !item.show" class="more-icon"
+                      name="arrow-forward"></ion-icon>
+            <ion-icon *ngIf="item.children.length > 0 && item.show" class="more-icon"
+                      name="arrow-down"></ion-icon>
+        </p>
+        <div *ngIf="item.show" class="chapter-teacher">
+            <div>
+                <img [src]="item.UserImage" alt="">
+            </div>
+            <div>{{item.UserName}}</div>
+            <div>
+                上课时间：{{item.StartTime | date:"yyyy-MM-dd"}}至{{item.EndTime | date:"yyyy-MM-dd"}}
+            </div>
+        </div>
+        <div *ngIf="item.children && item.show">
+            <tree-list
+                    [treeList]="item.children"
+                    [IsBuy]="IsBuy"
+                    [TeachTypeName]="TeachTypeName"
+            ></tree-list>
+        </div>
+    </ng-container>
+</div>

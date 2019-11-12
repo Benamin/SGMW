@@ -1,0 +1,46 @@
+<!--评价-->
+<div class="comment-list">
+  <div class="comment-item" *ngFor="let item of List;">
+    <div class="first">
+      <div class="headPhoto">
+        <img [src]="item.HeadPhoto" alt="">
+      </div>
+      <div style="text-align: left">
+        <p class="badge">
+                        <span>
+                            {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
+                        </span>
+          <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
+                            {{item?.TitleInfo?.ForumTitle}}
+                        </span>
+          <ng-container *ngFor="let badge of item?.Badges;let i = index;">
+                            <span class="badgeSpan" *ngIf="i < 2">
+                                <img [src]="badge.BadgeIcon">
+                                <span>{{badge.BadgeName | stringSlice:4:3}}</span>
+                            </span>
+          </ng-container>
+        </p>
+        <p>
+          <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
+          <span class="img-star" *ngIf="TopicType != 'talk'">
+                            <ng-container *ngFor="let st of starList;let i = index">
+                                <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
+                                      class="icon iconfont "></span>
+                            </ng-container>
+                        </span>
+        </p>
+      </div>
+    </div>
+    <div class="last teacher">
+      <div class="Contents">
+        {{item.Contents}}
+      </div>
+      <div *ngIf="TopicType == 'teacher'" class="item-teacher">
+        <div>
+          <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
+        </div>
+        <div>{{item.TeacherName}}</div>
+      </div>
+    </div>
+  </div>
+</div>

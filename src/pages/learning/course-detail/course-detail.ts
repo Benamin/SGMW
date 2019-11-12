@@ -515,9 +515,6 @@ export class CourseDetailPage {
         this.slides.slideTo(item.type - 1, 100);
     }
 
-    getMore(e) {
-        e.show = !e.show;
-    }
 
     //获取时间戳
     getTime(date) {
