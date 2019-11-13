@@ -3,6 +3,8 @@ import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angu
 import {MineService} from "../mine.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {timer} from "rxjs/observable/timer";
+import {FocusCoursePage} from "../../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 
 @Component({
     selector: 'page-my-course',
@@ -57,7 +59,13 @@ export class MyCoursePage {
     }
 
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        if (e.TeachTypeName == "集中培训") {
+            this.navCtrl.push(FocusCoursePage, {id: e.Id});
+        } else if (e.TeachTypeName == "内训") {
+            this.navCtrl.push(InnerCoursePage, {id: e.Id});
+        } else {
+            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        }
     }
 
     //加载更多

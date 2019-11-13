@@ -8,6 +8,8 @@ import {Storage} from "@ionic/storage";
 import {ScrollTabsComponent} from "../../components/scroll-tabs/scroll-tabs";
 import {timer} from "rxjs/observable/timer";
 import {LogService} from "../../service/log.service";
+import {FocusCoursePage} from "./focus-course/focus-course";
+import {InnerCoursePage} from "./inner-course/inner-course";
 
 
 @IonicPage()
@@ -28,12 +30,12 @@ export class LearningPage {
         page: 1,
         pageSize: "10",
         TotalCount: 0,
-        isLoading:false,
+        isLoading: false,
     };
     loading;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
-                private logSer:LogService,
+                private logSer: LogService,
                 private learnSer: LearnService, private homeSer: HomeService, private storage: Storage) {
     }
 
@@ -66,7 +68,7 @@ export class LearningPage {
 
     getOneType(index) {
         const data = {
-            code:"Subject"
+            code: "Subject"
         }
         this.learnSer.GetDictionaryByPCode(data).subscribe(
             (res) => {
@@ -136,7 +138,13 @@ export class LearningPage {
     }
 
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        if (e.TeachTypeName == "集中培训") {
+            this.navCtrl.push(FocusCoursePage, {id: e.Id});
+        } else if (e.TeachTypeName == "内训") {
+            this.navCtrl.push(InnerCoursePage, {id: e.Id});
+        } else {
+            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        }
     }
 
     doInfinite(e) {

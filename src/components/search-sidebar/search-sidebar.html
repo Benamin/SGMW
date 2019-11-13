@@ -1,0 +1,23 @@
+<!-- Generated template for the SearchSidebarComponent component -->
+<div class="search-sidebar">
+    <p>时间</p>
+    <div>
+        <ion-datetime displayFormat="YYYY-MM-DD HH:mm" pickerFormat="YYYY-MM-DD HH:mm"
+                      doneText="确定" cancelText="取消"
+                      [(ngModel)]="obj.startTime"></ion-datetime>
+        <ion-datetime displayFormat="YYYY-MM-DD HH:mm" pickerFormat="YYYY-MM-DD HH:mm"
+                      doneText="确定" cancelText="取消"
+                      [(ngModel)]="obj.endTime"></ion-datetime>
+    </div>
+    <p>地点搜索</p>
+    <div>
+        <ion-input class="address" placeholder="请输入地址"></ion-input>
+    </div>
+    <p>导师</p>
+    <div>
+        <ion-input class="teacher" placeholder="请输入导师名称"></ion-input>
+    </div>
+    <div class="footer" tappable (click)="confirm()">
+        <div>确定</div>
+    </div>
+</div>

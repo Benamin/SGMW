@@ -29,6 +29,8 @@ import {MyQuestion} from "./question/my-question/my-question";
 import {RankingComponent} from "../ranking/ranking.component";
 import {FocusTrainPage} from "./focus-train/focus-train";
 import {InnerTrainPage} from "./inner-train/inner-train";
+import {FocusCoursePage} from "../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../learning/inner-course/inner-course";
 
 @Component({
     selector: 'page-home',
@@ -261,7 +263,13 @@ export class HomePage {
 
     //前往课程
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        if (e.TeachTypeName == "集中培训") {
+            this.navCtrl.push(FocusCoursePage, {id: e.Id});
+        } else if (e.TeachTypeName == "内训") {
+            this.navCtrl.push(InnerCoursePage, {id: e.Id});
+        } else {
+            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        }
     }
 
     //前往课程

@@ -1,10 +1,69 @@
-
 <ion-header>
-  <ion-navbar>
-    <ion-title>集中培训</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>集中培训</ion-title>
+    </ion-navbar>
 </ion-header>
-
 <ion-content>
-
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新"
+                               refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="searchbar">
+        <div class="input">
+            <ion-input placeholder="搜索课程"></ion-input>
+        </div>
+        <div class="filter" (click)="openFilter()">
+            <img src="./assets/imgs/train/shaixuan@2x.png" alt="">
+            <span>筛选</span>
+        </div>
+    </div>
+    <div class="learn-list">
+        <ng-container *ngFor="let item of page.list">
+            <div class="course" tappable (click)="getItem(item)">
+                <div class="course-item">
+                    <div class="item-img">
+                        <img [src]="item?.ImageUrl || defaultImg">
+                    </div>
+                    <div class="item-desc">
+                        <p>{{item?.Title}}</p>
+                        <div class="desc">
+                            <span><img style="width: 16px;" src="./assets/imgs/train/nx_ywc@2x.png">已完成</span>
+                            <!--                        <span><img src="./assets/imgs/train/nx_zzjx@2x.png">进行中</span>-->
+                            <span><img src="./assets/imgs/train/renshu@2x.png">人数：{{item?.ManCount}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-info">
+                    <div>
+                        <img src="./assets/imgs/train/jiangshi@2x.png">
+                        {{item.UserName}}
+                    </div>
+                    <div>
+                        <img src="./assets/imgs/train/time@2x.png" alt="">
+                        {{item.StartTime | date:'yyyy年MM月dd日 HH:mm'}} -
+                        {{item.EndTime | date:'yyyy年MM月dd日 HH:mm'}}
+                    </div>
+                    <div>
+                        <img src="./assets/imgs/train/location@2x.png" alt="">
+                        上海莘松路123号宝骏汽车(莘松店)2楼304室
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="page.list.length == 0 && page.isLoad">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+    </ion-list>
+    <ion-infinite-scroll *ngIf="this.page.TotalItems > this.page.list.length" (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <p class="list-footer-page"
+       *ngIf="page.isLoad && this.page.TotalItems == this.page.list.length && this.page.TotalItems > 5">
+        没有更多了~~~</p>
 </ion-content>

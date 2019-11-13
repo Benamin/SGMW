@@ -45,15 +45,21 @@ page-inner-train {
           color: #999999;
           margin-top: 10px;
           display: flex;
-          img{
+
+          img {
             margin-right: 2px;
             width: 18px;
           }
-          > span{
+
+          > span {
             margin-right: 8px;
             display: flex;
             align-items: center;
             font-size: 14px;
+          }
+
+          > span:last-child {
+            margin-left: auto;
           }
         }
       }

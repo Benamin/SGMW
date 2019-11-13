@@ -9,7 +9,8 @@ import {QIndexComponent} from './q-index/q-index';
 import {CheckCodeComponent} from './check-code/check-code';
 import {UpdateAppComponent} from './update-app/update-app';
 import {VideojsComponent} from "./videojs/videojs";
-import { SelectTeacherComponent } from './select-teacher/select-teacher';
+import {SelectTeacherComponent} from './select-teacher/select-teacher';
+import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { SelectTeacherComponent } from './select-teacher/select-teacher';
         UpdateAppComponent,
         VideojsComponent,
         SelectTeacherComponent,
-
+        SearchSidebarComponent,
     ],
     imports: [
         IonicPageModule
@@ -42,7 +43,7 @@ import { SelectTeacherComponent } from './select-teacher/select-teacher';
         UpdateAppComponent,
         VideojsComponent,
         SelectTeacherComponent,
-
+        SearchSidebarComponent,
     ],
     providers: [
         CommentComponent,
@@ -58,6 +59,7 @@ import { SelectTeacherComponent } from './select-teacher/select-teacher';
         UpdateAppComponent,
         VideojsComponent,
         SelectTeacherComponent,
+        SearchSidebarComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

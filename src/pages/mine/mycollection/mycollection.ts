@@ -7,6 +7,8 @@ import { timer } from "rxjs/observable/timer";
 import { ForumService } from '../../forum/forum.service';
 import {MyFollowsComponent} from '../my-follows/my-follows.component';
 import {LogService} from "../../../service/log.service";
+import {FocusCoursePage} from "../../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 
 @Component({
     selector: 'page-mycollection',
@@ -94,7 +96,13 @@ export class MycollectionPage {
   }
 
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage, { id: e.Id });
+        if (e.TeachTypeName == "集中培训") {
+            this.navCtrl.push(FocusCoursePage, {id: e.Id});
+        } else if (e.TeachTypeName == "内训") {
+            this.navCtrl.push(InnerCoursePage, {id: e.Id});
+        } else {
+            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        }
     }
 
 

@@ -6,6 +6,8 @@ import { ForumService } from '../../forum/forum.service';
 import { Keyboard } from "@ionic-native/keyboard";
 import { PostlistComponent } from '../../forum/postlist/postlist.component';
 import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
+import {FocusCoursePage} from "../../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 
 
 @Component({
@@ -161,7 +163,13 @@ export class SearchPage {
     }
 
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage, { id: e.Id });
+        if (e.TeachTypeName == "集中培训") {
+            this.navCtrl.push(FocusCoursePage, {id: e.Id});
+        } else if (e.TeachTypeName == "内训") {
+            this.navCtrl.push(InnerCoursePage, {id: e.Id});
+        } else {
+            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        }
     }
 
     doInfinite(e) {

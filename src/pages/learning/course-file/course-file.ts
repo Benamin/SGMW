@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
-@IonicPage()
 @Component({
     selector: 'page-course-file',
     templateUrl: 'course-file.html',
