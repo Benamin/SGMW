@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
-import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
-import { LearnService } from "../../learning/learn.service";
-import { CourseDetailPage } from "../../learning/course-detail/course-detail";
-import { ForumService } from '../../forum/forum.service';
-import { Keyboard } from "@ionic-native/keyboard";
-import { PostlistComponent } from '../../forum/postlist/postlist.component';
+import {Component} from '@angular/core';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {LearnService} from "../../learning/learn.service";
+import {CourseDetailPage} from "../../learning/course-detail/course-detail";
+import {ForumService} from '../../forum/forum.service';
+import {Keyboard} from "@ionic-native/keyboard";
+import {PostlistComponent} from '../../forum/postlist/postlist.component';
 import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
 import {FocusCoursePage} from "../../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../../learning/inner-course/inner-course";
+import {LogService} from "../../../service/log.service";
 
 
 @Component({
@@ -15,7 +16,7 @@ import {InnerCoursePage} from "../../learning/inner-course/inner-course";
     templateUrl: 'search.html',
 })
 export class SearchPage {
-    navli: '论坛' | '课程'|null = null;
+    navli: '论坛' | '课程' | null = null;
     productList = [];
     page = {
         title: '',
@@ -37,21 +38,26 @@ export class SearchPage {
     show;
     showTips = true;
     topicplate = [];
+
     constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        private keyboard: Keyboard,
-        private learnSer: LearnService,
-        private loadCtrl: LoadingController,
-        private forumService: ForumService,
-       ) {
+                public navParams: NavParams,
+                private keyboard: Keyboard,
+                private learnSer: LearnService,
+                private loadCtrl: LoadingController,
+                private forumService: ForumService,
+                public logSer: LogService
+    ) {
         this.show = true;
         this.navli = this.navParams.get('type') ? this.navParams.get('type') : '课程';
     }
-    postList=[];
-    navulShow=false;
+
+    postList = [];
+    navulShow = false;
+
     switchIn(text) {
         this.navli = text;
     }
+
     ionViewDidLoad() {
         console.log('ionViewDidLoad SearchPage');
     }
@@ -63,41 +69,47 @@ export class SearchPage {
         this.show = false;
         this.navCtrl.pop();
     }
+
     is_getData() {
         if (this.navli == '课程') {
-            this.GetProductList({ keyCode: 13 });
+            this.GetProductList({keyCode: 13});
         } else {
             this.forum_post_search();
         }
     }
 
-    loadingNum=0;
-    loading=null;
+    loadingNum = 0;
+    loading = null;
+
     search(event) {
         if (event && event.keyCode == 13) {
             this.pageDate.pageIndex = 1;
             this.page.page = 1;
 
             this.productList = [];
-            this.topicplate=[];
-            this.postList=[];
-           
+            this.topicplate = [];
+            this.postList = [];
+
             this.loading = this.loadCtrl.create({
-              content:''
+                content: ''
             });
 
             this.loading.present();
-            this.loadingNum=0;
+            this.loadingNum = 0;
             setTimeout(() => {
                 this.loading.dismiss();
-                this.navulShow=true;
+                this.navulShow = true;
             }, 1200);
 
             this.GetProductList(event);
             this.forum_post_search();
             this.forum_topicplate_search();
+
+            //搜索日志
+            this.logSer.keyWordLog(this.page.title);
         }
     }
+
     addData(e) {
         if (this.navli == '课程') {
             this.doInfinite(e);
@@ -106,17 +118,18 @@ export class SearchPage {
                 e.complete();
                 return
             }
-            this.pageDate.pageIndex ++;
+            this.pageDate.pageIndex++;
             this.forum_post_search(e);
         }
     }
+
     Refresh(event) {
         if (this.navli == '课程') {
             this.doRefresh(event);
         } else {
             this.pageDate.pageIndex = 1;
             this.productList = [];
-           
+
 
             this.forum_post_search();
             this.forum_topicplate_search();
@@ -124,7 +137,7 @@ export class SearchPage {
     }
 
 
-    forum_post_search(e=null) {
+    forum_post_search(e = null) {
         this.pageDate.Title = this.page.title;
         this.showTips = false;
         this.forumService.forum_post_search(this.pageDate).subscribe((res: any) => {
@@ -134,11 +147,11 @@ export class SearchPage {
             });
             this.postList = this.postList.concat(arr);
             this.pageDate.TotalCount = res.data.TotalItems;
-            if(e){
+            if (e) {
                 e.complete();
             }
         });
-     
+
     }
 
     forum_topicplate_search() {
@@ -239,11 +252,11 @@ export class SearchPage {
         }
         arr.length = arr.length > 6 ? 6 : arr.length;
         window.localStorage.setItem('userForumHistory', JSON.stringify(arr));
-        this.navCtrl.push(PostlistComponent, { data: data });
+        this.navCtrl.push(PostlistComponent, {data: data});
     }
 
     // 前往帖子详情
     goPostsContent(data) {
-        this.navCtrl.push(PostsContentComponent, { data: data });
+        this.navCtrl.push(PostsContentComponent, {data: data});
     }
 }
