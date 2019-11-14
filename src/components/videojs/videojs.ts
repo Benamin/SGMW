@@ -92,7 +92,7 @@ export class VideojsComponent implements OnDestroy {
             this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
             this.video.removeChild('TitleBar');
-            this.video.addChild(`danmu`,{text: `${videoInfo.DisplayName}`});
+            // this.video.addChild(`danmu`,{text: `${videoInfo.DisplayName}`});
             this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
         }
     }
