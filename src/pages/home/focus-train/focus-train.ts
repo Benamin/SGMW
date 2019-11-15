@@ -22,7 +22,8 @@ export class FocusTrainPage {
         pageSize: 10,
         TotalItems: null,
         isLoad: false
-    }
+    };
+    nowTime;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private learSer: LearnService,
@@ -35,12 +36,13 @@ export class FocusTrainPage {
     }
 
     getList() {
+        this.nowTime = new Date().getTime();
         let loading = this.loadCtrl.create({
             content: ''
         });
         loading.present();
         const data = {
-            page: this.page.page,
+            page: 1,
             pageSize: this.page.pageSize,
             TeachTypeCode: 'jzpx',
             SubjectID: "-1",
@@ -49,8 +51,14 @@ export class FocusTrainPage {
         };
         this.learSer.GetProductList(data).subscribe(
             (res) => {
-                this.page.list = res.data.ProductList;
-                this.page.TotalItems = res.data.TotalCount;
+                if (res.data.ProductList) {
+                    res.data.ProductList.forEach(e => {
+                        e.StartTime_time = new Date(e.StartTime).getTime();
+                        e.EndTime_time = new Date(e.EndTime).getTime();
+                    });
+                    this.page.list = res.data.ProductList;
+                    this.page.TotalItems = res.data.TotalCount;
+                }
                 this.page.isLoad = true;
                 loading.dismiss();
             }
@@ -59,6 +67,7 @@ export class FocusTrainPage {
 
     //加载更多
     doInfinite(e) {
+        this.nowTime = new Date().getTime();
         if (this.page.list.length == this.page.TotalItems || this.page.list.length > this.page.TotalItems) {
             e.complete();
             return;
@@ -74,8 +83,14 @@ export class FocusTrainPage {
         };
         this.mineSer.GetMyCollectionProductList(data).subscribe(
             (res) => {
-                this.page.list = this.page.list.concat(res.data.ProductList);
-                this.page.TotalItems = res.data.TotalCount;
+                if (res.data.ProductList) {
+                    res.data.ProductList.forEach(e => {
+                        e.StartTime_time = new Date(e.StartTime).getTime();
+                        e.EndTime_time = new Date(e.EndTime).getTime();
+                    });
+                    this.page.list = this.page.list.concat(res.data.ProductList);
+                    this.page.TotalItems = res.data.TotalCount;
+                }
                 e.complete();
             }
         )

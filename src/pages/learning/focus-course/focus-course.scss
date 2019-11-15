@@ -98,14 +98,14 @@ page-focus-course {
     border-radius: 6px;
     text-align: left;
 
-    > p:first-child {
+    > p {
       font-size: 14px;
       font-weight: 500;
       position: relative;
       margin-bottom: 10px;
     }
 
-    > p:first-child::before {
+    > p::before {
       content: '';
       width: 4px;
       height: 100%;
@@ -566,6 +566,10 @@ page-focus-course {
     background: linear-gradient(242deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
     border-radius: 16px;
     padding: 5px 25px;
+  }
+
+  span.applySignDone {
+    background: linear-gradient(242deg, #999 0%, #eee 100%);
   }
 }
 

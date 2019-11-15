@@ -33,7 +33,7 @@ export class NotificationPage {
         });
         loading.present();
         const data = {
-            page: this.page.page,
+            page: 1,
             pageSize: this.page.pageSize
         };
         this.mineSer.GetUserNewsList(data).subscribe(
@@ -72,7 +72,6 @@ export class NotificationPage {
 
     //下拉刷新
     doRefresh(e) {
-        this.page.page = 1;
         this.getList();
         timer(1000).subscribe(() => {e.complete();});
     }

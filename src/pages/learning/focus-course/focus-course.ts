@@ -12,6 +12,9 @@ import {ViewFilePage} from "../view-file/view-file";
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
+import {InnerCoursePage} from "../inner-course/inner-course";
+import {CourseDetailPage} from "../course-detail/course-detail";
+import {CourseFilePage} from "../course-file/course-file";
 
 
 @Component({
@@ -75,6 +78,10 @@ export class FocusCoursePage {
     teacherList;  //讲师列表
     isLoad = false;
 
+    unFinishedTask = [];   //未审批作业
+    overTask = [];   //已审批作业
+    nowTime;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
@@ -89,6 +96,7 @@ export class FocusCoursePage {
     }
 
     async ionViewDidEnter() {
+        this.nowTime = new Date().getTime();
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
@@ -99,6 +107,8 @@ export class FocusCoursePage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                this.product.detail.StartTime = new Date(this.product.detail.StartTime).getTime();
+                this.product.detail.EndTime = new Date(this.product.detail.EndTime).getTime();
                 this.getProductInfo();
                 this.getFileInfo();
                 this.getTeacher();
@@ -159,6 +169,26 @@ export class FocusCoursePage {
 
             }
         );
+
+        //未审批作业
+        const data2 = {
+            pid: this.pId
+        };
+        await this.learSer.GetUnfinishedTask(data2).subscribe(
+            (res) => {
+                this.unFinishedTask = res.data;
+            }
+        );
+
+        //已审批作业
+        const data3 = {
+            pid: this.pId
+        };
+        await this.learSer.GetOverTask(data3).subscribe(
+            (res) => {
+                this.overTask = res.data;
+            }
+        )
     }
 
     //讲师评价下-讲师列表
@@ -357,10 +387,6 @@ export class FocusCoursePage {
         });
     }
 
-    //课程
-    goCourse(e) {
-    }
-
     //报名
     sign() {
         let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
@@ -437,79 +463,6 @@ export class FocusCoursePage {
         )
     }
 
-    //点赞
-    savePraise() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        this.learnSer.SavePraise(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-
-    }
-
-    //取消点赞
-    cancelPraise() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        this.learnSer.CancelPraise(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-    }
-
-    //扔鸡蛋
-    saveHate() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        this.learnSer.SaveHate(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-    }
-
-    //取消扔鸡蛋
-    cancelHate() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        this.learnSer.CancelHate(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-    }
-
     changeType(item) {
         this.bar.type = item.type;
         this.slides.slideTo(item.type - 1, 100);
@@ -526,5 +479,19 @@ export class FocusCoursePage {
         this.bar.type = this.slides.realIndex + 1;
     }
 
+    goCourse(e){
+        if (e.TeachTypeName == "集中培训") {
+            this.navCtrl.push(FocusCoursePage, {id: e.Id});
+        } else if (e.TeachTypeName == "内训") {
+            this.navCtrl.push(InnerCoursePage, {id: e.Id});
+        } else {
+            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        }
+    }
+
+    //前往资料记录
+    goMainFile(fileList) {
+        this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: fileList})
+    }
 
 }

@@ -64,5 +64,9 @@ page-inner-train {
         }
       }
     }
+
+    .course-item + .course-item{
+      margin-top: 10px;
+    }
   }
 }

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}详情</ion-title>
+    <ion-title>{{product.detail?.SubjectName}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -37,9 +37,15 @@
                              src="./assets/imgs/course/sc_y@2x.png" alt="">
                     {{product.detail?.CollectionCount || "0"}}
                 </span>
-                <span tappable (click)="sign()" *ngIf="!product.detail?.IsBuy" class="applySign">申请报名</span>
-                <span tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100" class="applySign">回顾培训</span>
-                <span tappable  (click)="studyNow()" *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100" class="applySign">立即学习</span>
+                <ng-container *ngIf="nowTime < product.detail?.StartTime">
+                    <span tappable (click)="sign()" *ngIf="!product.detail?.IsBuy" class="applySign">申请报名</span>
+                    <span tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100" class="applySign">回顾培训</span>
+                    <span tappable  (click)="studyNow()" *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100" class="applySign">立即学习</span>
+                </ng-container>
+                <ng-container *ngIf="nowTime > product.detail?.EndTime">
+                  <span tappable (click)="sign()" *ngIf="!product.detail?.IsBuy" class="applySign applySignDone">已过期</span>
+                </ng-container>
+
             </div>
         </div>
       </div>
@@ -165,8 +171,16 @@
       <!--作业-->
       <ion-slide>
         <div class="item" style="margin-bottom: 5rem">
-          <p>已上传作业</p>
-          <page-record></page-record>
+          <p>已上传作业
+            <span *ngIf="unFinishedTask.length > 2" tappable (click)="goMainFile(unFinishedTask)" float-end
+                  class="look">更多</span>
+          </p>
+          <page-record [fileList]="unFinishedTask" [maxNum]="2"></page-record>
+          <p>已评分作业
+            <span *ngIf="overTask.length > 2" tappable (click)="goMainFile(overTask)" float-end
+                  class="look">更多</span>
+          </p>
+          <page-record [fileList]="overTask" [maxNum]="2"></page-record>
         </div>
       </ion-slide>
       <!--      相关      -->
