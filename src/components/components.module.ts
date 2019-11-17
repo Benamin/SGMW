@@ -11,7 +11,7 @@ import {UpdateAppComponent} from './update-app/update-app';
 import {VideojsComponent} from "./videojs/videojs";
 import {SelectTeacherComponent} from './select-teacher/select-teacher';
 import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
-
+import {ForumListTimeComponent} from './forum-list-time/forum-list-time.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +27,7 @@ import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
+        ForumListTimeComponent
     ],
     imports: [
         IonicPageModule
@@ -44,6 +45,7 @@ import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
+        ForumListTimeComponent
     ],
     providers: [
         CommentComponent,

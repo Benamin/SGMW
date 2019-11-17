@@ -20,7 +20,8 @@
   </div>
   <div *ngIf="navli=='热帖'">
     <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
-      <div class="post-introduction-top">
+      <app-forum-list-time [item]='item'></app-forum-list-time>
+      <!-- <div class="post-introduction-top">
         <img src="{{item.PosterUserHeadPhoto}}" alt="">
         <div class="name nowrap-1">{{item.PosterUserName}}</div>
         <div class="oldDate">{{item.PostRelativeTime}}</div>
@@ -59,7 +60,7 @@
           <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
           {{item.LikeCount}}
         </span>
-      </div>
+      </div> -->
     </div>
   </div>
   <div *ngIf="navli=='板块'">

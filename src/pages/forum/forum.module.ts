@@ -8,18 +8,22 @@ import {PostsContentComponent} from './posts-content/posts-content.component';
 import {ForumService} from './forum.service';
 import {ViewReplyComponent} from './view-reply/view-reply.component';
 import {PostAddComponent} from './post-add/post-add.component';
+// import {ForumListTimeComponent} from './forum-list-time/forum-list-time.component';
+import {ComponentsModule} from "../../components/components.module";
+
 
 @NgModule({
   imports: [
     IonicPageModule.forChild(ForumPage),
-    CommonModule
+    CommonModule,
+    ComponentsModule
   ],
   entryComponents: [
     ForumPage,
     PostlistComponent,
     PostsContentComponent,
     ViewReplyComponent,
-    PostAddComponent
+    PostAddComponent,
   ],
   providers:[ForumService],
   declarations: [ForumPage,PostlistComponent,PostsContentComponent,ViewReplyComponent,PostAddComponent]

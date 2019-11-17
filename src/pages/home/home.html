@@ -92,6 +92,16 @@
         </div>
     </div>
 
+    <!-- 热门帖子 -->
+    <div class="sale">
+            <p>热门帖子
+                    <span class="float-more" tappable (click)="goForumComponent()" tappable>
+                   更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
+                </p>
+        <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst" >
+            <app-forum-list-time [item]='item'></app-forum-list-time>
+        </div>
+    </div>
     <!--  课程分类-->
     <div class="sale">
         <p>课程分类

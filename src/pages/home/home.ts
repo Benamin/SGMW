@@ -31,6 +31,8 @@ import {FocusTrainPage} from "./focus-train/focus-train";
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
+import {ForumService} from '../forum/forum.service';
+import {PostsContentComponent} from '../forum/posts-content/posts-content.component';
 
 @Component({
     selector: 'page-home',
@@ -52,7 +54,8 @@ export class HomePage {
     mineInfo;
     defaultImg = defaultImg;
     httpUrl = SERVER_HTTP_URL;
-
+    forumLIst=[];
+    
     info = {
         new: 0,
     };
@@ -63,7 +66,8 @@ export class HomePage {
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
                 private appSer: AppService, public statusBar: StatusBar,
                 private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser,
-                private renderer: Renderer2) {
+                private renderer: Renderer2,
+                private forum_serve: ForumService) {
         this.statusBar.backgroundColorByHexString('#343435');
         this.storage.get('user').then(value => {
             if (value) {
@@ -73,12 +77,16 @@ export class HomePage {
                 }
             }
         });
+        (window as any).handleOpenURL = (url: string) => {
+            this.openPosts(url);
+          };
     }
 
     ionViewDidLoad() {
         this.getBanner();
         this.getGoodsTeacher();
         this.getProductList();
+        this.getLIistData();
     }
 
     ionViewWillEnter() {
@@ -342,5 +350,29 @@ export class HomePage {
     //前往集中培训
     goFocusTrain() {
         this.navCtrl.push(FocusTrainPage);
+    }
+    
+    
+    // 前往帖子详情
+    goPostsContent(data) {
+        this.navCtrl.push(PostsContentComponent, {data: data});
+    }
+
+    // 获取热门帖子
+    getLIistData() {
+        this.forum_serve.GetPostSearchhotpost().subscribe((res: any) => {
+            if (res.data) {
+                this.forumLIst = res.data.UnTopPosts.Items;
+                if(this.forumLIst.length > 2){
+                    this.forumLIst.length = 2;
+                }
+            }
+            
+            console.log(res);
+        });
+    }
+    openPosts(url){
+        let url_arr= url.split('/');
+        this.goPostsContent({Id:url_arr[3]});
     }
 }
