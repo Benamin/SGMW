@@ -81,6 +81,7 @@ export class FocusCoursePage {
     unFinishedTask = [];   //未审批作业
     overTask = [];   //已审批作业
     nowTime;
+    preImgSrc = null;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -479,7 +480,7 @@ export class FocusCoursePage {
         this.bar.type = this.slides.realIndex + 1;
     }
 
-    goCourse(e){
+    goCourse(e) {
         if (e.TeachTypeName == "集中培训") {
             this.navCtrl.push(FocusCoursePage, {id: e.Id});
         } else if (e.TeachTypeName == "内训") {
@@ -494,4 +495,8 @@ export class FocusCoursePage {
         this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: fileList})
     }
 
+    viewimage(e) {
+        console.log(e);
+        this.preImgSrc = e;
+    }
 }

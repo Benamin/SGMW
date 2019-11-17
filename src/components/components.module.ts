@@ -12,6 +12,8 @@ import {VideojsComponent} from "./videojs/videojs";
 import {SelectTeacherComponent} from './select-teacher/select-teacher';
 import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
 import {ForumListTimeComponent} from './forum-list-time/forum-list-time.component';
+import {ImgPreviewComponent} from './img-preview/img-preview';
+
 
 @NgModule({
     declarations: [
@@ -27,7 +29,8 @@ import {ForumListTimeComponent} from './forum-list-time/forum-list-time.componen
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
-        ForumListTimeComponent
+        ForumListTimeComponent,
+        ImgPreviewComponent,
     ],
     imports: [
         IonicPageModule
@@ -45,7 +48,8 @@ import {ForumListTimeComponent} from './forum-list-time/forum-list-time.componen
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
-        ForumListTimeComponent
+        ForumListTimeComponent,
+        ImgPreviewComponent,
     ],
     providers: [
         CommentComponent,
@@ -62,6 +66,8 @@ import {ForumListTimeComponent} from './forum-list-time/forum-list-time.componen
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
+        ForumListTimeComponent,
+        ImgPreviewComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

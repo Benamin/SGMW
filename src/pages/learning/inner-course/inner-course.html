@@ -92,12 +92,13 @@
                         <span *ngIf="mainFile.length > 4" tappable (click)="goMainFile()" float-end
                               class="look">更多</span>
                     </p>
-                    <page-record [fileList]="mainFile" [maxNum]="4"></page-record>
+                    <page-record (image)="viewimage($event)" [fileList]="mainFile" [maxNum]="4"></page-record>
                 </div>
             </ion-slide>
         </ng-container>
     </ion-slides>
 </ion-content>
+<img-preview (close)="preImgSrc = null" [src]="preImgSrc"></img-preview>
 
 <div *ngIf="signObj.isSign" class="sign">
     <img src="./assets/imgs/course/sign-success.png">
