@@ -10,9 +10,11 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="searchbar">
-        <div class="input">
-            <ion-input placeholder="搜索课程"></ion-input>
-        </div>
+        <form class="input">
+            <ion-input [(ngModel)]="page.Title" placeholder="搜索课程" [ngModelOptions]="{standalone: true}"
+                       (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
+            ></ion-input>
+        </form>
         <div class="filter" (click)="openFilter()">
             <img src="./assets/imgs/train/shaixuan@2x.png" alt="">
             <span>筛选</span>
@@ -28,9 +30,12 @@
                     <div class="item-desc">
                         <p>{{item?.Title}}</p>
                         <div class="desc">
-                            <span *ngIf="nowTime < item.StartTime_time"><img  style="width: 16px;" src="./assets/imgs/train/nx_ywc@2x.png">未开始</span>
-                            <span *ngIf="item.StartTime_time < nowTime && nowTime < item.EndTime_time"><img  src="./assets/imgs/train/nx_zzjx@2x.png">进行中</span>
-                            <span *ngIf="nowTime > item.EndTime_time"><img  style="width: 16px;" src="./assets/imgs/train/nx_ywc@2x.png">已完成</span>
+                            <span *ngIf="nowTime < item.StartTime_time"><img style="width: 16px;"
+                                                                             src="./assets/imgs/train/nx_ywc@2x.png">未开始</span>
+                            <span *ngIf="item.StartTime_time < nowTime && nowTime < item.EndTime_time"><img
+                                    src="./assets/imgs/train/nx_zzjx@2x.png">进行中</span>
+                            <span *ngIf="nowTime > item.EndTime_time"><img style="width: 16px;"
+                                                                           src="./assets/imgs/train/nx_ywc@2x.png">已完成</span>
                             <span><img src="./assets/imgs/train/renshu@2x.png">人数：{{item?.ManCount}}</span>
                         </div>
                     </div>

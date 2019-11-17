@@ -8,6 +8,8 @@ import {MineService} from "../../mine/mine.service";
 import {timer} from "rxjs/observable/timer";
 import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 import {FocusCoursePage} from "../../learning/focus-course/focus-course";
+import {LogService} from "../../../service/log.service";
+import {Keyboard} from "@ionic-native/keyboard";
 
 
 @Component({
@@ -17,6 +19,7 @@ import {FocusCoursePage} from "../../learning/focus-course/focus-course";
 export class FocusTrainPage {
     defaultImg = defaultImg;
     page = {
+        Title: "",
         list: [],
         page: 1,
         pageSize: 10,
@@ -28,11 +31,27 @@ export class FocusTrainPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private learSer: LearnService,
                 public modalCtrl: ModalController,
+                private keyboard: Keyboard,
+                public logSer: LogService,
                 private loadCtrl: LoadingController, private mineSer: MineService) {
     }
 
     ionViewDidLoad() {
         this.getList();
+    }
+
+    //按键
+    search(event) {
+        if (event && event.keyCode == 13) {
+            this.page.page = 1;
+            this.getList();
+            //搜索日志
+            if(this.page.Title) this.logSer.keyWordLog(this.page.Title);
+        }
+    }
+
+    showKey() {
+        this.keyboard.show();
     }
 
     getList() {
@@ -43,6 +62,7 @@ export class FocusTrainPage {
         loading.present();
         const data = {
             page: 1,
+            Title: this.page.Title,
             pageSize: this.page.pageSize,
             TeachTypeCode: 'jzpx',
             SubjectID: "-1",

@@ -9,7 +9,7 @@ import {FileService} from "../../../core/file.service";
 export class RecordPage {
     @Input() fileList;
     @Input() maxNum;
-    @Output() close = new EventEmitter();
+    @Output() image = new EventEmitter();
     preImgSrc;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -22,19 +22,11 @@ export class RecordPage {
 
     //office、pdf、图片、视频
     openFile(file) {
-        this.fileSer.viewFile(file.fileUrl, file.filename);
-    }
-
-    get src(){
-        return this.preImgSrc;
-    }
-
-    @Input() set src(preImgSrc) {
-        this.preImgSrc = preImgSrc;
-    }
-
-    closePreview() {
-        this.close.emit();
+        if (file.AttachmentExt.includes('png') || file.AttachmentExt.includes('jpg') || file.AttachmentExt.includes('jpeg')) {
+            this.image.emit(file.AttachmentUrl);
+        } else {
+            this.fileSer.viewFile(file.AttachmentUrl, file.AttachmentDIsplayName);
+        }
     }
 
 }

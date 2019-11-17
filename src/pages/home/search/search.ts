@@ -106,7 +106,7 @@ export class SearchPage {
             this.forum_topicplate_search();
 
             //搜索日志
-            this.logSer.keyWordLog(this.page.title);
+            if (this.page.title) this.logSer.keyWordLog(this.page.title);
         }
     }
 

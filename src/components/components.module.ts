@@ -11,6 +11,7 @@ import {UpdateAppComponent} from './update-app/update-app';
 import {VideojsComponent} from "./videojs/videojs";
 import {SelectTeacherComponent} from './select-teacher/select-teacher';
 import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
+import {ImgPreviewComponent} from './img-preview/img-preview';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
+        ImgPreviewComponent,
     ],
     imports: [
         IonicPageModule
@@ -44,6 +46,7 @@ import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
+        ImgPreviewComponent,
     ],
     providers: [
         CommentComponent,
@@ -60,6 +63,7 @@ import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
+        ImgPreviewComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

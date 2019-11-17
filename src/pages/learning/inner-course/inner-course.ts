@@ -72,6 +72,8 @@ export class InnerCoursePage {
     isLoad = false;
     mainFile = [];   //已上传资料
 
+    preImgSrc = null; //图片URL
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
@@ -299,6 +301,11 @@ export class InnerCoursePage {
     //前往资料记录
     goMainFile() {
         this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: this.mainFile})
+    }
+
+    viewimage(e){
+        console.log(e);
+        this.preImgSrc = e;
     }
 
 }
