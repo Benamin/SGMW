@@ -98,6 +98,7 @@ export class InnerCoursePage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                this.getCommentList();
                 this.getProductInfo();
                 this.getFileInfo();
             }
@@ -160,6 +161,23 @@ export class InnerCoursePage {
                 this.mainFile = res.data;
             }
         )
+    }
+
+    //课程评价
+    getCommentList() {
+        const data3 = {
+            pageSize: 5,
+            page: 1,
+            TopicType: 'talk',   //teacher  course
+            topicID: this.product.detail.PrId
+        }
+        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
+            (res) => {
+                if (res.data) {
+                    this.comment.talk = res.data.CommentItems;
+                }
+            }
+        );
     }
 
 
@@ -303,7 +321,7 @@ export class InnerCoursePage {
         this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: this.mainFile})
     }
 
-    viewimage(e){
+    viewimage(e) {
         console.log(e);
         this.preImgSrc = e;
     }

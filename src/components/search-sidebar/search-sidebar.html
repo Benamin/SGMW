@@ -1,25 +1,41 @@
 <!-- Generated template for the SearchSidebarComponent component -->
 
 <div class="search-sidebar">
-    <p>时间</p>
+    <p>报名时间</p>
     <div class="time">
-        <ion-datetime displayFormat="YYYY年MM月DD日" pickerFormat="YYYY年MM月DD日"
-                      doneText="确定" cancelText="取消"
-                      [(ngModel)]="obj.startTime"></ion-datetime>
+        <ion-datetime class="time1" displayFormat="YYYY年MM月DD日" pickerFormat="YYYY年MM月DD日"
+                      doneText="确定" cancelText="取消" placeholder="年-月-日"
+                      [(ngModel)]="filterObj.ApplicantSTime"></ion-datetime>
         <span class="heng"> - </span>
-        <ion-datetime displayFormat="YYYY年MM月DD日" pickerFormat="YYYY年MM月DD日"
-                      doneText="确定" cancelText="取消"
-                      [(ngModel)]="obj.endTime"></ion-datetime>
+        <ion-datetime class="time2" displayFormat="YYYY年MM月DD日" pickerFormat="YYYY年MM月DD日"
+                      doneText="确定" cancelText="取消" placeholder="年-月-日"
+                      [(ngModel)]="filterObj.ApplicantETime"></ion-datetime>
     </div>
     <p>地点搜索</p>
-    <div>
-        <ion-input class="address" placeholder="请输入地址"></ion-input>
+    <div class="all-address">
+        <div class="area">
+            <p>区域</p>
+            <span (click)="filterProvice(area)" *ngFor="let area of areaList"
+                  [ngClass]="{'selectItem':filterObj.AreaCode == area.AreaCode}">{{area.AreaName}}</span>
+        </div>
+        <div class="province">
+            <p>省份</p>
+            <span *ngFor="let province of provinceList" tappable (click)="filterCity(province)"
+                  [ngClass]="{'selectItem':filterObj.ProvinceCode == province.ProvinceCode}">{{province.ProvinceName}}</span>
+        </div>
+        <div class="city">
+            <p>城市</p>
+            <span *ngFor="let city of cityList" tappable (click)="selectCity(city)"
+                  [ngClass]="{'selectItem':filterObj.CityCode == city.CityCode}">{{city.CityName}}</span>
+        </div>
+        <ion-input [(ngModel)]="filterObj.Address" class="address" placeholder="请输入地址"></ion-input>
     </div>
     <p>导师</p>
     <div>
-        <ion-input class="teacher" placeholder="请输入导师名称"></ion-input>
+        <ion-input class="teacher" [(ngModel)]="filterObj.TeacherName" placeholder="请输入导师名称"></ion-input>
     </div>
-    <div class="footer" tappable (click)="confirm()">
-        <div>确定</div>
+    <div class="footer" >
+        <div tappable (click)="reset()">重置</div>
+        <div tappable (click)="confirm()">确定</div>
     </div>
 </div>

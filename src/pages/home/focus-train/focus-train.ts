@@ -10,6 +10,7 @@ import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 import {FocusCoursePage} from "../../learning/focus-course/focus-course";
 import {LogService} from "../../../service/log.service";
 import {Keyboard} from "@ionic-native/keyboard";
+import {HomeService} from "../home.service";
 
 
 @Component({
@@ -26,18 +27,31 @@ export class FocusTrainPage {
         TotalItems: null,
         isLoad: false
     };
+
+    filterObj = {
+        ApplicantSTime: null,
+        ApplicantETime: null,
+        AreaCode: "",
+        ProvinceCode: "",
+        CityCode: "",
+        Address: "",
+        TeacherName: "",
+    };  //筛选对象
     nowTime;
+    allList;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private learSer: LearnService,
                 public modalCtrl: ModalController,
                 private keyboard: Keyboard,
                 public logSer: LogService,
+                public homeSer: HomeService,
                 private loadCtrl: LoadingController, private mineSer: MineService) {
     }
 
     ionViewDidLoad() {
         this.getList();
+        this.getArea();
     }
 
     //按键
@@ -46,8 +60,30 @@ export class FocusTrainPage {
             this.page.page = 1;
             this.getList();
             //搜索日志
-            if(this.page.Title) this.logSer.keyWordLog(this.page.Title);
+            if (this.page.Title) this.logSer.keyWordLog(this.page.Title);
         }
+    }
+
+    getArea() {
+        const data = {
+            "Page": 1,
+            "PageSize": "10000",
+            "Total": "0",
+            "OrderBy": "AreaCode",
+            "IsAsc": true,
+            "TypeLevel": "-1",
+            "AreaCode": "-1",
+            "AreaName": "",
+            "ProvinceCode": "-1",
+            "ProvinceName": "",
+            "CityCode": "-1",
+            "CityName": ""
+        };
+        this.homeSer.getAreaCitys(data).subscribe(
+            (res) => {
+                this.allList = res.data.Items;
+            }
+        )
     }
 
     showKey() {
@@ -69,6 +105,7 @@ export class FocusTrainPage {
             OrderBy: "CreateTime",
             SortDir: "DESC"
         };
+        Object.assign(data, this.filterObj);
         this.learSer.GetProductList(data).subscribe(
             (res) => {
                 if (res.data.ProductList) {
@@ -132,14 +169,16 @@ export class FocusTrainPage {
 
     //打开筛选
     openFilter() {
-        let modal = this.modalCtrl.create(SearchSidebarComponent, {},
+        console.log(this.allList);
+        let modal = this.modalCtrl.create(SearchSidebarComponent, {allList: this.allList,filterObj:this.filterObj},
             {
                 enterAnimation: 'modal-from-right-enter',
                 leaveAnimation: 'modal-from-right-leave'
             });
         modal.onDidDismiss(res => {
             if (res) {
-                console.log(res);
+                this.filterObj = res;
+                this.getList();
             }
         });
         modal.present();

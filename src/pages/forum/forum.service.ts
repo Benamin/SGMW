@@ -7,8 +7,8 @@ import { DataFormatService } from "../../core/dataFormat.service";
 import { ToastController } from 'ionic-angular';
 
 /**
- * 
- * 
+ *
+ *
 
 /api/forum/post/status 获取论坛帖子状态列表,参数:无
 /api/forum/topicplate/list 获取论坛版块列表,参数:无
@@ -125,7 +125,7 @@ export class ForumService {
   // https://devapi.chinacloudsites.cn/api/forum/post/get?postId=C1F48775-C0EE-4A32-87BB-016D7D4C5F08
   forum_post_get(postId) {
     return this.http.post(SERVER_API_URL + '/forum/post/get?postId=' + postId.postId, { postId });
-    
+
     // return this.http.post(SERVER_API_URL + '/forum/post/get',{postId});
   }
 
@@ -250,11 +250,11 @@ export class ForumService {
   Upload_UploadFiles(formData) {
     return new Promise((resolve, reject) => {
       var oReq = new XMLHttpRequest();
-      
+
       // export const UploadFilesSERVER_API_URL = '/api';
-      // const UploadFilesSERVER_API_URL = 'http://devapi.chinacloudsites.cn/api';  //测试
-      //   const UploadFilesSERVER_API_URL = 'http://sitapi.chinacloudsites.cn/api';  //sit
-      const UploadFilesSERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api'; // 正式
+      const UploadFilesSERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api';  //测试
+      //   const UploadFilesSERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api';  //sit
+      // const UploadFilesSERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api'; // 正式
 
       oReq.open("POST", UploadFilesSERVER_API_URL + "/Upload/UploadFiles", true);
       oReq.onload = function (oEvent: any) {

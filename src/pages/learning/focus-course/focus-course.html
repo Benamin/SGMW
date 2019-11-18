@@ -24,7 +24,7 @@
                         <span><img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}人报名</span>
                     </div>
                     <div class="course-desc">
-                        <span>上课地点：上海莘松路123号宝骏汽车(莘松店)2楼304室</span>
+                        <span>上课地点：{{product.detail?.Address}}</span>
                     </div>
                     <div class="course-desc">
                         <span>上课时间：{{product.detail?.StartTime | date:'yyyy年MM月dd日 HH:mm'}}
@@ -198,7 +198,7 @@
     </ion-slides>
 </ion-content>
 <img-preview (close)="preImgSrc = null" [src]="preImgSrc"></img-preview>
-
+<search-sidebar [hidden]="true"></search-sidebar>
 <div *ngIf="signObj.isSign" class="sign">
     <img src="./assets/imgs/course/sign-success.png">
     <p>报名成功</p>

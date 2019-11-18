@@ -4,8 +4,8 @@ search-sidebar {
     height: 100%;
     width: 80%;
     background-color: #fff;
-
-    padding: 16px 16px 0 16px;
+    padding: 16px 16px 60px 16px;
+    overflow: scroll;
 
     > p {
       font-size: 16px;
@@ -23,7 +23,7 @@ search-sidebar {
     }
 
     .footer {
-      position: absolute;
+      position: fixed;
       left: 0;
       bottom: 0;
       width: 100%;
@@ -34,10 +34,8 @@ search-sidebar {
       justify-content: center;
 
       div {
-        width: 50%;
+        width: 100px;
         height: 32px;
-        background: linear-gradient(242deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
-        border-radius: 16px;
         font-size: 14px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
@@ -45,25 +43,83 @@ search-sidebar {
         line-height: 32px;
         text-align: center;
       }
+
+      div:first-child {
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 16px;
+        background: linear-gradient(100deg, #fee595 0%, #fed675 100%);
+      }
+
+      div:last-child {
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+        background-color: rgba(255, 201, 45, 1);
+        //background: linear-gradient(100deg, #fed675 0%, rgba(255, 201, 45, 1) 100%);
+      }
     }
   }
-  .time{
+
+  .time {
     display: flex;
     align-items: center;
     padding: 0;
     position: relative;
-    .heng{
+
+    .heng {
       font-size: 40px;
       font-weight: 200;
       padding: 0 2px;
     }
   }
-  ion-datetime{
+
+  ion-datetime.datetime-ios {
     background-color: #eee;
     border-radius: 15px;
     width: 48%;
+    padding: 11px 3px 11px 11px;
   }
+
   ion-datetime + {
     margin-left: 5px;
+  }
+
+  .time2 {
+    .item-cover {
+      right: 0;
+      left: auto;
+      width: 50%;
+    }
+  }
+
+  .time1 {
+    .item-cover {
+      left: 0;
+      width: 50%;
+    }
+  }
+
+  .all-address {
+    p {
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #656565;
+      line-height: 16px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .area > span,
+  .province > span,
+  .city > span {
+    background-color: #F2F2F2;
+    border-radius: 4px;
+    padding: 5px 18px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .selectItem {
+    background: linear-gradient(242deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
   }
 }
