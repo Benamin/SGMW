@@ -73,6 +73,7 @@ export class InnerCoursePage {
     mainFile = [];   //已上传资料
 
     preImgSrc = null; //图片URL
+    nowTime
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -98,6 +99,12 @@ export class InnerCoursePage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                this.product.detail.StartTime = new Date(this.product.detail.StartTime).getTime();
+                this.product.detail.ApplicantSTime = new Date(this.product.detail.ApplicantSTime).getTime();
+                this.product.detail.EndTime = new Date(this.product.detail.EndTime).getTime();
+                this.product.detail.ApplicantETime = new Date(this.product.detail.ApplicantETime).getTime();
+                this.nowTime = Date.now();  //当前时间
+                this.getCommentList();
                 this.getProductInfo();
                 this.getFileInfo();
             }
@@ -160,6 +167,23 @@ export class InnerCoursePage {
                 this.mainFile = res.data;
             }
         )
+    }
+
+    //课程评价
+    getCommentList() {
+        const data3 = {
+            pageSize: 5,
+            page: 1,
+            TopicType: 'talk',   //teacher  course
+            topicID: this.product.detail.PrId
+        }
+        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
+            (res) => {
+                if (res.data) {
+                    this.comment.talk = res.data.CommentItems;
+                }
+            }
+        );
     }
 
 
@@ -303,7 +327,7 @@ export class InnerCoursePage {
         this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: this.mainFile})
     }
 
-    viewimage(e){
+    viewimage(e) {
         console.log(e);
         this.preImgSrc = e;
     }

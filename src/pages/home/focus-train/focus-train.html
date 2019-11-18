@@ -9,10 +9,10 @@
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <div class="searchbar">
+    <div class="searchbar" ion-fixed>
         <form class="input">
             <ion-input [(ngModel)]="page.Title" placeholder="搜索课程" [ngModelOptions]="{standalone: true}"
-                       (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
+                       (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off'
             ></ion-input>
         </form>
         <div class="filter" (click)="openFilter()">
@@ -47,12 +47,12 @@
                     </div>
                     <div>
                         <img src="./assets/imgs/train/time@2x.png" alt="">
-                        {{item.StartTime | date:'yyyy年MM月dd日 HH:mm'}} -
-                        {{item.EndTime | date:'yyyy年MM月dd日 HH:mm'}}
+                        {{item.ApplicantSTime | date:'yyyy年MM月dd日 HH:mm'}} -
+                        {{item.ApplicantETime | date:'yyyy年MM月dd日 HH:mm'}}
                     </div>
                     <div>
                         <img src="./assets/imgs/train/location@2x.png" alt="">
-                        上海莘松路123号宝骏汽车(莘松店)2楼304室
+                        {{item.Address || "-"}}
                     </div>
                 </div>
             </div>

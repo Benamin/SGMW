@@ -134,7 +134,6 @@ export class TestCenterPage {
 
     //加载更多
     doInfinite(e) {
-        console.log('doInfinite')
         if (this.page.TotalItems < this.examList.length || this.page.TotalItems == this.examList.length) {
             e.complete();
             return

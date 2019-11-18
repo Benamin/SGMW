@@ -97,7 +97,6 @@ export class FocusCoursePage {
     }
 
     async ionViewDidEnter() {
-        this.nowTime = new Date().getTime();
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
@@ -109,7 +108,10 @@ export class FocusCoursePage {
             (res) => {
                 this.product.detail = res.data;
                 this.product.detail.StartTime = new Date(this.product.detail.StartTime).getTime();
+                this.product.detail.ApplicantSTime = new Date(this.product.detail.ApplicantSTime).getTime();
                 this.product.detail.EndTime = new Date(this.product.detail.EndTime).getTime();
+                this.product.detail.ApplicantETime = new Date(this.product.detail.ApplicantETime).getTime();
+                this.nowTime = Date.now();  //当前时间
                 this.getProductInfo();
                 this.getFileInfo();
                 this.getTeacher();

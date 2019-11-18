@@ -529,4 +529,21 @@ page-inner-course {
   .sale-content {
     white-space: nowrap;
   }
+
+  .applySign {
+    margin-left: auto;
+    font-size: 14px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 1);
+    line-height: 20px;
+    height: 32px;
+    background: linear-gradient(242deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+    border-radius: 16px;
+    padding: 5px 25px;
+  }
+
+  span.applySignDone {
+    background: linear-gradient(242deg, #999 0%, #eee 100%);
+  }
 }

@@ -6,6 +6,7 @@ page-focus-train {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     background-color: #343435;
 
     > .input {
@@ -42,6 +43,7 @@ page-focus-train {
   }
 
   .learn-list {
+    margin-top: 43px;
     padding: 15px 10px;
 
     .course {

@@ -24,29 +24,31 @@
                         <span><img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}人报名</span>
                     </div>
                     <div class="course-desc">
-                        <span>上课地点：上海莘松路123号宝骏汽车(莘松店)2楼304室</span>
+                        <span>上课地点：{{product.detail?.Address || "-"}}</span>
                     </div>
                     <div class="course-desc">
                         <span>上课时间：{{product.detail?.StartTime | date:'yyyy年MM月dd日 HH:mm'}}
                             - {{product.detail?.EndTime | date:'MM月dd日 HH:mm'}}</span>
                     </div>
                     <div class="course-desc handle-desc">
-                <span>  <!--收藏-->
-                        <img tappable (click)="saveCollection()" *ngIf="!product.detail?.IsCollection"
-                             src="./assets/imgs/learn/collect@2x.png" alt="">
-                        <img tappable (click)="cancleCollection()" *ngIf="product.detail?.IsCollection"
-                             src="./assets/imgs/course/sc_y@2x.png" alt="">
-                    {{product.detail?.CollectionCount || "0"}}
-                </span>
-                        <ng-container *ngIf="nowTime < product.detail?.StartTime">
-                            <span tappable (click)="sign()" *ngIf="!product.detail?.IsBuy" class="applySign">申请报名</span>
-                            <span tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100"
-                                  class="applySign">回顾培训</span>
-                            <span tappable (click)="studyNow()"
-                                  *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100"
-                                  class="applySign">立即学习</span>
+                    <span>  <!--收藏-->
+                            <img tappable (click)="saveCollection()" *ngIf="!product.detail?.IsCollection"
+                                 src="./assets/imgs/learn/collect@2x.png" alt="">
+                            <img tappable (click)="cancleCollection()" *ngIf="product.detail?.IsCollection"
+                                 src="./assets/imgs/course/sc_y@2x.png" alt="">
+                        {{product.detail?.CollectionCount || "0"}}
+                    </span>
+                        <ng-container *ngIf="nowTime < product.detail?.ApplicantETime">
+                            <span tappable (click)="sign()"
+                                  *ngIf="!product.detail?.IsBuy && nowTime < product.detail?.ApplicantETime"
+                                  class="applySign">申请报名</span>
                         </ng-container>
-                        <ng-container *ngIf="nowTime > product.detail?.EndTime">
+                        <span tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100"
+                              class="applySign">回顾培训</span>
+                        <span tappable (click)="studyNow()"
+                              *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100"
+                              class="applySign">立即学习</span>
+                        <ng-container *ngIf="nowTime > product.detail?.EndTime && !product.detail?.IsBuy">
                             <span tappable class="applySign applySignDone">已过期</span>
                         </ng-container>
 
@@ -198,7 +200,6 @@
     </ion-slides>
 </ion-content>
 <img-preview (close)="preImgSrc = null" [src]="preImgSrc"></img-preview>
-
 <div *ngIf="signObj.isSign" class="sign">
     <img src="./assets/imgs/course/sign-success.png">
     <p>报名成功</p>

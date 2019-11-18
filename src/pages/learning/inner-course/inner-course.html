@@ -16,7 +16,7 @@
                         {{product.detail?.Title}}
                     </div>
                     <div class="course-button">
-                        <div tappable *ngIf="!product.detail?.IsBuy" (click)="sign()">
+                        <div tappable *ngIf="!product.detail?.IsBuy && nowTime < product.detail?.ApplicantETime" (click)="sign()">
                             立即报名
                         </div>
                         <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100"
@@ -27,10 +27,13 @@
                              (click)="studyNow()">
                             立即学习
                         </div>
+                        <ng-container *ngIf="nowTime > product.detail?.EndTime && !product.detail?.IsBuy">
+                            <span tappable class="applySign applySignDone">已过期</span>
+                        </ng-container>
                     </div>
                     <div class="course-desc" style="margin: 15px auto;">
                     <span>报名截止:
-                        {{product.detail?.EndTime | date:'yyyy-MM-dd'}}
+                        {{product.detail?.ApplicantSTime | date:'yyyy-MM-dd'}}
                     </span>
                         <span>
                         <img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
