@@ -85,24 +85,26 @@ export class PostsContentComponent implements OnInit {
         res.data.Replys.forEach(element => {
           
           if(element.PosterBadges&&element.PosterBadges > 1){
-            if(element['PosterUserName'].length>4){
-              element['PosterUserName']=element.PosterUserName.slice(0,4)+'...';
+            if(element['PosterUserName'].length>5){
+              element['PosterUserName']=element.PosterUserName.slice(0,6)+'...';
             }
             if(!element['PosterUserForumTitle']){
               element['PosterUserForumTitle']={
                 ForumTitle:'',
               };
             }
-            if(element['PosterUserForumTitle'].ForumTitle.length>3){
-              element['PosterUserForumTitle'].ForumTitle=element['PosterUserForumTitle'].ForumTitle.slice(0,4)+'...';
+            if(element['PosterUserForumTitle'].ForumTitle.length>5){
+              element['PosterUserForumTitle'].ForumTitle=element['PosterUserForumTitle'].ForumTitle.slice(0,6)+'...';
             }
           }
 
           if(element.PosterBadges){
             element.PosterBadges.forEach(e => {
-              if(e['BadgeName'].length>4){
-                e['BadgeName']=e['BadgeName'].slice(0,4)+'...';
-              } 
+              if(element.PosterBadges.length>1){
+                if(e['BadgeName'].length>4){
+                  e['BadgeName']=e['BadgeName'].slice(0,4)+'...';
+                } 
+              }
             });
           }
         

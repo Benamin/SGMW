@@ -32,13 +32,15 @@ export class ViewReplyComponent implements OnInit {
     if(this.data.Comments&&this.data.Comments.length>0){
       this.data.Comments.forEach((element,i )=> {
           element['_ReplyTimeFormatted']=element.CommentTimeFormatted.slice(0,-3);
-          if(element['PosterUserName'].length>4){
-            element['PosterUserName']=element.PosterUserName.slice(0,4)+'...';
+          if(element['PosterUserName'].length>6){
+            element['PosterUserName']=element.PosterUserName.slice(0,6)+'...';
           }
           element.PosterBadges.forEach(e => {
-            if(e['BadgeName'].length>4){
-              e['BadgeName']=e['BadgeName'].slice(0,4)+'...';
-            } 
+            if(element.PosterBadges.length>1){
+              if(e['BadgeName'].length>4){
+                e['BadgeName']=e['BadgeName'].slice(0,4)+'...';
+              } 
+            }
           
           });
        

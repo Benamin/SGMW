@@ -39,7 +39,7 @@ export class ForumListTimeComponent implements OnInit {
           // media: "YOUR_MEDIA_OBJECT_HERE",
               media: {
                   type: Wechat.Type.WEBPAGE,
-                  webpageUrl: "http://byu7331170001.my3w.com/openApp.html?Id="+data.Id
+                  webpageUrl: "http://a1.hellowbs.com/openApp.html?Id="+data.Id
               }
           },
           scene: Wechat.Scene.SESSION
