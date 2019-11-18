@@ -9,7 +9,7 @@
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <div class="searchbar">
+    <div class="searchbar" ion-fixed>
         <form class="input">
             <ion-input [(ngModel)]="page.Title" placeholder="搜索课程" [ngModelOptions]="{standalone: true}"
                        (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off'

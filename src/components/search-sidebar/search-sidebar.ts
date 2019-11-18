@@ -28,7 +28,6 @@ export class SearchSidebarComponent {
                 public params: NavParams,
                 public homeSer: HomeService,) {
         this.allList = this.params.get('allList');
-        console.log(this.allList);
         this.filterObj = this.params.get('filterObj');
         this.areaList = this.allList.filter(e => e.TypeLevel == 1);
         this.provinceList = this.allList.filter(e => e.TypeLevel == 2 &&
@@ -45,7 +44,6 @@ export class SearchSidebarComponent {
         this.filterObj.CityCode = "";
         this.provinceList = this.allList.filter(e => e.TypeLevel == 2 && e.AreaCode == area.AreaCode);
         this.cityList = this.allList.filter(e => e.TypeLevel == 3 && e.AreaCode == area.AreaCode);
-        console.log(this.provinceList);
     }
 
     //过滤市
@@ -53,7 +51,6 @@ export class SearchSidebarComponent {
         this.filterObj.ProvinceCode = provice.ProvinceCode;
         this.filterObj.CityCode = "";
         this.cityList = this.allList.filter(e => e.TypeLevel == 3 && e.ProvinceCode == provice.ProvinceCode);
-        console.log(this.cityList);
     }
 
     //选择城市

@@ -73,6 +73,7 @@ export class InnerCoursePage {
     mainFile = [];   //已上传资料
 
     preImgSrc = null; //图片URL
+    nowTime
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -98,6 +99,11 @@ export class InnerCoursePage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                this.product.detail.StartTime = new Date(this.product.detail.StartTime).getTime();
+                this.product.detail.ApplicantSTime = new Date(this.product.detail.ApplicantSTime).getTime();
+                this.product.detail.EndTime = new Date(this.product.detail.EndTime).getTime();
+                this.product.detail.ApplicantETime = new Date(this.product.detail.ApplicantETime).getTime();
+                this.nowTime = Date.now();  //当前时间
                 this.getCommentList();
                 this.getProductInfo();
                 this.getFileInfo();

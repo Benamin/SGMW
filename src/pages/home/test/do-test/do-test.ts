@@ -159,7 +159,6 @@ export class DoTestPage {
         } else {
             this.exam.QnAInfos[i].StuAnswer += option + '';
         }
-        console.log(this.exam.QnAInfos[i].StuAnswer);
     }
 
     //确认提交

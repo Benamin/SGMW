@@ -49,7 +49,6 @@ export class GoodTeacherPage {
     }
 
     async cancleFocusHandle(item) {
-        console.log(item);
         const data = {
             TopicID: item.UserID
         };
