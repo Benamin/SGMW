@@ -351,6 +351,8 @@ export class HomePage {
     goFocusTrain() {
         this.navCtrl.push(FocusTrainPage);
     }
+
+    
     
     
     // 前往帖子详情
@@ -363,8 +365,8 @@ export class HomePage {
         this.forum_serve.GetPostSearchhotpost().subscribe((res: any) => {
             if (res.data) {
                 this.forumLIst = res.data.UnTopPosts.Items;
-                if(this.forumLIst.length > 2){
-                    this.forumLIst.length = 2;
+                if(this.forumLIst.length > 4){
+                    this.forumLIst.length = 4;
                 }
             }
             
