@@ -26,4 +26,8 @@ videojs {
     user-select: none;
     transition: transform 10s linear;
   }
+  iframe{
+    height: 200px;
+    width: 100%;
+  }
 }
