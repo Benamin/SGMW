@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>论坛</title>
 </head>
 
 <body>
@@ -14,22 +14,46 @@
       margin: 0;
       padding: 0;
     }
+    .browser-img{
+        background-image: url(./background@2x.png) ;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-repeat:no-repeat;
+        background-size:100% 100%;
+    }
+    .browser-con{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+
+      top: 50%;
+      position: absolute;
+      width: 100%;
+      transform: translate(0px, -50%);
+      margin: 0;
+    }
+
+    .browser-con-img{
+      width: 108px;
+      height: 108px;
+      margin-bottom: 20px;
+    }
+
     #nobrowser{
       position: fixed;
-    width: 100%;
-    height: 100%;
-    background: #f3f3f3;
-    margin: 0;
-    padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #f3f3f3;
+      margin: 0;
+      padding: 0;
     }
-      .nobrowser-img{
-        transform: rotate(-90deg);
+      .nobrowser-img>img{
+        width: 70%;
         position: absolute;
-        right: 0;
-        width: 120px;
-      }
-      .nobrowser-img>svg{
-        width: 120px;
+        right: 20px;
       }
       .nobrowser-text{
         position: absolute;
@@ -43,16 +67,19 @@
   <!-- <a href="weixin://">weixin://</a> -->
   <!-- <a href="com.SGMW.start.h://">com.SGMW.start.h://</a> -->
 
-  <div id="browser">
-
-    <a href="sgmw://forum/" id="id_sgmw">链接</a>
+  <div id="browser" class="browser-img">
+    <div class="browser-con">
+      <img class="browser-con-img"  src="./app-108.png" alt="">
+      <p>
+          请在应用商店下载<span onclick="gotoAppDowm()" style="color: #FFD65E;">【骏菱学社 APP】</span>
+      </p>
+      <p style="line-height: 40px;">若已下载请点击链接进入</p>
+      <p><a href="sgmw://forum/" id="id_sgmw" style="    color: #FFF;"> https://www.junlingxueshe.com</a></p>
+    </div>
   </div>
   <div id="nobrowser">
     <div class="nobrowser-img">
-      <svg t="1573995978759" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5068" width="240" height="240"><path d="M1023.2832 647.236267a15.428267 15.428267 0 0 0-4.778667-8.738134L779.946667 399.940267c-6.826667-6.826667-17.066667-6.826667-23.893334 0-6.826667 6.826667-6.826667 17.066667 0 23.893333l210.500267 210.500267H529.066667c-273.066667 0-494.933333-221.866667-494.933334-494.933334 0-10.24-6.826667-17.066667-17.066666-17.066666s-17.066667 6.792533-17.066667 17.032533c0 290.133333 238.933333 529.066667 529.066667 529.066667h432.913066l-205.9264 205.9264c-6.826667 6.826667-6.826667 17.066667 0 23.893333 3.413333 3.413333 10.24 3.413333 13.653334 3.413333h10.24l235.383466-235.383466a15.906133 15.906133 0 0 0 8.669867-14.916267l-0.068267-0.3072c0.034133-1.297067-0.375467-2.525867-0.648533-3.822933z" fill="#231F20" p-id="5069"></path></svg>
-    </div>
-    <div class="nobrowser-text" >
-        在浏览器中打开
+      <img src="./liulanqi@2x.png" alt="">
     </div>
   </div>
 
@@ -66,6 +93,16 @@
         download_IOSurl: "https://fir.im/qwdb",
         download_ANDurl: "https://fir.im/x3g9",
       };
+
+    gotoAppDowm = function(){
+      console.log('下载');
+      const u = navigator.userAgent;
+      if (u.indexOf('Android') - 1 || u.indexOf('Linux') - 1) {
+          window.location = config.download_ANDurl;
+      } else if (u.indexOf('iPhone') - 1) {
+          window.location = config.download_IOSurl;
+      }
+    }
 
     openApp = function (src) {
       // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
@@ -100,7 +137,6 @@
         return alert('请在浏览器中打开')
       }
       if (u.indexOf('Android') - 1 || u.indexOf('Linux') - 1) {
-
         var t1 = Date.now();
         window.location.href = config.scheme_IOS;
         var t2 = Date.now();
@@ -116,7 +152,6 @@
         if(t2-t1<1000){
           window.location = config.download_IOSurl;
         }
-
       }
     }
 

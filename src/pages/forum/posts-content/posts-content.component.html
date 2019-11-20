@@ -12,10 +12,20 @@
       <div class="name nowrap-1">{{dataCon.PosterUserName}}</div>
       <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
     </div>
-    <div class="inner-html" [innerHTML]='dataCon.Content'>
+    <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content'>
     </div>
     <div class="type-label">
-      {{dataCon.TopicPlateName}}
+      <span class="Topic-PlateName">
+        {{dataCon.TopicPlateName}}
+      </span>
+      <span  class="eye">
+        <img src="./assets/imgs/forum/other/eye.png" alt="">
+        {{dataCon.ViewCount}}
+      </span>
+      <span class="share" (click)="wxShare(dataCon);$event.stopPropagation()">
+        <img src="./assets/imgs/forum/other/share.png" alt="">
+        分享
+      </span>
     </div>
   </div>
   <div class="discuss-list">
