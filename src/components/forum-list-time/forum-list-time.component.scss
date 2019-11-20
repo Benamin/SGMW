@@ -101,14 +101,21 @@
         flex: 1;
         font-size: 12px;
     }
-
-    span:nth-child(2) {
+    .eye{
+        margin-right: 10px;
+        align-items: center;
+        display: flex;
+        img{
+            width: 22px !important;
+        }
+    }
+    .luntan_coment {
         display: flex;
         align-items: center;
-        margin-right: 20px;
+        margin-right: 10px;
     }
 
-    span:nth-child(3) {
+    .p771_comment_like {
         display: flex;
         align-items: center;
     }

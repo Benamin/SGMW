@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { NavParams, NavController,LoadingController } from "ionic-angular";
 
 import { ForumService } from '../forum.service';
 import { ViewReplyComponent } from '../view-reply/view-reply.component';
+declare var Wechat;
 
 @Component({
   selector: 'page-posts-content',
@@ -34,8 +35,12 @@ export class PostsContentComponent implements OnInit {
     "LikeCount": '0',
     "DislikeCount": 0, 
     "FavoritesCount":  null,
-     "ReplyCount": null
+     "ReplyCount": null,
+     ViewCount:0
   };
+  @ViewChild('nnerhtml')
+  greetDiv: ElementRef;
+
   // 查看帖子详情
   constructor(private serve: ForumService, 
     public navParams: NavParams, 
@@ -331,6 +336,41 @@ export class PostsContentComponent implements OnInit {
       loading.dismiss();
     });
   }
+    // 微信分享
+    wxShare(data){
+      console.log(this.greetDiv.nativeElement);
+      let img =this.greetDiv.nativeElement.querySelector('img');
+      let description=this.greetDiv.nativeElement.innerText.replace(/\&nbsp;/g,'');
+      let thumb='';
+      
+      if(description.length>100){
+        description = description.slice(0,100);
+       }
+       if(img){
+        thumb=img.src;
+       }
+    
+        Wechat.share({
+            message: {
+            title: data.Title, // 标题
+            description: description, // 简介
+            thumb: thumb, //帖子图片
+            mediaTagName: "TEST-TAG-001",
+            messageExt: "这是第三方带的测试字段",
+            messageAction: "<action>dotalist</action>",
+            // media: "YOUR_MEDIA_OBJECT_HERE",
+                media: {
+                    type: Wechat.Type.WEBPAGE,
+                    webpageUrl: "http://a1.hellowbs.com/openApp.html?Id="+data.Id
+                }
+            },
+            scene: Wechat.Scene.SESSION
+        }, function () {
+           // alert("Success");
+        }, function (reason) {
+            // alert("Failed: " + reason);
+        });
+    }
 
 
 }
