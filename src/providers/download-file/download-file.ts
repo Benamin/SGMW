@@ -34,29 +34,31 @@ export class DownloadFileProvider {
     }
 
     downloadForAndroid(fileUrl, fileName) {
-        this.file.createDir(this.file.externalRootDirectory, 'courseFile', true).then((result) => {
+        this.file.createDir(this.file.externalRootDirectory, 'CourseFile', true).then((result) => {
             console.log("Directory created" + result);
         });
-        const storageDirectory = this.file.externalRootDirectory + 'courseFile/';
-        const uploadLoading = this.loadingCtrl.create({
-            content: '下载中...',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
+        const storageDirectory = this.file.externalRootDirectory + 'CourseFile/';
+        const alert = this.alertCtrl.create({
+            title: '下载',
+            message: '下载进度：0%',
+            enableBackdropDismiss: false,
+            buttons: ['后台下载']
         });
-        uploadLoading.present();
+        alert.present();
         const fileTransfer: FileTransferObject = this.transfer.create();
         fileTransfer.download(fileUrl, storageDirectory + fileName).then((entry) => {
-            uploadLoading.dismiss();
-            this.commonSer.alert('download complete: ' + entry.toURL());
+            alert.dismiss();
+            this.commonSer.alert('视频下载成功!');
+            console.log(`download complete:${entry.toURL()} `);
         }, (error) => {
-            uploadLoading.dismiss();
-            this.commonSer.alert(JSON.stringify(error));
+            alert.dismiss();
+            this.commonSer.alert(`视频下载失败!${JSON.stringify(error)}`);
         });
 
         fileTransfer.onProgress(listener => {
             let per = <any>(listener.loaded / listener.total) * 100;
             per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2);
-            uploadLoading.setContent('下载中...' + per + '%');
+            alert.setMessage(`下载中...${per}%`);
         })
 
     }
@@ -75,10 +77,10 @@ export class DownloadFileProvider {
             fileTransfer.download(url, this.file.dataDirectory + fileName).then((entry) => {
                 this.photoLibrary.saveVideo(entry.toURL(), 'sgmw').then((success) => {
                     alert.dismiss();
-                    this.commonSer.toast('视频下载成功')
+                    this.commonSer.alert('视频下载成功')
                 }, (err) => {
                     alert.dismiss();
-                    this.commonSer.alert(JSON.stringify(err));
+                    this.commonSer.alert(`视频下载失败!${JSON.stringify(err)}`);
                 })
             }, (err) => {
                 alert.dismiss();
