@@ -1,0 +1,43 @@
+page-look-exam {
+  .submit-score {
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  .ChoiceFx{
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .choiceNum{
+    width: 20%;
+    font-size: 14px;
+    color: #999999;
+    padding-left: 5px;
+  }
+  .innerFx{
+    width: 80%;
+    display: flex;
+    align-items: center;
+   span{
+     font-size: 14px;
+     color: #999999;
+     padding-left: 2px;
+   }
+    div{
+      height: 10px;
+      width: 0;
+      border-radius: 10px;
+      transition: all 1s;
+      //background-color: red;
+      background: linear-gradient(242deg, rgba(173, 218, 233, 1) 0%,rgba(222, 247, 255, 1)  100%);
+    }
+  }
+  .innerAFx {
+    height: 10px;
+
+  }
+}

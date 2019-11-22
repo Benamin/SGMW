@@ -14,6 +14,7 @@ import {LookQuestion} from "./question/look-question/look-question";
 import {MyQuestion} from "./question/my-question/my-question";
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {FocusTrainPage} from "./focus-train/focus-train";
+import {VotePage} from "./vote/vote";
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {FocusTrainPage} from "./focus-train/focus-train";
         LookQuestion,
         MyQuestion,
         InnerTrainPage,
-        FocusTrainPage
+        FocusTrainPage,
+        VotePage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -47,7 +49,8 @@ import {FocusTrainPage} from "./focus-train/focus-train";
         LookQuestion,
         MyQuestion,
         InnerTrainPage,
-        FocusTrainPage
+        FocusTrainPage,
+        VotePage
     ]
 })
 export class HomeModule {

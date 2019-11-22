@@ -11,6 +11,12 @@
         </ion-refresher-content>
     </ion-refresher>
     <navbar [list]="navbarList" [select]="1" (done)="changeType($event)"></navbar>
+    <div class="list-type">
+        <div [ngClass]="{'act-div': page.StudyState == item.type}" tappable (click)="switchInListType(item)"
+             *ngFor="let item of navlistType">
+            {{item.name}}
+        </div>
+    </div>
     <div class="exam">
         <ng-container *ngFor="let item of examList">
             <div class="space"></div>

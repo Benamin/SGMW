@@ -9,6 +9,7 @@ import {FileService} from "../../../core/file.service";
 export class RecordPage {
     @Input() fileList;
     @Input() maxNum;
+    @Input() score;
     @Output() image = new EventEmitter();
     preImgSrc;
 
@@ -25,7 +26,7 @@ export class RecordPage {
         if (file.AttachmentExt.includes('png') || file.AttachmentExt.includes('jpg') || file.AttachmentExt.includes('jpeg')) {
             this.image.emit(file.AttachmentUrl);
         } else {
-            this.fileSer.viewFile(file.AttachmentUrl, file.AttachmentDIsplayName);
+            this.fileSer.viewFile(file.AttachmentUrl, file.AttachmentName);
         }
     }
 

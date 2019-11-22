@@ -18,6 +18,7 @@ import {ForumService} from '../forum/forum.service';
 import {MedalComponent} from './medal/medal.component';
 import {MyFilePage} from "./my-file/my-file";
 import {MineService} from './medal/medal.serve';
+import {PipesModule} from "../../pipes/pipes.module";
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import {MineService} from './medal/medal.serve';
     imports: [
         IonicPageModule.forChild(MinePage),
         ComponentsModule,
+        PipesModule,
     ],
     providers:[ForumService,MineService],
     entryComponents: [

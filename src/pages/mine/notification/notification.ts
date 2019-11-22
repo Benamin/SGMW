@@ -72,6 +72,7 @@ export class NotificationPage {
 
     //下拉刷新
     doRefresh(e) {
+        this.page.page = 1;
         this.getList();
         timer(1000).subscribe(() => {e.complete();});
     }
