@@ -56,7 +56,8 @@ page-exam {
         align-self: flex-end;
         display: flex;
         align-items: center;
-        span{
+
+        span {
           overflow: hidden;
           display: -webkit-box;
           text-overflow: ellipsis;
@@ -75,6 +76,7 @@ page-exam {
     width: 80px;
     height: 80px;
   }
+
   .outer {
     height: 3px;
     background-color: #bee1ec;
@@ -84,6 +86,34 @@ page-exam {
       background-image: linear-gradient(to right, #fecc4b, #feeaa5);
       height: 3px;
       transition: all 500ms;
+    }
+  }
+
+  .list-type {
+    display: flex;
+    margin: 0 10px;
+    margin-top: 10px;
+    background: #fff;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+
+    div {
+      flex: 1;
+      text-align: center;
+      height: 30px;
+      line-height: 30px;
+      margin: 3px;
+      border-radius: 15px;
+
+    }
+
+    .act-div {
+      background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
     }
   }
 }

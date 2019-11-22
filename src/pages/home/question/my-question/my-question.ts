@@ -11,6 +11,7 @@ import {timer} from "rxjs/observable/timer";
 import {LookQuestion} from "../look-question/look-question";
 import {DoQuestionPage} from "../do-question/do-question";
 import {LogService} from "../../../../service/log.service";
+import {VotePage} from "../../vote/vote";
 
 @Component({
     selector: 'page-exam',
@@ -19,6 +20,10 @@ import {LogService} from "../../../../service/log.service";
 export class MyQuestion {
 
     navbarList = [
+        {type: "1", name: "问卷", EType: 5},
+        {type: "2", name: "投票", EType: 6},
+    ];
+    navlistType = [
         {type: '1', name: '未开始'},
         {type: '2', name: '进行中'},
         {type: '3', name: '已结束'},
@@ -29,12 +34,12 @@ export class MyQuestion {
     /// 3-已完成
     page = {
         StudyState: 1,
-        EGroup: 1,  /// 1-普通问卷 2-投票
+        EGroup: [1, 2],  /// 1-普通问卷 2-投票
         load: false,
-        EType:5,
-        Page:1,
-        PageSize:10,
-        TotalItems:0
+        EType: 5,
+        Page: 1,
+        PageSize: 10,
+        TotalItems: 0
     };
 
     examList = [];
@@ -43,7 +48,7 @@ export class MyQuestion {
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService, private datePipe: DatePipe,
                 private commonSer: CommonService,
-                private logSer:LogService,
+                private logSer: LogService,
                 public eventEmitSer: EmitService,
                 private loadCtrl: LoadingController) {
     }
@@ -67,17 +72,17 @@ export class MyQuestion {
         loading.present();
         const data = {
             StudyState: [this.page.StudyState],
-            EType:[this.page.EType],
-            EGroup: [this.page.EGroup],  /// 1-普通问卷 2-投票
-            Page:this.page.Page,
-            PageSize:this.page.PageSize
+            EType: [this.page.EType],
+            EGroup: this.page.EGroup,  /// 1-普通问卷 2-投票
+            Page: this.page.Page,
+            PageSize: this.page.PageSize
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
-                if(res.Result == 0){
+                if (res.Result == 0) {
                     this.examList = res.data.Items;
                     this.page.TotalItems = res.data.TotalItems;
-                }else{
+                } else {
                     this.commonSer.toast(res.Message);
                 }
                 this.page.load = true;
@@ -86,15 +91,29 @@ export class MyQuestion {
         )
     }
 
+
+    //切换问卷、投票
     changeType(e) {
         this.page.load = false;
         this.examList = [];
-        this.page.StudyState = e.type;
+        this.page.EType = e.EType;
         this.getList();
     }
 
+    //切换状态
+    switchInListType(item) {
+        this.page.load = false;
+        this.examList = [];
+        this.page.StudyState = item.type;
+        this.getList();
+    }
+
+    //EType 6 为投票
     goExam(item) {
-        if (this.page.StudyState == 3) {
+        console.log(item);
+        if (item.StudyState == 3 && item.EType == 6) {
+            this.navCtrl.push(VotePage, {item: item});
+        } else if (item.StudyState == 3 && item.EType == 5) {
             this.navCtrl.push(LookQuestion, {item: item});
         } else {
             this.navCtrl.push(DoQuestionPage, {item: item});

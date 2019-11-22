@@ -12,6 +12,7 @@ export class NotificationDetailPage {
 
     id;
     detail;
+    isLoad = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private sanitizer:DomSanitizer) {
@@ -25,12 +26,11 @@ export class NotificationDetailPage {
     getDetail() {
         const data = {
             id: this.id
-        }
+        };
         this.mineSer.GetNewsById(data).subscribe(
             (res) => {
                 this.detail = res.data;
-                let con = this.detail.Text.replace(/\r?\n/g, "<br />");
-                this.detail.Text = this.sanitizer.bypassSecurityTrustHtml(con);
+                this.isLoad = true;
             }
         )
     }

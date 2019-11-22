@@ -10,10 +10,10 @@
             <p class="title">{{detail?.Title}}</p>
             <p class="createTime">{{detail?.CrateTime}}</p>
             <div class="content">
-                <p [innerHTML]="detail?.Text"></p>
+                <p [innerHTML]="detail?.Text | lineFeed"></p>
             </div>
         </ng-container>
-        <ng-container *ngIf="!detail">
+        <ng-container *ngIf="!detail && isLoad">
             <ion-list text-center style="margin-top: 10rem">
                 <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
                 <p text-center style="color: #666666;font-size: 16px">

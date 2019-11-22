@@ -34,10 +34,10 @@ export class DownloadFileProvider {
     }
 
     downloadForAndroid(fileUrl, fileName) {
-        this.file.createDir(this.file.externalRootDirectory, 'CourseFile', true).then((result) => {
+        this.file.createDir(this.file.externalRootDirectory, 'sgmw', true).then((result) => {
             console.log("Directory created" + result);
         });
-        const storageDirectory = this.file.externalRootDirectory + 'CourseFile/';
+        const storageDirectory = this.file.externalRootDirectory + 'sgmw/';
         const alert = this.alertCtrl.create({
             title: '下载',
             message: '下载进度：0%',
