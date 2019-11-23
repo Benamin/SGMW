@@ -175,8 +175,9 @@ export class HomePage {
             "page": 1,
             "pageSize": 4,
             "OrderBy": "CreateTime",
-            "IsAsc": "false",
-            "IsHot": "true"
+            "IsAsc": "DESC",
+            "IsHot": true,
+            "SortDir": "DESC"
         };
         await this.learnSer.GetProductList(data).subscribe(
             (res) => {
