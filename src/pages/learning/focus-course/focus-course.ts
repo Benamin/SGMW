@@ -112,6 +112,7 @@ export class FocusCoursePage {
                 this.product.detail.EndTime = new Date(this.product.detail.EndTime).getTime();
                 this.product.detail.ApplicantETime = new Date(this.product.detail.ApplicantETime).getTime();
                 this.nowTime = Date.now();  //当前时间
+                console.log(this.product.detail);
                 this.getProductInfo();
                 this.getFileInfo();
                 this.getTeacher();

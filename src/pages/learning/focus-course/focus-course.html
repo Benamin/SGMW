@@ -14,14 +14,15 @@
             <div class="content" *ngIf="videoInfo.video == null">
                 <div class="content-info">
                     <div class="course-name">
-                        {{product.detail?.Title}}
+                        {{product.detail?.Title || "-"}}
                     </div>
 
                     <div class="course-desc handle-desc">
                         <span>报名截止:
                             {{product.detail?.ApplicantETime | date:'yyyy年MM月dd日 HH:mm'}}
                         </span>
-                        <span><img style="width: 15px" src="./assets/imgs/learn/person_gray@2x.png" alt="">{{product.detail?.ManCount || "0"}}人报名</span>
+                        <span><img style="width: 15px" src="./assets/imgs/learn/person_gray@2x.png"
+                                   alt="">{{product.detail?.ManCount || "0"}}人报名</span>
                     </div>
                     <div class="course-desc">
                         <span>上课地点：{{product.detail?.Address || "-"}}</span>
@@ -39,19 +40,17 @@
                         {{product.detail?.CollectionCount || "0"}}
                     </span>
                         <ng-container *ngIf="nowTime < product.detail?.ApplicantETime">
-                            <span tappable (click)="sign()"
-                                  *ngIf="!product.detail?.IsBuy && nowTime < product.detail?.ApplicantETime"
-                                  class="applySign">申请报名</span>
+                            <span tappable (click)="sign()"  class="applySign"
+                                  *ngIf="!product.detail?.IsBuy && nowTime < product.detail?.ApplicantETime">申请报名</span>
                         </ng-container>
-                        <span tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100"
-                              class="applySign">回顾培训</span>
+                        <span tappable class="applySign" (click)="studyNow()"
+                              *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100">回顾培训</span>
                         <span tappable (click)="studyNow()"
                               *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100"
                               class="applySign">立即学习</span>
-                        <ng-container *ngIf="nowTime > product.detail?.EndTime && !product.detail?.IsBuy">
-                            <span tappable class="applySign applySignDone">已过期</span>
+                        <ng-container *ngIf="nowTime > product.detail?.ApplicantETime && !product.detail?.IsBuy">
+                            <span tappable class="applySign applySignDone">报名结束</span>
                         </ng-container>
-
                     </div>
                 </div>
             </div>
