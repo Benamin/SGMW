@@ -104,7 +104,7 @@
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-photo-library": {},
       "cordova-plugin-wechat": {
-        "WECHATAPPID": "wx18b151048f5c921c"
+        "WECHATAPPID": "wxb5bb0aae5137074c"
       },
       "cordova-plugin-customurlscheme": {
         "URL_SCHEME": "sgmw",
