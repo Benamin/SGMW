@@ -62,9 +62,15 @@ page-focus-course {
         font-size: 22px;
         font-family: PingFangSC-Semibold, PingFang SC;
         font-weight: 600;
+        height: 64px;
         color: rgba(51, 51, 51, 1);
         line-height: 32px;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
       }
 
       .course-desc {
