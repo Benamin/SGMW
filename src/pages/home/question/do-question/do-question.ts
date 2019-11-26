@@ -53,7 +53,7 @@ export class DoQuestionPage {
 
     ionViewDidEnter() {
         const loading = this.loadCtrl.create({
-            content: '问卷加载中...'
+            content: '加载中...'
         });
         loading.present();
         const item = this.navParams.get('item');
