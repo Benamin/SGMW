@@ -46,6 +46,7 @@
     "cordova-plugin-customurlscheme": "^4.4.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-opener2": "^2.2.1",
+    "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-nativestorage": "^2.3.2",
@@ -102,15 +103,17 @@
       "cordova-plugin-screen-orientation": {},
       "phonegap-plugin-mobile-accessibility": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-photo-library": {},
-      "cordova-plugin-wechat": {
-        "WECHATAPPID": "wxb5bb0aae5137074c"
+      "cordova-plugin-photo-library": {
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
       },
       "cordova-plugin-customurlscheme": {
         "URL_SCHEME": "sgmw",
         "ANDROID_SCHEME": " ",
         "ANDROID_HOST": " ",
         "ANDROID_PATHPREFIX": "/"
+      },
+      "cordova-plugin-wechat": {
+        "WECHATAPPID": "wxb5bb0aae5137074c"
       }
     },
     "platforms": [
