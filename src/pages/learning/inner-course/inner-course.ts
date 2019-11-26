@@ -162,7 +162,7 @@ export class InnerCoursePage {
         const data2 = {
             pid: this.pId
         };
-        await this.learSer.GetMainFile(data2).subscribe(
+        await this.learSer.GetSelfFile(data2).subscribe(
             (res) => {
                 this.mainFile = res.data;
             }

@@ -1,4 +1,8 @@
 page-record {
+  .scroll-content {
+    background-color: #fff;
+  }
+
   .col-item {
     padding: 10px;
 
@@ -33,17 +37,25 @@ page-record {
     padding: 2px 5px;
   }
 
-  .score{
+  .score {
     position: absolute;
     top: 10px;
     right: 0;
-    width:57px;
-    height:18px;
+    width: 57px;
+    height: 18px;
     line-height: 18px;
     text-align: center;
-    background:linear-gradient(242deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
-    border-radius:100px 0px 0px 100px;
-    box-shadow:0px 6px 15px 0px rgba(0,0,0,0.1);
+    border-radius: 100px 0px 0px 100px;
+    box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .yellow {
+    background: linear-gradient(242deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+  }
+
+  .red {
+    background: linear-gradient(242deg, rgba(255, 208, 203, 1) 0%, rgba(255, 82, 45, 1) 100%);
+    color: #ffffff;
   }
 
   .docx, .xlsx, .doc {
@@ -70,6 +82,7 @@ page-record {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
   .imgPreview {
     position: absolute;
     top: 0;

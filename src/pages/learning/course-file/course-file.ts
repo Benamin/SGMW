@@ -6,7 +6,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
     templateUrl: 'course-file.html',
 })
 export class CourseFilePage {
-    mainFile;
+    mainFile = [];
     title;
 
     constructor(public navCtrl: NavController, public navParams: NavParams) {
