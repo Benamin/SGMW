@@ -15,6 +15,7 @@ import {timer} from "rxjs/observable/timer";
 import {InnerCoursePage} from "../inner-course/inner-course";
 import {CourseDetailPage} from "../course-detail/course-detail";
 import {CourseFilePage} from "../course-file/course-file";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -87,6 +88,7 @@ export class FocusCoursePage {
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
+                private datePipe: DatePipe,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
     }
@@ -107,10 +109,10 @@ export class FocusCoursePage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
-                this.product.detail.StartTime = new Date(this.product.detail.StartTime).getTime();
-                this.product.detail.ApplicantSTime = new Date(this.product.detail.ApplicantSTime).getTime();
-                this.product.detail.EndTime = new Date(this.product.detail.EndTime).getTime();
-                this.product.detail.ApplicantETime = new Date(this.product.detail.ApplicantETime).getTime();
+                this.product.detail.StartTime = this.transFormTime(this.product.detail.StartTime);
+                this.product.detail.ApplicantSTime = this.transFormTime(this.product.detail.ApplicantSTime);
+                this.product.detail.EndTime = this.transFormTime(this.product.detail.EndTime);
+                this.product.detail.ApplicantETime = this.transFormTime(this.product.detail.ApplicantETime);
                 this.nowTime = Date.now();  //当前时间
                 console.log(this.product.detail);
                 this.getProductInfo();
@@ -118,6 +120,12 @@ export class FocusCoursePage {
                 this.getTeacher();
             }
         );
+    }
+
+    transFormTime(time) {
+        const date = this.datePipe.transform(time, 'yyyy/MM/dd HH:mm:ss');
+        const t = new Date(date).getTime();
+        return t;
     }
 
     //接受文件事件
