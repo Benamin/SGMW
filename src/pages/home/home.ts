@@ -55,7 +55,7 @@ export class HomePage {
     defaultImg = defaultImg;
     httpUrl = SERVER_HTTP_URL;
     forumLIst=[];
-    
+    navli :'float'|'product' = 'product';
     info = {
         new: 0,
     };
@@ -84,7 +84,7 @@ export class HomePage {
 
     ionViewDidLoad() {
         this.getBanner();
-        this.getGoodsTeacher();
+        // this.getGoodsTeacher();
         this.getProductList();
         this.getLIistData();
     }
@@ -377,5 +377,13 @@ export class HomePage {
     openPosts(url){
         let url_arr= url.split('/');
         this.goPostsContent({Id:url_arr[3]});
+    }
+
+    goToNavli(){
+        if(this.navli=='product'){
+            this.moreCourse() 
+        }else if(this.navli=='float'){
+            this.goForumComponent();
+        }
     }
 }

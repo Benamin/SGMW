@@ -322,5 +322,41 @@ page-home {
     padding-top: 20px;
     margin-bottom: 10px;
   }
+  .product-float-tab{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    .product-float-nav{
+      color: #292929;
+      font-size: 16px;
+      position: relative;
+      margin: 10px 20px;
+      padding-bottom: 10px;
+      padding-top: 20px;
+      margin-bottom: 0px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+    .act{
+      color: rgba(0,0,0,1);
+      transition: all 0.2s;
+    }
+    .act::before{
+      content: " ";
+      display: block;
+      position: absolute;
+      width: 58px;
+      height: 4px;
+      margin-left: -30px;
+      left: 50%;
+      bottom: 0px;
+      transition: all 0.2s;
+      background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      border-radius: 2px;
+    }
+  }
 
 }
