@@ -75,11 +75,11 @@ export class TreeListComponent {
 
         event.stopPropagation();
         this.saveProcess(file);
-        if (file.icon.includes('mp4')) {
+        if (file.icon.includes('mp4') || file.icon.includes('iframe')) {
             this.appSer.setFile(file);
-        }
-        if (file.icon.includes('pdf')) this.openPDF(file);
-        if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
+        } else if (file.icon.includes('pdf')) {
+            this.openPDF(file);
+        } else if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
     }

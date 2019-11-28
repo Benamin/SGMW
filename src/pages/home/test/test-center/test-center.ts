@@ -42,7 +42,7 @@ export class TestCenterPage {
                 private homeSer: HomeService, private datePipe: DatePipe,
                 private commonSer: CommonService,
                 public eventEmitSer: EmitService,
-                private logSer:LogService,
+                private logSer: LogService,
                 private loadCtrl: LoadingController) {
     }
 
@@ -76,8 +76,8 @@ export class TestCenterPage {
             Page: this.page.Page,
             PageSize: this.page.PageSize,
             EGroup: [1],
-            OrderBy:'EndTime',
-            IsAsc:false
+            OrderBy: 'EndTime',
+            IsAsc: false
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
@@ -113,12 +113,12 @@ export class TestCenterPage {
             content: ''
         });
         loading.present();
-        const ExamBegin = new Date(this.datePipe.transform(item.ExamBegin, 'yyyy/MM/dd HH:mm:ss')).getTime();
-        const ExamEnd = new Date(this.datePipe.transform(item.ExamEnd, 'yyyy/MM/dd HH:mm:ss')).getTime();
+        const ExamBegin = this.commonSer.transFormTime(item.ExamBegin);
+        const ExamEnd = this.commonSer.transFormTime(item.ExamEnd);
         this.homeSer.getSysDateTime().subscribe(
             (res) => {
                 loading.dismiss();
-                const sysDate = new Date(res.data).getTime();
+                const sysDate = this.commonSer.transFormTime(res.data);
                 if (sysDate < ExamBegin) {
                     this.commonSer.toast('考试未开始');
                 } else if (sysDate > ExamEnd && this.page.StudyState == 1) {
@@ -145,8 +145,8 @@ export class TestCenterPage {
             EType: [this.page.EType],
             Page: this.page.Page,
             PageSize: this.page.PageSize,
-            OrderBy:'EndTime',
-            IsAsc:false
+            OrderBy: 'EndTime',
+            IsAsc: false
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {

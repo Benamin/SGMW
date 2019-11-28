@@ -6,6 +6,7 @@ import {defaultImg} from "../../../app/app.constants";
 import {LearnService} from "../../learning/learn.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {InnerCoursePage} from "../../learning/inner-course/inner-course";
+import {CommonService} from "../../../core/common.service";
 
 @Component({
     selector: 'page-inner-train',
@@ -24,7 +25,7 @@ export class InnerTrainPage {
     nowTime;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private learSer: LearnService,
+                private learSer: LearnService, public commonSer: CommonService,
                 private loadCtrl: LoadingController, private mineSer: MineService) {
     }
 
@@ -50,8 +51,8 @@ export class InnerTrainPage {
             (res) => {
                 if (res.data.ProductList) {
                     res.data.ProductList.forEach(e => {
-                        e.StartTime_time = new Date(e.StartTime).getTime();
-                        e.EndTime_time = new Date(e.EndTime).getTime();
+                        e.StartTime_time = this.commonSer.transFormTime(e.StartTime);
+                        e.EndTime_time = this.commonSer.transFormTime(e.EndTime);
                     });
                     this.page.list = res.data.ProductList;
                     this.page.TotalItems = res.data.TotalCount;
@@ -82,8 +83,8 @@ export class InnerTrainPage {
             (res) => {
                 if (res.data.ProductList) {
                     res.data.ProductList.forEach(e => {
-                        e.StartTime_time = new Date(e.StartTime).getTime();
-                        e.EndTime_time = new Date(e.EndTime).getTime();
+                        e.StartTime_time = this.commonSer.transFormTime(e.StartTime);
+                        e.EndTime_time = this.commonSer.transFormTime(e.EndTime);
                     });
                     this.page.list = this.page.list.concat(res.data.ProductList);
                     this.page.TotalItems = res.data.TotalCount;

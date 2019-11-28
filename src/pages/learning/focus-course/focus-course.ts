@@ -109,10 +109,10 @@ export class FocusCoursePage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
-                this.product.detail.StartTime = this.transFormTime(this.product.detail.StartTime);
-                this.product.detail.ApplicantSTime = this.transFormTime(this.product.detail.ApplicantSTime);
-                this.product.detail.EndTime = this.transFormTime(this.product.detail.EndTime);
-                this.product.detail.ApplicantETime = this.transFormTime(this.product.detail.ApplicantETime);
+                this.product.detail.StartTime = this.commonSer.transFormTime(this.product.detail.StartTime);
+                this.product.detail.ApplicantSTime = this.commonSer.transFormTime(this.product.detail.ApplicantSTime);
+                this.product.detail.EndTime = this.commonSer.transFormTime(this.product.detail.EndTime);
+                this.product.detail.ApplicantETime = this.commonSer.transFormTime(this.product.detail.ApplicantETime);
                 this.nowTime = Date.now();  //当前时间
                 console.log(this.product.detail);
                 this.getProductInfo();
@@ -120,12 +120,6 @@ export class FocusCoursePage {
                 this.getTeacher();
             }
         );
-    }
-
-    transFormTime(time) {
-        const date = this.datePipe.transform(time, 'yyyy/MM/dd HH:mm:ss');
-        const t = new Date(date).getTime();
-        return t;
     }
 
     //接受文件事件
@@ -157,7 +151,7 @@ export class FocusCoursePage {
                 this.f(this.product.chapter.Course.children);
                 this.files.forEach(e => {
                     if (e.PlanStartTime) {
-                        e.PlanStartTime_time = new Date(e.PlanStartTime).getTime();
+                        e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
                     }
                 });
                 console.log(this.files);
@@ -286,8 +280,7 @@ export class FocusCoursePage {
 
         console.log(this.files[0]);
         const nowTime = new Date().getTime();
-        const startTimeStr = this.files[0].PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
-        const planStartTime = new Date(startTimeStr).getTime();
+        const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTimeStr);
 
         let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         if (nowTime < planStartTime) {

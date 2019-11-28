@@ -11,6 +11,7 @@ import {FocusCoursePage} from "../../learning/focus-course/focus-course";
 import {LogService} from "../../../service/log.service";
 import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
+import {CommonService} from "../../../core/common.service";
 
 
 @Component({
@@ -45,6 +46,7 @@ export class FocusTrainPage {
                 public modalCtrl: ModalController,
                 private keyboard: Keyboard,
                 public logSer: LogService,
+                private commonSer: CommonService,
                 public homeSer: HomeService,
                 private loadCtrl: LoadingController, private mineSer: MineService) {
     }
@@ -110,8 +112,8 @@ export class FocusTrainPage {
             (res) => {
                 if (res.data.ProductList) {
                     res.data.ProductList.forEach(e => {
-                        e.StartTime_time = new Date(e.StartTime).getTime();
-                        e.EndTime_time = new Date(e.EndTime).getTime();
+                        e.StartTime_time = this.commonSer.transFormTime(e.StartTime);
+                        e.EndTime_time = this.commonSer.transFormTime(e.EndTime);
                     });
                     this.page.list = res.data.ProductList;
                     this.page.TotalItems = res.data.TotalCount;
@@ -142,8 +144,8 @@ export class FocusTrainPage {
             (res) => {
                 if (res.data.ProductList) {
                     res.data.ProductList.forEach(e => {
-                        e.StartTime_time = new Date(e.StartTime).getTime();
-                        e.EndTime_time = new Date(e.EndTime).getTime();
+                        e.StartTime_time = this.commonSer.transFormTime(e.StartTime);
+                        e.EndTime_time = this.commonSer.transFormTime(e.EndTime);
                     });
                     this.page.list = this.page.list.concat(res.data.ProductList);
                     this.page.TotalItems = res.data.TotalCount;
@@ -170,7 +172,7 @@ export class FocusTrainPage {
     //打开筛选
     openFilter() {
         console.log(this.allList);
-        let modal = this.modalCtrl.create(SearchSidebarComponent, {allList: this.allList,filterObj:this.filterObj},
+        let modal = this.modalCtrl.create(SearchSidebarComponent, {allList: this.allList, filterObj: this.filterObj},
             {
                 enterAnimation: 'modal-from-right-enter',
                 leaveAnimation: 'modal-from-right-leave'
