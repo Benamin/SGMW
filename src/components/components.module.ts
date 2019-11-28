@@ -13,6 +13,7 @@ import {SelectTeacherComponent} from './select-teacher/select-teacher';
 import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
 import {ForumListTimeComponent} from './forum-list-time/forum-list-time.component';
 import {ImgPreviewComponent} from './img-preview/img-preview';
+import {IframeFileComponent} from './iframe-file/iframe-file';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {ImgPreviewComponent} from './img-preview/img-preview';
         SearchSidebarComponent,
         ForumListTimeComponent,
         ImgPreviewComponent,
+        IframeFileComponent,
     ],
     imports: [
         IonicPageModule
@@ -50,6 +52,7 @@ import {ImgPreviewComponent} from './img-preview/img-preview';
         SearchSidebarComponent,
         ForumListTimeComponent,
         ImgPreviewComponent,
+        IframeFileComponent,
     ],
     providers: [
         CommentComponent,
@@ -68,6 +71,7 @@ import {ImgPreviewComponent} from './img-preview/img-preview';
         SearchSidebarComponent,
         ForumListTimeComponent,
         ImgPreviewComponent,
+        IframeFileComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
