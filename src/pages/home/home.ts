@@ -84,7 +84,7 @@ export class HomePage {
 
     ionViewDidLoad() {
         this.getBanner();
-        // this.getGoodsTeacher();
+        this.getGoodsTeacher();
         this.getProductList();
         this.getLIistData();
     }
