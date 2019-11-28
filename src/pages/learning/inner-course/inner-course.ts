@@ -33,10 +33,12 @@ export class InnerCoursePage {
         detail: <any>null,
         chapter: null,
     };
+    courseFileType;
     videoInfo = {
         poster: null,
-        video: null,
+        video: null,   //视频文件信息
     };  //视频播放的信息
+    iframObj;
     learnList = [];
     navbarList = [
         {type: 1, name: '简介', code: 'desc'},
@@ -114,18 +116,25 @@ export class InnerCoursePage {
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
-            this.videoInfo.video = value;
-            this.videoInfo.poster = value;
+            if (value && value.icon == 'iframe') {
+                this.courseFileType = 'iframe';
+                this.iframObj = value;
+            } else if (value && value.icon == 'mp4') {
+                this.courseFileType = 'video';
+                this.videoInfo.video = value;
+                this.videoInfo.poster = value;
+            }
         });
     }
 
 
     ionViewWillLeave() {
+        this.courseFileType = null;
         this.showFooter = false;
         this.appSer.setFile(null);
-        this.videojsCom.pageLeave();
+        if (this.videojsCom) this.videojsCom.pageLeave();
         const arr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
-        if (arr.length == 1) this.videojsCom.destroy();
+        if (arr.length == 1 && this.videojsCom) this.videojsCom.destroy();
     }
 
     //课程详情、课程章节、相关课程、课程评价、已上传资料
@@ -218,9 +227,13 @@ export class InnerCoursePage {
         loading.present();
         this.saveProcess(this.files[0]);
         if (this.files[0].icon.includes('mp4')) {
+            this.courseFileType = 'video';
             this.videoInfo.video = this.files[0];
         } else if (this.files[0].icon.includes('pdf')) {
             this.openPDF(this.files[0]);
+        } else if (this.files[0].icon.includes('iframe')) {
+            this.courseFileType = 'iframe';
+            this.iframObj = this.files[0];
         } else {
             this.fileSer.viewFile(this.files[0].fileUrl, this.files[0].filename);
         }
