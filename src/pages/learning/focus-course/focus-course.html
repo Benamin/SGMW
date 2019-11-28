@@ -11,7 +11,7 @@
                 <img [src]="product.detail?.ImageUrl" alt="">
             </div>
             <div class="background-mask"></div>
-            <div class="content" *ngIf="videoInfo.video == null">
+            <div class="content" *ngIf="courseFileType == null">
                 <div class="content-info">
                     <div class="course-name">
                         {{product.detail?.Title || "-"}}
@@ -19,14 +19,16 @@
 
                     <div class="course-desc handle-desc">
                         <span>报名时间:
-                            {{product.detail?.ApplicantSTime | date:'yyyy-MM-dd HH:mm'}} 至 {{product.detail?.ApplicantETime | date:'yyyy-MM-dd HH:mm'}}
+                            {{product.detail?.ApplicantSTime | date:'yyyy-MM-dd HH:mm'}}
+                            至 {{product.detail?.ApplicantETime | date:'yyyy-MM-dd HH:mm'}}
                         </span>
                     </div>
                     <div class="course-desc">
                         <span>上课地点：{{product.detail?.Address || "-"}}</span>
                     </div>
                     <div class="course-desc">
-                        <span>上课时间：{{product.detail?.StartTime | date:'yyyy-MM-dd HH:mm'}} 至 {{product.detail?.EndTime | date:'yyyy-MM-dd HH:mm'}}</span>
+                        <span>上课时间：{{product.detail?.StartTime | date:'yyyy-MM-dd HH:mm'}}
+                            至 {{product.detail?.EndTime | date:'yyyy-MM-dd HH:mm'}}</span>
                     </div>
                     <div class="course-desc handle-desc">
                     <span>  <!--收藏-->
@@ -36,30 +38,39 @@
                                  src="./assets/imgs/course/sc_y@2x.png" alt="">
                         {{product.detail?.CollectionCount || "0"}}
                     </span>
-                        <span style="margin-left: 5px"><img style="width: 15px" src="./assets/imgs/learn/person_gray@2x.png"
-                                   alt="">已报名:{{product.detail?.ManCount || "0"}}
+                        <span style="margin-left: 5px"><img style="width: 15px"
+                                                            src="./assets/imgs/learn/person_gray@2x.png"
+                                                            alt="">已报名:{{product.detail?.ManCount || "0"}}
                             可报名:{{product.detail?.ApplicantCount || "0"}}
                         </span>
                         <ng-container *ngIf="nowTime < product.detail?.ApplicantETime">
-                            <span tappable (click)="sign()"  class="applySign"
+                            <span tappable (click)="sign()" class="applySign"
                                   *ngIf="!product.detail?.IsBuy && nowTime < product.detail?.ApplicantETime">申请报名</span>
                         </ng-container>
                         <span tappable class="applySign" (click)="studyNow()"
-                              *ngIf="product.detail?.IsBuy && product.detail?.IsPay && product.detail?.overpercentage == 100">回顾培训</span>
+                              *ngIf="product.detail?.IsBuy && product.detail?.IsPay && product.detail?.overpercentage == 100">继续上课</span>
                         <span tappable (click)="studyNow()"
                               *ngIf="product.detail?.IsBuy && product.detail?.IsPay && product.detail?.overpercentage != 100"
                               class="applySign">立即学习</span>
                         <ng-container *ngIf="nowTime > product.detail?.ApplicantETime && !product.detail?.IsBuy">
                             <span tappable class="applySign applySignDone">报名结束</span>
                         </ng-container>
-                        <ng-container *ngIf="product.detail?.IsBuy && !product.detail?.IsPay">
+                        <ng-container *ngIf="product.detail?.IsBuy && !product.detail?.IsPay && nowTime > product.detail?.ApplicantETime">
                             <span class="applySign">报名未通过</span>
+                        </ng-container>
+                        <ng-container
+                                *ngIf="product.detail?.IsBuy && !product.detail?.IsPay && nowTime < product.detail?.ApplicantETime">
+                            <span class="applySign">审核中</span>
                         </ng-container>
                     </div>
                 </div>
             </div>
-            <div id="videoTag" class="content video" [hidden]="videoInfo.video == null">
-                <videojs #videojsCom [GetVideo]="videoInfo.video" [poster]="videoInfo.poster"></videojs>
+            <div id="videoTag" class="content video" [hidden]="courseFileType == null">
+                <videojs [hidden]="!courseFileType || courseFileType == 'iframe' " #videojsCom
+                         [GetVideo]="videoInfo.video"
+                         [poster]="videoInfo.poster"></videojs>
+                <iframe-file [hidden]="!courseFileType || courseFileType == 'video' " #iframeFile
+                             [iframe]="iframObj"></iframe-file>
             </div>
         </div>
         <div style="padding-top: 35px;background-color: #fff;">
