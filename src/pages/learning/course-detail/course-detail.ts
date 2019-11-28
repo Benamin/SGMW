@@ -134,7 +134,7 @@ export class CourseDetailPage {
                 this.f(this.product.chapter.Course.children);
                 this.files.forEach(e => {
                     if (e.PlanStartTime) {
-                        e.PlanStartTime_time = new Date(e.PlanStartTime).getTime();
+                        e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
                     }
                 });
                 console.log(this.files);
@@ -243,8 +243,7 @@ export class CourseDetailPage {
 
         console.log(this.files[0]);
         const nowTime = new Date().getTime();
-        const startTimeStr = this.files[0].PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
-        const planStartTime = new Date(startTimeStr).getTime();
+        const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTimeStr);
 
         let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         if (nowTime < planStartTime) {

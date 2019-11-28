@@ -99,10 +99,10 @@ export class InnerCoursePage {
         await this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
-                this.product.detail.StartTime = new Date(this.product.detail.StartTime).getTime();
-                this.product.detail.ApplicantSTime = new Date(this.product.detail.ApplicantSTime).getTime();
-                this.product.detail.EndTime = new Date(this.product.detail.EndTime).getTime();
-                this.product.detail.ApplicantETime = new Date(this.product.detail.ApplicantETime).getTime();
+                this.product.detail.StartTime = this.commonSer.transFormTime(this.product.detail.StartTime);
+                this.product.detail.ApplicantSTime = this.commonSer.transFormTime(this.product.detail.ApplicantSTime);
+                this.product.detail.EndTime = this.commonSer.transFormTime(this.product.detail.EndTime);
+                this.product.detail.ApplicantETime = this.commonSer.transFormTime(this.product.detail.ApplicantETime);
                 this.nowTime = Date.now();  //当前时间
                 this.getCommentList();
                 this.getProductInfo();
@@ -140,7 +140,7 @@ export class InnerCoursePage {
                 this.f(this.product.chapter.Course.children);
                 this.files.forEach(e => {
                     if (e.PlanStartTime) {
-                        e.PlanStartTime_time = new Date(e.PlanStartTime).getTime();
+                        e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
                     }
                 });
                 console.log(this.files);
@@ -206,8 +206,7 @@ export class InnerCoursePage {
 
         console.log(this.files[0]);
         const nowTime = new Date().getTime();
-        const startTimeStr = this.files[0].PlanStartTimeStr.replace(/-/g, '/');  //兼容ios
-        const planStartTime = new Date(startTimeStr).getTime();
+        const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTimeStr);
 
         let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         if (nowTime < planStartTime) {
