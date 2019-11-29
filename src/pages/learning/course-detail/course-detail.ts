@@ -540,4 +540,12 @@ export class CourseDetailPage {
         this.bar.type = this.slides.realIndex + 1;
     }
 
+    //关闭弹窗
+    close(e) {
+        this.videoInfo.video = null;
+        this.videoInfo.poster = null;
+        this.iframObj = null;
+        this.courseFileType = null;
+    }
+
 }
