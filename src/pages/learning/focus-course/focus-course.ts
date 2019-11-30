@@ -51,7 +51,7 @@ export class FocusCoursePage {
         {type: 4, name: '讲师', code: 'teacher'},
         {type: 5, name: '评价', code: 'comment'},
         {type: 6, name: '作业', code: 'task'},
-        {type: 7, name: '相关', code: 'relation'},
+        // {type: 7, name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -289,9 +289,8 @@ export class FocusCoursePage {
 
         console.log(this.files[0]);
         const nowTime = new Date().getTime();
-        const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTimeStr);
-
-        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
+        const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTime);
+        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
         if (nowTime < planStartTime) {
             this.commonSer.toast(`${text}还未开始，请等待开始后再观看`);
             return
