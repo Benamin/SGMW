@@ -215,7 +215,7 @@ export class InnerCoursePage {
 
         console.log(this.files[0]);
         const nowTime = new Date().getTime();
-        const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTimeStr);
+        const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTime);
 
         let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         if (nowTime < planStartTime) {
