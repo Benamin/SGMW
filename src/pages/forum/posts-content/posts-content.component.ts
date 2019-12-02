@@ -203,6 +203,7 @@ export class PostsContentComponent implements OnInit {
   }
 
   async is_guanzhu(data){
+    
     await this.serve.follow(data.Id).subscribe((res: any) => {
       if(res.code==200){
         this.serve.cancelfollow(data.Id).subscribe((res: any) => {});
@@ -237,16 +238,19 @@ export class PostsContentComponent implements OnInit {
   }  
    // 取消关注
   cancelfollow(data) {
+    if(parseInt(this.dataCon['FollowCount']) == 0){
+      return ;
+    }
     let loading = this.loadCtrl.create({
       content:''
     });
     loading.present();
     this.serve.cancelfollow(data.Id).subscribe((res: any) => {
       console.log(res);
-      data['is_guanzhu']=false;
-      this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount'])-1+'';
+      data['is_guanzhu'] = false;
+      this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) - 1 + '';
+      this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) < 0? '0':this.dataCon['FollowCount'];
       loading.dismiss();
-
       // this.reasizeData();
     });
   }
