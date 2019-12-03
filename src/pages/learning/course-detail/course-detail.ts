@@ -148,7 +148,6 @@ export class CourseDetailPage {
                         e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
                     }
                 });
-                console.log(this.files);
                 this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
                 this.isLoad = true;
@@ -287,7 +286,6 @@ export class CourseDetailPage {
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
-                console.log(res.message);
             }
         )
     }

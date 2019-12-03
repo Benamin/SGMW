@@ -116,7 +116,6 @@ export class FocusCoursePage {
                 this.product.detail.EndTime = this.commonSer.transFormTime(this.product.detail.EndTime);
                 this.product.detail.ApplicantETime = this.commonSer.transFormTime(this.product.detail.ApplicantETime);
                 this.nowTime = Date.now();  //当前时间
-                console.log(this.product.detail);
                 this.getProductInfo();
                 this.getFileInfo();
                 this.getTeacher();
@@ -512,7 +511,6 @@ export class FocusCoursePage {
     }
 
     viewimage(e) {
-        console.log(e);
         this.preImgSrc = e;
     }
 }

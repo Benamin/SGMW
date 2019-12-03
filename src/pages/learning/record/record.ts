@@ -19,7 +19,6 @@ export class RecordPage {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad RecordPage');
     }
 
     //office、pdf、图片、视频

@@ -20,7 +20,6 @@ export class ViewFilePage {
 
     ionViewDidLoad() {
         this.displayData = this.navParams.get('displayData');
-        console.log(this.displayData);
         this.uploadLoading = this.loadingCtrl.create({
             content: '加载中...',
             dismissOnPageChange: true,

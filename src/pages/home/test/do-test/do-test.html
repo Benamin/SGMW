@@ -219,7 +219,6 @@
         <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
         <p>温馨提示</p>
         <p class="number  test">
-<!--            <ng-container *ngIf="paper?.PaperTimer == 0">本次考试不限制时间，考试过程中不可退出</ng-container>-->
             <ng-container *ngIf="exam.ExamInfo?.PaperTimer > 0">试卷时长{{exam.ExamInfo?.PaperTimer}}分钟，请在规定时间内完成，时间到达后将自动提交，考试过程中不可退出
             </ng-container>
         </p>

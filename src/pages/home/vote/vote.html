@@ -87,8 +87,8 @@
                                             </div>
                                         </div>
                                     </ng-container>
-                                    <ng-container>
-                                        <p *ngIf="item.ChoiceD">
+                                    <ng-container *ngIf="item.ChoiceD">
+                                        <p>
                                             <label>
                                                 <input type="radio" value="D" [name]="item.QnAID">
                                                 <span [ngClass]="{'select-right' : item.StuAnswer.includes('D') == true}"
