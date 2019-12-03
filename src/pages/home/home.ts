@@ -375,8 +375,11 @@ export class HomePage {
         });
     }
     openPosts(url){
-        let url_arr= url.split('/');
-        this.goPostsContent({Id:url_arr[3]});
+        let url_arr = url.split('/');
+        if(url_arr[2]=='forum'&&url_arr[3]){//进入帖子
+            let id = url_arr[3].split('&')[0];
+            this.goPostsContent({Id:id});
+        }
     }
 
     goToNavli(){
