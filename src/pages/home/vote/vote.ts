@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
 import {HomeService} from "../home.service";
 import {CommonService} from "../../../core/common.service";
@@ -7,13 +7,14 @@ import {Storage} from "@ionic/storage";
 import {QIndexComponent} from "../../../components/q-index/q-index";
 
 @Component({
-    selector: 'page-look-exam',
+    selector: 'page-vote',
     templateUrl: 'vote.html',
 })
 export class VotePage {
     @ViewChild(Slides) slides: Slides;
+    @Input() qnAInfo;
+    @Input() index;
 
-    index = 0;  //当前题目的序号
     exam = {
         QnAInfos: [],
         ExamInfo: null
@@ -25,36 +26,17 @@ export class VotePage {
                 private homeSer: HomeService,
                 private commonSer: CommonService,
                 private mineSer: MineService, private loadCtrl: LoadingController, private storage: Storage) {
-
+        setTimeout(() => {
+            if (this.qnAInfo) {
+                this.qnAInfo.StuAnswer = this.qnAInfo.StuAnswer ? this.qnAInfo.StuAnswer : '';
+                this.qnAInfo.AllFX = this.qnAInfo.ChoiceAFx + this.qnAInfo.ChoiceBFx + this.qnAInfo.ChoiceCFx + this.qnAInfo.ChoiceDFx + this.qnAInfo.ChoiceEFx + this.qnAInfo.ChoiceFFx + this.qnAInfo.ChoiceGFx;
+                console.log(this.qnAInfo.AllFX);
+            }
+        }, 500)
     }
 
     ionViewDidLoad() {
-        const loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
-        const item = this.navParams.get('item');
-        const data = {
-            Fid: item.Fid
-        };
-        this.homeSer.getPaperDetailByStu(data).subscribe(
-            (res) => {
-                if (res.Result == 1) {
-                    this.commonSer.toast(res.Message);
-                }
-                res.data.QnAInfos.forEach(e => {
-                    e.StuAnswer = e.StuAnswer ? e.StuAnswer : '';
-                    e.AllFX = e.ChoiceAFx + e.ChoiceBFx + e.ChoiceCFx + e.ChoiceDFx + e.ChoiceEFx + e.ChoiceFFx + e.ChoiceGFx;
-                });
-                this.exam.QnAInfos = res.data.QnAInfos;
-                this.exam.ExamInfo = res.data.ExamInfo;
-                console.log(this.exam);
-                loading.dismiss();
-                this.storage.get('opTips').then(value => {
-                    this.opTips = value ? 'false' : 'true';
-                })
-            }
-        )
+
     }
 
     slideChanged() {

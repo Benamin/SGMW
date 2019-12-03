@@ -66,12 +66,16 @@ export class MyQuestion {
     //考试列表
     //EType  /// 1-等级考试 2-普通考试 3-课堂练习（预习作业）4-课后作业 5-调查问卷
     getList() {
-        const loading = this.loadCtrl.create({
-            content: ''
-        });
+        const loading = this.loadCtrl.create();
         loading.present();
+        let studyState;
+        if (this.page.EType == 6) {
+            studyState = [1, 2, 3];
+        } else {
+            studyState = [this.page.StudyState];
+        }
         const data = {
-            StudyState: [this.page.StudyState],
+            StudyState: studyState,
             EType: [this.page.EType],
             EGroup: this.page.EGroup,  /// 1-普通问卷 2-投票
             Page: this.page.Page,
@@ -110,9 +114,8 @@ export class MyQuestion {
 
     //EType 6 为投票
     goExam(item) {
-        console.log(item);
         if (item.StudyState == 3 && item.EType == 6) {
-            this.navCtrl.push(VotePage, {item: item});
+            this.commonSer.toast('已投票')
         } else if (item.StudyState == 3 && item.EType == 5) {
             this.navCtrl.push(LookQuestion, {item: item});
         } else {
@@ -135,12 +138,18 @@ export class MyQuestion {
             return
         }
         this.page.Page++;
+        let studyState;
+        if (this.page.EType == 6) {
+            studyState = [1, 2, 3];
+        } else {
+            studyState = [this.page.StudyState];
+        }
         const data = {
-            StudyState: [this.page.StudyState],
-            EGroup: [1],
+            StudyState: studyState,
+            EType: [this.page.EType],
+            EGroup: this.page.EGroup,  /// 1-普通问卷 2-投票
             Page: this.page.Page,
-            EType: this.page.EType,
-            PageSize: this.page.PageSize,
+            PageSize: this.page.PageSize
         };
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
