@@ -1,6 +1,47 @@
 page-inner-train {
+  .searchbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #343435;
+
+    > .input {
+      width: 80%;
+      padding: 6px 10px;
+
+      ion-input {
+        border-radius: 15px;
+        background-color: #fff;
+
+        .text-input-ios {
+          height: 15px;
+          background: rgba(255, 255, 255, 1);
+          margin: 8px;
+          padding-left: 15px;
+          width: calc(100% - 23px);
+        }
+      }
+    }
+
+    > .filter {
+      width: 10%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 15px;
+        height: 15px;
+        margin-right: 6px;
+      }
+    }
+  }
+
   .learn-list {
     padding: 15px 10px;
+    margin-top: 43px;
 
     .course-item {
       display: flex;
@@ -65,7 +106,7 @@ page-inner-train {
       }
     }
 
-    .course-item + .course-item{
+    .course-item + .course-item {
       margin-top: 10px;
     }
   }

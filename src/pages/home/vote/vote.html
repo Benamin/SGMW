@@ -1,377 +1,320 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>{{index + 1}}/{{exam.QnAInfos.length}}</ion-title>
-        <!--        <ion-title *ngIf="exam.QnAInfos.length == 1">{{exam.ExamInfo?.EName}}</ion-title>-->
-    </ion-navbar>
-</ion-header>
-
-<ion-content style="background-color: #ffffff">
-    <ion-slides (ionSlideDidChange)="slideChanged()">
-        <ng-container *ngIf="exam.QnAInfos.length > 0">
-            <ion-slide *ngFor="let item of exam.QnAInfos;let i = index;">
-                <div class="learn-item">
-                    <div class="item-container">
-                        <div class="item-title">
-                            <!--判断题目类型-->
-                            <p>
-                                {{i + 1}}:
-                                <span *ngIf="item.QType == -1">(不限)</span>
-                                <span *ngIf="item.QType == 1">(单选)</span>
-                                <span *ngIf="item.QType == 2">(多选)</span>
-                                <span *ngIf="item.QType == 3">(判断)</span>
-                                {{item.QContent}}
-                            </p>
-                        </div>
-                        <div class="item-content">
-                            <div class="padding-20-20">
-                                <!--单选题-->
-                                <ng-container *ngIf="item.QType == 1">
-                                    <ng-container *ngIf="item.ChoiceA">
-                                        <p>
-                                            <label>
-                                                <input type="radio" value="A" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('A') == true}"
-                                                      class="selectIndex">A</span>&nbsp;&nbsp;
-                                                {{item.ChoiceA}}
-                                            </label>
-                                            <label></label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceAFx}}人
-                                            </div>
-                                            <div class="innerAFx innerFx">
-                                                <div [style.width]="(item.ChoiceAFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceAFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceB">
-                                        <p>
-                                            <label>
-                                                <input type="radio" value="B" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('B') == true}"
-                                                      class="selectIndex">B</span>&nbsp;&nbsp;
-                                                {{item.ChoiceB}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceBFx}}人
-                                            </div>
-                                            <div class="innerBFx innerFx">
-                                                <div [style.width]="(item.ChoiceBFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceBFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceC">
-                                        <p>
-                                            <label>
-                                                <input type="radio" value="C" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('C') == true}"
-                                                      class="selectIndex">C</span>&nbsp;&nbsp;
-                                                {{item.ChoiceC}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceCFx}}人
-                                            </div>
-                                            <div class="innerCFx innerFx">
-                                                <div [style.width]="(item.ChoiceCFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceCFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container>
-                                        <p *ngIf="item.ChoiceD">
-                                            <label>
-                                                <input type="radio" value="D" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('D') == true}"
-                                                      class="selectIndex">D</span>&nbsp;&nbsp;
-                                                {{item.ChoiceD}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceDFx}}人
-                                            </div>
-                                            <div class="innerDFx innerFx">
-                                                <div [style.width]="(item.ChoiceDFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceDFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceE">
-                                        <p>
-                                            <label>
-                                                <input type="radio" value="E" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('E') == true}"
-                                                      class="selectIndex">E</span>&nbsp;&nbsp;
-                                                {{item.ChoiceE}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceEFx}}人
-                                            </div>
-                                            <div class="innerEFx innerFx">
-                                                <div [style.width]="(item.ChoiceEFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceEFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceF">
-                                        <p>
-                                            <label>
-                                                <input type="radio" value="F" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('F') == true}"
-                                                      class="selectIndex">F</span>&nbsp;&nbsp;
-                                                {{item.ChoiceF}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceFFx}}人
-                                            </div>
-                                            <div class="innerFFx innerFx">
-                                                <div [style.width]="(item.ChoiceFFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceFFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceG">
-                                        <p>
-                                            <label>
-                                                <input type="radio" value="D" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('G') == true}"
-                                                      class="selectIndex">G</span>&nbsp;&nbsp;
-                                                {{item.ChoiceG}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceGFx}}人
-                                            </div>
-                                            <div class="innerGFx innerFx">
-                                                <div [style.width]="(item.ChoiceGFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceGFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </ng-container>
-                                <!--多选题-->
-                                <ng-container *ngIf="item.QType == 2">
-                                    <ng-container *ngIf="item.ChoiceA">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" value="A" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('A') == true}"
-                                                      class="input-duox selectIndex">A</span>&nbsp;&nbsp;
-                                                {{item.ChoiceA}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceAFx}}人
-                                            </div>
-                                            <div class="innerGFx innerFx">
-                                                <div [style.width]="(item.ChoiceAFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceAFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceB">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" value="B" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('B') == true}"
-                                                      class="input-duox selectIndex">B</span>&nbsp;&nbsp;
-                                                {{item.ChoiceB}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceBFx}}人
-                                            </div>
-                                            <div class="innerGFx innerFx">
-                                                <div [style.width]="(item.ChoiceBFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceBFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceC">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" value="C" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('C') == true}"
-                                                      class="input-duox selectIndex">C</span>&nbsp;&nbsp;
-                                                {{item.ChoiceC}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceCFx}}人
-                                            </div>
-                                            <div class="innerGFx innerFx">
-                                                <div [style.width]="(item.ChoiceCFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceCFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceD">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" value="D" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('D') == true}"
-                                                      class="input-duox selectIndex">D</span>&nbsp;&nbsp;
-                                                {{item.ChoiceD}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceDFx}}人
-                                            </div>
-                                            <div class="innerGFx innerFx">
-                                                <div [style.width]="(item.ChoiceDFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceDFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceE">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" value="E" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('E') == true}"
-                                                      class="input-duox selectIndex">E</span>&nbsp;&nbsp;
-                                                {{item.ChoiceE}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceEFx}}人
-                                            </div>
-                                            <div class="innerGFx innerFx">
-                                                <div [style.width]="(item.ChoiceEFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceEFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceF">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" value="F" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('F') == true}"
-                                                      class="input-duox selectIndex">F</span>&nbsp;&nbsp;
-                                                {{item.ChoiceF}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceFFx}}人
-                                            </div>
-                                            <div class="innerGFx innerFx">
-                                                <div [style.width]="(item.ChoiceFFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceFFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="item.ChoiceG">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" value="G" [name]="item.QnAID">
-                                                <span [ngClass]="{'select-right' : item.StuAnswer.includes('G') == true}"
-                                                      class="input-duox selectIndex">G</span>&nbsp;&nbsp;
-                                                {{item.ChoiceG}}
-                                            </label>
-                                        </p>
-                                        <div class="ChoiceFx">
-                                            <div class="choiceNum">
-                                                {{item.ChoiceGFx}}人
-                                            </div>
-                                            <div class="innerGFx innerFx">
-                                                <div [style.width]="(item.ChoiceGFx / item.AllFX)*100 +'%'">
-                                                </div>
-                                                <span>{{((item.ChoiceGFx / item.AllFX) * 100).toFixed(1) + '%'}}</span>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </ng-container>
-                                <!--填空-->
-                                <ng-container *ngIf="item.QType == 4">
-                                    <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
-                                </ng-container>
-                                <!--判断题-->
-                                <ng-container *ngIf="item.QType == 3">
-                                    <p>
-                                        <label>
-                                            <input [name]="item.QnAID" value="1" type="radio">
-                                            <span [ngClass]="{'select-right' : item.StuAnswer.includes('1') == true}"
-                                                  class="selectIndex">A</span>&nbsp;&nbsp;
-                                            正确
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <label>
-                                            <input [name]="item.QnAID" value="0" type="radio">
-                                            <span [ngClass]="{'select-right' : item.StuAnswer.includes('0') == true}"
-                                                  class="selectIndex">B</span>&nbsp;&nbsp;
-                                            错误
-                                        </label>
-                                    </p>
-                                </ng-container>
-                                <!--问答-->
-                                <ng-container *ngIf="item.questionType == 5">
-                                    <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
-                                </ng-container>
+<div class="learn-list">
+    <div class="list-container">
+        <div class="list-title">
+            <!--判断题目类型-->
+            <p>{{index}}、
+                {{qnAInfo?.QContent}}
+            </p>
+        </div>
+        <div class="list-content">
+            <div class="padding-20-20">
+                <!--单选题-->
+                <ng-container *ngIf="qnAInfo?.QType == 1 || qnAInfo?.QType == 0">
+                    <ng-container *ngIf="qnAInfo?.ChoiceA">
+                        <p>
+                            <label>
+                                <input type="radio" value="A" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('A') == true}"
+                                      class="selectIndex">A</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceA}}
+                            </label>
+                            <label></label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceAFx}}人
+                            </div>
+                            <div class="innerAFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceAFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceAFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </ion-slide>
-        </ng-container>
-    </ion-slides>
-
-    <div class="footer">
-        <div class="outer">
-            <div class="inner" [style.width]="'100%'"></div>
-        </div>
-        <div class="footer-subject">
-            <div class="submit">
-                <div class="submit-score" style="justify-content: end;padding-left: 15px"><img
-                        src="./assets/imgs/mine/exam-submit.png">提交成功
-                </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceB">
+                        <p>
+                            <label>
+                                <input type="radio" value="B" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('B') == true}"
+                                      class="selectIndex">B</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceB}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceBFx}}人
+                            </div>
+                            <div class="innerBFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceBFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceBFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceC">
+                        <p>
+                            <label>
+                                <input type="radio" value="C" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('C') == true}"
+                                      class="selectIndex">C</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceC}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceCFx}}人
+                            </div>
+                            <div class="innerCFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceCFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceCFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceD">
+                        <p>
+                            <label>
+                                <input type="radio" value="D" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('D') == true}"
+                                      class="selectIndex">D</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceD}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceDFx}}人
+                            </div>
+                            <div class="innerDFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceDFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceDFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceE">
+                        <p>
+                            <label>
+                                <input type="radio" value="E" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('E') == true}"
+                                      class="selectIndex">E</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceE}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceEFx}}人
+                            </div>
+                            <div class="innerEFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceEFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceEFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceF">
+                        <p>
+                            <label>
+                                <input type="radio" value="F" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('F') == true}"
+                                      class="selectIndex">F</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceF}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceFFx}}人
+                            </div>
+                            <div class="innerFFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceFFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceFFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceG">
+                        <p>
+                            <label>
+                                <input type="radio" value="D" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('G') == true}"
+                                      class="selectIndex">G</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceG}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceGFx}}人
+                            </div>
+                            <div class="innerGFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceGFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceGFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <!--多选题-->
+                <ng-container *ngIf="qnAInfo?.QType == 2">
+                    <ng-container *ngIf="qnAInfo?.ChoiceA">
+                        <p>
+                            <label>
+                                <input type="checkbox" value="A" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('A') == true}"
+                                      class="input-duox selectIndex">A</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceA}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceAFx}}人
+                            </div>
+                            <div class="innerGFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceAFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceAFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceB">
+                        <p>
+                            <label>
+                                <input type="checkbox" value="B" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('B') == true}"
+                                      class="input-duox selectIndex">B</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceB}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceBFx}}人
+                            </div>
+                            <div class="innerGFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceBFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceBFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceC">
+                        <p>
+                            <label>
+                                <input type="checkbox" value="C" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('C') == true}"
+                                      class="input-duox selectIndex">C</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceC}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceCFx}}人
+                            </div>
+                            <div class="innerGFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceCFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceCFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceD">
+                        <p>
+                            <label>
+                                <input type="checkbox" value="D" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('D') == true}"
+                                      class="input-duox selectIndex">D</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceD}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceDFx}}人
+                            </div>
+                            <div class="innerGFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceDFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceDFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceE">
+                        <p>
+                            <label>
+                                <input type="checkbox" value="E" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('E') == true}"
+                                      class="input-duox selectIndex">E</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceE}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceEFx}}人
+                            </div>
+                            <div class="innerGFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceEFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceEFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceF">
+                        <p>
+                            <label>
+                                <input type="checkbox" value="F" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('F') == true}"
+                                      class="input-duox selectIndex">F</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceF}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceFFx}}人
+                            </div>
+                            <div class="innerGFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceFFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceFFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="qnAInfo?.ChoiceG">
+                        <p>
+                            <label>
+                                <input type="checkbox" value="G" [name]="qnAInfo?.QnAID">
+                                <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('G') == true}"
+                                      class="input-duox selectIndex">G</span>&nbsp;&nbsp;
+                                {{qnAInfo?.ChoiceG}}
+                            </label>
+                        </p>
+                        <div class="ChoiceFx">
+                            <div class="choiceNum">
+                                {{qnAInfo?.ChoiceGFx}}人
+                            </div>
+                            <div class="innerGFx innerFx">
+                                <div [style.width]="(qnAInfo?.ChoiceGFx / qnAInfo?.AllFX)*100 +'%'">
+                                </div>
+                                <span>{{((qnAInfo?.ChoiceGFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <!--判断题-->
+                <ng-container *ngIf="qnAInfo?.QType == 3">
+                    <p>
+                        <label>
+                            <input [name]="qnAInfo?.QnAID" value="1" type="radio">
+                            <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('1') == true}"
+                                  class="selectIndex">A</span>&nbsp;&nbsp;
+                            正确
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input [name]="qnAInfo?.QnAID" value="0" type="radio">
+                            <span [ngClass]="{'select-right' : qnAInfo?.StuAnswer.includes('0') == true}"
+                                  class="selectIndex">B</span>&nbsp;&nbsp;
+                            错误
+                        </label>
+                    </p>
+                </ng-container>
             </div>
-            <div class="saveStuExams">
-                <div>提交时间:{{exam.ExamInfo?.EndTime | date:'MM-dd HH:mm' }}</div>
-            </div>
-            <div class="more" tappable (click)="moreChoice()">
-                <ion-icon name="list"></ion-icon>
-            </div>
-        </div>
-    </div>
-</ion-content>
-<div class="op-tips" tappable *ngIf="opTips == 'true'" (click)="hidden()">
-    <div class="op-content">
-        <div class="img-op">
-            <img src="./assets/imgs/mine/operate-tips.png" alt="">
-        </div>
-        <div class="btn-op">
-            我知道了
         </div>
     </div>
 </div>

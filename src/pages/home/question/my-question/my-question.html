@@ -11,38 +11,47 @@
         </ion-refresher-content>
     </ion-refresher>
     <navbar [list]="navbarList" [select]="1" (done)="changeType($event)"></navbar>
-    <div class="list-type">
+    <div *ngIf="page.EType == 5" class="list-type">
         <div [ngClass]="{'act-div': page.StudyState == item.type}" tappable (click)="switchInListType(item)"
              *ngFor="let item of navlistType">
             {{item.name}}
         </div>
     </div>
     <div class="exam">
-        <ng-container *ngFor="let item of examList">
-            <div class="space"></div>
-            <div class="item" style="padding: 10px 5px;" tappable (click)="goExam(item)">
-                <div class="test-item">
-                    <div class="test-item-image">
-                        <img [src]="item.PictureSrc" alt="">
+        <ng-container *ngIf="page.EType == 5">
+            <ng-container *ngFor="let item of examList">
+                <div class="space"></div>
+                <div class="item" style="padding: 10px 5px;" tappable (click)="goExam(item)">
+                    <div class="test-item">
+                        <div class="test-item-image">
+                            <img [src]="item.PictureSrc" alt="">
+                        </div>
+                        <div class="test-item-desc">
+                            <p class="courseName">{{item.EName}}</p>
+                            <p class="eName">
+                                <img src="./assets/imgs/test/cate@3x.png">
+                                <span>{{item.SubjectName}}</span>
+                            </p>
+                        </div>
                     </div>
-                    <div class="test-item-desc">
-                        <p class="courseName">{{item.EName}}</p>
-                        <p class="eName">
-                            <img src="./assets/imgs/test/cate@3x.png">
-                            <span>{{item.SubjectName}}</span>
-                        </p>
+                    <div *ngIf="page.StudyState != 1" class="outer">
+                        <div class="inner" [style.width]="(item.FinishCount/item.QuesCount)*100 +'%'"></div>
                     </div>
-                </div>
-                <div *ngIf="page.StudyState != 1" class="outer">
-                    <div class="inner" [style.width]="(item.FinishCount/item.QuesCount)*100 +'%'"></div>
-                </div>
-                <p style="margin-top: 10px" *ngIf="page.StudyState == 2">已完成: {{((item.FinishCount/item.QuesCount)*100).toFixed(0) +'%'}}</p>
-                <p style="margin-top: 10px" *ngIf="page.StudyState == 3">
+                    <p style="margin-top: 10px" *ngIf="page.StudyState == 2">已完成: {{((item.FinishCount/item.QuesCount)*100).toFixed(0) +'%'}}</p>
+                    <p style="margin-top: 10px" *ngIf="page.StudyState == 3">
                     <span class="examScore">
                         <img src="./assets/imgs/mine/exam-submit.png">已提交
                     </span>
-                    <span class="examTime">提交时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
-                </p>
+                        <span class="examTime">提交时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
+                    </p>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="page.EType == 6">
+            <div class="vote" *ngFor="let item of examList" (click)="goExam(item)">
+                <div class="qa" *ngFor="let qa of item?.qnAInfos;let i = index;">
+                    <page-vote [index]="i +1" [qnAInfo]="qa"></page-vote>
+                </div>
             </div>
         </ng-container>
     </div>

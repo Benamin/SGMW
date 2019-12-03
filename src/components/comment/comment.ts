@@ -89,8 +89,12 @@ export class CommentComponent {
             this.commonSer.toast('请选择讲师!');
             return
         }
-        if(this.type == "teacher" && this.score == 1 && this.replyContent.length < 50){  //讲师评价出现一星的情况
+        if (this.type == "teacher" && this.score == 1 && this.replyContent.length < 50) {  //讲师评价出现一星的情况
             this.commonSer.toast("请至少输入50字以上的内容方可提交");
+            return;
+        }
+        if (this.type == "course" && this.score == 1 && this.replyContent.length < 100) {  //课程评价出现一星的情况
+            this.commonSer.toast("请至少输入100字以上的内容方可提交");
             return;
         }
         const data = <any>{
@@ -98,7 +102,6 @@ export class CommentComponent {
             'score': this.score
         };
         if (this.type == "teacher") data.TopicID = this.teacher.UserID;
-        console.log(data);
         this.viewCtrl.dismiss(data);
     }
 

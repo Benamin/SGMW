@@ -181,6 +181,7 @@ export class DoTestPage {
             const loading = this.loadCtrl.create({
                 content: '提交中...'
             });
+            window.clearInterval(this.clock);
             loading.present();
             this.exam.QnAInfos.forEach(e => {
                 if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');

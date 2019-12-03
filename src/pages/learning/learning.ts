@@ -99,7 +99,6 @@ export class LearningPage {
                     return {type: e.TypeCode, name: e.TypeName, ID: e.ID}
                 });
                 this.tabsList.unshift({type: 'allTwo', name: '全部'});
-                console.log(this.tabsList);
                 if (res.data.length > 0) {
                     this.page.SubjectID = title.ID;
                     this.getProduct();

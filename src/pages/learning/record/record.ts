@@ -19,12 +19,11 @@ export class RecordPage {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad RecordPage');
     }
 
     //office、pdf、图片、视频
     openFile(file) {
-        if (file.AttachmentExt.includes('.mp4')) {
+        if (file.AttachmentExt.includes('mp4')) {
             this.commonSer.toast('不支持预览视频文件');
             return
         }

@@ -42,7 +42,7 @@ export class InnerCoursePage {
     learnList = [];
     navbarList = [
         {type: 1, name: '简介', code: 'desc'},
-        {type: 2, name: '章节', code: 'chapter'},
+        {type: 2, name: '内训资料', code: 'chapter'},
         {type: 3, name: '讨论', code: 'talk'},
         {type: 4, name: '记录', code: 'task'},
     ];
@@ -282,7 +282,6 @@ export class InnerCoursePage {
 
     //报名
     sign() {
-        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
         const data = {
             pid: this.pId
         };
@@ -291,7 +290,7 @@ export class InnerCoursePage {
                 this.ionViewDidEnter();
                 this.initStudy();
                 this.signObj.isSign = true;
-                timer(1000).subscribe(() => this.signObj.isSign = false);
+                timer(2000).subscribe(() => this.signObj.isSign = false);
             }
         )
     }

@@ -16,17 +16,11 @@
                         {{product.detail?.Title}}
                     </div>
                     <div class="course-button">
-                        <div tappable *ngIf="!product.detail?.IsBuy && nowTime < product.detail?.ApplicantETime" (click)="sign()">
-                            立即报名
+                        <div tappable *ngIf="!product.detail?.IsBuy && nowTime < product.detail?.ApplicantETime"
+                             (click)="sign()">
+                            任务领取
                         </div>
-                        <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100"
-                             (click)="studyNow()">
-                            回顾{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}
-                        </div>
-                        <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100"
-                             (click)="studyNow()">
-                            立即学习
-                        </div>
+                        <p class="tips" *ngIf="product.detail?.IsBuy">请到学习平台下载内训资料、上传培训记录</p>
                         <ng-container *ngIf="nowTime > product.detail?.EndTime && !product.detail?.IsBuy">
                             <span tappable class="applySign applySignDone">已过期</span>
                         </ng-container>
@@ -37,7 +31,7 @@
                     </span>
                         <span>
                         <img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
-                            人学习</span>
+                            人领取</span>
                     </div>
                 </div>
             </div>
@@ -65,7 +59,7 @@
             <!--      章节      -->
             <ion-slide>
                 <div id="chapter" class="item" style="min-height: 350px">
-                    <p>章节</p>
+                    <p>内训资料</p>
                     <page-chapter
                             [chapter]="product.chapter?.Course?.children"
                             [IsBuy]="product.detail?.IsBuy"
