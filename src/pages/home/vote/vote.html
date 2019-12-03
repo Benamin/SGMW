@@ -27,7 +27,7 @@
                             <div class="innerAFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceAFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceAFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceAFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -47,7 +47,7 @@
                             <div class="innerBFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceBFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceBFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceBFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -67,7 +67,7 @@
                             <div class="innerCFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceCFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceCFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceCFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -87,7 +87,7 @@
                             <div class="innerDFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceDFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceDFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceDFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -107,7 +107,7 @@
                             <div class="innerEFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceEFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceEFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceEFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -127,7 +127,7 @@
                             <div class="innerFFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceFFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceFFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceFFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -147,7 +147,7 @@
                             <div class="innerGFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceGFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceGFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceGFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -170,7 +170,7 @@
                             <div class="innerGFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceAFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceAFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceAFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -190,7 +190,7 @@
                             <div class="innerGFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceBFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceBFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceBFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -210,7 +210,7 @@
                             <div class="innerGFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceCFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceCFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceCFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -230,7 +230,7 @@
                             <div class="innerGFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceDFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceDFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceDFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -250,7 +250,7 @@
                             <div class="innerGFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceEFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceEFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceEFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -270,7 +270,7 @@
                             <div class="innerGFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceFFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceFFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceFFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>
@@ -290,7 +290,7 @@
                             <div class="innerGFx innerFx">
                                 <div [style.width]="(qnAInfo?.ChoiceGFx / qnAInfo?.AllFX)*100 +'%'">
                                 </div>
-                                <span>{{((qnAInfo?.ChoiceGFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
+                                <span *ngIf="qnAInfo?.AllFX">{{((qnAInfo?.ChoiceGFx / qnAInfo?.AllFX) * 100).toFixed(1) + '%'}}</span>
                             </div>
                         </div>
                     </ng-container>

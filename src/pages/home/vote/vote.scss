@@ -288,36 +288,6 @@ page-vote {
     position: relative;
   }
 
-  .isRight, .isBlank, .isError {
-    position: absolute;
-    left: 0;
-    top: 2rem;
-    font-size: 3rem;
-    color: #fff;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    padding-left: 2px;
-    span {
-      font-size: 1.3rem;
-      font-weight: bold;
-      vertical-align: super;
-    }
-  }
-
-  .isRight {
-    background-color: #54b575;
-  }
-
-  .isError {
-    background-color: #e42417;
-  }
-
-  .isBlank {
-    background-color: #aaaaaa;
-  }
-
   .op-tips {
     position: absolute;
     top: 0;
@@ -385,6 +355,5 @@ page-vote {
   }
   .innerAFx {
     height: 10px;
-    padding:10px
   }
 }
