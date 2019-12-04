@@ -11,16 +11,8 @@ import {QIndexComponent} from "../../../components/q-index/q-index";
     templateUrl: 'vote.html',
 })
 export class VotePage {
-    @ViewChild(Slides) slides: Slides;
     @Input() qnAInfo;
     @Input() index;
-
-    exam = {
-        QnAInfos: [],
-        ExamInfo: null
-    };
-    doneTotal = 0;
-    opTips;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController,
                 private homeSer: HomeService,
@@ -32,35 +24,10 @@ export class VotePage {
                 this.qnAInfo.AllFX = this.qnAInfo.ChoiceAFx + this.qnAInfo.ChoiceBFx + this.qnAInfo.ChoiceCFx + this.qnAInfo.ChoiceDFx + this.qnAInfo.ChoiceEFx + this.qnAInfo.ChoiceFFx + this.qnAInfo.ChoiceGFx;
                 console.log(this.qnAInfo.AllFX);
             }
-        }, 500)
+        }, 100)
     }
 
     ionViewDidLoad() {
 
     }
-
-    slideChanged() {
-        if (this.slides.realIndex) this.index = this.slides.realIndex;
-    }
-
-    //查看题目
-    moreChoice() {
-        let modal = this.modalCtrl.create(QIndexComponent, {list: this.exam.QnAInfos},
-            {
-                enterAnimation: 'modal-from-right-enter',
-                leaveAnimation: 'modal-from-right-leave'
-            });
-        modal.onDidDismiss(res => {
-            if (res) {
-                this.slides.slideTo(res);
-            }
-        });
-        modal.present();
-    }
-
-    hidden() {
-        this.opTips = false;
-        this.storage.set('opTips', 'false');
-    }
-
 }
