@@ -8,6 +8,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class IframeFileComponent {
     @Output() closeMask = new EventEmitter();
     @ViewChild('iframeMask') iframeMask: ElementRef;
+    @ViewChild('iframeEle') iframeEle: ElementRef;
 
     iframeObj;
     iframeUrl;
@@ -15,6 +16,9 @@ export class IframeFileComponent {
 
     constructor(private sanitizer: DomSanitizer) {
         console.log(document.body.clientWidth)
+        window.addEventListener('message',function(event){
+            console.log(event);
+        })
         setTimeout(() => {
             this.iframeMask.nativeElement.style.width = document.body.clientWidth + "px";
             this.iframeMask.nativeElement.style.height = document.body.clientHeight + "px";
@@ -29,6 +33,7 @@ export class IframeFileComponent {
         console.log(iframeObj);
         if (iframeObj) {
             this.show = true;
+            this.iframeEle.nativeElement.contentWindow. postMessage ("success", '*');
             this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(iframeObj.fileUrl);
             this.iframeObj = iframeObj;
         }
