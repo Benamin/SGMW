@@ -20,7 +20,9 @@
                              (click)="sign()">
                             任务领取
                         </div>
-                        <p class="tips" *ngIf="product.detail?.IsBuy">请到学习平台下载内训资料、上传培训记录</p>
+                        <p class="tips" *ngIf="product.detail?.IsBuy">
+                            请到骏菱学社PC端下载内训资料、上传培训记录，如有问题，请致电0772-2650611
+                        </p>
                         <ng-container *ngIf="nowTime > product.detail?.EndTime && !product.detail?.IsBuy">
                             <span tappable class="applySign applySignDone">已过期</span>
                         </ng-container>
@@ -59,12 +61,11 @@
             <!--      章节      -->
             <ion-slide>
                 <div id="chapter" class="item" style="min-height: 350px">
-                    <p>内训资料</p>
-                    <page-chapter
-                            [chapter]="product.chapter?.Course?.children"
-                            [IsBuy]="product.detail?.IsBuy"
-                            [TeachTypeName]="product.detail?.TeachTypeName"
-                    ></page-chapter>
+                    <p>内训资料
+                        <span *ngIf="teacherFileList.length > 4" tappable (click)="goMainFile()" float-end
+                              class="look">更多</span>
+                    </p>
+                    <page-record (image)="viewimage($event)" [fileList]="teacherFileList" [maxNum]="4"></page-record>
                 </div>
             </ion-slide>
             <!--      讨论      -->

@@ -73,6 +73,7 @@ export class InnerCoursePage {
     defalutPhoto = defaultHeadPhoto;   //默认头像；
     isLoad = false;
     mainFile = [];   //已上传资料
+    teacherFileList = []
 
     preImgSrc = null; //图片URL
     nowTime
@@ -142,18 +143,9 @@ export class InnerCoursePage {
         const data = {
             pid: this.pId
         };
-        await this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
+        await this.learSer.GetMainFile(data).subscribe(
             (res) => {
-                this.product.chapter = res.data;
-                this.product.chapter.Course.children.forEach(e => e.show = true);
-                this.f(this.product.chapter.Course.children);
-                this.files.forEach(e => {
-                    if (e.PlanStartTime) {
-                        e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
-                    }
-                });
-                console.log(this.files);
-                this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
+                this.teacherFileList = res.data;
                 this.loading.dismiss();
                 this.isLoad = true;
             }
