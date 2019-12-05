@@ -37,17 +37,27 @@ export class DoQuestionPage {
     totalTime;
     useTime = 0;  //用时
 
+    type;  //问卷or投票
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private storage: Storage,
                 private homeSer: HomeService,
                 private loadCtrl: LoadingController, private commonSer: CommonService, private modalCtrl: ModalController,
                 public eventEmitSer: EmitService,) {
+        this.type = this.navParams.get('type');
     }
 
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            this.submit(2);
+            if (this.type == '问卷') {
+                this.submit(2);
+            }
+            if (this.type == '投票') {
+                this.commonSer.alert('尚未提交投票，确定退出吗?', () => {
+                    this.navCtrl.pop();
+                })
+            }
         };
     }
 
@@ -62,7 +72,7 @@ export class DoQuestionPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
-                if(res.Result == 1){
+                if (res.Result == 1) {
                     this.commonSer.toast(res.Message);
                 }
                 this.exam.QnAInfos = res.data.QnAInfos;
@@ -86,7 +96,7 @@ export class DoQuestionPage {
 
     //题目完成数量
     slideChanged() {
-        if(this.slides.realIndex) this.index = this.slides.realIndex;
+        if (this.slides.realIndex) this.index = this.slides.realIndex;
         this.doneTotal = 0;
         this.exam.QnAInfos.forEach(e => {
                 if (e.StuAnswer && e.StuAnswer.length > 0) {
