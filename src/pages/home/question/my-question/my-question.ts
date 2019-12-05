@@ -113,13 +113,13 @@ export class MyQuestion {
     }
 
     //EType 6 为投票
-    goExam(item) {
+    goExam(item, type) {
         if (item.StudyState == 3 && item.EType == 6) {
             this.commonSer.toast('已投票')
         } else if (item.StudyState == 3 && item.EType == 5) {
             this.navCtrl.push(LookQuestion, {item: item});
         } else {
-            this.navCtrl.push(DoQuestionPage, {item: item});
+            this.navCtrl.push(DoQuestionPage, {item: item, type: type});
         }
     }
 
