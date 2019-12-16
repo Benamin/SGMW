@@ -29,7 +29,7 @@
                     </div>
                     <div class="course-desc" style="margin: 15px auto;">
                     <span>报名截止:
-                        {{product.detail?.ApplicantSTime | date:'yyyy-MM-dd'}}
+                        {{product.detail?.ApplicantETime | date:'yyyy-MM-dd'}}
                     </span>
                         <span>
                         <img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
@@ -62,7 +62,7 @@
             <ion-slide>
                 <div id="chapter" class="item" style="min-height: 350px">
                     <p>内训资料
-                        <span *ngIf="teacherFileList.length > 4" tappable (click)="goMainFile()" float-end
+                        <span *ngIf="teacherFileList.length > 4" tappable (click)="goTeacherFile()" float-end
                               class="look">更多</span>
                     </p>
                     <page-record (image)="viewimage($event)" [fileList]="teacherFileList" [maxNum]="4"></page-record>

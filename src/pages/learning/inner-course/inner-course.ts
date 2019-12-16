@@ -330,6 +330,11 @@ export class InnerCoursePage {
         this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: this.mainFile})
     }
 
+    //教师上传的资料
+    goTeacherFile() {
+        this.navCtrl.push(CourseFilePage, {title: "内训资料", mainFile: this.teacherFileList})
+    }
+
     viewimage(e) {
         console.log(e);
         this.preImgSrc = e;

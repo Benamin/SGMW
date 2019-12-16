@@ -14,6 +14,7 @@ export class CourseFilePage {
 
     ionViewDidLoad() {
         this.mainFile = this.navParams.get('mainFile');
+        console.log(this.mainFile);
         this.title = this.navParams.get('title');
     }
 
