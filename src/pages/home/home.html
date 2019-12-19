@@ -37,6 +37,7 @@
             </ion-slides>
         </div>
     </div>
+
     <!--  新模块  -->
     <div class="new-module">
         <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
@@ -91,7 +92,9 @@
             <course-list [list]="productList" (done)="goCourse($event)"></course-list>
         </div>
     </div>
-
+    <div class="input">
+        <input type="file">
+    </div>
     <!-- 热门帖子 -->
     <div class="sale">
             <p>热门帖子

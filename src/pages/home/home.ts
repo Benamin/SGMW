@@ -54,8 +54,8 @@ export class HomePage {
     mineInfo;
     defaultImg = defaultImg;
     httpUrl = SERVER_HTTP_URL;
-    forumLIst=[];
-    
+    forumLIst = [];
+
     info = {
         new: 0,
     };
@@ -67,6 +67,7 @@ export class HomePage {
                 private appSer: AppService, public statusBar: StatusBar,
                 private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser,
                 private renderer: Renderer2,
+                private learSer: LearnService,
                 private forum_serve: ForumService) {
         this.statusBar.backgroundColorByHexString('#343435');
         this.storage.get('user').then(value => {
@@ -79,7 +80,7 @@ export class HomePage {
         });
         (window as any).handleOpenURL = (url: string) => {
             this.openPosts(url);
-          };
+        };
     }
 
     ionViewDidLoad() {
@@ -290,9 +291,9 @@ export class HomePage {
 
         }
         if (e.URLType == 2) {
-            if (e.HttpURL.includes(this.httpUrl)) {
+            if (e.HttpURL.includes('/#/courseDetail')) {
                 const arr = e.HttpURL.split('/');
-                this.navCtrl.push(CourseDetailPage, {id: arr[arr.length - 1]});
+                this.getCourseDetailById(arr[arr.length - 1]);
             } else if (e.HttpURL.includes('#/notice/detail/')) {
                 const arr = e.HttpURL.split('/');
                 this.navCtrl.push(Componentsdetails, {
@@ -311,6 +312,17 @@ export class HomePage {
                 this.commonSer.openUrlByBrowser(e.HttpURL);
             }
         }
+    }
+
+    //判断课程类型
+    getCourseDetailById(id) {
+        this.learSer.GetProductById(id).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.goCourse(res.data);
+                }
+            }
+        );
     }
 
     // 前往资讯
@@ -353,9 +365,7 @@ export class HomePage {
         this.navCtrl.push(FocusTrainPage);
     }
 
-    
-    
-    
+
     // 前往帖子详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
@@ -366,16 +376,17 @@ export class HomePage {
         this.forum_serve.GetPostSearchhotpost().subscribe((res: any) => {
             if (res.data) {
                 this.forumLIst = res.data.UnTopPosts.Items;
-                if(this.forumLIst.length > 4){
+                if (this.forumLIst.length > 4) {
                     this.forumLIst.length = 4;
                 }
             }
-            
+
             console.log(res);
         });
     }
-    openPosts(url){
-        let url_arr= url.split('/');
-        this.goPostsContent({Id:url_arr[3]});
+
+    openPosts(url) {
+        let url_arr = url.split('/');
+        this.goPostsContent({Id: url_arr[3]});
     }
 }

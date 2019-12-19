@@ -15,7 +15,7 @@
                     <div class="course-name">
                         {{product.detail?.Title}}
                     </div>
-                    <div class="course-button">
+                    <div class="course-button" *ngIf="product.detail?.IsAuth">
                         <div tappable *ngIf="!product.detail?.IsBuy" (click)="sign()">
                             立即报名
                         </div>
@@ -29,9 +29,6 @@
                         </div>
                     </div>
                     <div class="course-desc" style="margin: 15px auto;">
-                    <span>学习截止:
-                        {{product.detail?.EndTime | date:'yyyy-MM-dd'}}
-                    </span>
                         <span>
                         <img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
                             人学习</span>
