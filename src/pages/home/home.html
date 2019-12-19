@@ -83,11 +83,30 @@
             <p>线下培训</p>
         </div>
     </div>
+    <div class="product-float-tab" >
+         <div class="product-float-nav" tappable (click)="navli='product'" [ngClass]="{'act': navli=='product'}">
+             热门课程
+         </div>
+         <div class="product-float-nav" tappable (click)="navli='float'" [ngClass]="{'act': navli=='float'}">
+            热门帖子
+        </div>
+        <div style="    position: absolute;
+        right: 24px;
+        bottom: 10px;">
+         <span class="float-more" tappable (click)="goToNavli()">更多
+             <ion-icon class="more-icon" name="arrow-forward"></ion-icon>
+         </span>
+                 
+        </div>
+    </div>
     <!--  热门课程-->
-    <div class="product">
-        <p>热门课程
+
+    <div class="product" style="margin-top: 10px;" *ngIf="navli=='product'" >
+        <!-- <p>
             <span class="float-more" tappable (click)="moreCourse()">
-           更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span></p>
+           更多 
+           <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
+        </p> -->
         <div class="item">
             <course-list [list]="productList" (done)="goCourse($event)"></course-list>
         </div>
@@ -96,11 +115,11 @@
         <input type="file">
     </div>
     <!-- 热门帖子 -->
-    <div class="sale">
-            <p>热门帖子
+    <div class="sale" *ngIf="navli=='float'" style="    margin-top: 0px;">
+            <!-- <p>
                     <span class="float-more" tappable (click)="goForumComponent()" tappable>
                    更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
-                </p>
+                </p> -->
         <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst" >
             <app-forum-list-time [item]='item'></app-forum-list-time>
         </div>
