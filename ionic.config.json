@@ -19,7 +19,7 @@
     },
     {
       "path": "/FWZSAPI",
-      "proxyUrl": "https://sgmwsa.shaoxingzhuoyue.com/"
+      "proxyUrl": "https://sgmwsa.shaoxingzhuoyue.com/api"
     }
   ]
 }
