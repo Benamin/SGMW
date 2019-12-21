@@ -16,6 +16,10 @@
     {
       "path": "/JunKeAPI",
       "proxyUrl": "https://nbj.sgmw.com.cn"
+    },
+    {
+      "path": "/FWZSAPI",
+      "proxyUrl": "https://sgmwsa.shaoxingzhuoyue.com/"
     }
   ]
 }

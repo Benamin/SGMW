@@ -10,6 +10,7 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
 import {
+    FWZS_appid, FWZS_SecretKey,
     JunKe_client_id, JunKe_PRIVATE_KEY,
     NoUserMsg,
     sgmw_client_id,
@@ -33,6 +34,7 @@ export class LoginPage {
     @ViewChild('checkCodeXszs') checkCodeXszs: CheckCodeComponent;
     @ViewChild('checkCodeGys') checkCodeGys: CheckCodeComponent;
     @ViewChild('checkCodeYG') checkCodeYG: CheckCodeComponent;
+    @ViewChild('checkCodeFWZS') checkCodeFWZS: CheckCodeComponent;
 
 
     @ViewChild(Slides) slides: Slides;
@@ -81,9 +83,19 @@ export class LoginPage {
     };
 
     loginObj = {
-        type: "jxs",
+        type: "fwzs",
         platform: 'xszs',
     };
+
+    //服务助手
+    fwzsObj = {
+        stationNo: '6000000', //服务站号
+        stationBranch: '',
+        userName: '吴超',  //用户名
+        password: '88888',  //密码
+        codeRight: '',
+        inputCode: ''
+    }
 
     noUserMsg = NoUserMsg;
 
@@ -100,6 +112,7 @@ export class LoginPage {
         this.checkCodeJunke.drawPic();
         this.checkCodeGys.drawPic();
         this.checkCodeYG.drawPic();
+        this.checkCodeFWZS.drawPic();
     }
 
     //平台登录切换
@@ -215,7 +228,7 @@ export class LoginPage {
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
-            },error1 => {
+            }, error1 => {
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -314,6 +327,58 @@ export class LoginPage {
 
     /***end***/
 
+    /***服务助手登录***/
+    fwzsLogin() {
+        if (!this.fwzsObj.userName || !this.fwzsObj.password) {
+            this.commonSer.toast("请输入用户名密码");
+            return
+        }
+        // if (this.fwzsObj.codeRight != this.fwzsObj.inputCode) {
+        //     this.commonSer.toast('请输入正确的验证码');
+        //     return;
+        // }
+        const loading = this.loadCtrl.create({
+            content: '登录中...'
+        });
+        loading.present();
+
+        // const timeStamp = Math.floor((Date.now())/1000) +'';
+        const d = Date.now() - 8 * 60 * 60 * 1000;
+        const timeStamp = Math.round(d / 1000) + '';
+        const nonce = this.randomWord.uuidNum();
+        const content = {
+            "stationNo": this.fwzsObj.stationNo,
+            "stationBranch": this.fwzsObj.stationBranch,
+            "userName": this.fwzsObj.userName,
+            "password": this.fwzsObj.password,
+        };
+        const sign = `appId=${FWZS_appid}&secretKey=${FWZS_SecretKey}&timeStamp=${timeStamp}&nonce=${nonce}&content=${JSON.stringify(content)}`;
+        console.log(sign);
+        const header = {
+            appId: FWZS_appid,
+            nonce: nonce,
+            timeStamp: timeStamp,
+            sign: this.randomWord.hex_md5(sign)
+        };
+        console.log(header);
+        this.loginSer.fwzsLogin(content, header).subscribe(
+            (res) => {
+                loading.dismiss();
+                if (res.code == "1") {
+                    this.connectTokenByXSZS(res.data);
+                } else {
+                    this.storage.clear();
+                    this.commonSer.alert(res.message);
+                }
+            }, error1 => {
+                const error = error1.error.error;
+                this.commonSer.alert(error);
+            }
+        )
+    }
+
+    /***end***/
+
     //查询用户信息
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
@@ -363,4 +428,7 @@ export class LoginPage {
         this.ygObj.codeRight = e;
     }
 
+    getCodeFwzs(e) {
+        this.fwzsObj.codeRight = e;
+    }
 }
