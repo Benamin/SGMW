@@ -42,6 +42,11 @@ export class MyApp {
                 private appUpdate: AppUpdateService,
                 private mobileAccess: MobileAccessibility,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
+                    (window as any).handleOpenURL = (url: string) => {
+                        if (this.platform.is('ios')) {
+                            (window as any).localStorage.setItem("app_url",url);
+                        }
+                    };
         this.platform.ready().then(() => {
             this.getLoad();
 
