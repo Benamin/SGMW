@@ -10,7 +10,7 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
 import {
-    FWZS_appid, FWZS_SecretKey,
+    FWZS_appid, FWZS_client_id, FWZS_SecretKey,
     JunKe_client_id, JunKe_PRIVATE_KEY,
     NoUserMsg,
     sgmw_client_id,
@@ -89,10 +89,10 @@ export class LoginPage {
 
     //服务助手
     fwzsObj = {
-        stationNo: '6000000', //服务站号
+        stationNo: '', //服务站号
         stationBranch: '',
-        userName: '吴超',  //用户名
-        password: '88888',  //密码
+        userName: '',  //用户名
+        password: '',  //密码
         codeRight: '',
         inputCode: ''
     }
@@ -333,18 +333,18 @@ export class LoginPage {
             this.commonSer.toast("请输入用户名密码");
             return
         }
-        // if (this.fwzsObj.codeRight != this.fwzsObj.inputCode) {
-        //     this.commonSer.toast('请输入正确的验证码');
-        //     return;
-        // }
+        if (this.fwzsObj.codeRight != this.fwzsObj.inputCode) {
+            this.commonSer.toast('请输入正确的验证码');
+            return;
+        }
         const loading = this.loadCtrl.create({
             content: '登录中...'
         });
         loading.present();
 
         // const timeStamp = Math.floor((Date.now())/1000) +'';
-        const d = Date.now() - 8 * 60 * 60 * 1000;
-        const timeStamp = Math.round(d / 1000) + '';
+        const d = Date.now()
+        const timeStamp = Math.round(d / 1000) + ''
         const nonce = this.randomWord.uuidNum();
         const content = {
             "stationNo": this.fwzsObj.stationNo,
@@ -353,24 +353,49 @@ export class LoginPage {
             "password": this.fwzsObj.password,
         };
         const sign = `appId=${FWZS_appid}&secretKey=${FWZS_SecretKey}&timeStamp=${timeStamp}&nonce=${nonce}&content=${JSON.stringify(content)}`;
-        console.log(sign);
         const header = {
             appId: FWZS_appid,
             nonce: nonce,
             timeStamp: timeStamp,
             sign: this.randomWord.hex_md5(sign)
         };
-        console.log(header);
         this.loginSer.fwzsLogin(content, header).subscribe(
             (res) => {
                 loading.dismiss();
                 if (res.code == "1") {
-                    this.connectTokenByXSZS(res.data);
+                    this.connectTokenByFWZS(content);
                 } else {
                     this.storage.clear();
                     this.commonSer.alert(res.message);
                 }
             }, error1 => {
+                const error = error1.error.error;
+                this.commonSer.alert(error);
+            }
+        )
+    }
+
+    //获取token --销售助手
+    connectTokenByFWZS(res) {
+        const data = {
+            grant_type: "password",
+            client_id: FWZS_client_id,
+            username: res.userName,
+            jxsh: res.stationNo,
+        };
+        this.loginSer.connectToken(data).subscribe(
+            (res) => {
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
+                } else {
+                    this.storage.clear();
+                    this.commonSer.alert(res.error);
+                }
+            },
+            (error1) => {
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }

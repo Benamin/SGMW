@@ -10,6 +10,8 @@ import {ExamPage} from "../../pages/mine/exam/exam";
 import {LearnService} from "../../pages/learning/learn.service";
 import {DownloadFileService} from "../../core/downloadFile.service";
 import {DownloadFileProvider} from "../../providers/download-file/download-file";
+import {LookExamPage} from "../../pages/mine/look-exam/look-exam";
+import {DoExamPage} from "../../pages/mine/do-exam/do-exam";
 
 @Component({
     selector: 'tree-list',
@@ -54,10 +56,20 @@ export class TreeListComponent {
         event.stopPropagation();
     }
 
-    //文件处理
-    handle(file, event) {
+    /**
+     * 打开课件
+     * @param node  课时节点
+     * @param file  课件
+     * @param event  点击事件
+     * StudyStatus 0 1 未解锁  2 已解锁
+     */
+    handle(node, file, event) {
+        console.log(node);
         console.log(file);
-
+        if (node.StudyStatus == 1 || node.StudyStatus == 0) {
+            this.commonSer.toast('课程未解锁');
+            return;
+        }
         //未报名
         if (!this.IsBuy) {
             this.commonSer.toast("请先报名!");
@@ -74,7 +86,7 @@ export class TreeListComponent {
         }
 
         event.stopPropagation();
-        this.saveProcess(file);
+        if (!file.icon.includes('mp4')) this.saveProcess(file);  //非视频文件保存进度
         if (file.icon.includes('mp4') || file.icon.includes('iframe')) {
             this.appSer.setFile(file);
         } else if (file.icon.includes('pdf')) {
@@ -102,7 +114,7 @@ export class TreeListComponent {
         }
     }
 
-    //更新学习进度
+    //更新学习进度  非视频课件
     saveProcess(file) {
         const data = {
             EAttachmentID: file.ID
@@ -115,9 +127,18 @@ export class TreeListComponent {
     }
 
     //作业处理
-    handleExam(exam, ev) {
+    handleExam(itemNode, exam, ev) {
         ev.stopPropagation();
-        this.navCtrl.push(ExamPage);
+        if (itemNode.StudyStatus == 1 || itemNode.StudyStatus == 0) {
+            this.commonSer.toast('请完成课程学习')
+            return
+        }
+        exam.Fid = exam.id;
+        // if (exam.type == 3) {
+        //     this.navCtrl.push(LookExamPage, {item: exam});
+        // } else {
+        //     this.navCtrl.push(DoExamPage, {item: exam});
+        // }
     }
 
     getMore(e) {

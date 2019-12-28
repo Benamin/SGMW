@@ -63,6 +63,13 @@
                 <iframe-file [hidden]="!courseFileType || courseFileType == 'video' " #iframeFile (closeMask)="close($event)" [iframe]="iframObj"></iframe-file>
             </div>
         </div>
+        <div class="process">
+            <div class="out-process">
+                <span>学习进度:{{product.detail?.overpercentage || '0'}}%</span>
+                <div class="inner-process" [style.width]="product.detail?.overpercentage + '%'" >
+                </div>
+            </div>
+        </div>
         <navbar #navbar [select]="bar.type" [list]="navbarList" (done)="changeType($event)"></navbar>
     </div>
     <div style="margin-top: 236px" #space class="space"></div>
@@ -175,13 +182,6 @@
                     </div>
                 </div>
 
-            </ion-slide>
-            <!--作业-->
-            <ion-slide>
-                <div class="item" style="margin-bottom: 5rem">
-                    <p>已上传作业</p>
-                    <page-record></page-record>
-                </div>
             </ion-slide>
             <!--      相关      -->
             <ion-slide>

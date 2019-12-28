@@ -1,1 +1,0 @@
-var path = require('path');var defaultConfig = require('@ionic/app-scripts/config/webpack.config');module.exports = function () {    defaultConfig[process.env.IONIC_ENV].resolve.alias = {        '@envirnment': path.resolve(__dirname + '/../../src/config/environment.' + process.env.IONIC_ENV + '.ts'),    };    return defaultConfig;}
