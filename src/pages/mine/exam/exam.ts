@@ -80,7 +80,11 @@ export class ExamPage {
         );
     }
 
+    // 1 未解锁  2 已解锁
     goExam(item) {
+        if(item.ExamStatus == 1){
+            this.commonSer.toast('作业课时未完成');
+        }
         if (this.page.StudyState == 3) {
             this.navCtrl.push(LookExamPage, {item: item});
         } else {

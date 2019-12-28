@@ -111,7 +111,9 @@ export class CourseDetailPage {
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
-            console.log(value);
+            if (value && value == 'videoPlayEnd') {
+                this.updateVideoStatus();   //更新视频学习进度
+            }
             if (value && value.icon == 'iframe') {
                 this.courseFileType = 'iframe';
                 this.iframObj = value;
@@ -283,7 +285,7 @@ export class CourseDetailPage {
         loading.dismiss();
     }
 
-    //更新学习进度
+    //更新学习进度  非视频
     saveProcess(file) {
         const data = {
             EAttachmentID: file.ID
@@ -291,6 +293,16 @@ export class CourseDetailPage {
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
             }
+        )
+    }
+
+    //更新视频学习状态
+    updateVideoStatus() {
+        const data = {
+            cid: this.pId
+        }
+        this.learnSer.UpdateVideoStudySum(data).subscribe(
+
         )
     }
 

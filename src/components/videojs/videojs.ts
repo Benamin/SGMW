@@ -5,6 +5,8 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {StatusBar} from "@ionic-native/status-bar";
 import {GlobalData} from "../../core/GlobleData";
 import {VideoJsProvider} from "../../providers/video-js/video-js";
+import {LearnService} from "../../pages/learning/learn.service";
+import {AppService} from "../../app/app.service";
 
 declare let videojs: any;
 
@@ -23,6 +25,7 @@ export class VideojsComponent implements OnDestroy {
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
                 private globleData: GlobalData,
+                private appSer: AppService,
                 private vjsProvider: VideoJsProvider,
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.globleData.videoNum;
@@ -50,6 +53,7 @@ export class VideojsComponent implements OnDestroy {
                 });
                 this.video.on('ended', () => {
                     console.log('视频播放结束')
+                    this.appSer.setFile('videoPlayEnd');
                 })
                 console.log('videojs播放器初始化成功');
                 this.globleData.videoNum++;
