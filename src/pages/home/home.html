@@ -37,6 +37,7 @@
             </ion-slides>
         </div>
     </div>
+
     <!--  新模块  -->
     <div class="new-module">
         <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
@@ -95,7 +96,7 @@
          <span class="float-more" tappable (click)="goToNavli()">更多
              <ion-icon class="more-icon" name="arrow-forward"></ion-icon>
          </span>
-                 
+
         </div>
     </div>
     <!--  热门课程-->
@@ -103,14 +104,13 @@
     <div class="product" style="margin-top: 10px;" *ngIf="navli=='product'" >
         <!-- <p>
             <span class="float-more" tappable (click)="moreCourse()">
-           更多 
+           更多
            <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
         </p> -->
         <div class="item">
             <course-list [list]="productList" (done)="goCourse($event)"></course-list>
         </div>
     </div>
-
     <!-- 热门帖子 -->
     <div class="sale" *ngIf="navli=='float'" style="    margin-top: 0px;">
             <!-- <p>

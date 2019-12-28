@@ -15,7 +15,7 @@
                     <div class="course-name">
                         {{product.detail?.Title}}
                     </div>
-                    <div class="course-button">
+                    <div class="course-button" *ngIf="product.detail?.IsAuth">
                         <div tappable *ngIf="!product.detail?.IsBuy" (click)="sign()">
                             立即报名
                         </div>
@@ -29,9 +29,6 @@
                         </div>
                     </div>
                     <div class="course-desc" style="margin: 15px auto;">
-                    <span>学习截止:
-                        {{product.detail?.EndTime | date:'yyyy-MM-dd'}}
-                    </span>
                         <span>
                         <img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
                             人学习</span>
@@ -64,6 +61,13 @@
                 <videojs [hidden]="!courseFileType || courseFileType == 'iframe' " #videojsCom [GetVideo]="videoInfo.video"
                          [poster]="videoInfo.poster"></videojs>
                 <iframe-file [hidden]="!courseFileType || courseFileType == 'video' " #iframeFile (closeMask)="close($event)" [iframe]="iframObj"></iframe-file>
+            </div>
+        </div>
+        <div class="process">
+            <div class="out-process">
+                <span>学习进度:{{product.detail?.overpercentage || '0'}}%</span>
+                <div class="inner-process" [style.width]="product.detail?.overpercentage + '%'" >
+                </div>
             </div>
         </div>
         <navbar #navbar [select]="bar.type" [list]="navbarList" (done)="changeType($event)"></navbar>
@@ -178,13 +182,6 @@
                     </div>
                 </div>
 
-            </ion-slide>
-            <!--作业-->
-            <ion-slide>
-                <div class="item" style="margin-bottom: 5rem">
-                    <p>已上传作业</p>
-                    <page-record></page-record>
-                </div>
             </ion-slide>
             <!--      相关      -->
             <ion-slide>

@@ -1,7 +1,16 @@
 import {Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
-import {Content, IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
+import {
+    ActionSheetController,
+    Content,
+    IonicPage,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Slides
+} from 'ionic-angular';
 import {VideojsComponent} from "../../../components/videojs/videojs";
-import {defaultHeadPhoto} from "../../../app/app.constants";
+import {defaultHeadPhoto, SERVER_HTTP_URL} from "../../../app/app.constants";
 import {LearnService} from "../learn.service";
 import {AppService} from "../../../app/app.service";
 import {CommonService} from "../../../core/common.service";
@@ -13,6 +22,8 @@ import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
 import {CourseFilePage} from "../course-file/course-file";
+import {Camera, CameraOptions} from "@ionic-native/camera";
+import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 
 @Component({
     selector: 'page-inner-course',
@@ -76,12 +87,18 @@ export class InnerCoursePage {
     teacherFileList = []
 
     preImgSrc = null; //图片URL
-    nowTime
+    nowTime;
+
+    uploadFile;  //上传文件信息
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
+                private camera: Camera,
+                private loadingCtrl: LoadingController,
+                private transfer: FileTransfer,
+                private actionSheetCtrl: ActionSheetController,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
     }
@@ -107,7 +124,6 @@ export class InnerCoursePage {
                 this.product.detail.EndTime = this.commonSer.transFormTime(this.product.detail.EndTime);
                 this.product.detail.ApplicantETime = this.commonSer.transFormTime(this.product.detail.ApplicantETime);
                 this.nowTime = Date.now();  //当前时间
-                this.getCommentList();
                 this.getProductInfo();
                 this.getFileInfo();
             }
@@ -170,23 +186,6 @@ export class InnerCoursePage {
         )
     }
 
-    //课程评价
-    getCommentList() {
-        const data3 = {
-            pageSize: 5,
-            page: 1,
-            TopicType: 'talk',   //teacher  course
-            topicID: this.product.detail.PrId
-        }
-        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
-            (res) => {
-                if (res.data) {
-                    this.comment.talk = res.data.CommentItems;
-                }
-            }
-        );
-    }
-
 
     //过滤指定对象
     f(data) {
@@ -196,53 +195,6 @@ export class InnerCoursePage {
             }
             if (data[i].children.length > 0) this.f(data[i].children);
         }
-    }
-
-    //立即学习
-    studyNow() {
-        if (this.files.length == 0) {
-            this.commonSer.toast('暂无学习文件');
-            return;
-        }
-
-        console.log(this.files[0]);
-        const nowTime = new Date().getTime();
-        const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTime);
-
-        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
-        if (nowTime < planStartTime) {
-            this.commonSer.toast(`${text}还未开始，请等待开始后再观看`);
-            return
-        }
-
-        const loading = this.loadCtrl.create();
-        loading.present();
-        this.saveProcess(this.files[0]);
-        if (this.files[0].icon.includes('mp4')) {
-            this.courseFileType = 'video';
-            this.videoInfo.video = this.files[0];
-        } else if (this.files[0].icon.includes('pdf')) {
-            this.openPDF(this.files[0]);
-        } else if (this.files[0].icon.includes('iframe')) {
-            this.courseFileType = 'iframe';
-            this.iframObj = this.files[0];
-        } else {
-            this.fileSer.viewFile(this.files[0].fileUrl, this.files[0].filename);
-        }
-
-        loading.dismiss();
-    }
-
-    //更新学习进度
-    saveProcess(file) {
-        const data = {
-            EAttachmentID: file.ID
-        };
-        this.learSer.SaveStudy(data).subscribe(
-            (res) => {
-                console.log(res.message);
-            }
-        )
     }
 
     //打开pdf文件
@@ -309,6 +261,123 @@ export class InnerCoursePage {
         );
     }
 
+    //选择图片
+    takePic() {
+        const actionSheet = this.actionSheetCtrl.create({
+            cssClass: 'cameraAction',
+            buttons: [
+                {
+                    text: '拍照',
+                    role: 'fromCamera',
+                    handler: () => {
+                        console.log('fromCamera');
+                        this.selectPicture(1);
+                    }
+                }, {
+                    text: '从相册中选',
+                    role: 'fromPhoto',
+                    handler: () => {
+                        console.log('fromPhoto');
+                        this.selectPicture(0);
+                    }
+                }, {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }
+            ]
+        });
+        actionSheet.present();
+    }
+
+    //选择图片
+    selectPicture(srcType) {
+        const options: CameraOptions = {
+            quality: srcType == 1 ? 10 : 50,  //1 拍照  2 相册
+            destinationType: this.camera.DestinationType.FILE_URI,
+            encodingType: this.camera.EncodingType.PNG,
+            mediaType: this.camera.MediaType.PICTURE,
+            sourceType: srcType,
+            saveToPhotoAlbum: false
+        };
+        const option: FileUploadOptions = {
+            httpMethod: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            fileName: 'image.png'
+        };
+        this.camera.getPicture(options).then((imagedata) => {
+            let filePath = imagedata;
+            if (filePath.indexOf('?') !== -1) {     //获取文件名
+                filePath = filePath.split('?')[0];
+            }
+            let arr = filePath.split('/');
+            console.log(imagedata);
+            console.log(arr);
+            option.fileName = arr[arr.length - 1];
+            this.uploadFile = {
+                AttachmentName: option.fileName,
+                AttachmentDIsplayName: option.fileName,
+                AttachmentExt: option.fileName.split('.')[1],
+            };
+            this.upload(imagedata, option);
+        })
+    }
+
+    //上传图片
+    upload(file, options) {
+        const uploadLoading = this.loadingCtrl.create({
+            content: '上传中...',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        uploadLoading.present();
+        const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
+        //  const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
+        //  const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+        const fileTransfer: FileTransferObject = this.transfer.create();
+        fileTransfer.upload(file, SERVER_URL + '/Upload/UploadFiles', options).then(
+            (res) => {
+                uploadLoading.dismiss();
+                this.commonSer.toast('上传成功');
+                const data = JSON.parse(res.response);
+                this.addRecord(data.data);
+            }, err => {
+                uploadLoading.dismiss();
+                this.commonSer.toast('上传错误');
+            });
+        fileTransfer.onProgress((listener) => {
+            let per = <any>(listener.loaded / listener.total) * 100;
+            per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2)
+            uploadLoading.setContent('上传中...' + per + '%');
+        })
+    }
+
+    //提交记录
+    addRecord(data) {
+        const req = {
+            TeachingID: this.pId,
+            AttachmentName: this.uploadFile.AttachmentName,
+            AttachmentDIsplayName: this.uploadFile.AttachmentDIsplayName,
+            AttachmentUrl: data,
+            AttachmentSize: "",
+            AttachmentExt: this.uploadFile.AttachmentExt,
+            Description: "",
+            DownloadUrl: data
+        };
+        this.learnSer.AddFile(req).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.commonSer.toast('上传记录成功');
+                    this.getProductInfo();
+                }
+            }
+        )
+    }
+
     changeType(item) {
         this.bar.type = item.type;
         this.slides.slideTo(item.type - 1, 100);
@@ -328,6 +397,11 @@ export class InnerCoursePage {
     //前往资料记录
     goMainFile() {
         this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: this.mainFile})
+    }
+
+    //教师上传的资料
+    goTeacherFile() {
+        this.navCtrl.push(CourseFilePage, {title: "内训资料", mainFile: this.teacherFileList})
     }
 
     viewimage(e) {

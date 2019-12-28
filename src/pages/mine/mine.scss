@@ -31,13 +31,8 @@ page-mine {
     align-items: center;
     justify-content: center;
 
-    > div:nth-child(2n +1) {
-      width: 20%;
-    }
-
-    > div:nth-child(2n) {
+    > div{
       width: 25%;
-      // padding-left: 10px;
     }
 
     .info-name {
@@ -98,7 +93,7 @@ page-mine {
     text-align: center;
 
     > div > p:first-child {
-      font-size: 4rem;
+      font-size: 3.2rem;
       font-weight: 400;
       color: #333333;
     }

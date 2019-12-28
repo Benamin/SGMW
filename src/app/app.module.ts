@@ -64,6 +64,7 @@ import {VideoJsProvider} from '../providers/video-js/video-js';
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {DownloadFileProvider} from '../providers/download-file/download-file';
 import {LogService} from "../service/log.service";
+import {Camera} from "@ionic-native/camera";
 
 @NgModule({
     declarations: [
@@ -143,6 +144,7 @@ import {LogService} from "../service/log.service";
             DownloadFileService,
             GlobalData,
             LogService,
+            Camera,
             {provide: ErrorHandler, useClass: IonicErrorHandler},
             {
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

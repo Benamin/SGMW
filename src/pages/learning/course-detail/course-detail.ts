@@ -47,8 +47,7 @@ export class CourseDetailPage {
         {type: 3, name: '讨论', code: 'talk'},
         {type: 4, name: '讲师', code: 'teacher'},
         {type: 5, name: '评价', code: 'comment'},
-        {type: 6, name: '作业', code: 'task'},
-        {type: 7, name: '相关', code: 'relation'},
+        {type: 6, name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -112,6 +111,7 @@ export class CourseDetailPage {
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
+            console.log(value);
             if (value && value.icon == 'iframe') {
                 this.courseFileType = 'iframe';
                 this.iframObj = value;
@@ -135,25 +135,10 @@ export class CourseDetailPage {
 
     //课程详情、课程章节、相关课程、课程评价
     async getProductInfo() {
+        this.getChapter();
         const data = {
             pid: this.pId
         };
-        await this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
-            (res) => {
-                this.product.chapter = res.data;
-                this.product.chapter.Course.children.forEach(e => e.show = true);
-                this.f(this.product.chapter.Course.children);
-                this.files.forEach(e => {
-                    if (e.PlanStartTime) {
-                        e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
-                    }
-                });
-                this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
-                this.loading.dismiss();
-                this.isLoad = true;
-            }
-        );
-
         await this.learSer.GetRelationProductList(data).subscribe(
             (res) => {
                 this.learnList = res.data.ProductList;
@@ -166,6 +151,25 @@ export class CourseDetailPage {
         await this.learSer.GetCommentSum(data1).subscribe(
             (res) => {
 
+            }
+        );
+    }
+
+    //获取章节
+    getChapter() {
+        this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
+            (res) => {
+                this.product.chapter = res.data;
+                this.product.chapter.Course.children.forEach(e => e.show = true);
+                this.f(this.product.chapter.Course.children);
+                this.files.forEach(e => {
+                    if (e.PlanStartTime) {
+                        e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
+                    }
+                });
+                this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
+                this.loading.dismiss();
+                this.isLoad = true;
             }
         );
     }

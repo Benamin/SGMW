@@ -16,7 +16,7 @@ export class VideojsComponent implements OnDestroy {
     @ViewChild('example_video') example_video: ElementRef;
 
     videoPoster: string;
-    videoInfo ;
+    videoInfo;
     video;
     videoEle;
 
@@ -48,6 +48,9 @@ export class VideojsComponent implements OnDestroy {
                         this.statusBar.show();
                     }
                 });
+                this.video.on('ended', () => {
+                    console.log('视频播放结束')
+                })
                 console.log('videojs播放器初始化成功');
                 this.globleData.videoNum++;
             });
@@ -67,7 +70,7 @@ export class VideojsComponent implements OnDestroy {
         }
     }
 
-    removeDanmu(){
+    removeDanmu() {
         this.video.removeChild('danmu');
     }
 
@@ -83,11 +86,11 @@ export class VideojsComponent implements OnDestroy {
         this.videoPoster = poster;
     }
 
-    get GetVideo(){
+    get GetVideo() {
         return this.videoInfo;
     }
 
-    @Input() set GetVideo(videoInfo){
+    @Input() set GetVideo(videoInfo) {
         if (this.video && videoInfo) {
             this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;

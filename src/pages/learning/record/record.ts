@@ -23,6 +23,7 @@ export class RecordPage {
 
     //office、pdf、图片、视频
     openFile(file) {
+        file.AttachmentExt = file.AttachmentExt.toLowerCase();
         if (file.AttachmentExt.includes('mp4')) {
             this.commonSer.toast('不支持预览视频文件');
             return

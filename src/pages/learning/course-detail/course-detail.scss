@@ -116,13 +116,14 @@ page-course-detail {
     }
   }
 
-  .teacher-info{
+  .teacher-info {
     width: 60%;
     display: inline-block;
     position: relative;
     margin-right: 60px;
   }
-  .teacher-info + .teacher-info::before{
+
+  .teacher-info + .teacher-info::before {
     content: '';
     position: absolute;
     left: -30px;
@@ -131,11 +132,13 @@ page-course-detail {
     height: 40px;
     background-color: #dddddd;
   }
+
   .teacher-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    .position{
+
+    .position {
       margin-left: 10px;
     }
 
@@ -364,6 +367,7 @@ page-course-detail {
       justify-content: center;
       padding: 8px;
       border-bottom: 1px solid #dddddd;
+      margin-bottom: 8px;
 
       > div:first-child {
         width: 10%;
@@ -528,5 +532,33 @@ page-course-detail {
 
   .sale-content {
     white-space: nowrap;
+  }
+
+  .process {
+    height: 20px;
+    background-color: #5f5f61;
+    .out-process {
+      height: 20px;
+      font-size: 12px;
+      position: relative;
+      span{
+        position: absolute;
+        top: 2px;
+        left: 5px;
+        z-index: 1;
+      }
+      .inner-process {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        line-height: 20px;
+        padding-left: 5px;
+        border-bottom-right-radius: 8px;
+        border-top-right-radius: 8px;
+        transition: width .5s;
+        background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+      }
+    }
   }
 }

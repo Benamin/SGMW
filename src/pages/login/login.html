@@ -14,6 +14,7 @@
             </div>
             <div class="login-select">
                 <ion-select [(ngModel)]="loginObj.type" cancelText="取消" interface="action-sheet">
+                    <ion-option value="fwzs">服务助手</ion-option>
                     <ion-option value="jxs">经销商</ion-option>
                     <ion-option value="gys">供应商</ion-option>
                     <ion-option value="yg">员工</ion-option>
@@ -112,6 +113,27 @@
                     </div>
                 </form>
                 <div class="login-button" tappable (click)="ygLogin()">
+                    登录
+                </div>
+            </div>
+            <div [hidden]="loginObj.type != 'fwzs'">
+                <form class="login-input">
+                    <div class="input-input">
+                        <input type="text" [(ngModel)]="fwzsObj.stationNo" name="fwzsObjusername" placeholder="服务站号"/>
+                    </div>
+                    <div class="input-input">
+                        <input type="text" [(ngModel)]="fwzsObj.userName" name="fwzsObjuserame" placeholder="请输入账号"/>
+                    </div>
+                    <div class="input-input">
+                        <input type="password" [(ngModel)]="fwzsObj.password" name="fwzsObjpassword" autocomplete  placeholder="请输入密码"/>
+                    </div>
+                    <div class="check input-input">
+                        <input type="text" [(ngModel)]="fwzsObj.inputCode" name="ygObjinputCode" placeholder="请输入验证码"/>
+                        <check-code class="checkCode" #checkCodeFWZS (done)="getCodeFwzs($event)"></check-code>
+                        <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
+                    </div>
+                </form>
+                <div class="login-button" tappable (click)="fwzsLogin()">
                     登录
                 </div>
             </div>
