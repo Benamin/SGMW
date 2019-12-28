@@ -25,11 +25,14 @@
     </div>
     <!--   作业      -->
     <ng-container *ngIf="IsBuy">
-        <div *ngFor="let item of itemNode.tags">
-            <p [ngStyle]="{'padding-left':(item.NodeLevel*5)+'px'}" tappable (click)="handleExam(itemNode,item,$event)">
+        <div *ngFor="let itemExam of itemNode.tags">
+            <p [ngStyle]="{'padding-left':(itemExam.NodeLevel*5)+'px'}" tappable
+               (click)="handleExam(itemNode,itemExam,$event)">
                 <span class="exam">
-                    {{item.label}}
+                    {{itemExam.label}}
                 </span>
+                <span class="no" *ngIf="itemExam.examStatus != 8">待完成</span>
+                <span class="yes" *ngIf="itemExam.examStatus == 8">已完成</span>
         </div>
     </ng-container>
 </div>

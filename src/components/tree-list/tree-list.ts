@@ -130,15 +130,15 @@ export class TreeListComponent {
     handleExam(itemNode, exam, ev) {
         ev.stopPropagation();
         if (itemNode.StudyStatus == 1 || itemNode.StudyStatus == 0) {
-            this.commonSer.toast('请完成课程学习')
+            this.commonSer.toast('请完成课程学习');
             return
         }
-        exam.Fid = exam.id;
-        // if (exam.type == 3) {
-        //     this.navCtrl.push(LookExamPage, {item: exam});
-        // } else {
-        //     this.navCtrl.push(DoExamPage, {item: exam});
-        // }
+        exam.Fid = exam.fId;
+        if (exam.examStatus == 8) {
+            this.navCtrl.push(LookExamPage, {item: exam});
+        } else {
+            this.navCtrl.push(DoExamPage, {item: exam});
+        }
     }
 
     getMore(e) {
