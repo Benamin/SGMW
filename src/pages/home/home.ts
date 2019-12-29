@@ -82,6 +82,7 @@ export class HomePage {
         let app_url = (window as any).localStorage.getItem("app_url");
         if(app_url){
             this.openPosts(app_url);
+            (window as any).localStorage.removeItem("app_url");
         }
         (window as any).handleOpenURL = (url: string) => {
             this.openPosts(url);

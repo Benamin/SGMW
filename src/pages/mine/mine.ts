@@ -21,7 +21,7 @@ import {MedalComponent} from './medal/medal.component';
 import {MyFilePage} from "./my-file/my-file";
 import {ForumService} from "../forum/forum.service";
 import {LogService} from "../../service/log.service";
-
+import {IntegralComponent} from "./Integral/Integral.component";
 
 @Component({
     selector: 'page-mine',
@@ -146,6 +146,11 @@ export class MinePage {
     // 我的点赞
     goMyThumbsUpComponent() {
         this.navCtrl.push(MyThumbsUpComponent);
+    }
+
+    // 积分章程
+    goIntegral(){
+        this.navCtrl.push(IntegralComponent);
     }
 
     //检测版本

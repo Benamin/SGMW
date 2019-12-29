@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>积分章程</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="navul">
+    <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable (click)="switchInformation(item)">
+            {{item.label}}
+    </div>
+  </div>
+  <img class="integral-img" [src]="img_src" alt="">
+  <!-- <navbar [list]="navbarList" [select]="2" (done)="changeType($event)"></navbar> -->
+</ion-content>
