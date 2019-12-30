@@ -19,5 +19,8 @@ export class RankingService {
         return this.http.post(SERVER_API_URL + '/forum/usertitle/search',data);
     }
     
-    
+    // 获取考试榜
+    getExamTopList(){
+        return this.http.get(SERVER_API_URL + '/exam/getExamTopList');
+    }
 }
