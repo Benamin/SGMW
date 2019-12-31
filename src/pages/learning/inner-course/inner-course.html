@@ -91,7 +91,9 @@
             <ion-slide>
                 <div class="item" style="margin-bottom: 5rem;min-height: 350px">
                     <p>已上传记录
-                        <span *ngIf="product.detail?.IsBuy" tappable (click)="takePic()" float-end>上传图片</span>
+                        <span *ngIf="product.detail?.IsBuy" tappable class="uploadImage" (click)="takePic()" float-end>
+                            <img src="./assets/imgs/learn/shangchuantupian.png" alt="">
+                            上传图片</span>
                         <span *ngIf="mainFile.length > 4" tappable (click)="goMainFile()" float-end
                               class="look">更多</span>
                     </p>

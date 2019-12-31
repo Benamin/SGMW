@@ -122,6 +122,7 @@ export class TreeListComponent {
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
                 console.log(res.message);
+                this.appSer.setFile('updateProcess'); //更新章节解锁信息
             }
         )
     }

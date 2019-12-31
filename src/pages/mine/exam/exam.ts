@@ -16,28 +16,30 @@ import {LogService} from "../../../service/log.service";
 export class ExamPage {
 
     navbarList = [
-        {type: '1', name: '未开始'},
-        {type: '2', name: '进行中'},
-        {type: '3', name: '已完成'},
+        {type: '4', name: '未通过'},
+        {type: '8', name: '已通过'},
     ];
 
     page = {
-        StudyState: 1,
         EGroup: 1,
         Page: 1,
         EType: [3, 4],
-        PageSize: 10,
+        PageSize: 100000,
         TotalItems: 0,
     };
 
-    examList = [];
+    type = '4';
+    exam = {
+        done: [],
+        no: []
+    };
     IsLoad = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService,
                 private commonSer: CommonService,
                 public eventEmitSer: EmitService,
-                private logSer:LogService,
+                private logSer: LogService,
                 private loadCtrl: LoadingController) {
     }
 
@@ -49,10 +51,7 @@ export class ExamPage {
 
     //切换tab
     changeType(e) {
-        this.examList = [];
-        this.IsLoad = false;
-        this.page.StudyState = e.type;
-        this.getList();
+        this.type = e.type;
     }
 
     getList() {
@@ -61,7 +60,7 @@ export class ExamPage {
         });
         loading.present();
         const data = {
-            StudyState: [this.page.StudyState],
+            StudyState: [3],
             EGroup: [1],
             Page: 1,
             EType: this.page.EType,
@@ -72,7 +71,8 @@ export class ExamPage {
                 if (res.Result == 1) {
                     this.commonSer.toast(res.Message);
                 }
-                this.examList = res.data.Items;
+                this.exam.no = res.data.Items.filter(e => e.ExamStatus == 4);
+                this.exam.done = res.data.Items.filter(e => e.ExamStatus == 8);
                 this.page.TotalItems = res.data.TotalItems;
                 this.IsLoad = true;
                 loading.dismiss();
@@ -82,10 +82,10 @@ export class ExamPage {
 
     // 1 未解锁  2 已解锁
     goExam(item) {
-        if(item.ExamStatus == 1){
+        if (item.ExamStatus == 1) {
             this.commonSer.toast('作业课时未完成');
         }
-        if (this.page.StudyState == 3) {
+        if (item.ExamStatus == 8) {
             this.navCtrl.push(LookExamPage, {item: item});
         } else {
             this.navCtrl.push(DoExamPage, {item: item});
@@ -100,31 +100,4 @@ export class ExamPage {
             e.complete()
         });
     }
-
-    //加载更多
-    doInfinite(e) {
-        if (this.page.TotalItems < this.examList.length || this.page.TotalItems == this.examList.length) {
-            e.complete();
-            return
-        }
-        this.page.Page++;
-        const data = {
-            StudyState: [this.page.StudyState],
-            EGroup: [1],
-            EType: this.page.EType,
-            Page: this.page.Page,
-            PageSize: this.page.PageSize,
-        };
-        this.homeSer.searchExamByStu(data).subscribe(
-            (res) => {
-                if (res.Result == 1) {
-                    this.commonSer.toast(res.Message);
-                }
-                this.examList = this.examList.concat(res.data.Items);
-                this.page.TotalItems = res.data.TotalItems;
-                e.complete();
-            }
-        );
-    }
-
 }
