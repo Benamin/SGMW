@@ -114,6 +114,9 @@ export class CourseDetailPage {
             if (value && value == 'videoPlayEnd') {
                 this.updateVideoStatus();   //更新视频学习进度
             }
+            if (value && value == 'updateProcess') {  //更新章节信息
+                this.getChapter();
+            }
             if (value && value.icon == 'iframe') {
                 this.courseFileType = 'iframe';
                 this.iframObj = value;
@@ -157,7 +160,7 @@ export class CourseDetailPage {
         );
     }
 
-    //获取章节
+    //获取章节--打开课件后更新章节进度
     getChapter() {
         this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
             (res) => {
@@ -302,7 +305,9 @@ export class CourseDetailPage {
             cid: this.pId
         }
         this.learnSer.UpdateVideoStudySum(data).subscribe(
-
+            (res) => {
+                this.getChapter();  //查询最新章节信息
+            }
         )
     }
 

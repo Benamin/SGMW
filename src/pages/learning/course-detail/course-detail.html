@@ -39,6 +39,7 @@
                              src="./assets/imgs/course/hua@2x.png" alt="">
                         <img tappable (click)="cancelPraise()" *ngIf="product.detail?.IsPraise"
                              src="./assets/imgs/course/hua_y@2x.png" alt="">
+                        点赞·
                         {{product.detail?.ZanCount || "0"}}
                     </span>
                         <span>  <!--扔鸡蛋-->
@@ -46,6 +47,7 @@
                              src="./assets/imgs/course/jd@2x.png" alt="">
                         <img tappable (click)="cancelHate()" *ngIf="product.detail?.IsHate"
                              src="./assets/imgs/course/jd_y@2x.png" alt="">
+                            扔蛋·
                             {{product.detail?.HateCount || "0"}}
                     </span>
                         <span>  <!--收藏-->
@@ -53,26 +55,29 @@
                              src="./assets/imgs/course/sc@2x.png" alt="">
                         <img tappable (click)="cancleCollection()" *ngIf="product.detail?.IsCollection"
                              src="./assets/imgs/course/sc_y@2x.png" alt="">
+                            收藏·
                             {{product.detail?.CollectionCount || "0"}}</span>
                     </div>
                 </div>
             </div>
             <div id="videoTag" class="content video" [hidden]="courseFileType == null">
-                <videojs [hidden]="!courseFileType || courseFileType == 'iframe' " #videojsCom [GetVideo]="videoInfo.video"
+                <videojs [hidden]="!courseFileType || courseFileType == 'iframe' " #videojsCom
+                         [GetVideo]="videoInfo.video"
                          [poster]="videoInfo.poster"></videojs>
-                <iframe-file [hidden]="!courseFileType || courseFileType == 'video' " #iframeFile (closeMask)="close($event)" [iframe]="iframObj"></iframe-file>
+                <iframe-file [hidden]="!courseFileType || courseFileType == 'video' " #iframeFile
+                             (closeMask)="close($event)" [iframe]="iframObj"></iframe-file>
             </div>
         </div>
         <div class="process">
             <div class="out-process">
                 <span>学习进度:{{product.detail?.overpercentage || '0'}}%</span>
-                <div class="inner-process" [style.width]="product.detail?.overpercentage + '%'" >
+                <div class="inner-process" [style.width]="product.detail?.overpercentage + '%'">
                 </div>
             </div>
         </div>
         <navbar #navbar [select]="bar.type" [list]="navbarList" (done)="changeType($event)"></navbar>
     </div>
-    <div style="margin-top: 236px" #space class="space"></div>
+    <div style="margin-top: 256px" #space class="space"></div>
 
     <ion-slides (ionSlideDidChange)="slideChanged()">
         <ng-container *ngIf="isLoad">

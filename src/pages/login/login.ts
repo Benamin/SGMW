@@ -300,6 +300,7 @@ export class LoginPage {
         )
     }
 
+    //获取junke token
     connectTokenByJunKe(res) {
         const data = {
             grant_type: "password",

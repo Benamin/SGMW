@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/app-availability": "^4.20.0",
     "@ionic-native/app-version": "^4.20.0",
+    "@ionic-native/camera": "^4.20.0",
     "@ionic-native/core": "~4.20.0",
     "@ionic-native/file": "^4.20.0",
     "@ionic-native/file-opener": "^4.20.0",
@@ -114,7 +115,8 @@
       },
       "cordova-plugin-wechat": {
         "WECHATAPPID": "wxb5bb0aae5137074c"
-      }
+      },
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "browser",

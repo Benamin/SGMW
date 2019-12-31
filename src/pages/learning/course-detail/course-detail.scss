@@ -5,6 +5,7 @@ page-course-detail {
 
   .fixed-top {
     width: 100%;
+    background-color: rgba(0, 0, 0, 1);
   }
 
   .banner {
@@ -537,16 +538,19 @@ page-course-detail {
   .process {
     height: 20px;
     background-color: #5f5f61;
+
     .out-process {
       height: 20px;
       font-size: 12px;
       position: relative;
-      span{
+
+      span {
         position: absolute;
         top: 2px;
         left: 5px;
         z-index: 1;
       }
+
       .inner-process {
         position: absolute;
         top: 0;

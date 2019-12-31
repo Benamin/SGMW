@@ -116,13 +116,14 @@ page-inner-course {
     }
   }
 
-  .teacher-info{
+  .teacher-info {
     width: 60%;
     display: inline-block;
     position: relative;
     margin-right: 60px;
   }
-  .teacher-info + .teacher-info::before{
+
+  .teacher-info + .teacher-info::before {
     content: '';
     position: absolute;
     left: -30px;
@@ -131,11 +132,13 @@ page-inner-course {
     height: 40px;
     background-color: #dddddd;
   }
+
   .teacher-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    .position{
+
+    .position {
       margin-left: 10px;
     }
 
@@ -546,8 +549,23 @@ page-inner-course {
   span.applySignDone {
     background: linear-gradient(242deg, #999 0%, #eee 100%);
   }
-  .tips{
+
+  .tips {
     font-size: 15px;
     font-weight: bolder;
+  }
+
+  .uploadImage {
+    background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+    border-radius: 13px;
+    opacity: 0.99;
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+
+    img {
+      margin-right: 5px;
+      width: 16px;
+    }
   }
 }

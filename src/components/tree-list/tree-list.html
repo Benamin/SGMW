@@ -1,7 +1,7 @@
 <div class="list" *ngFor="let itemNode of treeList">
     <p [ngStyle]="{'padding-left':(itemNode.NodeLevel*5)+'px'}" tappable (click)="getMore(itemNode)">
         {{itemNode.title}}
-        <img *ngIf="itemNode.StudyStatus == 1" class="suo" src="./assets/imgs/learn/suo.png" alt="">
+        <img *ngIf="itemNode.StudyStatus == 1 && itemNode.NodeLevel == 4" class="suo" src="./assets/imgs/learn/suo.png" alt="">
         <ion-icon *ngIf="itemNode.children.length > 0 && !itemNode.show" class="more-icon"
                   name="arrow-forward"></ion-icon>
         <ion-icon *ngIf="itemNode.children.length > 0 && itemNode.show" class="more-icon" name="arrow-down"></ion-icon>
@@ -20,7 +20,7 @@
             <span class="file-icon">{{itemFile.icon}}</span>
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe'"
                  tappable (click)="downLoad(itemFile,$event)"
-                 class="download-file" src="./assets/imgs/learn/download-file.png">
+                 class="download-file" src="./assets/imgs/course/xiazai.png">
         </p>
     </div>
     <!--   作业      -->
@@ -31,8 +31,14 @@
                 <span class="exam">
                     {{itemExam.label}}
                 </span>
-                <span class="no" *ngIf="itemExam.examStatus != 8">待完成</span>
-                <span class="yes" *ngIf="itemExam.examStatus == 8">已完成</span>
+                <span class="no" *ngIf="itemExam.examStatus != 8">
+                    <img src="./assets/imgs/course/daiwancheng.png" alt="">
+                    待完成
+                </span>
+                <span class="yes" *ngIf="itemExam.examStatus == 8">
+                    <img src="./assets/imgs/course/yiwancheng.png" alt="">
+                    已完成
+                </span>
         </div>
     </ng-container>
 </div>

@@ -68,9 +68,17 @@ tree-list {
     float: right;
   }
 
-  .yea, .no {
+  .yes, .no {
     float: right;
     font-size: 13px;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 14px;
+      height: 14px;
+      margin-right: 5px;
+    }
   }
 
   .yes {
