@@ -7,6 +7,7 @@ import {GlobalData} from "../../core/GlobleData";
 import {VideoJsProvider} from "../../providers/video-js/video-js";
 import {LearnService} from "../../pages/learning/learn.service";
 import {AppService} from "../../app/app.service";
+import {CommonService} from "../../core/common.service";
 
 declare let videojs: any;
 
@@ -24,8 +25,10 @@ export class VideojsComponent implements OnDestroy {
 
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
+                private commonSer:CommonService,
                 private globleData: GlobalData,
                 private appSer: AppService,
+                private learnSer: LearnService,
                 private vjsProvider: VideoJsProvider,
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.globleData.videoNum;
@@ -52,13 +55,29 @@ export class VideojsComponent implements OnDestroy {
                     }
                 });
                 this.video.on('ended', () => {
-                    console.log('视频播放结束')
-                    this.appSer.setFile('videoPlayEnd');
+                    this.updateVideoStatus();
                 })
                 console.log('videojs播放器初始化成功');
                 this.globleData.videoNum++;
             });
         });
+    }
+
+
+    //更新视频学习状态
+    updateVideoStatus() {
+        const data = {
+            cid: this.videoInfo.TeachingID
+        }
+        this.learnSer.UpdateVideoStudySum(data).subscribe(
+            (res) => {
+                if(res.data){
+                    this.appSer.setFile('videoPlayEnd');
+                }else{
+                    this.commonSer.toast('学习进度更新失败')
+                }
+            }
+        )
     }
 
     //页面离开暂停
