@@ -32,7 +32,7 @@
                 <span class="exam">
                     {{itemExam.label | stringSlice:20:20}}
                 </span>
-                <span class="no" *ngIf="itemExam.examStatus != 8">
+                <span class="no" *ngIf="itemExam.examStatus == 4 || itemExam.StudyStatus == 2">
                     <img src="./assets/imgs/course/daiwancheng.png" alt="">
                     待完成
                 </span>

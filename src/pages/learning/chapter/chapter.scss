@@ -52,4 +52,42 @@ page-chapter {
       }
     }
   }
+
+  .yes, .no {
+    float: right;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 14px;
+      height: 14px;
+      margin-right: 5px;
+    }
+  }
+
+  .yes {
+    color: #5dba98;
+  }
+
+  .no {
+    color: #e2af73;
+  }
+
+  .exam {
+    padding: 3px 8px;
+    background: rgba(255, 201, 45, .3);
+    border-radius: 0.17rem;
+    position: relative;
+  }
+
+  .exam::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -3px;
+    width: 0.25rem;
+    height: 100%;
+    background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+  }
 }

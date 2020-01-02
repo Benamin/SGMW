@@ -160,8 +160,13 @@ export class CourseDetailPage {
         );
     }
 
-    //获取章节--打开课件后更新章节进度
+    //打开课件后更新章节进度
     getChapter() {
+        this.learSer.GetProductById(this.pId).subscribe(
+            (res) => {
+                this.product.detail = res.data;
+            }
+        );
         this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
@@ -295,6 +300,7 @@ export class CourseDetailPage {
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
+                this.getChapter();  //查询最新章节信息
             }
         )
     }
