@@ -127,10 +127,15 @@ export class TreeListComponent {
         )
     }
 
-    //作业处理
+    /**
+     * 作业处理 studystatus 1未解锁，2已解锁
+     * @param itemNode  课时节点
+     * @param exam  作业节点
+     * @param ev 点击事件
+     */
     handleExam(itemNode, exam, ev) {
         ev.stopPropagation();
-        if (itemNode.StudyStatus == 1 || itemNode.StudyStatus == 0) {
+        if (exam.StudyStatus == 1 || exam.StudyStatus == 0) {
             this.commonSer.toast('请完成课程学习');
             return
         }

@@ -1,7 +1,8 @@
 <div class="list" *ngFor="let itemNode of treeList">
     <p [ngStyle]="{'padding-left':(itemNode.NodeLevel*5)+'px'}" tappable (click)="getMore(itemNode)">
         {{itemNode.title}}
-        <img *ngIf="itemNode.StudyStatus == 1 && itemNode.NodeLevel == 4" class="suo" src="./assets/imgs/learn/suo.png" alt="">
+        <img *ngIf="itemNode.StudyStatus == 1 && itemNode.NodeLevel == 4" class="suo" src="./assets/imgs/learn/suo.png"
+             alt="">
         <ion-icon *ngIf="itemNode.children.length > 0 && !itemNode.show" class="more-icon"
                   name="arrow-forward"></ion-icon>
         <ion-icon *ngIf="itemNode.children.length > 0 && itemNode.show" class="more-icon" name="arrow-down"></ion-icon>
@@ -16,7 +17,7 @@
         <p [ngStyle]="{'padding-left':(itemFile.NodeLevel*5)+'px'}" tappable (click)="handle(itemNode,itemFile,$event)">
             <img *ngIf="itemFile.icon != 'mp4'" src="./assets/imgs/learn/file.png">
             <img *ngIf="itemFile.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
-            {{itemFile.DisplayName}}
+            {{itemFile.DisplayName | stringSlice:20:20}}
             <span class="file-icon">{{itemFile.icon}}</span>
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe'"
                  tappable (click)="downLoad(itemFile,$event)"
@@ -29,9 +30,9 @@
             <p [ngStyle]="{'padding-left':(itemExam.NodeLevel*5)+'px'}" tappable
                (click)="handleExam(itemNode,itemExam,$event)">
                 <span class="exam">
-                    {{itemExam.label}}
+                    {{itemExam.label | stringSlice:20:20}}
                 </span>
-                <span class="no" *ngIf="itemExam.examStatus != 8">
+                <span class="no" *ngIf="itemExam.examStatus == 4 || itemExam.StudyStatus == 2">
                     <img src="./assets/imgs/course/daiwancheng.png" alt="">
                     待完成
                 </span>

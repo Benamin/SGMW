@@ -24,5 +24,22 @@
                     [TeachTypeName]="TeachTypeName"
             ></tree-list>
         </div>
+        <ng-container *ngIf="IsBuy">
+            <div *ngFor="let itemExam of item.tags">
+                <p [ngStyle]="{'padding-left':(itemExam.NodeLevel*5)+'px'}" tappable
+                   (click)="handleExam(item,itemExam,$event)">
+                <span class="exam">
+                    {{itemExam.label | stringSlice:20:20}}
+                </span>
+                    <span class="no" *ngIf="itemExam.examStatus == 4 || itemExam.StudyStatus == 2">
+                    <img src="./assets/imgs/course/daiwancheng.png" alt="">
+                    待完成
+                </span>
+                    <span class="yes" *ngIf="itemExam.examStatus == 8">
+                    <img src="./assets/imgs/course/yiwancheng.png" alt="">
+                    已完成
+                </span>
+            </div>
+        </ng-container>
     </ng-container>
 </div>

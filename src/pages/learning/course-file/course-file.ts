@@ -8,6 +8,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 export class CourseFilePage {
     mainFile = [];
     title;
+    preImgSrc;
 
     constructor(public navCtrl: NavController, public navParams: NavParams) {
     }
@@ -18,4 +19,8 @@ export class CourseFilePage {
         this.title = this.navParams.get('title');
     }
 
+    viewimage(e) {
+        console.log(e);
+        this.preImgSrc = e;
+    }
 }

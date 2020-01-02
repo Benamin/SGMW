@@ -14,6 +14,7 @@ import {SearchSidebarComponent} from './search-sidebar/search-sidebar';
 import {ForumListTimeComponent} from './forum-list-time/forum-list-time.component';
 import {ImgPreviewComponent} from './img-preview/img-preview';
 import {IframeFileComponent} from './iframe-file/iframe-file';
+import {PipesModule} from "../pipes/pipes.module";
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {IframeFileComponent} from './iframe-file/iframe-file';
         IframeFileComponent,
     ],
     imports: [
-        IonicPageModule
+        IonicPageModule,
+        PipesModule
     ],
     exports: [
         CommentComponent,
