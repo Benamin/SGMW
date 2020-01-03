@@ -1,5 +1,116 @@
 page-course-file {
-  .scroll-content{
+  .scroll-content {
     background-color: #fff;
+  }
+
+  .col-item {
+    padding: 10px;
+
+    p {
+      margin-top: 12px;
+      text-align: center;
+      overflow: hidden;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+
+    }
+  }
+
+  .record-item {
+    position: relative;
+    height: 142px;
+    box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .file-type {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    line-height: 14px;
+    padding: 2px 5px;
+    background: rgba(99, 158, 238, 1);
+  }
+
+  .score {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 57px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 100px 0px 0px 100px;
+    box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .yellow {
+    background: linear-gradient(242deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+  }
+
+  .red {
+    background: linear-gradient(242deg, rgba(255, 208, 203, 1) 0%, rgba(255, 82, 45, 1) 100%);
+    color: #ffffff;
+  }
+
+  .pdf {
+    background-color: #E47E7B;
+  }
+
+  .mp4 {
+    background-color: #4DB68E;
+  }
+
+  .jpg, .png, .jpeg {
+    background-color: #F59044;
+  }
+
+  .record-item img {
+    width: 33px;
+    height: 39px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .imgPreview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .3);
+
+    .img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 70%;
+    }
+
+    .icon-close {
+      position: absolute;
+      bottom: -4rem;
+      left: 50%;
+      transform: translate(-50%, 4rem);
+      color: #fff;
+      font-size: 5rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      height: 5rem;
+      width: 5rem;
+      text-align: center;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

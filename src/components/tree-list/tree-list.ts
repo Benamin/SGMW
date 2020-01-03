@@ -67,7 +67,7 @@ export class TreeListComponent {
         console.log(node);
         console.log(file);
         if (node.StudyStatus == 1 || node.StudyStatus == 0) {
-            this.commonSer.toast('课程未解锁');
+            this.commonSer.toast('课程尚未解锁,请完成前面的课程解锁');
             return;
         }
         //未报名
@@ -136,7 +136,7 @@ export class TreeListComponent {
     handleExam(itemNode, exam, ev) {
         ev.stopPropagation();
         if (exam.StudyStatus == 1 || exam.StudyStatus == 0) {
-            this.commonSer.toast('请完成课程学习');
+            this.commonSer.toast('作业尚未解锁，请先完成解锁课时的课件和课后作业!');
             return
         }
         exam.Fid = exam.fId;

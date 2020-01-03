@@ -64,11 +64,11 @@ export class LoginPage {
     //经销商
     jxs = {
         junke: {
-            username: '',
-            password: "",
+            username: '丁林玲',
+            password: "sgmw50@ ",
             grant_type: '',
             client_id: JunKe_client_id,
-            jxsh: '',
+            jxsh: '000000',
             codeRight: '',
             inputCode: ''
         },
@@ -83,7 +83,7 @@ export class LoginPage {
     };
 
     loginObj = {
-        type: "fwzs",
+        type: "jxs",
         platform: 'xszs',
     };
 
@@ -117,6 +117,7 @@ export class LoginPage {
 
     //平台登录切换
     changeSlide(index, platform) {
+        console.log(index.platform)
         this.loginObj.platform = platform;
         this.slides.slideTo(index, 100);
     }

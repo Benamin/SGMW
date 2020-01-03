@@ -295,19 +295,19 @@ export class InnerCoursePage {
     //选择图片
     selectPicture(srcType) {
         const options: CameraOptions = {
-            quality: srcType == 1 ? 10 : 50,  //1 拍照  2 相册
+            quality: 5,  //1 拍照  2 相册
             destinationType: this.camera.DestinationType.FILE_URI,
-            encodingType: this.camera.EncodingType.PNG,
+            encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE,
             sourceType: srcType,
-            saveToPhotoAlbum: false
+            saveToPhotoAlbum: true
         };
         const option: FileUploadOptions = {
             httpMethod: 'POST',
             headers: {
                 'Accept': 'application/json',
             },
-            fileName: 'image.png'
+            fileName: 'image.jpeg'
         };
         this.camera.getPicture(options).then((imagedata) => {
             let filePath = imagedata;
@@ -318,10 +318,12 @@ export class InnerCoursePage {
             console.log(imagedata);
             console.log(arr);
             option.fileName = arr[arr.length - 1];
+            const AttachmentName = option.fileName.indexOf('.') == -1 ? `${option.fileName}.jpg` : option.fileName;
+            const AttachmentExt = option.fileName.indexOf('.') == -1 ? `jpg` : option.fileName.split('.')[1];
             this.uploadFile = {
-                AttachmentName: option.fileName,
-                AttachmentDIsplayName: option.fileName,
-                AttachmentExt: option.fileName.split('.')[1],
+                AttachmentName: AttachmentName,
+                AttachmentDIsplayName: AttachmentName,
+                AttachmentExt: AttachmentExt,
             };
             this.upload(imagedata, option);
         })
@@ -339,11 +341,13 @@ export class InnerCoursePage {
          const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
         //  const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
         const fileTransfer: FileTransferObject = this.transfer.create();
+
         fileTransfer.upload(file, SERVER_URL + '/Upload/UploadFiles', options).then(
             (res) => {
                 uploadLoading.dismiss();
                 this.commonSer.toast('上传成功');
                 const data = JSON.parse(res.response);
+                console.log(data);
                 this.addRecord(data.data);
             }, err => {
                 uploadLoading.dismiss();

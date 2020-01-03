@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {CommonService} from "../../../core/common.service";
+import {FileService} from "../../../core/file.service";
 
 @Component({
     selector: 'page-course-file',
@@ -10,7 +12,8 @@ export class CourseFilePage {
     title;
     preImgSrc;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+                private commonSer: CommonService, private fileSer: FileService) {
     }
 
     ionViewDidLoad() {
@@ -19,8 +22,18 @@ export class CourseFilePage {
         this.title = this.navParams.get('title');
     }
 
-    viewimage(e) {
-        console.log(e);
-        this.preImgSrc = e;
+    //office、pdf、图片、视频
+    openFile(file) {
+        file.AttachmentExt = file.AttachmentExt.toLowerCase();
+        if (file.AttachmentExt.includes('mp4')) {
+            this.commonSer.toast('不支持预览视频文件');
+            return
+        }
+        if (file.AttachmentExt.includes('png') || file.AttachmentExt.includes('jpg') || file.AttachmentExt.includes('jpeg')) {
+            this.preImgSrc = (file.AttachmentUrl);
+
+        } else {
+            this.fileSer.viewFile(file.AttachmentUrl, file.AttachmentName);
+        }
     }
 }

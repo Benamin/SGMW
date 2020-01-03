@@ -112,7 +112,7 @@ export class CourseDetailPage {
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
             if (value && value == 'videoPlayEnd') {
-                this.updateVideoStatus();   //更新视频学习进度
+                this.getChapter();   //更新视频学习进度
             }
             if (value && value == 'updateProcess') {  //更新章节信息
                 this.getChapter();
@@ -124,6 +124,7 @@ export class CourseDetailPage {
                 this.courseFileType = 'video';
                 this.videoInfo.video = value;
                 this.videoInfo.poster = value;
+                this.saveProcess(value);
             }
         });
     }
@@ -162,6 +163,7 @@ export class CourseDetailPage {
 
     //打开课件后更新章节进度
     getChapter() {
+        console.log(this.pId)
         this.learSer.GetProductById(this.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
@@ -237,7 +239,7 @@ export class CourseDetailPage {
             page: 1,
             TopicType: 'talk',   //teacher  course
             topicID: this.product.detail.PrId
-        }
+        };
         this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
             (res) => {
                 if (res.data) {
@@ -277,7 +279,7 @@ export class CourseDetailPage {
 
         const loading = this.loadCtrl.create();
         loading.present();
-        this.saveProcess(this.files[0]);
+        this.saveProcess(this.files[0]);   //创建学习记录
         if (this.files[0].icon.includes('mp4')) {
             this.courseFileType = 'video';
             this.videoInfo.video = this.files[0];
@@ -299,18 +301,6 @@ export class CourseDetailPage {
             EAttachmentID: file.ID
         };
         this.learSer.SaveStudy(data).subscribe(
-            (res) => {
-                this.getChapter();  //查询最新章节信息
-            }
-        )
-    }
-
-    //更新视频学习状态
-    updateVideoStatus() {
-        const data = {
-            cid: this.pId
-        }
-        this.learnSer.UpdateVideoStudySum(data).subscribe(
             (res) => {
                 this.getChapter();  //查询最新章节信息
             }
@@ -402,7 +392,6 @@ export class CourseDetailPage {
 
     //报名
     sign() {
-        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
         const data = {
             pid: this.pId
         };
