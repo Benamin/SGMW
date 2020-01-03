@@ -64,11 +64,11 @@ export class LoginPage {
     //经销商
     jxs = {
         junke: {
-            username: '丁林玲',
-            password: "sgmw50@ ",
+            username: '',
+            password: "",
             grant_type: '',
             client_id: JunKe_client_id,
-            jxsh: '000000',
+            jxsh: '',
             codeRight: '',
             inputCode: ''
         },
