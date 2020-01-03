@@ -263,6 +263,12 @@ export class InnerCoursePage {
 
     //选择图片
     takePic() {
+        const nowTime = Date.now();
+        const ApplicantSTime = this.commonSer.transFormTime(this.product.detail.ApplicantSTime);
+        if (nowTime < ApplicantSTime) {
+            this.commonSer.toast('内训尚未开始');
+            return
+        }
         const actionSheet = this.actionSheetCtrl.create({
             cssClass: 'cameraAction',
             buttons: [
