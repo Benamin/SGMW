@@ -157,7 +157,10 @@ export class CourseDetailPage {
             console.error('接受文件打开事件')
             console.error(value);
             if (value.type == 'videoPlayEnd') {
-                this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                if (!this.global.subscribeDone) {
+                    this.global.subscribeDone = true;
+                    this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                }
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
                 this.getChapter('document');
@@ -168,12 +171,12 @@ export class CourseDetailPage {
             }
             if (value.type == 'mp4') {  //video
                 this.courseFileType = 'video';
-                this.global.subscribeDone = true;
                 this.videoInfo.video = value.video;
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
                 if (!this.global.subscribeDone) {
-                    console.info('当前视频播放节点')
+                    console.info('当前视频播放节点');
+                    this.global.subscribeDone = true;
                     console.info(this.nodeLevel4);
                     console.log(`courseFileType:${this.courseFileType}`);
                     this.saveProcess(value.video);
