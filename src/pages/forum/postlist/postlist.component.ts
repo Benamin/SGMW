@@ -25,7 +25,7 @@ export class PostlistComponent implements OnInit {
     }
     arr.length = arr.length>6?6:arr.length;
     window.localStorage.setItem('userForumHistory', JSON.stringify(arr));
-
+  this.initList();
   }
   lidata={Id:""};
   IsTopOpt=null;
@@ -50,6 +50,9 @@ export class PostlistComponent implements OnInit {
     private loadCtrl:LoadingController){ }
 
   ionViewDidEnter() {
+
+  }
+  initList(){
     this.lidata = this.navParams.get('data');
     this.pageDate.topicPlateId=this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
     this.forumLIst = [];

@@ -5,6 +5,9 @@
   </div>
   <div class="post-introduction-con">
     <p class="nowrap-3">{{item.Title}}</p>
+    <div *ngIf="item.Images.length==0" class="nowrap-2"  [innerHTML]='item.ContentWithoutHtml'>
+       
+    </div>
     <div class="img-div img1" *ngIf="item.Images.length==1"
       [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
       style="background-size: cover;background: no-repeat center;">
