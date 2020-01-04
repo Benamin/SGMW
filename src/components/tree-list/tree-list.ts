@@ -13,6 +13,7 @@ import {DownloadFileProvider} from "../../providers/download-file/download-file"
 import {LookExamPage} from "../../pages/mine/look-exam/look-exam";
 import {DoExamPage} from "../../pages/mine/do-exam/do-exam";
 import {MineService} from "../../pages/mine/mine.service";
+import {GlobalData} from "../../core/GlobleData";
 
 @Component({
     selector: 'tree-list',
@@ -31,6 +32,7 @@ export class TreeListComponent {
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
                 private navCtrl: NavController,
                 private mineSer: MineService,
+                private global:GlobalData,
                 private downloadPro: DownloadFileProvider,
                 private downloadSer: DownloadFileService) {
         timer(10).subscribe(
@@ -89,6 +91,7 @@ export class TreeListComponent {
 
         event.stopPropagation();
         if (!file.icon.includes('mp4')) this.saveProcess(file);  //非视频文件保存进度
+        this.global.subscribeDone = false;
         if (file.icon.includes('mp4')) {  //视频
             const mp4 = {
                 type: 'mp4',

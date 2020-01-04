@@ -26,12 +26,12 @@ export class VideojsComponent implements OnDestroy {
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
                 private commonSer: CommonService,
-                private globleData: GlobalData,
+                private global: GlobalData,
                 private appSer: AppService,
                 private learnSer: LearnService,
                 private vjsProvider: VideoJsProvider,
                 private screenOrientation: ScreenOrientation) {
-        const videoNum = this.globleData.videoNum;
+        const videoNum = this.global.videoNum;
         this.videoEle = `video${videoNum}`;
         timer(100).subscribe(() => {
             this.video = videojs(this.videoEle, {
@@ -55,10 +55,11 @@ export class VideojsComponent implements OnDestroy {
                     }
                 });
                 this.video.on('ended', () => {
+                    console.log('video end')
                     this.updateVideoStatus();
                 })
-                console.log('videojs播放器初始化成功');
-                this.globleData.videoNum++;
+                console.log(`播放器videojs${videoNum},初始化成功`);
+                this.global.videoNum++;
             });
         });
     }
@@ -75,6 +76,7 @@ export class VideojsComponent implements OnDestroy {
                     const data = {
                         type: 'videoPlayEnd'
                     };
+                    this.global.subscribeDone = false;
                     this.appSer.setFile(data);  //主页面接收消息
                 } else {
                     this.commonSer.toast('学习进度更新失败')
@@ -92,6 +94,7 @@ export class VideojsComponent implements OnDestroy {
 
     destroy() {
         if (this.video) {
+            console.log('dispose video');
             this.video.dispose();
         }
     }
@@ -120,9 +123,9 @@ export class VideojsComponent implements OnDestroy {
         if (this.video && videoInfo) {
             this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
-            // this.video.removeChild('TitleBar');
+            this.video.removeChild('TitleBar');
             // this.video.addChild(`danmu`,{text: `${videoInfo.DisplayName}`});
-            // this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
+            this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
         }
     }
 

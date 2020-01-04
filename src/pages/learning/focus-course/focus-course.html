@@ -49,7 +49,7 @@
                         </ng-container>
                         <span tappable class="applySign" (click)="studyNow()"
                               *ngIf="product.detail?.IsBuy && product.detail?.IsPay && product.detail?.overpercentage == 100">继续上课</span>
-                        <span tappable (click)="studyNow()"
+                        <span tappable (click)="studyContinue()"
                               *ngIf="product.detail?.IsBuy && product.detail?.IsPay && product.detail?.overpercentage != 100"
                               class="applySign">继续学习</span>
                         <ng-container *ngIf="nowTime > product.detail?.ApplicantETime && !product.detail?.IsBuy">

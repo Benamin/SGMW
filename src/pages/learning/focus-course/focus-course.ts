@@ -156,7 +156,7 @@ export class FocusCoursePage {
                 this.videoInfo.video = value.video;
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
-                this.saveProcess(value);
+                this.saveProcess(value.video);
             }
         });
     }
