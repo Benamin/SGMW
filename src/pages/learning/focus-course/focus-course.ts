@@ -16,6 +16,9 @@ import {InnerCoursePage} from "../inner-course/inner-course";
 import {CourseDetailPage} from "../course-detail/course-detail";
 import {CourseFilePage} from "../course-file/course-file";
 import {DatePipe} from "@angular/common";
+import {LookExamPage} from "../../mine/look-exam/look-exam";
+import {DoExamPage} from "../../mine/do-exam/do-exam";
+import {MineService} from "../../mine/mine.service";
 
 
 @Component({
@@ -86,11 +89,19 @@ export class FocusCoursePage {
     nowTime;
     preImgSrc = null;
 
+    SortType;  //课程有序还是无序
+
+    nodeLevel4;   //课时节点
+    tagsNodeList;   //包含作业的节点列表
+    enterSource;   //进入来源
+    nodeLevel4List;   //所有的课时节点列表
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
                 private datePipe: DatePipe,
+                private mineSer: MineService,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
     }
@@ -102,6 +113,7 @@ export class FocusCoursePage {
 
     async ionViewDidEnter() {
         this.showFooter = true;
+        this.enterSource = this.navParams.get('courseEnterSource');
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -126,13 +138,25 @@ export class FocusCoursePage {
     //接受文件事件
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
-            if (value && value.icon == 'iframe') {
+            if (!value) {
+                return
+            }
+            if (value.type == 'videoPlayEnd') {
+                this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+            }
+            if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
+                this.getChapter('document');
+            }
+            if (value.type == 'iframe') {  //iframe
                 this.courseFileType = 'iframe';
-                this.iframObj = value;
-            } else if (value && value.icon == 'mp4') {
+                this.iframObj = value.iframe;
+            }
+            if (value.type == 'mp4') {  //video
                 this.courseFileType = 'video';
-                this.videoInfo.video = value;
-                this.videoInfo.poster = value;
+                this.videoInfo.video = value.video;
+                this.videoInfo.poster = value.video;
+                this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
+                this.saveProcess(value);
             }
         });
     }
@@ -203,6 +227,103 @@ export class FocusCoursePage {
                 this.overTask = res.data;
             }
         )
+    }
+
+    /**
+     * 打开课件后更新章节进度
+     * @param type = video 视频播放完成后查询进度
+     * document = 文档打开后查询进度
+     */
+    getChapter(type?: any) {
+        this.learSer.GetProductById(this.pId).subscribe(
+            (res) => {
+                this.product.detail = res.data;
+            }
+        );
+        this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
+            (res) => {
+                this.product.chapter = res.data;
+                this.product.chapter.Course.children.forEach(e => e.show = true);
+                this.files = [];  //重置课件数组
+                this.tagsNodeList = [];  //重置课时节点数组
+                this.f(this.product.chapter.Course.children);
+                this.fNode(this.product.chapter.Course.children);
+                if (type == 'video') {
+                    this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
+                    this.checkTag();   //校验作业
+                }
+                this.files.forEach(e => {
+                    if (e.PlanStartTime) {
+                        e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
+                    }
+                });
+                console.log(this.tagsNodeList);
+                this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
+                this.loading.dismiss();
+                this.isLoad = true;
+            }
+        );
+    }
+
+    /**
+     * 校验作业并跳转
+     */
+    checkTag() {
+        this.tagsNodeList.forEach(e => {
+            if (e.ID == this.nodeLevel4.ID) { //查到了ID
+                for (let t = 0; t < e.tags.length; t++) {
+                    if (e.tags[t].StudyStatus == 2) {  //作业已解锁 并且未完成
+                        this.handleVideoExam(e.tags[t]);
+                        break
+                    }
+                }
+            }
+        })
+    }
+
+    //查询作业信息
+    handleVideoExam(exam) {
+        console.log(exam);
+        const data = {
+            Eid: exam.id
+        };
+        this.mineSer.getExam(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    exam.Fid = res.data.ID;
+                    if (exam.examStatus == 8) {
+                        this.navCtrl.push(LookExamPage, {item: exam});
+                    } else {
+                        this.navCtrl.push(DoExamPage, {item: exam, source: 'course'});
+                    }
+                }
+            }
+        )
+    }
+
+    /**
+     *
+     */
+    fNode(data) {
+        for (let j = 0; j < data.length; j++) {
+            if (data[j].NodeLevel == 4) {
+                this.nodeLevel4List.push(data[j]);
+            }
+            if (data[j].children.length > 0) this.fNode(data[j].children);
+        }
+    }
+
+    /**
+     * 将章节树上包含作业的节点转化为列表
+     * @param data
+     */
+    fTags(data) {
+        for (let j = 0; j < data.length; j++) {
+            if (data[j].tags.length > 0) {
+                this.tagsNodeList.push(data[j]);
+            }
+            if (data[j].children.length > 0) this.fTags(data[j].children);
+        }
     }
 
     //讲师评价下-讲师列表
@@ -279,35 +400,72 @@ export class FocusCoursePage {
         }
     }
 
-    //立即学习
+    //立即学习 打开第一个课件
     studyNow() {
         if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
             return;
         }
-
-        console.log(this.files[0]);
         const nowTime = new Date().getTime();
         const planStartTime = this.commonSer.transFormTime(this.files[0].PlanStartTime);
-        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
+
+        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         if (nowTime < planStartTime) {
             this.commonSer.toast(`${text}还未开始，请等待开始后再观看`);
             return
         }
 
+        this.openFileByType(this.nodeLevel4List[0], this.files[0]);
+    }
+
+    //继续学习 针对有序课程跳到最后一个解锁的课时的课件
+    /**
+     * StudyStatus 1未解锁 2 已解锁
+     * SortType 1有序 2 无序
+     */
+    studyContinue() {
+        let arr = [];
+        if (this.SortType == 1) {
+            arr = this.nodeLevel4List.filter(e => e.StudyStatus == 2);
+            if (arr.length && arr[arr.length - 1].files.length > 0) {
+                this.openFileByType(arr[arr.length - 1], arr[arr.length - 1].files[0])
+            }
+        } else {
+            this.studyNow();
+        }
+        console.log(this.tagsNodeList)
+    }
+
+    /**
+     *根据课件类型打开课件
+     * @param node 课时节点信息
+     * @param file 课件信息
+     */
+    openFileByType(node, file) {
+        console.log(file);
         const loading = this.loadCtrl.create();
         loading.present();
-        this.saveProcess(this.files[0]);
-        if (this.files[0].icon.includes('mp4')) {
-            this.courseFileType = 'video';
-            this.videoInfo.video = this.files[0];
-        } else if (this.files[0].icon.includes('pdf')) {
-            this.openPDF(this.files[0]);
-        } else if (this.files[0].icon.includes('iframe')) {
-            this.courseFileType = 'iframe';
-            this.iframObj = this.files[0];
-        } else {
-            this.fileSer.viewFile(this.files[0].fileUrl, this.files[0].filename);
+        this.saveProcess(file);   //创建学习记录
+        if (file.icon.includes('mp4')) {
+            const mp4 = {
+                type: 'mp4',
+                video: file,   //文件
+                nodeLevel: node   //课时节点
+            };
+            this.appSer.setFile(mp4);  //通知主页面播放视频
+        }
+        if (file.icon.includes('pdf')) {
+            this.openPDF(file);
+        }
+        if (file.icon.includes('iframe')) {
+            const iframe = {
+                type: 'iframe',
+                iframe: file
+            };
+            this.appSer.setFile(iframe);
+        }
+        if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
+            this.fileSer.viewFile(file.fileUrl, file.filename);
         }
 
         loading.dismiss();

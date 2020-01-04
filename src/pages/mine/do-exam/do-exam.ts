@@ -6,6 +6,8 @@ import {QIndexComponent} from "../../../components/q-index/q-index";
 import {EmitService} from "../../../core/emit.service";
 import {Storage} from "@ionic/storage";
 import {HomeService} from "../../home/home.service";
+import {CourseDetailPage} from "../../learning/course-detail/course-detail";
+import {GlobalData} from "../../../core/GlobleData";
 
 @Component({
     selector: 'page-do-exam',
@@ -27,12 +29,16 @@ export class DoExamPage {
         show: false,
         isDone: false,
     };
+    source;  //来源 course 课程
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private storage: Storage,
-                private homeSer:HomeService,
+                private global: GlobalData,
+                private homeSer: HomeService,
                 private loadCtrl: LoadingController, private commonSer: CommonService, private modalCtrl: ModalController,
                 public eventEmitSer: EmitService,) {
+        this.source = this.navParams.get('source');
+        console.log(`source:${this.source}`);
     }
 
     ionViewDidLoad() {
@@ -55,7 +61,7 @@ export class DoExamPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
-                if(res.Result == 1){
+                if (res.Result == 1) {
                     this.commonSer.toast(res.Message);
                 }
                 this.exam.QnAInfos = res.data.QnAInfos;
@@ -75,7 +81,7 @@ export class DoExamPage {
     }
 
     slideChanged() {
-        if(this.slides.realIndex) this.index = this.slides.realIndex;
+        if (this.slides.realIndex) this.index = this.slides.realIndex;
         this.doneTotal = 0;
         this.exam.QnAInfos.forEach(e => {
                 if (e.StuAnswer && e.StuAnswer.length > 0) {
@@ -95,7 +101,7 @@ export class DoExamPage {
     }
 
     //返回键触犯暂存
-    backSubmit(){
+    backSubmit() {
         const loading = this.loadCtrl.create({
             content: `暂存中...`
         });
@@ -106,13 +112,13 @@ export class DoExamPage {
         const data = {
             submitType: 2
         };
-        this.homeSer.submitPaper(data,this.exam).subscribe(
+        this.homeSer.submitPaper(data, this.exam).subscribe(
             (res) => {
                 loading.dismiss();
                 if (res.code == 200) {
                     this.commonSer.toast('暂存成功');
                     this.navCtrl.pop();
-                }else {
+                } else {
                     this.commonSer.toast(res.Message);
                 }
             }
@@ -147,13 +153,13 @@ export class DoExamPage {
                 submitType: status
             };
             console.log(this.exam);
-            this.homeSer.submitPaper(data,this.exam).subscribe(
+            this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
-                    if (res.code == 200  && status == 3) {
+                    if (res.code == 200 && status == 3) {
                         this.score.score = res.message;
                         this.score.show = true;
-                    }else if(res.code == 200 && status == 2){
+                    } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');
                         this.navCtrl.pop();
                     } else {
@@ -187,6 +193,7 @@ export class DoExamPage {
     //考分提示
     close(e) {
         this.score.show = false;
+        this.navCtrl.getPrevious().data.courseEnterSource = 'examBack';
         this.navCtrl.pop();
     }
 

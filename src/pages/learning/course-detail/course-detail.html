@@ -24,8 +24,8 @@
                             回顾{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}
                         </div>
                         <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage != 100"
-                             (click)="studyNow()">
-                            立即学习
+                             (click)="studyContinue()">
+                            继续学习
                         </div>
                     </div>
                     <div class="course-desc" style="margin: 15px auto;">
@@ -189,12 +189,12 @@
 
             </ion-slide>
             <!--      相关      -->
-            <ion-slide>
-                <div class="item" style="margin-bottom: 5rem">
-                    <p>相关推荐</p>
-                    <course-list [list]="learnList" (done)="goCourse($event)"></course-list>
-                </div>
-            </ion-slide>
+<!--            <ion-slide>-->
+<!--                <div class="item" style="margin-bottom: 5rem">-->
+<!--                    <p>相关推荐</p>-->
+<!--                    <course-list [list]="learnList" (done)="goCourse($event)"></course-list>-->
+<!--                </div>-->
+<!--            </ion-slide>-->
         </ng-container>
     </ion-slides>
 </ion-content>

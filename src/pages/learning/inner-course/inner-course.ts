@@ -176,10 +176,15 @@ export class InnerCoursePage {
             }
         );
 
+        this.getSelFile();
+    }
+
+    //获取自己上传的内训资料
+    getSelFile() {
         const data2 = {
             pid: this.pId
         };
-        await this.learSer.GetSelfFile(data2).subscribe(
+        this.learSer.GetSelfFile(data2).subscribe(
             (res) => {
                 this.mainFile = res.data;
             }
