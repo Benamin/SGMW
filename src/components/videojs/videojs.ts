@@ -72,7 +72,10 @@ export class VideojsComponent implements OnDestroy {
         this.learnSer.UpdateVideoStudySum(data).subscribe(
             (res) => {
                 if(res.data){
-                    this.appSer.setFile('videoPlayEnd');
+                    const data = {
+                        type: 'videoPlayEnd'
+                    };
+                    this.appSer.setFile(data);  //主页面接收消息
                 }else{
                     this.commonSer.toast('学习进度更新失败')
                 }

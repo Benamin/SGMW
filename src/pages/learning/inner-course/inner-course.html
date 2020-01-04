@@ -97,7 +97,7 @@
                             <img src="./assets/imgs/learn/shangchuantupian.png" alt="">
                             上传图片</span>
                     </p>
-                    <page-record (image)="viewimage($event)" [fileList]="mainFile" [maxNum]="4"></page-record>
+                    <page-record (delete)="getSelFile()" (image)="viewimage($event)" [fileList]="mainFile" [maxNum]="4"></page-record>
                 </div>
             </ion-slide>
         </ng-container>

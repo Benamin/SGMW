@@ -51,7 +51,7 @@
                               *ngIf="product.detail?.IsBuy && product.detail?.IsPay && product.detail?.overpercentage == 100">继续上课</span>
                         <span tappable (click)="studyNow()"
                               *ngIf="product.detail?.IsBuy && product.detail?.IsPay && product.detail?.overpercentage != 100"
-                              class="applySign">立即学习</span>
+                              class="applySign">继续学习</span>
                         <ng-container *ngIf="nowTime > product.detail?.ApplicantETime && !product.detail?.IsBuy">
                             <span tappable class="applySign applySignDone">报名结束</span>
                         </ng-container>
@@ -203,13 +203,6 @@
                     <page-record (image)="viewimage($event)" [fileList]="overTask" [maxNum]="2"></page-record>
                 </div>
             </ion-slide>
-            <!--      相关      -->
-<!--            <ion-slide>-->
-<!--                <div class="item" style="margin-bottom: 5rem">-->
-<!--                    <p>相关推荐</p>-->
-<!--                    <course-list [list]="learnList" (done)="goCourse($event)"></course-list>-->
-<!--                </div>-->
-<!--            </ion-slide>-->
         </ng-container>
     </ion-slides>
 </ion-content>

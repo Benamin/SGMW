@@ -15,7 +15,6 @@ export class IframeFileComponent {
     show = true;
 
     constructor(private sanitizer: DomSanitizer) {
-        console.log(document.body.clientWidth)
         window.addEventListener('message',function(event){
             console.log(event);
         });
@@ -30,7 +29,6 @@ export class IframeFileComponent {
     }
 
     @Input() set iframe(iframeObj) {
-        console.log(iframeObj);
         if (iframeObj) {
             this.show = true;
             // this.iframeEle.nativeElement.contentWindow.postMessage ("success", '*');

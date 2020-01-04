@@ -12,6 +12,7 @@ import {DownloadFileService} from "../../core/downloadFile.service";
 import {DownloadFileProvider} from "../../providers/download-file/download-file";
 import {LookExamPage} from "../../pages/mine/look-exam/look-exam";
 import {DoExamPage} from "../../pages/mine/do-exam/do-exam";
+import {MineService} from "../../pages/mine/mine.service";
 
 @Component({
     selector: 'tree-list',
@@ -29,6 +30,7 @@ export class TreeListComponent {
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
                 private navCtrl: NavController,
+                private mineSer: MineService,
                 private downloadPro: DownloadFileProvider,
                 private downloadSer: DownloadFileService) {
         timer(10).subscribe(
@@ -87,11 +89,28 @@ export class TreeListComponent {
 
         event.stopPropagation();
         if (!file.icon.includes('mp4')) this.saveProcess(file);  //非视频文件保存进度
-        if (file.icon.includes('mp4') || file.icon.includes('iframe')) {
-            this.appSer.setFile(file);
-        } else if (file.icon.includes('pdf')) {
+        if (file.icon.includes('mp4')) {  //视频
+            const mp4 = {
+                type: 'mp4',
+                video: file,   //文件
+                nodeLevel: node   //课时节点
+            };
+            this.appSer.setFile(mp4);  //通知主页面播放视频
+            return;
+        }
+        if (file.icon.includes('iframe')) {  // iframe
+            const iframe = {
+                type: 'iframe',
+                iframe: file
+            };
+            this.appSer.setFile(iframe);  //通知主页面播放视频
+            return;
+        }
+        if (file.icon.includes('pdf')) {   //pdf课件
             this.openPDF(file);
-        } else if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
+            return;
+        }
+        if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
     }
@@ -122,7 +141,10 @@ export class TreeListComponent {
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
                 console.log(res.message);
-                this.appSer.setFile('updateProcess'); //更新章节解锁信息
+                const data = {
+                    type: 'updateDocumentProcess'
+                };
+                this.appSer.setFile(data); //更新章节解锁信息
             }
         )
     }
@@ -139,12 +161,21 @@ export class TreeListComponent {
             this.commonSer.toast('作业尚未解锁，请先完成解锁课时的课件和课后作业!');
             return
         }
-        exam.Fid = exam.fId;
-        if (exam.examStatus == 8) {
-            this.navCtrl.push(LookExamPage, {item: exam});
-        } else {
-            this.navCtrl.push(DoExamPage, {item: exam});
-        }
+        const data = {
+            Eid: exam.id
+        };
+        this.mineSer.getExam(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    exam.Fid = res.data.ID;
+                    if (exam.examStatus == 8) {
+                        this.navCtrl.push(LookExamPage, {item: exam});
+                    } else {
+                        this.navCtrl.push(DoExamPage, {item: exam, source: 'course'});
+                    }
+                }
+            }
+        )
     }
 
     getMore(e) {
