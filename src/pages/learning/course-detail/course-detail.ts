@@ -16,6 +16,7 @@ import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
 import {MineService} from "../../mine/mine.service";
 import {GlobalData} from "../../../core/GlobleData";
+import {global} from "@angular/core/src/util";
 
 
 @Component({
@@ -44,14 +45,14 @@ export class CourseDetailPage {
     };  //视频播放的信息
     iframObj;
 
-    learnList = [];
+    relationList = [];
     navbarList = [
         {type: 1, name: '简介', code: 'desc'},
         {type: 2, name: '章节', code: 'chapter'},
         {type: 3, name: '讨论', code: 'talk'},
         {type: 4, name: '讲师', code: 'teacher'},
         {type: 5, name: '评价', code: 'comment'},
-        // {type: 6, name: '相关', code: 'relation'},
+        {type: 6, name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -109,6 +110,9 @@ export class CourseDetailPage {
         console.log('enterSource:' + this.enterSource);
         console.log('nodeLevel4:' + this.nodeLevel4);
 
+        //接受文件通知
+        this.getFileInfo();
+
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
@@ -120,11 +124,28 @@ export class CourseDetailPage {
             (res) => {
                 this.product.detail = res.data;
                 this.SortType = res.data.SortType;
-                this.getProductInfo();
-                this.getFileInfo();
-                this.getTeacher();
+                this.getChapter();  //章节信息
+                this.getRelationProduct();  //
+                if (this.enterSource != 'examBack') {
+                    this.getTeacher();
+                }
             }
         );
+    }
+
+    //离开页面
+    ionViewWillLeave() {
+        console.log('leave');
+        this.courseFileType = null;
+        this.showFooter = false;
+        this.appSer.setFile(null);
+        if (this.videojsCom) this.videojsCom.pageLeave();
+        const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
+        const doExamArr = this.navCtrl.getViews().filter(e => e.name == 'DoExamPage');
+        const lookExamArr = this.navCtrl.getViews().filter(e => e.name == 'LookExamPage');
+        if (courseArr.length == 1 && this.videojsCom && doExamArr.length == 0 && lookExamArr.length == 0) {
+            this.videojsCom.destroy();
+        }
     }
 
     //接受文件打开事件通知
@@ -133,6 +154,9 @@ export class CourseDetailPage {
             if (!value) {
                 return
             }
+            console.error('接受文件打开事件')
+            console.error(value);
+            this.global.subscribeDone = true;
             if (value.type == 'videoPlayEnd') {
                 this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
             }
@@ -148,47 +172,29 @@ export class CourseDetailPage {
                 this.videoInfo.video = value.video;
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
+                console.info('当前视频播放节点')
+                console.info(this.nodeLevel4);
+                console.log(`courseFileType:${this.courseFileType}`);
                 this.saveProcess(value.video);
             }
         });
     }
 
-
-    ionViewWillLeave() {
-        console.log('leave');
-        this.courseFileType = null;
-        this.showFooter = false;
-        this.appSer.setFile(null);
-        if (this.videojsCom) this.videojsCom.pageLeave();
-        const arr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
-        // if (arr.length == 1 && this.videojsCom) this.videojsCom.destroy();
-    }
-
-    //课程详情、课程章节、相关课程、课程评价
-    async getProductInfo() {
-        this.getChapter();
+    //相关课程
+    getRelationProduct() {
         const data = {
             pid: this.pId
         };
-        await this.learSer.GetRelationProductList(data).subscribe(
+        this.learSer.GetRelationProductList(data).subscribe(
             (res) => {
-                this.learnList = res.data.ProductList;
-            }
-        );
-
-        const data1 = {
-            topicID: this.product.detail.PrId
-        };
-        await this.learSer.GetCommentSum(data1).subscribe(
-            (res) => {
-
+                this.relationList = res.data.ProductList;
             }
         );
     }
 
     /**
      * 打开课件后更新章节进度
-     * @param type = video 视频播放完成后查询进度
+     * @param type = video 视频播放完成后查询作业是否解锁，若解锁直接打开作业
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
@@ -210,6 +216,9 @@ export class CourseDetailPage {
                     this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
                     this.checkTag();   //校验作业
                 }
+                if (this.enterSource == 'examBack') {
+                    this.studyContinue();
+                }
                 this.files.forEach(e => {
                     if (e.PlanStartTime) {
                         e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
@@ -230,6 +239,7 @@ export class CourseDetailPage {
      * 校验作业并跳转
      */
     checkTag() {
+        console.log('校验作业并跳转');
         this.tagsNodeList.forEach(e => {
             if (e.ID == this.nodeLevel4.ID) { //查到了ID
                 for (let t = 0; t < e.tags.length; t++) {
@@ -244,7 +254,7 @@ export class CourseDetailPage {
 
     //查询作业信息
     handleVideoExam(exam) {
-        console.log(exam);
+        console.log('查询作业信息');
         const data = {
             Eid: exam.id
         };
@@ -263,7 +273,7 @@ export class CourseDetailPage {
     }
 
     /**
-     *
+     *所有的课时节点
      */
     fNode(data) {
         for (let j = 0; j < data.length; j++) {
@@ -325,6 +335,8 @@ export class CourseDetailPage {
      * SortType 1有序 2 无序
      */
     studyContinue() {
+        console.log('studyContinue');
+        this.enterSource = '';
         let arr = [];
         if (this.SortType == 1) {
             arr = this.nodeLevel4List.filter(e => e.StudyStatus == 2);
@@ -334,7 +346,6 @@ export class CourseDetailPage {
         } else {
             this.studyNow();
         }
-        console.log(this.tagsNodeList)
     }
 
     /**
@@ -347,6 +358,7 @@ export class CourseDetailPage {
         const loading = this.loadCtrl.create();
         loading.present();
         this.saveProcess(file);   //创建学习记录
+        this.global.subscribeDone = false;
         if (file.icon.includes('mp4')) {
             const mp4 = {
                 type: 'mp4',

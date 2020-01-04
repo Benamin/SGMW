@@ -181,7 +181,6 @@ export class MyApp {
 
     checkLogin() {
         this.storage.get('Authorization').then(value => {
-            console.log(value)
             if (value) {
                 this.rootPage = TabsPage;
             } else {
