@@ -51,7 +51,7 @@ export class CourseDetailPage {
         {type: 3, name: '讨论', code: 'talk'},
         {type: 4, name: '讲师', code: 'teacher'},
         {type: 5, name: '评价', code: 'comment'},
-        {type: 6, name: '相关', code: 'relation'},
+        // {type: 6, name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -105,10 +105,11 @@ export class CourseDetailPage {
     }
 
     ionViewWillEnter() {
-        this.showFooter = true;
         this.enterSource = this.navParams.get('courseEnterSource');
         console.log('enterSource:' + this.enterSource);
         console.log('nodeLevel4:' + this.nodeLevel4);
+
+        this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -147,7 +148,7 @@ export class CourseDetailPage {
                 this.videoInfo.video = value.video;
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
-                this.saveProcess(value);
+                this.saveProcess(value.video);
             }
         });
     }
@@ -160,7 +161,7 @@ export class CourseDetailPage {
         this.appSer.setFile(null);
         if (this.videojsCom) this.videojsCom.pageLeave();
         const arr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
-        if (arr.length == 1 && this.videojsCom) this.videojsCom.destroy();
+        // if (arr.length == 1 && this.videojsCom) this.videojsCom.destroy();
     }
 
     //课程详情、课程章节、相关课程、课程评价

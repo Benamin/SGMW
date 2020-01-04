@@ -25,7 +25,7 @@ export class VideojsComponent implements OnDestroy {
 
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
-                private commonSer:CommonService,
+                private commonSer: CommonService,
                 private globleData: GlobalData,
                 private appSer: AppService,
                 private learnSer: LearnService,
@@ -71,12 +71,12 @@ export class VideojsComponent implements OnDestroy {
         }
         this.learnSer.UpdateVideoStudySum(data).subscribe(
             (res) => {
-                if(res.data){
+                if (res.data) {
                     const data = {
                         type: 'videoPlayEnd'
                     };
                     this.appSer.setFile(data);  //主页面接收消息
-                }else{
+                } else {
                     this.commonSer.toast('学习进度更新失败')
                 }
             }
@@ -120,9 +120,9 @@ export class VideojsComponent implements OnDestroy {
         if (this.video && videoInfo) {
             this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
-            this.video.removeChild('TitleBar');
+            // this.video.removeChild('TitleBar');
             // this.video.addChild(`danmu`,{text: `${videoInfo.DisplayName}`});
-            this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
+            // this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
         }
     }
 
