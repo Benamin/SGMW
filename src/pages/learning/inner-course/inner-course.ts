@@ -312,17 +312,16 @@ export class InnerCoursePage {
                 filePath = filePath.split('?')[0];
             }
             let arr = filePath.split('/');
+            option.fileName = arr[arr.length - 1];
             console.log(imagedata);
             console.log(arr);
             if (this.platform.is('ios')) {
-                option.fileName = arr[arr.length - 1];
                 this.uploadFile = {
                     AttachmentName: option.fileName,
                     AttachmentDIsplayName: option.fileName,
                     AttachmentExt: option.fileName.split('.')[1],
                 };
             } else {
-                option.fileName = arr[arr.length - 1];
                 const AttachmentName = option.fileName.indexOf('.') == -1 ? `${option.fileName}.jpg` : option.fileName;
                 const AttachmentExt = option.fileName.indexOf('.') == -1 ? `jpg` : option.fileName.split('.')[1];
                 this.uploadFile = {
