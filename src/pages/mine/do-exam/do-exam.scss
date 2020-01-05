@@ -47,7 +47,7 @@ page-do-exam {
 
   .item-container {
     background-color: #fff;
-    height: calc(100% - 50px);
+    height: calc(100% - 85px);
     border-bottom-left-radius: .8rem;
     border-bottom-right-radius: .8rem;
     overflow-y: scroll;
@@ -75,17 +75,17 @@ page-do-exam {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 7rem;
+    height: 85px;
     width: 100%;
     z-index: 999;
     background-color: #fff;
-    padding-top: 5px;
   }
 
   .doIt {
     font-size: 1.2rem;
     padding-left: 20px;
-    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     letter-spacing: 1px;
   }
 
@@ -194,7 +194,6 @@ page-do-exam {
 
   .selectIndex {
     display: inline-block;
-    vertical-align: middle;
     width: 24px;
     text-align: center;
     height: 24px;
@@ -205,6 +204,7 @@ page-do-exam {
     color: #333;
     font-size: 1.5rem;
     position: relative;
+    vertical-align: baseline;
   }
 
   input:checked + .selectIndex {
@@ -261,7 +261,8 @@ page-do-exam {
       border-radius: 10px;
       text-align: center;
       padding: 15px;
-      img{
+
+      img {
         position: absolute;
         top: -1.5rem;
         left: 42%;
@@ -277,8 +278,9 @@ page-do-exam {
         font-weight: bold;
         margin-bottom: 5px;
       }
-      div{
-        background-image: linear-gradient(to right , #fecc4b, #feeaa5);
+
+      div {
+        background-image: linear-gradient(to right, #fecc4b, #feeaa5);
         border-radius: 100px;
         margin-top: 10px;
         padding: 5px 0;
