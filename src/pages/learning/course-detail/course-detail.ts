@@ -16,7 +16,6 @@ import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
 import {MineService} from "../../mine/mine.service";
 import {GlobalData} from "../../../core/GlobleData";
-import {global} from "@angular/core/src/util";
 
 
 @Component({
@@ -32,7 +31,6 @@ export class CourseDetailPage {
     public video: ElementRef;
     @ViewChild(Content) content: Content;
 
-    pId;
     product = {
         detail: <any>null,
         chapter: null,
@@ -97,7 +95,7 @@ export class CourseDetailPage {
                 private mineSer: MineService,
                 private global: GlobalData,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
-        this.pId = this.navParams.get('id');
+        this.global.pId = this.navParams.get('id');
     }
 
     ionViewDidLoad() {
@@ -120,7 +118,7 @@ export class CourseDetailPage {
             enableBackdropDismiss: true,
         });
         this.loading.present();
-        this.learSer.GetProductById(this.pId).subscribe(
+        this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
                 this.SortType = res.data.SortType;
@@ -136,9 +134,8 @@ export class CourseDetailPage {
     //离开页面
     ionViewWillLeave() {
         console.log('leave');
-        this.courseFileType = null;
+        // this.courseFileType = null;
         this.showFooter = false;
-        this.appSer.setFile(null);
         if (this.videojsCom) this.videojsCom.pageLeave();
         const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
         const doExamArr = this.navCtrl.getViews().filter(e => e.name == 'DoExamPage');
@@ -175,6 +172,7 @@ export class CourseDetailPage {
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
                 if (!this.global.subscribeDone) {
+                    console.log(`getFileInfo,pid:${this.global.pId}`);
                     console.info('当前视频播放节点');
                     this.global.subscribeDone = true;
                     console.info(this.nodeLevel4);
@@ -188,7 +186,7 @@ export class CourseDetailPage {
     //相关课程
     getRelationProduct() {
         const data = {
-            pid: this.pId
+            pid: this.global.pId
         };
         this.learSer.GetRelationProductList(data).subscribe(
             (res) => {
@@ -203,12 +201,13 @@ export class CourseDetailPage {
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
-        this.learSer.GetProductById(this.pId).subscribe(
+        console.log(`getChapter,pid:${this.global.pId}`);
+        this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
             }
         );
-        this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
+        this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
                 this.product.chapter.Course.children.forEach(e => e.show = true);
@@ -334,8 +333,8 @@ export class CourseDetailPage {
         this.openFileByType(this.nodeLevel4List[0], this.files[0]);
     }
 
-    //继续学习 针对有序课程跳到最后一个解锁的课时的课件
     /**
+     * 继续学习 针对有序课程跳到最后一个解锁的课时的课件
      * StudyStatus 1未解锁 2 已解锁
      * SortType 1有序 2 无序
      */
@@ -438,7 +437,7 @@ export class CourseDetailPage {
     //讲师评价下-讲师列表
     getTeacher() {
         const data = {
-            id: this.pId
+            id: this.global.pId
         }
         this.learnSer.GetTeacherListByPID(data).subscribe(
             (res) => {
@@ -517,7 +516,7 @@ export class CourseDetailPage {
             placeholder: '请输入你对讲师的评价...',
             TopicID: this.product.detail.PrId,
             TopicType: 'teacher',
-            PId: this.pId,
+            PId: this.global.pId,
             title: '讲师评价'
         });
     }
@@ -552,7 +551,7 @@ export class CourseDetailPage {
     //报名
     sign() {
         const data = {
-            pid: this.pId
+            pid: this.global.pId
         };
         this.learSer.BuyProduct(data).subscribe(
             (res) => {
@@ -581,7 +580,7 @@ export class CourseDetailPage {
 
     //课程详情
     getCourseDetail() {
-        this.learSer.GetProductById(this.pId).subscribe(
+        this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.loading.dismiss();
                 this.product.detail = res.data;

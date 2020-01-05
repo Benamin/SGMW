@@ -19,6 +19,7 @@ import {DatePipe} from "@angular/common";
 import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
 import {MineService} from "../../mine/mine.service";
+import {GlobalData} from "../../../core/GlobleData";
 
 
 @Component({
@@ -35,7 +36,6 @@ export class FocusCoursePage {
     public video: ElementRef;
     @ViewChild(Content) content: Content;
 
-    pId;
     product = {
         detail: <any>null,
         chapter: null,
@@ -101,9 +101,10 @@ export class FocusCoursePage {
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
                 private datePipe: DatePipe,
+                private global: GlobalData,
                 private mineSer: MineService,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
-        this.pId = this.navParams.get('id');
+        this.global.pId = this.navParams.get('id');
     }
 
     ionViewDidLoad() {
@@ -120,7 +121,7 @@ export class FocusCoursePage {
             enableBackdropDismiss: true,
         });
         this.loading.present();
-        await this.learSer.GetProductById(this.pId).subscribe(
+        await this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
                 this.product.detail.StartTime = this.commonSer.transFormTime(this.product.detail.StartTime);
@@ -142,7 +143,10 @@ export class FocusCoursePage {
                 return
             }
             if (value.type == 'videoPlayEnd') {
-                this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                if (!this.global.subscribeDone) {
+                    this.global.subscribeDone = true;
+                    this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                }
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
                 this.getChapter('document');
@@ -156,7 +160,14 @@ export class FocusCoursePage {
                 this.videoInfo.video = value.video;
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
-                this.saveProcess(value.video);
+                if (!this.global.subscribeDone) {
+                    console.log(`getFileInfo,pid:${this.global.pId}`);
+                    console.info('当前视频播放节点');
+                    this.global.subscribeDone = true;
+                    console.info(this.nodeLevel4);
+                    console.log(`courseFileType:${this.courseFileType}`);
+                    this.saveProcess(value.video);
+                }
             }
         });
     }
@@ -167,16 +178,20 @@ export class FocusCoursePage {
         this.showFooter = false;
         this.appSer.setFile(null);
         if (this.videojsCom) this.videojsCom.pageLeave();
-        const arr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
-        if (arr.length == 1 && this.videojsCom) this.videojsCom.destroy();
+        const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
+        const doExamArr = this.navCtrl.getViews().filter(e => e.name == 'DoExamPage');
+        const lookExamArr = this.navCtrl.getViews().filter(e => e.name == 'LookExamPage');
+        if (courseArr.length == 1 && this.videojsCom && doExamArr.length == 0 && lookExamArr.length == 0) {
+            this.videojsCom.destroy();
+        }
     }
 
     //课程详情、课程章节、相关课程、课程评价
     async getProductInfo() {
         const data = {
-            pid: this.pId
+            pid: this.global.pId
         };
-        await this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
+        await this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
                 this.product.chapter.Course.children.forEach(e => e.show = true);
@@ -210,7 +225,7 @@ export class FocusCoursePage {
 
         //未审批作业
         const data2 = {
-            pid: this.pId
+            pid: this.global.pId
         };
         await this.learSer.GetUnfinishedTask(data2).subscribe(
             (res) => {
@@ -220,7 +235,7 @@ export class FocusCoursePage {
 
         //已审批作业
         const data3 = {
-            pid: this.pId
+            pid: this.global.pId
         };
         await this.learSer.GetOverTask(data3).subscribe(
             (res) => {
@@ -235,29 +250,36 @@ export class FocusCoursePage {
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
-        this.learSer.GetProductById(this.pId).subscribe(
+        this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
             }
         );
-        this.learSer.GetAdminChapterListByProductID(this.pId).subscribe(
+        this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
                 this.product.chapter.Course.children.forEach(e => e.show = true);
                 this.files = [];  //重置课件数组
-                this.tagsNodeList = [];  //重置课时节点数组
+                this.tagsNodeList = [];  //重置作业节点数组
+                this.nodeLevel4List = [];  //重置课时节点数组
                 this.f(this.product.chapter.Course.children);
                 this.fNode(this.product.chapter.Course.children);
-                if (type == 'video') {
+                if (type == 'video') {   //只有视频播放结束之后才校验是否打开作业
                     this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
                     this.checkTag();   //校验作业
+                }
+                if (this.enterSource == 'examBack') {
+                    this.studyContinue();
                 }
                 this.files.forEach(e => {
                     if (e.PlanStartTime) {
                         e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
                     }
                 });
+                console.log(`包含作业的节点列表：`);
                 console.log(this.tagsNodeList);
+                console.log(`所有的课时节点列表：`);
+                console.log(this.nodeLevel4List);
                 this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
                 this.isLoad = true;
@@ -302,7 +324,7 @@ export class FocusCoursePage {
     }
 
     /**
-     *
+     *所有的课时节点
      */
     fNode(data) {
         for (let j = 0; j < data.length; j++) {
@@ -329,7 +351,7 @@ export class FocusCoursePage {
     //讲师评价下-讲师列表
     getTeacher() {
         const data = {
-            id: this.pId
+            id: this.global.pId
         }
         this.learnSer.GetTeacherListByPID(data).subscribe(
             (res) => {
@@ -425,6 +447,7 @@ export class FocusCoursePage {
      */
     studyContinue() {
         let arr = [];
+        this.enterSource = '';
         if (this.SortType == 1) {
             arr = this.nodeLevel4List.filter(e => e.StudyStatus == 2);
             if (arr.length && arr[arr.length - 1].files.length > 0) {
@@ -534,7 +557,7 @@ export class FocusCoursePage {
             placeholder: '请输入你对讲师的评价...',
             TopicID: this.product.detail.PrId,
             TopicType: 'teacher',
-            PId: this.pId,
+            PId: this.global.pId,
             title: '讲师评价'
         });
     }
@@ -563,9 +586,8 @@ export class FocusCoursePage {
 
     //报名
     sign() {
-        let text = this.product.detail.TeachTypeName == "直播" ? "直播" : "课程";
         const data = {
-            pid: this.pId
+            pid: this.global.pId
         };
         this.learSer.BuyProduct(data).subscribe(
             (res) => {
@@ -591,7 +613,7 @@ export class FocusCoursePage {
 
     //课程详情
     getCourseDetail() {
-        this.learSer.GetProductById(this.pId).subscribe(
+        this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.loading.dismiss();
                 this.product.detail = res.data;

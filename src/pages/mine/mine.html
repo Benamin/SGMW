@@ -23,7 +23,8 @@
                 <div class="info-name">
                     <p>
                         <span>{{mineInfo?.UserName}}</span>
-                        <span *ngIf="userInfo?.TitleInfo?.ForumTitle" class="forumTitle">{{userInfo?.TitleInfo?.ForumTitle}}</span>
+                        <span *ngIf="userInfo?.TitleInfo?.ForumTitle"
+                              class="forumTitle">{{userInfo?.TitleInfo?.ForumTitle}}</span>
                         <span class="credit">积分：{{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</span>
                     </p>
                     <p class="badge" style="margin-top: 6px">
@@ -65,15 +66,15 @@
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>
         </div>
-<!--        <div class="item" tappable (click)="goMyThumbsUpComponent()">-->
-<!--            <div class="left">-->
-<!--                <img src="./assets/imgs/mine/p41_likr.png">-->
-<!--            </div>-->
-<!--            <div class="middle">我的点赞</div>-->
-<!--            <div class="right">-->
-<!--                <ion-icon name="arrow-forward"></ion-icon>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="item" tappable (click)="goMyThumbsUpComponent()">-->
+        <!--            <div class="left">-->
+        <!--                <img src="./assets/imgs/mine/p41_likr.png">-->
+        <!--            </div>-->
+        <!--            <div class="middle">我的点赞</div>-->
+        <!--            <div class="right">-->
+        <!--                <ion-icon name="arrow-forward"></ion-icon>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="item" tappable (click)="goToNoti()">
             <div class="left">
                 <img src="./assets/imgs/mine/notifation.png">
@@ -84,14 +85,14 @@
             </div>
         </div>
         <div class="item" tappable (click)="goMedal()">
-                <div class="left">
-                    <img src="./assets/imgs/mine/srats.png">
-                </div>
-                <div class="middle">设置勋章</div>
-                <div class="right">
-                    <ion-icon name="arrow-forward"></ion-icon>
-                </div>
+            <div class="left">
+                <img src="./assets/imgs/mine/srats.png">
             </div>
+            <div class="middle">设置勋章</div>
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
+        </div>
         <!-- <div class="item" tappable (click)="goToFile()">
             <div class="left">
                 <img src="./assets/imgs/mine/notifation.png">
@@ -115,7 +116,7 @@
                 <img src="./assets/imgs/mine/gyyy.png">
             </div>
             <div class="middle">关于应用
-                <span float-end>正式版1.1.0</span></div>
+                <span float-end>正式版1.2.0</span></div>
             <div class="right">
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>
@@ -135,5 +136,5 @@
 
 <ng-container *ngIf="appVersionInfo.UpdateTips">
     <update-app (done)="appVersionInfo.UpdateTips = false" [AppUrl]="appVersionInfo.AppUrl"
-        [UpdateText]="appVersionInfo.UpdateText"></update-app>
+                [UpdateText]="appVersionInfo.UpdateText"></update-app>
 </ng-container>
