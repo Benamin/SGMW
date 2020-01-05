@@ -6,7 +6,7 @@ import {
     LoadingController,
     ModalController,
     NavController,
-    NavParams,
+    NavParams, Platform,
     Slides
 } from 'ionic-angular';
 import {VideojsComponent} from "../../../components/videojs/videojs";
@@ -96,6 +96,7 @@ export class InnerCoursePage {
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
                 private camera: Camera,
+                private platform: Platform,
                 private loadingCtrl: LoadingController,
                 private transfer: FileTransfer,
                 private actionSheetCtrl: ActionSheetController,
@@ -125,23 +126,8 @@ export class InnerCoursePage {
                 this.product.detail.ApplicantETime = this.commonSer.transFormTime(this.product.detail.ApplicantETime);
                 this.nowTime = Date.now();  //当前时间
                 this.getProductInfo();
-                this.getFileInfo();
             }
         );
-    }
-
-    //接受文件事件
-    getFileInfo() {
-        this.appSer.fileInfo.subscribe(value => {
-            if (value && value.icon == 'iframe') {
-                this.courseFileType = 'iframe';
-                this.iframObj = value;
-            } else if (value && value.icon == 'mp4') {
-                this.courseFileType = 'video';
-                this.videoInfo.video = value;
-                this.videoInfo.poster = value;
-            }
-        });
     }
 
 
@@ -311,14 +297,14 @@ export class InnerCoursePage {
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE,
             sourceType: srcType,
-            saveToPhotoAlbum: true
+            saveToPhotoAlbum: false
         };
         const option: FileUploadOptions = {
             httpMethod: 'POST',
             headers: {
                 'Accept': 'application/json',
             },
-            fileName: 'image.jpeg'
+            fileName: 'image.png'
         };
         this.camera.getPicture(options).then((imagedata) => {
             let filePath = imagedata;
@@ -328,14 +314,24 @@ export class InnerCoursePage {
             let arr = filePath.split('/');
             console.log(imagedata);
             console.log(arr);
-            option.fileName = arr[arr.length - 1];
-            const AttachmentName = option.fileName.indexOf('.') == -1 ? `${option.fileName}.jpg` : option.fileName;
-            const AttachmentExt = option.fileName.indexOf('.') == -1 ? `jpg` : option.fileName.split('.')[1];
-            this.uploadFile = {
-                AttachmentName: AttachmentName,
-                AttachmentDIsplayName: AttachmentName,
-                AttachmentExt: AttachmentExt,
-            };
+            if (this.platform.is('ios')) {
+                option.fileName = arr[arr.length - 1];
+                this.uploadFile = {
+                    AttachmentName: option.fileName,
+                    AttachmentDIsplayName: option.fileName,
+                    AttachmentExt: option.fileName.split('.')[1],
+                };
+            } else {
+                option.fileName = arr[arr.length - 1];
+                const AttachmentName = option.fileName.indexOf('.') == -1 ? `${option.fileName}.jpg` : option.fileName;
+                const AttachmentExt = option.fileName.indexOf('.') == -1 ? `jpg` : option.fileName.split('.')[1];
+                this.uploadFile = {
+                    AttachmentName: AttachmentName,
+                    AttachmentDIsplayName: AttachmentName,
+                    AttachmentExt: AttachmentExt,
+                };
+            }
+
             this.upload(imagedata, option);
         })
     }

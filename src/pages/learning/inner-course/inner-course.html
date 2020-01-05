@@ -10,7 +10,7 @@
             <div class="background-image">
                 <img [src]="product.detail?.ImageUrl" alt="">
             </div>
-            <div class="content" *ngIf="courseFileType == null">
+            <div class="content">
                 <div class="content-info">
                     <div class="course-name">
                         {{product.detail?.Title}}
@@ -36,13 +36,6 @@
                             人领取</span>
                     </div>
                 </div>
-            </div>
-            <div id="videoTag" class="content video" [hidden]="courseFileType == null">
-                <videojs [hidden]="!courseFileType || courseFileType == 'iframe' " #videojsCom
-                         [GetVideo]="videoInfo.video"
-                         [poster]="videoInfo.poster"></videojs>
-                <iframe-file [hidden]="!courseFileType || courseFileType == 'video' " #iframeFile
-                             [iframe]="iframObj"></iframe-file>
             </div>
         </div>
         <navbar #navbar [select]="bar.type" [list]="navbarList" (done)="changeType($event)"></navbar>
