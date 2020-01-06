@@ -22,6 +22,7 @@ export class VideojsComponent implements OnDestroy {
     videoInfo;
     video;
     videoEle;
+    isPlay = false;   //判断视频播放状态
 
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
@@ -45,6 +46,7 @@ export class VideojsComponent implements OnDestroy {
                     }
                 );
                 this.video.on('fullscreenchange', () => {
+                    if (!this.isPlay) return
                     if (this.video.isFullscreen()) {  //全屏
                         this.screenOrientation.lock('landscape');  //横屏
                         this.statusBar.hide();
@@ -56,10 +58,10 @@ export class VideojsComponent implements OnDestroy {
                 });
                 this.video.on('ended', () => {
                     console.log('video end')
-                    if (!this.video.isFullscreen()) {
-                        this.screenOrientation.lock('portrait');  //锁定竖屏
-                        this.statusBar.show();
-                    }
+                    this.isPlay = false;
+                    this.screenOrientation.lock('portrait');  //锁定竖屏
+                    document.webkitExitFullscreen();  //退出全屏
+                    this.statusBar.show();
                     this.updateVideoStatus();
                 })
                 console.log(`播放器videojs${videoNum},初始化成功`);
@@ -79,7 +81,7 @@ export class VideojsComponent implements OnDestroy {
                 if (res.data) {
                     const data = {
                         type: 'videoPlayEnd',
-                        source:'videojs',
+                        source: 'videojs',
                     };
                     this.global.subscribeDone = false;
                     this.appSer.setFile(data);  //主页面接收消息
@@ -126,6 +128,7 @@ export class VideojsComponent implements OnDestroy {
 
     @Input() set GetVideo(videoInfo) {
         if (this.video && videoInfo) {
+            this.isPlay = true;
             this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
             this.video.removeChild('TitleBar');
