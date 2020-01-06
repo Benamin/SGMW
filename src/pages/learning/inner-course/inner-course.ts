@@ -406,7 +406,7 @@ export class InnerCoursePage {
 
     //前往资料记录
     goMainFile() {
-        this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: this.mainFile})
+        this.navCtrl.push(CourseFilePage, {title: "已上传资料", mainFile: this.mainFile, pId: this.pId})
     }
 
     //教师上传的资料
