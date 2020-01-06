@@ -32,7 +32,7 @@ export class TreeListComponent {
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
                 private navCtrl: NavController,
                 private mineSer: MineService,
-                private global:GlobalData,
+                private global: GlobalData,
                 private downloadPro: DownloadFileProvider,
                 private downloadSer: DownloadFileService) {
         timer(10).subscribe(
@@ -70,6 +70,8 @@ export class TreeListComponent {
     handle(node, file, event) {
         console.log(node);
         console.log(file);
+        event.stopPropagation();
+
         if (node.StudyStatus == 1 || node.StudyStatus == 0) {
             this.commonSer.toast('课程尚未解锁,请完成前面的课程解锁');
             return;
@@ -89,17 +91,16 @@ export class TreeListComponent {
             return
         }
 
-        event.stopPropagation();
         if (!file.icon.includes('mp4')) this.saveProcess(file);  //非视频文件保存进度
         this.global.subscribeDone = false;
         if (file.icon.includes('mp4')) {  //视频
             const mp4 = {
                 type: 'mp4',
                 video: file,   //文件
+                source: 'tree-list',
                 nodeLevel: node   //课时节点
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
-            return;
         }
         if (file.icon.includes('iframe')) {  // iframe
             const iframe = {
@@ -107,11 +108,9 @@ export class TreeListComponent {
                 iframe: file
             };
             this.appSer.setFile(iframe);  //通知主页面播放视频
-            return;
         }
         if (file.icon.includes('pdf')) {   //pdf课件
             this.openPDF(file);
-            return;
         }
         if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);

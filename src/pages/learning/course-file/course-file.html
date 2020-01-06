@@ -9,6 +9,7 @@
         <ng-container *ngFor="let item of mainFile;let i = index;">
             <ion-col col-6 class="col-item" tappable (click)="openFile(item)">
                 <div class="record-item">
+                    <ion-icon *ngIf="item.TeachingID" class="deleIcon" (click)="deleteFile($event,item)" name="trash"></ion-icon>
                     <span class="file-type {{item.AttachmentExt}}">{{item.AttachmentExt.toLowerCase()}}</span>
                     <span *ngIf="item.Score" class="score" [ngClass]="item.Score > 59?'yellow':'red'">{{item.Score}}分</span>
                     <img *ngIf="!item.AttachmentExt.includes('jpg') && !item.AttachmentExt.includes('png')"

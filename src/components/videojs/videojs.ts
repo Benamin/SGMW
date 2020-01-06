@@ -78,7 +78,8 @@ export class VideojsComponent implements OnDestroy {
             (res) => {
                 if (res.data) {
                     const data = {
-                        type: 'videoPlayEnd'
+                        type: 'videoPlayEnd',
+                        source:'videojs',
                     };
                     this.global.subscribeDone = false;
                     this.appSer.setFile(data);  //主页面接收消息

@@ -101,15 +101,14 @@ export class CourseDetailPage {
     ionViewDidLoad() {
         this.slides.autoHeight = true;
         this.slides.onlyExternal = true;
+        this.courseFileType = null;
     }
 
     ionViewWillEnter() {
         this.enterSource = this.navParams.get('courseEnterSource');
         console.log('enterSource:' + this.enterSource);
         console.log('nodeLevel4:' + this.nodeLevel4);
-
-        //接受文件通知
-        this.getFileInfo();
+        console.log('courseFileType:' + this.courseFileType);
 
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
@@ -127,15 +126,18 @@ export class CourseDetailPage {
                 if (this.enterSource != 'examBack') {
                     this.getTeacher();
                 }
+                //接受文件通知
+                this.getFileInfo();
             }
         );
     }
 
     //离开页面
-    ionViewWillLeave() {
+    ionViewDidLeave() {
         console.log('leave');
-        // this.courseFileType = null;
+        this.courseFileType = null;
         this.showFooter = false;
+        this.appSer.setFile(null)
         if (this.videojsCom) this.videojsCom.pageLeave();
         const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
         const doExamArr = this.navCtrl.getViews().filter(e => e.name == 'DoExamPage');
@@ -202,6 +204,7 @@ export class CourseDetailPage {
      */
     getChapter(type?: any) {
         console.log(`getChapter,pid:${this.global.pId}`);
+        console.log(`courseFileType,pid:${this.courseFileType}`);
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
@@ -317,6 +320,7 @@ export class CourseDetailPage {
 
     //立即学习 打开第一个课件
     studyNow() {
+        console.log('studyNow')
         if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
             return;
@@ -367,6 +371,7 @@ export class CourseDetailPage {
             const mp4 = {
                 type: 'mp4',
                 video: file,   //文件
+                source:'courseDetail',
                 nodeLevel: node   //课时节点
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
