@@ -25,6 +25,7 @@ import {GlobalData} from "../../../core/GlobleData";
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild('ionSlidesDIV') ionSlidesDIV: ElementRef;
     @ViewChild('videojsCom') videojsCom: VideojsComponent;
     @ViewChild(Slides) slides: Slides;
     @ViewChild('video')
@@ -102,6 +103,9 @@ export class CourseDetailPage {
         this.slides.autoHeight = true;
         this.slides.onlyExternal = true;
         this.courseFileType = null;
+        const screenWidth = <any>window.screen.width;
+        this.ionSlidesDIV.nativeElement.style.width = screenWidth + 'px';
+        console.log(screenWidth);
     }
 
     ionViewWillEnter() {
@@ -371,7 +375,7 @@ export class CourseDetailPage {
             const mp4 = {
                 type: 'mp4',
                 video: file,   //文件
-                source:'courseDetail',
+                source: 'courseDetail',
                 nodeLevel: node   //课时节点
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
