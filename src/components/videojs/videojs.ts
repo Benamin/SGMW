@@ -60,7 +60,8 @@ export class VideojsComponent implements OnDestroy {
                     console.log('video end')
                     this.isPlay = false;
                     this.screenOrientation.lock('portrait');  //锁定竖屏
-                    document.getElementsByTagName('video')[0].webkitExitFullscreen();
+                    if (this.platform.is('ios')) document.getElementsByTagName('video')[0].webkitExitFullscreen();
+                    if (this.platform.is('android')) this.video.exitFullscreen();
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
