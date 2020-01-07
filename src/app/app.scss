@@ -57,3 +57,38 @@ html, body, p {
     padding-top: 20px;
   }
 }
+
+//iphoneX、iphoneXs
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .platform-ios .platformIOS {
+    .toolbar.toolbar-ios {
+      height: calc(56px + 30px);
+      min-height: calc(56px + 30px);
+      padding-top: 30px;
+    }
+  }
+}
+
+
+//iphone Xs Max
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  .platform-ios .platformIOS {
+    .toolbar.toolbar-ios {
+      height: calc(56px + 30px);
+      min-height: calc(56px + 30px);
+      padding-top: 30px;
+    }
+  }
+}
+
+
+//iphone XR
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  .platform-ios .platformIOS {
+    .toolbar.toolbar-ios {
+      height: calc(56px + 30px);
+      min-height: calc(56px + 30px);
+      padding-top: 30px;
+    }
+  }
+}

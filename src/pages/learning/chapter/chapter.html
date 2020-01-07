@@ -26,11 +26,11 @@
         </div>
         <ng-container *ngIf="IsBuy">
             <div *ngFor="let itemExam of item.tags">
-                <p [ngStyle]="{'padding-left':(itemExam.NodeLevel*5)+'px'}" tappable
+                <p tappable
                    (click)="handleExam(item,itemExam,$event)">
-                <span class="exam">
-                    {{itemExam.label | stringSlice:20:20}}
-                </span>
+                    <span [ngStyle]="{'margin-left':(item.NodeLevel*5)+'px'}" class="exam">
+                        {{itemExam.label | stringSlice:15:15}}
+                    </span>
                     <span class="no" *ngIf="itemExam.examStatus == 4 || itemExam.StudyStatus == 2">
                     <img src="./assets/imgs/course/daiwancheng.png" alt="">
                     待完成
