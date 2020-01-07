@@ -292,9 +292,9 @@ export class InnerCoursePage {
     //选择图片
     selectPicture(srcType) {
         const options: CameraOptions = {
-            quality: 5,  //1 拍照  2 相册
+            quality: 10,  //1 拍照  2 相册
             destinationType: this.camera.DestinationType.FILE_URI,
-            encodingType: this.camera.EncodingType.JPEG,
+            encodingType: this.camera.EncodingType.PNG,
             mediaType: this.camera.MediaType.PICTURE,
             sourceType: srcType,
             saveToPhotoAlbum: false
