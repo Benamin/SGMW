@@ -306,6 +306,9 @@ export class InnerCoursePage {
             },
             fileName: 'image.png'
         };
+        if (this.platform.is('ios')) {
+            this.appSer.setIOS('platformIOS');
+        }
         this.camera.getPicture(options).then((imagedata) => {
             let filePath = imagedata;
             if (filePath.indexOf('?') !== -1) {     //获取文件名
