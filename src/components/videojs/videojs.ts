@@ -8,6 +8,7 @@ import {VideoJsProvider} from "../../providers/video-js/video-js";
 import {LearnService} from "../../pages/learning/learn.service";
 import {AppService} from "../../app/app.service";
 import {CommonService} from "../../core/common.service";
+import {Platform} from "ionic-angular";
 
 declare let videojs: any;
 
@@ -29,6 +30,7 @@ export class VideojsComponent implements OnDestroy {
                 private commonSer: CommonService,
                 private global: GlobalData,
                 private appSer: AppService,
+                private platform: Platform,
                 private learnSer: LearnService,
                 private vjsProvider: VideoJsProvider,
                 private screenOrientation: ScreenOrientation) {
@@ -40,14 +42,12 @@ export class VideojsComponent implements OnDestroy {
                 controls: true,
                 autoplay: true
             }, (event) => {
-                this.screenOrientation.onChange().subscribe(
-                    (res) => {
-                        console.log(res);
-                    }
-                );
                 this.video.on('fullscreenchange', () => {
-                    if (!this.isPlay) return
+                    if (!this.isPlay) return;
                     if (this.video.isFullscreen()) {  //全屏
+                        if (this.platform.is('ios')) {
+                            this.appSer.setIOS('platformIOS');
+                        }
                         this.screenOrientation.lock('landscape');  //横屏
                         this.statusBar.hide();
                     }
@@ -60,7 +60,7 @@ export class VideojsComponent implements OnDestroy {
                     console.log('video end')
                     this.isPlay = false;
                     this.screenOrientation.lock('portrait');  //锁定竖屏
-                    document.webkitExitFullscreen();  //退出全屏
+                    document.getElementsByTagName('video')[0].webkitExitFullscreen();
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })

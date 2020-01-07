@@ -2,7 +2,7 @@
     <img (load)="imgLoad()" tappable (click)="openUrl()" [src]="load.imgUrl">
 </div>
 <ng-container *ngIf="!showSplash">
-    <ion-nav [root]="rootPage"></ion-nav>
+    <ion-nav [class]="isIOS" [root]="rootPage"></ion-nav>
 </ng-container>
 <ng-container *ngIf="app.UpdateTips">
     <update-app (done)="app.UpdateTips = false" [AppUrl]="app.AppUrl" [UpdateText]="app.UpdateText"></update-app>

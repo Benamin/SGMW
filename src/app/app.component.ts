@@ -14,6 +14,7 @@ import {JunKe_client_id, NoUserMsg} from "./app.constants";
 import {AppVersion} from "@ionic-native/app-version";
 import {AppUpdateService} from "../core/appUpdate.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
+import {AppService} from "./app.service";
 
 @Component({
     templateUrl: 'app.html'
@@ -36,15 +37,16 @@ export class MyApp {
         AppUrl: '',
         UpdateText: '',
     };
+    isIOS;
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService, private appVersion: AppVersion,
                 private appUpdate: AppUpdateService,
                 private mobileAccess: MobileAccessibility,
+                private appSer: AppService,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
-
             //app字体不跟随手机字体大小变化
             this.mobileAccess.usePreferredTextZoom(false);
             this.splashScreen.show();
@@ -52,6 +54,15 @@ export class MyApp {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
             this.statusBar.styleLightContent();
+
+            this.appSer.iosInfo.subscribe(
+                value => {
+                    if (!value) {
+                        return
+                    }
+                    this.isIOS = value;
+                }
+            )
         });
     }
 
