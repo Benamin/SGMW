@@ -17,7 +17,7 @@
         <p [ngStyle]="{'padding-left':(itemFile.NodeLevel*5)+'px'}" tappable (click)="handle(itemNode,itemFile,$event)">
             <img *ngIf="itemFile.icon != 'mp4'" src="./assets/imgs/learn/file.png">
             <img *ngIf="itemFile.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
-            {{itemFile.DisplayName | stringSlice:20:20}}
+            {{itemFile.DisplayName | stringSlice:15:15}}
             <span class="file-icon">{{itemFile.icon}}</span>
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe'"
                  tappable (click)="downLoad(itemFile,$event)"
@@ -27,10 +27,10 @@
     <!--   作业      -->
     <ng-container *ngIf="IsBuy">
         <div *ngFor="let itemExam of itemNode.tags">
-            <p [ngStyle]="{'padding-left':(itemExam.NodeLevel*5)+'px'}" tappable
+            <p tappable
                (click)="handleExam(itemNode,itemExam,$event)">
-                <span class="exam">
-                    {{itemExam.label | stringSlice:20:20}}
+                <span [ngStyle]="{'margin-left':(itemNode.NodeLevel*5)+'px'}" class="exam">
+                    {{itemExam.label | stringSlice:15:15}}
                 </span>
                 <span class="no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
                 || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
