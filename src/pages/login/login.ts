@@ -73,9 +73,9 @@ export class LoginPage {
             inputCode: ''
         },
         xszs: {
-            jxsh: '000000',
-            czymc: '丁林玲',
-            pwd: 'sgmw50@',
+            jxsh: '',
+            czymc: '',
+            pwd: '',
             source: 'TrainingSystem',
             codeRight: '',
             inputCode: ''
@@ -282,7 +282,7 @@ export class LoginPage {
 
         const password = encrypt.encrypt(this.jxs.junke.password);
         const data = {
-            "userName": this.jxs.junke.username,
+            "userName": this.jxs.junke.username.trim(),
             "password": password
         };
         this.loginSer.JunkeAppAuthCas(data).subscribe(
@@ -349,9 +349,9 @@ export class LoginPage {
         const timeStamp = Math.round(d / 1000) + ''
         const nonce = this.randomWord.uuidNum();
         const content = {
-            "stationNo": this.fwzsObj.stationNo,
+            "stationNo": this.fwzsObj.stationNo.trim(),
             "stationBranch": this.fwzsObj.stationBranch,
-            "userName": this.fwzsObj.userName,
+            "userName": this.fwzsObj.userName.trim(),
             "password": this.fwzsObj.password,
         };
         const sign = `appId=${FWZS_appid}&secretKey=${FWZS_SecretKey}&timeStamp=${timeStamp}&nonce=${nonce}&content=${JSON.stringify(content)}`;
