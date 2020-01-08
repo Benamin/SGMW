@@ -254,6 +254,9 @@ export class InnerCoursePage {
 
     //选择图片
     takePic() {
+        // @ts-ignore
+        this.appSer.setIOS('innerCourse');
+        console.log('innerCourse')
         const nowTime = Date.now();
         const ApplicantSTime = this.commonSer.transFormTime(this.product.detail.ApplicantSTime);
         if (nowTime < ApplicantSTime) {
