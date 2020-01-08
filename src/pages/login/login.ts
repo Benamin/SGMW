@@ -344,13 +344,18 @@ export class LoginPage {
         });
         loading.present();
 
-        // const timeStamp = Math.floor((Date.now())/1000) +'';
-        const d = Date.now()
-        const timeStamp = Math.round(d / 1000) + ''
+        const d = Date.now();
+        const timeStamp = Math.round(d / 1000) + '';
         const nonce = this.randomWord.uuidNum();
+        let stationNo = this.fwzsObj.stationNo;
+        let stationBranch = this.fwzsObj.stationBranch;
+        if (this.fwzsObj.stationNo.length == 9) {
+            stationNo = this.fwzsObj.stationNo.substring(0, 7);
+            stationBranch = this.fwzsObj.stationNo.substring(7, 9);
+        }
         const content = {
-            "stationNo": this.fwzsObj.stationNo.trim(),
-            "stationBranch": this.fwzsObj.stationBranch,
+            "stationNo": stationNo,
+            "stationBranch": stationBranch,
             "userName": this.fwzsObj.userName.trim(),
             "password": this.fwzsObj.password,
         };

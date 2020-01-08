@@ -94,5 +94,6 @@ html, body, p {
 }
 
 .isIphoneIOS13 {
-  top: -10px;
+  margin-top: 44px;
+  height: calc(100% - 44px);
 }
