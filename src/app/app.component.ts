@@ -66,9 +66,9 @@ export class MyApp {
                     if (value == 'platformIOS') {
                         this.isIOS = true;
                     }
-                    console.log(this.isIphoneX());
+                    console.log(this.isIphoneXR());
                     console.log(this.isIOS13());
-                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneX()) {
+                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneXR()) {
                         this.isIphoneIOS13 = true;
                     }
                 }
@@ -76,8 +76,8 @@ export class MyApp {
         });
     }
 
-    isIphoneX() {
-        return /iphone/gi.test(navigator.userAgent) && (screen.height == 812 && screen.width == 375)
+    isIphoneXR() {
+        return /iphone/gi.test(window.navigator.userAgent) && window.devicePixelRatio && window.devicePixelRatio === 2 && window.screen.width === 414 && window.screen.height === 896
     }
 
 
