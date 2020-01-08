@@ -388,7 +388,7 @@ export class LoginPage {
             grant_type: "password",
             client_id: FWZS_client_id,
             username: res.userName,
-            jxsh: res.stationNo,
+            jxsh: this.fwzsObj.stationNo,
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
