@@ -15,6 +15,7 @@ import {AppVersion} from "@ionic-native/app-version";
 import {AppUpdateService} from "../core/appUpdate.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {AppService} from "./app.service";
+import {Keyboard} from "@ionic-native/keyboard";
 
 @Component({
     templateUrl: 'app.html'
@@ -37,13 +38,15 @@ export class MyApp {
         AppUrl: '',
         UpdateText: '',
     };
-    isIOS;
+    isIOS = false;
+    isIphoneIOS13 = false;
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService, private appVersion: AppVersion,
                 private appUpdate: AppUpdateService,
                 private mobileAccess: MobileAccessibility,
                 private appSer: AppService,
+                private Keyboard: Keyboard,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         this.platform.ready().then(() => {
             this.getLoad();
@@ -60,10 +63,34 @@ export class MyApp {
                     if (!value) {
                         return
                     }
-                    this.isIOS = value;
+                    if (value == 'platformIOS') {
+                        this.isIOS = true;
+                    }
+                    console.log(this.isIphoneX());
+                    console.log(this.isIOS13());
+                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneX()) {
+                        this.isIphoneIOS13 = true;
+                    }
                 }
             )
         });
+    }
+
+    isIphoneX() {
+        return /iphone/gi.test(navigator.userAgent) && (screen.height == 812 && screen.width == 375)
+    }
+
+
+    isIOS13() {
+        const str = navigator.userAgent.toLowerCase();
+        const ver = str.match(/cpu iphone os (.*?) like mac os/);
+        const v = ver[1].replace(/_/g, ".");
+        console.log(v)
+        if (v.includes('13')) {
+            return true
+        } else {
+            return false;
+        }
     }
 
 
