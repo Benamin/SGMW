@@ -39,6 +39,7 @@ export class MyApp {
         UpdateText: '',
     };
     isIOS = false;
+    isIphone11IOS13 = false;
     isIphoneIOS13 = false;
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
@@ -48,11 +49,11 @@ export class MyApp {
                 private appSer: AppService,
                 private Keyboard: Keyboard,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
-                    (window as any).handleOpenURL = (url: string) => {
-                        if (this.platform.is('ios')) {
-                            (window as any).localStorage.setItem("app_url",url);
-                        }
-                    };
+        (window as any).handleOpenURL = (url: string) => {
+            if (this.platform.is('ios')) {
+                (window as any).localStorage.setItem("app_url", url);
+            }
+        };
         this.platform.ready().then(() => {
             this.getLoad();
             //app字体不跟随手机字体大小变化
@@ -73,8 +74,17 @@ export class MyApp {
                     }
                     console.log(this.isIphoneXR());
                     console.log(this.isIOS13());
-                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneXR()) {
+                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneXR()) {  //iphone 11
+                        this.isIphone11IOS13 = true;
+                        return;
+                    }
+                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneX()) { //iphone X
+                        this.isIphone11IOS13 = true;
+                        return;
+                    }
+                    if (value == 'innerCourse' && this.isIOS13()) {  //ios 13
                         this.isIphoneIOS13 = true;
+                        return;
                     }
                 }
             )
@@ -85,6 +95,9 @@ export class MyApp {
         return /iphone/gi.test(window.navigator.userAgent) && window.devicePixelRatio && window.devicePixelRatio === 2 && window.screen.width === 414 && window.screen.height === 896
     }
 
+    isIphoneX() {
+        return /iphone/gi.test(navigator.userAgent) && (screen.height == 812 && screen.width == 375)
+    }
 
     isIOS13() {
         const str = navigator.userAgent.toLowerCase();
