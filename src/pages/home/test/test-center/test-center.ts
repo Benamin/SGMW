@@ -9,6 +9,7 @@ import {CommonService} from "../../../../core/common.service";
 import {DatePipe} from "@angular/common";
 import {EmitService} from "../../../../core/emit.service";
 import {LogService} from "../../../../service/log.service";
+declare var Wechat;
 
 @Component({
     selector: 'page-exam',
@@ -112,6 +113,7 @@ export class TestCenterPage {
         const loading = this.loadCtrl.create({
             content: ''
         });
+        console.log(item);
         loading.present();
         const ExamBegin = this.commonSer.transFormTime(item.ExamBegin);
         const ExamEnd = this.commonSer.transFormTime(item.ExamEnd);
@@ -159,6 +161,39 @@ export class TestCenterPage {
             }
         );
     }
-
+      // 微信分享
+    wxShare(data){
+        console.log('分享内容',data)
+        let description=data.SubjectName;
+        let thumb=data.PictureSrc;
+        let Title=data.EName
+        if(description.length>100){
+            description = description.slice(0,100);
+        }
+        
+        let  webpageUrl= `http://a1.hellowbs.com/openApp.html?scheme_url=test&Fid=${data.Fid}`;
+        console.log(description);
+      
+        Wechat.share({
+            message: {
+            title: Title, // 标题
+            description: description, // 简介
+            thumb: thumb, //图片
+            mediaTagName: "TEST-TAG-001",
+            messageExt: "这是第三方带的测试字段",
+            messageAction: "<action>dotalist</action>",
+            // media: "YOUR_MEDIA_OBJECT_HERE",
+            media: {
+                    type: Wechat.Type.WEBPAGE,
+                    webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=test&Fid=${data.Fid}`
+                }
+            },
+            scene: Wechat.Scene.SESSION
+        }, function () {
+           // alert("Success");
+        }, function (reason) {
+            // alert("Failed: " + reason);
+        });
+    }
 
 }
