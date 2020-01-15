@@ -330,6 +330,13 @@ export class HomePage {
             }
         );
     }
+    goToNavli(){
+        if(this.navli=='product'){
+            this.moreCourse() 
+        }else if(this.navli=='float'){
+            this.goForumComponent();
+        }
+    }
 
     // 前往资讯
     goConsultation() {
