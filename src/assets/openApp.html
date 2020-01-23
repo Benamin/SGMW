@@ -74,7 +74,7 @@
           请在应用商店下载<span onclick="gotoAppDowm()" style="color: #FFD65E;">【骏菱学社 APP】</span>
       </p>
       <p style="line-height: 40px;">若已下载请点击链接进入</p>
-      <p><a href="sgmw://forum/" id="id_sgmw" style="    color: #FFF;"> https://www.junlingxueshe.com</a></p>
+      <p><a href="sgmw://forum/" id="id_sgmw" style="color: #FFF;"> https://www.junlingxueshe.com</a></p>
     </div>
   </div>
   <div id="nobrowser">
@@ -85,14 +85,33 @@
 
   <!-- <a href="sgmw://forum">SGMW://</a> -->
   <script>
-    var get_res=window.location.href.split('?Id=');
+    var _href=window.location.href;
+    var get_res=_href.split('?Id=');
+    var scheme_url="sgmw://"
+    var get_scheme_url=_href.split('?scheme_url=');
+
+    if(_href.indexOf('forum')> -1){ // 论坛
+      scheme_url+="forum/"+get_scheme_url[1];
+    }else if(_href.indexOf('learning')> -1){ //课程
+      // http://a1.hellowbs.com/openApp.html?scheme_url=learning&TeachTypeName=在线课程&Id=b17bc0e1-9e13-400b-9b1e-016f905dcb0e
+      scheme_url+="learning/"+get_scheme_url[1];
+    }else if(_href.indexOf('test')> -1){ // 考试
+      scheme_url+="test/"+get_scheme_url[1];
+      // http://a1.hellowbs.com/openApp.html?scheme_url=test&Fid=fdff59bc-7535-4e0a-8da5-66ee1f81a3ae
+    }else{ // 兼容旧版本分享，论坛
+      scheme_url+="forum/"+get_res[1]
+    }
+
+
     var config = {
         /*scheme:必须、这里我用的微信的要换成自己公司的scheme*/
-        scheme_IOS: "sgmw://forum/"+get_res[1],
-        scheme_Adr: "sgmw://forum/"+get_res[1],
+        // scheme_IOS: "sgmw://forum/"+get_res[1],
+        scheme_IOS: scheme_url,
+        scheme_Adr: scheme_url,
         download_IOSurl: "https://apps.apple.com/us/app/骏菱学社/id1478072690?l=zh&ls=1",
         download_ANDurl: "https://fir.im/x3g9",
       };
+      console.log(config);
 
     gotoAppDowm = function(){
       console.log('下载');
@@ -130,7 +149,6 @@
     }
     callApp = function (){
 
-      console.log(get_res);
 
       const u = navigator.userAgent
       if (/MicroMessenger/gi.test(u)) {

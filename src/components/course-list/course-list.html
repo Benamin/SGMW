@@ -11,6 +11,8 @@
            <span><img style="width: 16px;" src="./assets/imgs/learn/person_gray@2x.png" alt="">{{item?.ManCount}}</span>
            <span><img src="./assets/imgs/course/hua_h@2x.png" alt="">{{item?.ZanCount}}</span>
            <span><img src="./assets/imgs/learn/collect@2x.png" alt="">{{item?.CollectionCount}}</span>
+           <span (click)="wxShare(item);$event.stopPropagation()"> <img src="./assets/imgs/forum/other/share.png" style="opacity: 0.5;" alt="">
+          </span>
          </div>
        </div>
      </div>

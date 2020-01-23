@@ -1,0 +1,41 @@
+.navul{
+    // background: red;
+    overflow: auto;
+    background: white;
+    display: flex;
+    .navli{
+      flex:1;
+      text-align: center;
+      position: relative; 
+      padding: 10px;
+      color: rgba(0,0,0,0.6);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .navli::before{
+      background: linear-gradient(-90deg, #fff, #fff);
+    }
+    .act{
+      color: rgba(0,0,0,1);
+      transition: all 0.2s;
+    }
+    .act::before{
+      content: " ";
+      display: block;
+      position: absolute;
+      width: 28px;
+      height: 4px;
+      margin-left: -10px;
+      left: 50%;
+      bottom: 0px;
+      transition: all 0.2s;
+      background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      border-radius: 2px;
+    }
+  }
+  .integral-img{
+      margin-top: 15px;
+  }

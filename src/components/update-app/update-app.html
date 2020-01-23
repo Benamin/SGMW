@@ -1,15 +1,13 @@
 <div class="cover">
-  <div class="bg-content">
-    <div class="update-content">
-      <div class="update-text">
-        {{UpdateText}}
-      </div>
-      <div tappable (click)="updateApp()" class="update-button">
-        马上更新
-      </div>
-    </div>
-    <span tappable (click)="close()" class="icon-close">
+    <div class="bg-content">
+        <div class="update-content">
+            <div class="update-text" [innerHTML]="UpdateText | lineFeed"></div>
+            <div tappable (click)="updateApp()" class="update-button">
+                马上更新
+            </div>
+        </div>
+        <span tappable (click)="close()" class="icon-close">
             <ion-icon name="close"></ion-icon>
         </span>
-  </div>
+    </div>
 </div>

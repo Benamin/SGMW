@@ -34,8 +34,10 @@ export class RankingComponent implements OnInit {
             name: '活跃度'
         }],
         examination: [{
+            key: 'AreaExamTopList',
             name: '区域',
         }, {
+            key: 'ManageExamTopList',
             name: '体系'
         }]
     };
@@ -49,7 +51,10 @@ export class RankingComponent implements OnInit {
             key: 'StudentTitleModels',
             name: '头衔榜',
         },
-        examination: '区域'
+        examination: {
+            key: 'AreaExamTopList',
+            name: '区域',
+        },
     };
     GetRankListArr = null;
     phb_1 = {
@@ -84,7 +89,7 @@ export class RankingComponent implements OnInit {
     };
     mineInfo = null;
     dataList = [];
-
+    examinationData={Exam:{EName:"",Extend1:'',TotalScore:""},AreaExamTopList:[],ManageExamTopList:[]}
     constructor(private serve: RankingService, private loadCtrl: LoadingController, private storage: Storage,
                 private logSer:LogService) {
 
@@ -92,6 +97,7 @@ export class RankingComponent implements OnInit {
 
     ngOnInit() {
         console.log('排行榜');
+       
         this.logSer.visitLog('pxb');
         this.storage.get('user').then(value => {
             if (value) {
@@ -105,6 +111,31 @@ export class RankingComponent implements OnInit {
             this.GetUsertitleSearch();
         });
 
+    }
+    getExamTopList( ){
+        // api/exam/getExamTopList
+        // this.GetRankListArr = res.data;
+        console.log('列表信息', this.GetRankListArr) ;
+        this.serve.getExamTopList().subscribe((res:any) => {
+            if(res.data){
+                if(Array.isArray(res.data.AreaExamTopList)){
+                    res.data.AreaExamTopList.forEach(item => {
+                        item['UserName']= item.Name;
+                        item['FinishCount']= item.AvgScoreStr;
+                    })
+                }
+                if(Array.isArray(res.data.ManageExamTopList)){
+                    res.data.ManageExamTopList.forEach(item => {
+                        item['UserName']=  item.Name;
+                        item['FinishCount']= item.AvgScoreStr;
+                        
+                    })
+                }
+                this.GetRankListArr['examination']=res.data;
+                this.examinationData = res.data;
+            }
+            console.log('获取考试排行榜信息',res,this.examinationData);
+        })
     }
 
     switchInformation(text) {
@@ -183,6 +214,7 @@ export class RankingComponent implements OnInit {
 
         this.serve.GetRankList().subscribe((res: any) => {
             this.GetRankListArr = res.data;
+            this.getExamTopList();
             this.switchInListType({key: "TeacherTitleModels", name: "头衔榜"});
             loading.dismiss();
         })

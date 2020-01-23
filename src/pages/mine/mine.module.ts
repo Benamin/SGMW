@@ -19,6 +19,7 @@ import {MedalComponent} from './medal/medal.component';
 import {MyFilePage} from "./my-file/my-file";
 import {MineService} from './medal/medal.serve';
 import {PipesModule} from "../../pipes/pipes.module";
+import {IntegralComponent} from "./Integral/Integral.component";
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import {PipesModule} from "../../pipes/pipes.module";
         MyThumbsUpComponent,
         MyFollowsComponent,
         MedalComponent,
-        MyFilePage
+        MyFilePage,
+        IntegralComponent
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -57,7 +59,8 @@ import {PipesModule} from "../../pipes/pipes.module";
         MyThumbsUpComponent,
         MyFollowsComponent,
         MedalComponent,
-        MyFilePage
+        MyFilePage,
+        IntegralComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

@@ -7,6 +7,8 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 import {Componentsdetails} from './componentsdetails/componentsdetails.component';
 import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOneDetails.component';
 import { CourseDetailPage } from "../learning/course-detail/course-detail";
+import {FocusCoursePage} from "../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../learning/inner-course/inner-course";
 
 const SERVER_HTTP_URL = ['chinacloudsites.cn', 'sgmw.com.cn','elearningapi.sgmw.com'];
 
@@ -20,7 +22,21 @@ export class ConsultationService {
             Component:CourseDetailPage,
             Params:['id'],
             go_url:(navCtrl,id)=>{
-                navCtrl.push(CourseDetailPage,{id:id});
+                // navCtrl.push(CourseDetailPage,{id:id});
+                this.GetProductById(id).subscribe(res => {
+                    if (res.data) {
+                        console.log('课程详情',res)
+                        let e_data=res.data;
+                        if (e_data.TeachTypeName == "集中培训") {
+                            navCtrl.push(FocusCoursePage, {id: e_data.Id});
+                        } else if (e_data.TeachTypeName == "内训") {
+                            navCtrl.push(InnerCoursePage, {id: e_data.Id});
+                        } else {
+                            navCtrl.push(CourseDetailPage, {id: e_data.Id});
+                        }
+                    }
+                });
+                
             }
         },
         {
@@ -70,7 +86,11 @@ export class ConsultationService {
     GetRelationNewsByID(id): Observable<any> {
         return this.http.get(SERVER_API_URL + '/ENews/GetRelationNewsByID?id=' + id);
     }
-
+    
+    //课程详情
+    GetProductById(id): Observable<any> {
+         return this.http.get(SERVER_API_URL + '/EProduct/GetProductById?pid=' + id);
+    }
 
     // 遍历元素 为元素 修改元素的转跳方法
     ModifyALabelSkip(innerHtml: HTMLElement,navCtrl) {

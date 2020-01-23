@@ -11,20 +11,20 @@
     <div class="navli" [ngClass]="{'act': navli=='StudentModel'}" tappable (click)="switchInformation('StudentModel')">
       学员榜
     </div>
-    <!-- <div class="navli" [ngClass]="{'act': navli=='examination'}" tappable (click)="switchInformation('examination')">
+    <div class="navli" [ngClass]="{'act': navli=='examination'}" tappable (click)="switchInformation('examination')">
       考试榜
-    </div> -->
+    </div>
   </div>
   <div class="test-paper" *ngIf="navli=='examination'">
     <p class="nowrap-1">
-      汽车智能驾控的发展产品线规划-技术路径测试技术路径测试技术路径测试
+      {{examinationData.Exam.EName}}
     </p>
     <div class="test-paper-label">
       <span>
-        产品体验 - 新宝骏 - R-S5
+        {{examinationData.Exam.Extend1}}
       </span>
       <span class='test-paper-results'>
-        满分：100
+        满分：{{examinationData.Exam.TotalScore}}
       </span>
     </div>
   </div>

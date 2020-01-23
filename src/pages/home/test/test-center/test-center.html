@@ -32,6 +32,12 @@
                              src="./assets/imgs/test/gofighting@2x.png">
                         <img *ngIf="item.PaperScore *0.89 < item.TotalScore" src="./assets/imgs/test/best@2x.png">
                     </div>
+                    <div style="    width: 20px;
+                    padding-top: 4px;">
+                        <span (click)="wxShare(item);$event.stopPropagation()"> <img src="./assets/imgs/forum/other/share.png" style="opacity: 0.5;" alt="">
+                            <!-- 分享 -->
+                          </span>
+                    </div>
                 </div>
                 <p *ngIf="page.StudyState != 1" class="split"></p>
                 <p *ngIf="page.StudyState == 2">
