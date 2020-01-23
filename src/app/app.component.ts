@@ -61,32 +61,42 @@ export class MyApp {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
             this.statusBar.styleLightContent();
-
-            this.appSer.iosInfo.subscribe(
-                value => {
-                    if (!value) {
-                        return
-                    }
-                    if (value == 'platformIOS') {
-                        this.isIOS = true;
-                    }
-                    console.log(this.isIphoneXR());
-                    console.log(this.isIOS13());
-                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneXR()) {  //iphone 11
-                        this.isIphone11IOS13 = true;
-                        return;
-                    }
-                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneX()) { //iphone X
-                        this.isIphone11IOS13 = true;
-                        return;
-                    }
-                    if (value == 'innerCourse' && this.isIOS13()) {  //ios 13
-                        this.isIphoneIOS13 = true;
-                        return;
-                    }
-                }
-            )
+            this.compatibleIOS();
         });
+    }
+
+    //ios13兼容
+    compatibleIOS() {
+        this.appSer.iosInfo.subscribe(
+            value => {
+                if (!value) {
+                    return
+                }
+                if (value == 'platformIOS') {
+                    this.isIOS = true;
+                }
+                console.log(this.isIphoneXR());
+                console.log(this.isIOS13());
+                if (value == 'videoReset') {
+                    this.isIphone11IOS13 = false;
+                    this.isIphone11IOS13 = false;
+                    this.isIphoneIOS13 = false;
+                    return;
+                }
+                if (value == 'innerCourse' && this.isIOS13() && this.isIphoneXR()) {  //iphone 11
+                    this.isIphone11IOS13 = true;
+                    return;
+                }
+                if (value == 'innerCourse' && this.isIOS13() && this.isIphoneX()) { //iphone X
+                    this.isIphone11IOS13 = true;
+                    return;
+                }
+                if (value == 'innerCourse' && this.isIOS13()) {  //ios 13
+                    this.isIphoneIOS13 = true;
+                    return;
+                }
+            }
+        )
     }
 
     isIphoneXR() {
