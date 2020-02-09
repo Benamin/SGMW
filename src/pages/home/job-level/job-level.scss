@@ -1,0 +1,182 @@
+page-job-level {
+  .header-ios .toolbar-ios:last-child .toolbar-background-ios{
+    border: 0.1rem solid #343435;
+  }
+
+  .nav-type {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 4rem;
+    line-height: 4rem;
+    list-style: none;
+    background-color: #fff;
+    li {
+      position: relative;
+      flex: 1;
+      text-align: center;
+      .item-line {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        display: block;
+        width: 2.8rem;
+        height: 0.4rem;
+        background: transparent;
+        border-radius: 0.2rem;
+        opacity: 0.9;
+      }
+    }
+    .actived .item-line {
+      background: linear-gradient(241deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+    }
+  }
+
+  .search-inp {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    border-radius: 1.5rem;
+    background-color: #fff;
+    .search-icon {
+      margin-left: 1.7rem;
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    .input {
+      width: 100%;
+      height: 3rem;
+      font-size: 1.3rem;
+      ion-input {
+        .text-input-ios {
+          height: 1.5rem;
+          background: rgba(255, 255, 255, 1);
+          margin: 0.8rem;
+          padding-left: 0.2rem;
+          width: calc(100% - 2.3rem);
+        }
+      }
+    }
+  }
+  .search-btn {
+    margin-left: auto;
+    width: 5.2rem;
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #333333;
+  }
+  
+  .job-level-text {
+    margin: 0.8rem 1rem 1.2rem 1rem;
+    height: 5rem;
+    background: linear-gradient(242deg, rgba(222,247,255,0.6) 0%, rgba(173,218,233, 0.6) 100%);
+    border-radius: 0.8rem;
+    color: #333333;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .level-lable {
+    display: flex;
+    align-items: center;
+    &:before {
+      content: '';
+      margin-left: 1rem;
+      margin-right: 0.7rem;
+      width: 0.4rem;
+      height: 1.6rem;
+      background:linear-gradient(210deg,rgba(255,255,255,1) 0%,rgba(255,201,45,1) 100%);
+      border-radius: 0.2rem;
+      display: inline-block;
+    }
+  }
+
+  .job-level-lists {
+    margin: 0 1rem;
+    margin-top: 1.2rem;
+    .lists-item {
+      margin-bottom: 1rem;
+      padding: 1.5rem;
+      padding-bottom: 1.6rem;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      border-radius: 1rem;
+      img {
+        margin-right: 1.5rem;
+        width: 7rem;
+        height: 7rem;
+        border-radius: 1rem;
+      }
+      .lists-item-info {
+        position: relative;
+        height: 7rem;
+        flex: 1;
+        .lists-item-title {
+          width: 24rem;
+          font-size: 1.6rem;
+          color: #000000;
+        }
+        .short {
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
+        }
+        .long {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+        }
+        .lists-item-sign-num {
+          position: absolute;
+          bottom: 0;
+          font-size: 1.2rem;
+          color: rgba(51,51,51,1);
+          display: flex;
+          align-items: center;
+          img {
+            margin: 0;
+            width: 1.4rem;
+            height: 1.3rem;
+          }
+          span {
+            margin: 0 0.8rem;
+          }
+        }
+        .lists-item-progress {
+          position: absolute;
+          bottom: 0;
+          .progress—text {
+            margin-bottom: 0.8rem;
+            line-height: 2.1rem;
+            font-size: 1.5rem;
+            font-family:PingFangSC-Regular,PingFang SC;
+            font-weight:400;
+            color:rgba(151, 148, 149,1);
+          }
+          .progress—box {
+            width: 24rem;
+            height: 0.4rem;
+            background:rgba(0, 0, 0, 0.1);
+            border-radius: 0.4rem;
+            overflow: hidden;
+            span {
+              display: block;
+              height: 0.4rem;
+              width: 0;
+              background:linear-gradient(242deg,#FFF7CB 0%,#FFC92D 100%);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="detail">岗位认证</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="detail">
+    <div class="banner-box">
+      <img class="bg-img" src="./assets/imgs/home/xm_bg@2x.png" />
+
+      <div class="posi-box">
+        <div class="banner-title" *ngIf="detail">{{ detail.Items.Title }}</div>
+        <div class="banner-info">
+          <div style="justify-content: flex-end;">
+            <img
+              style="margin-right: 0.7rem;width: 1.4rem;height: 1.3rem;"
+              src="./assets/imgs/home/gwrz_zw@2x.png"
+            />
+            <span style="margin-right: 1.5rem;">{{ detail.Items.PostsName }}</span>
+          </div>
+          <div style="justify-content: flex-start;">
+            <img
+              style="margin-left: 1.5rem;margin-right: 0.7rem;width: 1.4rem;height: 1.3rem;"
+              src="./assets/imgs/home/sign-num@2x.png"
+            />
+            <span>{{ detail.Items.ApplicantCount }}人报名</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="switch-tabs">
+      <div
+        *ngFor="let item of navliArr"
+        (click)="changeCheckType(item.lable)"
+        [ngClass]="{ actived: checkType == item.lable }"
+        class="switch-tabs-item"
+      >
+        {{ item.text }}
+        <span class="item_line"></span>
+      </div>
+    </div>
+
+    <div *ngIf="checkType === 'introduction'" class="content-box">
+      <div class="content-title"><span class="title-lable"></span>简介</div>
+      <div class="introduction">
+        {{ detail.Items.Description }}
+      </div>
+    </div>
+    <div *ngIf="checkType === 'ability'" class="content-box">
+      <div class="content-title"><span class="title-lable"></span>课程</div>
+      <dl class="content-modal" *ngFor="let item of detail.Items.GCapabilityModelList; let i = index" [attr.data-index]="i">
+        <dt>
+          <span>能力模型1</span>
+          <ion-icon name="arrow-down" style="color: #999999;"></ion-icon>
+        </dt>
+        <!-- 岗位认证AuthenticationType: "jzpx" -集中培训，表示线下，xskc表示线上 -->
+        <!-- 线下 -->
+        <dd class="disabled" *ngIf="detail.Items.AuthenticationType === 'jzpx'">长沙-从宝骏到新宝骏</dd>
+        <dd class="available" *ngIf="detail.Items.AuthenticationType === 'jzpx'">
+          <span>智能驾控技术的基本架构</span>
+          <span class="course-btn">立即报名</span>
+        </dd>
+        <dd class="already" *ngIf="detail.Items.AuthenticationType === 'jzpx'">
+          <span>智能驾控技术的基本架构</span>
+          <span class="right"
+            >已报名
+            <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
+          /></span>
+        </dd>
+        <!-- 线下 -->
+        <!-- 线上 -->
+        <dd class="already" *ngIf="detail.Items.AuthenticationType === 'xskc'">
+          <span>SGMW发展历程</span>
+          <span
+            ><img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
+          /></span>
+        </dd>
+        <dd class="continue" *ngIf="detail.Items.AuthenticationType === 'xskc'">
+          <span>智能驾控技术的基本架构</span>
+          <span class="right"
+            >继续学习
+            <img src="./assets/imgs/home/xxjh_jxxx@2x.png" class="play-icon"
+          /></span>
+        </dd>
+        <!-- 线上 -->
+      </dl>
+    </div>
+  </div>
+</ion-content>

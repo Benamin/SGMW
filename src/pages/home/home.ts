@@ -28,6 +28,10 @@ import {NumberOneDetailsComponent} from '../number-one/numberOneDetails/numberOn
 import {MyQuestion} from "./question/my-question/my-question";
 import {RankingComponent} from "../ranking/ranking.component";
 import {FocusTrainPage} from "./focus-train/focus-train";
+
+import {StudyPlanPage} from "./study-plan/study-plan";
+import {JobLevelPage} from "./job-level/job-level";
+ 
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
@@ -330,6 +334,13 @@ export class HomePage {
             }
         );
     }
+    goToNavli(){
+        if(this.navli=='product'){
+            this.moreCourse() 
+        }else if(this.navli=='float'){
+            this.goForumComponent();
+        }
+    }
 
     // 前往资讯
     goConsultation() {
@@ -371,6 +382,15 @@ export class HomePage {
         this.navCtrl.push(FocusTrainPage);
     }
 
+    // 前往学习计划
+    goStudyPlan() {
+        this.navCtrl.push(StudyPlanPage);
+    }
+
+    // 前往学习计划
+    goJobLevel() {
+        this.navCtrl.push(JobLevelPage);
+    }
 
 
 

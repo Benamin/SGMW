@@ -17,6 +17,7 @@ import {IframeFileComponent} from './iframe-file/iframe-file';
 import {PipesModule} from "../pipes/pipes.module";
 
 
+
 @NgModule({
     declarations: [
         CommentComponent,
