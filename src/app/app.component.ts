@@ -16,6 +16,8 @@ import {AppUpdateService} from "../core/appUpdate.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {AppService} from "./app.service";
 import {Keyboard} from "@ionic-native/keyboard";
+import {JPush} from "@jiguang-ionic/jpush";
+import {JpushUtil} from "../core/jPush.util";
 
 @Component({
     templateUrl: 'app.html'
@@ -48,12 +50,24 @@ export class MyApp {
                 private mobileAccess: MobileAccessibility,
                 private appSer: AppService,
                 private Keyboard: Keyboard,
+                private jPush: JPush,
+                private jPushUtil: JpushUtil,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         (window as any).handleOpenURL = (url: string) => {
             (window as any).localStorage.setItem("app_url", url);
         };
         this.platform.ready().then(() => {
             this.getLoad();
+
+            this.jPush.init();
+            this.jPush.setDebugMode(true);
+
+            this.jPush.getRegistrationID()
+                .then(rId => {
+                    console.log(`getRegistrationID:${rId}`);
+                });
+            this.jPushUtil.initPush();
+
             //app字体不跟随手机字体大小变化
             this.mobileAccess.usePreferredTextZoom(false);
             this.splashScreen.show();
@@ -61,32 +75,42 @@ export class MyApp {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
             this.statusBar.styleLightContent();
-
-            this.appSer.iosInfo.subscribe(
-                value => {
-                    if (!value) {
-                        return
-                    }
-                    if (value == 'platformIOS') {
-                        this.isIOS = true;
-                    }
-                    console.log(this.isIphoneXR());
-                    console.log(this.isIOS13());
-                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneXR()) {  //iphone 11
-                        this.isIphone11IOS13 = true;
-                        return;
-                    }
-                    if (value == 'innerCourse' && this.isIOS13() && this.isIphoneX()) { //iphone X
-                        this.isIphone11IOS13 = true;
-                        return;
-                    }
-                    if (value == 'innerCourse' && this.isIOS13()) {  //ios 13
-                        this.isIphoneIOS13 = true;
-                        return;
-                    }
-                }
-            )
+            this.compatibleIOS();
         });
+    }
+
+    //ios13兼容
+    compatibleIOS() {
+        this.appSer.iosInfo.subscribe(
+            value => {
+                if (!value) {
+                    return
+                }
+                if (value == 'platformIOS') {
+                    this.isIOS = true;
+                }
+                console.log(this.isIphoneXR());
+                console.log(this.isIOS13());
+                if (value == 'videoReset') {
+                    this.isIphone11IOS13 = false;
+                    this.isIphone11IOS13 = false;
+                    this.isIphoneIOS13 = false;
+                    return;
+                }
+                if (value == 'innerCourse' && this.isIOS13() && this.isIphoneXR()) {  //iphone 11
+                    this.isIphone11IOS13 = true;
+                    return;
+                }
+                if (value == 'innerCourse' && this.isIOS13() && this.isIphoneX()) { //iphone X
+                    this.isIphone11IOS13 = true;
+                    return;
+                }
+                if (value == 'innerCourse' && this.isIOS13()) {  //ios 13
+                    this.isIphoneIOS13 = true;
+                    return;
+                }
+            }
+        )
     }
 
     isIphoneXR() {
