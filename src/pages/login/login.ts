@@ -114,7 +114,7 @@ export class LoginPage {
         this.checkCodeYG.drawPic();
         this.checkCodeFWZS.drawPic();
     }
-
+    userRoleName='销售助手';
     //平台登录切换
     changeSlide(index, platform) {
         console.log(index.platform)
@@ -130,6 +130,8 @@ export class LoginPage {
 
     //员工
     ygLogin() {
+        this.userRoleName='员工';
+        this.setRoleNames();
         if (!this.ygObj.username || !this.ygObj.password) {
             this.commonSer.toast("请输入用户名密码");
             return
@@ -165,6 +167,9 @@ export class LoginPage {
 
     //供应商
     gysLogin() {
+        // 供应商
+        this.userRoleName='供应商';
+        this.setRoleNames();
         if (!this.gysObj.username || !this.gysObj.password) {
             this.commonSer.toast("请输入用户名密码");
             return
@@ -201,6 +206,8 @@ export class LoginPage {
     /***销售助手***/
     // --经销商登录
     loginXszsJsx() {
+        this.userRoleName = '经销商';
+        this.setRoleNames();
         if (this.jxs.xszs.codeRight != this.jxs.xszs.inputCode) {
             this.commonSer.toast('请输入正确的验证码');
             return;
@@ -269,6 +276,8 @@ export class LoginPage {
     /***骏客***/
     //骏客---经销商登录
     loginJunkeJsx() {
+        this.userRoleName = '骏客';
+        this.setRoleNames();
         let encrypt = new JSEncrypt();
         if (this.jxs.junke.codeRight != this.jxs.junke.inputCode) {
             this.commonSer.toast('请输入正确的验证码');
@@ -331,6 +340,8 @@ export class LoginPage {
 
     /***服务助手登录***/
     fwzsLogin() {
+        this.userRoleName='销售助手';
+        this.setRoleNames();
         if (!this.fwzsObj.userName || !this.fwzsObj.password) {
             this.commonSer.toast("请输入用户名密码");
             return
@@ -415,8 +426,18 @@ export class LoginPage {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
+                console.log('用户信息',res)
                 if (res.code == 200 && res.data) {
-                    this.userAsync(res);
+                    // 获取用户角色 列表  存储用户角色
+                    this.loginSer.GetMyInfo().subscribe(res2 => {
+                        res2.data.Roles.forEach(e => {
+                            if(e.RoleName == this.userRoleName){
+                                this.storage.set('RoleID', e.RoleID);
+                            }
+                        })
+                        this.storage.set('RoleName', this.userRoleName);
+                        this.userAsync(res);
+                    })
                 } else {
                     this.storage.clear();
                     this.commonSer.alert(res.message);
@@ -462,5 +483,10 @@ export class LoginPage {
 
     getCodeFwzs(e) {
         this.fwzsObj.codeRight = e;
+    }
+    
+    // 储存用户角色
+    setRoleNames(){
+        this.storage.set('RoleName', this.userRoleName);
     }
 }

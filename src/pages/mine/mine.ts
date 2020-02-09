@@ -32,7 +32,7 @@ export class MinePage {
     userInfo;
     number;
     version;
-
+    RoleName='';
     appVersionInfo = {
         UpdateTips: false,
         AppUrl: '',
@@ -50,9 +50,13 @@ export class MinePage {
         //获取个人信息
         this.storage.get('user').then(value => {
             this.mineInfo = value;
+            
+        })
+        this.storage.get('RoleName').then(val => {
+            this.RoleName = val;
         })
     }
-
+    
     ionViewDidEnter() {
         this.logSer.visitLog('grzx');
         this.getVersion();
@@ -72,6 +76,8 @@ export class MinePage {
         this.mineSer.GetMyInfo().subscribe(
             (res) => {
                 this.userInfo = res.data;
+                this.RoleNames=this.userInfo['Roles']?this.userInfo['Roles']:[];
+                console.log('用户信息',this.userInfo)
             }
         )
     }
@@ -179,6 +185,19 @@ export class MinePage {
         }).catch(err => {
             console.log(err);
         });
+    }
+    RoleNames=[];
+    RoleID='';
+
+    // 切换角色
+    switchUser(){
+        console.log(this.RoleName);
+        this.RoleNames.forEach(e => {
+            if(e.RoleName==this.RoleName){
+                this.storage.set('RoleID', e.RoleID);
+            }
+        })
+        this.storage.set('RoleName', this.RoleName);
     }
 
 }
