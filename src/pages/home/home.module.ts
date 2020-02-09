@@ -14,6 +14,9 @@ import {LookQuestion} from "./question/look-question/look-question";
 import {MyQuestion} from "./question/my-question/my-question";
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {FocusTrainPage} from "./focus-train/focus-train";
+import {StudyPlanPage} from "./study-plan/study-plan";
+import {JobLevelPage} from "./job-level/job-level";
+import {JobLevelInfoPage} from "./job-level-info/job-level-info";
 import {VotePage} from "./vote/vote";
 
 @NgModule({
@@ -31,6 +34,9 @@ import {VotePage} from "./vote/vote";
         MyQuestion,
         InnerTrainPage,
         FocusTrainPage,
+        StudyPlanPage,
+        JobLevelPage,
+        JobLevelInfoPage,
         VotePage
     ],
     imports: [
@@ -50,6 +56,9 @@ import {VotePage} from "./vote/vote";
         MyQuestion,
         InnerTrainPage,
         FocusTrainPage,
+        StudyPlanPage,
+        JobLevelPage,
+        JobLevelInfoPage,
         VotePage
     ]
 })

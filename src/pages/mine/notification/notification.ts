@@ -17,7 +17,20 @@ export class NotificationPage {
         pageSize: 10,
         TotalCount: null,
         isLoad:false,
+        Type: 1
     };
+    
+    navliArr=[{
+        lable: 'system',
+        text: '系统消息'
+    }, {
+        lable: 'training',
+        text: '培训通知'
+    }, {
+        lable: 'test',
+        text: '考试通知'
+    }];
+    checkType = "system";
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private loadCtrl:LoadingController) {
@@ -34,7 +47,8 @@ export class NotificationPage {
         loading.present();
         const data = {
             page: 1,
-            pageSize: this.page.pageSize
+            pageSize: this.page.pageSize,
+            Type: this.page.Type
         };
         this.mineSer.GetUserNewsList(data).subscribe(
             (res) => {
@@ -44,6 +58,16 @@ export class NotificationPage {
                 loading.dismiss();
             }
         )
+    }
+
+    changeCheckType(checkType) {
+        if (this.checkType === checkType) return;
+        this.checkType = checkType;
+        if (checkType === 'system') this.page.Type = 1;
+        if (checkType === 'training') this.page.Type = 2;
+        if (checkType === 'test') this.page.Type = 3;
+        this.page.page = 1;
+        this.getList();
     }
 
     goDetail(e) {
@@ -59,7 +83,8 @@ export class NotificationPage {
         this.page.page++;
         const data = {
             page: this.page.page,
-            pageSize: this.page.pageSize
+            pageSize: this.page.pageSize,
+            Type: this.page.Type
         };
         this.mineSer.GetUserNewsList(data).subscribe(
             (res) => {

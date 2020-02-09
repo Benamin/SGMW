@@ -73,9 +73,29 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/area/getAreaCitys',data);
     }
 
+    //今日提醒
     GetTodayRemind(){
         return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind',{});
-
     }
 
+    // 岗位认证列表
+    GetJobLevelList(data): Observable<any> {
+        // return this.http.get(SERVER_API_URL + '/CourseSeries/GetPositionCourseSeriesList' + this.dataFormat.toQuery(data));
+        return this.http.post(SERVER_API_URL + '/CourseSeries/GetPositionCourseSeriesList', data);
+    }
+
+    // 岗位认证详情
+    GetJobLevelInfoById(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/CourseSeries/GetPostsCertificationDetail', data);
+    }
+
+    // 学习计划
+    StydyPlan(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetStudyPlanListDayData', data);
+    }
+
+    // 获取学习计划日历 选中的那天的课程/考试
+    getTodayCourse(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetStudyPlanListByDate', data);
+    }
 }

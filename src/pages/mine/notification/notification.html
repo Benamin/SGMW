@@ -5,6 +5,25 @@
 </ion-header>
 
 <ion-content>
+    <ul class="nav-type">
+        <!-- <li (click)="changeCheckType('system')" [ngClass]="{'actived': checkType == 'system'}">
+            <div>系统消息</div>
+            <span class="item-line"></span>
+        </li>
+        <li (click)="changeCheckType('training')" [ngClass]="{'actived': checkType == 'training'}">
+            <div>培训通知</div>
+            <span class="item-line" ></span>
+        </li>
+        <li (click)="changeCheckType('test')" [ngClass]="{'actived': checkType == 'test'}">
+            <div>考试通知</div>
+            <span class="item-line"></span>
+        </li> -->
+        <li *ngFor="let item of navliArr" (click)="changeCheckType(item.lable)" [ngClass]="{'actived': checkType == item.lable}">
+            <div>{{ item.text }}</div>
+            <span class="item-line"></span>
+        </li>
+    </ul>
+    
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingText="下拉刷新"
                                refreshingSpinner="bubbles">
