@@ -16,6 +16,8 @@ import {AppUpdateService} from "../core/appUpdate.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {AppService} from "./app.service";
 import {Keyboard} from "@ionic-native/keyboard";
+import {JPush} from "@jiguang-ionic/jpush";
+import {JpushUtil} from "../core/jPush.util";
 
 @Component({
     templateUrl: 'app.html'
@@ -48,12 +50,24 @@ export class MyApp {
                 private mobileAccess: MobileAccessibility,
                 private appSer: AppService,
                 private Keyboard: Keyboard,
+                private jPush: JPush,
+                private jPushUtil: JpushUtil,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         (window as any).handleOpenURL = (url: string) => {
             (window as any).localStorage.setItem("app_url", url);
         };
         this.platform.ready().then(() => {
             this.getLoad();
+
+            this.jPush.init();
+            this.jPush.setDebugMode(true);
+
+            this.jPush.getRegistrationID()
+                .then(rId => {
+                    console.log(`getRegistrationID:${rId}`);
+                });
+            this.jPushUtil.initPush();
+
             //app字体不跟随手机字体大小变化
             this.mobileAccess.usePreferredTextZoom(false);
             this.splashScreen.show();
