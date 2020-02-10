@@ -421,7 +421,7 @@ export class HomePage {
         let url_arr= url.split('/');
         this.goPostsContent({Id:url_arr[3]});
     }
-    TodayRemind={};
+    TodayRemind:any={};
     is_TodayRemind=false;
     GetTodayRemind(){
         this.homeSer.GetTodayRemind().subscribe((res:any) => {
@@ -430,7 +430,9 @@ export class HomePage {
                 let date = new Date();
                 let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
                 if(val!=dateDay){ // 是否点击了取消今日提醒
-                    this.is_TodayRemind=true;
+                    if(this.TodayRemind.ISExam||this.TodayRemind.Items.length>0){
+                        this.is_TodayRemind=true;
+                    }
                 }
             });
         })
