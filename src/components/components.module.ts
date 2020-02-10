@@ -15,6 +15,8 @@ import {ForumListTimeComponent} from './forum-list-time/forum-list-time.componen
 import {ImgPreviewComponent} from './img-preview/img-preview';
 import {IframeFileComponent} from './iframe-file/iframe-file';
 import {PipesModule} from "../pipes/pipes.module";
+import {TodayRemindComponent} from './today-remind/today-remind.component';
+
 
 
 
@@ -29,6 +31,7 @@ import {PipesModule} from "../pipes/pipes.module";
         QIndexComponent,
         CheckCodeComponent,
         UpdateAppComponent,
+        TodayRemindComponent,
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
@@ -50,6 +53,7 @@ import {PipesModule} from "../pipes/pipes.module";
         QIndexComponent,
         CheckCodeComponent,
         UpdateAppComponent,
+        TodayRemindComponent,
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,

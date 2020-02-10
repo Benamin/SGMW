@@ -92,12 +92,15 @@ export class HomePage {
             this.openPosts(url);
         };
     }
-
+    
     ionViewDidLoad() {
-        this.getBanner();
+        this.storage.get('RoleID').then(value => {
+            this.getBanner(value);
+            this.getProductList(value);
+        })
         this.getGoodsTeacher();
-        this.getProductList();
         this.getLIistData();
+        this.GetTodayRemind();
     }
 
     ionViewWillEnter() {
@@ -127,7 +130,9 @@ export class HomePage {
 
 
     ionViewWillLeave() {
-        this.slides.stopAutoplay();
+        if(this.slides){
+            this.slides.stopAutoplay();
+        }
     }
 
     selectType(type) {
@@ -154,8 +159,8 @@ export class HomePage {
     }
 
     //获取轮播图
-    getBanner() {
-        this.homeSer.getBannerList().subscribe(
+    getBanner(RoleID) {
+        this.homeSer.getBannerList(RoleID).subscribe(
             (res) => {
                 this.bannerList = res.data.NewsItems;
             }
@@ -180,7 +185,7 @@ export class HomePage {
     }
 
     //获取产品分类 nlts
-    async getProductList() {
+    async getProductList(RoleID) {
         let loading = this.loadCtrl.create({
             content: '加载中...'
         });
@@ -196,7 +201,8 @@ export class HomePage {
             "OrderBy": "CreateTime",
             "IsAsc": "DESC",
             "IsHot": true,
-            "SortDir": "DESC"
+            "SortDir": "DESC",
+            "RoleID":RoleID
         };
         await this.learnSer.GetProductList(data).subscribe(
             (res) => {
@@ -414,5 +420,30 @@ export class HomePage {
     openPosts(url){
         let url_arr= url.split('/');
         this.goPostsContent({Id:url_arr[3]});
+    }
+    TodayRemind:any={};
+    is_TodayRemind=false;
+    GetTodayRemind(){
+        this.homeSer.GetTodayRemind().subscribe((res:any) => {
+            this.TodayRemind=res.data;
+            this.storage.get('TodayRemind').then(val => {
+                let date = new Date();
+                let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+                if(val!=dateDay){ // 是否点击了取消今日提醒
+                    if(this.TodayRemind.ISExam||this.TodayRemind.Items.length>0){
+                        this.is_TodayRemind=true;
+                    }
+                }
+            });
+        })
+    }
+
+    // 开始学习
+    startStudy(data){
+        this.getCourseDetailById(data);
+        // this.getCourseDetailById('47bb05c6-194e-4087-92e9-016f4c1c8421');
+    }
+    closeTodayRemind(){
+        this.is_TodayRemind=false;
     }
 }

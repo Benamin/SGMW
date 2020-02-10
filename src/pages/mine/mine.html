@@ -56,7 +56,27 @@
 
         </div>
     </div>
-    <div class="mine-list">
+    <div class="mine-list" style="    margin-bottom: 0px;">
+        <div class="item" tappable (click)="switchUser()">
+            <div class="left">
+                <img src="./assets/imgs/mine/switch-user.png">
+            </div>
+            <div class="middle">切换角色</div>
+         
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
+            <div style="width: 0px;padding-left: 0px;white-space: nowrap;right: 160px;position: relative;">
+                当前角色 <span style="padding-left: 5px;color: #000;  font-weight: 700;font-size: 16px;">{{RoleName}}</span> 
+            </div>
+            <div class="login-select" style="position: absolute;width: 100%;opacity: 0;">
+                <ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"  (ngModelChange)="switchUser()">
+                    <ion-option [value]="item.RoleName" *ngFor="let item of RoleNames" >{{item.RoleName}}</ion-option>
+                </ion-select>
+             </div>
+        </div>
+    </div>
+    <div class="mine-list" style="    margin-top: 10px;">
         <div class="item" tappable (click)="goMyFollowsComponent()">
             <div class="left">
                 <img src="./assets/imgs/mine/p41_guanzhu.png">
@@ -138,3 +158,8 @@
     <update-app (done)="appVersionInfo.UpdateTips = false" [AppUrl]="appVersionInfo.AppUrl"
                 [UpdateText]="appVersionInfo.UpdateText"></update-app>
 </ng-container>
+<div>
+    <div>
+        角色
+    </div>
+</div>

@@ -167,3 +167,6 @@
         </div>
     </div>
 </ion-content>
+<app-today-remind *ngIf="is_TodayRemind"  [data]='TodayRemind' (Study)="startStudy($event)" (close)="closeTodayRemind()"></app-today-remind>
+
+

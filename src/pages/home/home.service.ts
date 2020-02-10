@@ -13,8 +13,9 @@ export class HomeService {
     }
 
     //获取banner
-    getBannerList(): Observable<any> {
-        return this.http.get(SERVER_API_URL + '/ENews/GetBannerList')
+    getBannerList(RoleID): Observable<any> {
+        // return this.http.get(SERVER_API_URL + '/ENews/GetBannerList')
+        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID='+RoleID);
     }
 
     //优秀教师，关注教师
@@ -70,6 +71,11 @@ export class HomeService {
     //获取区域+省份+城市
     getAreaCitys(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/area/getAreaCitys',data);
+    }
+
+    //今日提醒
+    GetTodayRemind(){
+        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind',{});
     }
 
     // 岗位认证列表

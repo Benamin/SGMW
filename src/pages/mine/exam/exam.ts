@@ -71,7 +71,7 @@ export class ExamPage {
                 if (res.Result == 1) {
                     this.commonSer.toast(res.Message);
                 }
-                this.exam.no = res.data.Items.filter(e => e.ExamStatus == 4);
+                this.exam.no = res.data.Items.filter(e => e.ExamStatus == 2 || e.ExamStatus == 4  );
                 this.exam.done = res.data.Items.filter(e => e.ExamStatus == 8);
                 this.page.TotalItems = res.data.TotalItems;
                 this.IsLoad = true;

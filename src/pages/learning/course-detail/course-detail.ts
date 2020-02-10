@@ -228,7 +228,11 @@ export class CourseDetailPage {
                     this.checkTag();   //校验作业
                 }
                 if (this.enterSource == 'examBack') {
-                    this.studyContinue();
+                    if (this.product.detail.overpercentage == 100) {
+                        this.commonSer.toast('恭喜您完成课程学习!');
+                    } else {
+                        this.studyContinue();
+                    }
                 }
                 this.files.forEach(e => {
                     if (e.PlanStartTime) {
@@ -266,6 +270,10 @@ export class CourseDetailPage {
     //查询作业信息
     handleVideoExam(exam) {
         console.log('查询作业信息');
+        let load = this.loadCtrl.create({
+            content: '正在跳转，请等待...'
+        });
+        load.present();
         const data = {
             Eid: exam.id
         };
@@ -278,6 +286,7 @@ export class CourseDetailPage {
                     } else {
                         this.navCtrl.push(DoExamPage, {item: exam, source: 'course'});
                     }
+                    load.dismiss();
                 }
             }
         )

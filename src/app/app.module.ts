@@ -65,6 +65,8 @@ import {PhotoLibrary} from "@ionic-native/photo-library";
 import {DownloadFileProvider} from '../providers/download-file/download-file';
 import {LogService} from "../service/log.service";
 import {Camera} from "@ionic-native/camera";
+import {JPush} from "@jiguang-ionic/jpush";
+import {JpushUtil} from "../core/jPush.util";
 
 @NgModule({
     declarations: [
@@ -145,6 +147,8 @@ import {Camera} from "@ionic-native/camera";
             GlobalData,
             LogService,
             Camera,
+            JPush,
+            JpushUtil,
             {provide: ErrorHandler, useClass: IonicErrorHandler},
             {
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
