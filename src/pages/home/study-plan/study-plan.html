@@ -34,8 +34,8 @@
         <li>日</li>
     </ul>
     <ul class="calendar_tbody" *ngIf="isThisMonth">
-        <li *ngFor="let row of calendarArr" >
-            <div (click)="getItemCourse(item)" class="td-box" *ngFor="let item of row" [ngClass]="{disabled: !item.thisMonth,actived: item.actived}">
+        <li *ngFor="let row of calendarArr, let rowIndex = index" >
+            <div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box" *ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.thisMonth,actived: item.actived}">
                 <span class="day-text">{{ item.day }}</span>
                 <div class="point-box ">
                     <span *ngIf="item.exam" class="point-yellow"></span>
@@ -45,8 +45,8 @@
         </li>
     </ul>
     <ul class="calendar_tbody" *ngIf="!isThisMonth">
-        <li *ngFor="let row of nextCalendarArr" >
-            <div (click)="getItemCourse(item)" class="td-box" *ngFor="let item of row" [ngClass]="{disabled: !item.thisMonth,actived: item.actived}">
+        <li *ngFor="let row of nextCalendarArr, let rowIndex = index" >
+            <div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box" *ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.thisMonth,actived: item.actived}">
                 <span class="day-text">{{ item.day }}</span>
                 <div class="point-box">
                     <span *ngIf="item.exam" class="point-yellow"></span>

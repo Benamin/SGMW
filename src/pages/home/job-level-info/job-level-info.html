@@ -6,34 +6,37 @@
 <ion-content>
   <div *ngIf="detail">
     <div class="banner-box">
-      <img class="bg-img" src="./assets/imgs/home/xm_bg@2x.png" />
+      <img class="bg-img" src="./assets/imgs/home/xm_bg@2x.png"/>
 
       <div class="posi-box">
         <div class="banner-title" *ngIf="detail">{{ detail.Items.Title }}</div>
-        <div class="banner-info">
+        <div class="banner-info" *ngIf="detail.Items.IsSignIn">
           <div style="justify-content: flex-end;">
             <img
-              style="margin-right: 0.7rem;width: 1.4rem;height: 1.3rem;"
-              src="./assets/imgs/home/gwrz_zw@2x.png"
+                style="margin-right: 0.7rem;width: 1.4rem;height: 1.3rem;"
+                src="./assets/imgs/home/gwrz_zw@2x.png"
             />
             <span style="margin-right: 1.5rem;">{{ detail.Items.PostsName }}</span>
           </div>
           <div style="justify-content: flex-start;">
             <img
-              style="margin-left: 1.5rem;margin-right: 0.7rem;width: 1.4rem;height: 1.3rem;"
-              src="./assets/imgs/home/sign-num@2x.png"
+                style="margin-left: 1.5rem;margin-right: 0.7rem;width: 1.4rem;height: 1.3rem;"
+                src="./assets/imgs/home/sign-num@2x.png"
             />
             <span>{{ detail.Items.ApplicantCount }}人报名</span>
           </div>
+        </div>
+        <div (click)="doOnlineSignIn()" class="sign-btn-btn" *ngIf="!detail.Items.IsSignIn">
+          参加认证
         </div>
       </div>
     </div>
     <div class="switch-tabs">
       <div
-        *ngFor="let item of navliArr"
-        (click)="changeCheckType(item.lable)"
-        [ngClass]="{ actived: checkType == item.lable }"
-        class="switch-tabs-item"
+          *ngFor="let item of navliArr"
+          (click)="changeCheckType(item.lable)"
+          [ngClass]="{ actived: checkType == item.lable }"
+          class="switch-tabs-item"
       >
         {{ item.text }}
         <span class="item_line"></span>
@@ -48,7 +51,8 @@
     </div>
     <div *ngIf="checkType === 'ability'" class="content-box">
       <div class="content-title"><span class="title-lable"></span>课程</div>
-      <dl class="content-modal" *ngFor="let item of detail.Items.GCapabilityModelList; let i = index" [attr.data-index]="i">
+      <dl class="content-modal" *ngFor="let item of detail.Items.GCapabilityModelList; let i = index"
+          [attr.data-index]="i">
         <dt>
           <span>能力模型1</span>
           <ion-icon name="arrow-down" style="color: #999999;"></ion-icon>
@@ -63,25 +67,31 @@
         <dd class="already" *ngIf="detail.Items.AuthenticationType === 'jzpx'">
           <span>智能驾控技术的基本架构</span>
           <span class="right"
-            >已报名
+          >已报名
             <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
-          /></span>
+            /></span>
         </dd>
         <!-- 线下 -->
         <!-- 线上 -->
-        <dd class="already" *ngIf="detail.Items.AuthenticationType === 'xskc'">
-          <span>SGMW发展历程</span>
-          <span
-            ><img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
-          /></span>
-        </dd>
-        <dd class="continue" *ngIf="detail.Items.AuthenticationType === 'xskc'">
-          <span>智能驾控技术的基本架构</span>
-          <span class="right"
-            >继续学习
-            <img src="./assets/imgs/home/xxjh_jxxx@2x.png" class="play-icon"
-          /></span>
-        </dd>
+        <div *ngIf="detail.Items.AuthenticationType === 'xskc'">
+          <div *ngFor="let ProjectItem of item.ProjectList;">
+            <div *ngFor="let CourseItem of ProjectItem.CourseList;">
+              <dd class="continue" *ngIf="CourseItem.Coursestatus == 2" (click)="getCourseDetailById(CourseItem.ID)">
+                <span>{{CourseItem.Title}}</span>
+                <span class="right"
+                >继续学习
+              <img src="./assets/imgs/home/xxjh_jxxx@2x.png" class="play-icon"
+              /></span>
+              </dd>
+              <dd class="already" *ngIf="CourseItem.Coursestatus == 3" (click)="getCourseDetailById(CourseItem.ID)">
+                <span>{{CourseItem.Title}}</span>
+                <span
+                ><img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
+                /></span>
+              </dd>
+            </div>
+          </div>
+        </div>
         <!-- 线上 -->
       </dl>
     </div>

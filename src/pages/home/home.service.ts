@@ -98,4 +98,9 @@ export class HomeService {
     getTodayCourse(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/appStudyPlan/GetStudyPlanListByDate', data);
     }
+
+    // 线上 点击 参加认证
+    doOnlineSignIn(params): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/EProduct/BuyProduct?pid=' + params);
+    }
 }

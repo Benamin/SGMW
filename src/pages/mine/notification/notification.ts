@@ -64,14 +64,21 @@ export class NotificationPage {
         if (this.checkType === checkType) return;
         this.checkType = checkType;
         if (checkType === 'system') this.page.Type = 1;
-        if (checkType === 'training') this.page.Type = 2;
-        if (checkType === 'test') this.page.Type = 3;
+        if (checkType === 'training') this.page.Type = 3;
+        if (checkType === 'test') this.page.Type = 4;
         this.page.page = 1;
         this.getList();
     }
 
-    goDetail(e) {
-        this.navCtrl.push(NotificationDetailPage, {id: e.Id});
+    goDetail(item) {
+        console.log(item)
+        if (checkType === 'training') { // 3-培训消息、4考试消息、除3-4以外都是系统消息
+            this.navCtrl.push(StudyPlanPage);
+        } else if (checkType === 'test') {
+            return
+        } else {
+            this.navCtrl.push(NotificationDetailPage, {id: item.Id});
+        }
     }
 
     //加载更多

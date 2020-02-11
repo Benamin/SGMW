@@ -157,4 +157,13 @@ page-job-level-info {
   .header-ios .toolbar-ios:last-child .toolbar-background-ios {
     border: 0;
   }
+  .sign-btn-btn {
+    margin: 0 20%;
+    height: 3.4rem;
+    line-height: 3.4rem;
+    text-align: center;
+    background:linear-gradient(216deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+    color: #333333;
+    border-radius: 1.7rem;
+  }
 }

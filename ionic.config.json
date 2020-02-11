@@ -21,5 +21,6 @@
       "path": "/FWZSAPI",
       "proxyUrl": "https://sgmwsa.shaoxingzhuoyue.com/api"
     }
-  ]
+  ],
+  "app_id": ""
 }
