@@ -79,7 +79,28 @@ export class JobLevelInfoPage {
         };
         this.homeSer.GetJobLevelInfoById(data).subscribe(res => {
             console.log(999, res)
-            this.detail = res.data;
+            let data = res.data
+             if (data.Items.AuthenticationType === 'xm') {
+                 let GCList = data.Items.GCapabilityModelList;
+                 for(var i=0; i<GCList.length; i++) {
+                     for(var j=0; j<GCList[i].ProjectList.length; j++) {
+                         GCList[i].ProjectList.hasFinish = false; // 是否存在Coursestatus === 2
+                         for(var k=0; k<GCList[i].ProjectList[j].CourseList.length; k++) {
+                             if (GCList[i].ProjectList[j].CourseList[k].Coursestatus == 2) {
+                                 GCList[i].ProjectList.hasFinish = true
+                             }
+                         }
+                         if (GCList[i].ProjectList.hasFinish === true) { // 若存在Coursestatus === 2 一个报名的其他都不可点击
+                             for(var k=0; k<GCList[i].ProjectList[j].CourseList.length; k++) {
+                                 if (GCList[i].ProjectList[j].CourseList[k].Coursestatus == 1) {
+                                     GCList[i].ProjectList[j].CourseList[k].Coursestatus = 0
+                                 }
+                             }
+                         }
+                     }
+                 }
+             }
+            this.detail = data;
             this.isLoad = true;
             loading.dismiss();
         });
@@ -91,14 +112,33 @@ export class JobLevelInfoPage {
     }
 
     // 线上 点击参加认证
-    doOnlineSignIn() {
+    doOnlineSignIn(courseID, Index, pIndex, cIndex) {
         console.log(this.detail.Items.ID);
+        let ID = this.detail.Items.ID
+        if (courseID) {
+            ID = courseID
+        }
+        console.log(888, ID)
         let loading = this.loadCtrl.create({
             content: ''
         });
         loading.present();
-        this.homeSer.doOnlineSignIn(this.detail.Items.ID).subscribe(res => {
-            this.detail.Items.IsSignIn = true;
+        this.homeSer.doOnlineSignIn(ID).subscribe(res => {
+            if(courseID) {
+                // 线下
+                let GCList = this.detail.Items.GCapabilityModelList;
+                for(var i=0; i<GCList.length; i++) {
+                    for(var j=0; j<GCList[i].ProjectList.length; j++) {
+                        for(var k=0; k<GCList[i].ProjectList[j].CourseList.length; k++) {
+                            GCList[i].ProjectList[j].CourseList[k].Coursestatus = 0;
+                        }
+                    }
+                }
+                GCList[Index].ProjectList[pIndex].CourseList[cIndex].Coursestatus = 2
+                this.detail.Items.GCapabilityModelList = GCList;
+            } else {
+                this.detail.Items.IsSignIn = true;
+            }
             loading.dismiss();
         });
     }

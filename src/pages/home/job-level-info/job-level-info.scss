@@ -111,6 +111,19 @@ page-job-level-info {
         color: #000000;
         border-bottom: 0.1rem solid rgba(235, 235, 235, 1);
       }
+      .pro-title {
+        padding: 1rem 0;
+        padding-left: 2.5rem;
+        font-weight: 600;
+        line-height: 1;
+        border-bottom: 0.1rem solid rgba(235, 235, 235, 1);
+        .pro-text {
+          width: 27rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
       dd {
         padding: 0 1.5rem 0 3rem;
         height: 3.8rem;

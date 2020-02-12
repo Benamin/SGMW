@@ -11,6 +11,9 @@ import {LogService} from "../../../service/log.service";
 // import { Keyboard } from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 import {CommonService} from "../../../core/common.service";
+import {FocusCoursePage} from "../../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../../learning/inner-course/inner-course";
+import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 
 @Component({
     selector: "page-study-plan",
@@ -39,6 +42,9 @@ export class StudyPlanPage {
     isThisMonth = true;
     once = false;
     todayHasCourse = false; // 当天是否有课程/考试
+
+    todayCourse = [];
+    isLoad = false;
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private learSer: LearnService,
@@ -93,6 +99,7 @@ export class StudyPlanPage {
             loading.dismiss();
             //   console.log(888888, this.todayHasCourse,"calendarArr", this.calendarArr);
             if (this.todayHasCourse === true) this.getTodayCourse(this.now); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
+            else this.isLoad = true;
         });
         // 下个月的数据
         const dataNext = {
@@ -170,9 +177,32 @@ export class StudyPlanPage {
             PageSize: 100
         };
         this.homeSer.getTodayCourse(data).subscribe(res => {
-            console.log("getTodayCourse", res);
+            this.todayCourse = res.data.Items
+            console.log("getTodayCourse", this.todayCourse);
+            this.isLoad = true;
             loading.dismiss();
         });
+    }
+
+    //获取课程详情
+    getCourseDetailById(id) {
+        this.learSer.GetProductById(id).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.goCourse(res.data);
+                }
+            }
+        );
+    }
+
+    goCourse(e) {
+        if (e.TeachTypeName == "集中培训") {
+            this.navCtrl.push(FocusCoursePage, {id: e.Id});
+        } else if (e.TeachTypeName == "内训") {
+            this.navCtrl.push(InnerCoursePage, {id: e.Id});
+        } else {
+            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        }
     }
 
     // 时间戳转 年月日

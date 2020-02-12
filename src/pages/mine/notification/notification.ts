@@ -3,6 +3,7 @@ import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angu
 import {MineService} from "../mine.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {NotificationDetailPage} from "../notification-detail/notification-detail";
+import {StudyPlanPage} from "../../home/study-plan/study-plan";
 import {timer} from "rxjs/observable/timer";
 
 @Component({
@@ -71,10 +72,9 @@ export class NotificationPage {
     }
 
     goDetail(item) {
-        console.log(item)
-        if (checkType === 'training') { // 3-培训消息、4考试消息、除3-4以外都是系统消息
+        if (this.checkType === 'training') { // 3-培训消息、4考试消息、除3-4以外都是系统消息
             this.navCtrl.push(StudyPlanPage);
-        } else if (checkType === 'test') {
+        } else if (this.checkType === 'test') {
             return
         } else {
             this.navCtrl.push(NotificationDetailPage, {id: item.Id});
