@@ -34,8 +34,8 @@
         <li>日</li>
     </ul>
     <ul class="calendar_tbody" *ngIf="isThisMonth">
-        <li *ngFor="let row of calendarArr" >
-            <div (click)="getItemCourse(item)" class="td-box" *ngFor="let item of row" [ngClass]="{disabled: !item.thisMonth,actived: item.actived}">
+        <li *ngFor="let row of calendarArr, let rowIndex = index" >
+            <div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box" *ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.canClick,actived: item.actived}">
                 <span class="day-text">{{ item.day }}</span>
                 <div class="point-box ">
                     <span *ngIf="item.exam" class="point-yellow"></span>
@@ -45,8 +45,8 @@
         </li>
     </ul>
     <ul class="calendar_tbody" *ngIf="!isThisMonth">
-        <li *ngFor="let row of nextCalendarArr" >
-            <div (click)="getItemCourse(item)" class="td-box" *ngFor="let item of row" [ngClass]="{disabled: !item.thisMonth,actived: item.actived}">
+        <li *ngFor="let row of nextCalendarArr, let rowIndex = index" >
+            <div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box" *ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.canClick,actived: item.actived}">
                 <span class="day-text">{{ item.day }}</span>
                 <div class="point-box">
                     <span *ngIf="item.exam" class="point-yellow"></span>
@@ -61,40 +61,47 @@
         <span>周{{week}}</span>
     </div>
     <ul class="course-list">
-        <li>
-            <div class="item-time">
-                <span class="title-lable"></span>10:00
-            </div>
-            <div class="list-item">
-                <span>宝骏2348课程课程课程…</span>
-                <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon">
-            </div>
-            <div class="list-item">
-                <span>宝骏234课程培训</span>
-                <span style="display: flex;align-items: center;">
-                    继续学习
-                    <img src="./assets/imgs/home/xxjh_jxxx@2x.png" style="margin-left: 0.4rem;" class="play-icon">
-                </span>
-            </div>
+        <li *ngIf="todayCourse.length === 0 && isLoad" style="padding: 1rem 0;text-align: center;">
+            该天暂无课程
         </li>
-        <li>
+        <li *ngFor="let item of todayCourse">
             <div class="item-time">
-                <span class="title-lable"></span>14:00
+                <span class="title-lable"></span>
+                <span class="title-text">{{item.CourseNames}}</span>
             </div>
-            <div class="list-item">
-                <span>宝骏24课程培训</span>
-                <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
-                    参加课程
-                    <ion-icon class="more" name="arrow-forward"></ion-icon>
-                </span>
+
+            <div *ngIf="item.IsExam">
+                <div *ngFor="let ourseItem of item.Courses" >
+                <!--考试-->
+                    <div class="list-item">
+                        <span>{{ourseItem.Title}}</span>
+                    </div>
+                </div>
             </div>
-        </li>
-        <li>
-            <div class="item-time">
-                <span class="title-lable"></span>16:00
-            </div>
-            <div class="list-item">
-                <span>宝骏24课程考试</span>
+            <div *ngIf="!item.IsExam">
+                <div *ngFor="let ourseItem of item.Courses" >
+                    <!--已完成-->
+                    <div class="list-item" *ngIf="ourseItem.IsSignIn == true && ourseItem.IsOver == true">
+                        <span>{{ourseItem.Title}}</span>
+                        <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon">
+                    </div>
+                    <!--未完成-->
+                    <div class="list-item" *ngIf="ourseItem.IsSignIn == true && ourseItem.IsOver == false" (click)="getCourseDetailById(ourseItem.ID)">
+                        <span>{{ourseItem.Title}}</span>
+                        <span style="display: flex;align-items: center;">
+                            继续学习
+                            <img src="./assets/imgs/home/xxjh_jxxx@2x.png" style="margin-left: 0.4rem;" class="play-icon">
+                        </span>
+                    </div>
+                    <!--未报名-->
+                    <div class="list-item" *ngIf="ourseItem.IsSignIn == false" (click)="getCourseDetailById(ourseItem.ID)">
+                        <span>{{ourseItem.Title}}</span>
+                            <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
+                            参加课程
+                            <ion-icon class="more" name="arrow-forward"></ion-icon>
+                        </span>
+                    </div>
+                </div>
             </div>
         </li>
     </ul>

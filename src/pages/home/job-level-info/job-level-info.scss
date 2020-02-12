@@ -111,6 +111,19 @@ page-job-level-info {
         color: #000000;
         border-bottom: 0.1rem solid rgba(235, 235, 235, 1);
       }
+      .pro-title {
+        padding: 1rem 0;
+        padding-left: 2.5rem;
+        font-weight: 600;
+        line-height: 1;
+        border-bottom: 0.1rem solid rgba(235, 235, 235, 1);
+        .pro-text {
+          width: 27rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
       dd {
         padding: 0 1.5rem 0 3rem;
         height: 3.8rem;
@@ -156,5 +169,14 @@ page-job-level-info {
   
   .header-ios .toolbar-ios:last-child .toolbar-background-ios {
     border: 0;
+  }
+  .sign-btn-btn {
+    margin: 0 20%;
+    height: 3.4rem;
+    line-height: 3.4rem;
+    text-align: center;
+    background:linear-gradient(216deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+    color: #333333;
+    border-radius: 1.7rem;
   }
 }
