@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {JPush} from '@jiguang-ionic/jpush';
 import {CommonService} from "./common.service";
+import {GlobalData} from "./GlobleData";
 
 /**
  * Helper类存放和业务有关的公共方法
@@ -9,6 +10,7 @@ import {CommonService} from "./common.service";
 @Injectable()
 export class JpushUtil {
     constructor(private jpush: JPush,
+                private globalData: GlobalData,
                 private commonSer: CommonService) {
 
     }
@@ -16,7 +18,7 @@ export class JpushUtil {
     initPush() {
         /**设备成功注册后，返回registrationId*/
         document.addEventListener('jpush.receiveRegistrationId', (event: any) => {
-            this.commonSer.alert(event.registrationId)
+            this.globalData.RegiID = event.registrationId;
         }, false);
         /**接收消息触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {

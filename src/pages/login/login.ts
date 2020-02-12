@@ -118,7 +118,9 @@ export class LoginPage {
         this.checkCodeYG.drawPic();
         this.checkCodeFWZS.drawPic();
     }
+
     userRoleName = '销售助手';
+
     //平台登录切换
     changeSlide(index, platform) {
         console.log(index.platform)
@@ -430,21 +432,21 @@ export class LoginPage {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
-                console.log('用户信息',res)
+                console.log('用户信息', res)
                 if (res.code == 200 && res.data) {
                     this.userAsync(res);
                     this.updateRegID(res);
                     // 获取用户角色 列表  存储用户角色
                     this.loginSer.GetMyInfo().subscribe(res2 => {
-                        let RoleID='';
+                        let RoleID = '';
                         res2.data.Roles.forEach(e => {
-                            if(e.RoleName == this.userRoleName){
-                                RoleID= e.RoleID;
+                            if (e.RoleName == this.userRoleName) {
+                                RoleID = e.RoleID;
                             }
                         });
-                        if(RoleID){
+                        if (RoleID) {
                             this.storage.set('RoleID', RoleID);
-                        }else{
+                        } else {
                             this.storage.set('RoleID', res2.data.Roles[0].RoleID);
                         }
                         this.storage.set('RoleName', this.userRoleName);
@@ -460,21 +462,18 @@ export class LoginPage {
 
     //jPush提交用户信息
     updateRegID(res) {
-        this.jPush.getRegistrationID()
-            .then(rId => {
-                console.log(`getRegistrationID:${rId}`);
-                const data = {
-                    UserId: res.data.UserId,
-                    RegId: rId
-                };
-                this.loginSer.UpdateUserRegID(data).subscribe(
-                    (res) => {
-                        if (!res.data) {
-                            this.commonSer.toast(res.message);
-                        }
-                    }
-                )
-            });
+        this.commonSer.alert(`getRegistrationID:${this.globalData.RegiID}`);
+        const data = {
+            UserId: res.data.UserId,
+            RegId: this.globalData.RegiID
+        };
+        this.loginSer.UpdateUserRegID(data).subscribe(
+            (res) => {
+                if (!res.data) {
+                    this.commonSer.toast(res.message);
+                }
+            }
+        )
 
     }
 
@@ -518,7 +517,7 @@ export class LoginPage {
     }
 
     // 储存用户角色
-    setRoleNames(){
+    setRoleNames() {
         this.storage.set('RoleName', this.userRoleName);
     }
 }
