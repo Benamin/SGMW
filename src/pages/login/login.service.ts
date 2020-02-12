@@ -50,7 +50,7 @@ export class LoginService {
 
     /***销售助手***/
     //经销商
-    sgmwLogin(data,header): Observable<any> {
+    sgmwLogin(data, header): Observable<any> {
         return this.http.post(XSZS_HTTP_URL + '/LoginAPIHandler.ashx?action=validLogin_JXS', data,
             {
                 headers: header
@@ -75,10 +75,10 @@ export class LoginService {
     }
 
     //new 登录方法 /connect/token
-    connectToken(data): Observable<any>{
-        return this.http.post(SERVER_API_URL + '/connect/token' , this.dataForm.xxxFormData(data),{
-            headers:{
-                "Content-Type":"application/x-www-form-urlencoded"
+    connectToken(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/connect/token', this.dataForm.xxxFormData(data), {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
             }
         });
     }
@@ -89,16 +89,21 @@ export class LoginService {
     }
 
     /***服务助手***/
-    fwzsLogin(data,header): Observable<any> {
+    fwzsLogin(data, header): Observable<any> {
         return this.http.post(FWZS_HTTP_URL + '/login/userlogin', data,
             {
                 headers: header
             })
     }
-    
+
     //获取用户积分和头衔列表
     GetMyInfo(): Observable<any> {
-        return this.http.post(SERVER_API_URL + '/forum/Info/GetMyInfo' , {});
+        return this.http.post(SERVER_API_URL + '/forum/Info/GetMyInfo', {});
+    }
+
+    //jPush-提交regisiter
+    UpdateUserRegID(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/account/UpdateUserRegID', data);
     }
 
 }

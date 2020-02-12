@@ -18,6 +18,7 @@ import {AppService} from "./app.service";
 import {Keyboard} from "@ionic-native/keyboard";
 import {JPush} from "@jiguang-ionic/jpush";
 import {JpushUtil} from "../core/jPush.util";
+import {GlobalData} from "../core/GlobleData";
 
 @Component({
     templateUrl: 'app.html'
@@ -52,6 +53,7 @@ export class MyApp {
                 private Keyboard: Keyboard,
                 private jPush: JPush,
                 private jPushUtil: JpushUtil,
+                private globalData: GlobalData,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         (window as any).handleOpenURL = (url: string) => {
             (window as any).localStorage.setItem("app_url", url);
@@ -61,11 +63,6 @@ export class MyApp {
 
             this.jPush.init();
             this.jPush.setDebugMode(true);
-
-            this.jPush.getRegistrationID()
-                .then(rId => {
-                    console.log(`getRegistrationID:${rId}`);
-                });
             this.jPushUtil.initPush();
 
             //app字体不跟随手机字体大小变化
