@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {JPush} from '@jiguang-ionic/jpush';
+import {CommonService} from "./common.service";
 
 /**
  * Helper类存放和业务有关的公共方法
@@ -7,22 +8,27 @@ import {JPush} from '@jiguang-ionic/jpush';
  */
 @Injectable()
 export class JpushUtil {
-    constructor(private jpush: JPush) {
+    constructor(private jpush: JPush,
+                private commonSer: CommonService) {
 
     }
 
     initPush() {
+        /**设备成功注册后，返回registrationId*/
+        document.addEventListener('jpush.receiveRegistrationId', (event: any) => {
+            this.commonSer.alert(event.registrationId)
+        }, false);
         /**接收消息触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {
-            console.log('Receive notification: ' + JSON.stringify(event));
+            this.commonSer.alert('Receive notification: ' + JSON.stringify(event));
         }, false);
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
-            console.log('openNotification: ' + JSON.stringify(event));
+            this.commonSer.alert('openNotification: ' + JSON.stringify(event));
         }, false);
         /**接收本地消息 */
         document.addEventListener('jpush.', (event: any) => {
-            console.log('receiveLocalNotification: ' + JSON.stringify(event));
+            this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
         }, false);
     }
 

@@ -20,6 +20,8 @@ import {
 } from "../../app/app.constants";
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../../secret/randomWord.service";
+import {GlobalData} from "../../core/GlobleData";
+import {JPush} from "@jiguang-ionic/jpush";
 
 declare let md5: any;
 declare let JSEncrypt: any;
@@ -101,7 +103,9 @@ export class LoginPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
+                private jPush: JPush,
                 private randomWord: RandomWordService,
+                private globalData: GlobalData,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
@@ -114,7 +118,9 @@ export class LoginPage {
         this.checkCodeYG.drawPic();
         this.checkCodeFWZS.drawPic();
     }
-    userRoleName='销售助手';
+
+    userRoleName = '销售助手';
+
     //平台登录切换
     changeSlide(index, platform) {
         console.log(index.platform)
@@ -130,7 +136,7 @@ export class LoginPage {
 
     //员工
     ygLogin() {
-        this.userRoleName='员工';
+        this.userRoleName = '员工';
         this.setRoleNames();
         if (!this.ygObj.username || !this.ygObj.password) {
             this.commonSer.toast("请输入用户名密码");
@@ -168,7 +174,7 @@ export class LoginPage {
     //供应商
     gysLogin() {
         // 供应商
-        this.userRoleName='供应商';
+        this.userRoleName = '供应商';
         this.setRoleNames();
         if (!this.gysObj.username || !this.gysObj.password) {
             this.commonSer.toast("请输入用户名密码");
@@ -340,7 +346,7 @@ export class LoginPage {
 
     /***服务助手登录***/
     fwzsLogin() {
-        this.userRoleName='销售助手';
+        this.userRoleName = '销售助手';
         this.setRoleNames();
         if (!this.fwzsObj.userName || !this.fwzsObj.password) {
             this.commonSer.toast("请输入用户名密码");
@@ -426,15 +432,17 @@ export class LoginPage {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
-                console.log('用户信息',res)
+                console.log('用户信息', res)
                 if (res.code == 200 && res.data) {
+                    this.userAsync(res);
+                    this.updateRegID(res);
                     // 获取用户角色 列表  存储用户角色
                     this.loginSer.GetMyInfo().subscribe(res2 => {
                         res2.data.Roles.forEach(e => {
-                            if(e.RoleName == this.userRoleName){
+                            if (e.RoleName == this.userRoleName) {
                                 this.storage.set('RoleID', e.RoleID);
                             }
-                        })
+                        });
                         this.storage.set('RoleName', this.userRoleName);
                         this.userAsync(res);
                     })
@@ -444,6 +452,26 @@ export class LoginPage {
                 }
             }
         )
+    }
+
+    //jPush提交用户信息
+    updateRegID(res) {
+        this.jPush.getRegistrationID()
+            .then(rId => {
+                console.log(`getRegistrationID:${rId}`);
+                const data = {
+                    UserId: res.data.UserId,
+                    RegId: rId
+                };
+                this.loginSer.UpdateUserRegID(data).subscribe(
+                    (res) => {
+                        if (!res.data) {
+                            this.commonSer.toast(res.message);
+                        }
+                    }
+                )
+            });
+
     }
 
     //用户是否同步
@@ -484,9 +512,9 @@ export class LoginPage {
     getCodeFwzs(e) {
         this.fwzsObj.codeRight = e;
     }
-    
+
     // 储存用户角色
-    setRoleNames(){
+    setRoleNames() {
         this.storage.set('RoleName', this.userRoleName);
     }
 }
