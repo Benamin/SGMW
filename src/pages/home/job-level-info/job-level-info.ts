@@ -80,26 +80,33 @@ export class JobLevelInfoPage {
         this.homeSer.GetJobLevelInfoById(data).subscribe(res => {
             console.log(999, res)
             let data = res.data
-             if (data.Items.AuthenticationType === 'xm') {
-                 let GCList = data.Items.GCapabilityModelList;
-                 for(var i=0; i<GCList.length; i++) {
-                     for(var j=0; j<GCList[i].ProjectList.length; j++) {
-                         GCList[i].ProjectList.hasFinish = false; // 是否存在Coursestatus === 2
-                         for(var k=0; k<GCList[i].ProjectList[j].CourseList.length; k++) {
-                             if (GCList[i].ProjectList[j].CourseList[k].Coursestatus == 2) {
-                                 GCList[i].ProjectList.hasFinish = true
-                             }
-                         }
-                         if (GCList[i].ProjectList.hasFinish === true) { // 若存在Coursestatus === 2 一个报名的其他都不可点击
-                             for(var k=0; k<GCList[i].ProjectList[j].CourseList.length; k++) {
-                                 if (GCList[i].ProjectList[j].CourseList[k].Coursestatus == 1) {
-                                     GCList[i].ProjectList[j].CourseList[k].Coursestatus = 0
-                                 }
-                             }
-                         }
-                     }
-                 }
-             }
+            if (data.Items.AuthenticationType === 'xm') {
+                let GCList = data.Items.GCapabilityModelList;
+                for (var i = 0; i < GCList.length; i++) {
+                    for (var j = 0; j < GCList[i].ProjectList.length; j++) {
+                        GCList[i].ProjectList.hasFinish = false; // 是否存在Coursestatus === 2
+                        for (var k = 0; k < GCList[i].ProjectList[j].CourseList.length; k++) {
+                            if (GCList[i].ProjectList[j].CourseList[k].Coursestatus == 2) {
+                                GCList[i].ProjectList.hasFinish = true
+                            }
+                        }
+                        if (GCList[i].ProjectList.hasFinish === true) { // 若存在Coursestatus === 2 一个报名的其他都不可点击
+                            for (var k = 0; k < GCList[i].ProjectList[j].CourseList.length; k++) {
+                                if (GCList[i].ProjectList[j].CourseList[k].Coursestatus == 1) {
+                                    GCList[i].ProjectList[j].CourseList[k].Coursestatus = 0
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (data.Items.StartTime) {
+                let startTimeArr = data.Items.StartTime.split('T');
+                let endTimeArr = data.Items.EndTime.split('T');
+                let startTime = startTimeArr[0] + ' ' + startTimeArr[1].split(':')[0] + ':'  + startTimeArr[1].split(':')[1];
+                let endTime = endTimeArr[0] + ' ' + endTimeArr[1].split(':')[0] + ':'  + endTimeArr[1].split(':')[1];
+                data.timeArea = startTime + ' 至 ' + endTime;
+            }
             this.detail = data;
             this.isLoad = true;
             loading.dismiss();
@@ -124,12 +131,12 @@ export class JobLevelInfoPage {
         });
         loading.present();
         this.homeSer.doOnlineSignIn(ID).subscribe(res => {
-            if(courseID) {
+            if (courseID) {
                 // 线下
                 let GCList = this.detail.Items.GCapabilityModelList;
-                for(var i=0; i<GCList.length; i++) {
-                    for(var j=0; j<GCList[i].ProjectList.length; j++) {
-                        for(var k=0; k<GCList[i].ProjectList[j].CourseList.length; k++) {
+                for (var i = 0; i < GCList.length; i++) {
+                    for (var j = 0; j < GCList[i].ProjectList.length; j++) {
+                        for (var k = 0; k < GCList[i].ProjectList[j].CourseList.length; k++) {
                             GCList[i].ProjectList[j].CourseList[k].Coursestatus = 0;
                         }
                     }
@@ -140,6 +147,7 @@ export class JobLevelInfoPage {
                 this.detail.Items.IsSignIn = true;
             }
             loading.dismiss();
+            this.getDetail();
         });
     }
 
