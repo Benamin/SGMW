@@ -22,15 +22,15 @@ export class JpushUtil {
         }, false);
         /**接收消息触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {
-            this.commonSer.alert('Receive notification: ' + JSON.stringify(event));
+            console.log('Receive notification: ' + JSON.stringify(event));
         }, false);
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
-            this.commonSer.alert('openNotification: ' + JSON.stringify(event));
+            console.log('openNotification: ' + JSON.stringify(event));
         }, false);
         /**接收本地消息 */
         document.addEventListener('jpush.', (event: any) => {
-            this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
+            console.log('receiveLocalNotification: ' + JSON.stringify(event));
         }, false);
     }
 

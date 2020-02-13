@@ -462,7 +462,7 @@ export class LoginPage {
 
     //jPush提交用户信息
     updateRegID(res) {
-        this.commonSer.alert(`getRegistrationID:${this.globalData.RegiID}`);
+        console.log(`getRegistrationID:${this.globalData.RegiID}`);
         const data = {
             UserId: res.data.UserId,
             RegId: this.globalData.RegiID
