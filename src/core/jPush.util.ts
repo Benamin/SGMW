@@ -18,9 +18,13 @@ export class JpushUtil {
         document.addEventListener('jpush.receiveRegistrationId', (event: any) => {
             this.commonSer.alert(event.registrationId)
         }, false);
-        /**接收消息触发 */
+        /**接收通知触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {
             this.commonSer.alert('Receive notification: ' + JSON.stringify(event));
+        }, false);
+        /**接受自定义消息*/
+        document.addEventListener("jpush.receiveMessage", event => {
+            this.commonSer.alert("jpush.receiveMessage: " + JSON.stringify(event));
         }, false);
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
