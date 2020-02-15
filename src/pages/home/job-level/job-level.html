@@ -41,6 +41,7 @@
             <!--  -->
             <div class="lists-item-info">
                 <div class="lists-item-title" [ngClass]="{'short': navliArr && checkType === navliArr[2].lable,'long': navliArr && checkType !== navliArr[2].lable}">{{ item.Title }}</div>
+                <div class="item-timer">{{item.timeArea}}</div>
                 <div *ngIf="navliArr && checkType !== navliArr[2].lable" class="lists-item-sign-num">
                     <img src="./assets/imgs/home/sign-num.png">
                     <span>{{item.SignInCount}}</span>人报名
