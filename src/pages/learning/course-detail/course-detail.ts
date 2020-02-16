@@ -162,7 +162,10 @@ export class CourseDetailPage {
                 }
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
-                this.getChapter('document');
+                if (!this.global.subscribeDone) {
+                    this.global.subscribeDone = true;
+                    this.getChapter('document');
+                }
             }
             if (value.type == 'iframe') {  //iframe
                 this.courseFileType = 'iframe';
@@ -590,6 +593,7 @@ export class CourseDetailPage {
         )
     }
 
+    //关注讲师
     focusHandle(UserID) {
         const data = {
             TopicID: UserID
@@ -597,7 +601,7 @@ export class CourseDetailPage {
         this.learSer.SaveSubscribe(data).subscribe(
             (res) => {
                 this.commonSer.toast('关注成功');
-                this.ionViewWillEnter();
+                this.getCourseDetail();
             }
         )
     }

@@ -430,6 +430,7 @@ export class LoginPage {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
+                this.userAsync(res);
                 if (res.code == 200 && res.data) {
                     // 获取用户角色 列表  存储用户角色
                     this.loginSer.GetMyInfo().subscribe(res2 => {
