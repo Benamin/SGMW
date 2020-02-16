@@ -54,7 +54,6 @@ export class TreeListComponent {
                 title: file.DisplayName,
                 Size: file.Size * 1024
             },
-
         });
         modal.present();
         event.stopPropagation();
