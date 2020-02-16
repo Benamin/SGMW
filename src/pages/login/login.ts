@@ -433,11 +433,17 @@ export class LoginPage {
                 if (res.code == 200 && res.data) {
                     // 获取用户角色 列表  存储用户角色
                     this.loginSer.GetMyInfo().subscribe(res2 => {
+                        let RoleID = '';
                         res2.data.Roles.forEach(e => {
                             if (e.RoleName == this.userRoleName) {
-                                this.storage.set('RoleID', e.RoleID);
+                                RoleID = e.RoleID;
                             }
                         });
+                        if (RoleID) {
+                            this.storage.set('RoleID', RoleID);
+                        } else {
+                            this.storage.set('RoleID', res2.data.Roles[0].RoleID);
+                        }
                         this.storage.set('RoleName', this.userRoleName);
                         this.userAsync(res);
                         this.updateRegID(res);
@@ -453,21 +459,18 @@ export class LoginPage {
 
     //jPush提交用户信息
     updateRegID(res) {
-        this.jPush.getRegistrationID()
-            .then(rId => {
-                console.log(`getRegistrationID:${rId}`);
-                const data = {
-                    UserId: res.data.UserId,
-                    RegId: rId
-                };
-                this.loginSer.UpdateUserRegID(data).subscribe(
-                    (res) => {
-                        if (!res.data) {
-                            this.commonSer.toast(res.message);
-                        }
-                    }
-                )
-            });
+        console.log(`getRegistrationID:${this.globalData.RegiID}`);
+        const data = {
+            UserId: res.data.UserId,
+            RegId: this.globalData.RegiID
+        };
+        this.loginSer.UpdateUserRegID(data).subscribe(
+            (res) => {
+                if (!res.data) {
+                    this.commonSer.toast(res.message);
+                }
+            }
+        )
 
     }
 

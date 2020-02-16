@@ -85,6 +85,11 @@ app-today-remind {
       position: absolute;
       text-align: center;
       width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      padding-bottom: 2px;
       img{
         width: 14px;
         position: relative;

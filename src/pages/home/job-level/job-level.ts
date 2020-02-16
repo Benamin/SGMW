@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { LoadingController, NavController} from 'ionic-angular';
+import {LoadingController, NavController} from 'ionic-angular';
 import {timer} from "rxjs/observable/timer";
 import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
@@ -18,10 +18,10 @@ export class JobLevelPage {
         Page: 1,
         PageSize: 10,
         TotalCount: null,
-        isLoad:false,
+        isLoad: false,
         Type: 1 //int类型1-推荐、2-所有、3-我的
     };
-    navliArr=[{
+    navliArr = [{
         lable: 'recommend',
         text: '推荐'
     }, {
@@ -34,8 +34,8 @@ export class JobLevelPage {
     checkType = "recommend";
 
     constructor(public navCtrl: NavController, private homeSer: HomeService,
-        private loadCtrl:LoadingController,private keyboard: Keyboard) {
-        
+                private loadCtrl: LoadingController, private keyboard: Keyboard) {
+
     }
 
     // ionViewDidEnter() {
@@ -47,7 +47,7 @@ export class JobLevelPage {
 
     getList() {
         let loading = this.loadCtrl.create({
-            content:''
+            content: ''
         });
         loading.present();
         const data = {
@@ -55,20 +55,34 @@ export class JobLevelPage {
             Page: 1,
             PageSize: this.page.PageSize,
             Type: this.page.Type
-          };
+        };
         this.homeSer.GetJobLevelList(data).subscribe(
             (res) => {
                 // for (var i=0;i<res.data.Items.length; i++) {
                 //     res.data.Items[i].OverPercentage = 34;
                 // } // 测试数据
                 this.page.PositionName = res.data.PositionName
-                this.page.jobLevelList = res.data.Items;
+                this.page.jobLevelList = this.tranTimeArea(res.data.Items);
                 this.page.TotalCount = res.data.TotalCount;
                 this.page.isLoad = true;
                 loading.dismiss();
                 console.log('GetJobLevelList', res);
             }
         )
+    }
+
+    tranTimeArea(listsArr) {
+        let newListsArr = listsArr;
+        for (var i=0; i<listsArr.length; i++) {
+            if (newListsArr[i].StartTime && newListsArr[i].EndTime) {
+                let startTimeArr = newListsArr[i].StartTime.split('T');
+                let endTimeArr = newListsArr[i].EndTime.split('T');
+                let startTime = startTimeArr[0] + ' ' + startTimeArr[1].split(':')[0] + ':' + startTimeArr[1].split(':')[1];
+                let endTime = endTimeArr[0] + ' ' + endTimeArr[1].split(':')[0] + ':' + endTimeArr[1].split(':')[1];
+                newListsArr[i].timeArea = startTime + ' 至 ' + endTime;
+            }
+        }
+        return newListsArr
     }
 
     //按键
@@ -80,6 +94,7 @@ export class JobLevelPage {
             // if (this.page.Title) this.logSer.keyWordLog(this.page.Title);
         }
     }
+
     showKey() {
         this.keyboard.show();
     }
@@ -114,7 +129,7 @@ export class JobLevelPage {
         };
         this.homeSer.GetJobLevelList(data).subscribe(
             (res) => {
-                this.page.jobLevelList = this.page.jobLevelList.concat(res.data.Items);
+                this.page.jobLevelList = this.tranTimeArea(this.page.jobLevelList.concat(res.data.Items));
                 this.page.TotalCount = res.data.TotalCount;
                 e.complete();
             }
@@ -125,7 +140,9 @@ export class JobLevelPage {
     doRefresh(e) {
         this.page.Page = 1;
         this.getList();
-        timer(1000).subscribe(() => {e.complete();});
+        timer(1000).subscribe(() => {
+            e.complete();
+        });
     }
 
 }

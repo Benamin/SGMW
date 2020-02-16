@@ -115,6 +115,7 @@ page-job-level {
         height: 7rem;
         border-radius: 1rem;
       }
+
       .lists-item-info {
         position: relative;
         height: 7rem;
@@ -123,6 +124,14 @@ page-job-level {
           width: 24rem;
           font-size: 1.6rem;
           color: #000000;
+          font-weight:500;
+        }
+        .item-timer {
+          position: absolute;
+          bottom: 1rem;
+          font-size: 1rem;
+          text-align: left;
+          color: #333333;
         }
         .short {
           overflow: hidden;
@@ -137,7 +146,7 @@ page-job-level {
         }
         .lists-item-sign-num {
           position: absolute;
-          bottom: 0;
+          bottom: -0.7rem;
           font-size: 1.2rem;
           color: rgba(51,51,51,1);
           display: flex;
