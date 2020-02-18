@@ -19,18 +19,19 @@ export class JpushUtil {
         /**设备成功注册后，返回registrationId*/
         document.addEventListener('jpush.receiveRegistrationId', (event: any) => {
             this.globalData.RegiID = event.registrationId;
+            this.commonSer.alert(`receiveRegistrationId:${this.globalData.RegiID}`)
         }, false);
         /**接收消息触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {
-            console.log('Receive notification: ' + JSON.stringify(event));
+            this.commonSer.alert('Receive notification: ' + JSON.stringify(event));
         }, false);
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
-            console.log('openNotification: ' + JSON.stringify(event));
+            this.commonSer.alert('openNotification: ' + JSON.stringify(event));
         }, false);
         /**接收本地消息 */
         document.addEventListener('jpush.', (event: any) => {
-            console.log('receiveLocalNotification: ' + JSON.stringify(event));
+            this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
         }, false);
     }
 

@@ -20,10 +20,10 @@ export const JunKe_HTTP_URL = "https://nbjtest.sgmw.com.cn";   //测试
 
 //秘钥
 //开发环境
-// export const JunKe_PRIVATE_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZs0vnjp+z/6ggXS5jXzusSAfDO6OUDRNpZ/YDtLDHof8J0Z2O2Y0JeBcsItIwmoYMuaBYlMxGq2NJ4hZU4cSrHfpE7mt+QFgdJe2H2v8GYOi+umM56QGq+gM18jYsOVwZQXfVmAV+y8gVO+0Ksg77vab/QRZaYuPfyGyGEQTklwIDAQAB";
+export const JunKe_PRIVATE_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZs0vnjp+z/6ggXS5jXzusSAfDO6OUDRNpZ/YDtLDHof8J0Z2O2Y0JeBcsItIwmoYMuaBYlMxGq2NJ4hZU4cSrHfpE7mt+QFgdJe2H2v8GYOi+umM56QGq+gM18jYsOVwZQXfVmAV+y8gVO+0Ksg77vab/QRZaYuPfyGyGEQTklwIDAQAB";
 
 //生产环境
-export const JunKe_PRIVATE_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCboECH8BMV6e8/DsEd9uyUqVQLpeEP1qkncIPWxlGn81++jpHjUohTku1k6Qakyl9tbxN+6mMBt6+rJD6/qDSGxXpx1hw3/u1bdTUfgk1DkqleMs4q4bZgwolYNqeFxVMkOMfcYDr8b9F1f4BA2Ezsjnr/x2XVu4dtGM9yFR7m+QIDAQAB";
+// export const JunKe_PRIVATE_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCboECH8BMV6e8/DsEd9uyUqVQLpeEP1qkncIPWxlGn81++jpHjUohTku1k6Qakyl9tbxN+6mMBt6+rJD6/qDSGxXpx1hw3/u1bdTUfgk1DkqleMs4q4bZgwolYNqeFxVMkOMfcYDr8b9F1f4BA2Ezsjnr/x2XVu4dtGM9yFR7m+QIDAQAB";
 
 export const JunKe_client_id = "41BC3798-5392-49A4-A191-0891F322920B";
 /*****end******/
@@ -31,8 +31,8 @@ export const JunKe_client_id = "41BC3798-5392-49A4-A191-0891F322920B";
 
 /***销售助手***/
 //环境
-// export const XSZS_HTTP_URL = "/XSZSAPI";  //代理地址
-export const XSZS_HTTP_URL = "http://112.124.23.230:8010/API";  //测试
+export const XSZS_HTTP_URL = "/XSZSAPI";  //代理地址
+// export const XSZS_HTTP_URL = "http://112.124.23.230:8010/API";  //测试
 // export const XSZS_HTTP_URL = "https://promotion.sgmw.com.cn/API";  //生产
 
 //appid  登录销售助手接口使用
