@@ -105,15 +105,10 @@ export class CourseDetailPage {
         this.courseFileType = null;
         const screenWidth = <any>window.screen.width;
         this.ionSlidesDIV.nativeElement.style.width = screenWidth + 'px';
-        console.log(screenWidth);
     }
 
     ionViewWillEnter() {
         this.enterSource = this.navParams.get('courseEnterSource');
-        console.log('enterSource:' + this.enterSource);
-        console.log('nodeLevel4:' + this.nodeLevel4);
-        console.log('courseFileType:' + this.courseFileType);
-
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
@@ -121,6 +116,7 @@ export class CourseDetailPage {
             enableBackdropDismiss: true,
         });
         this.loading.present();
+        console.log('ionViewWillEnter');
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
@@ -166,7 +162,10 @@ export class CourseDetailPage {
                 }
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
-                this.getChapter('document');
+                if (!this.global.subscribeDone) {
+                    this.global.subscribeDone = true;
+                    this.getChapter('document');
+                }
             }
             if (value.type == 'iframe') {  //iframe
                 this.courseFileType = 'iframe';
@@ -207,13 +206,11 @@ export class CourseDetailPage {
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
-        console.log(`getChapter,pid:${this.global.pId}`);
-        console.log(`courseFileType,pid:${this.courseFileType}`);
-        this.learSer.GetProductById(this.global.pId).subscribe(
-            (res) => {
-                this.product.detail = res.data;
-            }
-        );
+        if (type === 'video') {
+            this.getCourseDetail();
+        }
+
+        console.log('打开课件后更新章节进度');
         this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
@@ -227,7 +224,7 @@ export class CourseDetailPage {
                     this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
                     this.checkTag();   //校验作业
                 }
-                if (this.enterSource == 'examBack') {
+                if (this.enterSource == 'examBack') {  //做完作业返回
                     if (this.product.detail.overpercentage == 100) {
                         this.commonSer.toast('恭喜您完成课程学习!');
                     } else {
@@ -439,128 +436,6 @@ export class CourseDetailPage {
         this.navCtrl.push(TeacherPage, {item: item});
     }
 
-    async focusHandle(UserID) {
-        const data = {
-            TopicID: UserID
-        };
-        await this.learSer.SaveSubscribe(data).subscribe(
-            (res) => {
-                this.commonSer.toast('关注成功');
-                this.ionViewWillEnter();
-            }
-        )
-    }
-
-
-    //讲师评价下-讲师列表
-    getTeacher() {
-        const data = {
-            id: this.global.pId
-        }
-        this.learnSer.GetTeacherListByPID(data).subscribe(
-            (res) => {
-                if (res.data) {
-                    this.teacherList = res.data;
-                    this.getCommentList();
-                }
-            }
-        )
-    }
-
-
-    //课程评价
-    getCommentList() {
-        if (this.teacherList.length > 0) {
-            const data1 = {
-                pageSize: 5,
-                page: 1,
-                TopicType: 'teacher',   //teacher  course
-                topicID: this.teacherList[0].UserID,
-            }
-            this.learnSer.GetComment(data1).subscribe(   //讲师评价
-                (res) => {
-                    if (res.data) {
-                        this.comment.teacher = res.data.CommentItems;
-                    }
-                }
-            );
-        }
-
-        const data2 = {
-            pageSize: 5,
-            page: 1,
-            TopicType: 'course',   //teacher  course
-            topicID: this.product.detail.PrId
-        }
-        this.learnSer.GetComment(data2).subscribe(  //课程评价
-            (res) => {
-                if (res.data) {
-                    this.comment.course = res.data.CommentItems;
-                }
-            }
-        );
-
-        const data3 = {
-            pageSize: 5,
-            page: 1,
-            TopicType: 'talk',   //teacher  course
-            topicID: this.product.detail.PrId
-        };
-        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
-            (res) => {
-                if (res.data) {
-                    this.comment.talk = res.data.CommentItems;
-                }
-            }
-        );
-    }
-
-    //取消关注
-    async cancleFocusHandle(UserID) {
-        const data = {
-            TopicID: UserID
-        };
-        this.learSer.CancelSubscribe(data).subscribe(
-            (res) => {
-                this.commonSer.toast('取消关注成功');
-                this.ionViewWillEnter();
-            }
-        )
-    }
-
-    //教师评价
-    goTeacherComment() {
-        this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你对讲师的评价...',
-            TopicID: this.product.detail.PrId,
-            TopicType: 'teacher',
-            PId: this.global.pId,
-            title: '讲师评价'
-        });
-    }
-
-    //课程评价
-    goCourseComment() {
-        this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你的评价...',
-            TopicID: this.product.detail.PrId,
-            TopicType: 'course',
-            title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
-            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
-        });
-    }
-
-    //课程讨论
-    goCourseDiscuss() {
-        this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你要讨论的内容...',
-            TopicID: this.product.detail.PrId,
-            TopicType: 'talk',
-            title: this.product.detail.TeachTypeName == "直播" ? '直播讨论' : '课程讨论',
-            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
-        });
-    }
-
     //课程
     goCourse(e) {
         this.navCtrl.push(CourseDetailPage, {id: e.Id});
@@ -573,7 +448,7 @@ export class CourseDetailPage {
         };
         this.learSer.BuyProduct(data).subscribe(
             (res) => {
-                this.ionViewWillEnter();
+                this.getCourseDetail();
                 this.initStudy();
                 this.studyNow();
                 this.signObj.isSign = true;
@@ -598,6 +473,7 @@ export class CourseDetailPage {
 
     //课程详情
     getCourseDetail() {
+        console.log('课程详情');
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.loading.dismiss();
@@ -715,6 +591,129 @@ export class CourseDetailPage {
                 this.getCourseDetail();
             }
         )
+    }
+
+    //关注讲师
+    focusHandle(UserID) {
+        const data = {
+            TopicID: UserID
+        };
+        this.learSer.SaveSubscribe(data).subscribe(
+            (res) => {
+                this.commonSer.toast('关注成功');
+                this.getCourseDetail();
+            }
+        )
+    }
+
+
+    //讲师评价下-讲师列表
+    getTeacher() {
+        const data = {
+            id: this.global.pId
+        }
+        this.learnSer.GetTeacherListByPID(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.teacherList = res.data;
+                    this.getCommentList();
+                }
+            }
+        )
+    }
+
+
+    //课程评价
+    getCommentList() {
+        if (this.teacherList.length > 0) {
+            const data1 = {
+                pageSize: 5,
+                page: 1,
+                TopicType: 'teacher',   //teacher  course
+                topicID: this.teacherList[0].UserID,
+            }
+            this.learnSer.GetComment(data1).subscribe(   //讲师评价
+                (res) => {
+                    if (res.data) {
+                        this.comment.teacher = res.data.CommentItems;
+                    }
+                }
+            );
+        }
+
+        const data2 = {
+            pageSize: 5,
+            page: 1,
+            TopicType: 'course',   //teacher  course
+            topicID: this.product.detail.PrId
+        }
+        this.learnSer.GetComment(data2).subscribe(  //课程评价
+            (res) => {
+                if (res.data) {
+                    this.comment.course = res.data.CommentItems;
+                }
+            }
+        );
+
+        const data3 = {
+            pageSize: 5,
+            page: 1,
+            TopicType: 'talk',   //teacher  course
+            topicID: this.product.detail.PrId
+        };
+        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
+            (res) => {
+                if (res.data) {
+                    this.comment.talk = res.data.CommentItems;
+                }
+            }
+        );
+    }
+
+    //取消关注
+    cancleFocusHandle(UserID) {
+        const data = {
+            TopicID: UserID
+        };
+        this.learSer.CancelSubscribe(data).subscribe(
+            (res) => {
+                this.commonSer.toast('取消关注成功');
+                this.getCourseDetail();
+            }
+        )
+    }
+
+    //教师评价
+    goTeacherComment() {
+        this.navCtrl.push(CourseCommentPage, {
+            placeholder: '请输入你对讲师的评价...',
+            TopicID: this.product.detail.PrId,
+            TopicType: 'teacher',
+            PId: this.global.pId,
+            title: '讲师评价'
+        });
+    }
+
+    //课程评价
+    goCourseComment() {
+        this.navCtrl.push(CourseCommentPage, {
+            placeholder: '请输入你的评价...',
+            TopicID: this.product.detail.PrId,
+            TopicType: 'course',
+            title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
+            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
+        });
+    }
+
+    //课程讨论
+    goCourseDiscuss() {
+        this.navCtrl.push(CourseCommentPage, {
+            placeholder: '请输入你要讨论的内容...',
+            TopicID: this.product.detail.PrId,
+            TopicType: 'talk',
+            title: this.product.detail.TeachTypeName == "直播" ? '直播讨论' : '课程讨论',
+            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
+        });
     }
 
     changeType(item) {

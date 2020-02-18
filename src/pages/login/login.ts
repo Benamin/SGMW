@@ -100,6 +100,7 @@ export class LoginPage {
     }
 
     noUserMsg = NoUserMsg;
+    loading;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
@@ -109,6 +110,9 @@ export class LoginPage {
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
+        this.loading = this.loadCtrl.create({
+            content: '登录中...'
+        });
     }
 
     ionViewDidLoad() {
@@ -146,25 +150,23 @@ export class LoginPage {
             this.commonSer.toast('请输入正确的验证码');
             return;
         }
-        const loading = this.loadCtrl.create({
-            content: '登录中...'
-        });
-        loading.present();
+
+        this.loading.present();
         this.loginSer.connectToken(this.ygObj).subscribe(
             (res) => {
-                loading.dismiss();
                 if (res.access_token) {
                     this.storage.set('Authorization', res.access_token);
                     timer(300).subscribe(e => {
                         this.getUserInfo();
                     })
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             },
             (error1) => {
-                loading.dismiss();
+                this.loading.dismiss()
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -184,25 +186,22 @@ export class LoginPage {
             this.commonSer.toast('请输入正确的验证码');
             return;
         }
-        const loading = this.loadCtrl.create({
-            content: '登录中...'
-        });
-        loading.present();
+        this.loading.present();
         this.loginSer.connectToken(this.gysObj).subscribe(
             (res) => {
-                loading.dismiss();
                 if (res.access_token) {
                     this.storage.set('Authorization', res.access_token);
                     timer(300).subscribe(e => {
                         this.getUserInfo();
                     })
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             },
             (error1) => {
-                loading.dismiss();
+                this.loading.dismiss();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -218,11 +217,8 @@ export class LoginPage {
             this.commonSer.toast('请输入正确的验证码');
             return;
         }
-        const loading = this.loadCtrl.create({
-            content: '登录中...'
-        });
-        loading.present();
 
+        this.loading.present();
         const timestamp = this.datePipe.transform(new Date(), 'yyyyMMddHHmmss');
         const nonce = this.randomWord.uuid();
         const sign = XSZS_appId + XSZS_appKey + timestamp + nonce;
@@ -235,14 +231,15 @@ export class LoginPage {
 
         this.loginSer.sgmwLogin(this.jxs.xszs, header).subscribe(
             (res) => {
-                loading.dismiss();
                 if (res.success == "true") {
                     this.connectTokenByXSZS(res.data);
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             }, error1 => {
+                this.loading.dismiss();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -266,11 +263,13 @@ export class LoginPage {
                         this.getUserInfo();
                     })
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             },
             (error1) => {
+                this.loading.dismiss();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -289,12 +288,9 @@ export class LoginPage {
             this.commonSer.toast('请输入正确的验证码');
             return;
         }
-        const loading = this.loadCtrl.create({
-            content: '登录中...'
-        });
-        loading.present();
-        encrypt.setPublicKey(JunKe_PRIVATE_KEY);
 
+        this.loading.present();
+        encrypt.setPublicKey(JunKe_PRIVATE_KEY);
         const password = encrypt.encrypt(this.jxs.junke.password);
         const data = {
             "userName": this.jxs.junke.username.trim(),
@@ -302,17 +298,17 @@ export class LoginPage {
         };
         this.loginSer.JunkeAppAuthCas(data).subscribe(
             (res) => {
-                loading.dismiss();
                 if (res.status) {
                     this.connectTokenByJunKe(res.data);
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.msg);
                 }
-            }, (error => {
-                loading.dismiss();
+            }, error => {
+                this.loading.dismiss();
                 this.commonSer.alert(error.error.errorMsg);
-            })
+            }
         )
     }
 
@@ -332,10 +328,12 @@ export class LoginPage {
                         this.getUserInfo();
                     })
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             }, error1 => {
+                this.loading.dismiss();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -356,11 +354,8 @@ export class LoginPage {
             this.commonSer.toast('请输入正确的验证码');
             return;
         }
-        const loading = this.loadCtrl.create({
-            content: '登录中...'
-        });
-        loading.present();
 
+        this.loading.present();
         const d = Date.now();
         const timeStamp = Math.round(d / 1000) + '';
         const nonce = this.randomWord.uuidNum();
@@ -385,14 +380,15 @@ export class LoginPage {
         };
         this.loginSer.fwzsLogin(content, header).subscribe(
             (res) => {
-                loading.dismiss();
                 if (res.code == "1") {
                     this.connectTokenByFWZS(content);
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.message);
                 }
             }, error1 => {
+                this.loading.dismiss();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -415,11 +411,13 @@ export class LoginPage {
                         this.getUserInfo();
                     })
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             },
             (error1) => {
+                this.loading.dismiss();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -432,10 +430,8 @@ export class LoginPage {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
-                console.log('用户信息', res)
+                this.userAsync(res);
                 if (res.code == 200 && res.data) {
-                    this.userAsync(res);
-                    this.updateRegID(res);
                     // 获取用户角色 列表  存储用户角色
                     this.loginSer.GetMyInfo().subscribe(res2 => {
                         let RoleID = '';
@@ -451,8 +447,10 @@ export class LoginPage {
                         }
                         this.storage.set('RoleName', this.userRoleName);
                         this.userAsync(res);
+                        this.updateRegID(res);
                     })
                 } else {
+                    this.loading.dismiss();
                     this.storage.clear();
                     this.commonSer.alert(res.message);
                 }
@@ -479,6 +477,7 @@ export class LoginPage {
 
     //用户是否同步
     userAsync(res) {
+        this.loading.dismiss();
         if (res.data.UserId == '00000000-0000-0000-0000-000000000000') {
             this.commonSer.alert(this.noUserMsg);
         } else {

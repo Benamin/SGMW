@@ -226,7 +226,9 @@ export class SearchPage {
             const data = {
                 title: this.page.title,
                 page: this.page.page,
-                pageSize: this.page.pageSize
+                pageSize: this.page.pageSize,
+                "OrderBy": "CreateTime",
+                "SortDir": "DESC",
             }
             this.learnSer.GetProductList(data).subscribe(
                 (res) => {

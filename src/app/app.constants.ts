@@ -1,6 +1,6 @@
 /***培训平台***/
-// export const SERVER_API_URL = '/api';
-export const SERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
+export const SERVER_API_URL = '/api';
+// export const SERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
 // export const SERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
 // export const SERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
 
@@ -14,8 +14,8 @@ export const SERVER_HTTP_URL = 'https://elearning.sgmw.com.cn/#/courseDetail';  
 
 /***骏客***/
 //环境
-// export const JunKe_HTTP_URL = "/JunKeAPI";  //代理地址
-export const JunKe_HTTP_URL = "https://nbjtest.sgmw.com.cn";   //测试
+export const JunKe_HTTP_URL = "/JunKeAPI";  //代理地址
+// export const JunKe_HTTP_URL = "https://nbjtest.sgmw.com.cn";   //测试
 // export const JunKe_HTTP_URL = "https://nbj.sgmw.com.cn";   //生产
 
 //秘钥
@@ -36,20 +36,20 @@ export const XSZS_HTTP_URL = "/XSZSAPI";  //代理地址
 // export const XSZS_HTTP_URL = "https://promotion.sgmw.com.cn/API";  //生产
 
 //appid  登录销售助手接口使用
-export const XSZS_appId = "npuehtqbtp1puya9obgb";  //测试
-// export const XSZS_appId = "5nvi2v72vepo1p62a2vc";   //生产
+// export const XSZS_appId = "npuehtqbtp1puya9obgb";  //测试
+export const XSZS_appId = "5nvi2v72vepo1p62a2vc";   //生产
 
 //appKey 登录销售助手接口使用
-export const XSZS_appKey = "3s78yo1pv1pucentst5rl3jvbyl6iwmn";  //测试
-// export const XSZS_appKey = "do5d9txfvtdt7neftljltgxa1pcpuate";   //生产
+// export const XSZS_appKey = "3s78yo1pv1pucentst5rl3jvbyl6iwmn";  //测试
+export const XSZS_appKey = "do5d9txfvtdt7neftljltgxa1pcpuate";   //生产
 
 //client_id
 export const XSZS_client_id = "138B0798-8D43-4588-B291-DB8545865C8A";
 /*****end******/
 
 /***服务助手***/
-// export const FWZS_HTTP_URL = "FWZSAPI";
-export const FWZS_HTTP_URL = "https://sgmwsa.shaoxingzhuoyue.com/api";
+export const FWZS_HTTP_URL = "FWZSAPI";
+// export const FWZS_HTTP_URL = "https://sgmwsa.shaoxingzhuoyue.com/api";
 
 //appid
 export const FWZS_appid = "52492bf5765840b192fac6c7ca3d10c8";

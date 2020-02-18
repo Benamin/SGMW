@@ -36,7 +36,7 @@ export class ForumPage implements OnInit {
     ngOnInit() {
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.logSer.visitLog('lt');
         this.forumLIst = [];
         this.pageDate.pageIndex = 1;
@@ -116,18 +116,15 @@ export class ForumPage implements OnInit {
         } else {
             this.ForumHistory = [];
         }
-        console.log('历史记录', this.ForumHistory)
     }
 
     doRefresh(e) {
-        console.log('刷新')
         setTimeout(() => {
             e.complete();
         }, 1000);
         if (this.navli == '热帖') {
             return this.switchInformation('热帖')
-        }
-        ;
+        };
 
         this.pageDate.pageIndex = 1;
         this.isdoInfinite = true;
