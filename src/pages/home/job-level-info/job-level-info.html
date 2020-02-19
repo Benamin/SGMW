@@ -6,7 +6,7 @@
 <ion-content>
   <div *ngIf="detail">
     <div class="banner-box">
-      <img class="bg-img" src="./assets/imgs/home/xm_bg@2x.png"/>
+      <img class="bg-img" [src]="detail.Items.CoverUrl || './assets/imgs/home/xm_bg@2x.png'"/>
 
       <div class="posi-box">
         <div class="banner-title" *ngIf="detail">{{ detail.Items.Title }}</div>
