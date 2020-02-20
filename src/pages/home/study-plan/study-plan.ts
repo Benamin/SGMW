@@ -71,6 +71,7 @@ export class StudyPlanPage {
             doc.addEventListener("DOMContentLoaded", recalc, false);
         })(document, window);
         this.getStydyPlan();
+        this.getThisMonthCourse(this.now); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
     }
 
     changeMonth() {
@@ -98,8 +99,7 @@ export class StudyPlanPage {
             this.calendarArr = this.initCalendar(this.now, courseArr, "thisMonth");
             loading.dismiss();
             //   console.log(888888, this.todayHasCourse,"calendarArr", this.calendarArr);
-            if (this.todayHasCourse === true) this.getTodayCourse(this.now); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
-            else this.isLoad = true;
+            this.isLoad = true;
         });
         // 下个月的数据
         const dataNext = {
@@ -176,8 +176,48 @@ export class StudyPlanPage {
             Page: 1,
             PageSize: 100
         };
+        this.getCourse(data);
+    }
+
+
+
+
+
+    // 获取该日的 课程/考试列表
+    getThisMonthCourse(date) {
+        console.log("getNowFormatDate", this.getFormatDate(date));
+        let loading = this.loadCtrl.create({
+            content: ""
+        });
+        loading.present();
+
+        var dateMonth = date.getMonth(); //当前月
+        var dateYear = date.getFullYear(); //当前年
+        //本月的开始时间
+        var monthStartDate = new Date(dateYear, dateMonth, 1);
+        //本月的结束时间
+        var monthEndDate = new Date(dateYear, dateMonth + 1, 0);
+
+        let data = {
+            BeginDate: this.getFormatDate(monthStartDate) + "T00:00:00",
+            EndDate: this.getFormatDate(monthEndDate) + "T23:59:59",
+            Page: 1,
+            PageSize: 100
+        };
+        this.getCourse(data);
+    }
+
+    getCourse(data) {
         this.homeSer.getTodayCourse(data).subscribe(res => {
-            this.todayCourse = res.data.Items
+            let todayCourse = [];
+            todayCourse = res.data.Items;
+            if (todayCourse.length > 0) {
+                for (var  i=0; i<todayCourse.length; i++) {
+                    todayCourse[i].YMD = '2020' + '年' +  2 + '月' + '3' + '日';
+                    todayCourse[i].week = this.numTranWeek(0);
+                }
+            }
+            this.todayCourse = todayCourse
             console.log("getTodayCourse", this.todayCourse);
             this.isLoad = true;
             loading.dismiss();
@@ -276,7 +316,6 @@ export class StudyPlanPage {
                 // dayObj.course = true;
                 // dayObj.exam = true;
                 // console.log(999, that.lableRC.currentRow, that.lableRC.currentCol)
-                that.numTranWeek();
             }
             // 测试数据 是否 课程/考试
             let courseArr = [];
@@ -345,14 +384,16 @@ export class StudyPlanPage {
         this.todayHasCourse = true;
     }
 
-    numTranWeek() {
-        if (this.lableRC.activedCol === 0) this.week = "一";
-        if (this.lableRC.activedCol === 1) this.week = "二";
-        if (this.lableRC.activedCol === 2) this.week = "三";
-        if (this.lableRC.activedCol === 3) this.week = "四";
-        if (this.lableRC.activedCol === 4) this.week = "五";
-        if (this.lableRC.activedCol === 5) this.week = "六";
-        if (this.lableRC.activedCol === 6) this.week = "日";
+    numTranWeek(num) {
+        let week = "";
+        if (num === 0) week = "一";
+        if (num === 1) week = "二";
+        if (num === 2) week = "三";
+        if (num === 3) week = "四";
+        if (num === 4) week = "五";
+        if (num === 5) week = "六";
+        if (num === 6) week = "日";
+        return week;
     }
 
     // 下个月

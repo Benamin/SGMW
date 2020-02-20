@@ -91,6 +91,9 @@
         <div *ngIf="detail.Items.AuthenticationType === 'xskc'">
           <div *ngFor="let ProjectItem of item.ProjectList;">
             <div *ngFor="let CourseItem of ProjectItem.CourseList;">
+              <dd class="already" *ngIf="CourseItem.Coursestatus == 1" (click)="getCourseDetailById(CourseItem.ID)">
+                <span>{{CourseItem.Title}}</span>
+              </dd>
               <dd class="continue" *ngIf="CourseItem.Coursestatus == 2" (click)="getCourseDetailById(CourseItem.ID)">
                 <span>{{CourseItem.Title}}</span>
                 <span class="right"
