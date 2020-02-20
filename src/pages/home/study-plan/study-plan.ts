@@ -186,11 +186,6 @@ export class StudyPlanPage {
     // 获取该日的 课程/考试列表
     getThisMonthCourse(date) {
         console.log("getNowFormatDate", this.getFormatDate(date));
-        let loading = this.loadCtrl.create({
-            content: ""
-        });
-        loading.present();
-
         var dateMonth = date.getMonth(); //当前月
         var dateYear = date.getFullYear(); //当前年
         //本月的开始时间
@@ -208,6 +203,10 @@ export class StudyPlanPage {
     }
 
     getCourse(data) {
+        let loading = this.loadCtrl.create({
+            content: ""
+        });
+        loading.present();
         this.homeSer.getTodayCourse(data).subscribe(res => {
             let todayCourse = [];
             todayCourse = res.data.Items;
