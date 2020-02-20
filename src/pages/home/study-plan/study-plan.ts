@@ -73,7 +73,7 @@ export class StudyPlanPage {
             doc.addEventListener("DOMContentLoaded", recalc, false);
         })(document, window);
         this.getStydyPlan();
-        this.getTheMonthCourse(this.now); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
+        this.getTheMonthCourse(this.now, false); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
     }
 
     changeMonth() {
@@ -176,9 +176,9 @@ export class StudyPlanPage {
                 this.calendarArr[i][j].actived = false;
             }
         }
-        for (var i = 0; i < this.nextCalendarArr.length; i++) {
-            for (var j = 0; j < this.nextCalendarArr[i].length; j++) {
-                this.nextCalendarArr[i][j].actived = false;
+        for (var a = 0; a < this.nextCalendarArr.length; a++) {
+            for (var b = 0; b < this.nextCalendarArr[a].length; b++) {
+                this.nextCalendarArr[a][b].actived = false;
             }
         }
     }
@@ -192,7 +192,7 @@ export class StudyPlanPage {
             Page: 1,
             PageSize: 100
         };
-        this.getCourse(data);
+        this.getCourse(data, false);
     }
 
     // 获取该日的 课程/考试列表
