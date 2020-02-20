@@ -45,6 +45,7 @@ export class StudyPlanPage {
 
     todayCourse = [];
     isLoad = false;
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private learSer: LearnService,
@@ -125,7 +126,7 @@ export class StudyPlanPage {
                 courseArr,
                 "nextMonth"
             );
-            console.log(" nextCalendarArr", this.nextCalendarArr);
+            // console.log(" nextCalendarArr", this.nextCalendarArr);
         });
     }
 
@@ -153,15 +154,15 @@ export class StudyPlanPage {
     switchActived(isThisMonth, rowIndex, colIndex) {
         // calendarArr nextCalendarArr
         if (isThisMonth) {
-            for (var i=0; i<this.calendarArr.length; i++) {
-                for (var j=0; j<this.calendarArr[i].length; j++) {
+            for (var i = 0; i < this.calendarArr.length; i++) {
+                for (var j = 0; j < this.calendarArr[i].length; j++) {
                     this.calendarArr[i][j].actived = false;
                 }
             }
             this.calendarArr[rowIndex][colIndex].actived = true;
         } else {
-            for (var i=0; i<this.nextCalendarArr.length; i++) {
-                for (var j=0; j<this.nextCalendarArr[i].length; j++) {
+            for (var i = 0; i < this.nextCalendarArr.length; i++) {
+                for (var j = 0; j < this.nextCalendarArr[i].length; j++) {
                     this.nextCalendarArr[i][j].actived = false;
                 }
             }
@@ -170,13 +171,13 @@ export class StudyPlanPage {
     }
 
     clearActived() {
-        for (var i=0; i<this.calendarArr.length; i++) {
-            for (var j=0; j<this.calendarArr[i].length; j++) {
+        for (var i = 0; i < this.calendarArr.length; i++) {
+            for (var j = 0; j < this.calendarArr[i].length; j++) {
                 this.calendarArr[i][j].actived = false;
             }
         }
-        for (var i=0; i<this.nextCalendarArr.length; i++) {
-            for (var j=0; j<this.nextCalendarArr[i].length; j++) {
+        for (var i = 0; i < this.nextCalendarArr.length; i++) {
+            for (var j = 0; j < this.nextCalendarArr[i].length; j++) {
                 this.nextCalendarArr[i][j].actived = false;
             }
         }
@@ -184,7 +185,7 @@ export class StudyPlanPage {
 
     // 获取该日的 课程/考试列表
     getTodayCourse(date) {
-        console.log("getNowFormatDate", this.getFormatDate(date));
+        // console.log("getNowFormatDate", this.getFormatDate(date));
         let data = {
             BeginDate: this.getFormatDate(date) + "T00:00:00",
             EndDate: this.getFormatDate(date) + "T23:59:59",
@@ -198,7 +199,7 @@ export class StudyPlanPage {
     getTheMonthCourse(date, isChange) {
         let clickChange = false;
         if (isChange) clickChange = true;
-        console.log("getNowFormatDate", this.getFormatDate(date));
+        // console.log("getNowFormatDate", this.getFormatDate(date));
         var dateMonth = date.getMonth(); //当前月
         var dateYear = date.getFullYear(); //当前年
         //本月的开始时间
@@ -224,13 +225,13 @@ export class StudyPlanPage {
             let todayCourse = [];
             todayCourse = res.data.Items;
             if (todayCourse.length > 0) {
-                for (var  i=0; i<todayCourse.length; i++) {
+                for (var i = 0; i < todayCourse.length; i++) {
                     todayCourse[i].YMD = this.tranYMD(new Date(todayCourse[i].PlanDate)); //  '2020' + '年' +  2 + '月' + '3' + '日';
                     todayCourse[i].week = this.numTranWeek(new Date(todayCourse[i].PlanDate).getDay()); // this.numTranWeek(0);
                 }
             }
             this.todayCourse = todayCourse
-            console.log("getTodayCourse", this.todayCourse);
+            // console.log("getTodayCourse", this.todayCourse);
             this.isLoad = true;
             loading.dismiss();
             if (clickChange) {
@@ -366,11 +367,11 @@ export class StudyPlanPage {
         let firstIndex = firstDay.getDay() === 0 ? 7 : firstDay.getDay();
         var myDate = new Date(now.getFullYear(), now.getMonth(), 0);
         var lastDay = myDate.getDate(); //上个月的最后一天
-        console.log(lastDay);
+        // console.log(lastDay);
         // 循环上个月
         // debugger
         let lastLength = 7 - (7 - Math.abs(firstIndex - 1)); // firstIndex - 1 可能为负数周几不能为负数
-        console.log("lastLength", lastLength, firstIndex);
+        // console.log("lastLength", lastLength, firstIndex);
         for (var k = 0; k < lastLength; k++) {
             let day = lastDay - lastLength + 1 + k;
             calendar[0][k] = {
