@@ -62,8 +62,8 @@
         </li>
         <li *ngFor="let item of todayCourse">
             <div class="actived-day" *ngIf="lableRC.activedRow">
-                <span>{{year}}年{{month}}月{{ calendarArr[lableRC.activedRow][lableRC.activedCol].day }}日</span>
-                <span>周{{week}}</span>
+                <span>{{ item.YMD }} <span *ngIf="item.IsExam" style="color: orange;">(今日有考试)</span></span>
+                <span>周{{ item.week }}</span>
             </div>
             <div class="item-time">
                 <span class="title-lable"></span>
@@ -72,12 +72,6 @@
             </div>
 
             <div>
-                <div *ngIf="item.IsExam" class="lists">
-                    <!--考试-->
-                    <div class="list-item">
-                        <span>考试</span>
-                    </div>
-                </div>
                 <div *ngFor="let ourseItem of item.Courses" class="lists">
                     <!--已完成-->
                     <div class="list-item" *ngIf="ourseItem.IsSignIn == true && ourseItem.IsOver == true">
@@ -101,6 +95,12 @@
                         </span>
                     </div>
                 </div>
+                <!--<div *ngIf="item.IsExam" class="lists">-->
+                    <!--&lt;!&ndash;考试&ndash;&gt;-->
+                    <!--<div class="list-item">-->
+                        <!--<span>课程考试</span>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </li>
     </ul>

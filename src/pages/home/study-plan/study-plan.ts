@@ -41,7 +41,7 @@ export class StudyPlanPage {
     nextCalendarArr = [];
     isThisMonth = true;
     once = false;
-    todayHasCourse = false; // 当天是否有课程/考试
+    // todayHasCourse = false; // 当天是否有课程/考试
 
     todayCourse = [];
     isLoad = false;
@@ -54,6 +54,7 @@ export class StudyPlanPage {
                 private commonSer: CommonService,
                 public homeSer: HomeService,
                 private loadCtrl: LoadingController) {
+
     }
 
     ionViewDidLoad() {
@@ -71,11 +72,15 @@ export class StudyPlanPage {
             doc.addEventListener("DOMContentLoaded", recalc, false);
         })(document, window);
         this.getStydyPlan();
-        this.getThisMonthCourse(this.now); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
+        this.getTheMonthCourse(this.now); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
     }
 
     changeMonth() {
-        this.isThisMonth = !this.isThisMonth;
+        if (this.isThisMonth) {
+            this.getTheMonthCourse(this.getNextMonth(), true);
+        } else {
+            this.getTheMonthCourse(this.now, true);
+        }
     }
 
     getStydyPlan() {
@@ -114,18 +119,19 @@ export class StudyPlanPage {
                     courseArr[i].PlanDate = new Date(courseArr[i].PlanDate).getDate();
                 }
             }
+            // console.log("999888 ", courseArr);
             this.nextCalendarArr = this.initCalendar(
                 this.getNextMonth(),
                 courseArr,
                 "nextMonth"
             );
-            //   console.log("nextCalendarArr", this.nextCalendarArr);
+            console.log(" nextCalendarArr", this.nextCalendarArr);
         });
     }
 
     getItemCourse(item, rowIndex, colIndex) {
-        if (!item.canClick) return
-        console.log("item", item,'rowIndex',rowIndex, 'colIndex', colIndex);
+        if (!item.canClick) return;
+        // console.log("item", item,'rowIndex',rowIndex, 'colIndex', colIndex);
         let y;
         let m;
 
@@ -140,7 +146,7 @@ export class StudyPlanPage {
             let d = item.day >= 10 ? item.day : '0' + item.day;
             let date = new Date(`${y}-${m}-${d}`);
             this.getTodayCourse(date);
-            this.switchActived(item.thisMonth, rowIndex, colIndex)
+            this.switchActived(item.thisMonth, rowIndex, colIndex);
         }
     }
 
@@ -163,13 +169,22 @@ export class StudyPlanPage {
         }
     }
 
+    clearActived() {
+        for (var i=0; i<this.calendarArr.length; i++) {
+            for (var j=0; j<this.calendarArr[i].length; j++) {
+                this.calendarArr[i][j].actived = false;
+            }
+        }
+        for (var i=0; i<this.nextCalendarArr.length; i++) {
+            for (var j=0; j<this.nextCalendarArr[i].length; j++) {
+                this.nextCalendarArr[i][j].actived = false;
+            }
+        }
+    }
+
     // 获取该日的 课程/考试列表
     getTodayCourse(date) {
         console.log("getNowFormatDate", this.getFormatDate(date));
-        let loading = this.loadCtrl.create({
-            content: ""
-        });
-        loading.present();
         let data = {
             BeginDate: this.getFormatDate(date) + "T00:00:00",
             EndDate: this.getFormatDate(date) + "T23:59:59",
@@ -179,12 +194,10 @@ export class StudyPlanPage {
         this.getCourse(data);
     }
 
-
-
-
-
     // 获取该日的 课程/考试列表
-    getThisMonthCourse(date) {
+    getTheMonthCourse(date, isChange) {
+        let clickChange = false;
+        if (isChange) clickChange = true;
         console.log("getNowFormatDate", this.getFormatDate(date));
         var dateMonth = date.getMonth(); //当前月
         var dateYear = date.getFullYear(); //当前年
@@ -199,10 +212,10 @@ export class StudyPlanPage {
             Page: 1,
             PageSize: 100
         };
-        this.getCourse(data);
+        this.getCourse(data, clickChange);
     }
 
-    getCourse(data) {
+    getCourse(data, clickChange) {
         let loading = this.loadCtrl.create({
             content: ""
         });
@@ -212,15 +225,29 @@ export class StudyPlanPage {
             todayCourse = res.data.Items;
             if (todayCourse.length > 0) {
                 for (var  i=0; i<todayCourse.length; i++) {
-                    todayCourse[i].YMD = '2020' + '年' +  2 + '月' + '3' + '日';
-                    todayCourse[i].week = this.numTranWeek(0);
+                    todayCourse[i].YMD = this.tranYMD(new Date(todayCourse[i].PlanDate)); //  '2020' + '年' +  2 + '月' + '3' + '日';
+                    todayCourse[i].week = this.numTranWeek(new Date(todayCourse[i].PlanDate).getDay()); // this.numTranWeek(0);
                 }
             }
             this.todayCourse = todayCourse
             console.log("getTodayCourse", this.todayCourse);
             this.isLoad = true;
             loading.dismiss();
+            if (clickChange) {
+                this.clearActived();
+                this.isThisMonth = !this.isThisMonth;
+            }
         });
+    }
+
+    tranYMD(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) month = "0" + month;
+        if (strDate >= 0 && strDate <= 9) strDate = "0" + strDate;
+        var currentdate = year + '年' + month + '月' + strDate + '日';
+        return currentdate;
     }
 
     //获取课程详情
@@ -322,16 +349,14 @@ export class StudyPlanPage {
             for (var i = 0; i < courseArr.length; i++) {
                 if (courseArr[i].PlanDate === thisDay) {
                     if (courseArr[i].ISCourse == true) {
-                        if (isNextMonth === "thisMonth" && !this.todayHasCourse)
-                            dayObj.course = true;
+                        dayObj.course = true;
                     }
                     if (courseArr[i].ISExam == true) {
-                        if (isNextMonth === "thisMonth" && !this.todayHasCourse)
-                            dayObj.exam = true;
+                        dayObj.exam = true;
                     }
-                    if (thisDay === now.getDate()) { // 是当天 并且有课程 默认获 当天的取课程列表
-                        that.isTodayHasCourse();
-                    }
+                    // if (thisDay === now.getDate()) { // 是当天 并且有课程 默认获 当天的取课程列表
+                    //     that.isTodayHasCourse();
+                    // }
                 }
             }
             thisDay++;
@@ -379,19 +404,20 @@ export class StudyPlanPage {
         return calendar;
     }
 
-    isTodayHasCourse() {
-        this.todayHasCourse = true;
-    }
+    // isTodayHasCourse() {
+    //     this.todayHasCourse = true;
+    // }
 
     numTranWeek(num) {
         let week = "";
-        if (num === 0) week = "一";
-        if (num === 1) week = "二";
-        if (num === 2) week = "三";
-        if (num === 3) week = "四";
-        if (num === 4) week = "五";
-        if (num === 5) week = "六";
-        if (num === 6) week = "日";
+        if (num === 0) week = "日";
+        if (num === 1) week = "一";
+        if (num === 2) week = "二";
+        if (num === 3) week = "三";
+        if (num === 4) week = "四";
+        if (num === 5) week = "五";
+        if (num === 6) week = "六";
+
         return week;
     }
 
