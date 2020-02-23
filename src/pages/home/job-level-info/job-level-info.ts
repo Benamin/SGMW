@@ -65,7 +65,6 @@ export class JobLevelInfoPage {
             doc.addEventListener("DOMContentLoaded", recalc, false);
         })(document, window);
         this.id = this.navParams.get("id");
-        // console.log('idid', this.id)
         this.getDetail();
     }
 
@@ -78,7 +77,7 @@ export class JobLevelInfoPage {
             PositionCertificationID: this.id
         };
         this.homeSer.GetJobLevelInfoById(data).subscribe(res => {
-            console.log(999, res)
+            // console.log(999, res)
             let data = res.data
             if (data.Items.AuthenticationType === 'xm') {
                 let GCList = data.Items.GCapabilityModelList;
@@ -120,12 +119,11 @@ export class JobLevelInfoPage {
 
     // 线上 点击参加认证
     doOnlineSignIn(courseID, Index, pIndex, cIndex) {
-        console.log(this.detail.Items.ID);
+        // console.log(this.detail.Items.ID);
         let ID = this.detail.Items.ID
         if (courseID) {
             ID = courseID
         }
-        console.log(888, ID)
         let loading = this.loadCtrl.create({
             content: ''
         });
