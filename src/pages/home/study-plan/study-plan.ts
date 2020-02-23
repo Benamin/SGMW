@@ -154,15 +154,15 @@ export class StudyPlanPage {
     switchActived(isThisMonth, rowIndex, colIndex) {
         // calendarArr nextCalendarArr
         if (isThisMonth) {
-            for (var i = 0; i < this.calendarArr.length; i++) {
-                for (var j = 0; j < this.calendarArr[i].length; j++) {
+            for (let i = 0; i < this.calendarArr.length; i++) {
+                for (let j = 0; j < this.calendarArr[i].length; j++) {
                     this.calendarArr[i][j].actived = false;
                 }
             }
             this.calendarArr[rowIndex][colIndex].actived = true;
         } else {
-            for (var i = 0; i < this.nextCalendarArr.length; i++) {
-                for (var j = 0; j < this.nextCalendarArr[i].length; j++) {
+            for (let i = 0; i < this.nextCalendarArr.length; i++) {
+                for (let j = 0; j < this.nextCalendarArr[i].length; j++) {
                     this.nextCalendarArr[i][j].actived = false;
                 }
             }

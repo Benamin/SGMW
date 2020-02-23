@@ -31,12 +31,13 @@ import {FocusTrainPage} from "./focus-train/focus-train";
 
 import {StudyPlanPage} from "./study-plan/study-plan";
 import {JobLevelPage} from "./job-level/job-level";
- 
+
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
 import {ForumService} from '../forum/forum.service';
 import {PostsContentComponent} from '../forum/posts-content/posts-content.component';
+import {GlobalData} from "../../core/GlobleData";
 
 @Component({
     selector: 'page-home',
@@ -58,8 +59,8 @@ export class HomePage {
     mineInfo;
     defaultImg = defaultImg;
     httpUrl = SERVER_HTTP_URL;
-    forumLIst=[];
-    navli :'float'|'product' = 'product';
+    forumLIst = [];
+    navli: 'float' | 'product' = 'product';
 
     info = {
         new: 0,
@@ -72,7 +73,8 @@ export class HomePage {
                 private appSer: AppService, public statusBar: StatusBar,
                 private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser,
                 private renderer: Renderer2,
-                private learSer:LearnService,
+                private global: GlobalData,
+                private learSer: LearnService,
                 private forum_serve: ForumService) {
         this.statusBar.backgroundColorByHexString('#343435');
         this.storage.get('user').then(value => {
@@ -84,7 +86,7 @@ export class HomePage {
             }
         });
         let app_url = (window as any).localStorage.getItem("app_url");
-        if(app_url){
+        if (app_url) {
             this.openPosts(app_url);
             (window as any).localStorage.removeItem("app_url");
         }
@@ -92,7 +94,7 @@ export class HomePage {
             this.openPosts(url);
         };
     }
-    
+
     ionViewDidLoad() {
         this.storage.get('RoleID').then(value => {
             this.getBanner(value);
@@ -130,7 +132,7 @@ export class HomePage {
 
 
     ionViewWillLeave() {
-        if(this.slides){
+        if (this.slides) {
             this.slides.stopAutoplay();
         }
     }
@@ -202,7 +204,7 @@ export class HomePage {
             "IsAsc": "DESC",
             "IsHot": true,
             "SortDir": "DESC",
-            "RoleID":RoleID
+            "RoleID": RoleID
         };
         await this.learnSer.GetProductList(data).subscribe(
             (res) => {
@@ -340,10 +342,11 @@ export class HomePage {
             }
         );
     }
-    goToNavli(){
-        if(this.navli=='product'){
-            this.moreCourse() 
-        }else if(this.navli=='float'){
+
+    goToNavli() {
+        if (this.navli == 'product') {
+            this.moreCourse()
+        } else if (this.navli == 'float') {
             this.goForumComponent();
         }
     }
@@ -399,7 +402,6 @@ export class HomePage {
     }
 
 
-
     // 前往帖子详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
@@ -410,28 +412,31 @@ export class HomePage {
         this.forum_serve.GetPostSearchhotpost().subscribe((res: any) => {
             if (res.data) {
                 this.forumLIst = res.data.UnTopPosts.Items;
-                if(this.forumLIst.length > 4){
+                if (this.forumLIst.length > 4) {
                     this.forumLIst.length = 4;
                 }
             }
 
         });
     }
-    openPosts(url){
-        let url_arr= url.split('/');
-        this.goPostsContent({Id:url_arr[3]});
+
+    openPosts(url) {
+        let url_arr = url.split('/');
+        this.goPostsContent({Id: url_arr[3]});
     }
-    TodayRemind:any={};
-    is_TodayRemind=false;
-    GetTodayRemind(){
-        this.homeSer.GetTodayRemind().subscribe((res:any) => {
-            this.TodayRemind=res.data;
+
+    TodayRemind: any = {};
+    is_TodayRemind = false;
+
+    GetTodayRemind() {
+        this.homeSer.GetTodayRemind().subscribe((res: any) => {
+            this.TodayRemind = res.data;
             this.storage.get('TodayRemind').then(val => {
                 let date = new Date();
                 let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-                if(val!=dateDay){ // 是否点击了取消今日提醒
-                    if(this.TodayRemind.ISExam||this.TodayRemind.Items.length>0){
-                        this.is_TodayRemind=true;
+                if (val != dateDay) { // 是否点击了取消今日提醒
+                    if (this.TodayRemind.ISExam || this.TodayRemind.Items.length > 0) {
+                        this.is_TodayRemind = true;
                     }
                 }
             });
@@ -439,11 +444,12 @@ export class HomePage {
     }
 
     // 开始学习
-    startStudy(data){
+    startStudy(data) {
         this.getCourseDetailById(data);
         // this.getCourseDetailById('47bb05c6-194e-4087-92e9-016f4c1c8421');
     }
-    closeTodayRemind(){
-        this.is_TodayRemind=false;
+
+    closeTodayRemind() {
+        this.is_TodayRemind = false;
     }
 }

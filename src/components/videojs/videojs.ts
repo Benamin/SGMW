@@ -79,7 +79,8 @@ export class VideojsComponent implements OnDestroy {
     //更新视频学习状态
     updateVideoStatus() {
         const data = {
-            cid: this.videoInfo.TeachingID
+            cid: this.videoInfo.TeachingID,
+            postsCertID:this.global.PostsCertID
         }
         this.learnSer.UpdateVideoStudySum(data).subscribe(
             (res) => {

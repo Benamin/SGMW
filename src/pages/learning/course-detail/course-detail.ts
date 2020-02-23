@@ -120,6 +120,7 @@ export class CourseDetailPage {
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                this.global.PostsCertID = res.data.PostCertificationID;
                 this.SortType = res.data.SortType;
                 this.getChapter();  //章节信息
                 this.getRelationProduct();  //
@@ -406,7 +407,8 @@ export class CourseDetailPage {
     //更新学习进度  非视频
     saveProcess(file) {
         const data = {
-            EAttachmentID: file.ID
+            EAttachmentID: file.ID,
+            postsCertID: this.global.PostsCertID
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
@@ -478,6 +480,7 @@ export class CourseDetailPage {
             (res) => {
                 this.loading.dismiss();
                 this.product.detail = res.data;
+                this.global.PostsCertID = res.data.PostCertificationID;
             }
         );
     }

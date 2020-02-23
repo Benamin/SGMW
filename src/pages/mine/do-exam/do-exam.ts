@@ -110,7 +110,8 @@ export class DoExamPage {
             if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
         });
         const data = {
-            submitType: 2
+            submitType: 2,
+            postsCertID: this.global.PostsCertID
         };
         this.homeSer.submitPaper(data, this.exam).subscribe(
             (res) => {
@@ -150,7 +151,8 @@ export class DoExamPage {
                 if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
             });
             const data = {
-                submitType: status
+                submitType: status,
+                postsCertID: this.global.PostsCertID
             };
             console.log(this.exam);
             this.homeSer.submitPaper(data, this.exam).subscribe(

@@ -22,6 +22,7 @@
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe'"
                  tappable (click)="downLoad(itemFile,$event)"
                  class="download-file" src="./assets/imgs/course/xiazai.png">
+            <img class="done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png" alt="">
         </p>
     </div>
     <!--   作业      -->
