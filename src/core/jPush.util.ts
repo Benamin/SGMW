@@ -19,23 +19,23 @@ export class JpushUtil {
         /**设备成功注册后，返回registrationId*/
         document.addEventListener('jpush.receiveRegistrationId', (event: any) => {
             this.globalData.RegiID = event.registrationId;
-            this.commonSer.alert(`receiveRegistrationId:${this.globalData.RegiID}`)
+            // this.commonSer.alert(`receiveRegistrationId:${this.globalData.RegiID}`)
         }, false);
         /**接收通知触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {
-            this.commonSer.alert('Receive notification: ' + JSON.stringify(event));
+            // this.commonSer.alert('Receive notification: ' + JSON.stringify(event));
         }, false);
         /**接受自定义消息*/
         document.addEventListener("jpush.receiveMessage", event => {
-            this.commonSer.alert("jpush.receiveMessage: " + JSON.stringify(event));
+            // this.commonSer.alert("jpush.receiveMessage: " + JSON.stringify(event));
         }, false);
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
-            this.commonSer.alert('openNotification: ' + JSON.stringify(event));
+            // this.commonSer.alert('openNotification: ' + JSON.stringify(event));
         }, false);
         /**接收本地消息 */
         document.addEventListener('jpush.', (event: any) => {
-            this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
+            // this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
         }, false);
     }
 
