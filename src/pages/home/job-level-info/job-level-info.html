@@ -11,10 +11,10 @@
       <div class="posi-box">
         <div class="banner-title" *ngIf="detail">{{ detail.Items.Title }}</div>
         <div class="banner-timer">{{ detail.timeArea }}</div>
-        <div (click)="doOnlineSignIn()" class="sign-btn-btn" *ngIf="detail.Items.AuthenticationType === 'xskc'  && !detail.Items.IsSignIn;else other_content">
+        <div (click)="doJobLevelSignIn()" class="sign-btn-btn" *ngIf="!detail.Items.IsSignIn;else other_content">
           参加认证
         </div>
-        <ng-template #other_content>
+        <ng-template #other_content>1
           <div class="banner-info">
             <div style="justify-content: flex-end;">
               <img

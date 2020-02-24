@@ -149,6 +149,21 @@ export class JobLevelInfoPage {
         });
     }
 
+    doJobLevelSignIn(courseID, Index, pIndex, cIndex) {
+        let ID = this.detail.Items.ID
+        if (courseID) {
+            ID = courseID
+        }
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
+        this.homeSer.doJobLevelSignIn(ID).subscribe(res => {
+            loading.dismiss();
+            this.getDetail();
+        });
+    }
+
     //获取课程详情
     getCourseDetailById(id) {
         this.learSer.GetProductById(id).subscribe(
