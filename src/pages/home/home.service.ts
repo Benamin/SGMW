@@ -99,8 +99,12 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/appStudyPlan/GetStudyPlanListByDate', data);
     }
 
-    // 线上 点击 参加认证
+    // 线上 点击课程的 参加认证
     doOnlineSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/BuyProduct?pid=' + params);
+    }
+    // 岗位认证轮播的  点击报名按钮
+    doJobLevelSignIn(params): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/EProduct/SignInPostCertification?pid=' + params);
     }
 }
