@@ -8,9 +8,12 @@ import {CoursePage} from "../course/course";
 import {BackButtonService} from "../../core/backButton.service";
 import {LoginPage} from "../login/login";
 import {TabService} from "../../core/tab.service";
-import { ForumPage } from '../forum/forum.component';
+import {ForumPage} from '../forum/forum.component';
 import {NoDevPage} from "../home/no-dev/no-dev";
 import {Gesture} from "ionic-angular";
+import {TestCenterPage} from "../home/test/test-center/test-center";
+import {StudyPlanPage} from "../home/study-plan/study-plan";
+import {GlobalData} from "../../core/GlobleData";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -19,7 +22,7 @@ export class TabsPage {
     @ViewChild('myTabs') myTabs: Tabs;
 
     tabParams = {
-        test:'test'
+        test: 'test'
     };
 
     tabRoots = [
@@ -62,12 +65,13 @@ export class TabsPage {
 
     tabsIndex;
 
-    constructor(private platform: Platform, private backButtonService: BackButtonService,private params:NavParams,
-                private events: Events,private nav: NavController,private tabSer:TabService) {
+    constructor(private platform: Platform, private backButtonService: BackButtonService, private params: NavParams,
+                private global: GlobalData,
+                private events: Events, private nav: NavController, private tabSer: TabService) {
         this.platform.ready().then(() => {
             this.backButtonService.registerBackButtonAction(this.myTabs);
         });
-        this.tabSer.tabChange.subscribe((value)=>{
+        this.tabSer.tabChange.subscribe((value) => {
             this.tabParams = value;
             console.log(this.tabParams);
             this.myTabs.select(value.index)
@@ -79,10 +83,20 @@ export class TabsPage {
         this.tabsIndex = e;
         this.myTabs.select(e);
     }
+
     // this.navCtrl.push(NoDevPage, {title: title});
     listenEvents() {
         this.events.subscribe('toLogin', () => {
             this.nav.setRoot(LoginPage);
         });
+        this.events.subscribe('jPush', (type) => {
+            if (this.global.JpushType) return;
+            if (type == 3) {
+                this.nav.push(StudyPlanPage)
+            } else {
+                this.nav.push(TestCenterPage)
+            }
+            this.global.JpushType = null;
+        })
     }
 }
