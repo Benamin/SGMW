@@ -104,7 +104,6 @@ export class StudyPlanPage {
 
             this.calendarArr = this.initCalendar(this.now, courseArr, "thisMonth");
             loading.dismiss();
-            //   console.log(888888, this.todayHasCourse,"calendarArr", this.calendarArr);
             this.isLoad = true;
         });
         // 下个月的数据
@@ -120,19 +119,17 @@ export class StudyPlanPage {
                     courseArr[i].PlanDate = new Date(courseArr[i].PlanDate).getDate();
                 }
             }
-            // console.log("999888 ", courseArr);
             this.nextCalendarArr = this.initCalendar(
                 this.getNextMonth(),
                 courseArr,
                 "nextMonth"
             );
-            // console.log(" nextCalendarArr", this.nextCalendarArr);
         });
     }
 
     getItemCourse(item, rowIndex, colIndex) {
+        // console.log('item, rowIndex, colIndex',JSON.stringify(item), rowIndex, colIndex);
         if (!item.canClick) return;
-        // console.log("item", item,'rowIndex',rowIndex, 'colIndex', colIndex);
         let y;
         let m;
 
@@ -144,8 +141,10 @@ export class StudyPlanPage {
                 y = this.nextMonth.year;
                 m = this.nextMonth.month;
             }
-            let d = item.day >= 10 ? item.day : '0' + item.day;
-            let date = new Date(`${y}-${m}-${d}`);
+            let d
+            if (item.day >= 10) d = item.day
+            else d = '0' + item.day;
+            let date = new Date(`${y}/${m}/${d}`);
             this.getTodayCourse(date);
             this.switchActived(item.thisMonth, rowIndex, colIndex);
         }
@@ -195,10 +194,10 @@ export class StudyPlanPage {
         this.getCourse(data, false);
     }
 
-    // 获取该日的 课程/考试列表
+    // 获取该月的 课程/考试列表
     getTheMonthCourse(date, isChange) {
         let clickChange = false;
-        if (isChange) clickChange = true;
+        if (isChange == true) clickChange = true;
         // console.log("getNowFormatDate", this.getFormatDate(date));
         var dateMonth = date.getMonth(); //当前月
         var dateYear = date.getFullYear(); //当前年
@@ -231,7 +230,6 @@ export class StudyPlanPage {
                 }
             }
             this.todayCourse = todayCourse
-            // console.log("getTodayCourse", this.todayCourse);
             this.isLoad = true;
             loading.dismiss();
             if (clickChange) {
