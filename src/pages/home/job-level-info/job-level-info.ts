@@ -68,7 +68,7 @@ export class JobLevelInfoPage {
 
     ionViewDidEnter() {
         if (!this.navParams.get("id")) {
-            this.id = localStorage.setItem('JobInfoId');
+            this.id = localStorage.getItem('JobInfoId');
             this.getDetail();
         } else {
             this.id = this.navParams.get("id");
