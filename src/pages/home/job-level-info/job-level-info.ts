@@ -64,8 +64,17 @@ export class JobLevelInfoPage {
             win.addEventListener(resizeEvt, recalc, false);
             doc.addEventListener("DOMContentLoaded", recalc, false);
         })(document, window);
-        this.id = this.navParams.get("id");
-        this.getDetail();
+    }
+
+    ionViewDidEnter() {
+        if (!this.navParams.get("id")) {
+            this.id = localStorage.setItem('JobInfoId');
+            this.getDetail();
+        } else {
+            this.id = this.navParams.get("id");
+            localStorage.setItem('JobInfoId', this.navParams.get("id"));
+            this.getDetail();
+        }
     }
 
     getDetail() {
