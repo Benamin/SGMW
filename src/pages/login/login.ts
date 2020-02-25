@@ -344,7 +344,7 @@ export class LoginPage {
 
     /***服务助手登录***/
     fwzsLogin() {
-        this.userRoleName = '销售助手';
+        this.userRoleName = '服务助手';
         this.setRoleNames();
         if (!this.fwzsObj.userName || !this.fwzsObj.password) {
             this.commonSer.toast("请输入用户名密码");
