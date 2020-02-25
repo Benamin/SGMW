@@ -129,8 +129,7 @@ export class TreeListComponent {
             // this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
             this.downloadPro.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
         } else {   //文档
-            fileUrl = file.fileUrl;
-            this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + fileUrl.icon);
+            this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
         }
     }
 
