@@ -74,7 +74,7 @@
               <dd class="disabled" *ngIf="CourseItem.Coursestatus == 0">{{ CourseItem.Title }}</dd>
               <dd class="available" *ngIf="CourseItem.Coursestatus == 1">
                 <span>{{ CourseItem.Title }}</span>
-                <span class="course-btn" (click)="doOnlineSignIn(CourseItem.ID, Index, pIndex, cIndex)">立即报名</span>
+                <span class="course-btn" (click)="doUnlineSignIn(CourseItem.ID, Index, pIndex, cIndex)">立即报名</span>
               </dd>
               <dd class="already" *ngIf="CourseItem.Coursestatus == 2" (click)="getCourseDetailById(CourseItem.ID)">
                 <span>{{ CourseItem.Title }}</span>

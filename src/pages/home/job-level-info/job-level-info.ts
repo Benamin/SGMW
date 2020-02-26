@@ -121,7 +121,7 @@ export class JobLevelInfoPage {
     }
 
     // 线上 点击参加认证
-    doOnlineSignIn(courseID, Index, pIndex, cIndex) {
+    doUnlineSignIn(courseID, Index, pIndex, cIndex) {
         // console.log(this.detail.Items.ID);
         let ID = this.detail.Items.ID
         if (courseID) {
@@ -130,8 +130,12 @@ export class JobLevelInfoPage {
         let loading = this.loadCtrl.create({
             content: ''
         });
+        let data = {
+            cspid: ID,
+            PostsCertificationpID: this.id //岗位认证pid
+        }
         loading.present();
-        this.homeSer.doOnlineSignIn(ID).subscribe(res => {
+        this.homeSer.doUnlineSignIn(data).subscribe(res => {
             if (courseID) {
                 // 线下
                 let GCList = this.detail.Items.GCapabilityModelList;
