@@ -76,7 +76,7 @@
                 <span>{{ CourseItem.Title }}</span>
                 <span class="course-btn" (click)="doOnlineSignIn(CourseItem.ID, Index, pIndex, cIndex)">立即报名</span>
               </dd>
-              <dd class="already" *ngIf="CourseItem.Coursestatus == 2">
+              <dd class="already" *ngIf="CourseItem.Coursestatus == 2" (click)="getCourseDetailById(CourseItem.ID)">
                 <span>{{ CourseItem.Title }}</span>
                 <span class="right"
                 >已报名
