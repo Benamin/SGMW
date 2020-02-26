@@ -57,7 +57,7 @@
       <dl class="content-modal" *ngFor="let item of detail.Items.GCapabilityModelList; let Index = index"
           [attr.data-index]="Index">
         <dt>
-          <span>能力模型{{Index + 1}}</span>
+          <span>{{ item.Name ? item.Name : '能力模型' + Index + 1 }}</span>
           <ion-icon name="arrow-down" style="color: #999999;"></ion-icon>
         </dt>
         <!-- 岗位认证AuthenticationType:  "jzpx" -集中培训，'xm'表示线下，xskc表示线上 -->
