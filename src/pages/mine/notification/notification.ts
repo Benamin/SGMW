@@ -20,7 +20,7 @@ export class NotificationPage {
         isLoad:false,
         Type: 1
     };
-    
+
     navliArr=[{
         lable: 'system',
         text: '系统消息'
@@ -87,7 +87,7 @@ export class NotificationPage {
             (res) => {
                 // this.detail = res.data;
                 this.navCtrl.push(StudyPlanPage);
-                this.isLoad = true;
+                this.page.isLoad = true;
             }
         )
     }
