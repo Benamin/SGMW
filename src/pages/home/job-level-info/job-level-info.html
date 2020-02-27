@@ -103,9 +103,9 @@
               </dd>
               <dd class="already" *ngIf="CourseItem.Coursestatus == 3" (click)="getCourseDetailById(CourseItem.ID)">
                 <span>{{CourseItem.Title}}</span>
-                <span
-                ><img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
-                /></span>
+                <span style="display: flex;align-items: center;">
+                  已完成 <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"/>
+                </span>
               </dd>
             </div>
           </div>

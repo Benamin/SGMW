@@ -95,12 +95,16 @@
                         </span>
                     </div>
                 </div>
-                <!--<div *ngIf="item.IsExam" class="lists">-->
-                    <!--&lt;!&ndash;考试&ndash;&gt;-->
-                    <!--<div class="list-item">-->
-                        <!--<span>课程考试</span>-->
-                    <!--</div>-->
-                <!--</div>-->
+                <div *ngIf="item.IsExam" class="lists">
+                    <!--考试-->
+                    <div class="list-item" (click)="goTest()">
+                        <span>今日有考试</span>
+                        <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
+                            去考试
+                            <ion-icon class="more" name="arrow-forward"></ion-icon>
+                        </span>
+                    </div>
+                </div>
             </div>
         </li>
     </ul>
