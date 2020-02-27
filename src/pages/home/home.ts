@@ -38,7 +38,8 @@ import {InnerCoursePage} from "../learning/inner-course/inner-course";
 import {ForumService} from '../forum/forum.service';
 import {PostsContentComponent} from '../forum/posts-content/posts-content.component';
 import {GlobalData} from "../../core/GlobleData";
-
+import {DoTestPage} from "./test/do-test/do-test";
+import {LookTestPage} from "./test/look-test/look-test";
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -102,7 +103,11 @@ export class HomePage {
         })
         this.getGoodsTeacher();
         this.getLIistData();
+        
+    }
+    ngOnInit(): void {
         this.GetTodayRemind();
+        
     }
 
     ionViewWillEnter() {
@@ -419,11 +424,56 @@ export class HomePage {
 
         });
     }
-
+    
     openPosts(url) {
         let url_arr = url.split('/');
-        this.goPostsContent({Id: url_arr[3]});
+        // sgmw://forum/afd79774-4ad7-4c1f-838d-016e1d8705f7
+        if(url.indexOf('forum')> -1){ // 论坛
+            url_arr;
+          }else if(url.indexOf('learning')> -1){ //课程
+            url_arr = url.split('&Id=');
+            this.getCourseDetailById(url_arr[1])
+          }else if(url.indexOf('test')> -1){ // 考试
+            url_arr = url.split('&Fid=');
+            this.getPaperDetailByStu(url_arr[1])
+          }else{ // 兼容旧版本分享，论坛
+            // scheme_url+="forum/"+get_res[1]
+            this.goPostsContent({Id: url_arr[3]});
+          }
     }
+
+    // 前往考试
+    getPaperDetailByStu(Fid){
+        const PDATA = {
+            Fid: Fid
+        };
+        this.homeSer.getPaperDetailByStu(PDATA).subscribe(
+            (data) => {
+                let ExamInfo=data.data.ExamInfo;
+                if(ExamInfo.StudyState==3){
+                    this.navCtrl.push(LookTestPage, {item: ExamInfo});
+                }else{
+                    const ExamBegin = this.commonSer.transFormTime(ExamInfo.ExamBegin);
+                    const ExamEnd = this.commonSer.transFormTime(ExamInfo.ExamEnd);
+                    this.homeSer.getSysDateTime().subscribe(
+                        (res) => {
+                            const sysDate = this.commonSer.transFormTime(res.data);
+                            if (sysDate < ExamBegin) {
+                                this.commonSer.toast('考试未开始');
+                            }else if (sysDate > ExamEnd && ExamInfo.StudyState == 1) {
+                                this.commonSer.toast('当前时间不可考试');
+                            } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
+                                this.navCtrl.push(DoTestPage, {item: ExamInfo});  //未开始
+                            } else if(ExamInfo.StudyState == 2){   //未完成
+                                this.navCtrl.push(DoTestPage, {item: ExamInfo});
+                            }
+                        }
+                    )
+                }
+             
+        });
+    }
+
 
     TodayRemind: any = {};
     is_TodayRemind = false;
