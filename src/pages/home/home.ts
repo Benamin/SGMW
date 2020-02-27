@@ -248,10 +248,11 @@ export class HomePage {
     //查询消息
     getNew() {
         const data = {
-            page: 1,
-            pageSize: 1000
+            "Type": 0,
+            "Page": 1,
+            "PageSize": 1000,
         };
-        this.mineSer.GetUserNewsList(data).subscribe(
+        this.mineSer.GetUnReadUserNewsList(data).subscribe(
             (res) => {
                 res.data.NewsList.forEach(e => {
                     if (e.Status == 0) {

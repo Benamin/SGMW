@@ -695,7 +695,7 @@ export class CourseDetailPage {
     //教师评价
     goTeacherComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你对讲师的评价...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'teacher',
             PId: this.global.pId,
@@ -706,7 +706,7 @@ export class CourseDetailPage {
     //课程评价
     goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你的评价...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
             title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
@@ -717,7 +717,7 @@ export class CourseDetailPage {
     //课程讨论
     goCourseDiscuss() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你要讨论的内容...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'talk',
             title: this.product.detail.TeachTypeName == "直播" ? '直播讨论' : '课程讨论',
