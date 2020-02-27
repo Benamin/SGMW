@@ -75,9 +75,9 @@ export class LoginPage {
             inputCode: ''
         },
         xszs: {
-            jxsh: '',
-            czymc: '',
-            pwd: '',
+            jxsh: '000000',
+            czymc: '丁林玲',
+            pwd: 'sgmw50@',
             source: 'TrainingSystem',
             codeRight: '',
             inputCode: ''
@@ -101,6 +101,8 @@ export class LoginPage {
 
     noUserMsg = NoUserMsg;
     loading;
+
+    RegiID;   //jPush注册ID
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
@@ -127,7 +129,6 @@ export class LoginPage {
 
     //平台登录切换
     changeSlide(index, platform) {
-        console.log(index.platform)
         this.loginObj.platform = platform;
         this.slides.slideTo(index, 100);
     }
@@ -460,10 +461,23 @@ export class LoginPage {
 
     //jPush提交用户信息
     updateRegID(res) {
-        console.log(`getRegistrationID:${this.globalData.RegiID}`);
+        this.jPush.getRegistrationID().then((regiID) => {
+            if (regiID) {
+                this.RegiID = regiID;
+                this.uploadRegID(res);
+            } else {
+                console.log('没有获取到RegistrationID');
+                setTimeout(() => {
+                    this.updateRegID(res)
+                }, 2000);
+            }
+        })
+    }
+
+    uploadRegID(res) {
         const data = {
             UserId: res.data.UserId,
-            RegId: this.globalData.RegiID
+            RegId: this.RegiID
         };
         this.loginSer.UpdateUserRegID(data).subscribe(
             (res) => {
@@ -472,7 +486,6 @@ export class LoginPage {
                 }
             }
         )
-
     }
 
     //用户是否同步

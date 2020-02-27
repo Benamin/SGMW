@@ -21,9 +21,7 @@ export class JpushUtil {
 
     initPush() {
         /**设备成功注册后，返回registrationId*/
-        console.log('jpush');
         document.addEventListener('jpush.receiveRegistrationId', (event: any) => {
-            this.globalData.RegiID = event.registrationId;
             // this.commonSer.alert(`receiveRegistrationId:${this.globalData.RegiID}`)
         }, false);
         /**接收通知触发 */

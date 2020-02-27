@@ -118,6 +118,7 @@ export class DoExamPage {
                 loading.dismiss();
                 if (res.code == 200) {
                     this.commonSer.toast('暂存成功');
+                    this.navCtrl.getPrevious().data.courseEnterSource = '';
                     this.navCtrl.pop();
                 } else {
                     this.commonSer.toast(res.Message);
@@ -154,7 +155,6 @@ export class DoExamPage {
                 submitType: status,
                 postsCertID: this.global.PostsCertID
             };
-            console.log(this.exam);
             this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
@@ -163,6 +163,7 @@ export class DoExamPage {
                         this.score.show = true;
                     } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');
+                        this.navCtrl.getPrevious().data.courseEnterSource = '';
                         this.navCtrl.pop();
                     } else {
                         this.commonSer.toast(JSON.stringify(res));
