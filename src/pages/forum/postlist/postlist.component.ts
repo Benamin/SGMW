@@ -81,7 +81,9 @@ export class PostlistComponent implements OnInit {
 
   avtNav(type){
     this.no_list=false;
-    if(type=='ReplyCount'){
+    if(type=='LikeCount'){
+      
+      this.pageDate.OrderBy='LikeCount';
       this.pageDate.OrderByDirection='DESC';
     }else{
       this.pageDate.OrderByDirection='';
