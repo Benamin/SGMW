@@ -252,7 +252,6 @@ export class CourseDetailPage {
      * 校验作业并跳转
      */
     checkTag() {
-        console.log('校验作业并跳转');
         this.tagsNodeList.forEach(e => {
             if (e.ID == this.nodeLevel4.ID) { //查到了ID
                 for (let t = 0; t < e.tags.length; t++) {
@@ -267,9 +266,8 @@ export class CourseDetailPage {
 
     //查询作业信息
     handleVideoExam(exam) {
-        console.log('查询作业信息');
         let load = this.loadCtrl.create({
-            content: '正在跳转，请等待...'
+            content: '正在前往作业，请等待...'
         });
         load.present();
         const data = {
@@ -525,6 +523,10 @@ export class CourseDetailPage {
 
     //点赞
     savePraise() {
+        if (this.product.detail.IsHate) {
+            this.commonSer.toast('您已经扔鸡蛋了哦～');
+            return
+        }
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -562,6 +564,10 @@ export class CourseDetailPage {
 
     //扔鸡蛋
     saveHate() {
+        if (this.product.detail.IsPraise) {
+            this.commonSer.toast('您已经点赞了哦～');
+            return
+        }
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
