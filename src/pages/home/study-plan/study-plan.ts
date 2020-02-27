@@ -14,6 +14,7 @@ import {CommonService} from "../../../core/common.service";
 import {FocusCoursePage} from "../../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
+import {TestCenterPage} from "../test/test-center/test-center";
 
 @Component({
     selector: "page-study-plan",
@@ -435,5 +436,10 @@ export class StudyPlanPage {
         }
         return new Date(`${year}-${monthStr}-01`);
         // console.log("this.nextMonth", new Date(`${year}-${monthStr}-01`));
+    }
+
+    //考试中心
+    goTest() {
+        this.navCtrl.push(TestCenterPage);
     }
 }

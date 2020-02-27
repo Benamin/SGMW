@@ -73,12 +73,23 @@ export class NotificationPage {
 
     goDetail(item) {
         if (this.checkType === 'training') { // 3-培训消息、4考试消息、除3-4以外都是系统消息
-            this.navCtrl.push(StudyPlanPage);
-        } else if (this.checkType === 'test') {
-            return
-        } else {
+            this.getDetail(item.Id);
+        } else { //  || this.checkType === 'test'
             this.navCtrl.push(NotificationDetailPage, {id: item.Id});
         }
+    }
+
+    getDetail(ID) {
+        const data = {
+            id: ID
+        };
+        this.mineSer.GetNewsById(data).subscribe(
+            (res) => {
+                // this.detail = res.data;
+                this.navCtrl.push(StudyPlanPage);
+                this.isLoad = true;
+            }
+        )
     }
 
     //加载更多
