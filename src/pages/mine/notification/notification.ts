@@ -87,7 +87,6 @@ export class NotificationPage {
             (res) => {
                 // this.detail = res.data;
                 this.navCtrl.push(StudyPlanPage);
-                this.isLoad = true;
             }
         )
     }
