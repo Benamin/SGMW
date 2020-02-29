@@ -4,6 +4,7 @@ import {CommonService} from "./common.service";
 import {GlobalData} from "./GlobleData";
 import {App, Events, NavController} from "ionic-angular";
 import {TestCenterPage} from "../pages/home/test/test-center/test-center";
+import {Storage} from "@ionic/storage";
 
 /**
  * Helper类存放和业务有关的公共方法
@@ -15,6 +16,7 @@ export class JpushUtil {
     constructor(private jpush: JPush,
                 private app: App,
                 private events: Events,
+                private storage: Storage,
                 private globalData: GlobalData,
                 private commonSer: CommonService) {
     }
@@ -36,6 +38,7 @@ export class JpushUtil {
         document.addEventListener('jpush.openNotification', (event: any) => {
             const sgmwType = event.extras.sgmwType;   //3 培训通知  4  考试通知
             this.globalData.JpushType = sgmwType;
+            this.storage.set('sgmwType', sgmwType);
             this.events.publish('jPush', sgmwType);
         }, false);
         /**接收本地消息 */

@@ -64,6 +64,7 @@ export class MyApp {
             this.jPush.init();
             this.jPush.setDebugMode(true);
             this.jPushUtil.initPush();
+            this.jPush.resetBadge();
 
             //app字体不跟随手机字体大小变化
             this.mobileAccess.usePreferredTextZoom(false);
@@ -86,8 +87,6 @@ export class MyApp {
                 if (value == 'platformIOS') {
                     this.isIOS = true;
                 }
-                console.log(this.isIphoneXR());
-                console.log(this.isIOS13());
                 if (value == 'videoReset') {
                     this.isIphone11IOS13 = false;
                     this.isIphone11IOS13 = false;
@@ -153,7 +152,6 @@ export class MyApp {
 
     imgLoad() {
         timer(500).subscribe(() => this.splashScreen.hide());
-        console.log('图片加载完成')
     }
 
     //鉴权

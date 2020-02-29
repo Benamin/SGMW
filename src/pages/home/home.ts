@@ -99,6 +99,14 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.GetTodayRemind();
+        this.storage.get('sgmwType').then((value) => {
+            if (value && value == 3) {
+                this.navCtrl.push(StudyPlanPage);
+            }
+            if (value && value == 4) {
+                this.navCtrl.push(TestCenterPage);
+            }
+        })
     }
 
     ionViewDidLoad() {
