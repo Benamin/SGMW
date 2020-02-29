@@ -210,9 +210,8 @@ export class LoginPage {
     }
 
     /***销售助手***/
-    // --经销商登录
     loginXszsJsx() {
-        this.userRoleName = '经销商';
+        this.userRoleName = '销售助手';
         this.setRoleNames();
         if (this.jxs.xszs.codeRight != this.jxs.xszs.inputCode) {
             this.commonSer.toast('请输入正确的验证码');
@@ -431,13 +430,12 @@ export class LoginPage {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
-                this.userAsync(res);
                 if (res.code == 200 && res.data) {
                     // 获取用户角色 列表  存储用户角色
                     this.loginSer.GetMyInfo().subscribe(res2 => {
                         this.storage.set('CurrentRole', {
                             CurrentRoleID: res2.data.CurrentRoleID,
-                            CurrentRoleName: this.userRoleName
+                            CurrentRoleName: res2.data.CurrentRoleNames
                         });
                         this.storage.set('RoleID', res2.data.CurrentRoleID);
                         this.userAsync(res);
@@ -482,6 +480,7 @@ export class LoginPage {
 
     //用户是否同步
     userAsync(res) {
+        console.log('TabsPage')
         this.loading.dismiss();
         if (res.data.UserId == '00000000-0000-0000-0000-000000000000') {
             this.commonSer.alert(this.noUserMsg);

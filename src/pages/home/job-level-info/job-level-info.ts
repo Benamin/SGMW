@@ -33,7 +33,7 @@ export class JobLevelInfoPage {
         },
         {
             lable: "ability",
-            text: "能力模型"
+            text: "课程"
         }
     ];
     checkType = "introduction";
