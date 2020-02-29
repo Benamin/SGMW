@@ -431,7 +431,6 @@ export class LoginPage {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
-                this.userAsync(res);
                 if (res.code == 200 && res.data) {
                     // 获取用户角色 列表  存储用户角色
                     this.loginSer.GetMyInfo().subscribe(res2 => {
@@ -482,6 +481,7 @@ export class LoginPage {
 
     //用户是否同步
     userAsync(res) {
+        console.log('TabsPage')
         this.loading.dismiss();
         if (res.data.UserId == '00000000-0000-0000-0000-000000000000') {
             this.commonSer.alert(this.noUserMsg);

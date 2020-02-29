@@ -90,13 +90,13 @@ export class TabsPage {
             this.nav.setRoot(LoginPage);
         });
         this.events.subscribe('jPush', (type) => {
-            if (this.global.JpushType) return;
+            if (!this.global.JpushType) return;
+            this.global.JpushType = null;
             if (type == 3) {
                 this.nav.push(StudyPlanPage)
-            } else {
+            } else if (type == 4){
                 this.nav.push(TestCenterPage)
             }
-            this.global.JpushType = null;
         })
     }
 }

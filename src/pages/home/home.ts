@@ -40,6 +40,7 @@ import {PostsContentComponent} from '../forum/posts-content/posts-content.compon
 import {GlobalData} from "../../core/GlobleData";
 import {DoTestPage} from "./test/do-test/do-test";
 import {LookTestPage} from "./test/look-test/look-test";
+
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -112,7 +113,6 @@ export class HomePage {
                 this.wow = value;
             }
         )
-        this.info.new = 0;
         this.getNew();
     }
 
@@ -255,11 +255,9 @@ export class HomePage {
         };
         this.mineSer.GetUnReadUserNewsList(data).subscribe(
             (res) => {
-                res.data.NewsList.forEach(e => {
-                    if (e.Status == 0) {
-                        this.info.new++;
-                    }
-                })
+                if (res.data.NewsList) {
+                    this.info.new = res.data.NewsList.length;
+                }
             }
         )
     }
@@ -421,13 +419,13 @@ export class HomePage {
 //   "OrderByDirection": "",
 //   "PageIndex": 1,
 //   "PageSize": 10
-let data={
-    "IsHotPost": "1",
-    "OrderBy": "",
-    "OrderByDirection": "",
-    "PageIndex": 1,
-    "PageSize": 10
-};
+        let data = {
+            "IsHotPost": "1",
+            "OrderBy": "",
+            "OrderByDirection": "",
+            "PageIndex": 1,
+            "PageSize": 10
+        };
         this.forum_serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             if (res.data) {
                 this.forumLIst = res.data.UnTopPosts.Items;
@@ -442,31 +440,31 @@ let data={
     openPosts(url) {
         let url_arr = url.split('/');
         // sgmw://forum/afd79774-4ad7-4c1f-838d-016e1d8705f7
-        if(url.indexOf('forum')> -1){ // 论坛
+        if (url.indexOf('forum') > -1) { // 论坛
             url_arr;
-          }else if(url.indexOf('learning')> -1){ //课程
+        } else if (url.indexOf('learning') > -1) { //课程
             url_arr = url.split('&Id=');
             this.getCourseDetailById(url_arr[1])
-          }else if(url.indexOf('test')> -1){ // 考试
+        } else if (url.indexOf('test') > -1) { // 考试
             url_arr = url.split('&Fid=');
             this.getPaperDetailByStu(url_arr[1])
-          }else{ // 兼容旧版本分享，论坛
+        } else { // 兼容旧版本分享，论坛
             // scheme_url+="forum/"+get_res[1]
             this.goPostsContent({Id: url_arr[3]});
-          }
+        }
     }
 
     // 前往考试
-    getPaperDetailByStu(Fid){
+    getPaperDetailByStu(Fid) {
         const PDATA = {
             Fid: Fid
         };
         this.homeSer.getPaperDetailByStu(PDATA).subscribe(
             (data) => {
-                let ExamInfo=data.data.ExamInfo;
-                if(ExamInfo.StudyState==3){
+                let ExamInfo = data.data.ExamInfo;
+                if (ExamInfo.StudyState == 3) {
                     this.navCtrl.push(LookTestPage, {item: ExamInfo});
-                }else{
+                } else {
                     const ExamBegin = this.commonSer.transFormTime(ExamInfo.ExamBegin);
                     const ExamEnd = this.commonSer.transFormTime(ExamInfo.ExamEnd);
                     this.homeSer.getSysDateTime().subscribe(
@@ -474,18 +472,18 @@ let data={
                             const sysDate = this.commonSer.transFormTime(res.data);
                             if (sysDate < ExamBegin) {
                                 this.commonSer.toast('考试未开始');
-                            }else if (sysDate > ExamEnd && ExamInfo.StudyState == 1) {
+                            } else if (sysDate > ExamEnd && ExamInfo.StudyState == 1) {
                                 this.commonSer.toast('当前时间不可考试');
                             } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
                                 this.navCtrl.push(DoTestPage, {item: ExamInfo});  //未开始
-                            } else if(ExamInfo.StudyState == 2){   //未完成
+                            } else if (ExamInfo.StudyState == 2) {   //未完成
                                 this.navCtrl.push(DoTestPage, {item: ExamInfo});
                             }
                         }
                     )
                 }
 
-        });
+            });
     }
 
 

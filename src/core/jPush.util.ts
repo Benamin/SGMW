@@ -35,8 +35,8 @@ export class JpushUtil {
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
             const sgmwType = event.extras.sgmwType;   //3 培训通知  4  考试通知
-            this.events.publish('jPush', sgmwType);
             this.globalData.JpushType = sgmwType;
+            this.events.publish('jPush', sgmwType);
             // this.commonSer.alert('openNotification: ' + JSON.stringify(event));
         }, false);
         /**接收本地消息 */

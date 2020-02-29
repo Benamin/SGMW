@@ -79,11 +79,19 @@ export class MinePage {
         this.mineSer.GetMyInfo().subscribe(
             (res) => {
                 this.userInfo = res.data;
+                let flag = false;
                 this.RoleNames = this.userInfo['Roles'] ? this.userInfo['Roles'] : [];
-                this.RoleNames.push({
-                    RoleName: this.CurrentRole.CurrentRoleName,
-                    RoleID: this.CurrentRole.CurrentRoleID,
-                });
+                this.RoleNames.forEach(e => {
+                    if (e.RoleName == this.CurrentRole.CurrentRoleName) {
+                        flag = true;
+                    }
+                })
+                if (!flag) {
+                    this.RoleNames.push({
+                        RoleName: this.CurrentRole.CurrentRoleName,
+                        RoleID: this.CurrentRole.CurrentRoleID,
+                    });
+                }
                 console.log(this.RoleNames);
             }
         )
