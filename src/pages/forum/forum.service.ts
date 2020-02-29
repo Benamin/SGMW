@@ -230,8 +230,11 @@ export class ForumService {
   }
 
   // 热门帖子
-  GetPostSearchhotpost(data={}){
-    return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
+  GetPostSearchhotpost(data){
+    // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
+    return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
+
+    
   }
 
   // 我我发布的 帖子
