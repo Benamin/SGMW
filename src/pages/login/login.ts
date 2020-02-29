@@ -75,9 +75,9 @@ export class LoginPage {
             inputCode: ''
         },
         xszs: {
-            jxsh: '000000',
-            czymc: '丁林玲',
-            pwd: 'sgmw50@',
+            jxsh: '',
+            czymc: '',
+            pwd: '',
             source: 'TrainingSystem',
             codeRight: '',
             inputCode: ''
