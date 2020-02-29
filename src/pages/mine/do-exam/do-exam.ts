@@ -159,7 +159,7 @@ export class DoExamPage {
                 (res) => {
                     loading.dismiss();
                     if (res.code == 200 && status == 3) {
-                        this.score.score = res.message;
+                        this.score.score = Math.ceil(res.message);
                         this.score.show = true;
                     } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');

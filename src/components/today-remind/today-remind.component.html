@@ -17,18 +17,18 @@
                 您的【{{item.Name}}】待学习 。
                 </div>
                 <div style="text-align: right;">
-                    <button style="background: #ADDAE9;    background: #ADDAE9;width: 85px;height: 26px;font-size: 13px;border-radius: 13px;" 
+                    <button style="background: #ADDAE9;    background: #ADDAE9;width: 85px;height: 26px;font-size: 13px;border-radius: 13px;"
                     (click)="curriculumFn(item)" >开始学习</button>
                 </div>
               </div>
             </div>
-         
+
             <div class="Examination" *ngIf="data.ISExam" >
               <div class="icon">
                 <img src="assets/imgs/home/kcts_ks@2x.png" alt="">
               </div>
               <div style="padding-left: 10px;">
-                有考试未完成，请到考试中心进行考试
+                今日有考试，请到考试中心完成考试
               </div>
             </div>
           </div>
