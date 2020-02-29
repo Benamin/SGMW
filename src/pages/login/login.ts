@@ -435,18 +435,11 @@ export class LoginPage {
                 if (res.code == 200 && res.data) {
                     // 获取用户角色 列表  存储用户角色
                     this.loginSer.GetMyInfo().subscribe(res2 => {
-                        let RoleID = '';
-                        res2.data.Roles.forEach(e => {
-                            if (e.RoleName == this.userRoleName) {
-                                RoleID = e.RoleID;
-                            }
+                        this.storage.set('CurrentRole', {
+                            CurrentRoleID: res2.data.CurrentRoleID,
+                            CurrentRoleName: this.userRoleName
                         });
-                        if (RoleID) {
-                            this.storage.set('RoleID', RoleID);
-                        } else {
-                            this.storage.set('RoleID', res2.data.Roles[0].RoleID);
-                        }
-                        this.storage.set('RoleName', this.userRoleName);
+                        this.storage.set('RoleID', res2.data.CurrentRoleID);
                         this.userAsync(res);
                         this.updateRegID(res);
                     })
@@ -466,7 +459,6 @@ export class LoginPage {
                 this.RegiID = regiID;
                 this.uploadRegID(res);
             } else {
-                console.log('没有获取到RegistrationID');
                 setTimeout(() => {
                     this.updateRegID(res)
                 }, 2000);

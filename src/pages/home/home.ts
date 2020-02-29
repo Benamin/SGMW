@@ -103,11 +103,7 @@ export class HomePage {
         })
         this.getGoodsTeacher();
         this.getLIistData();
-        
-    }
-    ngOnInit(): void {
         this.GetTodayRemind();
-        
     }
 
     ionViewWillEnter() {
@@ -425,7 +421,7 @@ export class HomePage {
 
         });
     }
-    
+
     openPosts(url) {
         let url_arr = url.split('/');
         // sgmw://forum/afd79774-4ad7-4c1f-838d-016e1d8705f7
@@ -471,7 +467,7 @@ export class HomePage {
                         }
                     )
                 }
-             
+
         });
     }
 
