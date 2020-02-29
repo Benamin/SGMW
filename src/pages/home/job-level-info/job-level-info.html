@@ -83,6 +83,12 @@
                 <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
                 /></span>
               </dd>
+              <dd class="already" *ngIf="CourseItem.Coursestatus == 3" (click)="getCourseDetailById(CourseItem.ID)">
+                <span>{{CourseItem.Title}}</span>
+                <span style="display: flex;align-items: center;">
+                  已完成 <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"/>
+                </span>
+              </dd>
             </div>
           </div>
         </div>
@@ -91,6 +97,7 @@
         <div *ngIf="detail.Items.AuthenticationType === 'xskc'">
           <div *ngFor="let ProjectItem of item.ProjectList;">
             <div *ngFor="let CourseItem of ProjectItem.CourseList;">
+              888
               <dd class="already" *ngIf="CourseItem.Coursestatus == 1" (click)="getCourseDetailById(CourseItem.ID)">
                 <span>{{CourseItem.Title}}</span>
               </dd>
