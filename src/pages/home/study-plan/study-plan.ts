@@ -15,6 +15,7 @@ import {FocusCoursePage} from "../../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {TestCenterPage} from "../test/test-center/test-center";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: "page-study-plan",
@@ -51,12 +52,12 @@ export class StudyPlanPage {
                 public navParams: NavParams,
                 private learSer: LearnService,
                 public modalCtrl: ModalController,
-                // private keyboard: Keyboard,
+                private storage: Storage,
                 public logSer: LogService,
                 private commonSer: CommonService,
                 public homeSer: HomeService,
                 private loadCtrl: LoadingController) {
-
+        this.storage.set('sgmwType', null);
     }
 
     ionViewDidLoad() {
