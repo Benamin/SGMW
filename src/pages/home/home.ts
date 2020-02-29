@@ -1,4 +1,4 @@
-import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {LoadingController, NavController, Slides} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
@@ -45,7 +45,7 @@ import {LookTestPage} from "./test/look-test/look-test";
     selector: 'page-home',
     templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
     @ViewChild('angular') angular: ElementRef;
     @ViewChild('imgWidth') imgWidth: ElementRef;
     @ViewChild(Slides) slides: Slides;
@@ -97,7 +97,7 @@ export class HomePage {
         };
     }
 
-    OnInit() {
+    ngOnInit() {
         this.GetTodayRemind();
     }
 
@@ -108,7 +108,6 @@ export class HomePage {
         })
         this.getGoodsTeacher();
         this.getLIistData();
-        this.GetTodayRemind();
     }
 
     ionViewWillEnter() {
@@ -117,7 +116,6 @@ export class HomePage {
                 this.wow = value;
             }
         )
-        this.info.new = 0;
         this.getNew();
     }
 
@@ -260,11 +258,9 @@ export class HomePage {
         };
         this.mineSer.GetUnReadUserNewsList(data).subscribe(
             (res) => {
-                res.data.NewsList.forEach(e => {
-                    if (e.Status == 0) {
-                        this.info.new++;
-                    }
-                })
+                if (res.data.NewsList) {
+                    this.info.new = res.data.NewsList.length;
+                }
             }
         )
     }
