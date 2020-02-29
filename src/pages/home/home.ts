@@ -1,4 +1,4 @@
-import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild, OnInit } from '@angular/core';
 import {LoadingController, NavController, Slides} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
@@ -97,7 +97,10 @@ export class HomePage {
             this.openPosts(url);
         };
     }
+    OnInit(){
+        this.GetTodayRemind();
 
+    }
     ionViewDidLoad() {
         this.storage.get('RoleID').then(value => {
             this.getBanner(value);
@@ -105,7 +108,6 @@ export class HomePage {
         })
         this.getGoodsTeacher();
         this.getLIistData();
-        this.GetTodayRemind();
     }
 
     ionViewWillEnter() {
