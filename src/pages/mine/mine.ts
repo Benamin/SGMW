@@ -32,31 +32,34 @@ export class MinePage {
     userInfo;
     number;
     version;
-    RoleName='';
+    CurrentRole;
     appVersionInfo = {
         UpdateTips: false,
         AppUrl: '',
         UpdateText: '',
-    }
+    };
+
+    RoleName;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private logoutSer: LogoutService,
                 private mineSer: MineService, private events: Events, private appVersion: AppVersion,
                 private loginSer: LoginService, private inAppBrowser: InAppBrowser,
                 private platform: Platform,
-                private logSer:LogService,
+                private logSer: LogService,
                 private forumServe: ForumService,
                 private commonSer: CommonService,
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
             this.mineInfo = value;
-            
-        })
-        this.storage.get('RoleName').then(val => {
-            this.RoleName = val;
+
+        });
+        this.storage.get('CurrentRole').then(val => {
+            this.CurrentRole = val;
+            this.RoleName = val.CurrentRoleName;
         })
     }
-    
+
     ionViewDidEnter() {
         this.logSer.visitLog('grzx');
         this.getVersion();
@@ -76,8 +79,12 @@ export class MinePage {
         this.mineSer.GetMyInfo().subscribe(
             (res) => {
                 this.userInfo = res.data;
-                this.RoleNames=this.userInfo['Roles']?this.userInfo['Roles']:[];
-                console.log('用户信息',this.userInfo)
+                this.RoleNames = this.userInfo['Roles'] ? this.userInfo['Roles'] : [];
+                this.RoleNames.push({
+                    RoleName: this.CurrentRole.CurrentRoleName,
+                    RoleID: this.CurrentRole.CurrentRoleID,
+                });
+                console.log(this.RoleNames);
             }
         )
     }
@@ -155,7 +162,7 @@ export class MinePage {
     }
 
     // 积分章程
-    goIntegral(){
+    goIntegral() {
         this.navCtrl.push(IntegralComponent);
     }
 
@@ -186,14 +193,14 @@ export class MinePage {
             console.log(err);
         });
     }
-    RoleNames=[];
-    RoleID='';
+
+    RoleNames = [];
+    RoleID = '';
 
     // 切换角色
-    switchUser(){
-        console.log(this.RoleName);
+    switchUser() {
         this.RoleNames.forEach(e => {
-            if(e.RoleName==this.RoleName){
+            if (e.RoleName == this.RoleName) {
                 this.storage.set('RoleID', e.RoleID);
             }
         })
