@@ -88,6 +88,7 @@ export class HomePage implements OnInit {
             }
         });
         let app_url = (window as any).localStorage.getItem("app_url");
+        
         if (app_url) {
             this.openPosts(app_url);
             (window as any).localStorage.removeItem("app_url");
@@ -452,7 +453,7 @@ export class HomePage implements OnInit {
         let url_arr = url.split('/');
         // sgmw://forum/afd79774-4ad7-4c1f-838d-016e1d8705f7
         if (url.indexOf('forum') > -1) { // 论坛
-            url_arr;
+            this.goPostsContent({Id: url_arr[3]});
         } else if (url.indexOf('learning') > -1) { //课程
             url_arr = url.split('&Id=');
             this.getCourseDetailById(url_arr[1])

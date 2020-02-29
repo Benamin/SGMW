@@ -64,6 +64,7 @@ export class ForumPage implements OnInit {
     }
 
     initData() {
+        this.isdoInfinite=true;
         if (this.navli == '板块') {
             this.forum_topicplate_search();
             this.getHistory();
@@ -127,6 +128,7 @@ export class ForumPage implements OnInit {
     doRefresh(e) {
         setTimeout(() => {
             e.complete();
+            this.isdoInfinite=true;
         }, 1000);
         if (this.navli == '热帖') {
             return this.switchInformation('热帖')
