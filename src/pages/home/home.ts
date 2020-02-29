@@ -87,6 +87,8 @@ export class HomePage {
             }
         });
         let app_url = (window as any).localStorage.getItem("app_url");
+        // app_url='http://a1.hellowbs.com/openApp.html?scheme_url=test&Fid=51e933c8-0d88-4397-94f3-c2b47bf1a038';
+
         if (app_url) {
             this.openPosts(app_url);
             (window as any).localStorage.removeItem("app_url");
@@ -463,6 +465,7 @@ let data={
         };
         this.homeSer.getPaperDetailByStu(PDATA).subscribe(
             (data) => {
+                console.log('考试内容')
                 let ExamInfo=data.data.ExamInfo;
                 if(ExamInfo.StudyState==3){
                     this.navCtrl.push(LookTestPage, {item: ExamInfo});
@@ -474,7 +477,7 @@ let data={
                             const sysDate = this.commonSer.transFormTime(res.data);
                             if (sysDate < ExamBegin) {
                                 this.commonSer.toast('考试未开始');
-                            }else if (sysDate > ExamEnd && ExamInfo.StudyState == 1) {
+                            }else if (sysDate > ExamEnd) {
                                 this.commonSer.toast('当前时间不可考试');
                             } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
                                 this.navCtrl.push(DoTestPage, {item: ExamInfo});  //未开始

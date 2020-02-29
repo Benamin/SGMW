@@ -42,7 +42,7 @@ export class CourseListComponent {
             // media: "YOUR_MEDIA_OBJECT_HERE",
             media: {
                 type: Wechat.Type.WEBPAGE,
-                webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=learning&TeachTypeCode=${data.TeachTypeCode}&Id=${data.Id}`
+                webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=learning&Id=${data.Id}`
             }
             },
             scene: Wechat.Scene.SESSION
