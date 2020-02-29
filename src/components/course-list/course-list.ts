@@ -22,7 +22,6 @@ export class CourseListComponent {
   // 微信分享
   wxShare(data){
       console.log('分享内容',data)
-      document.getElementById('inner-html')
       let description=data.Description;
       let thumb=data.ImageUrl;
       

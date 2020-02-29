@@ -415,7 +415,24 @@ export class HomePage {
 
     // 获取热门帖子
     getLIistData() {
-        this.forum_serve.GetPostSearchhotpost().subscribe((res: any) => {
+        //         速度 七十迈:
+// api/forum/post/searchhotpostbytimedesc
+// IsHotPost参数对应：1=热帖，0=论坛热门帖子
+// 速度 七十迈:
+// 参数结构：{
+//   "IsHotPost": "0",
+//   "OrderBy": "",
+//   "OrderByDirection": "",
+//   "PageIndex": 1,
+//   "PageSize": 10
+let data={
+    "IsHotPost": "1",
+    "OrderBy": "",
+    "OrderByDirection": "",
+    "PageIndex": 1,
+    "PageSize": 10
+};
+        this.forum_serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             if (res.data) {
                 this.forumLIst = res.data.UnTopPosts.Items;
                 if (this.forumLIst.length > 4) {
