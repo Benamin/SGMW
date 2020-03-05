@@ -121,7 +121,6 @@ import {JpushUtil} from "../core/jPush.util";
             AppVersion,
             File,
             FileTransfer,
-            FileTransfer,
             MobileAccessibility,
             ScreenOrientation,
             PhotoLibrary,
