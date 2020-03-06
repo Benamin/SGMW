@@ -30,11 +30,13 @@
     "@ionic-native/http": "^4.20.0",
     "@ionic-native/in-app-browser": "^4.20.0",
     "@ionic-native/keyboard": "^4.20.0",
+    "@ionic-native/media-capture": "^4.20.0",
     "@ionic-native/mobile-accessibility": "^4.20.0",
     "@ionic-native/photo-library": "^4.20.0",
     "@ionic-native/screen-orientation": "^4.20.0",
     "@ionic-native/splash-screen": "~4.20.0",
     "@ionic-native/status-bar": "~4.20.0",
+    "@ionic-native/video-capture-plus": "^4.20.0",
     "@ionic/storage": "^2.2.0",
     "@jiguang-ionic/jpush": "^1.0.2",
     "com.lampa.startapp": "^6.1.6",
@@ -51,10 +53,12 @@
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-ionic-webview": "^1.2.1",
+    "cordova-plugin-media-capture": "^3.0.3",
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-plugin-network-information": "git+https://github.com/apache/cordova-plugin-network-information.git",
     "cordova-plugin-photo-library": "git+https://github.com/nilebma/cordova-plugin-photo-library.git",
     "cordova-plugin-screen-orientation": "^3.0.2",
+    "cordova-plugin-video-capture-plus": "^1.0.0",
     "cordova-plugin-wechat": "^2.9.0",
     "cordova-res": "^0.6.0",
     "cordova-sqlite-storage": "^4.0.0",
@@ -123,7 +127,8 @@
       "jpush-phonegap-plugin": {
         "APP_KEY": "752ece1a02b586473b78d46e",
         "CHANNEL": "APP"
-      }
+      },
+      "cordova-plugin-media-capture": {}
     },
     "platforms": [
       "browser",
