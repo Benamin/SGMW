@@ -1,14 +1,14 @@
-import {Component, ViewChild} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams, Slides} from 'ionic-angular';
-import {TabsPage} from "../tabs/tabs";
-import {LoginService} from "./login.service";
-import {Storage} from "@ionic/storage";
-import {AppService} from "../../app/app.service";
-import {CommonService} from "../../core/common.service";
-import {CheckCodeComponent} from "../../components/check-code/check-code";
-import {Keyboard} from "@ionic-native/keyboard";
-import {StatusBar} from "@ionic-native/status-bar";
-import {timer} from "rxjs/observable/timer";
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, LoadingController, NavController, NavParams, Slides } from 'ionic-angular';
+import { TabsPage } from "../tabs/tabs";
+import { LoginService } from "./login.service";
+import { Storage } from "@ionic/storage";
+import { AppService } from "../../app/app.service";
+import { CommonService } from "../../core/common.service";
+import { CheckCodeComponent } from "../../components/check-code/check-code";
+import { Keyboard } from "@ionic-native/keyboard";
+import { StatusBar } from "@ionic-native/status-bar";
+import { timer } from "rxjs/observable/timer";
 import {
     FWZS_appid, FWZS_client_id, FWZS_SecretKey,
     JunKe_client_id, JunKe_PRIVATE_KEY,
@@ -18,10 +18,10 @@ import {
     XSZS_appKey,
     XSZS_client_id
 } from "../../app/app.constants";
-import {DatePipe} from "@angular/common";
-import {RandomWordService} from "../../secret/randomWord.service";
-import {GlobalData} from "../../core/GlobleData";
-import {JPush} from "@jiguang-ionic/jpush";
+import { DatePipe } from "@angular/common";
+import { RandomWordService } from "../../secret/randomWord.service";
+import { GlobalData } from "../../core/GlobleData";
+import { JPush } from "@jiguang-ionic/jpush";
 
 declare let md5: any;
 declare let JSEncrypt: any;
@@ -47,7 +47,7 @@ export class LoginPage {
         client_id: sgmw_client_id,
         username: '',
         password: '',
-        usertype: 'sgmw',
+        usertype: 'gys',
         codeRight: '',
         inputCode: ''
     };
@@ -58,7 +58,7 @@ export class LoginPage {
         client_id: sgmw_client_id,
         username: '',
         password: '',
-        usertype: 'gys',
+        usertype: 'sgmw',
         codeRight: '',
         inputCode: ''
     };
@@ -105,12 +105,12 @@ export class LoginPage {
     RegiID;   //jPush注册ID
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
-                private datePipe: DatePipe,
-                private jPush: JPush,
-                private randomWord: RandomWordService,
-                private globalData: GlobalData,
-                private loginSer: LoginService, private storage: Storage, private appSer: AppService,
-                private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
+        private datePipe: DatePipe,
+        private jPush: JPush,
+        private randomWord: RandomWordService,
+        private globalData: GlobalData,
+        private loginSer: LoginService, private storage: Storage, private appSer: AppService,
+        private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
         this.loading = this.loadCtrl.create({
             content: '登录中...'

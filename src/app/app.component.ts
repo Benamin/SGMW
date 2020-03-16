@@ -68,6 +68,7 @@ export class MyApp {
 
             //app字体不跟随手机字体大小变化
             this.mobileAccess.usePreferredTextZoom(false);
+            
             this.splashScreen.show();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
