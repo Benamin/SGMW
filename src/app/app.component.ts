@@ -68,7 +68,7 @@ export class MyApp {
 
             //app字体不跟随手机字体大小变化
             this.mobileAccess.usePreferredTextZoom(false);
-            
+
             this.splashScreen.show();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
@@ -299,7 +299,7 @@ export class MyApp {
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
                     const onlineVersion = res.data.AppVersion.split('.').join('');
-                    if (versionCode != onlineVersion) {
+                    if (versionCode < onlineVersion) {
                         this.app.UpdateTips = true;
                         this.app.AppUrl = res.data.AppUrl;
                         this.app.UpdateText = res.data.UpdateText;
