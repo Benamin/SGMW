@@ -47,7 +47,7 @@ export class LoginPage {
         client_id: sgmw_client_id,
         username: '',
         password: '',
-        usertype: 'gys',
+        usertype: 'GYS',
         codeRight: '',
         inputCode: ''
     };
@@ -58,7 +58,7 @@ export class LoginPage {
         client_id: sgmw_client_id,
         username: '',
         password: '',
-        usertype: 'sgmw',
+        usertype: 'SGMW',
         codeRight: '',
         inputCode: ''
     };
@@ -253,7 +253,8 @@ export class LoginPage {
             client_id: XSZS_client_id,
             username: res.czymc,
             jxsh: res.jxsh,
-            czydm: res.czydm
+            czydm: res.czydm,
+            usertype:'JXS',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -319,6 +320,7 @@ export class LoginPage {
             client_id: JunKe_client_id,
             username: this.jxs.junke.username,
             jxsh: res.dealerCode,
+            usertype:'JK',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -395,13 +397,14 @@ export class LoginPage {
         )
     }
 
-    //获取token --销售助手
+    //获取token --服务助手
     connectTokenByFWZS(res) {
         const data = {
             grant_type: "password",
             client_id: FWZS_client_id,
             username: res.userName,
             jxsh: this.fwzsObj.stationNo,
+            usertype:'SERVICE',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
