@@ -1,6 +1,6 @@
 <ion-tabs #myTabs>
   <ng-container *ngFor = "let tabRoot of tabRoots;let i = index;">
-    <ion-tab sw  (ionSelect)="onChange(i)" [rootParams]="tabParams" [root] = "tabRoot.root" tabTitle="{{tabRoot.tabTitle}}" tabIcon="{{ tabsIndex == i ? tabRoot.tabIconOn:tabRoot.tabIconOff }}"></ion-tab>
+    <ion-tab   (ionSelect)="onChange(i)" [rootParams]="tabParams" [root] = "tabRoot.root" tabTitle="{{tabRoot.tabTitle}}" tabIcon="{{ tabsIndex == i ? tabRoot.tabIconOn:tabRoot.tabIconOff }}"></ion-tab>
   </ng-container>
 </ion-tabs>
 
