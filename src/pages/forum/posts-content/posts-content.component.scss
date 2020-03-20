@@ -52,6 +52,12 @@ page-posts-content {
     }
 
     .inner-html {
+        margin-top: 20px;
+        line-height: 22px;
+        div{
+            margin-top: 20px;
+            line-height: 22px;
+        }
         p {
             margin-top: 20px;
             line-height: 22px;
@@ -377,5 +383,8 @@ page-posts-content {
             // bottom: 410px;
             top: 210px;
         }
+    }
+    .showImg{
+      
     }
 }

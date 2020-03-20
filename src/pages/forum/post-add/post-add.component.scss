@@ -42,6 +42,11 @@ page-post-add {
             background: #fff;
             height: calc(100% - 130px);
             overflow: auto;
+            div{
+                div{
+                    margin-top: 10px;
+                }
+            }
         }
 
         input {
