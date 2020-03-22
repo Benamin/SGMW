@@ -40,6 +40,7 @@ import {PostsContentComponent} from '../forum/posts-content/posts-content.compon
 import {GlobalData} from "../../core/GlobleData";
 import {DoTestPage} from "./test/do-test/do-test";
 import {LookTestPage} from "./test/look-test/look-test";
+import {CompetitionListsPage} from "./competition/lists/lists";
 
 @Component({
     selector: 'page-home',
@@ -304,6 +305,10 @@ export class HomePage implements OnInit {
 
     goDev(title) {
         this.navCtrl.push(NoDevPage, {title: title});
+    }
+
+    goToCompetition() {
+        this.navCtrl.push(CompetitionListsPage);
     }
 
     //考试中心

@@ -22,6 +22,7 @@ import {MyFilePage} from "./my-file/my-file";
 import {ForumService} from "../forum/forum.service";
 import {LogService} from "../../service/log.service";
 import {IntegralComponent} from "./Integral/Integral.component";
+import {MyShortVideoPage} from "./my-short-video/my-short-video";
 
 @Component({
     selector: 'page-mine',
@@ -176,7 +177,7 @@ export class MinePage {
 
     // 我的视频
     goMyshortVideo() {
-        // this.navCtrl.push(MyShortVideoPage);
+        this.navCtrl.push(MyShortVideoPage);
     }
 
     //检测版本
