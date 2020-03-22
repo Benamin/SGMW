@@ -1,0 +1,63 @@
+eidt-modal {
+  background-color: rgba(0, 0, 0, 0.1);
+  font-size: 1.5rem;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+  .body-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 1.2rem 1.2rem 0 0;
+    background-color: #FFFFFF;
+    .item-box {
+      height: 5rem;
+      line-height: 5rem;
+    }
+    .items-title {
+      color: #A7A7A7;
+      text-align: center;
+    }
+    .list-items {
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 0.1rem solid #F2F2F2;
+        .text {
+          margin-left: 2rem;
+        }
+        .right-icon {
+          margin-right: 2.3rem;
+          width: 1.6rem;
+          height: 1.6rem;
+          border-radius: 0.8rem;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #CCCCCC;
+          .iconfont {
+            margin-top: 0.2rem;
+            color: #FFFFFF;
+            font-size: 12px;
+          }
+        }
+      }
+      li.actived {
+        .right-icon {
+          background-color: #67BBFF;
+        }
+      }
+    }
+    .bottom-items {
+      text-align: center;
+    }
+  }
+}

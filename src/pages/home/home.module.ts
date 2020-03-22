@@ -19,6 +19,13 @@ import {JobLevelPage} from "./job-level/job-level";
 import {JobLevelInfoPage} from "./job-level-info/job-level-info";
 import {VotePage} from "./vote/vote";
 
+import {VideoListsPage} from "./short-video/video-lists/video-lists";
+import {VideoBoxPage} from "./short-video/video-box/video-box";
+import {CompetitionListsPage} from "./competition/lists/lists";
+import {EditPage} from "./competition/edit/edit";
+import {ListsRankingPage} from "./competition/lists-ranking/lists-ranking";
+import {TotalRankingPage} from "./competition/total-ranking/total-ranking";
+
 @NgModule({
     declarations: [
         HomePage,
@@ -37,7 +44,13 @@ import {VotePage} from "./vote/vote";
         StudyPlanPage,
         JobLevelPage,
         JobLevelInfoPage,
-        VotePage
+        VotePage,
+        VideoListsPage,
+        VideoBoxPage,
+        CompetitionListsPage,
+        ListsRankingPage,
+        EditPage,
+        TotalRankingPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -59,7 +72,13 @@ import {VotePage} from "./vote/vote";
         StudyPlanPage,
         JobLevelPage,
         JobLevelInfoPage,
-        VotePage
+        VotePage,
+        VideoListsPage,
+        VideoBoxPage,
+        CompetitionListsPage,
+        ListsRankingPage,
+        EditPage,
+        TotalRankingPage
     ]
 })
 export class HomeModule {

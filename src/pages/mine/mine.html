@@ -44,19 +44,23 @@
                     <p>{{number?.WorkCount || '0'}}</p>
                     <p>作业</p>
                 </div>
+                <div tappable (click)="goMyshortVideo()">
+                    <p>111</p>
+                    <p>视频</p>
+                </div>
                 <div tappable (click)="goMyForum()">
                     <p>{{number?.PostCount || '0'}}</p>
                     <p>帖子</p>
                 </div>
-                <div tappable (click)="goToCollection()">
-                    <p>{{number?.CollectionCount || '0'}}</p>
-                    <p>收藏</p>
-                </div>
+                <!--<div tappable (click)="goToCollection()">-->
+                    <!--<p>{{number?.CollectionCount || '0'}}</p>-->
+                    <!--<p>收藏</p>-->
+                <!--</div>-->
             </div>
 
         </div>
     </div>
-    <div class="mine-list" style="    margin-bottom: 0px;">
+    <div class="mine-list" style="margin-bottom: 0px;">
         <div class="item" tappable (click)="switchUser()">
             <div class="left">
                 <img src="./assets/imgs/mine/switch-user.png">
@@ -86,6 +90,15 @@
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>
         </div>
+      <div class="item" tappable (click)="goToCollection()">
+        <div class="left">
+          <img src="./assets/imgs/mine/shouchang.png">
+        </div>
+        <div class="middle">我的收藏</div>
+        <div class="right">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+      </div>
         <!--        <div class="item" tappable (click)="goMyThumbsUpComponent()">-->
         <!--            <div class="left">-->
         <!--                <img src="./assets/imgs/mine/p41_likr.png">-->

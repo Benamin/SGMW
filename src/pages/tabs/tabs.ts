@@ -11,6 +11,8 @@ import {TabService} from "../../core/tab.service";
 import { ForumPage } from '../forum/forum.component';
 import {NoDevPage} from "../home/no-dev/no-dev";
 import {Gesture} from "ionic-angular";
+import { VideoListsPage } from '../home/short-video/video-lists/video-lists';
+
 
 @Component({
     templateUrl: 'tabs.html'
@@ -44,11 +46,18 @@ export class TabsPage {
             tabIconOff: 'custom-forum-off',
             index: 3
         },
+        // {
+        //     root: CoursePage,
+        //     tabTitle: '我的学习',
+        //     tabIconOn: 'custom-serve-on',
+        //     tabIconOff: 'custom-serve-off',
+        //     index: 4
+        // },
         {
-            root: CoursePage,
-            tabTitle: '我的学习',
-            tabIconOn: 'custom-serve-on',
-            tabIconOff: 'custom-serve-off',
+            root: VideoListsPage,
+            tabTitle: '视频',
+            tabIconOn: 'custom-video-on',
+            tabIconOff: 'custom-video-off',
             index: 4
         },
         {

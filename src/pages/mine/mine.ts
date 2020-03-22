@@ -22,6 +22,7 @@ import {MyFilePage} from "./my-file/my-file";
 import {ForumService} from "../forum/forum.service";
 import {LogService} from "../../service/log.service";
 import {IntegralComponent} from "./Integral/Integral.component";
+import {MyShortVideoPage} from "./my-short-video/my-short-video";
 
 @Component({
     selector: 'page-mine',
@@ -64,7 +65,7 @@ export class MinePage {
         this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {
             this.mineSer.GetMyProductCountInfo().subscribe(
                 (res2) => {
-                    res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
+                    if (res1.data) res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
                     this.number = res2.data;
                 }
             )
@@ -76,7 +77,7 @@ export class MinePage {
         this.mineSer.GetMyInfo().subscribe(
             (res) => {
                 this.userInfo = res.data;
-                this.RoleNames=this.userInfo['Roles']?this.userInfo['Roles']:[];
+                if (this.userInfo) this.RoleNames=this.userInfo['Roles']?this.userInfo['Roles']:[];
                 console.log('用户信息',this.userInfo)
             }
         )
@@ -137,6 +138,11 @@ export class MinePage {
     //后台退出
     logoutApp() {
         this.logoutSer.logout();
+    }
+
+    // 我的视频
+    goMyshortVideo() {
+        this.navCtrl.push(MyShortVideoPage);
     }
 
     // 我的帖子

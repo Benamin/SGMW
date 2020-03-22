@@ -16,6 +16,7 @@ import {ImgPreviewComponent} from './img-preview/img-preview';
 import {IframeFileComponent} from './iframe-file/iframe-file';
 import {PipesModule} from "../pipes/pipes.module";
 import {TodayRemindComponent} from './today-remind/today-remind.component';
+import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
 
 
 
@@ -38,6 +39,7 @@ import {TodayRemindComponent} from './today-remind/today-remind.component';
         ForumListTimeComponent,
         ImgPreviewComponent,
         IframeFileComponent,
+        EidtModalComponent
     ],
     imports: [
         IonicPageModule,
@@ -60,6 +62,7 @@ import {TodayRemindComponent} from './today-remind/today-remind.component';
         ForumListTimeComponent,
         ImgPreviewComponent,
         IframeFileComponent,
+        EidtModalComponent
     ],
     providers: [
         CommentComponent,
@@ -78,7 +81,8 @@ import {TodayRemindComponent} from './today-remind/today-remind.component';
         SearchSidebarComponent,
         ForumListTimeComponent,
         ImgPreviewComponent,
-        IframeFileComponent
+        IframeFileComponent,
+        EidtModalComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

@@ -52,6 +52,16 @@ ion-icon {
     background-size: contain;
   }
 
+  &[class*="video-off"] {
+    background: url(../assets/imgs/tabs/shiping_w@2x.png) no-repeat 50% 50%;
+    background-size: contain;
+  }
+  &[class*="video-on"] {
+    background: url(../assets/imgs/tabs/shiping@2x.png) no-repeat 50% 50%;
+    background-size: contain;
+  }
+
+
   &[class*="tab-key"] {
     background: url(../assets/imgs/tabs/icon-key.png) no-repeat 50% 50%;
     background-size: contain;

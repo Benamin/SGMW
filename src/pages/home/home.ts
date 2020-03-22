@@ -37,6 +37,8 @@ import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
 import {ForumService} from '../forum/forum.service';
 import {PostsContentComponent} from '../forum/posts-content/posts-content.component';
+import {CompetitionListsPage} from "./competition/lists/lists";
+
 
 @Component({
     selector: 'page-home',
@@ -398,6 +400,10 @@ export class HomePage {
         this.navCtrl.push(JobLevelPage);
     }
 
+    goToCompetition() {
+        this.navCtrl.push(CompetitionListsPage);
+    }
+
 
 
     // 前往帖子详情
@@ -425,12 +431,12 @@ export class HomePage {
     is_TodayRemind=false;
     GetTodayRemind(){
         this.homeSer.GetTodayRemind().subscribe((res:any) => {
-            this.TodayRemind=res.data;
+            this.TodayRemind = res.data;
             this.storage.get('TodayRemind').then(val => {
                 let date = new Date();
                 let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
                 if(val!=dateDay){ // 是否点击了取消今日提醒
-                    if(this.TodayRemind.ISExam||this.TodayRemind.Items.length>0){
+                    if((this.TodayRemind && this.TodayRemind.ISExam) || this.TodayRemind && this.TodayRemind.Items.length>0){
                         this.is_TodayRemind=true;
                     }
                 }

@@ -154,7 +154,7 @@ import {JpushUtil} from "../core/jPush.util";
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
             },
             VideoJsProvider,
-            DownloadFileProvider,
+            DownloadFileProvider
         ],
 
 })
