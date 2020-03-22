@@ -30,6 +30,7 @@
     "@ionic-native/http": "^4.20.0",
     "@ionic-native/in-app-browser": "^4.20.0",
     "@ionic-native/keyboard": "^4.20.0",
+    "@ionic-native/media-capture": "^4.20.0",
     "@ionic-native/mobile-accessibility": "^4.20.0",
     "@ionic-native/photo-library": "^4.20.0",
     "@ionic-native/screen-orientation": "^4.20.0",
