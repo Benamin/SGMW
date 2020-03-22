@@ -26,8 +26,11 @@
         <div style="flex: 1;">
 
         </div>
-        <div class="edit-div" tappable (click)="delITem(item);$event.stopPropagation()">
-          <span class="del-img">
+        <div class="edit-div" >
+          <span class="edit-img" tappable (click)="editITem(item);$event.stopPropagation()">
+            <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
+          </span>
+          <span class="del-img" tappable (click)="delITem(item);$event.stopPropagation()">
             <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
           </span>
         </div>

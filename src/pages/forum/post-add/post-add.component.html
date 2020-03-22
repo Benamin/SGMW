@@ -57,6 +57,32 @@
         </span>
       </span>
     </div>
+    <div class="plate">
+      <div class="plate-li" (click)="choicePlate('ForumHistory')">
+        <span class="plate-li-name" *ngIf="ForumHistorySelection.length==0" >
+          选择板块
+        </span>
+        <span class="plate-li-name" *ngIf="ForumHistorySelection.length>0" >
+          <span *ngFor="let item of ForumHistorySelection;index as i" >
+            <span *ngIf="i!=0" >、</span>
+            {{item.Name}}
+          </span>
+        </span>
+        <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
+      </div>
+      <div class="plate-li" (click)="choicePlate('conversationData')">
+        <span class="plate-li-name"  *ngIf="conversationDataSelection.length==0" >
+          选择话题
+        </span>
+        <span class="plate-li-name" *ngIf="conversationDataSelection.length>0" >
+          <span  *ngFor="let item of conversationDataSelection;index as i" >
+            <span *ngIf="i!=0" >、</span>
+            {{item.Name}}
+          </span>
+        </span>
+        <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
+      </div>
+    </div>
   </div>
 </ion-footer>
 <div class="edit-pictures" *ngIf="iseditImg">
@@ -85,4 +111,27 @@
       {{editImgOkText}}
     </div>
   </div>
+</div>
+<div class="choice-plate" *ngIf="choicePlateShow" >
+  <div class="choice-plate-box" >
+    <div class="choice-plate-top">
+      请选择{{plateType=='ForumHistory'?'板块':'话题'}}
+    </div>
+    <div class="choice-plate-con" style="    padding-bottom: 90px;">
+      <div class="choice-plate-li" *ngFor="let item of choicePlateList" (click)="choicePlateListClick(item)">
+        {{item.Name}}
+        <img *ngIf="item.Selection"  src="./assets/imgs/forum/other/xz@2x.png" alt="">
+        <img *ngIf="!item.Selection"  src="./assets/imgs/forum/other/xz_no@2x.png" alt="">
+      </div>
+    </div>
+    <div style="    background: #e4e4e6;
+    padding-top: 10px;    position: fixed;
+    width: 100%;
+    bottom: 0;">
+      <div class="but-list" (click)="SelectionChoicePlate()" style="border-bottom: 1px solid #f3f3f3;">确定</div>
+      <div class="but-list" (click)="choicePlateShow=false">取消</div>
+  
+    </div>
+  </div>
+
 </div>

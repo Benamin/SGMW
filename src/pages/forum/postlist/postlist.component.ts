@@ -13,19 +13,7 @@ export class PostlistComponent implements OnInit {
   ngOnInit(): void {
     // throw new Error("Method not implemented.");
     this.lidata = this.navParams.get('data');
-    let userForumHistory:any= window.localStorage.getItem('userForumHistory');
-    let arr=[this.lidata];
-    if(userForumHistory){
-      userForumHistory=JSON.parse(userForumHistory);
-      userForumHistory.forEach(element => {
-        if(this.lidata.Id!==element.Id){
-          arr.push(element);
-        }
-      });
-    }
-    arr.length = arr.length>6?6:arr.length;
-    window.localStorage.setItem('userForumHistory', JSON.stringify(arr));
-  this.initList();
+    this.initList();
   }
   lidata={Id:""};
   IsTopOpt=null;
