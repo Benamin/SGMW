@@ -1,14 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, LoadingController, NavController, NavParams, Slides } from 'ionic-angular';
-import { TabsPage } from "../tabs/tabs";
-import { LoginService } from "./login.service";
-import { Storage } from "@ionic/storage";
-import { AppService } from "../../app/app.service";
-import { CommonService } from "../../core/common.service";
-import { CheckCodeComponent } from "../../components/check-code/check-code";
-import { Keyboard } from "@ionic-native/keyboard";
-import { StatusBar } from "@ionic-native/status-bar";
-import { timer } from "rxjs/observable/timer";
+import {Component, ViewChild} from '@angular/core';
+import {IonicPage, LoadingController, NavController, NavParams, Slides} from 'ionic-angular';
+import {TabsPage} from "../tabs/tabs";
+import {LoginService} from "./login.service";
+import {Storage} from "@ionic/storage";
+import {AppService} from "../../app/app.service";
+import {CommonService} from "../../core/common.service";
+import {CheckCodeComponent} from "../../components/check-code/check-code";
+import {Keyboard} from "@ionic-native/keyboard";
+import {StatusBar} from "@ionic-native/status-bar";
+import {timer} from "rxjs/observable/timer";
 import {
     FWZS_appid, FWZS_client_id, FWZS_SecretKey,
     JunKe_client_id, JunKe_PRIVATE_KEY,
@@ -18,10 +18,10 @@ import {
     XSZS_appKey,
     XSZS_client_id
 } from "../../app/app.constants";
-import { DatePipe } from "@angular/common";
-import { RandomWordService } from "../../secret/randomWord.service";
-import { GlobalData } from "../../core/GlobleData";
-import { JPush } from "@jiguang-ionic/jpush";
+import {DatePipe} from "@angular/common";
+import {RandomWordService} from "../../secret/randomWord.service";
+import {GlobalData} from "../../core/GlobleData";
+import {JPush} from "@jiguang-ionic/jpush";
 
 declare let md5: any;
 declare let JSEncrypt: any;
@@ -105,12 +105,12 @@ export class LoginPage {
     RegiID;   //jPush注册ID
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
-        private datePipe: DatePipe,
-        private jPush: JPush,
-        private randomWord: RandomWordService,
-        private globalData: GlobalData,
-        private loginSer: LoginService, private storage: Storage, private appSer: AppService,
-        private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
+                private datePipe: DatePipe,
+                private jPush: JPush,
+                private randomWord: RandomWordService,
+                private globalData: GlobalData,
+                private loginSer: LoginService, private storage: Storage, private appSer: AppService,
+                private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
         this.loading = this.loadCtrl.create({
             content: '登录中...'
@@ -254,7 +254,7 @@ export class LoginPage {
             username: res.czymc,
             jxsh: res.jxsh,
             czydm: res.czydm,
-            usertype:'JXS',
+            usertype: 'JXS',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -320,7 +320,7 @@ export class LoginPage {
             client_id: JunKe_client_id,
             username: this.jxs.junke.username,
             jxsh: res.dealerCode,
-            usertype:'JK',
+            usertype: 'JK',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -404,7 +404,7 @@ export class LoginPage {
             client_id: FWZS_client_id,
             username: res.userName,
             jxsh: this.fwzsObj.stationNo,
-            usertype:'SERVICE',
+            usertype: 'SERVICE',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -435,15 +435,22 @@ export class LoginPage {
             (res) => {
                 if (res.code == 200 && res.data) {
                     // 获取用户角色 列表  存储用户角色
-                    this.loginSer.GetMyInfo().subscribe(res2 => {
-                        this.storage.set('CurrentRole', {
-                            CurrentRoleID: res2.data.CurrentRoleID,
-                            CurrentRoleName: res2.data.CurrentRoleNames
-                        });
-                        this.storage.set('RoleID', res2.data.CurrentRoleID);
+                    if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
                         this.userAsync(res);
                         this.updateRegID(res);
-                    })
+                    } else {
+                        this.loginSer.GetMyInfo().subscribe(res2 => {
+                            if (res2.data) {
+                                this.storage.set('CurrentRole', {
+                                    CurrentRoleID: res2.data.CurrentRoleID,
+                                    CurrentRoleName: res2.data.CurrentRoleNames
+                                });
+                                this.userAsync(res);
+                                this.updateRegID(res);
+                                this.storage.set('RoleID', res2.data.CurrentRoleID);
+                            }
+                        })
+                    }
                 } else {
                     this.loading.dismiss();
                     this.storage.clear();
@@ -483,9 +490,8 @@ export class LoginPage {
 
     //用户是否同步
     userAsync(res) {
-        console.log('TabsPage')
         this.loading.dismiss();
-        if (res.data.UserId == '00000000-0000-0000-0000-000000000000') {
+        if (res.data.LoginUserId == '00000000-0000-0000-0000-000000000000') {
             this.commonSer.alert(this.noUserMsg);
         } else {
             this.storage.set('user', res.data);

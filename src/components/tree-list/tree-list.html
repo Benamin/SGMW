@@ -19,7 +19,7 @@
             <img *ngIf="itemFile.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
             {{itemFile.DisplayName | stringSlice:15:15}}
             <span class="file-icon">{{itemFile.icon}}</span>
-            <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe'"
+            <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                  tappable (click)="downLoad(itemFile,$event)"
                  class="download-file" src="./assets/imgs/course/xiazai.png">
             <img class="done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png" alt="">

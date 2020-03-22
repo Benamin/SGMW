@@ -11,11 +11,11 @@
     },
     {
       "path": "/XSZSAPI",
-      "proxyUrl": "https://promotion.sgmw.com.cn/API"
+      "proxyUrl": "http://112.124.23.230:8010/API"
     },
     {
       "path": "/JunKeAPI",
-      "proxyUrl": "https://nbj.sgmw.com.cn"
+      "proxyUrl": "https://nbjtest.sgmw.com.cn"
     },
     {
       "path": "/FWZSAPI",

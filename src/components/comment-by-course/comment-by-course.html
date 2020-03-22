@@ -1,0 +1,50 @@
+<div class="main">
+    <div class="content" tappable (click)="close()">
+        <div class="comment" tappable (click)="stop($event)">
+            <div>
+                <p class="title-tips">动动手指做个评价吧！</p>
+                <ion-row class="row-comment">
+                    <ion-col col-4>
+                        课程内容评分
+                    </ion-col>
+                    <ion-col col-8 text-center class="img-star">
+                        <ng-container *ngFor="let star of starList1;let i = index;">
+                            <span tappable (click)="checkStar1(i)" [ngClass]="star" class="icon iconfont"></span>
+                        </ng-container>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="row-comment">
+                    <ion-col col-4>
+                        视频质量评分
+                    </ion-col>
+                    <ion-col col-8 text-center class="img-star">
+                        <ng-container *ngFor="let star of starList2;let i = index;">
+                            <span tappable (click)="checkStar2(i)" [ngClass]="star" class="icon iconfont"></span>
+                        </ng-container>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="row-comment">
+                    <ion-col col-4>
+                        试题合理性评分
+                    </ion-col>
+                    <ion-col col-8 text-center class="img-star">
+                        <ng-container *ngFor="let star of starList3;let i = index;">
+                            <span tappable (click)="checkStar3(i)" [ngClass]="star" class="icon iconfont"></span>
+                        </ng-container>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div class="padding-10">
+                <textarea #textAreaElement [(ngModel)]="replyContent" class="content-textarea"
+                          placeholder="{{placeholder}}"></textarea>
+            </div>
+            <ion-row style="margin-top: 5px">
+                <ion-col col-4 style="line-height: 30px">
+                    <span class="send" tappable (click)="submit()">发送</span>
+                </ion-col>
+                <ion-col col-8 text-center class="img-star" *ngIf="type != 'talk'">
+                </ion-col>
+            </ion-row>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {LoadingController, NavController, Slides} from 'ionic-angular';
+import {Events, LoadingController, NavController, Slides} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
@@ -76,6 +76,7 @@ export class HomePage implements OnInit {
                 private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser,
                 private renderer: Renderer2,
                 private global: GlobalData,
+                private events: Events,
                 private learSer: LearnService,
                 private forum_serve: ForumService) {
         this.statusBar.backgroundColorByHexString('#343435');
@@ -88,7 +89,7 @@ export class HomePage implements OnInit {
             }
         });
         let app_url = (window as any).localStorage.getItem("app_url");
-        
+
         if (app_url) {
             this.openPosts(app_url);
             (window as any).localStorage.removeItem("app_url");
@@ -96,6 +97,17 @@ export class HomePage implements OnInit {
         (window as any).handleOpenURL = (url: string) => {
             this.openPosts(url);
         };
+        this.listenEvents();
+    }
+
+    //部分用户登录无角色 绑定信息之后才会有角色
+    listenEvents() {
+        this.events.subscribe('RoleID', () => {
+            this.storage.get('RoleID').then(value => {
+                this.getBanner(value);
+                this.getProductList(value);
+            })
+        })
     }
 
     ngOnInit() {
@@ -120,22 +132,26 @@ export class HomePage implements OnInit {
     }
 
     ionViewWillEnter() {
+        //动画
         this.appSer.wowInfo.subscribe(
             (value) => {
                 this.wow = value;
             }
-        )
+        );
         this.getNew();
+
     }
 
     ionViewDidLeave() {
         this.appSer.setWow(false);
     }
 
+    //轮播图启动轮播
     aotuPlay() {
         this.slides.startAutoplay();
     }
 
+    //下拉刷新
     doRefresh(e) {
         this.ionViewDidLoad();
         timer(1000).subscribe((res) => {
@@ -165,12 +181,6 @@ export class HomePage implements OnInit {
     goToLearn(index) {
         this.navCtrl.setRoot(LearningPage, {item: this.productList[index], headType: 1});
         this.navCtrl.parent.select(1);
-    }
-
-    selectPerson(index) {
-        this.personrType = index;
-        const width = this.imgWidth.nativeElement.offsetWidth / 5;
-        this.angular.nativeElement.style.left = index * width + width / 2 - 10 + 'px';
     }
 
     //获取轮播图
@@ -263,7 +273,7 @@ export class HomePage implements OnInit {
         const data = {
             "Type": 0,
             "Page": 1,
-            "PageSize": 1000,
+            "PageSize": 99,
         };
         this.mineSer.GetUnReadUserNewsList(data).subscribe(
             (res) => {
@@ -421,16 +431,6 @@ export class HomePage implements OnInit {
 
     // 获取热门帖子
     getLIistData() {
-        //         速度 七十迈:
-// api/forum/post/searchhotpostbytimedesc
-// IsHotPost参数对应：1=热帖，0=论坛热门帖子
-// 速度 七十迈:
-// 参数结构：{
-//   "IsHotPost": "0",
-//   "OrderBy": "",
-//   "OrderByDirection": "",
-//   "PageIndex": 1,
-//   "PageSize": 10
         let data = {
             "IsHotPost": "1",
             "OrderBy": "",
