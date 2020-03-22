@@ -49,7 +49,8 @@ export class VideoListsPage {
 
     doSearch(event) {
         if (event && event.keyCode == 13 && this.page.searchKey && this.page.searchKey !== '') {
-            alert('searchKey:' + this.page.searchKey);
+            this.page.Page = 1;
+            this.getList();
         }
     }
 

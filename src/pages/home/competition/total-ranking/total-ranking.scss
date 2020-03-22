@@ -1,0 +1,59 @@
+page-total-ranking {
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+  // 考试列表
+  .lists-ranking {
+    background-color: #FFFFFF;
+    li {
+      height: 6rem;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #f2f2f2;
+      .ranking-front {
+        margin-left: 1.5rem;
+        margin-right: 1rem;
+        width: 2.4rem;
+        height: 3rem;
+      }
+      .ranking-num {
+        margin-left: 2.2rem;
+        margin-right: 1.8rem;
+        color: #333333;
+      }
+      .avatar {
+        margin-right: 1rem;
+        width: 2.8rem;
+        height: 2.8rem;
+        border-radius: 50%;
+      }
+      .userinfo {
+        flex: 1;
+        .username {
+          margin-bottom: 0.5rem;
+          font-size: 1.3rem;
+          color: #000000;
+        }
+      }
+      .company {
+        margin-right: 1.7rem;
+        font-size: 1.2rem;
+        color: #888888;
+      }
+      .ranking-points {
+        //
+        //font-size: 1.4rem;
+        //color: #000000;
+        //.points-total {
+        //  margin-right: 0.5rem;
+        //}
+      }
+    }
+  }
+}

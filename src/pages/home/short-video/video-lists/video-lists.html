@@ -33,10 +33,10 @@
         <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
       </div>
       <div class="video-info">
-        <span class="info-text">知乎</span>
+        <span class="info-text">{{item.Description}}</span>
         <span class="info-right">
             <img class="like-icon" src="./assets/imgs/competition/dianzan@2x.png" alt="点赞icon">
-            <span class="like-num">134</span>
+            <span class="like-num">{{ item.LikeCount }}</span>
             <img class="enjoy-icon"src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
           </span>
       </div>
