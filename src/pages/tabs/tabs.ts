@@ -93,11 +93,11 @@ export class TabsPage {
         });
         this.storage.get('user').then(value => {
             console.log(value);
-            if (!value.MainUserID) {
+            if (value && !value.MainUserID) {
                 this.getUserInfo();
                 return
             }
-            if (value.MainUserID && value.MainUserID === '00000000-0000-0000-0000-000000000000') {
+            if (value && value.MainUserID && value.MainUserID === '00000000-0000-0000-0000-000000000000') {
                 this.userInfo = value;
                 this.inputType = 'submit';
             }

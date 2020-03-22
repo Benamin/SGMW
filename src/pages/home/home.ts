@@ -40,6 +40,7 @@ import {PostsContentComponent} from '../forum/posts-content/posts-content.compon
 import {GlobalData} from "../../core/GlobleData";
 import {DoTestPage} from "./test/do-test/do-test";
 import {LookTestPage} from "./test/look-test/look-test";
+import {CompetitionListsPage} from "./competition/lists/lists";
 
 @Component({
     selector: 'page-home',
@@ -423,6 +424,10 @@ export class HomePage implements OnInit {
         this.navCtrl.push(JobLevelPage);
     }
 
+    // 前往销售大赛
+    goToCompetition() {
+        this.navCtrl.push(CompetitionListsPage);
+    }
 
     // 前往帖子详情
     goPostsContent(data) {
@@ -509,7 +514,7 @@ export class HomePage implements OnInit {
                 let date = new Date();
                 let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
                 if (val != dateDay) { // 是否点击了取消今日提醒
-                    if (this.TodayRemind.ISExam || this.TodayRemind.Items.length > 0) {
+                    if (this.TodayRemind && this.TodayRemind.ISExam || this.TodayRemind && this.TodayRemind.Items.length > 0) {
                         this.is_TodayRemind = true;
                     }
                 }
