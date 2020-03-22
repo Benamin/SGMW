@@ -18,6 +18,9 @@ import {PipesModule} from "../pipes/pipes.module";
 import {TodayRemindComponent} from './today-remind/today-remind.component';
 import {PrivacyComponent} from './privacy/privacy';
 import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
+import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
+
+
 
 
 @NgModule({
@@ -40,6 +43,8 @@ import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
         IframeFileComponent,
         PrivacyComponent,
         CommentByCourseComponent,
+        EidtModalComponent
+
     ],
     imports: [
         IonicPageModule,
@@ -61,9 +66,11 @@ import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
         SearchSidebarComponent,
         ForumListTimeComponent,
         ImgPreviewComponent,
-        IframeFileComponent,
+        IframeFileComponent,        PrivacyComponent,
         PrivacyComponent,
         CommentByCourseComponent,
+        EidtModalComponent
+
     ],
     providers: [
         CommentComponent,
@@ -84,7 +91,8 @@ import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
         ImgPreviewComponent,
         IframeFileComponent,
         PrivacyComponent,
-        CommentByCourseComponent
+        CommentByCourseComponent,
+        EidtModalComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

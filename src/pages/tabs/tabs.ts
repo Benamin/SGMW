@@ -18,6 +18,7 @@ import {LoginService} from "../login/login.service";
 import {CommonService} from "../../core/common.service";
 import {Storage} from "@ionic/storage";
 import {PrivacyComponent} from "../../components/privacy/privacy";
+import {VideoListsPage} from "../home/short-video/video-lists/video-lists";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -55,10 +56,10 @@ export class TabsPage {
             index: 3
         },
         {
-            root: CoursePage,
-            tabTitle: '我的学习',
-            tabIconOn: 'custom-serve-on',
-            tabIconOff: 'custom-serve-off',
+            root: VideoListsPage,
+            tabTitle: '视频',
+            tabIconOn: 'custom-video-on',
+            tabIconOff: 'custom-video-off',
             index: 4
         },
         {

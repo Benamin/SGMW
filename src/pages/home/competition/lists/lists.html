@@ -1,0 +1,212 @@
+<!--
+  Generated template for the ListsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>销售大赛</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="podium-pg">
+    <div class="more-btn" (click)="goTotalRanking(888)">
+      更多<img style="margin-left: 0.6rem;width: 0.6rem;height: 1.1rem;" src="assets/imgs/competition/arrow@2x.png" alt="更多">
+    </div>
+    <div class="phb_2">
+      <div class="name-div">
+        <img class="user-head" src="{{ userDefaultImg }}" alt="">
+        <div class="name type-name nowrap-1">闫磊</div>
+        <div class="user-label nowrap-1">
+          黄金门店
+        </div>
+      </div>
+      <img class="phb_2bg" src="assets/imgs/ranking/phb_2@2x.png" alt="第二">
+    </div>
+    <div class="phb_1">
+      <div class="name-div">
+        <img class="user-head" src="{{ userDefaultImg }}" alt="">
+        <div class="name type-name nowrap-1">1111111</div>
+        <div class="user-label nowrap-1">
+          青铜门店
+        </div>
+      </div>
+      <img  class="phb_1bg" src="assets/imgs/ranking/phb_1@2x.png" alt="第一">
+    </div>
+    <div class="phb_3">
+      <div class="name-div">
+        <img class="user-head" src="{{ userDefaultImg }}" alt="">
+        <div class="name type-name nowrap-1">孙喆</div>
+        <div class="user-label nowrap-1">
+          白银门店
+        </div>
+      </div>
+      <img  class="phb_3bg" src="assets/imgs/ranking/phb_3@2x.png" alt="第三">
+    </div>
+  </div>
+
+
+  <ul class="nav-type">
+    <li *ngFor="let item of page.navliArr" (click)="changeCheckType(item.lable)" [ngClass]="{'actived': page.checkType == item.lable}">
+      <div>{{ item.text }}</div>
+      <span class="item-line"></span>
+    </li>
+  </ul>
+
+  <div class="nav-type-2" *ngIf="page.checkType === page.navliArr[1].lable">
+    <div class="btn-box">
+      <div (click)="changeSecNav(1, secNavIndex, item.isActived)" *ngFor="let item of page.navliArr[1].secNav; let secNavIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
+        {{ item.navBtnText }}<span class="item-line"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-type-2" *ngIf="page.checkType === page.navliArr[2].lable">
+    <div class="btn-box">
+      <div (click)="changeSecNav(2, secNavIndex, item.isActived)" *ngFor="let item of page.navliArr[2].secNav; let secNavIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
+        {{ item.navBtnText }}<span class="item-line"></span>
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="nav-type-2">-->
+    <!--<div class="btn-box">-->
+      <!--<div class="type-btn actived">-->
+        <!--所有视频<span class="item-line"></span>-->
+      <!--</div>-->
+      <!--<div class="type-btn">-->
+        <!--大赛排行榜<span class="item-line"></span>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--帖子 start -->
+  <div class="nav-type-3" *ngIf="page.checkType === page.navliArr[1].lable && page.navliArr[1].secNav[0].isActived === true">
+    <div (click)="changeThrNav(1, 0, thrNavIndex, item.isActived)" *ngFor="let item of page.navliArr[1].secNav[0].thrNav; let thrNavIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
+      {{ item.navBtnText }}<span class="item-line"></span>
+    </div>
+  </div>
+  <!-- 帖子 end -->
+  <!-- 大赛排行榜 start -->
+  <div class="nav-type-3" *ngIf="page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true">
+    <div (click)="changeThrNav(2, 1, thrNavIndex, item.isActived)" *ngFor="let item of page.navliArr[2].secNav[1].thrNav; let thrNavIndex = index" class="type-btn"  [ngClass]="{'actived': item.isActived}">
+      {{ item.navBtnText }}<span class="item-line"></span>
+    </div>
+  </div>
+  <!-- 大赛排行榜 end -->
+
+  <ul class="exam-pro-lists" *ngIf="page.checkType === 'exam'">
+    <li (click)="goListsRanking(888)">
+      <img class="lists-banner" src="./assets/imgs/competition/banner.png" alt="封面海报">
+      <div class="exam-info">
+        <div class="title">第一轮考试</div>
+        <div class="exam-num">
+          本人排行：第10名
+        </div>
+        <div class="status-box">
+          <div class="status-type">大赛排行榜</div>
+          <div class="status-btn">
+            <span>参加考试</span>
+            <img style="margin-left: 0.6rem;width: 0.6rem;height: 1.1rem;" src="assets/imgs/competition/arrow@2x.png" alt="更多">
+          </div>
+        </div>
+      </div>
+    </li>
+    <li (click)="goListsRanking(888)">
+      <img class="lists-banner" src="./assets/imgs/competition/banner.png" alt="封面海报">
+      <div class="exam-info">
+        <div class="title">第一轮考试</div>
+        <div class="exam-num">
+          本人排行：第10名
+        </div>
+        <div class="status-box">
+          <div class="status-type">大赛排行榜</div>
+          <div class="status-finish">已完成</div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <!-- 帖子列表 -->
+  <ul class="topic-lists" *ngIf="page.checkType === 'topic'">
+    <li>
+      <div class="topic-user">
+        <img class="avatar" src="{{ userDefaultImg }}" alt="帖子列表默认头像">
+        <div class="user-box">
+          <div class="name-time">
+            <span class="name">秋国艳</span>
+            <span class="time">1小时前</span>
+          </div>
+          <div class="company">浙江东胜车辆有限公司</div>
+        </div>
+        <div class="num-box">
+          <span class="number-my">本人排名：第9名</span>
+          <img src="./assets/imgs/consultation/share@3x.png" alt="转发按钮">
+        </div>
+      </div>
+      <div class="topic-discript">
+        新宝骏RM-5 RC-6 全擎上市全擎在线、智能出 行，全系标配新宝骏车联网系统新宝骏RC-6 全 擎上市全擎在线、智能出行
+      </div>
+      <div class="topic-pic-box">
+        <div class="topic-one-pic">
+          <img src="./assets/imgs/competition/banner.png" alt="单张图">
+        </div>
+        <div class="topic-multiple-pic">
+          <img src="./assets/imgs/competition/banner.png" alt="多张图">
+          <img src="./assets/imgs/competition/banner.png" alt="多张图">
+          <img src="./assets/imgs/competition/banner.png" alt="多张图">
+        </div>
+      </div>
+      <div class="topic-info">
+        <span class="topic-type">产品体验</span>
+        <span class="num-info-box">
+          <span class="read-num">
+            <img src="./assets/imgs/competition/see@2x.png" alt="阅读量">
+            134
+          </span>
+          <span class="comment-num">
+            <img src="./assets/imgs/competition/pinglun@2x.png" alt="评论量">
+            134
+          </span>
+          <span class="like-num">
+            <img src="./assets/imgs/competition/dianzan@2x.png" alt="点赞量">
+            134
+          </span>
+        </span>
+      </div>
+    </li>
+  </ul>
+  <!-- 帖子列表 -->
+
+  <!--视频列表-->
+  <ul class="video-lists" *ngIf="page.checkType === 'short-video'">
+    <li (click)="goVideoBox(11111)">
+      <div class="video-box">
+        <img class="video-poster" src="./assets/imgs/competition/fengmian@2x.png" alt="视频图片">
+        <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+        <div class="mask"></div>
+        <div class="video-title">
+          <span>用车分享：大宝第十次的维修保养知识</span>
+          <img src="./assets/imgs/competition/delet@2x.png" alt="删除">
+        </div>
+        <span class="video-length">02:15</span>
+      </div>
+      <div class="video-info">
+        <span class="company">浙江东胜车辆有限公司</span>
+        <span class="num-info-box">
+          <span class="comment-num">
+            <img src="./assets/imgs/competition/pinglun@2x.png" alt="评论量">
+            134
+          </span>
+          <span class="like-num">
+            <img src="./assets/imgs/competition/dianzan@2x.png" alt="点赞量">
+            134
+          </span>
+        </span>
+      </div>
+    </li>
+  </ul>
+
+</ion-content>
+<img (click)="goToEdit()" style="position: absolute;bottom: 5.7rem;right: 2rem;width: 5.8rem;height: 5.8rem; z-index: 999;" src="./assets/imgs/competition/xinzeng@2x.png" alt="添加小视屏">

@@ -20,6 +20,7 @@ import {MyFilePage} from "./my-file/my-file";
 import {MineService} from './medal/medal.serve';
 import {PipesModule} from "../../pipes/pipes.module";
 import {IntegralComponent} from "./Integral/Integral.component";
+import {MyShortVideoPage} from "./my-short-video/my-short-video";
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import {IntegralComponent} from "./Integral/Integral.component";
         MyFollowsComponent,
         MedalComponent,
         MyFilePage,
-        IntegralComponent
+        IntegralComponent,
+        MyShortVideoPage
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -60,7 +62,8 @@ import {IntegralComponent} from "./Integral/Integral.component";
         MyFollowsComponent,
         MedalComponent,
         MyFilePage,
-        IntegralComponent
+        IntegralComponent,
+        MyShortVideoPage
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

@@ -78,7 +78,7 @@ export class MinePage {
     getUserInfo() {
         this.mineSer.GetMyInfo().subscribe(
             (res) => {
-                this.userInfo = res.data?res.data:{};
+                this.userInfo = res.data ? res.data : {};
                 let flag = false;
                 this.RoleNames = this.userInfo['Roles'] ? this.userInfo['Roles'] : [];
                 this.RoleNames.forEach(e => {
@@ -172,6 +172,11 @@ export class MinePage {
     // 积分章程
     goIntegral() {
         this.navCtrl.push(IntegralComponent);
+    }
+
+    // 我的视频
+    goMyshortVideo() {
+        // this.navCtrl.push(MyShortVideoPage);
     }
 
     //检测版本

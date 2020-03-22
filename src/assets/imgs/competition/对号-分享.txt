@@ -1,0 +1,23 @@
+&#xe61e;<span class="iconfont">&#xe61e;</span>
+对号
+
+imgs/consultation/share@3x.png  
+分享
+
+/forum/list/luntan_play@2x.png
+播放
+
+/forum/list/luntan_like@2x.png
+点赞灰色
+/forum/list/luntan_like_on@2x.png
+点赞黄色
+
+imgs/forum/other/p71_cancel@2x.png
+X按钮
+imgs/forum/other/p71_add@2x.png
++按钮
+imgs/forum/other/p71_save@2x.png
+保存 存档图标
+
+imgs/ranking/
+列表顶部那块排名
