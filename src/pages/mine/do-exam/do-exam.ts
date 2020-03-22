@@ -110,13 +110,15 @@ export class DoExamPage {
             if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
         });
         const data = {
-            submitType: 2
+            submitType: 2,
+            postsCertID: this.global.PostsCertID
         };
         this.homeSer.submitPaper(data, this.exam).subscribe(
             (res) => {
                 loading.dismiss();
                 if (res.code == 200) {
                     this.commonSer.toast('暂存成功');
+                    this.navCtrl.getPrevious().data.courseEnterSource = '';
                     this.navCtrl.pop();
                 } else {
                     this.commonSer.toast(res.Message);
@@ -150,17 +152,18 @@ export class DoExamPage {
                 if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
             });
             const data = {
-                submitType: status
+                submitType: status,
+                postsCertID: this.global.PostsCertID
             };
-            console.log(this.exam);
             this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
                     if (res.code == 200 && status == 3) {
-                        this.score.score = res.message;
+                        this.score.score = Math.ceil(res.message);
                         this.score.show = true;
                     } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');
+                        this.navCtrl.getPrevious().data.courseEnterSource = '';
                         this.navCtrl.pop();
                     } else {
                         this.commonSer.toast(JSON.stringify(res));

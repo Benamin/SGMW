@@ -142,7 +142,7 @@ export class DoTestPage {
 
     //题目完成数量
     slideChanged() {
-        if(this.slides.realIndex) this.index = this.slides.realIndex;
+        if (this.slides.realIndex) this.index = this.slides.realIndex;
         this.doneTotal = 0;
         this.exam.QnAInfos.forEach(e => {
                 if (e.StuAnswer && e.StuAnswer.length > 0) {
@@ -189,6 +189,7 @@ export class DoTestPage {
             const data = {
                 submitType: status
             };
+            console.log(this.exam);
             this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();

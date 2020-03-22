@@ -49,9 +49,9 @@ export class CourseDetailPage {
         {type: 1, name: '简介', code: 'desc'},
         {type: 2, name: '章节', code: 'chapter'},
         {type: 3, name: '讨论', code: 'talk'},
-        {type: 4, name: '讲师', code: 'teacher'},
-        {type: 5, name: '评价', code: 'comment'},
-        {type: 6, name: '相关', code: 'relation'},
+        // {type: 4, name: '讲师', code: 'teacher'},
+        {type: 4, name: '评价', code: 'comment'},
+        {type: 5, name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -120,6 +120,7 @@ export class CourseDetailPage {
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                this.global.PostsCertID = res.data.PostCertificationID;
                 this.SortType = res.data.SortType;
                 this.getChapter();  //章节信息
                 this.getRelationProduct();  //
@@ -251,7 +252,6 @@ export class CourseDetailPage {
      * 校验作业并跳转
      */
     checkTag() {
-        console.log('校验作业并跳转');
         this.tagsNodeList.forEach(e => {
             if (e.ID == this.nodeLevel4.ID) { //查到了ID
                 for (let t = 0; t < e.tags.length; t++) {
@@ -266,9 +266,8 @@ export class CourseDetailPage {
 
     //查询作业信息
     handleVideoExam(exam) {
-        console.log('查询作业信息');
         let load = this.loadCtrl.create({
-            content: '正在跳转，请等待...'
+            content: '正在前往作业，请等待...'
         });
         load.present();
         const data = {
@@ -406,7 +405,8 @@ export class CourseDetailPage {
     //更新学习进度  非视频
     saveProcess(file) {
         const data = {
-            EAttachmentID: file.ID
+            EAttachmentID: file.ID,
+            postsCertID: this.global.PostsCertID
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
@@ -478,6 +478,7 @@ export class CourseDetailPage {
             (res) => {
                 this.loading.dismiss();
                 this.product.detail = res.data;
+                this.global.PostsCertID = res.data.PostCertificationID;
             }
         );
     }
@@ -522,6 +523,10 @@ export class CourseDetailPage {
 
     //点赞
     savePraise() {
+        if (this.product.detail.IsHate) {
+            this.commonSer.toast('您已经扔鸡蛋了哦～');
+            return
+        }
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -559,6 +564,10 @@ export class CourseDetailPage {
 
     //扔鸡蛋
     saveHate() {
+        if (this.product.detail.IsPraise) {
+            this.commonSer.toast('您已经点赞了哦～');
+            return
+        }
         this.loading = this.loadCtrl.create({
             content: '',
             dismissOnPageChange: true,
@@ -686,7 +695,7 @@ export class CourseDetailPage {
     //教师评价
     goTeacherComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你对讲师的评价...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'teacher',
             PId: this.global.pId,
@@ -697,7 +706,7 @@ export class CourseDetailPage {
     //课程评价
     goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你的评价...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
             title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
@@ -708,7 +717,7 @@ export class CourseDetailPage {
     //课程讨论
     goCourseDiscuss() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你要讨论的内容...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'talk',
             title: this.product.detail.TeachTypeName == "直播" ? '直播讨论' : '课程讨论',

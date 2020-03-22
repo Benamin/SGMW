@@ -88,7 +88,6 @@ page-study-plan {
     margin: 0;
     padding: 0;
     li {
-      margin-bottom: 0.5rem;
       background-color: #fff;
       list-style: none;
       color: #333333;
@@ -113,24 +112,26 @@ page-study-plan {
           text-overflow: ellipsis;
         }
       }
-      .list-item {
-        padding: 0 1.5rem 0 2.9rem;
-        height: 3.8rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        .play-icon {
-          width: 1.4rem;
-          height: 1.4rem;
+      .lists {
+        border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
+        .list-item {
+          padding: 0 1.5rem 0 2.9rem;
+          height: 3.8rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .play-icon {
+            width: 1.4rem;
+            height: 1.4rem;
+          }
+          .more {
+            margin-left: 0.8rem;
+            color: #999999;
+          }
         }
-        .more {
-          margin-left: 0.8rem;
-          color: #999999;
+        &:last-child {
+          border: none;
         }
-      }
-      .list-item:nth-last-child(1) {
-        border: none;
       }
     }
   }

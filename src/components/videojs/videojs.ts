@@ -36,6 +36,12 @@ export class VideojsComponent implements OnDestroy {
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.global.videoNum;
         this.videoEle = `video${videoNum}`;
+        videojs.addLanguage('zh-CN', {
+            "A network error caused the media download to fail part-way.": "网络错误导致视频下载中途失败。",
+            "The media could not be loaded, either because the server or network failed or because the format is not supported.": "视频播放未能正常加载，请检查网络环境或者内存空间。",
+            "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
+        });
+
         timer(100).subscribe(() => {
             this.video = videojs(this.videoEle, {
                 muted: false,
@@ -55,17 +61,19 @@ export class VideojsComponent implements OnDestroy {
                     if (!this.video.isFullscreen()) {
                         this.screenOrientation.lock('portrait');  //锁定竖屏
                         this.statusBar.show();
+                        this.updateVideoStatus();
                     }
                 });
                 this.video.on('ended', () => {
-                    console.log('video end')
                     this.isPlay = false;
                     this.screenOrientation.lock('portrait');  //锁定竖屏
                     if (this.platform.is('ios')) {
                         this.appSer.setIOS('videoReset');
                         document.getElementsByTagName('video')[0].webkitExitFullscreen();
                     }
-                    if (this.platform.is('android')) this.video.exitFullscreen();
+                    if (this.platform.is('android')){
+                        this.video.exitFullscreen();
+                    }
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
@@ -79,7 +87,8 @@ export class VideojsComponent implements OnDestroy {
     //更新视频学习状态
     updateVideoStatus() {
         const data = {
-            cid: this.videoInfo.TeachingID
+            cid: this.videoInfo.TeachingID,
+            postsCertID: this.global.PostsCertID
         }
         this.learnSer.UpdateVideoStudySum(data).subscribe(
             (res) => {

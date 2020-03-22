@@ -129,15 +129,15 @@ export class TreeListComponent {
             // this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
             this.downloadPro.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
         } else {   //文档
-            fileUrl = file.fileUrl;
-            this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + fileUrl.icon);
+            this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
         }
     }
 
     //更新学习进度  非视频课件
     saveProcess(file) {
         const data = {
-            EAttachmentID: file.ID
+            EAttachmentID: file.ID,
+            postsCertID:this.global.PostsCertID
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {

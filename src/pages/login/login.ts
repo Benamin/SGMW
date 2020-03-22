@@ -47,7 +47,7 @@ export class LoginPage {
         client_id: sgmw_client_id,
         username: '',
         password: '',
-        usertype: 'sgmw',
+        usertype: 'GYS',
         codeRight: '',
         inputCode: ''
     };
@@ -58,7 +58,7 @@ export class LoginPage {
         client_id: sgmw_client_id,
         username: '',
         password: '',
-        usertype: 'gys',
+        usertype: 'SGMW',
         codeRight: '',
         inputCode: ''
     };
@@ -102,6 +102,8 @@ export class LoginPage {
     noUserMsg = NoUserMsg;
     loading;
 
+    RegiID;   //jPush注册ID
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
                 private jPush: JPush,
@@ -127,7 +129,6 @@ export class LoginPage {
 
     //平台登录切换
     changeSlide(index, platform) {
-        console.log(index.platform)
         this.loginObj.platform = platform;
         this.slides.slideTo(index, 100);
     }
@@ -209,9 +210,8 @@ export class LoginPage {
     }
 
     /***销售助手***/
-    // --经销商登录
     loginXszsJsx() {
-        this.userRoleName = '经销商';
+        this.userRoleName = '销售助手';
         this.setRoleNames();
         if (this.jxs.xszs.codeRight != this.jxs.xszs.inputCode) {
             this.commonSer.toast('请输入正确的验证码');
@@ -253,7 +253,8 @@ export class LoginPage {
             client_id: XSZS_client_id,
             username: res.czymc,
             jxsh: res.jxsh,
-            czydm: res.czydm
+            czydm: res.czydm,
+            usertype: 'JXS',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -319,6 +320,7 @@ export class LoginPage {
             client_id: JunKe_client_id,
             username: this.jxs.junke.username,
             jxsh: res.dealerCode,
+            usertype: 'JK',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -344,7 +346,7 @@ export class LoginPage {
 
     /***服务助手登录***/
     fwzsLogin() {
-        this.userRoleName = '销售助手';
+        this.userRoleName = '服务助手';
         this.setRoleNames();
         if (!this.fwzsObj.userName || !this.fwzsObj.password) {
             this.commonSer.toast("请输入用户名密码");
@@ -395,13 +397,14 @@ export class LoginPage {
         )
     }
 
-    //获取token --销售助手
+    //获取token --服务助手
     connectTokenByFWZS(res) {
         const data = {
             grant_type: "password",
             client_id: FWZS_client_id,
             username: res.userName,
             jxsh: this.fwzsObj.stationNo,
+            usertype: 'SERVICE',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -430,25 +433,24 @@ export class LoginPage {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
-                this.userAsync(res);
                 if (res.code == 200 && res.data) {
                     // 获取用户角色 列表  存储用户角色
-                    this.loginSer.GetMyInfo().subscribe(res2 => {
-                        let RoleID = '';
-                        res2.data.Roles.forEach(e => {
-                            if (e.RoleName == this.userRoleName) {
-                                RoleID = e.RoleID;
-                            }
-                        });
-                        if (RoleID) {
-                            this.storage.set('RoleID', RoleID);
-                        } else {
-                            this.storage.set('RoleID', res2.data.Roles[0].RoleID);
-                        }
-                        this.storage.set('RoleName', this.userRoleName);
+                    if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
                         this.userAsync(res);
                         this.updateRegID(res);
-                    })
+                    } else {
+                        this.loginSer.GetMyInfo().subscribe(res2 => {
+                            if (res2.data) {
+                                this.storage.set('CurrentRole', {
+                                    CurrentRoleID: res2.data.CurrentRoleID,
+                                    CurrentRoleName: res2.data.CurrentRoleNames
+                                });
+                                this.userAsync(res);
+                                this.updateRegID(res);
+                                this.storage.set('RoleID', res2.data.CurrentRoleID);
+                            }
+                        })
+                    }
                 } else {
                     this.loading.dismiss();
                     this.storage.clear();
@@ -460,10 +462,22 @@ export class LoginPage {
 
     //jPush提交用户信息
     updateRegID(res) {
-        console.log(`getRegistrationID:${this.globalData.RegiID}`);
+        this.jPush.getRegistrationID().then((regiID) => {
+            if (regiID) {
+                this.RegiID = regiID;
+                this.uploadRegID(res);
+            } else {
+                setTimeout(() => {
+                    this.updateRegID(res)
+                }, 2000);
+            }
+        })
+    }
+
+    uploadRegID(res) {
         const data = {
             UserId: res.data.UserId,
-            RegId: this.globalData.RegiID
+            RegId: this.RegiID
         };
         this.loginSer.UpdateUserRegID(data).subscribe(
             (res) => {
@@ -472,13 +486,12 @@ export class LoginPage {
                 }
             }
         )
-
     }
 
     //用户是否同步
     userAsync(res) {
         this.loading.dismiss();
-        if (res.data.UserId == '00000000-0000-0000-0000-000000000000') {
+        if (res.data.LoginUserId == '00000000-0000-0000-0000-000000000000') {
             this.commonSer.alert(this.noUserMsg);
         } else {
             this.storage.set('user', res.data);

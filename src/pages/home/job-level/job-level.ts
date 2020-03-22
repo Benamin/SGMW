@@ -66,7 +66,7 @@ export class JobLevelPage {
                 this.page.TotalCount = res.data.TotalCount;
                 this.page.isLoad = true;
                 loading.dismiss();
-                console.log('GetJobLevelList', res);
+                // console.log('GetJobLevelList', res);
             }
         )
     }

@@ -497,7 +497,8 @@ export class FocusCoursePage {
     //更新学习进度
     saveProcess(file) {
         const data = {
-            EAttachmentID: file.ID
+            EAttachmentID: file.ID,
+            postsCertID:this.global.PostsCertID
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {

@@ -6,15 +6,15 @@
 <ion-content>
   <div *ngIf="detail">
     <div class="banner-box">
-      <img class="bg-img" src="./assets/imgs/home/xm_bg@2x.png"/>
+      <img class="bg-img" [src]="detail.Items.CoverUrl || './assets/imgs/home/xm_bg@2x.png'"/>
 
       <div class="posi-box">
         <div class="banner-title" *ngIf="detail">{{ detail.Items.Title }}</div>
         <div class="banner-timer">{{ detail.timeArea }}</div>
-        <div (click)="doOnlineSignIn()" class="sign-btn-btn" *ngIf="detail.Items.AuthenticationType === 'xskc'  && !detail.Items.IsSignIn;else other_content">
+        <div (click)="doJobLevelSignIn()" class="sign-btn-btn" *ngIf="!detail.Items.IsSignIn;else other_content">
           参加认证
         </div>
-        <ng-template #other_content>
+        <ng-template #other_content>1
           <div class="banner-info">
             <div style="justify-content: flex-end;">
               <img
@@ -57,7 +57,7 @@
       <dl class="content-modal" *ngFor="let item of detail.Items.GCapabilityModelList; let Index = index"
           [attr.data-index]="Index">
         <dt>
-          <span>能力模型{{Index + 1}}</span>
+          <span>{{ item.Name ? item.Name : '课程' + Index + 1 }}</span>
           <ion-icon name="arrow-down" style="color: #999999;"></ion-icon>
         </dt>
         <!-- 岗位认证AuthenticationType:  "jzpx" -集中培训，'xm'表示线下，xskc表示线上 -->
@@ -74,14 +74,20 @@
               <dd class="disabled" *ngIf="CourseItem.Coursestatus == 0">{{ CourseItem.Title }}</dd>
               <dd class="available" *ngIf="CourseItem.Coursestatus == 1">
                 <span>{{ CourseItem.Title }}</span>
-                <span class="course-btn" (click)="doOnlineSignIn(CourseItem.ID, Index, pIndex, cIndex)">立即报名</span>
+                <span class="course-btn" (click)="doUnlineSignIn(CourseItem.ID, Index, pIndex, cIndex)">立即报名</span>
               </dd>
-              <dd class="already" *ngIf="CourseItem.Coursestatus == 2">
+              <dd class="already" *ngIf="CourseItem.Coursestatus == 2" (click)="getCourseDetailById(CourseItem.ID)">
                 <span>{{ CourseItem.Title }}</span>
                 <span class="right"
                 >已报名
                 <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
                 /></span>
+              </dd>
+              <dd class="already" *ngIf="CourseItem.Coursestatus == 3" (click)="getCourseDetailById(CourseItem.ID)">
+                <span>{{CourseItem.Title}}</span>
+                <span style="display: flex;align-items: center;">
+                  已完成 <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"/>
+                </span>
               </dd>
             </div>
           </div>
@@ -91,6 +97,9 @@
         <div *ngIf="detail.Items.AuthenticationType === 'xskc'">
           <div *ngFor="let ProjectItem of item.ProjectList;">
             <div *ngFor="let CourseItem of ProjectItem.CourseList;">
+              <dd class="already" *ngIf="CourseItem.Coursestatus == 1" (click)="getCourseDetailById(CourseItem.ID)">
+                <span>{{CourseItem.Title}}</span>
+              </dd>
               <dd class="continue" *ngIf="CourseItem.Coursestatus == 2" (click)="getCourseDetailById(CourseItem.ID)">
                 <span>{{CourseItem.Title}}</span>
                 <span class="right"
@@ -100,9 +109,9 @@
               </dd>
               <dd class="already" *ngIf="CourseItem.Coursestatus == 3" (click)="getCourseDetailById(CourseItem.ID)">
                 <span>{{CourseItem.Title}}</span>
-                <span
-                ><img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"
-                /></span>
+                <span style="display: flex;align-items: center;">
+                  已完成 <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon"/>
+                </span>
               </dd>
             </div>
           </div>

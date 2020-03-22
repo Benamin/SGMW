@@ -33,7 +33,7 @@ export class JobLevelInfoPage {
         },
         {
             lable: "ability",
-            text: "能力模型"
+            text: "课程"
         }
     ];
     checkType = "introduction";
@@ -64,8 +64,10 @@ export class JobLevelInfoPage {
             win.addEventListener(resizeEvt, recalc, false);
             doc.addEventListener("DOMContentLoaded", recalc, false);
         })(document, window);
+    }
+
+    ionViewDidEnter() {
         this.id = this.navParams.get("id");
-        // console.log('idid', this.id)
         this.getDetail();
     }
 
@@ -78,7 +80,7 @@ export class JobLevelInfoPage {
             PositionCertificationID: this.id
         };
         this.homeSer.GetJobLevelInfoById(data).subscribe(res => {
-            console.log(999, res)
+            // console.log(999, res)
             let data = res.data
             if (data.Items.AuthenticationType === 'xm') {
                 let GCList = data.Items.GCapabilityModelList;
@@ -119,18 +121,21 @@ export class JobLevelInfoPage {
     }
 
     // 线上 点击参加认证
-    doOnlineSignIn(courseID, Index, pIndex, cIndex) {
-        console.log(this.detail.Items.ID);
+    doUnlineSignIn(courseID, Index, pIndex, cIndex) {
+        // console.log(this.detail.Items.ID);
         let ID = this.detail.Items.ID
         if (courseID) {
             ID = courseID
         }
-        console.log(888, ID)
         let loading = this.loadCtrl.create({
             content: ''
         });
+        let data = {
+            cspid: ID,
+            PostsCertificationpID: this.id //岗位认证pid
+        }
         loading.present();
-        this.homeSer.doOnlineSignIn(ID).subscribe(res => {
+        this.homeSer.doUnlineSignIn(data).subscribe(res => {
             if (courseID) {
                 // 线下
                 let GCList = this.detail.Items.GCapabilityModelList;
@@ -146,6 +151,21 @@ export class JobLevelInfoPage {
             } else {
                 this.detail.Items.IsSignIn = true;
             }
+            loading.dismiss();
+            this.getDetail();
+        });
+    }
+
+    doJobLevelSignIn(courseID, Index, pIndex, cIndex) {
+        let ID = this.detail.Items.ID
+        if (courseID) {
+            ID = courseID
+        }
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
+        this.homeSer.doJobLevelSignIn(ID).subscribe(res => {
             loading.dismiss();
             this.getDetail();
         });

@@ -88,6 +88,16 @@ export class LoginService {
         return this.http.get(SERVER_API_URL + '/User/GetUserInfoByUPN');
     }
 
+    //根据cardno获取用户信息
+    GetUserByCardNo(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/user/GetUserByCardNo' + this.dataForm.toQuery(data));
+    }
+
+    //用作更新用户的验证信息
+    UpdateUserByCardNo(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/user/UpdateUserByCardNo', data);
+    }
+
     /***服务助手***/
     fwzsLogin(data, header): Observable<any> {
         return this.http.post(FWZS_HTTP_URL + '/login/userlogin', data,

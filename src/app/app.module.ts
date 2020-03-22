@@ -122,7 +122,6 @@ import {MediaCapture} from '@ionic-native/media-capture';
             AppVersion,
             File,
             FileTransfer,
-            FileTransfer,
             MobileAccessibility,
             ScreenOrientation,
             PhotoLibrary,

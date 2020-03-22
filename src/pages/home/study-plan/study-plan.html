@@ -55,31 +55,24 @@
             </div>
         </li>
     </ul>
-    
-    <div class="actived-day" *ngIf="lableRC.activedRow">
-        <span>{{year}}年{{month}}月{{ calendarArr[lableRC.activedRow][lableRC.activedCol].day }}日</span>
-        <span>周{{week}}</span>
-    </div>
+
     <ul class="course-list">
         <li *ngIf="todayCourse.length === 0 && isLoad" style="padding: 1rem 0;text-align: center;">
-            该天暂无课程
+            暂无课程
         </li>
         <li *ngFor="let item of todayCourse">
+            <div class="actived-day" *ngIf="lableRC.activedRow">
+                <span>{{ item.YMD }} <span *ngIf="item.IsExam" style="color: orange;">(今日有考试)</span></span>
+                <span>周{{ item.week }}</span>
+            </div>
             <div class="item-time">
                 <span class="title-lable"></span>
-                <span class="title-text">{{item.CourseNames}}</span>
+                <span class="title-text">课程列表</span>
+                <!--{{item.CourseNames}}-->
             </div>
 
-            <div *ngIf="item.IsExam">
-                <div *ngFor="let ourseItem of item.Courses" >
-                <!--考试-->
-                    <div class="list-item">
-                        <span>{{ourseItem.Title}}</span>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="!item.IsExam">
-                <div *ngFor="let ourseItem of item.Courses" >
+            <div>
+                <div *ngFor="let ourseItem of item.Courses" class="lists">
                     <!--已完成-->
                     <div class="list-item" *ngIf="ourseItem.IsSignIn == true && ourseItem.IsOver == true">
                         <span>{{ourseItem.Title}}</span>
@@ -98,6 +91,16 @@
                         <span>{{ourseItem.Title}}</span>
                             <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
                             参加课程
+                            <ion-icon class="more" name="arrow-forward"></ion-icon>
+                        </span>
+                    </div>
+                </div>
+                <div *ngIf="item.IsExam" class="lists">
+                    <!--考试-->
+                    <div class="list-item" (click)="goTest()">
+                        <span>今日有考试</span>
+                        <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
+                            去考试
                             <ion-icon class="more" name="arrow-forward"></ion-icon>
                         </span>
                     </div>

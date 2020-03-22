@@ -64,9 +64,11 @@ export class MyApp {
             this.jPush.init();
             this.jPush.setDebugMode(true);
             this.jPushUtil.initPush();
+            this.jPush.resetBadge();
 
             //app字体不跟随手机字体大小变化
             this.mobileAccess.usePreferredTextZoom(false);
+
             this.splashScreen.show();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
@@ -86,8 +88,6 @@ export class MyApp {
                 if (value == 'platformIOS') {
                     this.isIOS = true;
                 }
-                console.log(this.isIphoneXR());
-                console.log(this.isIOS13());
                 if (value == 'videoReset') {
                     this.isIphone11IOS13 = false;
                     this.isIphone11IOS13 = false;
@@ -153,7 +153,6 @@ export class MyApp {
 
     imgLoad() {
         timer(500).subscribe(() => this.splashScreen.hide());
-        console.log('图片加载完成')
     }
 
     //鉴权
@@ -300,7 +299,7 @@ export class MyApp {
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
                     const onlineVersion = res.data.AppVersion.split('.').join('');
-                    if (versionCode != onlineVersion) {
+                    if (versionCode < onlineVersion) {
                         this.app.UpdateTips = true;
                         this.app.AppUrl = res.data.AppUrl;
                         this.app.UpdateText = res.data.UpdateText;

@@ -64,6 +64,7 @@ export class ForumPage implements OnInit {
     }
 
     initData() {
+        this.isdoInfinite=true;
         if (this.navli == '板块') {
             this.forum_topicplate_search();
             this.getHistory();
@@ -76,7 +77,13 @@ export class ForumPage implements OnInit {
     doInfinite(e) {
         console.log('加载');
         this.pageDate.pageIndex++;
-        this.forum_topicplate_search();
+        if(this.navli=='板块'){
+            this.forum_topicplate_search();
+        };
+        if(this.navli=='热帖'){
+            this.getLIistData();
+        };
+
         setTimeout(() => {
             e.complete();
         }, 1000);
@@ -121,6 +128,7 @@ export class ForumPage implements OnInit {
     doRefresh(e) {
         setTimeout(() => {
             e.complete();
+            this.isdoInfinite=true;
         }, 1000);
         if (this.navli == '热帖') {
             return this.switchInformation('热帖')
@@ -150,11 +158,24 @@ export class ForumPage implements OnInit {
             content: '加载中...'
         });
         loading.present();
-        this.serve.GetPostSearchhotpost().subscribe((res: any) => {
+        let data={
+            "IsHotPost": "0",
+            "OrderBy": "",
+            "OrderByDirection": "",
+            "PageIndex": this.pageDate.pageIndex,
+            "PageSize": 10
+        };
+
+        this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             loading.dismiss();
             if (res.data) {
-                this.forumLIst = res.data.UnTopPosts.Items;
+                
+                let arr = res.data.UnTopPosts.Items;
+                this.forumLIst = this.forumLIst.concat(arr);
                 this.no_list = this.forumLIst.length > 0 ? false : true;
+                if (arr == 0) {
+                    this.isdoInfinite = false;
+                }
             }
             console.log(res);
         });
