@@ -67,6 +67,7 @@ import {LogService} from "../service/log.service";
 import {Camera} from "@ionic-native/camera";
 import {JPush} from "@jiguang-ionic/jpush";
 import {JpushUtil} from "../core/jPush.util";
+import {MediaCapture} from '@ionic-native/media-capture';
 
 @NgModule({
     declarations: [
@@ -121,7 +122,6 @@ import {JpushUtil} from "../core/jPush.util";
             AppVersion,
             File,
             FileTransfer,
-            FileTransfer,
             MobileAccessibility,
             ScreenOrientation,
             PhotoLibrary,
@@ -149,6 +149,7 @@ import {JpushUtil} from "../core/jPush.util";
             Camera,
             JPush,
             JpushUtil,
+            MediaCapture,
             {provide: ErrorHandler, useClass: IonicErrorHandler},
             {
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

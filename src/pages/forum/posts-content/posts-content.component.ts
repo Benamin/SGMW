@@ -1,7 +1,8 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { NavParams, NavController,LoadingController } from "ionic-angular";
-
+import { PhotoLibrary } from "@ionic-native/photo-library";
 import { ForumService } from '../forum.service';
+import {CommonService} from "../../../core/common.service";
 import { ViewReplyComponent } from '../view-reply/view-reply.component';
 declare var Wechat;
 
@@ -45,7 +46,9 @@ export class PostsContentComponent implements OnInit {
   constructor(private serve: ForumService, 
     public navParams: NavParams, 
     public navCtrl: NavController,
-    private loadCtrl:LoadingController) { }
+    private loadCtrl:LoadingController,
+    private photoLibrary: PhotoLibrary,
+    public commonSer: CommonService) { }
 
   ngOnInit() {
     
@@ -118,10 +121,13 @@ export class PostsContentComponent implements OnInit {
         res.data.Replys.reverse();
       }
       this.dataCon = res.data;
+      
       this.dataCon['is_like'] = false;
       this.dataCon['is_guanzhu'] = false;
       this.dataCon['is_collect'] = false;
-
+      setTimeout(() => {
+        this.openImg();
+      }, 200);
       this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((res:any)  => {
         this.dataCon['is_like'] = res.data.is_like;
         this.dataCon['is_guanzhu'] = res.data.is_guanzhu;
@@ -138,6 +144,48 @@ export class PostsContentComponent implements OnInit {
 
     });
   }
+  showImgSrc='';
+  showImg=false;
+  openImg(){
+      let Dom=document.querySelectorAll('.inner-html');
+      let imgs=Dom[0].querySelectorAll('img');
+      // imgs.
+      for(let n =0;n<imgs.length;n++){
+        imgs[n].addEventListener('click',(e:any)=>{
+          console.log(e.srcElement.src);
+          this.showImg=true;
+          this.isenlarge=false;
+          this.showImgSrc=e.srcElement.src;
+        })
+      }
+      console.log('获取原始',imgs)
+      // Dom.addEventListener()
+  }
+  isenlarge=false;
+  enlarge(){
+    this.isenlarge=true;
+  }
+ 
+  narrow(){
+    this.isenlarge=false;
+  }
+  CloseImg(){
+    this.showImg=false;
+      this.showImgSrc='';
+  }
+
+  photoLibraryDown(){
+    this.photoLibrary.requestAuthorization({read: true, write: true}).then(() => {
+      this.photoLibrary.saveImage(this.showImgSrc,'SGMw').then(()=>{
+        alert('保存成功')
+      })
+  }, (err) => {
+      this.commonSer.alert(`没有相册权限，请手动设置权限`);
+  })
+  }
+  
+
+
 
   reasizeData(){
     let loading = this.loadCtrl.create({
@@ -159,15 +207,7 @@ export class PostsContentComponent implements OnInit {
       this.dataCon['Replys'].forEach(time => {
 
       });
-    //   const data = {
-    //     pageSize: this.page.pageSize,
-    //     page: this.page.page,
-    //     TopicType: this.TopicType,   //teacher  course
-    //     topicID: this.topicID
-    // };
-    // this.serve.GeECommentGetComment(data).subscribe(res => {
-      
-    // })
+
 
       this.dataCon['is_like'] = false;
       this.dataCon['is_guanzhu'] = false;

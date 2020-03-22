@@ -22,7 +22,6 @@ import {MyFilePage} from "./my-file/my-file";
 import {ForumService} from "../forum/forum.service";
 import {LogService} from "../../service/log.service";
 import {IntegralComponent} from "./Integral/Integral.component";
-import {MyShortVideoPage} from "./my-short-video/my-short-video";
 
 @Component({
     selector: 'page-mine',
@@ -33,31 +32,34 @@ export class MinePage {
     userInfo;
     number;
     version;
-    RoleName='';
+    CurrentRole;
     appVersionInfo = {
         UpdateTips: false,
         AppUrl: '',
         UpdateText: '',
-    }
+    };
+
+    RoleName;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private logoutSer: LogoutService,
                 private mineSer: MineService, private events: Events, private appVersion: AppVersion,
                 private loginSer: LoginService, private inAppBrowser: InAppBrowser,
                 private platform: Platform,
-                private logSer:LogService,
+                private logSer: LogService,
                 private forumServe: ForumService,
                 private commonSer: CommonService,
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
             this.mineInfo = value;
-            
-        })
-        this.storage.get('RoleName').then(val => {
-            this.RoleName = val;
+
+        });
+        this.storage.get('CurrentRole').then(val => {
+            this.CurrentRole = val;
+            this.RoleName = val.CurrentRoleName;
         })
     }
-    
+
     ionViewDidEnter() {
         this.logSer.visitLog('grzx');
         this.getVersion();
@@ -65,7 +67,7 @@ export class MinePage {
         this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {
             this.mineSer.GetMyProductCountInfo().subscribe(
                 (res2) => {
-                    if (res1.data) res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
+                    res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
                     this.number = res2.data;
                 }
             )
@@ -76,9 +78,21 @@ export class MinePage {
     getUserInfo() {
         this.mineSer.GetMyInfo().subscribe(
             (res) => {
-                this.userInfo = res.data;
-                if (this.userInfo) this.RoleNames=this.userInfo['Roles']?this.userInfo['Roles']:[];
-                console.log('用户信息',this.userInfo)
+                this.userInfo = res.data ? res.data : {};
+                let flag = false;
+                this.RoleNames = this.userInfo['Roles'] ? this.userInfo['Roles'] : [];
+                this.RoleNames.forEach(e => {
+                    if (e.RoleName == this.CurrentRole.CurrentRoleName) {
+                        flag = true;
+                    }
+                })
+                if (!flag) {
+                    this.RoleNames.push({
+                        RoleName: this.CurrentRole.CurrentRoleName,
+                        RoleID: this.CurrentRole.CurrentRoleID,
+                    });
+                }
+                console.log(this.RoleNames);
             }
         )
     }
@@ -140,11 +154,6 @@ export class MinePage {
         this.logoutSer.logout();
     }
 
-    // 我的视频
-    goMyshortVideo() {
-        this.navCtrl.push(MyShortVideoPage);
-    }
-
     // 我的帖子
     goMyForum() {
         this.navCtrl.push(MyForumComponent);
@@ -161,8 +170,13 @@ export class MinePage {
     }
 
     // 积分章程
-    goIntegral(){
+    goIntegral() {
         this.navCtrl.push(IntegralComponent);
+    }
+
+    // 我的视频
+    goMyshortVideo() {
+        // this.navCtrl.push(MyShortVideoPage);
     }
 
     //检测版本
@@ -175,11 +189,11 @@ export class MinePage {
             versionCode = version.split('.').join('');
             const data = {
                 code: platform
-            }
+            };
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
                     const onlineVersion = res.data.AppVersion.split('.').join('');
-                    if (versionCode != onlineVersion) {
+                    if (versionCode < onlineVersion) {
                         this.appVersionInfo.UpdateTips = true;
                         this.appVersionInfo.AppUrl = res.data.AppUrl;
                         this.appVersionInfo.UpdateText = res.data.UpdateText;
@@ -192,14 +206,14 @@ export class MinePage {
             console.log(err);
         });
     }
-    RoleNames=[];
-    RoleID='';
+
+    RoleNames = [];
+    RoleID = '';
 
     // 切换角色
-    switchUser(){
-        console.log(this.RoleName);
+    switchUser() {
         this.RoleNames.forEach(e => {
-            if(e.RoleName==this.RoleName){
+            if (e.RoleName == this.RoleName) {
                 this.storage.set('RoleID', e.RoleID);
             }
         })

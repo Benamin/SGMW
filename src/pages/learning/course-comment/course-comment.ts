@@ -4,6 +4,7 @@ import {CommentComponent} from "../../../components/comment/comment";
 import {LearnService} from "../learn.service";
 import {CommonService} from "../../../core/common.service";
 import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
+import {CommentByCourseComponent} from "../../../components/comment-by-course/comment-by-course";
 
 @Component({
     selector: 'page-course-comment',
@@ -110,7 +111,7 @@ export class CourseCommentPage {
             this.commonSer.toast("信息加载中...");
             return
         }
-        let modal = this.modalCtrl.create(CommentComponent, {
+        let modal = this.modalCtrl.create(this.TopicType == 'talk' ? CommentComponent : CommentByCourseComponent, {
             placeholder: '请输入评价',
             type: this.TopicType,
             teacherList: this.teacherList
@@ -164,7 +165,10 @@ export class CourseCommentPage {
     replyHandle(res) {
         const data = {
             TopicID: this.topicID,
-            Score: res.score,
+            Score: 0,
+            Score1: res.Score1,
+            Score2: res.Score2,
+            Score3: res.Score3,
             Contents: res.replyContent,
             TopicType: this.TopicType
         };

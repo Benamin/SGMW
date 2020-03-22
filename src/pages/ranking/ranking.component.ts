@@ -56,7 +56,36 @@ export class RankingComponent implements OnInit {
             name: '区域',
         },
     };
-    GetRankListArr = null;
+    GetRankListPage={
+        TeacherViewModel:{ // 讲师榜
+            TeacherTitleModels:1 , // 头衔榜
+            UserScoreList:1 , // 评价榜
+            UserPostList:1 , // 活跃度
+        },
+        StudentModel:{ // 学员榜
+            StudentTitleModels:1, // 头衔
+            StudentPostList:1,  // 完成课程数
+            StudentFinishCourseViewModels:1, // 活跃度
+        },
+      
+    }
+    GetRankListArr:any = {
+        TeacherViewModel:{ // 讲师榜
+            TeacherTitleModels:[] , // 头衔榜
+            UserScoreList:[] , // 评价榜
+            UserPostList:[] , // 活跃度
+        },
+        StudentModel:{ // 学员榜
+            StudentTitleModels:[], // 头衔
+            StudentPostList:[],  // 完成课程数
+            StudentFinishCourseViewModels:[], // 活跃度
+        },
+        examination:{ // 考试榜
+            Exam:{},
+            AreaExamTopList:[], // 地区
+            ManageExamTopList:[], // 体系
+        }
+    };
     phb_1 = {
         HeadPhoto: '',
         UserName: '',
@@ -142,12 +171,23 @@ export class RankingComponent implements OnInit {
         this.navli = text;
         this.navlistType = this.listType[text];
         let typeKey = this.listTypeName[text].key;
+        this.switchInListKey=this.listTypeName[text];
+        console.log('切换',this.listTypeName[text])
+        // StudentTitleModels TeacherViewModel
         // this.dataList=this.GetRankListArr[text][typeKey];
+        this.isdoInfinite=true;
         this.showList(this.GetRankListArr[text][typeKey]);
     }
-
+    switchInListKey={
+        key: 'TeacherTitleModels',
+        name: '头衔榜'
+    };
     switchInListType(data) {
+        this.switchInListKey=data;
+        this.isdoInfinite=true;
         this.listTypeName[this.navli] = data;
+        console.log(this.GetRankListArr,'数据组');
+        this.dataList=[];
         this.showList(this.GetRankListArr[this.navli][data.key]);
         console.log(this.listTypeName);
     }
@@ -185,7 +225,7 @@ export class RankingComponent implements OnInit {
             }
 
         });
-
+        
         if (arr[0]) {
             this.phb_1 = arr[0];
         }
@@ -195,13 +235,20 @@ export class RankingComponent implements OnInit {
         if (arr[2]) {
             this.phb_3 = arr[2];
         }
-        this.dataList = arr.slice(3, 10);
+        // let new_arr=arr.slice(3);
+        this.dataList = arr.slice(3);
+        // new_arr.forEach((e,i) => {
+        //     if(!this.dataList[i]){
+        //         this.dataList[i]=e
+        //     }
+        // })
+
         // this.dataList = arr.slice(0,10);
 
         // this.MyRankingData = arr.slice(11);
-        if (arr[10]) {
-            this.MyRankingData = arr[10];
-        }
+        // if (arr[10]) {
+        //     this.MyRankingData = arr[10];
+        // }
 
     }
 
@@ -235,5 +282,127 @@ export class RankingComponent implements OnInit {
     }
 
     // /forum/userbadge/rankList
+    isdoInfinite=true;
+    Infinite(e){
+        console.log('模块',this.navli,this.listTypeName[this.navli] );
+   
+        this.GetRankListPage[this.navli][this.switchInListKey.key]++;
+        let data={
+            "OrderBy": "",
+            "OrderByDirection": "",
+            "PageIndex": this.GetRankListPage[this.navli][this.switchInListKey.key],
+            "PageSize": 10
+        }
 
+        let key=this.switchInListKey.key;
+        if(this.navli=='TeacherViewModel'){// 讲师榜
+            if(key=='TeacherTitleModels'){ //头衔榜
+                this.badgeteachertitlelist(data);
+            }
+            if(key=='UserScoreList'){ //评价榜
+                this.teachscorelist(data);
+            }
+            if(key=='UserPostList'){ //讲师 活跃度
+                this.teacherpostlist(data);
+            }
+        }
+        if(this.navli=='StudentModel'){ // 学院 榜
+            if(key=='StudentTitleModels'){ //头衔榜
+                this.studenttitlelist(data);
+            }
+            if(key=='StudentFinishCourseViewModels'){ //完成课程数
+                this.studentstudylist(data);
+            }
+            if(key=='StudentPostList'){ //活跃度
+                this.studentpostlist(data);
+            }
+        //     key: 'StudentTitleModels',
+        //     name: '头衔榜',
+        // }, {
+        //     key: 'StudentFinishCourseViewModels',
+        //     name: '完成课程数'
+        // }, {
+        //     key: 'StudentPostList',
+        //     name: '活跃度'
+        }
+
+        setTimeout(() => {
+            e.complete();
+        }, 1000);
+        console.log('页码',this.GetRankListPage);
+      
+    }
+    //讲师头衔
+    badgeteachertitlelist(data){
+        this.serve.badgeteachertitlelist(data).subscribe((res:any) => {
+            if(res.data.Items.length>0){
+                this.addlist(res.data)
+            }else{
+                this.isdoInfinite=false;
+            }
+        })
+    }
+    //讲师活跃度
+    teacherpostlist(data){
+        this.serve.teacherpostlist(data).subscribe((res:any) => {
+            if(res.data.Items.length>0){
+                this.addlist(res.data)
+            }else{
+                this.isdoInfinite=false;
+            }
+        })
+    }
+
+    //讲师评论
+    teachscorelist(data){
+        this.serve.teachscorelist(data).subscribe((res:any) => {
+            if(res.data.Items.length>0){
+                this.addlist(res.data)
+            }else{
+                this.isdoInfinite=false;
+            }
+        })
+    }
+
+    // 学员榜
+    studenttitlelist(data){
+        this.serve.studenttitlelist(data).subscribe((res:any) => {
+            if(res.data.Items.length>0){
+                this.addlist(res.data)
+            }else{
+                this.isdoInfinite=false;
+            }
+        })
+    }
+
+    // 学员活跃度
+    studentpostlist(data){
+        this.serve.studentpostlist(data).subscribe((res:any) => {
+            if(res.data.Items.length>0){
+                this.addlist(res.data)
+            }else{
+                this.isdoInfinite=false;
+            }
+        })
+    }
+    
+    // 加载更多学员完成课程数
+    studentstudylist(data){
+        this.serve.studentstudylist(data).subscribe((res:any) => {
+            if(res.data.Items.length>0){
+                this.addlist(res.data)
+            }else{
+                this.isdoInfinite=false;
+            }
+        })
+    }
+
+
+    addlist(data){
+        let arr=data.Items;
+        let oldarr=this.GetRankListArr[this.navli][this.switchInListKey.key];
+        this.GetRankListArr[this.navli][this.switchInListKey.key] = oldarr.concat(arr);
+        this.showList(this.GetRankListArr[this.navli][this.switchInListKey.key]);
+    }
+    
 }

@@ -16,6 +16,8 @@ import {ImgPreviewComponent} from './img-preview/img-preview';
 import {IframeFileComponent} from './iframe-file/iframe-file';
 import {PipesModule} from "../pipes/pipes.module";
 import {TodayRemindComponent} from './today-remind/today-remind.component';
+import {PrivacyComponent} from './privacy/privacy';
+import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
 import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
 
 
@@ -39,7 +41,10 @@ import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
         ForumListTimeComponent,
         ImgPreviewComponent,
         IframeFileComponent,
+        PrivacyComponent,
+        CommentByCourseComponent,
         EidtModalComponent
+
     ],
     imports: [
         IonicPageModule,
@@ -61,8 +66,11 @@ import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
         SearchSidebarComponent,
         ForumListTimeComponent,
         ImgPreviewComponent,
-        IframeFileComponent,
+        IframeFileComponent,        PrivacyComponent,
+        PrivacyComponent,
+        CommentByCourseComponent,
         EidtModalComponent
+
     ],
     providers: [
         CommentComponent,
@@ -82,6 +90,8 @@ import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
         ForumListTimeComponent,
         ImgPreviewComponent,
         IframeFileComponent,
+        PrivacyComponent,
+        CommentByCourseComponent,
         EidtModalComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]

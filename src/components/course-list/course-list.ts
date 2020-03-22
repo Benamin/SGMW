@@ -22,7 +22,6 @@ export class CourseListComponent {
   // 微信分享
   wxShare(data){
       console.log('分享内容',data)
-      document.getElementById('inner-html')
       let description=data.Description;
       let thumb=data.ImageUrl;
       
@@ -30,8 +29,8 @@ export class CourseListComponent {
         description = description.slice(0,100);
        }
       
-       console.log(description);
-    
+       console.log(description,data.TeachTypeCode);
+       
         Wechat.share({
             message: {
             title: data.Title, // 标题
@@ -43,7 +42,7 @@ export class CourseListComponent {
             // media: "YOUR_MEDIA_OBJECT_HERE",
             media: {
                 type: Wechat.Type.WEBPAGE,
-                webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=learning&TeachTypeName=${data.TeachTypeName}&Id=${data.Id}`
+                webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=learning&Id=${data.Id}`
             }
             },
             scene: Wechat.Scene.SESSION

@@ -1,5 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ViewChild} from '@angular/core';
 import {JPush} from '@jiguang-ionic/jpush';
+import {CommonService} from "./common.service";
+import {GlobalData} from "./GlobleData";
+import {App, Events, NavController} from "ionic-angular";
+import {TestCenterPage} from "../pages/home/test/test-center/test-center";
+import {Storage} from "@ionic/storage";
 
 /**
  * Helper类存放和业务有关的公共方法
@@ -7,22 +12,38 @@ import {JPush} from '@jiguang-ionic/jpush';
  */
 @Injectable()
 export class JpushUtil {
-    constructor(private jpush: JPush) {
 
+    constructor(private jpush: JPush,
+                private app: App,
+                private events: Events,
+                private storage: Storage,
+                private globalData: GlobalData,
+                private commonSer: CommonService) {
     }
 
     initPush() {
-        /**接收消息触发 */
+        /**设备成功注册后，返回registrationId*/
+        document.addEventListener('jpush.receiveRegistrationId', (event: any) => {
+            // this.commonSer.alert(`receiveRegistrationId:${this.globalData.RegiID}`)
+        }, false);
+        /**接收通知触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {
-            alert('Receive notification: ' + JSON.stringify(event));
+            // this.commonSer.alert('Receive notification: ' + JSON.stringify(event));
+        }, false);
+        /**接受自定义消息*/
+        document.addEventListener("jpush.receiveMessage", (event: any) => {
+            // this.commonSer.alert("jpush.receiveMessage: " + JSON.stringify(event));
         }, false);
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
-            alert('openNotification: ' + JSON.stringify(event));
+            const sgmwType = event.extras.sgmwType;   //3 培训通知  4  考试通知
+            this.globalData.JpushType = sgmwType;
+            this.storage.set('sgmwType', sgmwType);
+            this.events.publish('jPush', sgmwType);
         }, false);
         /**接收本地消息 */
         document.addEventListener('jpush.', (event: any) => {
-            alert('receiveLocalNotification: ' + JSON.stringify(event));
+            // this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
         }, false);
     }
 

@@ -1,7 +1,67 @@
 <ion-tabs #myTabs>
-  <ng-container *ngFor = "let tabRoot of tabRoots;let i = index;">
-    <ion-tab sw  (ionSelect)="onChange(i)" [rootParams]="tabParams" [root] = "tabRoot.root" tabTitle="{{tabRoot.tabTitle}}" tabIcon="{{ tabsIndex == i ? tabRoot.tabIconOn:tabRoot.tabIconOff }}"></ion-tab>
-  </ng-container>
+    <ng-container *ngFor="let tabRoot of tabRoots;let i = index;">
+        <ion-tab (ionSelect)="onChange(i)" [rootParams]="tabParams" [root]="tabRoot.root"
+                 tabTitle="{{tabRoot.tabTitle}}"
+                 tabIcon="{{ tabsIndex == i ? tabRoot.tabIconOn:tabRoot.tabIconOff }}"></ion-tab>
+    </ng-container>
 </ion-tabs>
+<div class="privacy" *ngIf="inputType">
+    <div *ngIf="inputType == 'submit'" class="content">
+        <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
+        <p>当前为该账号第一次登录，需要绑定以下信息，请在阅读<span (click)="openPrivacy()">《用户隐私协议》</span>后如实填写内容。</p>
+        <div class="input-info">
+            <p><span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</span><span>{{userInfo?.UserName}}</span></p>
+            <p><span><span style="color: red">*</span>身份证:</span>
+                <input type="text" [(ngModel)]="CardNo">
+            </p>
+            <p><span><span style="color: red">*</span>手机号:</span>
+                <input type="text" [(ngModel)]="MobilePhone">
+            </p>
+        </div>
+        <div class="tips">
+            <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意隐私协议
+        </div>
+        <div class="button-info" (click)="next()">绑定</div>
+    </div>
 
+    <div *ngIf="inputType == 'confirm'" class="confirm-info">
+        <p>请确认如下信息</p>
+        <div class="input-info">
+            <div>
+                <p>
+                    <span>原经销商号:</span>
+                    <span>{{userInfo?.Jxsh || '-'}}</span>
+                </p>
+                <p>
+                    <span>原姓名:</span>
+                    <span>{{userInfo?.UserName || '-'}}</span>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span>现经销商号:</span>
+                    <span>{{userInfoByCardNo?.AgentNumber || '-'}}</span>
+                </p>
+                <p>
+                    <span>现姓名:</span>
+                    <span>{{userInfoByCardNo?.UserName || '-'}}</span>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span>身份证:</span>
+                    <span>{{CardNo}}</span>
+                </p>
+                <p>
+                    <span>手机号:</span>
+                    <span>{{MobilePhone}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="button-info">
+            <div (click)="inputType = 'submit'">重输</div>
+            <div (click)="submitInfo()">确定</div>
+        </div>
+    </div>
+</div>
 

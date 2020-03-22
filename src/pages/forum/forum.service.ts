@@ -134,6 +134,16 @@ export class ForumService {
     return this.http.post(SERVER_API_URL + '/forum/topicplate/search', data);
   }
 
+  // 获取 话题列表
+  topicplateSearchtopictag(data) {
+    return this.http.post(SERVER_API_URL + '/forum/topicplate/searchtopictag', data);
+  }
+
+  // 新增帖子 可选择 板块 、话题
+  addnewforumtagpost(data){
+    return this.http.post(SERVER_API_URL + '/forum/post/addnewforumtagpost', data);
+
+  }
   // 获取 帖子列表
   forum_post_search(data) {
     return this.http.post(SERVER_API_URL + '/forum/post/search', data);
@@ -230,8 +240,11 @@ export class ForumService {
   }
 
   // 热门帖子
-  GetPostSearchhotpost(data={}){
-    return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
+  GetPostSearchhotpost(data){
+    // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
+    return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
+
+    
   }
 
   // 我我发布的 帖子

@@ -45,7 +45,7 @@
                         <ng-container *ngIf="item.ExamTimer > 0">{{item.ExamTimer}}分钟</ng-container>
                         <ng-container *ngIf="item.ExamTimer == 0">不限制</ng-container>
                     </span>
-                    <span class="examTime">到期时间：{{item.EndTime | date:'MM-dd HH:mm:ss'}}</span>
+                    <span class="examTime">到期时间：{{item.ExamEnd | date:'MM-dd HH:mm:ss'}}</span>
                 </p>
                 <p *ngIf="page.StudyState == 3">
                     <span class="examScore">

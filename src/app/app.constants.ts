@@ -1,4 +1,4 @@
-/***培训平台***/
+// /***培训平台***/
 export const SERVER_API_URL = '/api';
 // export const SERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
 // export const SERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
@@ -8,8 +8,8 @@ export const SERVER_API_URL = '/api';
 export const sgmw_client_id = "2961C96D-4DB0-4FCF-99FA-FE18AC9A496A";
 
 //通过判断url来跳转内部还是外部
-export const SERVER_HTTP_URL = 'https://sitportal.chinacloudsites.cn/dist/#/courseDetail/'; //测试
-// export const SERVER_HTTP_URL = 'https://elearning.sgmw.com.cn/#/courseDetail';  //生产
+// export const SERVER_HTTP_URL = 'https://sitportal.chinacloudsites.cn/dist/#/courseDetail/'; //测试
+export const SERVER_HTTP_URL = 'https://elearning.sgmw.com.cn/#/courseDetail';  //生产
 /*****end******/
 
 /***骏客***/
@@ -48,8 +48,8 @@ export const XSZS_client_id = "138B0798-8D43-4588-B291-DB8545865C8A";
 /*****end******/
 
 /***服务助手***/
-export const FWZS_HTTP_URL = "FWZSAPI";
-// export const FWZS_HTTP_URL = "https://sgmwsa.shaoxingzhuoyue.com/api";
+// export const FWZS_HTTP_URL = "FWZSAPI";
+export const FWZS_HTTP_URL = "https://sgmwsa.shaoxingzhuoyue.com/api";
 
 //appid
 export const FWZS_appid = "52492bf5765840b192fac6c7ca3d10c8";

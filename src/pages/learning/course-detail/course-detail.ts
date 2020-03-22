@@ -49,9 +49,9 @@ export class CourseDetailPage {
         {type: 1, name: '简介', code: 'desc'},
         {type: 2, name: '章节', code: 'chapter'},
         {type: 3, name: '讨论', code: 'talk'},
-        {type: 4, name: '讲师', code: 'teacher'},
-        {type: 5, name: '评价', code: 'comment'},
-        {type: 6, name: '相关', code: 'relation'},
+        // {type: 4, name: '讲师', code: 'teacher'},
+        {type: 4, name: '评价', code: 'comment'},
+        {type: 5, name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -105,15 +105,10 @@ export class CourseDetailPage {
         this.courseFileType = null;
         const screenWidth = <any>window.screen.width;
         this.ionSlidesDIV.nativeElement.style.width = screenWidth + 'px';
-        console.log(screenWidth);
     }
 
     ionViewWillEnter() {
         this.enterSource = this.navParams.get('courseEnterSource');
-        console.log('enterSource:' + this.enterSource);
-        console.log('nodeLevel4:' + this.nodeLevel4);
-        console.log('courseFileType:' + this.courseFileType);
-
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
@@ -121,9 +116,11 @@ export class CourseDetailPage {
             enableBackdropDismiss: true,
         });
         this.loading.present();
+        console.log('ionViewWillEnter');
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+                this.global.PostsCertID = res.data.PostCertificationID;
                 this.SortType = res.data.SortType;
                 this.getChapter();  //章节信息
                 this.getRelationProduct();  //
@@ -166,7 +163,10 @@ export class CourseDetailPage {
                 }
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
-                this.getChapter('document');
+                if (!this.global.subscribeDone) {
+                    this.global.subscribeDone = true;
+                    this.getChapter('document');
+                }
             }
             if (value.type == 'iframe') {  //iframe
                 this.courseFileType = 'iframe';
@@ -207,13 +207,11 @@ export class CourseDetailPage {
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
-        console.log(`getChapter,pid:${this.global.pId}`);
-        console.log(`courseFileType,pid:${this.courseFileType}`);
-        this.learSer.GetProductById(this.global.pId).subscribe(
-            (res) => {
-                this.product.detail = res.data;
-            }
-        );
+        if (type === 'video') {
+            this.getCourseDetail();
+        }
+
+        console.log('打开课件后更新章节进度');
         this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
@@ -227,7 +225,7 @@ export class CourseDetailPage {
                     this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
                     this.checkTag();   //校验作业
                 }
-                if (this.enterSource == 'examBack') {
+                if (this.enterSource == 'examBack') {  //做完作业返回
                     if (this.product.detail.overpercentage == 100) {
                         this.commonSer.toast('恭喜您完成课程学习!');
                     } else {
@@ -254,7 +252,6 @@ export class CourseDetailPage {
      * 校验作业并跳转
      */
     checkTag() {
-        console.log('校验作业并跳转');
         this.tagsNodeList.forEach(e => {
             if (e.ID == this.nodeLevel4.ID) { //查到了ID
                 for (let t = 0; t < e.tags.length; t++) {
@@ -269,9 +266,8 @@ export class CourseDetailPage {
 
     //查询作业信息
     handleVideoExam(exam) {
-        console.log('查询作业信息');
         let load = this.loadCtrl.create({
-            content: '正在跳转，请等待...'
+            content: '正在前往作业，请等待...'
         });
         load.present();
         const data = {
@@ -409,7 +405,8 @@ export class CourseDetailPage {
     //更新学习进度  非视频
     saveProcess(file) {
         const data = {
-            EAttachmentID: file.ID
+            EAttachmentID: file.ID,
+            postsCertID: this.global.PostsCertID
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
@@ -439,14 +436,181 @@ export class CourseDetailPage {
         this.navCtrl.push(TeacherPage, {item: item});
     }
 
-    async focusHandle(UserID) {
+    //课程
+    goCourse(e) {
+        this.navCtrl.push(CourseDetailPage, {id: e.Id});
+    }
+
+    //报名
+    sign() {
+        const data = {
+            pid: this.global.pId
+        };
+        this.learSer.BuyProduct(data).subscribe(
+            (res) => {
+                this.getCourseDetail();
+                this.initStudy();
+                this.studyNow();
+                this.signObj.isSign = true;
+                timer(1000).subscribe(() => this.signObj.isSign = false);
+            }
+        )
+    }
+
+    //初始化作业
+    initStudy() {
+        const data = {
+            CSID: this.product.detail.PrId,
+        };
+        this.learSer.initStuHomework(data).subscribe(
+            (res) => {
+                if (!res.data) {
+                    this.commonSer.toast('作业初始化失败')
+                }
+            }
+        )
+    }
+
+    //课程详情
+    getCourseDetail() {
+        console.log('课程详情');
+        this.learSer.GetProductById(this.global.pId).subscribe(
+            (res) => {
+                this.loading.dismiss();
+                this.product.detail = res.data;
+                this.global.PostsCertID = res.data.PostCertificationID;
+            }
+        );
+    }
+
+    //收藏
+    saveCollection() {
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            CSID: this.product.detail.PrId
+        };
+        this.learSer.SaveCollectionByCSID(data).subscribe(
+            (res) => {
+                this.getCourseDetail();
+                this.collectionObj.isCollection = true;
+                timer(1000).subscribe(() => this.collectionObj.isCollection = false);
+            }
+        )
+    }
+
+    //取消收藏
+    cancleCollection() {
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            CSID: this.product.detail.PrId
+        };
+        this.learSer.CancelCollectionByCSID(data).subscribe(
+            (res) => {
+                this.getCourseDetail();
+            }
+        )
+    }
+
+    //点赞
+    savePraise() {
+        if (this.product.detail.IsHate) {
+            this.commonSer.toast('您已经扔鸡蛋了哦～');
+            return
+        }
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            TopicID: this.product.detail.PrId
+        }
+        this.learnSer.SavePraise(data).subscribe(
+            (res) => {
+                this.getCourseDetail();
+            }
+        )
+
+    }
+
+    //取消点赞
+    cancelPraise() {
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            TopicID: this.product.detail.PrId
+        }
+        this.learnSer.CancelPraise(data).subscribe(
+            (res) => {
+                this.getCourseDetail();
+            }
+        )
+    }
+
+    //扔鸡蛋
+    saveHate() {
+        if (this.product.detail.IsPraise) {
+            this.commonSer.toast('您已经点赞了哦～');
+            return
+        }
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            TopicID: this.product.detail.PrId
+        }
+        this.learnSer.SaveHate(data).subscribe(
+            (res) => {
+                this.getCourseDetail();
+            }
+        )
+    }
+
+    //取消扔鸡蛋
+    cancelHate() {
+        this.loading = this.loadCtrl.create({
+            content: '',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        this.loading.present();
+        const data = {
+            TopicID: this.product.detail.PrId
+        }
+        this.learnSer.CancelHate(data).subscribe(
+            (res) => {
+                this.getCourseDetail();
+            }
+        )
+    }
+
+    //关注讲师
+    focusHandle(UserID) {
         const data = {
             TopicID: UserID
         };
-        await this.learSer.SaveSubscribe(data).subscribe(
+        this.learSer.SaveSubscribe(data).subscribe(
             (res) => {
                 this.commonSer.toast('关注成功');
-                this.ionViewWillEnter();
+                this.getCourseDetail();
             }
         )
     }
@@ -516,14 +680,14 @@ export class CourseDetailPage {
     }
 
     //取消关注
-    async cancleFocusHandle(UserID) {
+    cancleFocusHandle(UserID) {
         const data = {
             TopicID: UserID
         };
         this.learSer.CancelSubscribe(data).subscribe(
             (res) => {
                 this.commonSer.toast('取消关注成功');
-                this.ionViewWillEnter();
+                this.getCourseDetail();
             }
         )
     }
@@ -531,7 +695,7 @@ export class CourseDetailPage {
     //教师评价
     goTeacherComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你对讲师的评价...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'teacher',
             PId: this.global.pId,
@@ -542,7 +706,7 @@ export class CourseDetailPage {
     //课程评价
     goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你的评价...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'course',
             title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
@@ -553,168 +717,12 @@ export class CourseDetailPage {
     //课程讨论
     goCourseDiscuss() {
         this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请输入你要讨论的内容...',
+            placeholder: '请理性发言，文明用语...',
             TopicID: this.product.detail.PrId,
             TopicType: 'talk',
             title: this.product.detail.TeachTypeName == "直播" ? '直播讨论' : '课程讨论',
             text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         });
-    }
-
-    //课程
-    goCourse(e) {
-        this.navCtrl.push(CourseDetailPage, {id: e.Id});
-    }
-
-    //报名
-    sign() {
-        const data = {
-            pid: this.global.pId
-        };
-        this.learSer.BuyProduct(data).subscribe(
-            (res) => {
-                this.ionViewWillEnter();
-                this.initStudy();
-                this.studyNow();
-                this.signObj.isSign = true;
-                timer(1000).subscribe(() => this.signObj.isSign = false);
-            }
-        )
-    }
-
-    //初始化作业
-    initStudy() {
-        const data = {
-            CSID: this.product.detail.PrId,
-        };
-        this.learSer.initStuHomework(data).subscribe(
-            (res) => {
-                if (!res.data) {
-                    this.commonSer.toast('作业初始化失败')
-                }
-            }
-        )
-    }
-
-    //课程详情
-    getCourseDetail() {
-        this.learSer.GetProductById(this.global.pId).subscribe(
-            (res) => {
-                this.loading.dismiss();
-                this.product.detail = res.data;
-            }
-        );
-    }
-
-    //收藏
-    saveCollection() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            CSID: this.product.detail.PrId
-        };
-        this.learSer.SaveCollectionByCSID(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-                this.collectionObj.isCollection = true;
-                timer(1000).subscribe(() => this.collectionObj.isCollection = false);
-            }
-        )
-    }
-
-    //取消收藏
-    cancleCollection() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            CSID: this.product.detail.PrId
-        };
-        this.learSer.CancelCollectionByCSID(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-    }
-
-    //点赞
-    savePraise() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        this.learnSer.SavePraise(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-
-    }
-
-    //取消点赞
-    cancelPraise() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        this.learnSer.CancelPraise(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-    }
-
-    //扔鸡蛋
-    saveHate() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        this.learnSer.SaveHate(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-    }
-
-    //取消扔鸡蛋
-    cancelHate() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        this.learnSer.CancelHate(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
     }
 
     changeType(item) {

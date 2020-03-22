@@ -15,12 +15,11 @@
     },
     {
       "path": "/JunKeAPI",
-      "proxyUrl": "https://nbj.sgmw.com.cn"
+      "proxyUrl": "https://nbjtest.sgmw.com.cn"
     },
     {
       "path": "/FWZSAPI",
       "proxyUrl": "https://sgmwsa.shaoxingzhuoyue.com/api"
     }
-  ],
-  "app_id": ""
+  ]
 }

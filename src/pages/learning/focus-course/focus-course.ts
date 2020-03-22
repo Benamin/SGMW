@@ -51,10 +51,9 @@ export class FocusCoursePage {
         {type: 1, name: '简介', code: 'desc'},
         {type: 2, name: '章节', code: 'chapter'},
         {type: 3, name: '讨论', code: 'talk'},
-        {type: 4, name: '讲师', code: 'teacher'},
-        {type: 5, name: '评价', code: 'comment'},
-        {type: 6, name: '作业', code: 'task'},
-        // {type: 7, name: '相关', code: 'relation'},
+        // {type: 4, name: '讲师', code: 'teacher'},
+        {type: 4, name: '评价', code: 'comment'},
+        {type: 5, name: '作业', code: 'task'},
     ];
 
     signObj = {
@@ -497,7 +496,8 @@ export class FocusCoursePage {
     //更新学习进度
     saveProcess(file) {
         const data = {
-            EAttachmentID: file.ID
+            EAttachmentID: file.ID,
+            postsCertID: this.global.PostsCertID
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {

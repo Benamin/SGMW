@@ -28,6 +28,7 @@ export class PostAddComponent implements OnInit {
   editData=null;
   innerHeightOld=0;
   paddingBottom= '0px';
+  choicePlateShow=true;
   constructor(
     private navCtrl: NavController,
     private serve:ForumService,
@@ -58,7 +59,9 @@ export class PostAddComponent implements OnInit {
 
   ngOnInit() {
     let data = this.navParams.get('data');
-    if(data.Status==1){
+    this.forum_topicplate_search();
+    this.topicplateSearchtopictag();
+    if(data.Status){
       this.lidata.Id=data.TopicPlateId;
       this.lidata.postId=data.Id;
       this.lidata.Status=data.Status;
@@ -75,7 +78,51 @@ export class PostAddComponent implements OnInit {
   backPop(){
     this.navCtrl.pop();
   }
+  choicePlateList=[];
+  ForumHistory=[];
+  conversationData=[];
 
+  ForumHistorySelection=[]; // 选中的板块
+  conversationDataSelection=[];// 选中的话题
+
+  plateType='';
+  // 获取模块列表
+  forum_topicplate_search(){
+    this.serve.forum_topicplate_search({}).subscribe((res:any) => {
+      console.log('板块列表',res);
+      this.ForumHistory=res.data.Items;
+    })
+  }
+  topicplateSearchtopictag(){
+    this.serve.topicplateSearchtopictag({PageSize:500}).subscribe((res:any) =>{
+      console.log('话题列表',res);
+      this.conversationData=res.data.Items;
+    })
+  }
+  choicePlate(type){
+    this.plateType=type;
+
+    if(type=='ForumHistory'){
+      this.choicePlateList=[...this.ForumHistory]
+    }
+    if(type=='conversationData'){
+      this.choicePlateList=[...this.conversationData]
+    }
+    this.choicePlateShow=true;
+  }
+  choicePlateListClick(itme){
+    itme['Selection']=!itme.Selection;
+  }
+  SelectionChoicePlate(){
+    this.choicePlateShow=false;
+    console.log(this.choicePlateList,this.plateType);
+    if(this.plateType=='ForumHistory'){
+      this.ForumHistorySelection=[...this.choicePlateList.filter(e => e.Selection)]
+    }
+    if(this.plateType=='conversationData'){
+      this.conversationDataSelection=[...this.choicePlateList.filter(e => e.Selection)]
+    }
+  }
 
   // 获取帖子信息
   getData(){
@@ -422,33 +469,69 @@ export class PostAddComponent implements OnInit {
 
   // 新增 或 保存草稿
   forum_post_add(IsSaveAndPublish,textInnerHTML){
+    this.addnewforumtagpost(IsSaveAndPublish,textInnerHTML)
+    // let data={
+    //   "Title": this.Title,//帖子标题
+    //   "TopicPlateId": this.lidata.Id,//帖子所属板块编号
+    //   "Content": textInnerHTML,//帖子内容
+    //   "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
+    // }
+    // this.serve.forum_post_add(data).subscribe((res:any) => {
+    //   console.log(res);
+    //   if(res.code == 200){
+    //     if(IsSaveAndPublish){
+    //       this.editImgOkText='帖子发布成功';
+    //     }else{
+    //       this.editImgOkText='保存成功';
+    //     }
+    //     this.editImgOk=true;
+    //     this.loading.dismiss();
+    //     setTimeout(() => {
+    //       this.editImgOk=false;
+    //       this.backPop();
+    //     }, 2000);
+    //   }else{
+    //     this.sevrData_click=false;
+    //   }
+    // });
+  }
 
-    let data={
-      "Title": this.Title,//帖子标题
-      "TopicPlateId": this.lidata.Id,//帖子所属板块编号
-      "Content": textInnerHTML,//帖子内容
-      "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
-     
-    }
-    this.serve.forum_post_add(data).subscribe((res:any) => {
-      console.log(res);
-      if(res.code == 200){
-        if(IsSaveAndPublish){
-          this.editImgOkText='帖子发布成功';
-        }else{
-          this.editImgOkText='保存成功';
-        }
-        this.editImgOk=true;
-        this.loading.dismiss();
-        setTimeout(() => {
-          this.editImgOk=false;
-          this.backPop();
-        }, 2000);
-      }else{
-        this.sevrData_click=false;
+  // api/forum/post/addnewforumtagpost
+  addnewforumtagpost(IsSaveAndPublish,textInnerHTML){
+    
+    let TopicPlateIds=[];
+    let TopicTagPlateIds=[]
+    this.ForumHistorySelection.forEach (e => {
+      if(e.Selection){
+        TopicPlateIds.push(e.Id);
       }
     });
+    this.conversationDataSelection.forEach (e => {
+      if(e.Selection){
+        TopicTagPlateIds.push(e.Id);
+      }
+    });
+    let data={
+      // "CurrentUser": "string", //当前用户
+      "IsSaveAndPublish": IsSaveAndPublish,//保持并发布
+      // "IsPlate": 1,//这个字段不用传
+      // "Id": "00000000-0000-0000-0000-000000000000",//帖子ID
+      "Title": this.Title,//帖子标题
+      // "TopicPlateId": "00000000-0000-0000-0000-000000000000",//这个字段暂时不用
+      "TopicPlateIds": TopicPlateIds,
+      "TopicTagPlateIds": TopicTagPlateIds,
+      "Content": textInnerHTML,//帖子内容
+      // "Poster": "00000000-0000-0000-0000-000000000000",//发帖人ID
+      // "Status": 0,//是否有效，
+      // "IsLocked": true//是否锁定，
+    }
+    console.log('新增的帖子',data)
+    this.serve.addnewforumtagpost(data).subscribe(res => {
+      console.log('新增',res);
+      this.loading.dismiss();
+    })
   }
+  // forum_post_add
     // this.focusAmeR=true;
     // setTimeout(function(){
     //   console.log('下拉滑动');
