@@ -1,6 +1,7 @@
-page-video-lists {
-  .toolbar-ios {
+page-my-short-video {
+  .ion-app.ios, .toolbar-background-ios {
     padding: 0;
+    background-color: #343435 !important;
   }
   .video-lists-title {
     width: 100%;
@@ -21,6 +22,7 @@ page-video-lists {
     }
   }
   .search-box {
+    margin-top: -1px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -78,30 +80,12 @@ page-video-lists {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-      .poster-box {
-        position: relative;
+      .video-poster {
+        display: block;
         margin: 1rem auto;
         width: 35.2rem;
         height: 19.7rem;
-        border-radius: 1.2rem;
-        overflow: hidden;
-        .video-poster {
-          display: block;
-          width: 35.2rem;
-          height: 19.7rem;
-        }
-        .mask {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translateX(-50%) translateY(-50%);
-          width: 35.2rem;
-          height: 19.7rem;
-          background-color: rgba(0,0,0，,0.1);
-          z-index: 9;
-        }
       }
-
       .video-info {
         display: flex;
         justify-content: space-between;
@@ -133,5 +117,4 @@ page-video-lists {
       }
     }
   }
-
 }

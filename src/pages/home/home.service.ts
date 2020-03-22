@@ -107,4 +107,9 @@ export class HomeService {
     doJobLevelSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/SignInPostCertification?pid=' + params);
     }
+
+    // 小视频总列表列表
+    GetVideoLists(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/GetShortVideoList', data);
+    }
 }
