@@ -78,7 +78,7 @@ export class MinePage {
     getUserInfo() {
         this.mineSer.GetMyInfo().subscribe(
             (res) => {
-                this.userInfo = res.data;
+                this.userInfo = res.data?res.data:{};
                 let flag = false;
                 this.RoleNames = this.userInfo['Roles'] ? this.userInfo['Roles'] : [];
                 this.RoleNames.forEach(e => {
