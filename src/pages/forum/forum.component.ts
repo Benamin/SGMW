@@ -57,7 +57,7 @@ export class ForumPage implements OnInit {
 
     // 新增帖子
     PostAddComponent() {
-        this.navCtrl.push(PostAddComponent,{});
+        this.navCtrl.push(PostAddComponent,{data:{}});
     }
 
     // 前往帖子列表

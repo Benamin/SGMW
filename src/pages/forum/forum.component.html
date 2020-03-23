@@ -107,7 +107,8 @@
         </div>
       </div>
     </div>
-
+    <div class="new-add" tappable (click)="PostAddComponent()">
+    </div>
   </div>
   <div *ngIf="navli=='话题'">
     <div class="history" *ngIf="SearchtopictagHistory.length>0">
@@ -148,7 +149,8 @@
         </div>
       </div>
     </div>
-
+    <div class="new-add" tappable (click)="PostAddComponent()">
+    </div>
   </div>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
