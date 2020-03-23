@@ -45,7 +45,7 @@ export class EditPage {
     //获取话题
     getList() {
         const data = {
-            "Code": "sxds"
+            "Code": "xsds"
         };
         this.homeSer.GetTopicID(data).subscribe((res: any) => {
             this.form.SVTopicIDList = res.data;
@@ -98,6 +98,7 @@ export class EditPage {
                 (res) => {
                     if (res.data) {
                         this.commonSer.toast('短视频发布成功!');
+                        this.navCtrl.pop();
                     } else {
                         this.commonSer.toast(res.message);
                     }

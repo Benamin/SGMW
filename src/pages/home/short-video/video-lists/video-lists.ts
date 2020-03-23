@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {NavController, NavParams, LoadingController, ActionSheetController} from 'ionic-angular';
 import {timer} from "rxjs/observable/timer";
 import {EditPage} from "../../competition/edit/edit";
@@ -7,13 +7,9 @@ import {HomeService} from "../../home.service";
 import {CaptureVideoOptions, MediaCapture, MediaFile, MediaFileData} from "@ionic-native/media-capture";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 import {CommonService} from "../../../../core/common.service";
+import {Camera} from "@ionic-native/camera";
+import {Entry, File} from "@ionic-native/file";
 
-/**
- * Generated class for the ListsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
     selector: 'page-video-lists',
@@ -35,6 +31,9 @@ export class VideoListsPage {
                 private actionSheetCtrl: ActionSheetController,
                 private mediaCapture: MediaCapture,
                 private loadingCtrl: LoadingController,
+                private Camera: Camera,
+                private zone: NgZone,
+                private file: File,
                 private commonSer: CommonService,
                 private transfer: FileTransfer,
                 public navParams: NavParams, private loadCtrl: LoadingController) {
@@ -60,13 +59,13 @@ export class VideoListsPage {
                             this.captureVideo();
                         }
                     },
-                    {
-                        text: '上传短视频',
-                        role: '',
-                        handler: () => {
-
-                        }
-                    },
+                    // {
+                    //     text: '上传短视频',
+                    //     role: '',
+                    //     handler: () => {
+                    //         this.selectVide();
+                    //     }
+                    // },
                     {
                         text: '取消',
                         role: 'cancel',
@@ -151,9 +150,9 @@ export class VideoListsPage {
         fileTransfer.onProgress((listener) => {
             let per = <any>(listener.loaded / listener.total) * 100;
             per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2);
-            console.log('pre:' + per);
-            // uploadLoading.setContent('上传中...' + per + '%');
-            uploadLoading.data.content = `上传中...${per}%`
+            this.zone.run(() => {
+                uploadLoading.setContent(`上传中...${per}%`);
+            });
         })
     }
 
@@ -218,5 +217,23 @@ export class VideoListsPage {
                 e.complete();
             }
         )
+    }
+
+
+    //选择视频
+    selectVide() {
+        const option = {
+            sourceType: 0,
+            destinationType: this.Camera.DestinationType.FILE_URI,
+            quality: 10,
+            mediaType: this.Camera.MediaType.VIDEO,
+            allowEdit: false,
+        }
+        this.Camera.getPicture(option).then((videoData) => {
+            console.log(videoData);
+            this.file.resolveLocalFilesystemUrl(videoData).then((value: Entry) => {
+                console.log(value);
+            })
+        })
     }
 }

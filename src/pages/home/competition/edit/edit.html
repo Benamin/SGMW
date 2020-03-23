@@ -6,16 +6,11 @@
     </div>
 
     <div class="title-input">
-        <ion-input type="text" placeholder="请输入标题" [(ngModel)]="form.Title" autocomplete='off'></ion-input>
+        <ion-input type="text" placeholder="填写视频标题，让更多人看到" [(ngModel)]="form.Title" autocomplete='off'></ion-input>
     </div>
     <div class="files-box">
         <div class="files-item">
-            <img class="poster" src="./assets/imgs/competition/banner.png">
-            <img class="deleted-btn" src="./assets/imgs/competition/p71_cancel@2x.png" alt="">
-        </div>
-        <div class="files-item">
-            <img class="add-btn" src="./assets/imgs/forum/other/p71_add@2x.png" alt="添加">
-            <input type="file" name="trendimg" accept="image/*" multiple class="picInput" (change)="uploadFile($event)">
+            <img class="poster" [src]="resp.Imgurl">
         </div>
     </div>
 
