@@ -15,7 +15,7 @@ export class HomeService {
     //获取banner
     getBannerList(RoleID): Observable<any> {
         // return this.http.get(SERVER_API_URL + '/ENews/GetBannerList')
-        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID='+RoleID);
+        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID=' + RoleID);
     }
 
     //优秀教师，关注教师
@@ -70,12 +70,12 @@ export class HomeService {
 
     //获取区域+省份+城市
     getAreaCitys(data): Observable<any> {
-        return this.http.post(SERVER_API_URL + '/area/getAreaCitys',data);
+        return this.http.post(SERVER_API_URL + '/area/getAreaCitys', data);
     }
 
     //今日提醒
-    GetTodayRemind(){
-        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind',{});
+    GetTodayRemind() {
+        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind', {});
     }
 
     // 岗位认证列表
@@ -103,6 +103,7 @@ export class HomeService {
     doUnlineSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/BuyOfflineCourse?cspid=' + params.cspid + '&PostsCertificationpID=' + params.PostsCertificationpID);
     }
+
     // 岗位认证轮播的  点击报名按钮
     doJobLevelSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/SignInPostCertification?pid=' + params);
@@ -111,5 +112,15 @@ export class HomeService {
     // 小视频总列表列表
     GetVideoLists(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/AppShortVideo/GetShortVideoList', data);
+    }
+
+    //短视频发布
+    PublicShortVideo(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/PublicShortVideo', data);
+    }
+
+    //根据code获取话题ID
+    GetTopicID(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/appTopic/GetTopicID' + this.dataFormat.toQuery(data));
     }
 }

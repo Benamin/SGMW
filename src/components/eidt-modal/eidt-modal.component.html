@@ -1,55 +1,18 @@
-<!--
-  Generated template for the ListsRankingPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <div class="body-box">
-  <div class="items-title item-box">{{ modalType === 'template' ? '请选择模板块' : '请选择话题块' }}</div>
-  <ul class="list-items" *ngIf="modalType === 'template'">
-    <li class="item-box actived">
-      <span class="text">板块名称1</span>
-      <span class="right-icon">
-        <span class="iconfont">&#xe61e;</span>
-      </span>
-    </li>
-    <li class="item-box">
-      <span class="text">板块名称2</span>
-      <span class="right-icon">
-        <span class="iconfont">&#xe61e;</span>
-      </span>
-    </li>
-    <li class="item-box">
-      <span class="text">板块名称3</span>
-      <span class="right-icon">
-        <span class="iconfont">&#xe61e;</span>
-      </span>
-    </li>
-  </ul>
-
-  <ul class="list-items" *ngIf="modalType === 'topic'">
-    <li class="item-box actived">
-      <span class="text">话题名称1</span>
-      <span class="right-icon">
-        <span class="iconfont">&#xe61e;</span>
-      </span>
-    </li>
-    <li class="item-box">
-      <span class="text">话题名称2</span>
-      <span class="right-icon">
-        <span class="iconfont">&#xe61e;</span>
-      </span>
-    </li>
-    <li class="item-box">
-      <span class="text">话题名称3</span>
-      <span class="right-icon">
-        <span class="iconfont">&#xe61e;</span>
-      </span>
-    </li>
-  </ul>
-
-  <div class="bottom-items">
-    <div class="item-box" style="border-top: 1rem solid #F2F2F2;border-bottom: 0.1rem solid #F2F2F2;">确定</div>
-    <div class="item-box" (click)="dismiss()">取消</div>
-  </div>
+    <div class="items-title item-box">{{ modalType === 'template' ? '请选择板块' : '请选择话题' }}</div>
+    <ul class="list-items">
+        <ng-container *ngFor="let item of list">
+            <li class="item-box" [ngClass]="{'actived':item.selected}">
+                <span class="text">{{item.Name}}</span>
+                <span class="right-icon" (click)="selectItem(item)">
+                <span *ngIf="item.selected" class="iconfont">&#xe61e;</span>
+                <span *ngIf="!item.selected" class="iconfont">&#xe61e;</span>
+                </span>
+            </li>
+        </ng-container>
+    </ul>
+    <div class="bottom-items">
+        <div class="item-box" (click)="submit()" style="border-top: 1rem solid #F2F2F2;border-bottom: 0.1rem solid #F2F2F2;">确定</div>
+        <div class="item-box" (click)="dismiss()">取消</div>
+    </div>
 </div>

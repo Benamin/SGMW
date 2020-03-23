@@ -93,7 +93,7 @@ export class TabsPage {
         });
         this.storage.get('user').then(value => {
             console.log(value);
-            if (!value.MainUserID) {
+            if (value && !value.MainUserID) {
                 this.getUserInfo();
                 return
             }
