@@ -116,4 +116,7 @@
     <plugin name="cordova-plugin-photo-library" spec="git+https://github.com/nilebma/cordova-plugin-photo-library.git">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <config-file overwrite="true" parent="NSMicrophoneUsageDescription" platform="ios" target="*-Info.plist">
+        <string>Microphone access needed</string>
+    </config-file>
 </widget>
