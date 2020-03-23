@@ -1,6 +1,6 @@
 // /***培训平台***/
-// export const SERVER_API_URL = '/api';
-export const SERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
+export const SERVER_API_URL = '/api';
+// export const SERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
 // export const SERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
 // export const SERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
 
@@ -14,8 +14,8 @@ export const SERVER_HTTP_URL = 'https://elearning.sgmw.com.cn/#/courseDetail';  
 
 /***骏客***/
 //环境
-// export const JunKe_HTTP_URL = "/JunKeAPI";  //代理地址
-export const JunKe_HTTP_URL = "https://nbjtest.sgmw.com.cn";   //测试
+export const JunKe_HTTP_URL = "/JunKeAPI";  //代理地址
+// export const JunKe_HTTP_URL = "https://nbjtest.sgmw.com.cn";   //测试
 // export const JunKe_HTTP_URL = "https://nbj.sgmw.com.cn";   //生产
 
 //秘钥
@@ -31,8 +31,8 @@ export const JunKe_client_id = "41BC3798-5392-49A4-A191-0891F322920B";
 
 /***销售助手***/
 //环境
-// export const XSZS_HTTP_URL = "/XSZSAPI";  //代理地址
-export const XSZS_HTTP_URL = "http://112.124.23.230:8010/API";  //测试
+export const XSZS_HTTP_URL = "/XSZSAPI";  //代理地址
+// export const XSZS_HTTP_URL = "http://112.124.23.230:8010/API";  //测试
 // export const XSZS_HTTP_URL = "https://promotion.sgmw.com.cn/API";  //生产
 
 //appid  登录销售助手接口使用

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ViewController, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {ViewController, NavController, NavParams} from 'ionic-angular';
 
 /**
  * Generated class for the ListsRankingPage page.
@@ -9,29 +9,45 @@ import { ViewController, NavController, NavParams } from 'ionic-angular';
  */
 
 @Component({
-  selector: 'eidt-modal',
-  templateUrl: './eidt-modal.component.html'
+    selector: 'eidt-modal',
+    templateUrl: './eidt-modal.component.html'
 })
 export class EidtModalComponent {
-  modalTitle
-  modalType = 'template'
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
-  }
+    modalTitle;
+    modalType = 'template';
 
-  ionViewDidLoad() {
-    console.log('this.navParams', this.navParams.get('modalType'))
-    this.modalType = this.navParams.get('modalType');
-    // if (modalType) {
-    //   if (modalType === 'template') { // 模板多选弹窗
-    //     ;
-    //   } else if (modalType === 'topic') { // 话题多选弹窗
-    //     this.modalTitle = '请选择话题块';
-    //   }
-    // }
-  }
+    list = [];
 
-  dismiss(){
-    this.viewCtrl.dismiss();
-  }
+    selectList = [];
 
+    constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+    }
+
+    ionViewDidLoad() {
+        console.log('this.navParams', this.navParams.get('modalType'))
+        this.modalType = this.navParams.get('modalType');
+        this.list = this.navParams.get('list');
+        this.list.forEach(e => e.selected = false);
+    }
+
+    //取消
+    dismiss() {
+        this.viewCtrl.dismiss();
+    }
+
+    //确定
+    submit() {
+        this.viewCtrl.dismiss(this.selectList);
+    }
+
+    selectItem(item) {
+        const index = this.selectList.findIndex(e => e.Id == item.Id);
+        if (index > -1) {
+            item.selected = false;
+            this.selectList.splice(index, 1);
+        } else {
+            item.selected = true;
+            this.selectList.push(item);
+        }
+    }
 }
