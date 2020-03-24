@@ -308,10 +308,6 @@ export class HomePage implements OnInit {
         this.navCtrl.push(NoDevPage, {title: title});
     }
 
-    goToCompetition() {
-        this.navCtrl.push(CompetitionListsPage);
-    }
-
     //考试中心
     goTest() {
         this.navCtrl.push(TestCenterPage);

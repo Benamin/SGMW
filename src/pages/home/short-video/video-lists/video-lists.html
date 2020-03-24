@@ -26,7 +26,7 @@
   </ion-refresher>
 
   <div class="video-lists">
-    <div class="video-lists-item" (click)="goVideoBox(item.id)" *ngFor="let item of page.videoLists">
+    <div class="video-lists-item" (click)="goVideoBox(item)" *ngFor="let item of page.videoLists">
       <div class="title">{{item.Title}}</div>
       <div class="poster-box">
         <div class="mask"></div>

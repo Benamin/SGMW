@@ -1,0 +1,20 @@
+<div class="main">
+    <div class="content" tappable (click)="close()">
+        <div class="comment" tappable (click)="stop($event)">
+            <div class="reply-list" *ngFor="let item of replyList">
+                <div class="item">
+                    <div class="head-photo">
+                        头像
+                    </div>
+                    <div class="item-content">
+                        <p>{{item.Replyer}}</p>
+                        <p>{{item.Content}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer" (click)="openReply()">
+                留下你的精彩评论吧
+            </div>
+        </div>
+    </div>
+</div>

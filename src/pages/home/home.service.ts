@@ -15,7 +15,7 @@ export class HomeService {
     //获取banner
     getBannerList(RoleID): Observable<any> {
         // return this.http.get(SERVER_API_URL + '/ENews/GetBannerList')
-        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID='+RoleID);
+        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID=' + RoleID);
     }
 
     //优秀教师，关注教师
@@ -70,12 +70,12 @@ export class HomeService {
 
     //获取区域+省份+城市
     getAreaCitys(data): Observable<any> {
-        return this.http.post(SERVER_API_URL + '/area/getAreaCitys',data);
+        return this.http.post(SERVER_API_URL + '/area/getAreaCitys', data);
     }
 
     //今日提醒
-    GetTodayRemind(){
-        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind',{});
+    GetTodayRemind() {
+        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind', {});
     }
 
     // 岗位认证列表
@@ -103,6 +103,7 @@ export class HomeService {
     doUnlineSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/BuyOfflineCourse?cspid=' + params.cspid + '&PostsCertificationpID=' + params.PostsCertificationpID);
     }
+
     // 岗位认证轮播的  点击报名按钮
     doJobLevelSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/SignInPostCertification?pid=' + params);
@@ -161,5 +162,20 @@ export class HomeService {
     // 获取当前人员所属的地区 列表加入地区
     GetCompetitionListUserArea(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/appGetUserArea/GetUserArea' + this.dataFormat.toQuery(data));
+    }
+
+    //点赞/取消点赞接口
+    shortVideoLike(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/AppShortVideo/Like' + this.dataFormat.toQuery(data));
+    }
+
+    //获取某个短视频的评论列表
+    GetShortVideoReplyList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/GetShortVideoReplyList', data);
+    }
+
+    //新增评论
+    ShortVideoReplyAdd(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/reply/add', data);
     }
 }

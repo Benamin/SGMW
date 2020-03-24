@@ -1,5 +1,5 @@
 import {Component, ElementRef} from '@angular/core';
-import {ModalController, NavController, NavParams} from 'ionic-angular';
+import {LoadingController, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
 import {EidtModalComponent} from '../../../../components/eidt-modal/eidt-modal.component';
 import {ForumService} from "../../../forum/forum.service";
 import {CommonService} from "../../../../core/common.service";
@@ -12,7 +12,7 @@ import {HomeService} from "../../home.service";
     templateUrl: 'edit.html',
 })
 export class EditPage {
-    editTitle = '帖子编辑'
+    editTitle = '视频编辑'
     form = {
         Title: '',
         Description: "",
@@ -29,6 +29,8 @@ export class EditPage {
                 private serve: ForumService,
                 private commonSer: CommonService,
                 private homeSer: HomeService,
+                private platform: Platform,
+                private loading: LoadingController,
                 public navParams: NavParams, private elementRef: ElementRef) {
         this.mediaFile = this.navParams.get('mediaFile');
         this.resp = this.navParams.get('resp');
@@ -36,10 +38,6 @@ export class EditPage {
 
     ionViewDidLoad() {
         this.getList();
-        let editType = this.navParams.get('editType');
-        if (editType && editType === 'video') {
-            this.editTitle = '视频编辑';
-        }
     }
 
     //获取话题
@@ -54,22 +52,6 @@ export class EditPage {
 
     goBack() {
         this.navCtrl.pop();
-    }
-
-
-    showModal(type) {
-        console.log(888, type)
-        this.modal = this.modalCtrl.create(EidtModalComponent, {
-            'modalType': type,
-            "list": type == 'template' ? this.tempList : this.choicePlateList
-        },);
-        this.modal.onDidDismiss(res => {
-            if (res) {
-                if (type == 'template') this.form.SVTopicIDList = res;
-                if (type == 'topic') this.form.SVTopicIDList = res;
-            }
-        });
-        this.modal.present();
     }
 
     uploadFile() {
@@ -89,11 +71,13 @@ export class EditPage {
                     "Description": "短视频",//文件简介
                     "AssetId": this.resp.AssetId,//资产id
                     "JobId": this.resp.JobId,//作业id
-                    "icon": "mp4",//如果是mp4格式的需要写mp4，如果是avi格式的需要写avi
+                    "icon": this.platform.is('ios') ? "MOV" : "mp4",//如果是mp4格式的需要写mp4，如果是avi格式的需要写avi
                     "UploadWay": 0,//上传方式:0.本地上传，1.外部链接，选择课件
                     "Duration": this.mediaFile.duration//视频时长，单位：秒
                 }
             };
+            const loading = this.loading.create({content: '发布中...'});
+            loading.present();
             this.homeSer.PublicShortVideo(data).subscribe(
                 (res) => {
                     if (res.data) {
@@ -102,6 +86,7 @@ export class EditPage {
                     } else {
                         this.commonSer.toast(res.message);
                     }
+                    loading.dismiss();
                 }
             )
         })

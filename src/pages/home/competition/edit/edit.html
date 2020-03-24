@@ -2,7 +2,7 @@
     <div class="top-nav">
         <span class="nav-cancle" (click)="goBack()">取消</span>
         <span class="nav-title">{{ editTitle }}</span>
-        <span class="nav-submit" (click)="uploadFile()">提交</span>
+        <span class="nav-submit" (click)="uploadFile()">发布</span>
     </div>
 
     <div class="title-input">
@@ -13,13 +13,4 @@
             <img class="poster" [src]="resp.Imgurl">
         </div>
     </div>
-
-    <ul class="select-items">
-        <li>
-      <span style="margin-left: auto">
-        <img style="width: 1.4rem;height: 1.4rem;" src="./assets/imgs/forum/other/p71_save@2x.png">
-        <span style="margin-left: 1rem;color: #6D6D6D;font-size: 1.4rem;">保存草稿</span>
-      </span>
-        </li>
-    </ul>
 </ion-content>
