@@ -1,5 +1,5 @@
 import {Component, NgZone} from '@angular/core';
-import {NavController, NavParams, LoadingController, ActionSheetController} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ActionSheetController, Platform} from 'ionic-angular';
 import {timer} from "rxjs/observable/timer";
 import {EditPage} from "../../competition/edit/edit";
 import {VideoBoxPage} from "../video-box/video-box";
@@ -7,8 +7,9 @@ import {HomeService} from "../../home.service";
 import {CaptureVideoOptions, MediaCapture, MediaFile, MediaFileData} from "@ionic-native/media-capture";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 import {CommonService} from "../../../../core/common.service";
-import {Camera} from "@ionic-native/camera";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 import {Entry, File} from "@ionic-native/file";
+import {AppService} from "../../../../app/app.service";
 
 
 @Component({
@@ -33,6 +34,8 @@ export class VideoListsPage {
                 private loadingCtrl: LoadingController,
                 private Camera: Camera,
                 private zone: NgZone,
+                private platform: Platform,
+                private appSer: AppService,
                 private file: File,
                 private commonSer: CommonService,
                 private transfer: FileTransfer,
@@ -79,7 +82,6 @@ export class VideoListsPage {
         modal.present();
     }
 
-
 // {
 //     end:0,
 //     fullPath:"file:///storage/emulated/0/DCIM/Camera/VID_20200323_103712.mp4",
@@ -96,14 +98,22 @@ export class VideoListsPage {
         let option: CaptureVideoOptions = {
             limit: 1,
             duration: 15,
-            quality: 10
+            quality: 50
         };
+        if (this.platform.is('ios')) {
+            this.appSer.setIOS('platformIOS');
+            // @ts-ignore
+            setTimeout(() => {
+                this.appSer.setIOS('innerCourse');
+            }, 1500)
+        }
         this.mediaCapture.captureVideo(option).then((mediaFiles: any) => {
             const mediaFile = mediaFiles[0];
             mediaFile.getFormatData((data: MediaFileData) => {
                 Object.assign(mediaFile, data);
-                this.uploadVideo(mediaFile)
+                console.log("mediaFile");
                 console.log(mediaFile);
+                this.uploadVideo(mediaFile)
             }, error => {
                 console.log(error);
             })
@@ -141,6 +151,7 @@ export class VideoListsPage {
                 uploadLoading.dismiss();
                 this.commonSer.toast('上传成功');
                 const data = JSON.parse(res.response);
+                console.log("response data");
                 console.log(data);
                 this.navCtrl.push(EditPage, {mediaFile: mediaFile, resp: data.data});
             }, err => {

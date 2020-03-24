@@ -312,7 +312,6 @@ export class InnerCoursePage {
             setTimeout(()=>{
                 this.appSer.setIOS('innerCourse');
             },1500)
-            console.log('innerCourse')
         }
         this.camera.getPicture(options).then((imagedata) => {
             let filePath = imagedata;
