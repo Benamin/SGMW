@@ -142,8 +142,12 @@ export class ForumService {
   // 新增帖子 可选择 板块 、话题
   addnewforumtagpost(data){
     return this.http.post(SERVER_API_URL + '/forum/post/addnewforumtagpost', data);
-
   }
+  // 修改帖子 可选择 板块 、话题
+  editforumtagpost(data){
+    return this.http.post(SERVER_API_URL + '/forum/post/editforumtagpost', data);
+  }
+
   // 获取 帖子列表
   forum_post_search(data) {
     return this.http.post(SERVER_API_URL + '/forum/post/search', data);

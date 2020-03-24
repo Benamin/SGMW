@@ -80,11 +80,28 @@ page-my-short-video {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-      .video-poster {
-        display: block;
+      .poster-box {
+        position: relative;
         margin: 1rem auto;
         width: 35.2rem;
         height: 19.7rem;
+        border-radius: 1.2rem;
+        overflow: hidden;
+        .video-poster {
+          display: block;
+          width: 35.2rem;
+          height: 19.7rem;
+        }
+        .mask {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 35.2rem;
+          height: 19.7rem;
+          background-color: rgba(0,0,0,0.1);
+          z-index: 9;
+        }
       }
       .video-info {
         display: flex;

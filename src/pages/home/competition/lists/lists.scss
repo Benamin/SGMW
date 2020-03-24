@@ -160,6 +160,40 @@ page-lists {
   }
   //导航 end
 
+  .my-exam {
+    width: 100%;
+    height: 5rem;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    .exam-logo {
+      margin-left: 1.8rem;
+      margin-right: 1rem;
+      width: 11.8rem;
+      height: 3rem;
+      border-radius: 1rem;
+      font-size: 1.5rem;
+      color: #333333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ADDAE9;
+      img {
+        margin-right: 0.3rem;
+        width: 1.591rem;
+        height: 1.793rem;
+      }
+    }
+    span {
+      font-size: 1.2rem;
+      color: #888888;
+      width: 22.5rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
   // 二级导航
   .nav-type-2 {
     width: 100%;
@@ -251,7 +285,11 @@ page-lists {
         flex: 1;
         line-height: 1;
         .title {
+          width: 19rem;
           font-size: 1.5rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         .exam-num {
           margin-top: 1rem;
@@ -259,17 +297,15 @@ page-lists {
           color: #A5A5A5;
         }
         .status-box {
-          margin-top: 1rem;
+          margin-top: 1.3rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          .status-type {
+          .status-points {
             width: 8.4rem;
             height: 2.2rem;
-            font-size: 1.3rem;
-            color: #333333;
-            background-color: #ADDAE9;
-            border-radius: 0.6rem;
+            font-size: 1.2rem;
+            color: #888888;
             display: flex;
             align-items: center;
             justify-content: center;
