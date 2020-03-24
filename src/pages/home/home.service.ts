@@ -15,7 +15,7 @@ export class HomeService {
     //获取banner
     getBannerList(RoleID): Observable<any> {
         // return this.http.get(SERVER_API_URL + '/ENews/GetBannerList')
-        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID=' + RoleID);
+        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID='+RoleID);
     }
 
     //优秀教师，关注教师
@@ -70,12 +70,12 @@ export class HomeService {
 
     //获取区域+省份+城市
     getAreaCitys(data): Observable<any> {
-        return this.http.post(SERVER_API_URL + '/area/getAreaCitys', data);
+        return this.http.post(SERVER_API_URL + '/area/getAreaCitys',data);
     }
 
     //今日提醒
-    GetTodayRemind() {
-        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind', {});
+    GetTodayRemind(){
+        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind',{});
     }
 
     // 岗位认证列表
@@ -103,7 +103,6 @@ export class HomeService {
     doUnlineSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/BuyOfflineCourse?cspid=' + params.cspid + '&PostsCertificationpID=' + params.PostsCertificationpID);
     }
-
     // 岗位认证轮播的  点击报名按钮
     doJobLevelSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/SignInPostCertification?pid=' + params);
@@ -122,5 +121,45 @@ export class HomeService {
     //根据code获取话题ID
     GetTopicID(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/appTopic/GetTopicID' + this.dataFormat.toQuery(data));
+    }
+
+    // 考试项目列表
+    GetExamProList(data): Observable<any> { // eid
+        return this.http.get(SERVER_API_URL + '/exam/examDetail' + this.dataFormat.toQuery(data));
+    }
+
+    // 获取单场(考试项目下的)考试排行详情列表 + 答题正确率
+    GetExamList(data): Observable<any> { // eid
+        return this.http.get(SERVER_API_URL + '/exam/examDetailRanking' + this.dataFormat.toQuery(data));
+    }
+
+    // 帖子排行榜 列表
+    GetTopicCompetitionLists(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/forum/post/searchrank', data);
+    }
+
+    // 所有帖子 最新最热 列表
+    GetAllTopicLists(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/forum/post/searchrownum', data);
+    }
+
+    // 短视频排行榜
+    GetShortVideoCompitLists(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/GetShortVideoLeaderboardListByTopic', data);
+    }
+
+    // 所有短视频 最新最热列表接口
+    GetShortVideoLists(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/GetAllShortVideoListByTopic', data);
+    }
+
+    // 获取话题ID接口
+    GetCompetitionID(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/appTopic/GetTopicID' + this.dataFormat.toQuery(data));
+    }
+
+    // 获取当前人员所属的地区 列表加入地区
+    GetCompetitionListUserArea(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/appGetUserArea/GetUserArea' + this.dataFormat.toQuery(data));
     }
 }

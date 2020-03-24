@@ -89,6 +89,7 @@ page-video-lists {
           display: block;
           width: 35.2rem;
           height: 19.7rem;
+          object-fit: cover;
         }
         .mask {
           position: absolute;
@@ -97,7 +98,7 @@ page-video-lists {
           transform: translateX(-50%) translateY(-50%);
           width: 35.2rem;
           height: 19.7rem;
-          background-color: rgba(0,0,0，,0.1);
+          background-color: rgba(0,0,0,0.1);
           z-index: 9;
         }
       }

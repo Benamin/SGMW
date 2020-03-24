@@ -97,7 +97,7 @@ export class TabsPage {
                 this.getUserInfo();
                 return
             }
-            if (value.MainUserID && value.MainUserID === '00000000-0000-0000-0000-000000000000') {
+            if (value && value.MainUserID && value.MainUserID === '00000000-0000-0000-0000-000000000000') {
                 this.userInfo = value;
                 this.inputType = 'submit';
             }

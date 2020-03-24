@@ -174,19 +174,35 @@ export class VideoListsPage {
         });
         loading.present();
         const data = {
+            GetMyList: 0,
             Title: this.page.searchKey,
             Page: 1,
             PageSize: this.page.PageSize
         };
         this.homeSer.GetVideoLists(data).subscribe(
             (res) => {
-                this.page.videoLists = res.data.Items;
+                let videoLists = this.tranTages(res.data.Items);
+                console.log('videoLists', videoLists)
+                this.page.videoLists = videoLists;
                 this.page.TotalCount = res.data.TotalCount;
 
                 this.page.isLoad = true;
                 loading.dismiss();
             }
         )
+    }
+
+    tranTages(data) {
+        let videoLists = data;
+        for (var i = 0; i < videoLists.length; i++) {
+            videoLists[i].tags = videoLists[i].SVTopicIDList[0].Name;
+            if (videoLists[i].SVTopicIDList && videoLists[i].SVTopicIDList.length > 1) {
+                for (var k = 1; k < videoLists[i].SVTopicIDList.length; k++) {
+                    videoLists[i].tags += '、' + videoLists[i].SVTopicIDList[i].Name;
+                }
+            }
+        }
+        return videoLists;
     }
 
     //下拉刷新
@@ -206,13 +222,15 @@ export class VideoListsPage {
         }
         this.page.Page++;
         const data = {
+            GetMyList: 0,
             Title: this.page.searchKey,
             Page: this.page.Page,
             PageSize: this.page.PageSize
         };
         this.homeSer.GetVideoLists(data).subscribe(
             (res) => {
-                this.page.videoLists = this.page.videoLists.concat(res.data.Items);
+                let videoLists = this.tranTages(res.data.Items);
+                this.page.videoLists = this.page.videoLists.concat(videoLists);
                 this.page.TotalCount = res.data.TotalCount;
                 e.complete();
             }
