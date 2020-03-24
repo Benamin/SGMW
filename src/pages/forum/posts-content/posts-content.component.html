@@ -1,116 +1,126 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>{{lidata.Name}}</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>{{lidata.Name}}</ion-title>
+        <ion-buttons end (click)="handleReport()">
+            <button class="icon-more">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 <ion-content>
-  <!-- /api/forum/topicplate/list  -->
-  <div class="cons">
-    <h3>{{dataCon.Title}}</h3>
-    <div class="post-introduction-top">
-      <img src="{{dataCon.PosterHeadPhoto}}" alt="">
-      <div class="name nowrap-1">{{dataCon.PosterUserName}}</div>
-      <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
-    </div>
-    <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content'>
-    </div>
-    <div class="type-label">
+    <!-- /api/forum/topicplate/list  -->
+    <div class="cons">
+        <h3>{{dataCon.Title}}</h3>
+        <div class="post-introduction-top">
+            <img src="{{dataCon.PosterHeadPhoto}}" alt="">
+            <div class="name nowrap-1">{{dataCon.PosterUserName}}</div>
+            <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
+        </div>
+        <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content'>
+        </div>
+        <div class="type-label">
       <span class="Topic-PlateName">
         {{dataCon.TopicPlateName}}
       </span>
-      <span  class="eye">
+            <span class="eye">
         <img src="./assets/imgs/forum/other/eye.png" alt="">
-        {{dataCon.ViewCount}}
+                {{dataCon.ViewCount}}
       </span>
-      <span class="share" (click)="wxShare(dataCon);$event.stopPropagation()">
+            <span class="share" (click)="wxShare(dataCon);$event.stopPropagation()">
         <img src="./assets/imgs/forum/other/share.png" alt="">
         分享
       </span>
+        </div>
     </div>
-  </div>
-  <div class="discuss-list">
-    <p class="number-all">评论（{{dataCon.ReplyCount}}）</p>
-    <div class="reply" *ngFor="let item of dataCon.Replys">
-      <div class="reply-top">
-        <img class="heard-img" src="{{item?.PosterHeadPhoto}}" alt="">
-        <div class="text">
-          <h4>
+    <div class="discuss-list">
+        <p class="number-all">评论（{{dataCon.ReplyCount}}）</p>
+        <div class="reply" *ngFor="let item of dataCon.Replys">
+            <div class="reply-top">
+                <img class="heard-img" src="{{item?.PosterHeadPhoto}}" alt="">
+                <div class="text">
+                    <h4>
             <span class="PosterUserName">
               {{item?.PosterUserName}}
             </span>
-            <span *ngIf="item?.PosterUserForumTitle?.ForumTitle" class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
-            <span class="PosterBadges" *ngFor="let data of item?.PosterBadges" >
+                        <span *ngIf="item?.PosterUserForumTitle?.ForumTitle"
+                              class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
+                        <span class="PosterBadges" *ngFor="let data of item?.PosterBadges">
               <img src="{{data.BadgeIcon}}" alt="">
               <span class="PosterBadges-BadgeName nowrap-1">
                   {{data.BadgeName}}
               </span>
-            </span>  
-          </h4>
-          <p>{{item?._ReplyTimeFormatted}}</p>
-        </div>
-        <div class="comment">
-        </div>
-      </div>
-      <div class="reply-text" (click)="showViewReply(item)">
-        {{item?.Content}}
-      </div>
-      <div class="reply-more" (click)="showViewReply(item)">
+            </span>
+                    </h4>
+                    <p>{{item?._ReplyTimeFormatted}}</p>
+                </div>
+                <div class="comment">
+                </div>
+            </div>
+            <div class="reply-text" (click)="showViewReply(item)">
+                {{item?.Content}}
+            </div>
+            <div class="reply-more" (click)="showViewReply(item)">
         <span>
           {{item?.CommentCount}}条回复
         </span>
-        <img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt="">
-      </div>
+                <img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt="">
+            </div>
+        </div>
     </div>
-  </div>
-  <ion-list text-center style="    padding-bottom: 200px;    margin-top: -20px;display: block;background: #fff;padding: 30px;margin-bottom: 10px;" *ngIf="!dataCon.Replys">
-      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-      <p text-center style="color: #666666;font-size: 16px">
-        没有评论，快发一条吧~
-      </p>
+    <ion-list text-center
+              style="    padding-bottom: 200px;    margin-top: -20px;display: block;background: #fff;padding: 30px;margin-bottom: 10px;"
+              *ngIf="!dataCon.Replys">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            没有评论，快发一条吧~
+        </p>
     </ion-list>
 </ion-content>
 <ion-footer>
-  <div class="input-bttom">
-    <div class="input-div">
-        <div class="inputshow"  [ngClass]="{'textareaBlur': textareaBlur}" (click)="inputshow_on();">
-            <div class="bg-div" (click)="textareaclick();$event.stopPropagation();">
+    <div class="input-bttom">
+        <div class="input-div">
+            <div class="inputshow" [ngClass]="{'textareaBlur': textareaBlur}" (click)="inputshow_on();">
+                <div class="bg-div" (click)="textareaclick();$event.stopPropagation();">
+                </div>
+                <div class="btn" (click)="$event.stopPropagation();reply_add()">
+                    发送
+                </div>
             </div>
-            <div class="btn" (click)="$event.stopPropagation();reply_add()">
-              发送
-            </div>
+            <div class="textarea" style="position: absolute;left: 30px;top: 10px;" *ngIf="!textareaBlur">输入你的评论</div>
+            <textarea placeholder='输入你的评论...' [(ngModel)]="inputText" [ngClass]="{'bulr-textarea': textareaBlur}"
+                      (focus)="textareaclick();$event.stopPropagation();" rows="1"></textarea>
         </div>
-        <div class="textarea" style="position: absolute;left: 30px;top: 10px;" *ngIf="!textareaBlur" >输入你的评论</div>
-        <textarea placeholder='输入你的评论...'  [(ngModel)]="inputText" [ngClass]="{'bulr-textarea': textareaBlur}"  (focus)="textareaclick();$event.stopPropagation();"  rows="1"></textarea>
-    </div>
-    <div class="icon-div">
-      <div class="reply-more">
-        <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu@3x.png"
-          (click)=" favorites(dataCon);" alt="">
-        <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png"
-          (click)=" cancelfavorites(dataCon);" alt="">
-        <span>
+        <div class="icon-div">
+            <div class="reply-more">
+                <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu@3x.png"
+                     (click)=" favorites(dataCon);" alt="">
+                <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png"
+                     (click)=" cancelfavorites(dataCon);" alt="">
+                <span>
           {{dataCon.FavoritesCount}}
         </span>
-      </div>
-      <div class="reply-more">
-        <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png"
-          (click)="forum_post_cancellike(dataCon);" alt="">
-        <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png"
-          (click)="forum_post_like(dataCon);" alt="">
-        <span>
+            </div>
+            <div class="reply-more">
+                <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png"
+                     (click)="forum_post_cancellike(dataCon);" alt="">
+                <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png"
+                     (click)="forum_post_like(dataCon);" alt="">
+                <span>
           {{dataCon.LikeCount}}
         </span>
-      </div>
-      <div class="reply-more">
-        <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect@3x.png" (click)="follow(dataCon);"
-          alt="">
-        <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect_on@3x.png"
-          (click)="cancelfollow(dataCon);" alt="">
-        <span>
+            </div>
+            <div class="reply-more">
+                <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect@3x.png"
+                     (click)="follow(dataCon);"
+                     alt="">
+                <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect_on@3x.png"
+                     (click)="cancelfollow(dataCon);" alt="">
+                <span>
           {{dataCon.FollowCount}}
         </span>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </ion-footer>
 
