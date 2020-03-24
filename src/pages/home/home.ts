@@ -70,7 +70,7 @@ export class HomePage implements OnInit {
     };
 
     wow;   //是否执行动画
-
+    competitionParam: any
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
                 private appSer: AppService, public statusBar: StatusBar,
@@ -124,6 +124,7 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidLoad() {
+        this.getCompetitionId();
         this.storage.get('RoleID').then(value => {
             this.getBanner(value);
             this.getProductList(value);
@@ -424,11 +425,6 @@ export class HomePage implements OnInit {
         this.navCtrl.push(JobLevelPage);
     }
 
-    // 前往销售大赛
-    goToCompetition() {
-        this.navCtrl.push(CompetitionListsPage);
-    }
-
     // 前往帖子详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
@@ -529,5 +525,38 @@ export class HomePage implements OnInit {
 
     closeTodayRemind() {
         this.is_TodayRemind = false;
+    }
+
+    // 获取销售大赛ID 和 用户所属地区
+    getCompetitionId() {
+        this.competitionParam = {
+            cid: '',
+            userArea: ''
+        }
+        console.log('competitionParam', this.competitionParam)
+        this.homeSer.GetCompetitionID({code: 'xsds'}).subscribe(
+            (res) => {
+                // console.log('GetCompetitionList', res)
+                this.competitionParam.cid = res.data;
+            }
+        )
+        this.homeSer.GetCompetitionListUserArea({}).subscribe(
+            (res) => {
+                // console.log('GetCompetitionListUserArea', res)
+                this.competitionParam.userArea = res.data;
+            }
+        )
+    }
+
+    // 前往销售大赛
+    goToCompetition() {
+        if (!this
+                .competitionParam.cid || !this
+                .competitionParam.userArea) {
+            console.log('销售大赛ID不存在！')
+            return
+        }
+        this.navCtrl.push(CompetitionListsPage, {competitionParam: this
+            .competitionParam});
     }
 }

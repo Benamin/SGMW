@@ -66,7 +66,7 @@ import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
         SearchSidebarComponent,
         ForumListTimeComponent,
         ImgPreviewComponent,
-        IframeFileComponent,        PrivacyComponent,
+        IframeFileComponent,
         PrivacyComponent,
         CommentByCourseComponent,
         EidtModalComponent
