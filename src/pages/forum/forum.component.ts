@@ -81,7 +81,7 @@ export class ForumPage implements OnInit {
         }
         arr.length = arr.length>6?6:arr.length;
         window.localStorage.setItem(HistoryName, JSON.stringify(arr));
-
+        data['navli']=this.navli;
         this.navCtrl.push(PostlistComponent, {data: data});
     }
 

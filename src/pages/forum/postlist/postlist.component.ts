@@ -42,7 +42,11 @@ export class PostlistComponent implements OnInit {
   }
   initList(){
     this.lidata = this.navParams.get('data');
-    this.pageDate.topicPlateId=this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
+    if(this.lidata['navli']&&this.lidata['navli']=='话题'){
+      this.pageDate.TopicTagPlateId=this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
+    }else{
+      this.pageDate.topicPlateId=this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
+    }
     this.forumLIst = [];
     this.pageDate.PageIndex=1;
     this.no_list= false;
@@ -104,7 +108,7 @@ export class PostlistComponent implements OnInit {
       if(!res.data){
         return
       }
-      let arr=res.data.Items;
+      let arr=res.data.Posts.Items;
       if(!this.IsTopOpt){
         for(let n=0;n<arr.length;n++){
           if(arr[n].IsTop){
@@ -124,7 +128,7 @@ export class PostlistComponent implements OnInit {
     
       this.forumLIst = this.forumLIst.concat(arr);
       this.no_list= this.forumLIst.length == 0 ? true:false;
-      console.log('帖子列表',res.data.Items);
+      console.log('帖子列表',res.data.Posts.Items);
     });
   }
 

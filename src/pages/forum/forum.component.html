@@ -65,8 +65,7 @@
         </span>
       </div> -->
     </div>
-    <div class="new-add" tappable (click)="PostAddComponent()">
-    </div>
+ 
   </div>
   <div *ngIf="navli=='板块'">
     <div class="history" *ngIf="ForumHistory.length>0">
@@ -106,8 +105,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="new-add" tappable (click)="PostAddComponent()">
     </div>
   </div>
   <div *ngIf="navli=='话题'">
@@ -149,8 +146,6 @@
         </div>
       </div>
     </div>
-    <div class="new-add" tappable (click)="PostAddComponent()">
-    </div>
   </div>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
@@ -163,3 +158,5 @@
   </ion-list>
 
 </ion-content>
+<div class="new-add" tappable (click)="PostAddComponent()">
+</div>

@@ -150,7 +150,9 @@ export class ForumService {
 
   // 获取 帖子列表
   forum_post_search(data) {
-    return this.http.post(SERVER_API_URL + '/forum/post/search', data);
+    // return this.http.post(SERVER_API_URL + '/forum/post/search', data);
+    return this.http.post(SERVER_API_URL + '/forum/post/searchnewvone', data);
+
   }
 
   // 发布指定的帖子信息
@@ -253,7 +255,9 @@ export class ForumService {
 
   // 我我发布的 帖子
   GetMypost(data){
-    return this.http.post(SERVER_API_URL + '/forum/post/my', data);
+    // return this.http.post(SERVER_API_URL + '/forum/post/my', data);
+    return this.http.post(SERVER_API_URL + '/forum/post/MyPostsEdit', data);
+    
   }
   // 我是否关注收/收藏/点赞帖子
   GetForumPostOtherStatus(postId){
