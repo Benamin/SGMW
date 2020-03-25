@@ -11,6 +11,8 @@ export class ReplyInputPage {
 
     replyContent;
     SVID;
+    itemObj;
+    placeholder;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private homeSer: HomeService,
@@ -20,7 +22,8 @@ export class ReplyInputPage {
 
     ionViewDidLoad() {
         this.SVID = this.navParams.get('SVID');
-        console.log(this.SVID);
+        this.placeholder = this.navParams.get('placeholder');
+        this.itemObj = this.navParams.get('item');
     }
 
     close() {
@@ -31,8 +34,12 @@ export class ReplyInputPage {
         e.stopPropagation();
     }
 
-    //提交
+    //评论
     submit() {
+        if (this.itemObj) {
+            this.comment();
+            return
+        }
         const data = {
             "SVID": this.SVID,//短视频ID
             "Content": this.replyContent,//评论内容
@@ -47,4 +54,22 @@ export class ReplyInputPage {
             }
         )
     }
+
+    //回复评论
+    comment() {
+        const data = {
+            "SVReplyId": this.itemObj.SVReplyId,//回复的评论ID
+            "Content": this.replyContent,//回复内容
+        };
+        this.homeSer.replyComment(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.viewCtrl.dismiss();
+                } else {
+                    this.commonSer.toast(res.message);
+                }
+            }
+        )
+    }
+
 }

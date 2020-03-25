@@ -265,4 +265,25 @@ export class VideoListsPage {
             })
         })
     }
+
+    //点赞
+    //点赞 1 or 取消点赞 2
+    handleLike(item, option, e) {
+        e.stopPropagation();
+        const data = {
+            "SVID": item.ID,
+            "IsADD": option
+        };
+        item.IsLike = option == 1;
+        item.LikeCount = option == 1 ? item.LikeCount + 1 : item.LikeCount - 1;
+        this.homeSer.shortVideoLike(data).subscribe(
+            (res) => {
+                if (res.data) {
+
+                } else {
+                    this.commonSer.toast(res.message);
+                }
+            }
+        )
+    }
 }

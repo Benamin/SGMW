@@ -13,12 +13,13 @@ page-video-reply {
   .comment {
     position: absolute;
     width: 100%;
-    bottom: 0;
+    bottom: 51px;
     height: 80%;
     background: #fff;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
     padding-top: 20px;
+    overflow: scroll;
 
     ion-icon {
       font-size: 3rem;
@@ -65,7 +66,7 @@ page-video-reply {
     height: auto;
   }
 
-  .item {
+  .item, {
     display: flex;
 
     .head-photo {
@@ -77,6 +78,38 @@ page-video-reply {
     }
   }
 
+  .comment-btn{
+    color: #999999;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+
+  .comment-content {
+    margin-top: 15px;
+  }
+
+  .comment-list {
+    padding-left: 10%;
+    display: flex;
+
+    .head-photo {
+      width: 10%;
+      text-align: center;
+    }
+
+    .content {
+      width: 90%;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .comment-list + .comment-list{
+    margin-top: 6px;
+  }
+
   .footer {
     position: absolute;
     bottom: 0;
@@ -85,6 +118,7 @@ page-video-reply {
     padding: 15px;
     color: #999;
     width: 100%;
+    background-color: #fff;
   }
 
   .reply-list {
@@ -98,7 +132,7 @@ page-video-reply {
       color: #888;
       font-size: 13px;
       font-weight: 500;
-      margin-bottom: 10px;
+      margin-bottom: 4px;
     }
 
     > p:last-child {

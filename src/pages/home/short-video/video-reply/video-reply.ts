@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {HomeService} from "../../home.service";
 import {ReplyInputPage} from "../reply-input/reply-input";
+import {defaultHeadPhoto} from "../../../../app/app.constants";
 
 @Component({
     selector: 'page-video-reply',
@@ -10,7 +11,8 @@ import {ReplyInputPage} from "../reply-input/reply-input";
 export class VideoReplyPage {
 
     itemObj;
-    replyList;
+    replyList = [];
+    defaultHeadPhoto = defaultHeadPhoto;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private homeSer: HomeService,
@@ -29,9 +31,10 @@ export class VideoReplyPage {
             "IsGetComment": true,//是否获取评论的回复
             "Page": 1,
             "PageSize": 10,
-            "OrderBy": "string",
-            "SortDir": "string",
-            "IsAsc": true
+            "OrderBy": "CreateTime",
+            "IsAsc": "DESC",
+            "IsHot": true,
+            "SortDir": "DESC",
         }
         this.homeSer.GetShortVideoReplyList(data).subscribe(
             (res) => {
@@ -50,7 +53,20 @@ export class VideoReplyPage {
 
     //打开输入框
     openReply() {
-        let modal = this.modalCtrl.create(ReplyInputPage, {SVID: this.itemObj.ID});
+        let modal = this.modalCtrl.create(ReplyInputPage, {SVID: this.itemObj.ID, placeholder: `留下你的精彩评论吧`});
+        modal.onDidDismiss((data) => {
+            this.getList();
+        });
+        modal.present();
+    }
+
+    //回复
+    replyOtherPerson(item) {
+        let modal = this.modalCtrl.create(ReplyInputPage, {
+            SVID: this.itemObj.ID,
+            placeholder: `回复${item.Replyer}:`,
+            item: item
+        });
         modal.onDidDismiss((data) => {
             this.getList();
         });
