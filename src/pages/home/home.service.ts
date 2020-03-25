@@ -114,13 +114,23 @@ export class HomeService {
     }
 
     // 考试项目列表
-    GetExamProList(data): Observable<any> { // eid
-        return this.http.get(SERVER_API_URL + '/exam/examDetail' + this.dataFormat.toQuery(data));
+    GetExamProList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/exam/examDetail', data);
     }
 
-    // 获取单场(考试项目下的)考试排行详情列表 + 答题正确率
-    GetExamList(data): Observable<any> { // eid
-        return this.http.get(SERVER_API_URL + '/exam/examDetailRanking' + this.dataFormat.toQuery(data));
+    // 获取当前登录人员考试排名
+    GetSelfExamDetail(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/exam/SelfExamDetail', data);
+    }
+
+    // 获取所有考试排行详情
+    GetExamList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/exam/ALLExamDetailRanking', data);
+    }
+
+    // 获取所在大区的当场考试排行详情(如 东区)
+    GetDealerExamList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/exam/DealerExamDetailRanking', data);
     }
 
     // 帖子排行榜 列表

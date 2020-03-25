@@ -55,6 +55,13 @@ export class TabsPage {
             tabIconOff: 'custom-forum-off',
             index: 3
         },
+        // {
+        //     root: CoursePage,
+        //     tabTitle: '我的学习',
+        //     tabIconOn: 'custom-serve-on',
+        //     tabIconOff: 'custom-serve-off',
+        //     index: 4
+        // },
         {
             root: VideoListsPage,
             tabTitle: '视频',

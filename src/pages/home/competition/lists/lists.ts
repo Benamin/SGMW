@@ -34,7 +34,8 @@ import {HomeService} from "../../home.service";
 export class CompetitionListsPage {
     userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
-        checkType: 'short-video',
+        myInfo: null,
+        checkType: 'exam',
         navliArr: [{
             lable: 'exam',
             text: '考试',
@@ -107,6 +108,7 @@ export class CompetitionListsPage {
     }
 
     ionViewDidLoad() {
+        this.GetSelfExamDetail();
         let competitionParam = this.navParams.get('competitionParam');
         if (competitionParam.userArea && competitionParam.userArea != 'null') {
             // 帖子区域
@@ -152,6 +154,24 @@ export class CompetitionListsPage {
         }
     }
 
+    // 获取自己的考试排名
+    GetSelfExamDetail () {
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
+        this.homeSer.GetSelfExamDetail({}).subscribe(
+            (res) => {
+                console.log(888, res.data)
+                this.page.myInfo = res.data;
+                loading.dismiss();
+            }, err => {
+                console.log(err)
+                loading.dismiss();
+            }
+        )
+    }
+
 
     // 一级导航切换 （注：考试不会有）
     changeCheckType(checkType) {
@@ -184,14 +204,14 @@ export class CompetitionListsPage {
     }
 
     // 点击更多进入总排名列表 本期不加
-    // goTotalRanking() {
-    //     this.navCtrl.push(TotalRankingPage);
-    // }
+    goTotalRanking() {
+        this.navCtrl.push(ListsRankingPage);
+    }
 
     // 进入考试排名列表
-    goListsRanking(tid) {
-        this.navCtrl.push(ListsRankingPage, {tid: tid});
-    }
+    // goListsRanking(tid) {
+    //     this.navCtrl.push(ListsRankingPage, {tid: tid});
+    // }
 
     // 进入图片/视频 编辑页面
     goToEdit() {

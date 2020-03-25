@@ -17,41 +17,41 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <div class="podium-pg">
+  <!--<div class="podium-pg">-->
     <!--<div class="more-btn" (click)="goTotalRanking(888)">-->
       <!--更多<img style="margin-left: 0.6rem;width: 0.6rem;height: 1.1rem;" src="assets/imgs/competition/arrow@2x.png" alt="更多">-->
     <!--</div>-->
-    <div class="phb_2">
-      <div class="name-div">
-        <img class="user-head" src="{{ userDefaultImg }}" alt="">
-        <div class="name type-name nowrap-1">闫磊</div>
-        <div class="user-label nowrap-1">
-          黄金门店
-        </div>
-      </div>
-      <img class="phb_2bg" src="assets/imgs/ranking/phb_2@2x.png" alt="第二">
-    </div>
-    <div class="phb_1">
-      <div class="name-div">
-        <img class="user-head" src="{{ userDefaultImg }}" alt="">
-        <div class="name type-name nowrap-1">1111111</div>
-        <div class="user-label nowrap-1">
-          青铜门店
-        </div>
-      </div>
-      <img  class="phb_1bg" src="assets/imgs/ranking/phb_1@2x.png" alt="第一">
-    </div>
-    <div class="phb_3">
-      <div class="name-div">
-        <img class="user-head" src="{{ userDefaultImg }}" alt="">
-        <div class="name type-name nowrap-1">孙喆</div>
-        <div class="user-label nowrap-1">
-          白银门店
-        </div>
-      </div>
-      <img  class="phb_3bg" src="assets/imgs/ranking/phb_3@2x.png" alt="第三">
-    </div>
-  </div>
+    <!--<div class="phb_2">-->
+      <!--<div class="name-div">-->
+        <!--<img class="user-head" src="{{ userDefaultImg }}" alt="">-->
+        <!--<div class="name type-name nowrap-1">闫磊</div>-->
+        <!--<div class="user-label nowrap-1">-->
+          <!--黄金门店-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<img class="phb_2bg" src="assets/imgs/ranking/phb_2@2x.png" alt="第二">-->
+    <!--</div>-->
+    <!--<div class="phb_1">-->
+      <!--<div class="name-div">-->
+        <!--<img class="user-head" src="{{ userDefaultImg }}" alt="">-->
+        <!--<div class="name type-name nowrap-1">1111111</div>-->
+        <!--<div class="user-label nowrap-1">-->
+          <!--青铜门店-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<img  class="phb_1bg" src="assets/imgs/ranking/phb_1@2x.png" alt="第一">-->
+    <!--</div>-->
+    <!--<div class="phb_3">-->
+      <!--<div class="name-div">-->
+        <!--<img class="user-head" src="{{ userDefaultImg }}" alt="">-->
+        <!--<div class="name type-name nowrap-1">孙喆</div>-->
+        <!--<div class="user-label nowrap-1">-->
+          <!--白银门店-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<img  class="phb_3bg" src="assets/imgs/ranking/phb_3@2x.png" alt="第三">-->
+    <!--</div>-->
+  <!--</div>-->
 
 
   <ul class="nav-type">
@@ -62,12 +62,12 @@
   </ul>
 
   <div class="my-exam" *ngIf="page.checkType === page.navliArr[0].lable">
-    <div class="exam-logo">
+    <div class="exam-logo" (click)="goTotalRanking()">
       <img src="./assets/imgs/competition/logo.png" alt="大赛排行榜">
       大赛排行榜
     </div>
-    <span>
-      当前最高分数：100，当前排名：第8名
+    <span *ngIf="page.myInfo">
+      当前最高分数：{{ page.myInfo.TotalScore }}，当前排名：第{{ page.myInfo.RowNumber }}名
     </span>
   </div>
 
@@ -124,73 +124,34 @@
 
   <!-- 列表 考试 start -->
   <ul class="exam-pro-lists" *ngIf="page.checkType === 'exam'">
-    <li (click)="goListsRanking(888)" *ngFor="let item of page.competitionLists">
-      <img class="lists-banner" src="./assets/imgs/competition/banner.png" alt="封面海报">
+    <li *ngFor="let item of page.competitionLists">
+      <img class="lists-banner" src="{{ item.PictureSrc || './assets/imgs/competition/banner.png'}}" alt="封面海报">
       <div class="exam-info">
-        <div class="title">{{ item.title }}</div>
+        <div class="title">{{ item.EName }}</div>
         <!--<div class="exam-num">-->
           <!--本人排行：第10名-->
         <!--</div>-->
-        <div class="status-box"><div class="status-points">当前分数：88</div>
-          <div class="status-btn">
+        <div class="status-box"><div class="status-points">当前分数：{{ item.grade || 0 }}</div>
+          <div class="status-btn" *ngIf="item.isperformance == false">
             <span>参加考试</span>
             <img style="margin-left: 0.6rem;width: 0.6rem;height: 1.1rem;" src="assets/imgs/competition/arrow@2x.png" alt="更多">
           </div>
-        </div>
-      </div>
-    </li>
-    <li (click)="goListsRanking(888)">
-      <img class="lists-banner" src="./assets/imgs/competition/banner.png" alt="封面海报">
-      <div class="exam-info">
-        <div class="title">第一轮考试</div>
-        <!--<div class="exam-num">-->
-          <!--本人排行：第10名-->
-        <!--</div>-->
-        <div class="status-box"><div class="status-points">当前分数：88</div>
-          <div class="status-finish">已完成</div>
+          <div class="status-finish" *ngIf="item.isperformance == true">已完成</div>
         </div>
       </div>
     </li>
   </ul>
   <!-- 三级导航 end-->
 
-  <!--"Images": [//图片-->
-  <!--{-->
-  <!--"Src": "string",-->
-  <!--"Alt": "string"-->
-  <!--}-->
-  <!--],-->
-  <!--"ContentWithoutHtml": "string",-->
-  <!--"TopicPlateName": "string",//帖子标题-->
-  <!--"StatusName": "string",//状态名称-->
-  <!--"IsTop": true,//是否置顶-->
-  <!--"PosterUserName": "string",//帖子用户名-->
-  <!--"PostTimeFormatted": "string",-->
-  <!--"PostRelativeTime": "string",-->
-  <!--"FollowCount": 0,-->
-  <!--"LikeCount": 0,-->
-  <!--"DislikeCount": 0,-->
-  <!--"FavoritesCount": 0,-->
-  <!--"ReplyCount": 0,-->
-  <!--"ViewCount": 0,-->
-  <!--"PosterUserHeadPhoto": "string",-->
-  <!--"IsHotPost": true,-->
-  <!--"Id": "00000000-0000-0000-0000-000000000000",-->
-  <!--"Title": "string",-->
-  <!--"TopicPlateId": "00000000-0000-0000-0000-000000000000",-->
-  <!--"Content": "string",-->
-  <!--"Poster": "00000000-0000-0000-0000-000000000000",-->
-  <!--"Status": 0,-->
-  <!--"IsLocked": true-->
   <!-- 帖子列表 -->
   <ul class="topic-lists" *ngIf="page.checkType === 'topic'">
     <li *ngFor="let item of page.competitionLists">
       <div class="topic-user">
-        <img class="avatar" src="{{ userDefaultImg }}" alt="帖子列表默认头像">
+        <img class="avatar" src="{{ item.PosterUserHeadPhoto || userDefaultImg }}" alt="帖子列表默认头像">
         <div class="user-box">
           <div class="name-time">
             <span class="name">{{ item.PosterUserName }}</span>
-            <span class="time">1小时前</span>
+            <span class="time">{{ item.PostRelativeTime }}</span>
           </div>
           <div class="company">浙江东胜车辆有限公司</div>
         </div>
