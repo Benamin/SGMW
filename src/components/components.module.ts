@@ -19,8 +19,7 @@ import {TodayRemindComponent} from './today-remind/today-remind.component';
 import {PrivacyComponent} from './privacy/privacy';
 import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
 import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
-
-
+import {UserAgreementComponent} from './user-agreement/user-agreement';
 
 
 @NgModule({
@@ -43,7 +42,8 @@ import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
         IframeFileComponent,
         PrivacyComponent,
         CommentByCourseComponent,
-        EidtModalComponent
+        EidtModalComponent,
+        UserAgreementComponent
 
     ],
     imports: [
@@ -69,7 +69,8 @@ import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
         IframeFileComponent,
         PrivacyComponent,
         CommentByCourseComponent,
-        EidtModalComponent
+        EidtModalComponent,
+        UserAgreementComponent
 
     ],
     providers: [
@@ -92,7 +93,8 @@ import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
         IframeFileComponent,
         PrivacyComponent,
         CommentByCourseComponent,
-        EidtModalComponent
+        EidtModalComponent,
+        UserAgreementComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
