@@ -13,7 +13,7 @@ declare let videojs: any;
     templateUrl: 'video-box.html',
 })
 export class VideoBoxPage {
-    like: true
+    like: true;
     videoObj;
     comment: '';
     videoList;
@@ -79,17 +79,18 @@ export class VideoBoxPage {
         modal.onDidDismiss((data) => {
             console.log('modal.onDidDismiss:', data);
         })
-        console.log('modal.present')
+        console.log('modal.present');
         modal.present();
     }
 
-    //点赞or取消点赞
+    //点赞 1 or 取消点赞 2
     handleLike(item, option) {
         const data = {
             "SVID": item.files.ID,
             "IsADD": option
         };
         item.IsLike = option == 1;
+        item.LikeCount = option == 1 ? item.LikeCount + 1 : item.LikeCount - 1;
         this.homeSer.shortVideoLike(data).subscribe(
             (res) => {
                 if (res.data) {

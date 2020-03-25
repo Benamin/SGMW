@@ -4,17 +4,36 @@
             <div class="reply-list" *ngFor="let item of replyList">
                 <div class="item">
                     <div class="head-photo">
-                        头像
+                        <img src="{{item.ReplyerHeadPhoto || defaultHeadPhoto}}">
                     </div>
                     <div class="item-content">
                         <p>{{item.Replyer}}</p>
-                        <p>{{item.Content}}</p>
+                        <p>{{item.Content}}
+                            <span class="comment-btn" (click)="replyOtherPerson(item)">回复</span></p>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    <div class="comment-list" *ngFor="let com of item.SVReplyCommentList">
+                        <div class="head-photo">
+                            <img src="{{com.CommentHeadPhoto || defaultHeadPhoto}}">
+                        </div>
+                        <div class="item-content">
+                            <p>{{com.ReplyCommenterer}}</p>
+                            <p>{{com.Content}}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="footer" (click)="openReply()">
-                留下你的精彩评论吧
-            </div>
+            <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="replyList.length==0">
+                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                <p text-center style="color: #666666;font-size: 16px">
+                    没有评论，快发一条吧~
+                </p>
+            </ion-list>
+        </div>
+        <div class="footer" (click)="openReply()">
+            留下你的精彩评论吧
         </div>
     </div>
 </div>
+

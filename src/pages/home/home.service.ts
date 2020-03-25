@@ -178,4 +178,9 @@ export class HomeService {
     ShortVideoReplyAdd(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/AppShortVideo/reply/add', data);
     }
+
+    //回复短视频评论
+    replyComment(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/replycomment/add', data);
+    }
 }

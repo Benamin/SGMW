@@ -78,6 +78,7 @@ export class EditPage {
             };
             const loading = this.loading.create({content: '发布中...'});
             loading.present();
+            console.log(data);
             this.homeSer.PublicShortVideo(data).subscribe(
                 (res) => {
                     if (res.data) {
