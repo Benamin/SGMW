@@ -62,13 +62,11 @@ export class VideoBoxPage {
                                 type: 'application/x-mpegURL'
                             }],
                         })
-                    })
+                    });
                     loading.dismiss();
                 })
             }
         )
-
-        console.log(this.videoObj);
     }
 
     ionViewDidLeave() {
@@ -81,10 +79,24 @@ export class VideoBoxPage {
     goComment(item) {
         let modal = this.modalCtrl.create(VideoReplyPage, {item: item});
         modal.onDidDismiss((data) => {
-            console.log('modal.onDidDismiss:', data);
+            this.getVideoDetail(item);
         })
         console.log('modal.present');
         modal.present();
+    }
+
+    //获取视频详情
+    getVideoDetail(item) {
+        const data = {
+            SVID: item.ID
+        };
+        this.homeSer.GetShortVideoDetail(data).subscribe(
+            (res) => {
+                item.LikeCount = res.data.LikeCount;
+                item.IsLike = res.data.IsLike;
+                item.ReplyCount = res.data.ReplyCount;
+            }
+        )
     }
 
     //点赞 1 or 取消点赞 2
@@ -93,12 +105,10 @@ export class VideoBoxPage {
             "SVID": item.ID,
             "IsADD": option
         };
-        item.IsLike = option == 1;
-        item.LikeCount = option == 1 ? item.LikeCount + 1 : item.LikeCount - 1;
         this.homeSer.shortVideoLike(data).subscribe(
             (res) => {
                 if (res.data) {
-
+                    this.getVideoDetail(item);
                 } else {
                     this.commonSer.toast(res.message);
                 }

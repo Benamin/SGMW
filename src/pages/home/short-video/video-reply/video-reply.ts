@@ -52,7 +52,8 @@ export class VideoReplyPage {
     }
 
     //打开输入框
-    openReply() {
+    openReply(e) {
+        e.stopPropagation();
         let modal = this.modalCtrl.create(ReplyInputPage, {SVID: this.itemObj.ID, placeholder: `留下你的精彩评论吧`});
         modal.onDidDismiss((data) => {
             this.getList();

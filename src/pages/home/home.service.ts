@@ -183,4 +183,9 @@ export class HomeService {
     replyComment(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/AppShortVideo/replycomment/add', data);
     }
+
+    //查询某个视频的详细信息
+    GetShortVideoDetail(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/AppShortVideo/GetShortVideoDetail' + this.dataFormat.toQuery(data));
+    }
 }

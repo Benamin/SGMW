@@ -266,7 +266,6 @@ export class VideoListsPage {
         })
     }
 
-    //点赞
     //点赞 1 or 取消点赞 2
     handleLike(item, option, e) {
         e.stopPropagation();
@@ -274,15 +273,27 @@ export class VideoListsPage {
             "SVID": item.ID,
             "IsADD": option
         };
-        item.IsLike = option == 1;
-        item.LikeCount = option == 1 ? item.LikeCount + 1 : item.LikeCount - 1;
         this.homeSer.shortVideoLike(data).subscribe(
             (res) => {
                 if (res.data) {
-
+                    this.getVideoDetail(item);
                 } else {
                     this.commonSer.toast(res.message);
                 }
+            }
+        )
+    }
+
+    //获取视频详情
+    getVideoDetail(item) {
+        const data = {
+            SVID: item.ID
+        };
+        this.homeSer.GetShortVideoDetail(data).subscribe(
+            (res) => {
+                item.LikeCount = res.data.LikeCount;
+                item.IsLike = res.data.IsLike;
+                item.ReplyCount = res.data.ReplyCount;
             }
         )
     }
