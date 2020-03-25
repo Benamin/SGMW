@@ -16,8 +16,7 @@ import {ImgPreviewComponent} from './img-preview/img-preview';
 import {IframeFileComponent} from './iframe-file/iframe-file';
 import {PipesModule} from "../pipes/pipes.module";
 import {TodayRemindComponent} from './today-remind/today-remind.component';
-
-
+import {UserAgreementComponent} from "./user-agreement/user-agreement";
 
 
 @NgModule({
@@ -38,6 +37,7 @@ import {TodayRemindComponent} from './today-remind/today-remind.component';
         ForumListTimeComponent,
         ImgPreviewComponent,
         IframeFileComponent,
+        UserAgreementComponent,
     ],
     imports: [
         IonicPageModule,
@@ -60,6 +60,7 @@ import {TodayRemindComponent} from './today-remind/today-remind.component';
         ForumListTimeComponent,
         ImgPreviewComponent,
         IframeFileComponent,
+        UserAgreementComponent,
     ],
     providers: [
         CommentComponent,
@@ -78,7 +79,8 @@ import {TodayRemindComponent} from './today-remind/today-remind.component';
         SearchSidebarComponent,
         ForumListTimeComponent,
         ImgPreviewComponent,
-        IframeFileComponent
+        IframeFileComponent,
+        UserAgreementComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

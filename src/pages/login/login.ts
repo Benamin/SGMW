@@ -1,14 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, LoadingController, NavController, NavParams, Slides } from 'ionic-angular';
-import { TabsPage } from "../tabs/tabs";
-import { LoginService } from "./login.service";
-import { Storage } from "@ionic/storage";
-import { AppService } from "../../app/app.service";
-import { CommonService } from "../../core/common.service";
-import { CheckCodeComponent } from "../../components/check-code/check-code";
-import { Keyboard } from "@ionic-native/keyboard";
-import { StatusBar } from "@ionic-native/status-bar";
-import { timer } from "rxjs/observable/timer";
+import {Component, ViewChild} from '@angular/core';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
+import {TabsPage} from "../tabs/tabs";
+import {LoginService} from "./login.service";
+import {Storage} from "@ionic/storage";
+import {AppService} from "../../app/app.service";
+import {CommonService} from "../../core/common.service";
+import {CheckCodeComponent} from "../../components/check-code/check-code";
+import {Keyboard} from "@ionic-native/keyboard";
+import {StatusBar} from "@ionic-native/status-bar";
+import {timer} from "rxjs/observable/timer";
 import {
     FWZS_appid, FWZS_client_id, FWZS_SecretKey,
     JunKe_client_id, JunKe_PRIVATE_KEY,
@@ -18,10 +18,11 @@ import {
     XSZS_appKey,
     XSZS_client_id
 } from "../../app/app.constants";
-import { DatePipe } from "@angular/common";
-import { RandomWordService } from "../../secret/randomWord.service";
-import { GlobalData } from "../../core/GlobleData";
-import { JPush } from "@jiguang-ionic/jpush";
+import {DatePipe} from "@angular/common";
+import {RandomWordService} from "../../secret/randomWord.service";
+import {GlobalData} from "../../core/GlobleData";
+import {JPush} from "@jiguang-ionic/jpush";
+import {UserAgreementComponent} from "../../components/user-agreement/user-agreement";
 
 declare let md5: any;
 declare let JSEncrypt: any;
@@ -103,14 +104,16 @@ export class LoginPage {
     loading;
 
     RegiID;   //jPush注册ID
+    checkBox;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
-        private datePipe: DatePipe,
-        private jPush: JPush,
-        private randomWord: RandomWordService,
-        private globalData: GlobalData,
-        private loginSer: LoginService, private storage: Storage, private appSer: AppService,
-        private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
+                private datePipe: DatePipe,
+                private jPush: JPush,
+                private modalCtrl: ModalController,
+                private randomWord: RandomWordService,
+                private globalData: GlobalData,
+                private loginSer: LoginService, private storage: Storage, private appSer: AppService,
+                private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
         this.loading = this.loadCtrl.create({
             content: '登录中...'
@@ -141,6 +144,10 @@ export class LoginPage {
 
     //员工
     ygLogin() {
+        if (!this.checkBox) {
+            this.commonSer.toast('请阅读并同意用户协议');
+            return;
+        }
         this.userRoleName = '员工';
         this.setRoleNames();
         if (!this.ygObj.username || !this.ygObj.password) {
@@ -176,6 +183,10 @@ export class LoginPage {
 
     //供应商
     gysLogin() {
+        if (!this.checkBox) {
+            this.commonSer.toast('请阅读并同意用户协议');
+            return;
+        }
         // 供应商
         this.userRoleName = '供应商';
         this.setRoleNames();
@@ -211,6 +222,10 @@ export class LoginPage {
 
     /***销售助手***/
     loginXszsJsx() {
+        if (!this.checkBox) {
+            this.commonSer.toast('请阅读并同意用户协议');
+            return;
+        }
         this.userRoleName = '销售助手';
         this.setRoleNames();
         if (this.jxs.xszs.codeRight != this.jxs.xszs.inputCode) {
@@ -254,7 +269,7 @@ export class LoginPage {
             username: res.czymc,
             jxsh: res.jxsh,
             czydm: res.czydm,
-            usertype:'JXS',
+            usertype: 'JXS',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -282,6 +297,10 @@ export class LoginPage {
     /***骏客***/
     //骏客---经销商登录
     loginJunkeJsx() {
+        if (!this.checkBox) {
+            this.commonSer.toast('请阅读并同意用户协议');
+            return;
+        }
         this.userRoleName = '骏客';
         this.setRoleNames();
         let encrypt = new JSEncrypt();
@@ -320,7 +339,7 @@ export class LoginPage {
             client_id: JunKe_client_id,
             username: this.jxs.junke.username,
             jxsh: res.dealerCode,
-            usertype:'JK',
+            usertype: 'JK',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -346,6 +365,10 @@ export class LoginPage {
 
     /***服务助手登录***/
     fwzsLogin() {
+        if (!this.checkBox) {
+            this.commonSer.toast('请阅读并同意用户协议');
+            return;
+        }
         this.userRoleName = '服务助手';
         this.setRoleNames();
         if (!this.fwzsObj.userName || !this.fwzsObj.password) {
@@ -404,7 +427,7 @@ export class LoginPage {
             client_id: FWZS_client_id,
             username: res.userName,
             jxsh: this.fwzsObj.stationNo,
-            usertype:'SERVICE',
+            usertype: 'SERVICE',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -525,5 +548,11 @@ export class LoginPage {
     // 储存用户角色
     setRoleNames() {
         this.storage.set('RoleName', this.userRoleName);
+    }
+
+    //打开用户协议
+    openModal() {
+        const modal = this.modalCtrl.create(UserAgreementComponent);
+        modal.present();
     }
 }
