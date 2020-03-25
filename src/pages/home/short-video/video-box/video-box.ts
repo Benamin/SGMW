@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import Swiper from 'swiper';
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
@@ -22,11 +22,14 @@ export class VideoBoxPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private commonSer: CommonService,
+                private loading: LoadingController,
                 private modalCtrl: ModalController,
                 private homeSer: HomeService) {
     }
 
     ionViewDidLoad() {
+        const loading = this.loading.create();
+        loading.present();
         const data = {
             GetMyList: 0,
             Title: "",
@@ -60,6 +63,7 @@ export class VideoBoxPage {
                             }],
                         })
                     })
+                    loading.dismiss();
                 })
             }
         )
@@ -86,7 +90,7 @@ export class VideoBoxPage {
     //点赞 1 or 取消点赞 2
     handleLike(item, option) {
         const data = {
-            "SVID": item.files.ID,
+            "SVID": item.ID,
             "IsADD": option
         };
         item.IsLike = option == 1;
