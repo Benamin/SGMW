@@ -11,6 +11,7 @@ export class ListsRankingPage {
     userDefaultImg = './assets/imgs/userDefault.jpg';
     tid = '';
     page = {
+        upRankingLists: [],
         rankingLists: [],
         Page: 1,
         PageSize: 10,
@@ -38,7 +39,10 @@ export class ListsRankingPage {
         };
         this.homeSer.GetExamList(data).subscribe(
             (res) => {
-                this.page.rankingLists = res.data.Items;
+                let Items = res.data.Items;
+                this.page.upRankingLists = Items.slice(0, 3)
+                this.page.rankingLists = Items.slice(3);
+                console.log(99888, this.page.upRankingLists, this.page.rankingLists)
                 this.page.TotalCount = res.data.TotalCount;
                 loading.dismiss();
             }

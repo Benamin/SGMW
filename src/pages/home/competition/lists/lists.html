@@ -145,7 +145,7 @@
 
   <!-- 帖子列表 -->
   <ul class="topic-lists" *ngIf="page.checkType === 'topic'">
-    <li *ngFor="let item of page.competitionLists">
+    <li *ngFor="let item of page.competitionLists" (click)="goPostsContent(item.Id)">
       <div class="topic-user">
         <img class="avatar" src="{{ item.PosterUserHeadPhoto || userDefaultImg }}" alt="帖子列表默认头像">
         <div class="user-box">
@@ -165,10 +165,10 @@
       </div>
       <div class="topic-pic-box" *ngIf="item.Images && item.Images.length > 0">
         <div class="topic-one-pic" *ngIf="item.Images && item.Images.length === 1">
-          <img src="{{imgItem.Images[0].Src || './assets/imgs/competition/banner.png'}}" alt="单张图">
+          <img src="{{ item.Images[0].Src || './assets/imgs/competition/banner.png' }}" alt="单张图">
         </div>
         <div class="topic-multiple-pic" *ngIf="item.Images.length > 1">
-          <img *ngFor="let imgItem of Images" src="{{imgItem.Src || './assets/imgs/competition/banner.png'}}" alt="多张图">
+          <img *ngFor="let imgItem of item.Images" src="{{imgItem.Src || './assets/imgs/competition/banner.png'}}" alt="多张图">
         </div>
       </div>
       <div class="topic-info">

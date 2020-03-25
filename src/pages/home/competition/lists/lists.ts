@@ -5,7 +5,9 @@ import {ListsRankingPage} from "../lists-ranking/lists-ranking";
 import {TotalRankingPage} from "../total-ranking/total-ranking";
 import {EditPage} from "../edit/edit";
 import {VideoBoxPage} from "../../short-video/video-box/video-box";
+import {PostsContentComponent} from '../../../forum/posts-content/posts-content.component';
 import {HomeService} from "../../home.service";
+
 
 /**
  * 销售大赛 列表
@@ -162,7 +164,6 @@ export class CompetitionListsPage {
         loading.present();
         this.homeSer.GetSelfExamDetail({}).subscribe(
             (res) => {
-                console.log(888, res.data)
                 this.page.myInfo = res.data;
                 loading.dismiss();
             }, err => {
@@ -223,6 +224,12 @@ export class CompetitionListsPage {
         this.navCtrl.push(VideoBoxPage, {vid: vid});
     }
 
+    // 前往帖子详情
+    goPostsContent(Id) {
+        let data = { Id: Id }
+        this.navCtrl.push(PostsContentComponent, {data: data});
+    }
+
     // 获取列表
     getList() {
         let params = {}
@@ -267,7 +274,6 @@ export class CompetitionListsPage {
                     }
                 }
                 this.page.competitionLists = Lists;
-                console.log(888, res.data)
                 this.page.getParams.TotalCount = res.data.TotalCount;
                 this.page.getParams.isLoad = true;
                 loading.dismiss();

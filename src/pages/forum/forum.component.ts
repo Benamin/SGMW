@@ -52,6 +52,7 @@ export class ForumPage implements OnInit {
 
     // 前往帖子详情
     goPostsContent(data) {
+        console.log(888, data)
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
 
