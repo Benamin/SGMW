@@ -11,6 +11,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="下拉刷新"
+                           refreshingSpinner="bubbles">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <div class="podium-pg">
     <div class="phb_2">
       <div class="name-div">
@@ -53,28 +59,30 @@
     </div>
   </div>
   <ul class="lists-ranking">
-    <li>
-      <span class="ranking-num">4</span>
+    <li *ngFor="let item of page.rankingLists">
+      <span class="ranking-num">{{ item.Rankid }}</span>
       <img class="avatar" src="{{ userDefaultImg }}">
       <div class="userinfo">
-        <div class="username">邱燕国</div>
+        <div class="username">{{item.UserName}}</div>
         <div class="company">浙江东胜车辆有限公司</div>
       </div>
       <span class="ranking-points">
-        <span class="points-total">100</span><span>（97%）</span>
+        <span class="points-total">{{item.TotalScore}}</span><span>（{{ item.accuracy }}）</span>
       </span>
     </li>
-    <li>
-      <span class="ranking-num">4</span>
-      <img class="avatar" src="{{ userDefaultImg }}">
-      <div class="userinfo">
-        <div class="username">邱燕国</div>
-        <div class="company">浙江东胜车辆有限公司</div>
-      </div>
-      <span class="ranking-points">
-        <span class="points-total">100</span><span>（97%）</span>
-      </span>
-    </li>
+
+    <ion-list text-center style="margin-top: 10rem" *ngIf="page.isLoad && page.rankingLists.length == 0">
+      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+      <p text-center style="color: #666666;font-size: 16px">
+        暂无数据
+      </p>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
   </ul>
 
 </ion-content>

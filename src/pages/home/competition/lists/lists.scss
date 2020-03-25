@@ -9,118 +9,118 @@ page-lists {
     }
   }
   // 顶部排行 start
-  .podium-pg {
-    position: relative;
-    text-align: center;
-    margin-top: 3rem;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    .more-btn {
-      position: absolute;
-      top: 0;
-      right: 1.2rem;
-      width: 6.2rem;
-      height: 2.6rem;
-      background-color: #FFFFFF;
-      border-radius: 1.3rem;
-      font-size: 1.2rem;
-      color: #7A7A7A;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .name-div {
-      padding-top: 0.2rem;
-      margin-top: -1.5rem;
-      .user-head {
-        width: 4.5rem;
-        height: 4.5rem;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-      .user-label {
-        display: inline-block;
-        padding: 0 0.5rem;
-        background: #575757;
-        font-size: 1rem;
-        border-radius: 1rem;
-        color: #fff;
-        width: 6rem;
-      }
-      .name {
-        margin: auto;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-        width: 6.5rem;
-      }
-      .type-name {
-        font-size: 1.2rem;
-        transform: scale(0.9);
-        color: #f3f3f3;
-        color: rgba(0, 0, 0, 0.6);
-      }
-    }
-
-    .phb_1, .phb_2, .phb_3 {
-      position: relative;
-      .phb_2bg, .phb_1bg, .phb_3bg {
-        position: absolute;
-        left: 0;
-        z-index: -1;
-        bottom: 0;
-      }
-    }
-    .scoreavg-label {
-      display: inline-block;
-      padding: 0 0.5rem;
-      background: #575757;
-      font-size: 1rem;
-      border-radius: 1rem;
-      color: #fff;
-    }
-    .phb_1 {
-      height: 17.4rem;
-      width: 18.5rem;
-      .name-div {
-        padding-top: 2.5rem;
-      }
-      .phb_1bg {
-        height: 100%;
-      }
-    }
-    .phb_2 {
-      height: 15.3rem;
-      width: 12.9rem;
-      margin-right: -5.5rem;
-      .name-div {
-        margin-right: -3rem;
-        padding-top: 2.5rem;
-      }
-      .phb_2bg {
-
-        height: 100%;
-      }
-    }
-    .phb_3 {
-      height: 13.5rem;
-      width: 12.3rem;
-      margin-left: -5.2rem;
-      .name-div {
-        margin-left: -3rem;
-        padding-top: 2rem;
-      }
-      .phb_3bg {
-        z-index: -9;
-        height: 100%;
-      }
-
-    }
-    .user-grade {
-      display: block;
-      transform: scale(0.7);
-    }
-  }
+  //.podium-pg {
+  //  position: relative;
+  //  text-align: center;
+  //  margin-top: 3rem;
+  //  display: flex;
+  //  align-items: flex-end;
+  //  justify-content: center;
+  //  .more-btn {
+  //    position: absolute;
+  //    top: 0;
+  //    right: 1.2rem;
+  //    width: 6.2rem;
+  //    height: 2.6rem;
+  //    background-color: #FFFFFF;
+  //    border-radius: 1.3rem;
+  //    font-size: 1.2rem;
+  //    color: #7A7A7A;
+  //    display: flex;
+  //    align-items: center;
+  //    justify-content: center;
+  //  }
+  //  .name-div {
+  //    padding-top: 0.2rem;
+  //    margin-top: -1.5rem;
+  //    .user-head {
+  //      width: 4.5rem;
+  //      height: 4.5rem;
+  //      border-radius: 50%;
+  //      object-fit: cover;
+  //    }
+  //    .user-label {
+  //      display: inline-block;
+  //      padding: 0 0.5rem;
+  //      background: #575757;
+  //      font-size: 1rem;
+  //      border-radius: 1rem;
+  //      color: #fff;
+  //      width: 6rem;
+  //    }
+  //    .name {
+  //      margin: auto;
+  //      font-size: 1.2rem;
+  //      margin-bottom: 0.5rem;
+  //      width: 6.5rem;
+  //    }
+  //    .type-name {
+  //      font-size: 1.2rem;
+  //      transform: scale(0.9);
+  //      color: #f3f3f3;
+  //      color: rgba(0, 0, 0, 0.6);
+  //    }
+  //  }
+  //
+  //  .phb_1, .phb_2, .phb_3 {
+  //    position: relative;
+  //    .phb_2bg, .phb_1bg, .phb_3bg {
+  //      position: absolute;
+  //      left: 0;
+  //      z-index: -1;
+  //      bottom: 0;
+  //    }
+  //  }
+  //  .scoreavg-label {
+  //    display: inline-block;
+  //    padding: 0 0.5rem;
+  //    background: #575757;
+  //    font-size: 1rem;
+  //    border-radius: 1rem;
+  //    color: #fff;
+  //  }
+  //  .phb_1 {
+  //    height: 17.4rem;
+  //    width: 18.5rem;
+  //    .name-div {
+  //      padding-top: 2.5rem;
+  //    }
+  //    .phb_1bg {
+  //      height: 100%;
+  //    }
+  //  }
+  //  .phb_2 {
+  //    height: 15.3rem;
+  //    width: 12.9rem;
+  //    margin-right: -5.5rem;
+  //    .name-div {
+  //      margin-right: -3rem;
+  //      padding-top: 2.5rem;
+  //    }
+  //    .phb_2bg {
+  //
+  //      height: 100%;
+  //    }
+  //  }
+  //  .phb_3 {
+  //    height: 13.5rem;
+  //    width: 12.3rem;
+  //    margin-left: -5.2rem;
+  //    .name-div {
+  //      margin-left: -3rem;
+  //      padding-top: 2rem;
+  //    }
+  //    .phb_3bg {
+  //      z-index: -9;
+  //      height: 100%;
+  //    }
+  //
+  //  }
+  //  .user-grade {
+  //    display: block;
+  //    transform: scale(0.7);
+  //  }
+  //}
   // 顶部排行 end
 
   //导航 start
@@ -339,6 +339,7 @@ page-lists {
     background-color: #FFFFFF;
     li {
       padding: 0.9rem 1.5rem 1.4rem 1.5rem ;
+      border-bottom: 1rem solid #f2f2f2;
       .topic-user {
         margin-bottom: 1rem;
         display: flex;
