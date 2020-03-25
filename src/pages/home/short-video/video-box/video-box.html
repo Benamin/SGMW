@@ -33,7 +33,7 @@
                     </div>
                     <p>{{item.ReplyCount}}</p>
                     <div class="btn-box">
-                        <img src="./assets/imgs/competition/enjoy.png" alt="分享按钮"
+                        <img (click)="$event.stopPropagation();wxShare(item)" src="./assets/imgs/competition/enjoy.png" alt="分享按钮"
                              style="width: 1.888rem;height: 1.888rem;">
                     </div>
                 </div>

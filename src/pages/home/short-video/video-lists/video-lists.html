@@ -43,7 +43,7 @@
             <img *ngIf="item.IsLike" (click)="handleLike(item,2,$event)" class="like-icon"
                  src="./assets/imgs/competition/dianzan-baise.png" alt="点赞icon">
             <span class="like-num">{{ item.LikeCount }}</span>
-            <img class="enjoy-icon" src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
+            <img (click)="$event.stopPropagation();wxShare(item)" class="enjoy-icon" src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
           </span>
             </div>
         </div>

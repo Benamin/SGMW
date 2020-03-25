@@ -7,6 +7,7 @@ import {CommonService} from "../../../../core/common.service";
 import {VideoReplyPage} from "../video-reply/video-reply";
 
 declare let videojs: any;
+declare var Wechat;
 
 @Component({
     selector: 'page-video-box',
@@ -17,6 +18,7 @@ export class VideoBoxPage {
     videoObj;
     comment: '';
     videoList;
+    itemID;
 
     initVideo = <any>{};
 
@@ -25,6 +27,8 @@ export class VideoBoxPage {
                 private loading: LoadingController,
                 private modalCtrl: ModalController,
                 private homeSer: HomeService) {
+        this.itemID = this.navParams.get('ID');
+        this.getShortVideoList();
     }
 
     ionViewDidLoad() {
@@ -65,6 +69,18 @@ export class VideoBoxPage {
                     });
                     loading.dismiss();
                 })
+            }
+        )
+    }
+
+    //获取短视频
+    getShortVideoList() {
+        const data = {
+            SVID: this.itemID
+        };
+        this.homeSer.GetTopDownShortVideoDetail(data).subscribe(
+            (res) => {
+
             }
         )
     }
@@ -114,6 +130,32 @@ export class VideoBoxPage {
                 }
             }
         )
+    }
+
+    // 微信分享
+    wxShare(data) {
+        console.log('分享内容', data)
+        let thumb = data.CoverUrl;
+        Wechat.share({
+            message: {
+                title: data.Title, // 标题
+                description: "", // 简介
+                thumb: thumb, //帖子图片
+                mediaTagName: "TEST-TAG-001",
+                messageExt: "这是第三方带的测试字段",
+                messageAction: "<action>dotalist</action>",
+                // media: "YOUR_MEDIA_OBJECT_HERE",
+                media: {
+                    type: Wechat.Type.WEBPAGE,
+                    webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=shortVideo&Id=${data.ID}`
+                }
+            },
+            scene: Wechat.Scene.SESSION
+        }, function () {
+            // alert("Success");
+        }, function (reason) {
+            // alert("Failed: " + reason);
+        });
     }
 
 }

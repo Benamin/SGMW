@@ -188,4 +188,9 @@ export class HomeService {
     GetShortVideoDetail(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/AppShortVideo/GetShortVideoDetail' + this.dataFormat.toQuery(data));
     }
+
+    //查询视频的上一个和下一个
+    GetTopDownShortVideoDetail(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/AppShortVideo/GetTopDownShortVideoDetail' + this.dataFormat.toQuery(data));
+    }
 }

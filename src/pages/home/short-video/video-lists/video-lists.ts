@@ -11,6 +11,7 @@ import {Camera, CameraOptions} from "@ionic-native/camera";
 import {Entry, File} from "@ionic-native/file";
 import {AppService} from "../../../../app/app.service";
 
+declare var Wechat;
 
 @Component({
     selector: 'page-video-lists',
@@ -48,7 +49,7 @@ export class VideoListsPage {
 
     // 进入视频播放页
     goVideoBox(item) {
-        this.navCtrl.push(VideoBoxPage, {item: item});
+        this.navCtrl.push(VideoBoxPage, {ID: item.ID});
     }
 
     goToEdit() {
@@ -296,5 +297,31 @@ export class VideoListsPage {
                 item.ReplyCount = res.data.ReplyCount;
             }
         )
+    }
+
+    // 微信分享
+    wxShare(data) {
+        console.log('分享内容', data)
+        let thumb = data.CoverUrl;
+        Wechat.share({
+            message: {
+                title: data.Title, // 标题
+                description: "", // 简介
+                thumb: thumb, //帖子图片
+                mediaTagName: "TEST-TAG-001",
+                messageExt: "这是第三方带的测试字段",
+                messageAction: "<action>dotalist</action>",
+                // media: "YOUR_MEDIA_OBJECT_HERE",
+                media: {
+                    type: Wechat.Type.WEBPAGE,
+                    webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=shortVideo&Id=${data.ID}`
+                }
+            },
+            scene: Wechat.Scene.SESSION
+        }, function () {
+            // alert("Success");
+        }, function (reason) {
+            // alert("Failed: " + reason);
+        });
     }
 }
