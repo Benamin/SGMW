@@ -285,6 +285,7 @@ export class CompetitionListsPage {
 
     // 获取列表
     getList() {
+        this.page.getParams.OrderByDirection = '';
         this.page.getParams.Page = 1;
         this.page.getParams.OrderBy = '' // LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
         this.page.getParams.AreaID = '' // 传入则查询地区排行和排行榜//不传则查询所有地区排行榜
@@ -295,6 +296,7 @@ export class CompetitionListsPage {
         } else if (this.page.checkType === this.page.navliArr[1].lable) {
             // 帖子
             if (this.page.navliArr[1].secNav[0].isActived === true) {
+                this.page.getParams.OrderByDirection = 'DESC';
                 // 帖子最新/最热
                 this.page.getListsApi = (data) => { return this.homeSer.GetAllTopicLists(data) };;
                 if (this.page.navliArr[1].secNav[0].thrNav[0].isActived === true) {
