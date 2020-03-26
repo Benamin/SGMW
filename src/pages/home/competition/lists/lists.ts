@@ -7,6 +7,7 @@ import {EditPage} from "../edit/edit";
 import {VideoBoxPage} from "../../short-video/video-box/video-box";
 import {DoTestPage} from "../../test/do-test/do-test";
 import {CommonService} from "../../../../core/common.service";
+import {PostAddComponent} from '../../../forum/post-add/post-add.component';
 import {PostsContentComponent} from '../../../forum/posts-content/posts-content.component';
 import {HomeService} from "../../home.service";
 
@@ -224,9 +225,9 @@ export class CompetitionListsPage {
     // 进入图片/视频 编辑页面
     goToEdit() {
         if (this.page.checkType === this.page.navliArr[1].lable) {
-            this.navCtrl.push(EditPage, {editType: 'topic'});
+            this.navCtrl.push(PostAddComponent, {data: {}});
         } else if (this.page.checkType === this.page.navliArr[2].lable) {
-            this.navCtrl.push(EditPage, {editType: 'competitionVideo'});
+            this.navCtrl.push(EditPage, {editType: 'video', comeForm: '销售大赛'});
         }
     }
 
@@ -257,13 +258,11 @@ export class CompetitionListsPage {
                 const sysDate = this.commonSer.transFormTime(res.data);
                 if (sysDate < ExamBegin) {
                     this.commonSer.toast('考试未开始');
-                }
-                else if (sysDate > ExamEnd) {
+                } else if (sysDate > ExamEnd && item.StudyState == 1) {
                     this.commonSer.toast('当前时间不可考试');
-                }
-                else if (ExamBegin < sysDate && sysDate < ExamEnd) {
+                } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
                     this.navCtrl.push(DoTestPage, {item: item});  //未开始
-                } else if (this.page.StudyState == 2) {                    //未完成
+                } else if (item.StudyState == 2) {                    //未完成
                     this.navCtrl.push(DoTestPage, {item: item});
                 }
             }
@@ -271,11 +270,11 @@ export class CompetitionListsPage {
     }
 
     // 获取列表
-    getList(dataParams) {
+    getList() {
         this.page.getParams.Page = 1;
         this.page.getParams.OrderBy = '' // LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
         this.page.getParams.AreaID = '' // 传入则查询地区排行和排行榜//不传则查询所有地区排行榜
-        let params = Object.assign(this.page.getParams, dataParams)
+        let params = this.page.getParams;
         // 判断是考试/帖子/短视频
         if (this.page.checkType === this.page.navliArr[0].lable) {
             this.page.getListsApi = (data) => { return this.homeSer.GetExamProList(data) };
