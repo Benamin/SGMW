@@ -147,11 +147,15 @@ export class ForumService {
   editforumtagpost(data){
     return this.http.post(SERVER_API_URL + '/forum/post/editforumtagpost', data);
   }
-
+    // 获取 帖子列表
+    forum_post_search_old(data) {
+      return this.http.post(SERVER_API_URL + '/forum/post/search', data);
+    }
   // 获取 帖子列表
   forum_post_search(data) {
     // return this.http.post(SERVER_API_URL + '/forum/post/search', data);
-    return this.http.post(SERVER_API_URL + '/forum/post/searchnewvone', data);
+    // return this.http.post(SERVER_API_URL + '/forum/post/searchnewvone', data);
+    return this.http.post(SERVER_API_URL + '/forum/post/searchbytopicplate', data);
 
   }
 

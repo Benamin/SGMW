@@ -108,7 +108,9 @@ export class PostlistComponent implements OnInit {
       if(!res.data){
         return
       }
-      let arr=res.data.Posts.Items;
+      let arr=res.data.UnTopPosts.Items;
+      // let arr=res.data.Posts.Items;
+
       if(!this.IsTopOpt){
         for(let n=0;n<arr.length;n++){
           if(arr[n].IsTop){
@@ -128,7 +130,7 @@ export class PostlistComponent implements OnInit {
     
       this.forumLIst = this.forumLIst.concat(arr);
       this.no_list= this.forumLIst.length == 0 ? true:false;
-      console.log('帖子列表',res.data.Posts.Items);
+      // console.log('帖子列表',res.data.Posts.Items);
     });
   }
 
