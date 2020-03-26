@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, LoadingController} from 'ionic-angular';
+import { DomSanitizer } from '@angular/platform-browser';
 import {timer} from "rxjs/observable/timer";
 import {ListsRankingPage} from "../lists-ranking/lists-ranking";
 // import {TotalRankingPage} from "../total-ranking/total-ranking";
@@ -7,6 +8,7 @@ import {EditPage} from "../edit/edit";
 import {VideoBoxPage} from "../../short-video/video-box/video-box";
 import {DoTestPage} from "../../test/do-test/do-test";
 import {CommonService} from "../../../../core/common.service";
+import {PostAddComponent} from '../../../forum/post-add/post-add.component';
 import {PostsContentComponent} from '../../../forum/posts-content/posts-content.component';
 import {HomeService} from "../../home.service";
 
@@ -39,7 +41,7 @@ export class CompetitionListsPage {
     userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
         myInfo: null,
-        checkType: 'exam',
+        checkType: 'topic',
         navliArr: [{
             lable: 'exam',
             text: '考试',
@@ -66,7 +68,7 @@ export class CompetitionListsPage {
                     ]
                 },
                 {
-                    navBtnText: '帖子排行榜',
+                    navBtnText: '大赛排行榜',
                     navBtnEn: 'topicCompetition',
                     isActived: false,
                     thrNav: null
@@ -108,7 +110,7 @@ export class CompetitionListsPage {
         getParams: null
     }
 
-    constructor(private commonSer: CommonService, public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService) {
+    constructor(private commonSer: CommonService, public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService, private sanitizer: DomSanitizer) {
     }
 
     ionViewDidLoad() {
@@ -160,7 +162,7 @@ export class CompetitionListsPage {
     }
 
     // 获取自己的考试排名
-    GetSelfExamDetail() {
+    GetSelfExamDetail () {
         let loading = this.loadCtrl.create({
             content: ''
         });
@@ -213,7 +215,7 @@ export class CompetitionListsPage {
         let userArea = null
         let competitionParam = this.navParams.get('competitionParam');
         if (competitionParam.userArea && competitionParam.userArea != 'null') userArea = competitionParam.userArea;
-        this.navCtrl.push(ListsRankingPage, {userArea: userArea});
+            this.navCtrl.push(ListsRankingPage, {userArea: userArea});
     }
 
     // 进入考试排名列表
@@ -223,7 +225,11 @@ export class CompetitionListsPage {
 
     // 进入图片/视频 编辑页面
     goToEdit() {
-        this.navCtrl.push(EditPage, {editType: 'topic'});
+        if (this.page.checkType === this.page.navliArr[1].lable) {
+            this.navCtrl.push(PostAddComponent, {data: {}});
+        } else if (this.page.checkType === this.page.navliArr[2].lable) {
+            this.navCtrl.push(EditPage, {editType: 'video', comeForm: '销售大赛'});
+        }
     }
 
     // 进入视频播放页
@@ -233,7 +239,7 @@ export class CompetitionListsPage {
 
     // 前往帖子详情
     goPostsContent(Id) {
-        let data = {Id: Id}
+        let data = { Id: Id }
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
 
@@ -253,11 +259,11 @@ export class CompetitionListsPage {
                 const sysDate = this.commonSer.transFormTime(res.data);
                 if (sysDate < ExamBegin) {
                     this.commonSer.toast('考试未开始');
-                } else if (sysDate > ExamEnd) {
+                } else if (sysDate > ExamEnd && item.StudyState == 1) {
                     this.commonSer.toast('当前时间不可考试');
                 } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
                     this.navCtrl.push(DoTestPage, {item: item});  //未开始
-                } else  {                    //未完成
+                } else if (item.StudyState == 2) {                    //未完成
                     this.navCtrl.push(DoTestPage, {item: item});
                 }
             }
@@ -265,24 +271,19 @@ export class CompetitionListsPage {
     }
 
     // 获取列表
-    getList(dataParams?: any) {
+    getList() {
         this.page.getParams.Page = 1;
         this.page.getParams.OrderBy = '' // LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
         this.page.getParams.AreaID = '' // 传入则查询地区排行和排行榜//不传则查询所有地区排行榜
-        let params = Object.assign(this.page.getParams, dataParams)
+        let params = this.page.getParams;
         // 判断是考试/帖子/短视频
         if (this.page.checkType === this.page.navliArr[0].lable) {
-            this.page.getListsApi = (data) => {
-                return this.homeSer.GetExamProList(data)
-            };
+            this.page.getListsApi = (data) => { return this.homeSer.GetExamProList(data) };
         } else if (this.page.checkType === this.page.navliArr[1].lable) {
             // 帖子
             if (this.page.navliArr[1].secNav[0].isActived === true) {
                 // 帖子最新/最热
-                this.page.getListsApi = (data) => {
-                    return this.homeSer.GetAllTopicLists(data)
-                };
-                ;
+                this.page.getListsApi = (data) => { return this.homeSer.GetAllTopicLists(data) };;
                 if (this.page.navliArr[1].secNav[0].thrNav[0].isActived === true) {
                     console.log('最新')
                     this.page.getParams.OrderBy = 'CreateTime';
@@ -292,9 +293,7 @@ export class CompetitionListsPage {
                 }
             } else if (this.page.navliArr[1].secNav[1].isActived === true) {
                 // 帖子排行榜
-                this.page.getListsApi = (data) => {
-                    return this.homeSer.GetTopicCompetitionLists(data)
-                };
+                this.page.getListsApi = (data) => { return this.homeSer.GetTopicCompetitionLists(data) };
                 if (this.page.navliArr[1].secNav[1].thrNav[0].isActived === true) {
                     console.log('所有排行')
                 } else if (this.page.navliArr[1].secNav[1].thrNav[1].isActived === true) {
@@ -302,13 +301,11 @@ export class CompetitionListsPage {
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }
             }
-        } else if (this.page.checkType === this.page.navliArr[2].lable) {
+        } else if(this.page.checkType === this.page.navliArr[2].lable) {
             // 短视频
             if (this.page.navliArr[2].secNav[0].isActived === true) {
                 // 短视频最新/最热
-                this.page.getListsApi = (data) => {
-                    return this.homeSer.GetShortVideoLists(data)
-                };
+                this.page.getListsApi = (data) => { return this.homeSer.GetShortVideoLists(data) };
                 if (this.page.navliArr[2].secNav[0].thrNav[0].isActived === true) {
                     console.log('视频最新')
                     this.page.getParams.OrderBy = 'LikeCount';
@@ -318,9 +315,7 @@ export class CompetitionListsPage {
                 }
             } else if (this.page.navliArr[2].secNav[1].isActived === true) {
                 // 短视频排行榜
-                this.page.getListsApi = (data) => {
-                    return this.homeSer.GetShortVideoCompitLists(data)
-                };
+                this.page.getListsApi = (data) => { return this.homeSer.GetShortVideoCompitLists(data) };
                 if (this.page.navliArr[2].secNav[1].thrNav[0].isActived === true) {
                     console.log('视频所有排行')
                 } else if (this.page.navliArr[2].secNav[1].thrNav[1].isActived === true) {
@@ -336,14 +331,24 @@ export class CompetitionListsPage {
         loading.present();
         this.page.getListsApi(params).subscribe(
             (res) => {
-                let Lists = res.data.Items
-                if (this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
-                    for (var i = 0; i < Lists.length; i++) {
+                let Data = res.data;
+                let Lists = []
+                if (Data.MyItems && Data.MyItems.ID) {
+                    Lists = res.data.LeaderboardItems.Items;
+                    this.page.getParams.TotalCount = res.data.LeaderboardItems.TotalCount;
+                    Lists.unshift(Data.MyItems);
+                } else {
+                    this.page.getParams.TotalCount = res.data.TotalCount;
+                    Lists = res.data.Items;
+                }
+                console.log(888, Lists)
+
+                if(this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
+                    for (var i=0; i<Lists.length; i++) {
                         Lists[i].VideoMinute = this.formatSeconds(Lists[i].VideoMinute);
                     }
                 }
                 this.page.competitionLists = Lists;
-                this.page.getParams.TotalCount = res.data.TotalCount;
                 this.page.getParams.isLoad = true;
                 loading.dismiss();
             }, err => {
@@ -372,9 +377,18 @@ export class CompetitionListsPage {
         this.page.getParams.Page++;
         this.page.getListsApi(this.page.getParams).subscribe(
             (res) => {
-                let Lists = res.data.Items
-                if (this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
-                    for (var i = 0; i < Lists.length; i++) {
+                let Data = res.data;
+                let Lists = []
+                if (Data.MyItems && Data.MyItems.ID) {
+                    Lists = res.data.SVTopicIDList;
+                    Lists.unshift(Data.MyItems);
+                } else {
+                    Lists = res.data.Items;
+                }
+                console.log(888, Lists)
+
+                if(this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
+                    for (var i=0; i<Lists.length; i++) {
                         Lists[i].VideoMinute = this.formatSeconds(Lists[i].VideoMinute);
                     }
                 }
@@ -385,26 +399,30 @@ export class CompetitionListsPage {
         )
     }
 
-    formatSeconds($times) {
+    formatSeconds($times){
         let $result = '00:00';
-        if ($times > 0) {
-            let $hour = Math.floor($times / 3600);
-            let $minute = Math.floor(Math.floor($times % 3600) / 60);
-            let $second = Math.floor(($times - 60 * $minute) % 60);
-            let $hourStr = ''
-            let $minuteStr = ''
-            let $secondStr = ''
+        if ($times>0){
+            let $hour = Math.floor($times/3600);
+            let $minute = Math.floor(Math.floor($times%3600)/60);
+            let $second = Math.floor(($times-60 * $minute) % 60);
+            let $hourStr = '' + $hour
+            let $minuteStr = '' + $minute
+            let $secondStr = '' + $second
             if ($hour < 10) {
                 $hour == 0 ? $hourStr = '' : $hourStr = '0' + $hour + ':';
             }
-            if ($minute < 10) {
+            if($minute<10){
                 $minuteStr = "0" + $minute;
             }
-            if ($second < 10) {
+            if($second<10){
                 $secondStr = "0" + $second;
             }
-            $result = $hourStr + $minuteStr + ':' + $secondStr;
+            $result =  $hourStr + $minuteStr + ':' + $secondStr;
         }
         return $result
+    }
+
+    assembleHTML(strHTML:any) {
+        return this.sanitizer.bypassSecurityTrustHtml(strHTML);
     }
 }
