@@ -135,7 +135,8 @@ export class HomeService {
 
     // 帖子排行榜 列表
     GetTopicCompetitionLists(data): Observable<any> {
-        return this.http.post(SERVER_API_URL + '/forum/post/searchrank', data);
+        // searchrank
+        return this.http.post(SERVER_API_URL + '/forum/post/GetPostLeaderboardByTopicTag', data);
     }
 
     // 所有帖子 最新最热 列表
