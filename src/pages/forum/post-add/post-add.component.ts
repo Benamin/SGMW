@@ -447,10 +447,7 @@ export class PostAddComponent implements OnInit {
       this.serve.presentToast('请填写帖子或者内容');
       return;
     }
-    this.loading = this.loadCtrl.create({
-      content:''
-    });
-    this.loading.present();
+
     if(textInnerTEXT.length > 20000){
       this.serve.presentToast('帖子内容不能超过20000个字符');
       return
@@ -463,14 +460,22 @@ export class PostAddComponent implements OnInit {
         TopicPlateIds.push(e.Id);
       }
     });
-    if(TopicPlateIds.length==0){
-      return  this.serve.presentToast('请选择帖子板块');
-    }
     this.conversationDataSelection.forEach (e => {
       if(e.Selection){
         TopicTagPlateIds.push(e.Id);
       }
     });
+    if(TopicPlateIds.length==0){
+      return  this.serve.presentToast('请选择帖子板块');
+    }
+    if(TopicTagPlateIds.length==0){
+      return  this.serve.presentToast('请选择帖子话题');
+    }
+
+    this.loading = this.loadCtrl.create({
+      content:''
+    });
+    this.loading.present();
     if(this.lidata.Status){ // 修改 草稿 帖子
       this.forum_post_edit(IsSaveAndPublish,textInnerHTML,TopicPlateIds,TopicTagPlateIds);
     }else{

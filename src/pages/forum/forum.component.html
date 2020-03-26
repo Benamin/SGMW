@@ -22,7 +22,12 @@
     </div>
   </div>
   <div *ngIf="navli=='热帖'">
+    <div class="div-nav">
+      <div [ngClass]="{'act': pageDate.OrderBy=='PostTimeFormatted'}" tappable (click)="avtNav('PostTimeFormatted')">最新</div>
+      <div [ngClass]="{'act': pageDate.OrderBy=='LikeCount'}" tappable (click)="avtNav('LikeCount')">最热</div>
+    </div>
     <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
+  
       <app-forum-list-time [item]='item'></app-forum-list-time>
       <!-- <div class="post-introduction-top">
         <img src="{{item.PosterUserHeadPhoto}}" alt="">

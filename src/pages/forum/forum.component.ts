@@ -19,6 +19,7 @@ export class ForumPage implements OnInit {
     isdoInfinite = true;
     no_list = false;
     pageDate = {
+        OrderBy:"PostTimeFormatted",
         creater: "",
         name: "",
         pageIndex: 1,
@@ -98,6 +99,12 @@ export class ForumPage implements OnInit {
         }else if(this.navli == '话题'){
             this.topicplateSearchtopictag();
         }
+    }
+
+    avtNav(text){
+        this.forumLIst=[];
+        this.pageDate.OrderBy=text;
+        this.initData();
     }
     doInfinite(e) {
         console.log('加载');
