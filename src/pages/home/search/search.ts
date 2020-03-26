@@ -136,13 +136,13 @@ export class SearchPage {
         }
     }
 
-
     forum_post_search(e = null) {
         this.pageDate.Title = this.page.title;
         this.showTips = false;
-        this.forumService.forum_post_search(this.pageDate).subscribe((res: any) => {
-            // let arr = res.data.Items;
-            let arr=res.data.Posts.Items;
+        this.forumService.forum_post_search_old(this.pageDate).subscribe((res: any) => {
+            let arr = res.data.Items;
+            // let arr=res.data.UnTopPosts.Items;
+            // let arr=res.data.Posts.Items;
             arr.forEach(element => {
                 element.PostRelativeTime = this.forumService.PostRelativeTimeForm(element.PostRelativeTime);
             });
