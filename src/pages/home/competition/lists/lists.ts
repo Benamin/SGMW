@@ -223,7 +223,11 @@ export class CompetitionListsPage {
 
     // 进入图片/视频 编辑页面
     goToEdit() {
-        this.navCtrl.push(EditPage, {editType: 'topic'});
+        if (this.page.checkType === this.page.navliArr[1].lable) {
+            this.navCtrl.push(EditPage, {editType: 'topic'});
+        } else if (this.page.checkType === this.page.navliArr[2].lable) {
+            this.navCtrl.push(EditPage, {editType: 'competitionVideo'});
+        }
     }
 
     // 进入视频播放页
@@ -327,14 +331,24 @@ export class CompetitionListsPage {
         loading.present();
         this.page.getListsApi(params).subscribe(
             (res) => {
-                let Lists = res.data.Items
+                let Data = res.data;
+                let Lists = []
+                if (Data.MyItems && Data.MyItems.ID) {
+                    Lists = res.data.LeaderboardItems.Items;
+                    this.page.getParams.TotalCount = res.data.LeaderboardItems.TotalCount;
+                    Lists.unshift(Data.MyItems);
+                } else {
+                    this.page.getParams.TotalCount = res.data.TotalCount;
+                    Lists = res.data.Items;
+                }
+                console.log(888, Lists)
+
                 if(this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
                     for (var i=0; i<Lists.length; i++) {
                         Lists[i].VideoMinute = this.formatSeconds(Lists[i].VideoMinute);
                     }
                 }
                 this.page.competitionLists = Lists;
-                this.page.getParams.TotalCount = res.data.TotalCount;
                 this.page.getParams.isLoad = true;
                 loading.dismiss();
             }, err => {
@@ -363,7 +377,16 @@ export class CompetitionListsPage {
         this.page.getParams.Page++;
         this.page.getListsApi(this.page.getParams).subscribe(
             (res) => {
-                let Lists = res.data.Items
+                let Data = res.data;
+                let Lists = []
+                if (Data.MyItems && Data.MyItems.ID) {
+                    Lists = res.data.SVTopicIDList;
+                    Lists.unshift(Data.MyItems);
+                } else {
+                    Lists = res.data.Items;
+                }
+                console.log(888, Lists)
+
                 if(this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
                     for (var i=0; i<Lists.length; i++) {
                         Lists[i].VideoMinute = this.formatSeconds(Lists[i].VideoMinute);
@@ -382,9 +405,9 @@ export class CompetitionListsPage {
             let $hour = Math.floor($times/3600);
             let $minute = Math.floor(Math.floor($times%3600)/60);
             let $second = Math.floor(($times-60 * $minute) % 60);
-            let $hourStr = ''
-            let $minuteStr = ''
-            let $secondStr = ''
+            let $hourStr = '' + $hour
+            let $minuteStr = '' + $minute
+            let $secondStr = '' + $second
             if ($hour < 10) {
                 $hour == 0 ? $hourStr = '' : $hourStr = '0' + $hour + ':';
             }

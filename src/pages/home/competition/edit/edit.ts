@@ -26,8 +26,11 @@ export class EditPage {
     ionViewDidLoad() {
         let editType = this.navParams.get('editType');
         if (editType && editType === 'video') {
-            // topic 论坛  video 视频
+            // video 视频
             this.editTitle = '视频编辑';
+        } else if (editType && editType === 'topic') {
+            // topic 帖子
+            this.editTitle = '帖子编辑';
         }
         console.log('ionViewDidLoad EditPage');
 
