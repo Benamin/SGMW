@@ -13,6 +13,7 @@ export class ForumListTimeComponent implements OnInit {
   constructor() { }
   
   ngOnInit() {
+      console.log(9999999, this.item)
   }
 
   // 微信分享

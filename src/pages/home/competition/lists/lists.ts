@@ -3,6 +3,7 @@ import {NavController, NavParams, LoadingController} from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
 import {timer} from "rxjs/observable/timer";
 import {ListsRankingPage} from "../lists-ranking/lists-ranking";
+import {LookTestPage} from "../../test/look-test/look-test";
 // import {TotalRankingPage} from "../total-ranking/total-ranking";
 import {EditPage} from "../edit/edit";
 import {VideoBoxPage} from "../../short-video/video-box/video-box";
@@ -41,7 +42,7 @@ export class CompetitionListsPage {
     userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
         myInfo: null,
-        checkType: 'topic',
+        checkType: 'exam',
         navliArr: [{
             lable: 'exam',
             text: '考试',
@@ -107,16 +108,18 @@ export class CompetitionListsPage {
         competitionLists: [],
         getListsApi: null, // 请求接口服务
         competitionParam: null,
-        getParams: null
+        getParams: null,
+        hasArea: false
     }
 
     constructor(private commonSer: CommonService, public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService, private sanitizer: DomSanitizer) {
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.GetSelfExamDetail();
         let competitionParam = this.navParams.get('competitionParam');
         if (competitionParam.userArea && competitionParam.userArea != 'null') {
+            this.page.hasArea = true;
             // 帖子区域
             this.page.navliArr[1].secNav[1].thrNav = [
                 {
@@ -182,6 +185,7 @@ export class CompetitionListsPage {
     // 一级导航切换 （注：考试不会有）
     changeCheckType(checkType) {
         if (this.page.checkType === checkType) return;
+        this.page.competitionLists = [];
         this.page.checkType = checkType;
         // if (checkType === 'recommend') this.page.Type = 1;
         // if (checkType === 'all') this.page.Type = 2;
@@ -195,6 +199,7 @@ export class CompetitionListsPage {
         if (bool) return;
         var otherIndex = 1
         if (secNavIndex === 1) otherIndex = 0;
+        this.page.competitionLists = [];
         this.page.navliArr[typeIndex].secNav[otherIndex].isActived = false;
         this.page.navliArr[typeIndex].secNav[secNavIndex].isActived = true;
         this.getList();
@@ -205,6 +210,7 @@ export class CompetitionListsPage {
         if (bool === true) return;
         var otherIndex = 1
         if (thrNavIndex === 1) otherIndex = 0;
+        this.page.competitionLists = [];
         this.page.navliArr[typeIndex].secNav[secNavIndex].thrNav[otherIndex].isActived = false;
         this.page.navliArr[typeIndex].secNav[secNavIndex].thrNav[thrNavIndex].isActived = true;
         this.getList();
@@ -244,6 +250,13 @@ export class CompetitionListsPage {
     }
 
     // 点击考试列表
+    goExam(item) {
+        if (item.StudyState == 3) {
+            this.navCtrl.push(LookTestPage, {item: item});
+        } else {
+            this.checkTesttime(item);
+        }
+    }
     //考试有效期校验
     checkTesttime(item) {
         const loading = this.loadCtrl.create({
@@ -263,7 +276,7 @@ export class CompetitionListsPage {
                     this.commonSer.toast('当前时间不可考试');
                 } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
                     this.navCtrl.push(DoTestPage, {item: item});  //未开始
-                } else if (item.StudyState == 2) {                    //未完成
+                } else if (item.StudyState == 2) { // 未完成
                     this.navCtrl.push(DoTestPage, {item: item});
                 }
             }
@@ -291,12 +304,12 @@ export class CompetitionListsPage {
                     console.log('最热')
                     this.page.getParams.OrderBy = 'LikeCount';
                 }
-            } else if (this.page.navliArr[1].secNav[1].isActived === true) {
+            } else if (this.page.navliArr[1].secNav && this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].isActived === true) {
                 // 帖子排行榜
                 this.page.getListsApi = (data) => { return this.homeSer.GetTopicCompetitionLists(data) };
-                if (this.page.navliArr[1].secNav[1].thrNav[0].isActived === true) {
+                if (!this.page.navliArr[1].secNav[1] || (this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].thrNav && this.page.navliArr[1].secNav[1].thrNav[0] && this.page.navliArr[1].secNav[1].thrNav[0].isActived === true)) {
                     console.log('所有排行')
-                } else if (this.page.navliArr[1].secNav[1].thrNav[1].isActived === true) {
+                } else if (this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].thrNav && this.page.navliArr[1].secNav[1].thrNav[1] && this.page.navliArr[1].secNav[1].thrNav[1].isActived === true) {
                     console.log('区域排行')
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }
@@ -313,12 +326,12 @@ export class CompetitionListsPage {
                     console.log('视频最热')
                     this.page.getParams.OrderBy = 'ReplyTime';
                 }
-            } else if (this.page.navliArr[2].secNav[1].isActived === true) {
+            } else if (this.page.navliArr[2].secNav && this.page.navliArr[2].secNav[1]&& this.page.navliArr[2].secNav[1].isActived === true) {
                 // 短视频排行榜
                 this.page.getListsApi = (data) => { return this.homeSer.GetShortVideoCompitLists(data) };
-                if (this.page.navliArr[2].secNav[1].thrNav[0].isActived === true) {
+                if (!this.page.navliArr[2].secNav[1] || (this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].thrNav && this.page.navliArr[2].secNav[1].thrNav[0] && this.page.navliArr[2].secNav[1].thrNav[0].isActived === true)) {
                     console.log('视频所有排行')
-                } else if (this.page.navliArr[2].secNav[1].thrNav[1].isActived === true) {
+                } else if (this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].thrNav && this.page.navliArr[2].secNav[1].thrNav[1] && this.page.navliArr[2].secNav[1].thrNav[1].isActived === true) {
                     console.log('视频区域排行')
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }

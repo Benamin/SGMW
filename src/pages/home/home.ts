@@ -70,7 +70,7 @@ export class HomePage implements OnInit {
     };
 
     wow;   //是否执行动画
-    competitionParam: any
+    competitionParam = null;
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
                 private appSer: AppService, public statusBar: StatusBar,
@@ -550,9 +550,7 @@ export class HomePage implements OnInit {
 
     // 前往销售大赛
     goToCompetition() {
-        if (!this
-                .competitionParam.cid || !this
-                .competitionParam.userArea) {
+        if (!this.competitionParam.cid ) {
             console.log('销售大赛ID不存在！')
             return
         }
