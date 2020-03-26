@@ -32,11 +32,13 @@
         <div class="video-lists-item" (click)="goVideoBox(item)" *ngFor="let item of page.videoLists">
             <div class="title">{{item.Title}}</div>
             <div class="poster-box">
-                <div class="mask"></div>
+                <div class="mask">
+                    <span>{{item.VideoMinute | secondFormat}}</span>
+                </div>
                 <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
             </div>
             <div class="video-info">
-                <span class="info-text">{{item.Description}}</span>
+                <span class="info-text">{{item.Creater}}</span>
                 <span class="info-right">
             <img *ngIf="!item.IsLike" (click)="handleLike(item,1,$event)" class="like-icon"
                  src="./assets/imgs/competition/dianzan@2x.png" alt="点赞icon">

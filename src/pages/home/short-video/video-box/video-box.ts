@@ -17,14 +17,15 @@ export class VideoBoxPage {
     like: true;
     videoObj;
     comment: '';
-    videoList;
+    videoList = [];
     itemID;
+    loading;
 
     initVideo = <any>{};
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private commonSer: CommonService,
-                private loading: LoadingController,
+                private loadCtrl: LoadingController,
                 private modalCtrl: ModalController,
                 private homeSer: HomeService) {
         this.itemID = this.navParams.get('ID');
@@ -32,61 +33,109 @@ export class VideoBoxPage {
     }
 
     ionViewDidLoad() {
-        const loading = this.loading.create();
-        loading.present();
-        const data = {
-            GetMyList: 0,
-            Title: "",
-            Page: 1,
-            PageSize: 100
-        };
-        this.homeSer.GetVideoLists(data).subscribe(
-            (res) => {
-                this.videoList = res.data.Items;
-                this.videoObj = this.navParams.get("item");
-                let mySwiper = new Swiper('.swiper-container', {
-                    direction: 'vertical',
-                    speed: 1000,// slide滑动动画时间
-                    observer: true,
-                    observeParents: false,
-                    on: {
-                        slideChangeTransitionStart: function () {
-                            console.log(this.activeIndex);
-                        },
-                    },
-                });
-                timer(100).subscribe(() => {
-                    this.videoList.forEach((e, index) => {
-                        this.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
-                            muted: false,
-                            controls: true,
-                            autoplay: false,
-                            "sources": [{
-                                src: e.files.AttachmentUrl,
-                                type: 'application/x-mpegURL'
-                            }],
-                        })
-                    });
-                    loading.dismiss();
-                })
-            }
-        )
+
     }
 
     //获取短视频
     getShortVideoList() {
+        this.loading = this.loadCtrl.create();
+        this.loading.present();
         const data = {
             SVID: this.itemID
         };
         this.homeSer.GetTopDownShortVideoDetail(data).subscribe(
-            (res) => {
-
+            (res1) => {
+                this.homeSer.GetShortVideoDetail(data).subscribe(
+                    (res2) => {
+                        if (res1.data.TopItem.CoverUrl) {
+                            this.videoList.push(res1.data.TopItem);
+                        }
+                        this.videoList.push(res2.data);
+                        if (res1.data.DownItem.CoverUrl) {
+                            this.videoList.push(res1.data.DownItem);
+                        }
+                        console.log(this.videoList);
+                        this.init();
+                    }
+                );
             }
         )
     }
 
+    //swiper&&videojs初始化
+    init() {
+        let that = this;
+        let mySwiper = new Swiper('.swiper-container', {
+            direction: 'vertical',
+            speed: 1000,// slide滑动动画时间
+            observer: true,
+            initialSlide: that.videoList[0].ID == that.itemID ? 0 : 1,
+            observeParents: false,
+            on: {
+                slideChangeTransitionStart: function () {
+                },
+                slidePrevTransitionStart: function () {
+                    console.log('上一个')
+                    if (this.activeIndex == 0) that.getTopAndDown('pre', that.videoList[this.activeIndex]);
+                },
+                slideNextTransitionStart: function () {
+                    console.log('下一个', that.videoList[this.activeIndex])
+                    if (that.videoList.length == this.activeIndex + 1) that.getTopAndDown('next', that.videoList[this.activeIndex]);
+                }
+            },
+        });
+        timer(100).subscribe(() => {
+            that.videoList.forEach((e, index) => {
+                that.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
+                    muted: false,
+                    controls: true,
+                    autoplay: false,
+                    "sources": [{
+                        src: e.files.AttachmentUrl,
+                        type: 'application/x-mpegURL'
+                    }],
+                })
+            });
+            that.loading.dismiss();
+        })
+    }
+
+    /**
+     * 查询上一个&&下一个
+     * @param type 滑动方向 pre=>上一个 next=>下一个
+     * @param item  //当前item
+     */
+    getTopAndDown(type, item) {
+        const data = {
+            SVID: item.ID
+        };
+        this.homeSer.GetTopDownShortVideoDetail(data).subscribe(
+            (res) => {
+                if (type == 'next' && res.data.DownItem.CoverUrl) {  //通过CoverUrl是否为null进行判断是否有下一个
+                    this.videoList.push(res.data.DownItem);
+                    timer(100).subscribe(() => {
+                        this.initVideo[`video${res.data.DownItem.files.ID}`] = videojs(`video${res.data.DownItem.files.ID}`, {  //video初始化
+                            muted: false, controls: true, autoplay: false,
+                            "sources": [{src: res.data.DownItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
+                        })
+                    })
+                }
+                if (type == 'pre' && res.data.TopItem.CoverUrl) {
+                    this.videoList.unshift(res.data.TopItem);
+                    timer(100).subscribe(() => {
+                        this.initVideo[`video${res.data.TopItem.files.ID}`] = videojs(`video${res.data.TopItem.files.ID}`, {  //video初始化
+                            muted: false, controls: true, autoplay: false,
+                            "sources": [{src: res.data.TopItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
+                        })
+                    })
+                }
+            }
+        );
+    }
+
     ionViewDidLeave() {
         for (let i in this.initVideo) {
+            console.log(i);
             this.initVideo[i].dispose();
         }
     }
@@ -101,7 +150,7 @@ export class VideoBoxPage {
         modal.present();
     }
 
-    //获取视频详情
+//获取视频详情
     getVideoDetail(item) {
         const data = {
             SVID: item.ID
@@ -115,7 +164,7 @@ export class VideoBoxPage {
         )
     }
 
-    //点赞 1 or 取消点赞 2
+//点赞 1 or 取消点赞 2
     handleLike(item, option) {
         const data = {
             "SVID": item.ID,
@@ -132,7 +181,7 @@ export class VideoBoxPage {
         )
     }
 
-    // 微信分享
+// 微信分享
     wxShare(data) {
         console.log('分享内容', data)
         let thumb = data.CoverUrl;

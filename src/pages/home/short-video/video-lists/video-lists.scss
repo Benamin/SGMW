@@ -117,6 +117,13 @@ page-video-lists {
           height: 19.7rem;
           background-color: rgb(0, 0, 0);
           z-index: 9;
+
+          span {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            color: #fff;
+          }
         }
       }
 

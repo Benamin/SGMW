@@ -27,6 +27,7 @@ import {ListsRankingPage} from "./competition/lists-ranking/lists-ranking";
 import {TotalRankingPage} from "./competition/total-ranking/total-ranking";
 import {VideoReplyPage} from "./short-video/video-reply/video-reply";
 import {ReplyInputPage} from "./short-video/reply-input/reply-input";
+import {PipesModule} from "../../pipes/pipes.module";
 
 @NgModule({
     declarations: [
@@ -59,6 +60,7 @@ import {ReplyInputPage} from "./short-video/reply-input/reply-input";
     imports: [
         IonicPageModule.forChild(HomePage),
         ComponentsModule,
+        PipesModule,
     ],
     entryComponents: [
         SearchPage,

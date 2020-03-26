@@ -59,7 +59,7 @@ export class EditPage {
             const data = {
                 Title: this.form.Title,
                 Description: this.form.Description,
-                VideoMinute: this.mediaFile.duration,
+                VideoMinute: Math.ceil(this.mediaFile.duration),
                 CoverUrl: this.resp.Imgurl,
                 SVTopicIDList: [this.form.SVTopicIDList],
                 files: {
@@ -73,7 +73,7 @@ export class EditPage {
                     "JobId": this.resp.JobId,//作业id
                     "icon": this.platform.is('ios') ? "MOV" : "mp4",//如果是mp4格式的需要写mp4，如果是avi格式的需要写avi
                     "UploadWay": 0,//上传方式:0.本地上传，1.外部链接，选择课件
-                    "Duration": this.mediaFile.duration//视频时长，单位：秒
+                    "Duration": Math.ceil(this.mediaFile.duration),//视频时长，单位：秒
                 }
             };
             const loading = this.loading.create({content: '发布中...'});
