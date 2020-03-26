@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, LoadingController} from 'ionic-angular';
+import { DomSanitizer } from '@angular/platform-browser';
 import {timer} from "rxjs/observable/timer";
 import {ListsRankingPage} from "../lists-ranking/lists-ranking";
 // import {TotalRankingPage} from "../total-ranking/total-ranking";
@@ -40,7 +41,7 @@ export class CompetitionListsPage {
     userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
         myInfo: null,
-        checkType: 'exam',
+        checkType: 'topic',
         navliArr: [{
             lable: 'exam',
             text: '考试',
@@ -67,7 +68,7 @@ export class CompetitionListsPage {
                     ]
                 },
                 {
-                    navBtnText: '帖子排行榜',
+                    navBtnText: '大赛排行榜',
                     navBtnEn: 'topicCompetition',
                     isActived: false,
                     thrNav: null
@@ -109,7 +110,7 @@ export class CompetitionListsPage {
         getParams: null
     }
 
-    constructor(private commonSer: CommonService, public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService) {
+    constructor(private commonSer: CommonService, public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService, private sanitizer: DomSanitizer) {
     }
 
     ionViewDidLoad() {
@@ -419,5 +420,9 @@ export class CompetitionListsPage {
             $result =  $hourStr + $minuteStr + ':' + $secondStr;
         }
         return $result
+    }
+
+    assembleHTML(strHTML:any) {
+        return this.sanitizer.bypassSecurityTrustHtml(strHTML);
     }
 }
