@@ -27,13 +27,23 @@ export class ForumPage implements OnInit {
     }
     ForumHistory = [];
     navli: '热帖' | '板块' = '热帖';
+    Blacklist = [];
 
     constructor(public navCtrl: NavController, private serve: ForumService,
-                public logSer:LogService,
+                public logSer: LogService,
                 private storage: Storage, private loadCtrl: LoadingController) {
     }
 
     ngOnInit() {
+    }
+
+    ionViewDidEnter() {
+        this.storage.get('Blacklist').then(value => {
+            if (value) {
+                this.Blacklist = value;
+            }
+            console.log('Blacklist', this.Blacklist);
+        })
     }
 
     ionViewDidLoad() {
@@ -64,7 +74,7 @@ export class ForumPage implements OnInit {
     }
 
     initData() {
-        this.isdoInfinite=true;
+        this.isdoInfinite = true;
         if (this.navli == '板块') {
             this.forum_topicplate_search();
             this.getHistory();
@@ -77,12 +87,14 @@ export class ForumPage implements OnInit {
     doInfinite(e) {
         console.log('加载');
         this.pageDate.pageIndex++;
-        if(this.navli=='板块'){
+        if (this.navli == '板块') {
             this.forum_topicplate_search();
-        };
-        if(this.navli=='热帖'){
+        }
+        ;
+        if (this.navli == '热帖') {
             this.getLIistData();
-        };
+        }
+        ;
 
         setTimeout(() => {
             e.complete();
@@ -128,11 +140,12 @@ export class ForumPage implements OnInit {
     doRefresh(e) {
         setTimeout(() => {
             e.complete();
-            this.isdoInfinite=true;
+            this.isdoInfinite = true;
         }, 1000);
         if (this.navli == '热帖') {
             return this.switchInformation('热帖')
-        };
+        }
+        ;
 
         this.pageDate.pageIndex = 1;
         this.isdoInfinite = true;
@@ -158,7 +171,7 @@ export class ForumPage implements OnInit {
             content: '加载中...'
         });
         loading.present();
-        let data={
+        let data = {
             "IsHotPost": "0",
             "OrderBy": "",
             "OrderByDirection": "",
@@ -169,7 +182,7 @@ export class ForumPage implements OnInit {
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             loading.dismiss();
             if (res.data) {
-                
+
                 let arr = res.data.UnTopPosts.Items;
                 this.forumLIst = this.forumLIst.concat(arr);
                 this.no_list = this.forumLIst.length > 0 ? false : true;

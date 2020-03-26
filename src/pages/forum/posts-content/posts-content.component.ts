@@ -4,6 +4,8 @@ import {NavParams, NavController, LoadingController, ModalController, ActionShee
 import {ForumService} from '../forum.service';
 import {ViewReplyComponent} from '../view-reply/view-reply.component';
 import {ReportPage} from "../report/report";
+import {CommonService} from "../../../core/common.service";
+import {Storage} from "@ionic/storage";
 
 declare var Wechat;
 
@@ -47,6 +49,8 @@ export class PostsContentComponent implements OnInit {
     constructor(private serve: ForumService,
                 public navParams: NavParams,
                 public navCtrl: NavController,
+                public commonSer: CommonService,
+                public storage: Storage,
                 private actionSheetCtrl: ActionSheetController,
                 private loadCtrl: LoadingController) {
     }
@@ -398,6 +402,23 @@ export class PostsContentComponent implements OnInit {
                     role: 'report',
                     handler: () => {
                         this.navCtrl.push(ReportPage, {data: this.dataCon});
+                    }
+                },
+                {
+                    text: '拉黑',
+                    role: 'report',
+                    handler: () => {
+                        this.commonSer.alert('是否拉黑该用户?', () => {
+                            this.storage.get('Blacklist').then((value: any) => {
+                                if (value) {
+                                    value.push(this.dataCon.Id);
+                                    this.storage.set('Blacklist', value);
+                                } else {
+                                    this.storage.set('Blacklist', [this.dataCon.Id]);
+                                }
+                                console.log(value);
+                            })
+                        })
                     }
                 },
                 {

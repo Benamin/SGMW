@@ -1,8 +1,8 @@
 // /***培训平台***/
-export const SERVER_API_URL = '/api';
+// export const SERVER_API_URL = '/api';
 // export const SERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
 // export const SERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
-// export const SERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+export const SERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
 
 //client_id
 export const sgmw_client_id = "2961C96D-4DB0-4FCF-99FA-FE18AC9A496A";
