@@ -41,6 +41,7 @@ import {GlobalData} from "../../core/GlobleData";
 import {DoTestPage} from "./test/do-test/do-test";
 import {LookTestPage} from "./test/look-test/look-test";
 import {CompetitionListsPage} from "./competition/lists/lists";
+import {VideoBoxPage} from "./short-video/video-box/video-box";
 
 @Component({
     selector: 'page-home',
@@ -71,6 +72,7 @@ export class HomePage implements OnInit {
 
     wow;   //是否执行动画
     competitionParam: any
+
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
                 private appSer: AppService, public statusBar: StatusBar,
@@ -461,6 +463,9 @@ export class HomePage implements OnInit {
         } else if (url.indexOf('test') > -1) { // 考试
             url_arr = url.split('&Fid=');
             this.getPaperDetailByStu(url_arr[1])
+        } else if (url.indexOf('shortVideo') > -1) {  //短视频
+            url_arr = url.split('&Id=');
+            this.navCtrl.push(VideoBoxPage, {ID: url_arr[1]})
         } else { // 兼容旧版本分享，论坛
             // scheme_url+="forum/"+get_res[1]
             this.goPostsContent({Id: url_arr[3]});
@@ -551,12 +556,14 @@ export class HomePage implements OnInit {
     // 前往销售大赛
     goToCompetition() {
         if (!this
-                .competitionParam.cid || !this
-                .competitionParam.userArea) {
+            .competitionParam.cid || !this
+            .competitionParam.userArea) {
             console.log('销售大赛ID不存在！')
             return
         }
-        this.navCtrl.push(CompetitionListsPage, {competitionParam: this
-            .competitionParam});
+        this.navCtrl.push(CompetitionListsPage, {
+            competitionParam: this
+                .competitionParam
+        });
     }
 }

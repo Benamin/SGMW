@@ -117,7 +117,6 @@ export class TestCenterPage {
         const loading = this.loadCtrl.create({
             content: ''
         });
-        console.log(item);
         loading.present();
         const ExamBegin = this.commonSer.transFormTime(item.ExamBegin);
         const ExamEnd = this.commonSer.transFormTime(item.ExamEnd);

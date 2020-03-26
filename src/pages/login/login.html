@@ -40,7 +40,8 @@
                                 <input type="text" [(ngModel)]="jxs.xszs.czymc" name="xszsczymc" placeholder="请输入操作员名"/>
                             </div>
                             <div class="input-input">
-                                <input type="password" [(ngModel)]="jxs.xszs.pwd" autocomplete name="xszspwd" placeholder="请输入密码"/>
+                                <input type="password" [(ngModel)]="jxs.xszs.pwd" autocomplete name="xszspwd"
+                                       placeholder="请输入密码"/>
                             </div>
                             <div class="check input-input">
                                 <input type="text" [(ngModel)]="jxs.xszs.inputCode" name="xszsinputCode"
@@ -50,6 +51,9 @@
                                      alt="">
                             </div>
                         </form>
+                        <div class="tips">
+                            <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span (click)="openModal()">《隐私协议》</span>
+                        </div>
                         <div class="login-button" tappable (click)="loginXszsJsx()">
                             登录
                         </div>
@@ -62,11 +66,12 @@
                                        placeholder="请输入操作员名"/>
                             </div>
                             <div class="input-input">
-                                <input type="password" [(ngModel)]="jxs.junke.password" autocomplete name="junkepassword"
+                                <input type="password" [(ngModel)]="jxs.junke.password" autocomplete
+                                       name="junkepassword"
                                        placeholder="请输入密码"/>
                             </div>
                             <div class="check input-input">
-                                <input type="text" [(ngModel)]="jxs.junke.inputCode"  name="junkeinputCode"
+                                <input type="text" [(ngModel)]="jxs.junke.inputCode" name="junkeinputCode"
                                        placeholder="请输入验证码"/>
                                 <check-code class="checkCode" #checkCodeJunke
                                             (done)="getCodeJunke($event)"></check-code>
@@ -74,6 +79,9 @@
                                      alt="">
                             </div>
                         </form>
+                        <div class="tips">
+                            <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span (click)="openModal()">《隐私协议》</span>
+                        </div>
                         <div class="login-button" tappable (click)="loginJunkeJsx()">
                             登录
                         </div>
@@ -86,7 +94,8 @@
                         <input type="text" [(ngModel)]="gysObj.username" name="gysObjusername" placeholder="请输入供应商名"/>
                     </div>
                     <div class="input-input">
-                        <input type="password" [(ngModel)]="gysObj.password" name="gysObjpassword" autocomplete placeholder="请输入密码"/>
+                        <input type="password" [(ngModel)]="gysObj.password" name="gysObjpassword" autocomplete
+                               placeholder="请输入密码"/>
                     </div>
                     <div class="check input-input">
                         <input type="text" [(ngModel)]="gysObj.inputCode" name="gysObjinputCode" placeholder="请输入验证码"/>
@@ -94,6 +103,9 @@
                         <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                     </div>
                 </form>
+                <div class="tips">
+                    <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span (click)="openModal()">《隐私协议》</span>
+                </div>
                 <div class="login-button" tappable (click)="gysLogin()">
                     登录
                 </div>
@@ -104,7 +116,8 @@
                         <input type="text" [(ngModel)]="ygObj.username" name="ygObjusername" placeholder="请输入员工名"/>
                     </div>
                     <div class="input-input">
-                        <input type="password" [(ngModel)]="ygObj.password" name="ygObjpassword" autocomplete  placeholder="请输入密码"/>
+                        <input type="password" [(ngModel)]="ygObj.password" name="ygObjpassword" autocomplete
+                               placeholder="请输入密码"/>
                     </div>
                     <div class="check input-input">
                         <input type="text" [(ngModel)]="ygObj.inputCode" name="ygObjinputCode" placeholder="请输入验证码"/>
@@ -112,6 +125,9 @@
                         <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                     </div>
                 </form>
+                <div class="tips">
+                    <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span (click)="openModal()">《隐私协议》</span>
+                </div>
                 <div class="login-button" tappable (click)="ygLogin()">
                     登录
                 </div>
@@ -125,7 +141,8 @@
                         <input type="text" [(ngModel)]="fwzsObj.userName" name="fwzsObjuserame" placeholder="请输入账号"/>
                     </div>
                     <div class="input-input">
-                        <input type="password" [(ngModel)]="fwzsObj.password" name="fwzsObjpassword" autocomplete  placeholder="请输入密码"/>
+                        <input type="password" [(ngModel)]="fwzsObj.password" name="fwzsObjpassword" autocomplete
+                               placeholder="请输入密码"/>
                     </div>
                     <div class="check input-input">
                         <input type="text" [(ngModel)]="fwzsObj.inputCode" name="ygObjinputCode" placeholder="请输入验证码"/>
@@ -133,6 +150,9 @@
                         <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png" alt="">
                     </div>
                 </form>
+                <div class="tips">
+                    <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span (click)="openModal()">《隐私协议》</span>
+                </div>
                 <div class="login-button" tappable (click)="fwzsLogin()">
                     登录
                 </div>

@@ -5,55 +5,62 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <div class="video-lists-title">短视频</div>
-    <div class="search-box">
-      <div class="input-box">
-        <img src="./assets/imgs/train/search@2x.png"/>
-        <ion-input (keypress)='doSearch($event)' type="search" placeholder="搜索短视频" [(ngModel)]="page.searchKey" autocomplete='off'></ion-input>
-      </div>
-      <div class="cancle-btn" (click)="clearInput()">取消</div>
-    </div>
-  </ion-navbar>
+    <ion-navbar>
+        <div class="video-lists-title">短视频</div>
+        <div class="search-box">
+            <div class="input-box">
+                <img src="./assets/imgs/train/search@2x.png"/>
+                <ion-input (keypress)='doSearch($event)' type="search" placeholder="搜索短视频" [(ngModel)]="page.searchKey"
+                           autocomplete='off'></ion-input>
+            </div>
+            <div class="cancle-btn" (click)="clearInput()">取消</div>
+        </div>
+    </ion-navbar>
 </ion-header>
 
-<img (click)="goToEdit()" style="position: absolute;bottom: 5.7rem;right: 2rem;width: 5.8rem;height: 5.8rem; z-index: 999;" src="./assets/imgs/competition/xinzeng@2x.png" alt="添加小视屏">
+<img (click)="goToEdit()"
+     style="position: absolute;bottom: 5.7rem;right: 2rem;width: 5.8rem;height: 5.8rem; z-index: 999;"
+     src="./assets/imgs/competition/xinzeng@2x.png" alt="添加小视屏">
 <ion-content style="position:relative;">
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingText="下拉刷新"
-                           refreshingSpinner="bubbles">
-    </ion-refresher-content>
-  </ion-refresher>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新"
+                               refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
 
-  <div class="video-lists">
-    <div class="video-lists-item" (click)="goVideoBox(item)" *ngFor="let item of page.videoLists">
-      <div class="title">{{item.Title}}</div>
-      <div class="poster-box">
-        <div class="mask"></div>
-        <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
-      </div>
-      <div class="video-info">
-        <span class="info-text">{{item.Description}}</span>
-        <span class="info-right">
-            <img *ngIf="!item.IsLike" (click)="handleLike(item,1,$event)" class="like-icon" src="./assets/imgs/competition/dianzan@2x.png" alt="点赞icon">
-            <img *ngIf="item.IsLike" (click)="handleLike(item,2,$event)" class="like-icon" src="./assets/imgs/competition/dianzan@2x.png" alt="点赞icon">
+    <div class="video-lists">
+        <div class="video-lists-item" (click)="goVideoBox(item)" *ngFor="let item of page.videoLists">
+            <div class="title">{{item.Title}}</div>
+            <div class="poster-box">
+                <div class="mask">
+                    <span>{{item.VideoMinute | secondFormat}}</span>
+                </div>
+                <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
+            </div>
+            <div class="video-info">
+                <span class="info-text">{{item.Creater}}</span>
+                <span class="info-right">
+            <img *ngIf="!item.IsLike" (click)="handleLike(item,1,$event)" class="like-icon"
+                 src="./assets/imgs/competition/dianzan@2x.png" alt="点赞icon">
+            <img *ngIf="item.IsLike" (click)="handleLike(item,2,$event)" class="like-icon"
+                 src="./assets/imgs/competition/dianzan-baise.png" alt="点赞icon">
             <span class="like-num">{{ item.LikeCount }}</span>
-            <img class="enjoy-icon"src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
+            <img (click)="$event.stopPropagation();wxShare(item)" class="enjoy-icon" src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
           </span>
-      </div>
+            </div>
+        </div>
+
+        <ion-list text-center style="margin-top: 10rem" *ngIf="page.isLoad && page.videoLists.length == 0">
+            <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+            <p text-center style="color: #666666;font-size: 16px">
+                暂无数据
+            </p>
+        </ion-list>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content
+                    loadingSpinner="bubbles"
+                    loadingText="加载中"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
     </div>
-
-    <ion-list text-center style="margin-top: 10rem" *ngIf="page.isLoad && page.videoLists.length == 0">
-      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-      <p text-center style="color: #666666;font-size: 16px">
-        暂无数据
-      </p>
-    </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content
-          loadingSpinner="bubbles"
-          loadingText="加载中"></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-
-  </div>
 </ion-content>
