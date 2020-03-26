@@ -153,7 +153,7 @@
             <span class="name">{{ item.PosterUserName }}</span>
             <span class="time">{{ item.PostRelativeTime }}</span>
           </div>
-          <div class="company">浙江东胜车辆有限公司</div>
+          <div class="company" *ngIf="item.AgentName">{{ item.AgentName }}</div>
         </div>
         <div class="num-box">
           <span class="number-my">本人排名：第{{ page.myInfo.RowNumber }}名</span>

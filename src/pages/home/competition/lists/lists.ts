@@ -5,6 +5,8 @@ import {ListsRankingPage} from "../lists-ranking/lists-ranking";
 // import {TotalRankingPage} from "../total-ranking/total-ranking";
 import {EditPage} from "../edit/edit";
 import {VideoBoxPage} from "../../short-video/video-box/video-box";
+import {DoTestPage} from "../../test/do-test/do-test";
+import {CommonService} from "../../../../core/common.service";
 import {PostsContentComponent} from '../../../forum/posts-content/posts-content.component';
 import {HomeService} from "../../home.service";
 
@@ -106,7 +108,7 @@ export class CompetitionListsPage {
         getParams: null
     }
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService) {
+    constructor(private commonSer: CommonService, public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService) {
     }
 
     ionViewDidLoad() {
@@ -233,6 +235,35 @@ export class CompetitionListsPage {
     goPostsContent(Id) {
         let data = { Id: Id }
         this.navCtrl.push(PostsContentComponent, {data: data});
+    }
+
+    // 点击考试列表
+    //考试有效期校验
+    checkTesttime(item) {
+        const loading = this.loadCtrl.create({
+            content: ''
+        });
+        console.log(item);
+        loading.present();
+        const ExamBegin = this.commonSer.transFormTime(item.ExamBegin);
+        const ExamEnd = this.commonSer.transFormTime(item.ExamEnd);
+        this.homeSer.getSysDateTime().subscribe(
+            (res) => {
+                loading.dismiss();
+                const sysDate = this.commonSer.transFormTime(res.data);
+                if (sysDate < ExamBegin) {
+                    this.commonSer.toast('考试未开始');
+                }
+                else if (sysDate > ExamEnd) {
+                    this.commonSer.toast('当前时间不可考试');
+                }
+                else if (ExamBegin < sysDate && sysDate < ExamEnd) {
+                    this.navCtrl.push(DoTestPage, {item: item});  //未开始
+                } else if (this.page.StudyState == 2) {                    //未完成
+                    this.navCtrl.push(DoTestPage, {item: item});
+                }
+            }
+        )
     }
 
     // 获取列表
