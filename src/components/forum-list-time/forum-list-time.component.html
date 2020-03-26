@@ -6,7 +6,7 @@
   <div class="post-introduction-con">
     <p class="nowrap-3" style="display: flex;max-width: 30rem;align-items: center;">
       {{item.Title}}
-      <span *ngIf="item.RowNumber" style="margin-left: auto;font-size: 1.2rem;color: #888888;">本人排名：第{{ item.RowNumber }}名</span>
+      <span *ngIf="item.MyRanking" style="margin-left: auto;font-size: 1.2rem;color: #888888;">本人排名：第{{ item.MyRanking }}名</span>
       <!--{{ item.RowNumber }}-->
     </p>
     <div *ngIf="!item.Images || (item.Images && item.Images.length==0)" class="nowrap-2"  [innerHTML]='item.ContentWithoutHtml'>
