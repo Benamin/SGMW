@@ -4,14 +4,17 @@
     <div class="oldDate">{{item.PostRelativeTime}}</div>
   </div>
   <div class="post-introduction-con">
-    <p class="nowrap-3">{{item.Title}}</p>
-    <div *ngIf="item.Images.length==0" class="nowrap-2"  [innerHTML]='item.ContentWithoutHtml'>
+    <p class="nowrap-3" style="display: flex;max-width: 30rem;align-items: center;">
+      {{item.Title}}
+      <span *ngIf="item.MyRanking" style="margin-left: auto;font-size: 1.2rem;color: #888888;">本人排名：第{{ item.MyRanking }}名</span>
+      <!--{{ item.RowNumber }}-->
+    </p>
+    <div *ngIf="!item.Images || (item.Images && item.Images.length==0)" class="nowrap-2"  [innerHTML]='item.ContentWithoutHtml'>
        
     </div>
-    <div class="img-div img1" *ngIf="item.Images.length==1"
+    <div class="img-div img1" *ngIf="item.Images && item.Images.length==1"
       [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
       style="background-size: cover;background: no-repeat center;">
-
     </div>
     <div class="img-div img2" *ngIf="item.Images.length==2">
       <div *ngFor="let img of item.Images">

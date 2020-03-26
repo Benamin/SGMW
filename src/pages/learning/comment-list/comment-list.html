@@ -24,8 +24,23 @@
                     <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
                     <span class="img-star" *ngIf="TopicType != 'talk'">
                             <ng-container *ngFor="let st of starList;let i = index">
-                                <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "
-                                      class="icon iconfont "></span>
+                                <img *ngIf="item.Score > i +1 || item.Score == i +1"
+                                     src="./assets/imgs/learn/stars_5.png" alt="">
+                                <ng-container *ngIf="(item.Score+'').split('.')[0] == i +1 && item.Score != i +1">
+                                     <img *ngIf="(item.Score+'').includes('.1') || (item.Score+'').includes('.2')"
+                                          src="./assets/imgs/learn/stars_1.png">
+                                    <img *ngIf="(item.Score+'').includes('.3') || (item.Score+'').includes('.4')"
+                                         src="./assets/imgs/learn/stars_2.png">
+                                    <img *ngIf="(item.Score+'').includes('.5') || (item.Score+'').includes('.6')"
+                                         src="./assets/imgs/learn/stars_3.png">
+                                    <img *ngIf="(item.Score+'').includes('.7') || (item.Score+'').includes('.8')"
+                                         src="./assets/imgs/learn/stars_4.png">
+                                </ng-container>
+                                <ng-container *ngIf="item.Score < i || item.Score == i">
+                                    <img src="./assets/imgs/learn/stars_outline.jpg">
+                                </ng-container>
+                                <!--                                <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "-->
+                                <!--                                      class="icon iconfont "></span>-->
                             </ng-container>
                         </span>
                 </p>
