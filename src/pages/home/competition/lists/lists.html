@@ -124,7 +124,7 @@
 
   <!-- 列表 考试 start -->
   <ul class="exam-pro-lists" *ngIf="page.checkType === 'exam'">
-    <li *ngFor="let item of page.competitionLists">
+    <li *ngFor="let item of page.competitionLists" (click)="checkTesttime(item)">
       <img class="lists-banner" src="{{ item.PictureSrc || './assets/imgs/competition/banner.png'}}" alt="封面海报">
       <div class="exam-info">
         <div class="title">{{ item.EName }}</div>
