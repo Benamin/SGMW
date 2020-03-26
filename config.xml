@@ -20,6 +20,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="30000" />
     <preference name="WKWebViewOnly" value="true" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
     <feature name="CDVWKWebViewEngine">
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
@@ -54,6 +55,9 @@
         <allow-intent href="itms-apps:*" />
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
             <string>You can take photos</string>
+        </config-file>
+        <config-file overwrite="true" parent="NSMicrophoneUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Microphone access needed</string>
         </config-file>
         <preference name="StatusBarOverlaysWebView" value="false" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -116,7 +120,4 @@
     <plugin name="cordova-plugin-photo-library" spec="git+https://github.com/nilebma/cordova-plugin-photo-library.git">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <config-file overwrite="true" parent="NSMicrophoneUsageDescription" platform="ios" target="*-Info.plist">
-        <string>Microphone access needed</string>
-    </config-file>
 </widget>

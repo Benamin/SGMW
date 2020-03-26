@@ -87,7 +87,6 @@ export class VideoBoxPage {
         timer(100).subscribe(() => {
             that.videoList.forEach((e, index) => {
                 that.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
-                    muted: false,
                     controls: true,
                     autoplay: false,
                     "sources": [{
@@ -115,7 +114,7 @@ export class VideoBoxPage {
                     this.videoList.push(res.data.DownItem);
                     timer(100).subscribe(() => {
                         this.initVideo[`video${res.data.DownItem.files.ID}`] = videojs(`video${res.data.DownItem.files.ID}`, {  //video初始化
-                            muted: false, controls: true, autoplay: false,
+                            controls: true, autoplay: false,
                             "sources": [{src: res.data.DownItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
                         })
                     })
@@ -124,7 +123,7 @@ export class VideoBoxPage {
                     this.videoList.unshift(res.data.TopItem);
                     timer(100).subscribe(() => {
                         this.initVideo[`video${res.data.TopItem.files.ID}`] = videojs(`video${res.data.TopItem.files.ID}`, {  //video初始化
-                            muted: false, controls: true, autoplay: false,
+                            controls: true, autoplay: false,
                             "sources": [{src: res.data.TopItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
                         })
                     })
@@ -135,7 +134,6 @@ export class VideoBoxPage {
 
     ionViewDidLeave() {
         for (let i in this.initVideo) {
-            console.log(i);
             this.initVideo[i].dispose();
         }
     }
