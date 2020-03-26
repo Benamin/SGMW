@@ -23,15 +23,23 @@
         <div class="video-lists-item" (click)="goVideoBox(item.id)" *ngFor="let item of page.videoLists">
             <div class="title">{{item.Title}}</div>
             <div class="poster-box">
-                <div class="mask"></div>
+                <div class="mask">
+                    <span>{{item.VideoMinute | secondFormat}}</span>
+                    <img (click)="$event.stopPropagation();deleteShortVideo(item)" alt="删除"
+                         src="./assets/imgs/competition/delet@2x.png">
+                </div>
                 <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
             </div>
             <div class="video-info">
-                <span class="info-text">{{item.Description}}</span>
+                <span class="info-text">{{item.Creater}}</span>
                 <span class="info-right">
-            <img class="like-icon" src="./assets/imgs/competition/dianzan@2x.png" alt="点赞icon">
+             <img *ngIf="!item.IsLike" (click)="handleLike(item,1,$event)" class="like-icon"
+                  src="./assets/imgs/competition/dianzan@2x.png" alt="点赞icon">
+            <img *ngIf="item.IsLike" (click)="handleLike(item,2,$event)" class="like-icon"
+                 src="./assets/imgs/competition/dianzan-baise.png" alt="点赞icon">
             <span class="like-num">{{ item.LikeCount }}</span>
-            <img class="enjoy-icon" src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
+            <img (click)="$event.stopPropagation();wxShare(item)" class="enjoy-icon"
+                 src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
           </span>
             </div>
         </div>
