@@ -345,10 +345,10 @@ export class CompetitionListsPage {
                 };
                 if (this.page.navliArr[2].secNav[0].thrNav[0].isActived === true) {
                     console.log('视频最新')
-                    this.page.getParams.OrderBy = 'LikeCount';
+                    this.page.getParams.OrderBy = 'ReplyTime';
                 } else if (this.page.navliArr[2].secNav[0].thrNav[1].isActived === true) {
                     console.log('视频最热')
-                    this.page.getParams.OrderBy = 'ReplyTime';
+                    this.page.getParams.OrderBy = 'LikeCount';
                 }
             } else if (this.page.navliArr[2].secNav && this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].isActived === true) {
                 // 短视频排行榜
@@ -376,6 +376,10 @@ export class CompetitionListsPage {
                     Lists = res.data.LeaderboardItems.Items;
                     this.page.getParams.TotalCount = res.data.LeaderboardItems.TotalCount;
                     Lists.unshift(Data.MyItems);
+                } else if (Data.MyTopPost && Data.MyTopPost.Id) {
+                    Lists = res.data.AllPostByTopicTag.AllPost;
+                    this.page.getParams.TotalCount = res.data.AllPostByTopicTag.TotalCount;
+                    Lists.unshift(Data.MyTopPost);
                 } else {
                     this.page.getParams.TotalCount = res.data.TotalCount;
                     Lists = res.data.Items;
