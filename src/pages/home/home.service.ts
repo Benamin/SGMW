@@ -162,4 +162,11 @@ export class HomeService {
     GetCompetitionListUserArea(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/appGetUserArea/GetUserArea' + this.dataFormat.toQuery(data));
     }
+
+    // 所有短视频 最新最热列表接口 "SVId": "00000000-0000-0000-0000-000000000000",//短视频ID
+    // "UserId": "00000000-0000-0000-0000-000000000000"
+    DelShortVideo(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/DelShortVideo', data);
+    }
+
 }

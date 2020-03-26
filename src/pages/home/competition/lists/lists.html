@@ -131,7 +131,7 @@
         <!--<div class="exam-num">-->
           <!--本人排行：第10名-->
         <!--</div>-->
-        <div class="status-box"><div class="status-points">当前分数：{{ item.grade || 0 }}</div>
+        <div class="status-box"><div class="status-points" *ngIf="item.grade">当前分数：{{ item.grade }}</div>
           <div class="status-btn" *ngIf="item.isperformance == false">
             <span>参加考试</span>
             <img style="margin-left: 0.6rem;width: 0.6rem;height: 1.1rem;" src="assets/imgs/competition/arrow@2x.png" alt="更多">
@@ -156,7 +156,7 @@
           <div class="company">浙江东胜车辆有限公司</div>
         </div>
         <div class="num-box">
-          <span class="number-my">本人排名：第9名</span>
+          <span class="number-my">本人排名：第{{ page.myInfo.RowNumber }}名</span>
           <img src="./assets/imgs/consultation/share@3x.png" alt="转发按钮">
         </div>
       </div>
@@ -172,7 +172,7 @@
         </div>
       </div>
       <div class="topic-info">
-        <span class="topic-type">产品体验</span>
+        <span class="topic-type" *ngIf="item.TopicPlateName">{{ item.TopicPlateName }}</span>
         <span class="num-info-box">
           <span class="read-num">
             <img src="./assets/imgs/competition/see@2x.png" alt="阅读量">
@@ -201,7 +201,7 @@
         <div class="mask"></div>
         <div class="video-title">
           <span>{{ item.Title }}</span>
-          <img src="./assets/imgs/competition/delet@2x.png" alt="删除">
+          <!--<img src="./assets/imgs/competition/delet@2x.png" alt="删除">-->
         </div>
         <span class="video-length">{{ item.VideoMinute }}</span>
       </div>
@@ -233,4 +233,4 @@
       loadingText="加载中"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
-<img (click)="goToEdit()" style="position: absolute;bottom: 5.7rem;right: 2rem;width: 5.8rem;height: 5.8rem; z-index: 999;" src="./assets/imgs/competition/xinzeng@2x.png" alt="添加小视屏">
+<img (click)="goToEdit()" *ngIf="page.checkType !== page.navliArr[0].lable" style="position: absolute;bottom: 5.7rem;right: 2rem;width: 5.8rem;height: 5.8rem; z-index: 999;" src="./assets/imgs/competition/xinzeng@2x.png" alt="添加小视屏">

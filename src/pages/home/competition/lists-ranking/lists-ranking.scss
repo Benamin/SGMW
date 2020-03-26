@@ -8,6 +8,44 @@ page-lists-ranking {
       list-style: none;
     }
   }
+
+  //导航 start
+  .nav-type {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 4rem;
+    line-height: 4rem;
+    list-style: none;
+    background-color: #fff;
+    color: #918F92;
+    li {
+      position: relative;
+      width: 6.8rem;
+      text-align: center;
+      .item-line {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        display: block;
+        width: 2.8rem;
+        height: 0.4rem;
+        background: transparent;
+        border-radius: 0.2rem;
+        opacity: 0.9;
+      }
+    }
+    .actived{
+      color: #000000;
+      .item-line {
+        background: linear-gradient(241deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+      }
+    }
+  }
+  //导航 end
+
   // 顶部排行 start
   .podium-pg {
     position: relative;

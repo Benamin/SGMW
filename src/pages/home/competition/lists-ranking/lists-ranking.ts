@@ -11,39 +11,84 @@ export class ListsRankingPage {
     userDefaultImg = './assets/imgs/userDefault.jpg';
     tid = '';
     page = {
+        userArea: null,
+        checkType: 'all',
+        showNav: false,
+        navliArr: [
+            {
+                lable: 'all',
+                text: '所有'
+            }, {
+                lable: 'area',
+                text: '区域' // 如 东区
+            }
+        ],
         upRankingLists: [],
         rankingLists: [],
-        Page: 1,
-        PageSize: 10,
-        TotalCount: null,
-        isLoad: false
+        getListsApi: null, // 请求接口服务
+        getParams: null
     };
-    constructor(private loadCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams, private homeSer: HomeService) {
+
+    constructor(private loadCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, private homeSer: HomeService) {
     }
 
     ionViewDidLoad() {
-        this.tid = this.navParams.get("tid")
-        console.log('考试项目id：', this.tid);
+        this.page.getParams = {
+            Page: 1,
+            PageSize: 10,
+            TotalCount: null,
+            isLoad: false,
+        }
+        this.page.userArea = this.navParams.get("userArea")
+        console.log('考试项目id：', this.page.userArea);
+        if (this.page.userArea && this.page.userArea != null) {
+            this.page.showNav = true;
+            this.page.navliArr[1].text = this.page.userArea.AreaName; // ID
+        }
+        this.getList();
+    }
+
+    changeCheckType(checkType) {
+        if (this.page.checkType === checkType) return;
+        this.page.checkType = checkType;
+        // if (checkType === 'recommend') this.page.Type = 1;
+        // if (checkType === 'all') this.page.Type = 2;
+        // if (checkType === 'mine') this.page.Type = 3;
+        this.page.getParams.Page = 1;
         this.getList();
     }
 
     // 获取考试排名列表
     getList() {
+        let params = {}
+        params = {
+            areaId: this.page.userArea.ID, // 区域id,
+            Page: 1,
+            PageSize: this.page.getParams.PageSize
+        };
+        // 判断是 所有/地区
+        if (this.page.checkType === this.page.navliArr[0].lable) {
+            this.page.getListsApi = (data) => {
+                return this.homeSer.GetExamList(data)
+            };
+        } else if (this.page.checkType === this.page.navliArr[1].lable) {
+            // 帖子排行榜
+            this.page.getListsApi = (data) => {
+                return this.homeSer.GetDealerExamList(data)
+            };
+        }
         let loading = this.loadCtrl.create({
             content: ''
         });
         loading.present();
-        const data = {
-            Page: 1,
-            PageSize: this.page.PageSize
-        };
-        this.homeSer.GetExamList(data).subscribe(
+        this.page.getListsApi(params).subscribe(
             (res) => {
                 let Items = res.data.Items;
                 this.page.upRankingLists = Items.slice(0, 3)
                 this.page.rankingLists = Items.slice(3);
                 console.log(99888, this.page.upRankingLists, this.page.rankingLists)
-                this.page.TotalCount = res.data.TotalCount;
+                this.page.getParams.TotalCount = res.data.TotalCount;
+                this.page.getParams.isLoad = true;
                 loading.dismiss();
             }
         )
@@ -51,19 +96,22 @@ export class ListsRankingPage {
 
     //加载更多
     doInfinite(e) {
-        if (this.page.rankingLists.length == this.page.TotalCount || this.page.rankingLists.length > this.page.TotalCount) {
+        if (this.page.rankingLists.length == this.page.getParams.TotalCount || this.page.rankingLists.length > this.page.getParams.TotalCount) {
             e.complete();
             return;
         }
-        this.page.Page++;
-        const data = {
-            Page: this.page.Page,
-            PageSize: this.page.PageSize
+        this.page.getParams.Page++;
+        let params = {
+            areaId: this.page.userArea.ID, // 区域id,
+            Page: this.page.getParams.Page,
+            PageSize: this.page.getParams.PageSize
         };
-        this.homeSer.GetExamList(data).subscribe(
+
+        this.page.getListsApi(params).subscribe(
             (res) => {
-                this.page.rankingLists = this.page.rankingLists.concat(res.data.Items);
-                this.page.TotalCount = res.data.TotalCount;
+                let Lists = res.data.Items
+                this.page.rankingLists = this.page.rankingLists.concat(Lists);
+                this.page.getParams.TotalCount = res.data.TotalCount;
                 e.complete();
             }
         )
@@ -71,7 +119,7 @@ export class ListsRankingPage {
 
     //下拉刷新
     doRefresh(e) {
-        this.page.Page = 1;
+        this.page.getParams.Page = 1;
         this.getList();
         timer(1000).subscribe(() => {
             e.complete();

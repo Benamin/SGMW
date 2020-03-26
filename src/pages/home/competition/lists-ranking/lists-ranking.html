@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>lists-ranking 考试成绩列表</ion-title>
+    <ion-title>销售大赛考试成绩</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -16,6 +16,22 @@
                            refreshingSpinner="bubbles">
     </ion-refresher-content>
   </ion-refresher>
+
+  <!--一级导航-->
+  <div class="nav-type-2" *ngIf="page.checkType === page.navliArr[0].lable">
+    <div class="btn-box">
+      <div (click)="changeSecNav(1, secNavIndex, item.isActived)" *ngFor="let item of page.navliArr[1].secNav; let secNavIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
+        {{ item.navBtnText }}<span class="item-line"></span>
+      </div>
+    </div>
+  </div>
+  <ul class="nav-type"  *ngIf="page.showNav">
+    <li *ngFor="let item of page.navliArr" (click)="changeCheckType(item.lable)" [ngClass]="{'actived': page.checkType == item.lable}">
+      <div>{{ item.text }}</div>
+      <span class="item-line"></span>
+    </li>
+  </ul>
+  <!--一级导航-->
 
   <div class="podium-pg">
     <div class="phb_2" *ngIf="page.upRankingLists.length >= 2">
