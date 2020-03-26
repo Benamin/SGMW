@@ -38,9 +38,9 @@
         </div>
     </div>
 
-    <div class="competition-banner" (click)="goToCompetition()">
-      <img src="./assets/imgs/home/xsda_banner@2x.png" alt="销售大赛">
-      <span class="competition-btn">销售大赛</span>
+    <div class="competition-banner" tappled (click)="goToCompetition()">
+        <img src="./assets/imgs/home/xsda_banner@2x.png" alt="销售大赛">
+        <span class="competition-btn">销售大赛</span>
     </div>
 
     <!--  新模块  -->
@@ -71,9 +71,9 @@
             <p>考试中心</p>
         </div>
         <!--<div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"-->
-             <!--data-wow-offset="30" (click)="goLive()">-->
-            <!--<img src="./assets/imgs/home/zb@2x.png" alt="">-->
-            <!--<p>直播</p>-->
+        <!--data-wow-offset="30" (click)="goLive()">-->
+        <!--<img src="./assets/imgs/home/zb@2x.png" alt="">-->
+        <!--<p>直播</p>-->
         <!--</div>-->
     </div>
     <div class="new-module" style="margin-top: 20px">
@@ -98,9 +98,9 @@
             <p>线下培训</p>
         </div>
         <!--<div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"-->
-             <!--data-wow-offset="30" (click)="goStudyPlan()">-->
-            <!--<img src="./assets/imgs/home/1_1xxjh@2x.png" alt="">-->
-            <!--<p>学习计划</p>-->
+        <!--data-wow-offset="30" (click)="goStudyPlan()">-->
+        <!--<img src="./assets/imgs/home/1_1xxjh@2x.png" alt="">-->
+        <!--<p>学习计划</p>-->
         <!--</div>-->
         <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
              data-wow-offset="30" (click)="goJobLevel()">
@@ -108,11 +108,11 @@
             <p>岗位认证</p>
         </div>
     </div>
-    <div class="product-float-tab" >
-         <div class="product-float-nav" tappable (click)="navli='product'" [ngClass]="{'act': navli=='product'}">
-             热门课程
-         </div>
-         <div class="product-float-nav" tappable (click)="navli='float'" [ngClass]="{'act': navli=='float'}">
+    <div class="product-float-tab">
+        <div class="product-float-nav" tappable (click)="navli='product'" [ngClass]="{'act': navli=='product'}">
+            热门课程
+        </div>
+        <div class="product-float-nav" tappable (click)="navli='float'" [ngClass]="{'act': navli=='float'}">
             热门帖子
         </div>
         <div style="    position: absolute;
@@ -126,7 +126,7 @@
     </div>
     <!--  热门课程-->
 
-    <div class="product" style="margin-top: 10px;" *ngIf="navli=='product'" >
+    <div class="product" style="margin-top: 10px;" *ngIf="navli=='product'">
         <!-- <p>
             <span class="float-more" tappable (click)="moreCourse()">
            更多
@@ -138,11 +138,11 @@
     </div>
     <!-- 热门帖子 -->
     <div class="sale" *ngIf="navli=='float'" style="    margin-top: 0px;">
-            <!-- <p>
-                    <span class="float-more" tappable (click)="goForumComponent()" tappable>
-                   更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
-                </p> -->
-        <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst" >
+        <!-- <p>
+                <span class="float-more" tappable (click)="goForumComponent()" tappable>
+               更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
+            </p> -->
+        <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
             <app-forum-list-time [item]='item'></app-forum-list-time>
         </div>
     </div>
@@ -182,6 +182,7 @@
         </div>
     </div>
 </ion-content>
-<app-today-remind *ngIf="is_TodayRemind"  [data]='TodayRemind' (Study)="startStudy($event)" (close)="closeTodayRemind()"></app-today-remind>
+<app-today-remind *ngIf="is_TodayRemind" [data]='TodayRemind' (Study)="startStudy($event)"
+                  (close)="closeTodayRemind()"></app-today-remind>
 
 

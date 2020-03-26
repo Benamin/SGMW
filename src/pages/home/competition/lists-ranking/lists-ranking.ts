@@ -62,10 +62,10 @@ export class ListsRankingPage {
     getList() {
         let params = {}
         params = {
-            areaId: this.page.userArea.ID, // 区域id,
             Page: 1,
             PageSize: this.page.getParams.PageSize
         };
+        if (this.navParams.get("userArea")) params = Object.assign(params, { areaId: this.page.userArea.ID }); // 区域id,
         // 判断是 所有/地区
         if (this.page.checkType === this.page.navliArr[0].lable) {
             this.page.getListsApi = (data) => {

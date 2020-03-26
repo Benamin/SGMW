@@ -108,6 +108,16 @@ page-video-lists {
           z-index: 99;
         }
 
+        .video-play-btn {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 4rem;
+          height: 4rem;
+          z-index: 100;
+        }
+
         .mask {
           position: absolute;
           top: 50%;
