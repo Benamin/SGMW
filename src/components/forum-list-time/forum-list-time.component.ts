@@ -10,6 +10,7 @@ declare var Wechat;
 export class ForumListTimeComponent implements OnInit {
   
   @Input()  item;
+    @Input () itemIndex;
   constructor() { }
   
   ngOnInit() {

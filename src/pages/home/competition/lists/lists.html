@@ -147,8 +147,8 @@
 
   <!-- 帖子列表 -->
   <ul class="topic-lists" *ngIf="page.checkType === 'topic'">
-    <li *ngFor="let item of page.competitionLists" (click)="goPostsContent(item.Id)">
-      <app-forum-list-time class="topic-discript" [item]='item'></app-forum-list-time>
+    <li *ngFor="let item of page.competitionLists, let itemIndex = index" (click)="goPostsContent(item.Id)">
+      <app-forum-list-time class="topic-discript" [item]='item' [itemIndex] ='itemIndex'></app-forum-list-time>
       <!--<div class="topic-user">-->
         <!--<img class="avatar" src="{{ item.PosterUserHeadPhoto || userDefaultImg }}" alt="帖子列表默认头像">-->
         <!--<div class="user-box">-->
