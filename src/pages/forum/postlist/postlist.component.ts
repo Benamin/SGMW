@@ -5,6 +5,7 @@ import {ForumService} from '../forum.service';
 import {PostsContentComponent} from '../posts-content/posts-content.component';
 import {PostAddComponent} from '../post-add/post-add.component';
 import {SearchPage} from "../../home/search/search";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'page-postlist',
