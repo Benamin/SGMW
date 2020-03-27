@@ -492,11 +492,11 @@ page-lists {
         position: relative;
         width: 100%;
         height: 21rem;
+        text-align: center;
         .video-poster {
-          width: 100%;
-          height: 21rem;
+          max-height: 21rem;
           object-fit: cover;
-          z-index: 1;
+          z-index: 11;
         }
         .mask {
           position: absolute;
@@ -504,8 +504,8 @@ page-lists {
           width: 100%;
           height: 21rem;
           object-fit: cover;
-          z-index: 3;
-          background-color: rgba(0, 0, 0, 0.3);
+          z-index: -1;
+          background-color: rgba(0, 0, 0, 0.8);
         }
         .video-play-btn {
           position: absolute;
@@ -539,12 +539,9 @@ page-lists {
           }
         }
         .bottom-info {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
           position: absolute;
           bottom: 1.2rem;
-          width: 100%;
+          right: 1.2rem;
           overflow: hidden;
           z-index: 5;
           .video-length {
