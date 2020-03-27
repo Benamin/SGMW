@@ -191,6 +191,7 @@ export class CompetitionListsPage {
         // if (checkType === 'all') this.page.Type = 2;
         // if (checkType === 'mine') this.page.Type = 3;
         this.page.getParams.Page = 1;
+        this.page.getParams.PageIndex = 1;
         this.getList();
     }
 
@@ -287,6 +288,7 @@ export class CompetitionListsPage {
     getList() {
         this.page.getParams.OrderByDirection = '';
         this.page.getParams.Page = 1;
+        this.page.getParams.PageIndex = 1;
         this.page.getParams.OrderBy = '' // LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
         this.page.getParams.AreaID = '' // 传入则查询地区排行和排行榜//不传则查询所有地区排行榜
         let params = this.page.getParams;
@@ -381,6 +383,7 @@ export class CompetitionListsPage {
     //下拉刷新
     doRefresh(e) {
         this.page.getParams.Page = 1;
+        this.page.getParams.PageIndex = 1;
         this.getList();
         timer(1000).subscribe(() => {
             e.complete();
@@ -394,6 +397,7 @@ export class CompetitionListsPage {
             return;
         }
         this.page.getParams.Page++;
+        this.page.getParams.PageIndex++;
         this.page.getListsApi(this.page.getParams).subscribe(
             (res) => {
                 let Data = res.data;

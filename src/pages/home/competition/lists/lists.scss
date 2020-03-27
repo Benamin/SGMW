@@ -151,10 +151,10 @@ page-lists {
         opacity: 0.9;
       }
     }
-    .actived{
+    .actived {
       color: #000000;
       .item-line {
-        background: linear-gradient(241deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+        background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
       }
     }
   }
@@ -223,7 +223,7 @@ page-lists {
       .type-btn.actived {
         color: #000000;
         background-color: orange;
-        background:linear-gradient(242deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+        background: linear-gradient(242deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
       }
     }
   }
@@ -260,7 +260,7 @@ page-lists {
     .actived {
       color: #000000;
       .item-line {
-        background: linear-gradient(241deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+        background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
       }
     }
   }
@@ -316,9 +316,9 @@ page-lists {
             height: 2.6rem;
             line-height: 2.6rem;
             color: #333333;
-            background:linear-gradient(216deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
-            box-shadow:0px 5px 5px 0px rgba(255,206,61,0.26);
-            border-radius:1.3rem;
+            background: linear-gradient(216deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+            box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
+            border-radius: 1.3rem;
             font-size: 1.3rem;
             display: flex;
             align-items: center;
@@ -338,7 +338,7 @@ page-lists {
     margin-bottom: 1rem;
     background-color: #FFFFFF;
     li {
-      padding: 0.9rem 1.5rem 1.4rem 1.5rem ;
+      padding: 0.9rem 1.5rem 1.4rem 1.5rem;
       border-bottom: 1rem solid #f2f2f2;
       .topic-user {
         margin-bottom: 1rem;
@@ -398,11 +398,11 @@ page-lists {
         margin: 0.8rem 0 1rem 0;
         font-size: 1.6rem;
         color: #333333;
-        text-align:justify;
-        text-justify:distribute-all-lines;/*ie6-8*/
-        text-align-last: left;/* ie9*/
-        -moz-text-align-last: left;/*ff*/
-        -webkit-text-align-last: left;/*chrome 20+*/
+        text-align: justify;
+        text-justify: distribute-all-lines; /*ie6-8*/
+        text-align-last: left; /* ie9*/
+        -moz-text-align-last: left; /*ff*/
+        -webkit-text-align-last: left; /*chrome 20+*/
       }
 
       .topic-pic-box {
@@ -523,12 +523,11 @@ page-lists {
           width: calc(100% - 3.2rem);
           display: flex;
           align-items: center;
-          justify-content: center;
           z-index: 99;
           span {
-            width: 30rem;
+            //width: 30rem;
             overflow: hidden;
-            text-overflow:ellipsis;
+            text-overflow: ellipsis;
             white-space: nowrap;
             font-size: 1.5rem;
             color: #FFFFFF;
@@ -539,16 +538,28 @@ page-lists {
             height: 1.6rem;
           }
         }
-        .video-length {
+        .bottom-info {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           position: absolute;
           bottom: 1.2rem;
-          left: 1.5rem;
-          padding: 0 0.5rem;
-          height: 1.8rem;
-          border-radius: 1rem;
-          color: #FFFFFF;
-          background-color: rgba(0, 0, 0, 0.3);
+          width: 100%;
+          overflow: hidden;
           z-index: 5;
+          .video-length {
+            margin-left: 1.5rem;
+            padding: 0 0.5rem;
+            height: 1.8rem;
+            border-radius: 1rem;
+            color: #FFFFFF;
+            background-color: rgba(0, 0, 0, 0.3);
+          }
+          .right-text {
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+            color: #FFFFFF;
+          }
         }
       }
       .video-info {
