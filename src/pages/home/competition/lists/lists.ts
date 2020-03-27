@@ -362,6 +362,11 @@ export class CompetitionListsPage {
                     this.page.getParams.TotalCount = res.data.TotalCount;
                     Lists = res.data.Items;
                 }
+
+                if (this.page.checkType === this.page.navliArr[2].lable && Data.LeaderboardItems) {
+                    Lists = Data.LeaderboardItems.Items;
+                    this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
+                }
                 // console.log(888, Lists)
 
                 if(this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
@@ -403,10 +408,21 @@ export class CompetitionListsPage {
                 let Data = res.data;
                 let Lists = []
                 if (Data.MyItems && Data.MyItems.ID) {
-                    Lists = res.data.SVTopicIDList;
+                    Lists = res.data.LeaderboardItems.Items;
+                    this.page.getParams.TotalCount = res.data.LeaderboardItems.TotalCount;
                     Lists.unshift(Data.MyItems);
+                } else if (Data.MyTopPost && Data.MyTopPost.Id) {
+                    Lists = res.data.AllPostByTopicTag.AllPost;
+                    this.page.getParams.TotalCount = res.data.AllPostByTopicTag.TotalCount;
+                    Lists.unshift(Data.MyTopPost);
                 } else {
+                    this.page.getParams.TotalCount = res.data.TotalCount;
                     Lists = res.data.Items;
+                }
+
+                if (this.page.checkType === this.page.navliArr[2].lable && Data.LeaderboardItems) {
+                    Lists = Data.LeaderboardItems.Items;
+                    this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
                 }
                 // console.log(888, Lists)
 
