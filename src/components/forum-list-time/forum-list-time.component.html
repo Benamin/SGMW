@@ -3,11 +3,14 @@
     <div class="name nowrap-1">{{item.PosterUserName}}</div>
     <div class="oldDate">{{item.PostRelativeTime}}</div>
   </div>
+  <div class="info-box">
+    <div class="company" *ngIf="item.AgentName">{{ item.AgentName }}</div>
+    <span *ngIf="itemIndex === 0 && item.Ranking" class="box-ranking">本人排名：第{{ item.Ranking }}名</span>
+    <span *ngIf="itemIndex !== 0 && item.Ranking" class="box-ranking">大赛排名：第{{ item.Ranking }}名</span>
+  </div>
   <div class="post-introduction-con">
-    <p class="nowrap-3" style="display: flex;max-width: 30rem;align-items: center;">
+    <p class="nowrap-3">
       {{item.Title}}
-      <span *ngIf="itemIndex === 0 && item.Ranking" style="margin-left: auto;font-size: 1.2rem;color: #888888;">本人排名：第{{ item.Ranking }}名</span>
-      <span *ngIf="itemIndex !== 0 && item.Ranking" style="margin-left: auto;font-size: 1.2rem;color: #888888;">大赛排名：第{{ item.Ranking }}名</span>
       <!--{{ item.RowNumber }}-->
     </p>
     <div *ngIf="!item.Images || (item.Images && item.Images.length==0)" class="nowrap-2"  [innerHTML]='item.ContentWithoutHtml'>
