@@ -173,7 +173,7 @@ export class ForumPage implements OnInit {
             if (arr.length == 0) {
                 this.isdoInfinite = false;
             }
-
+    
             this.forumLIst = this.forumLIst.concat(arr);
             this.no_list = this.forumLIst.length == 0 ? true : false;
             loading.dismiss();
@@ -260,8 +260,11 @@ export class ForumPage implements OnInit {
             loading.dismiss();
             if (res.data) {
                 // let arr = res.data.Items;
-                let arr = res.data.ProductList;
-                this.forumLIst = this.forumLIst.concat(arr);
+                // let arr = res.data.ProductList;
+                let arr = res.data.Posts.Items;
+                if(arr.length!=0){
+                    this.forumLIst = this.forumLIst.concat(arr);
+                }
                 this.no_list = this.forumLIst.length > 0 ? false : true;
                 if (arr == 0) {
                     this.isdoInfinite = false;
