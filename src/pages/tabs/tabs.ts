@@ -101,8 +101,7 @@ export class TabsPage {
                 return
             }
             if (value && value.MainUserID && value.MainUserID === '00000000-0000-0000-0000-000000000000') {
-                this.userInfo = value;
-                this.inputType = 'submit';
+                this.getUserInfo();
             }
         });
         this.tabSer.tabChange.subscribe((value) => {
@@ -214,6 +213,8 @@ export class TabsPage {
                 });
                 this.storage.set('RoleID', res2.data.CurrentRoleID);
                 this.events.publish('RoleID');
+            } else {
+                this.commonSer.toast(res2.message);
             }
         })
     }
