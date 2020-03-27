@@ -27,7 +27,6 @@ import {HTTP} from "@ionic-native/http";
 import {LearnService} from "../pages/learning/learn.service";
 import {AppService} from "./app.service";
 import {DataFormatService} from "../core/dataFormat.service";
-import {BackButtonService} from "../core/backButton.service";
 import {EmitService} from "../core/emit.service";
 import {FileOpener} from "@ionic-native/file-opener";
 import {File} from "@ionic-native/file";
@@ -37,7 +36,6 @@ import {MineService} from "../pages/mine/mine.service";
 import {ModalFromRightEnter, ModalFromRightLeave, ModalScaleEnter, ModalScaleLeave} from "./modal-transitions";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
-import {ViewFilePage} from "../pages/learning/view-file/view-file";
 import {TabService} from "../core/tab.service";
 import {AppVersion} from "@ionic-native/app-version";
 import {LogoutService} from "../secret/logout.service";
@@ -55,11 +53,9 @@ import {ForumPage} from '../pages/forum/forum.component';
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
 import {DownloadFileService} from "../core/downloadFile.service";
-import {CourseDetailPage} from "../pages/learning/course-detail/course-detail";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {GlobalData} from "../core/GlobleData";
-import {Hammer} from "ionic-angular/gestures/hammer";
 import {VideoJsProvider} from '../providers/video-js/video-js';
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {DownloadFileProvider} from '../providers/download-file/download-file';
@@ -134,7 +130,6 @@ import {MediaCapture} from '@ionic-native/media-capture';
             HTTP,
             AppService,
             DataFormatService,
-            BackButtonService,
             EmitService,
             FileService,
             UntilService,
