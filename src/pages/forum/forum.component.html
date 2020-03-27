@@ -23,7 +23,7 @@
   </div>
   <div *ngIf="navli=='热帖'">
     <div class="div-nav">
-      <div [ngClass]="{'act': pageDate.OrderBy=='PostTimeFormatted'}" tappable (click)="avtNav('PostTimeFormatted')">最新</div>
+      <div [ngClass]="{'act': pageDate.OrderBy=='CreateTime'}" tappable (click)="avtNav('CreateTime')">最新</div>
       <div [ngClass]="{'act': pageDate.OrderBy=='LikeCount'}" tappable (click)="avtNav('LikeCount')">最热</div>
     </div>
     <ng-container *ngFor="let item of forumLIst">

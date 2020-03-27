@@ -441,7 +441,9 @@ export class HomePage implements OnInit {
         };
         this.forum_serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             if (res.data) {
-                this.forumLIst = res.data.UnTopPosts.Items;
+                // this.forumLIst = res.data.UnTopPosts.Items;
+                this.forumLIst = res.data.Items;
+
                 if (this.forumLIst.length > 4) {
                     this.forumLIst.length = 4;
                 }

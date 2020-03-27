@@ -28,7 +28,7 @@ export class PostlistComponent implements OnInit {
         title: "",
         topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
         total: 111,
-        OrderBy: 'PostTimeFormatted',
+        OrderBy: 'ReplyCount',
         OrderByDirection: 'desc'
     }
     forumLIst = [];
