@@ -76,7 +76,7 @@
   </div>
   <ul class="lists-ranking">
     <li *ngFor="let item of page.rankingLists">
-      <span class="ranking-num">{{ item.RowNumber }}</span>
+      <span class="ranking-num">{{ item.Rankid }}</span>
       <img class="avatar" src="{{ item.headPhoto || userDefaultImg }}">
       <div class="userinfo">
         <div class="username">{{item.UserName}}</div>
