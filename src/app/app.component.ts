@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {NavParams, Platform} from 'ionic-angular';
+import {App, IonicApp, MenuController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -19,6 +19,8 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {JPush} from "@jiguang-ionic/jpush";
 import {JpushUtil} from "../core/jPush.util";
 import {GlobalData} from "../core/GlobleData";
+import {BackButtonService} from "../core/backButton.service";
+import {EmitService} from "../core/emit.service";
 
 @Component({
     templateUrl: 'app.html'
@@ -45,27 +47,47 @@ export class MyApp {
     isIphone11IOS13 = false;
     isIphoneIOS13 = false;
 
+    //控制硬件返回按钮是否触发，默认false
+    backButtonPressed: boolean = false;
+
+    //  1.false  正常返回上一层，2.true，禁止返回上一层，3.result,返回列表页面
+    isDo = 'false';
+
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService, private appVersion: AppVersion,
                 private appUpdate: AppUpdateService,
+                public appCtrl: App,
                 private mobileAccess: MobileAccessibility,
                 private appSer: AppService,
                 private Keyboard: Keyboard,
                 private jPush: JPush,
+                public eventEmitSer: EmitService,
+                private ionicApp: IonicApp,
+                private menuCtrl: MenuController,
                 private jPushUtil: JpushUtil,
                 private globalData: GlobalData,
+                public toastCtrl: ToastController,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         (window as any).handleOpenURL = (url: string) => {
             (window as any).localStorage.setItem("app_url", url);
         };
+
+        this.eventEmitSer.eventEmit.subscribe((value: any) => {
+            if (isNaN(value)) {   //value为数字 代表消息
+                this.isDo = value;
+            }
+        });
         this.platform.ready().then(() => {
             this.getLoad();
 
+            //jpush推送
             this.jPush.init();
             this.jPush.setDebugMode(true);
             this.jPushUtil.initPush();
             this.jPush.resetBadge();
 
+            //注册android的物理返回键事件
+            this.registerBackButtonAction();
             //app字体不跟随手机字体大小变化
             this.mobileAccess.usePreferredTextZoom(false);
 
@@ -74,6 +96,8 @@ export class MyApp {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#343435');
             this.statusBar.styleLightContent();
+
+            //IOS兼容性方法
             this.compatibleIOS();
         });
     }
@@ -316,6 +340,75 @@ export class MyApp {
     openUrl() {
         if (this.load.httpUrl) {
             this.commonSer.openUrlByBrowser(this.load.httpUrl);
+        }
+    }
+
+    //注册方法
+    registerBackButtonAction(): void {
+
+        this.platform.registerBackButtonAction(() => {
+            //隐藏toast || modal || loading || Overlay
+            let activePortal = this.ionicApp._toastPortal.getActive() ||
+                this.ionicApp._overlayPortal.getActive() ||
+                this.ionicApp._modalPortal.getActive();
+            console.log(activePortal);
+            let loadingPortal = this.ionicApp._loadingPortal.getActive();
+            if (activePortal) {
+                //其他的关闭
+                activePortal.dismiss().catch(() => {
+                });
+                activePortal.onDidDismiss(() => {
+                });
+                return;
+            } else if (this.menuCtrl.isOpen()) {
+                this.menuCtrl.close(); //关闭sidemenu
+                return;
+            }
+            if (loadingPortal) {
+                //loading的话，返回键无效
+                activePortal.dismiss(() => {
+                })
+                return;
+            }
+            let activeNav: NavController = this.appCtrl.getActiveNavs()[0];
+            //如果可以返回上一页，则执行pop
+            if (activeNav.canGoBack()) {
+                if (this.isDo === 'false') {  //正常返回
+                    activeNav.pop();
+                }
+                if (this.isDo === 'result') {
+                    let index = activeNav.length() - 2;
+                    activeNav.remove(2, index)
+                }
+            } else {
+                //如果可以返回上一页，则执行pop()
+                if (activeNav.canGoBack()) {
+                    activeNav.pop();
+                } else {
+                    this.showExit();
+                }
+
+            }
+        });
+    }
+
+    //退出应用方法
+    private showExit(): void {
+        //如果为true，退出
+        if (this.backButtonPressed) {
+            // this.logoutSer.logout();
+            this.platform.exitApp();
+        } else {
+            //第一次按，弹出Toast
+            this.toastCtrl.create({
+                message: '再按一次退出应用',
+                duration: 2000,
+                position: 'middle'
+            }).present();
+            //标记为true
+            this.backButtonPressed = true;
+            //两秒后标记为false，如果退出的话，就不会执行了
+            setTimeout(() => this.backButtonPressed = false, 2000);
         }
     }
 }

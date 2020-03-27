@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>销售大赛考试成绩</ion-title>
+    <ion-title>销售大赛考试排行榜</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -39,7 +39,7 @@
         <img class="user-head" src="{{ page.upRankingLists[1].headPhoto || userDefaultImg }}" alt="">
         <div class="name type-name nowrap-1">{{ page.upRankingLists[1].UserName }}</div>
         <div style="color: #888888;font-size: 1rem;text-align: center;line-height: 1;margin-bottom: 0.4rem;">
-          {{page.upRankingLists[2].TotalScore}}分 （<span style="margin-left: 0.3rem;">{{ page.upRankingLists[1].accuracy }}</span>）
+          {{page.upRankingLists[1].TotalScore}}分 （<span style="margin-left: 0.3rem;">{{ page.upRankingLists[1].accuracy }}</span>）
         </div>
         <div class="user-label nowrap-1">
           {{ page.upRankingLists[1].ForumTitle }}
@@ -52,7 +52,7 @@
         <img class="user-head" src="{{ page.upRankingLists[0].headPhoto || userDefaultImg }}" alt="">
         <div class="name type-name nowrap-1">{{ page.upRankingLists[0].UserName }}</div>
         <div style="color: #888888;font-size: 1rem;text-align: center;line-height: 1;margin-bottom: 0.4rem;">
-          {{page.upRankingLists[2].TotalScore}}分 （<span style="margin-left: 0.3rem;">{{ page.upRankingLists[0].accuracy }}</span>）
+          {{page.upRankingLists[0].TotalScore}}分 （<span style="margin-left: 0.3rem;">{{ page.upRankingLists[0].accuracy }}</span>）
         </div>
         <div class="user-label nowrap-1">
           {{ page.upRankingLists[0].ForumTitle }}
@@ -76,7 +76,7 @@
   </div>
   <ul class="lists-ranking">
     <li *ngFor="let item of page.rankingLists">
-      <span class="ranking-num">{{ item.RowNumber }}</span>
+      <span class="ranking-num">{{ item.Rankid }}</span>
       <img class="avatar" src="{{ item.headPhoto || userDefaultImg }}">
       <div class="userinfo">
         <div class="username">{{item.UserName}}</div>

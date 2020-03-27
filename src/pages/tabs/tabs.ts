@@ -5,7 +5,6 @@ import {Events, LoadingController, ModalController, NavController, NavParams, Pl
 import {MinePage} from "../mine/mine";
 import {LearningPage} from "../learning/learning";
 import {CoursePage} from "../course/course";
-import {BackButtonService} from "../../core/backButton.service";
 import {LoginPage} from "../login/login";
 import {TabService} from "../../core/tab.service";
 import {ForumPage} from '../forum/forum.component';
@@ -87,7 +86,7 @@ export class TabsPage {
 
     inputType;
 
-    constructor(private platform: Platform, private backButtonService: BackButtonService, private params: NavParams,
+    constructor(private platform: Platform, private params: NavParams,
                 private global: GlobalData,
                 private loginSer: LoginService,
                 private storage: Storage,
@@ -95,9 +94,6 @@ export class TabsPage {
                 private loading: LoadingController,
                 private commonSer: CommonService,
                 private events: Events, private nav: NavController, private tabSer: TabService) {
-        this.platform.ready().then(() => {
-            this.backButtonService.registerBackButtonAction(this.myTabs);
-        });
         this.storage.get('user').then(value => {
             console.log(value);
             if (value && !value.MainUserID) {

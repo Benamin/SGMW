@@ -123,8 +123,11 @@ export class HomePage implements OnInit {
         })
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.getCompetitionId();
+    }
+
+    ionViewDidLoad() {
         this.storage.get('RoleID').then(value => {
             this.getBanner(value);
             this.getProductList(value);
@@ -535,7 +538,7 @@ export class HomePage implements OnInit {
             cid: '',
             userArea: ''
         }
-        console.log('competitionParam', this.competitionParam)
+        // console.log('competitionParam', this.competitionParam)
         this.homeSer.GetCompetitionID({code: 'xsds'}).subscribe(
             (res) => {
                 // console.log('GetCompetitionList', res)

@@ -1,5 +1,5 @@
 import {Component, NgZone} from '@angular/core';
-import {NavController, NavParams, LoadingController, ActionSheetController, Platform} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, Platform, ActionSheetController} from 'ionic-angular';
 import {DomSanitizer} from '@angular/platform-browser';
 import {timer} from "rxjs/observable/timer";
 import {ListsRankingPage} from "../lists-ranking/lists-ranking";
@@ -15,6 +15,8 @@ import {HomeService} from "../../home.service";
 import {CaptureVideoOptions, MediaCapture, MediaFileData} from "@ionic-native/media-capture";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 import {AppService} from "../../../../app/app.service";
+import {File} from "@ionic-native/file";
+import {Camera} from "@ionic-native/camera";
 
 
 /**
@@ -43,7 +45,6 @@ import {AppService} from "../../../../app/app.service";
 })
 export class CompetitionListsPage {
     userDefaultImg = './assets/imgs/userDefault.jpg';
-    defaultImg = './assets/imgs/competition/fengmian@2x.png';
     page = {
         myInfo: null,
         checkType: 'exam',
@@ -116,19 +117,20 @@ export class CompetitionListsPage {
         hasArea: false
     }
 
-    constructor(private commonSer: CommonService, public navCtrl: NavController, public navParams: NavParams,
-                private actionSheetCtrl: ActionSheetController,
+    constructor(private commonSer: CommonService, public navCtrl: NavController,
+                private Camera: Camera,
+                private zone: NgZone,
                 private platform: Platform,
                 private appSer: AppService,
-                private transfer: FileTransfer,
-                private zone: NgZone,
+                private file: File,
                 private loadingCtrl: LoadingController,
+                private actionSheetCtrl: ActionSheetController,
                 private mediaCapture: MediaCapture,
-                private loadCtrl: LoadingController, private homeSer: HomeService, private sanitizer: DomSanitizer) {
+                private transfer: FileTransfer,
+                public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService, private sanitizer: DomSanitizer) {
     }
 
     ionViewDidEnter() {
-        this.GetSelfExamDetail();
         let competitionParam = this.navParams.get('competitionParam');
         if (competitionParam.userArea && competitionParam.userArea != 'null') {
             this.page.hasArea = true;
@@ -170,6 +172,7 @@ export class CompetitionListsPage {
                 TotalCount: null,
                 isLoad: false
             };
+            this.GetSelfExamDetail();
             this.getList();
         } else if (!competitionParam.cid) {
             console.log('大赛id不存在')
@@ -182,7 +185,7 @@ export class CompetitionListsPage {
             content: ''
         });
         loading.present();
-        this.homeSer.GetSelfExamDetail({}).subscribe(
+        this.homeSer.GetSelfExamDetail({TopicId: this.page.competitionParam.cid}).subscribe(
             (res) => {
                 this.page.myInfo = res.data;
                 loading.dismiss();
@@ -203,6 +206,7 @@ export class CompetitionListsPage {
         // if (checkType === 'all') this.page.Type = 2;
         // if (checkType === 'mine') this.page.Type = 3;
         this.page.getParams.Page = 1;
+        this.page.getParams.PageIndex = 1;
         this.getList();
     }
 
@@ -233,7 +237,7 @@ export class CompetitionListsPage {
         let userArea = null
         let competitionParam = this.navParams.get('competitionParam');
         if (competitionParam.userArea && competitionParam.userArea != 'null') userArea = competitionParam.userArea;
-        this.navCtrl.push(ListsRankingPage, {userArea: userArea});
+        this.navCtrl.push(ListsRankingPage, {userArea: userArea, TopicId: this.page.competitionParam.cid});
     }
 
     // 进入考试排名列表
@@ -275,7 +279,7 @@ export class CompetitionListsPage {
         const loading = this.loadCtrl.create({
             content: ''
         });
-        console.log(item);
+        // console.log(item);
         loading.present();
         const ExamBegin = this.commonSer.transFormTime(item.ExamBegin);
         const ExamEnd = this.commonSer.transFormTime(item.ExamEnd);
@@ -300,6 +304,7 @@ export class CompetitionListsPage {
     getList() {
         this.page.getParams.OrderByDirection = '';
         this.page.getParams.Page = 1;
+        this.page.getParams.PageIndex = 1;
         this.page.getParams.OrderBy = '' // LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
         this.page.getParams.AreaID = '' // 传入则查询地区排行和排行榜//不传则查询所有地区排行榜
         let params = this.page.getParams;
@@ -318,10 +323,10 @@ export class CompetitionListsPage {
                 };
                 ;
                 if (this.page.navliArr[1].secNav[0].thrNav[0].isActived === true) {
-                    console.log('最新')
+                    // console.log('最新')
                     this.page.getParams.OrderBy = 'CreateTime';
                 } else if (this.page.navliArr[1].secNav[0].thrNav[1].isActived === true) {
-                    console.log('最热')
+                    // console.log('最热')
                     this.page.getParams.OrderBy = 'LikeCount';
                 }
             } else if (this.page.navliArr[1].secNav && this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].isActived === true) {
@@ -330,9 +335,9 @@ export class CompetitionListsPage {
                     return this.homeSer.GetTopicCompetitionLists(data)
                 };
                 if (!this.page.navliArr[1].secNav[1] || (this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].thrNav && this.page.navliArr[1].secNav[1].thrNav[0] && this.page.navliArr[1].secNav[1].thrNav[0].isActived === true)) {
-                    console.log('所有排行')
+                    // console.log('所有排行')
                 } else if (this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].thrNav && this.page.navliArr[1].secNav[1].thrNav[1] && this.page.navliArr[1].secNav[1].thrNav[1].isActived === true) {
-                    console.log('区域排行')
+                    // console.log('区域排行')
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }
             }
@@ -344,10 +349,10 @@ export class CompetitionListsPage {
                     return this.homeSer.GetShortVideoLists(data)
                 };
                 if (this.page.navliArr[2].secNav[0].thrNav[0].isActived === true) {
-                    console.log('视频最新')
+                    // console.log('视频最新')
                     this.page.getParams.OrderBy = 'ReplyTime';
                 } else if (this.page.navliArr[2].secNav[0].thrNav[1].isActived === true) {
-                    console.log('视频最热')
+                    // console.log('视频最热')
                     this.page.getParams.OrderBy = 'LikeCount';
                 }
             } else if (this.page.navliArr[2].secNav && this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].isActived === true) {
@@ -356,9 +361,9 @@ export class CompetitionListsPage {
                     return this.homeSer.GetShortVideoCompitLists(data)
                 };
                 if (!this.page.navliArr[2].secNav[1] || (this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].thrNav && this.page.navliArr[2].secNav[1].thrNav[0] && this.page.navliArr[2].secNav[1].thrNav[0].isActived === true)) {
-                    console.log('视频所有排行')
+                    // console.log('视频所有排行')
                 } else if (this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].thrNav && this.page.navliArr[2].secNav[1].thrNav[1] && this.page.navliArr[2].secNav[1].thrNav[1].isActived === true) {
-                    console.log('视频区域排行')
+                    // console.log('视频区域排行')
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }
             }
@@ -384,7 +389,12 @@ export class CompetitionListsPage {
                     this.page.getParams.TotalCount = res.data.TotalCount;
                     Lists = res.data.Items;
                 }
-                console.log(888, Lists)
+
+                if (this.page.checkType === this.page.navliArr[2].lable && Data.LeaderboardItems) {
+                    Lists = Data.LeaderboardItems.Items;
+                    this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
+                }
+                // console.log(888, Lists)
 
                 if (this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
                     for (var i = 0; i < Lists.length; i++) {
@@ -405,6 +415,7 @@ export class CompetitionListsPage {
     //下拉刷新
     doRefresh(e) {
         this.page.getParams.Page = 1;
+        this.page.getParams.PageIndex = 1;
         this.getList();
         timer(1000).subscribe(() => {
             e.complete();
@@ -418,17 +429,29 @@ export class CompetitionListsPage {
             return;
         }
         this.page.getParams.Page++;
+        this.page.getParams.PageIndex++;
         this.page.getListsApi(this.page.getParams).subscribe(
             (res) => {
                 let Data = res.data;
                 let Lists = []
                 if (Data.MyItems && Data.MyItems.ID) {
-                    Lists = res.data.SVTopicIDList;
+                    Lists = res.data.LeaderboardItems.Items;
+                    this.page.getParams.TotalCount = res.data.LeaderboardItems.TotalCount;
                     Lists.unshift(Data.MyItems);
+                } else if (Data.MyTopPost && Data.MyTopPost.Id) {
+                    Lists = res.data.AllPostByTopicTag.AllPost;
+                    this.page.getParams.TotalCount = res.data.AllPostByTopicTag.TotalCount;
+                    Lists.unshift(Data.MyTopPost);
                 } else {
+                    this.page.getParams.TotalCount = res.data.TotalCount;
                     Lists = res.data.Items;
                 }
-                console.log(888, Lists)
+
+                if (this.page.checkType === this.page.navliArr[2].lable && Data.LeaderboardItems) {
+                    Lists = Data.LeaderboardItems.Items;
+                    this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
+                }
+                // console.log(888, Lists)
 
                 if (this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
                     for (var i = 0; i < Lists.length; i++) {
@@ -584,4 +607,5 @@ export class CompetitionListsPage {
             });
         })
     }
+
 }
