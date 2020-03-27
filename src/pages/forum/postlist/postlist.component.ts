@@ -28,7 +28,7 @@ export class PostlistComponent implements OnInit {
         title: "",
         // topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
         total: 111,
-        OrderBy: 'ReplyCount',
+        OrderBy: 'CreateTime',
         OrderByDirection: 'desc'
     }
     forumLIst = [];
@@ -86,13 +86,13 @@ export class PostlistComponent implements OnInit {
 
     avtNav(type) {
         this.no_list = false;
-        if (type == 'LikeCount') {
+        // if (type == 'LikeCount') {
 
-            this.pageDate.OrderBy = 'LikeCount';
-            this.pageDate.OrderByDirection = 'DESC';
-        } else {
-            this.pageDate.OrderByDirection = '';
-        }
+        //     this.pageDate.OrderBy = 'LikeCount';
+        //     this.pageDate.OrderByDirection = 'DESC';
+        // } else {
+        //     this.pageDate.OrderByDirection = '';
+        // }
         this.isdoInfinite = true;
         this.forumLIst = [];
         this.pageDate.PageIndex = 1;
@@ -121,7 +121,7 @@ export class PostlistComponent implements OnInit {
             if (!res.data) {
                 return
             }
-            let arr = res.data.UnTopPosts.Items;
+            let arr = res.data.Posts.Items;
             // let arr=res.data.Posts.Items;
 
             if (!this.IsTopOpt) {
