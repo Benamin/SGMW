@@ -2,14 +2,12 @@ page-lists {
   ul {
     margin: 0;
     padding: 0;
-
     li {
       margin: 0;
       padding: 0;
       list-style: none;
     }
   }
-
   // 顶部排行 start
   //.podium-pg {
   //  position: relative;
@@ -136,12 +134,10 @@ page-lists {
     list-style: none;
     background-color: #fff;
     color: #918F92;
-
     li {
       position: relative;
       flex: 1;
       text-align: center;
-
       .item-line {
         position: absolute;
         left: 50%;
@@ -155,16 +151,13 @@ page-lists {
         opacity: 0.9;
       }
     }
-
     .actived {
       color: #000000;
-
       .item-line {
         background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
       }
     }
   }
-
   //导航 end
 
   .my-exam {
@@ -173,7 +166,6 @@ page-lists {
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
-
     .exam-logo {
       margin-left: 1.8rem;
       margin-right: 1rem;
@@ -186,14 +178,12 @@ page-lists {
       align-items: center;
       justify-content: center;
       background-color: #ADDAE9;
-
       img {
         margin-right: 0.3rem;
         width: 1.591rem;
         height: 1.793rem;
       }
     }
-
     span {
       font-size: 1.2rem;
       color: #888888;
@@ -213,7 +203,6 @@ page-lists {
     align-items: center;
     justify-content: center;
     border-bottom: 1rem solid #F2F2F2;
-
     .btn-box {
       width: 34.8rem;
       height: 2.9rem;
@@ -224,7 +213,6 @@ page-lists {
       justify-content: center;
       overflow: hidden;
       background-color: #F4F1F2;
-
       .type-btn {
         flex: 1;
         height: 2.9rem;
@@ -232,7 +220,6 @@ page-lists {
         border-radius: 1.45rem;
         color: #888888;
       }
-
       .type-btn.actived {
         color: #000000;
         background-color: orange;
@@ -249,7 +236,6 @@ page-lists {
     justify-content: flex-start;
     font-size: 1.4rem;
     background-color: #FFFFFF;
-
     .type-btn {
       width: 6.8rem;
       height: 4rem;
@@ -258,7 +244,6 @@ page-lists {
       position: relative;
       flex-shrink: 0;
       text-align: center;
-
       .item-line {
         position: absolute;
         left: 50%;
@@ -272,10 +257,8 @@ page-lists {
         opacity: 0.9;
       }
     }
-
     .actived {
       color: #000000;
-
       .item-line {
         background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
       }
@@ -286,12 +269,10 @@ page-lists {
   .exam-pro-lists {
     padding-top: 0.6rem;
     background-color: #FFFFFF;
-
     li {
       padding-top: 0.9rem;
       display: flex;
       justify-content: space-between;
-
       .lists-banner {
         margin: 0 1.4rem 0.9rem 1.8rem;
         width: 13.4rem;
@@ -299,12 +280,10 @@ page-lists {
         border-radius: 0.8rem;
         flex-shrink: 0;
       }
-
       .exam-info {
         margin-right: 1.8rem;
         flex: 1;
         line-height: 1;
-
         .title {
           width: 19rem;
           font-size: 1.5rem;
@@ -312,19 +291,16 @@ page-lists {
           white-space: nowrap;
           text-overflow: ellipsis;
         }
-
         .exam-num {
           margin-top: 1rem;
           font-size: 1.2rem;
           color: #A5A5A5;
         }
-
         .status-box {
           margin-top: 1.3rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
-
           .status-points {
             width: 8.4rem;
             height: 2.2rem;
@@ -334,7 +310,6 @@ page-lists {
             align-items: center;
             justify-content: center;
           }
-
           .status-btn {
             margin-left: auto;
             width: 8.4rem;
@@ -349,7 +324,6 @@ page-lists {
             align-items: center;
             justify-content: center;
           }
-
           .status-finish {
             font-size: 12px;
             color: #888888;
@@ -363,16 +337,13 @@ page-lists {
   .topic-lists {
     margin-bottom: 1rem;
     background-color: #FFFFFF;
-
     li {
       padding: 0.9rem 1.5rem 1.4rem 1.5rem;
       border-bottom: 1rem solid #f2f2f2;
-
       .topic-user {
         margin-bottom: 1rem;
         display: flex;
         align-items: center;
-
         .avatar {
           margin-right: 1rem;
           width: 2.8rem;
@@ -380,21 +351,17 @@ page-lists {
           border-radius: 1.4rem;
           object-fit: cover;
         }
-
         .user-box {
           flex: 1;
           width: 18rem;
-
           .name-time {
             display: flex;
             align-items: center;
-
             .name {
               display: block;
               font-size: 1.3rem;
               color: #333333;
             }
-
             .time {
               margin-left: 1rem;
               padding-left: 1rem;
@@ -404,7 +371,6 @@ page-lists {
               color: #888888;
             }
           }
-
           .company {
             margin-top: 0.5rem;
             font-size: 1.1rem;
@@ -416,12 +382,10 @@ page-lists {
           margin-left: auto;
           display: flex;
           align-items: center;
-
           .number-my {
             font-size: 1.1rem;
             color: #888888;
           }
-
           img {
             margin-left: 1.6rem;
             width: 1.7rem;
@@ -444,7 +408,6 @@ page-lists {
       .topic-pic-box {
         border-radius: 1.2rem;
         overflow: hidden;
-
         .topic-one-pic {
           img {
             width: 23rem;
@@ -452,7 +415,6 @@ page-lists {
             object-fit: cover;
           }
         }
-
         .topic-multiple-pic {
           margin-bottom: 1.2rem;
           display: inline-flex;
@@ -462,18 +424,15 @@ page-lists {
           //flex-wrap: wrap;
           border-radius: 1.2rem;
           overflow: hidden;
-
           img {
             margin-bottom: 0.2rem;
             width: 11.4rem;
             height: 11.4rem;
             object-fit: cover;
           }
-
           img:nth-child(3n-1) {
             margin-left: 0.2rem;
           }
-
           img:nth-child(3n) {
             margin-left: 0.2rem;
           }
@@ -483,23 +442,19 @@ page-lists {
       .topic-info {
         display: flex;
         justify-content: center;
-
         .topic-type {
           flex: 1;
           font-size: 1.2rem;
           color: #888888;
         }
-
         .num-info-box {
           margin-left: auto;
           display: flex;
           align-items: center;
-
           span {
             display: flex;
             align-items: center;
           }
-
           .read-num {
             img {
               margin-right: 1rem;
@@ -507,7 +462,6 @@ page-lists {
               height: 1.527rem;
             }
           }
-
           .comment-num {
             img {
               margin-left: 2rem;
@@ -516,7 +470,6 @@ page-lists {
               height: 1.7rem;
             }
           }
-
           .like-num {
             img {
               margin-left: 2rem;
@@ -529,28 +482,22 @@ page-lists {
       }
     }
   }
-
   // 帖子列表 end
 
   // 视频列表start
   .video-lists {
     li {
       margin-bottom: 1rem;
-
       .video-box {
         position: relative;
         width: 100%;
         height: 21rem;
-
         .video-poster {
-          max-height: 21rem;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translateX(-50%) translateY(-50%);
-          z-index: 99;
+          width: 100%;
+          height: 21rem;
+          object-fit: cover;
+          z-index: 1;
         }
-
         .mask {
           position: absolute;
           top: 0;
@@ -558,9 +505,8 @@ page-lists {
           height: 21rem;
           object-fit: cover;
           z-index: 3;
-          background-color: rgba(0, 0, 0, 0.8);
+          background-color: rgba(0, 0, 0, 0.3);
         }
-
         .video-play-btn {
           position: absolute;
           top: 50%;
@@ -568,9 +514,8 @@ page-lists {
           transform: translateX(-50%) translateY(-50%);
           width: 4rem;
           height: 4rem;
-          z-index: 100;
+          z-index: 5;
         }
-
         .video-title {
           position: absolute;
           top: 1.6rem;
@@ -578,38 +523,45 @@ page-lists {
           width: calc(100% - 3.2rem);
           display: flex;
           align-items: center;
-          justify-content: center;
-          z-index: 5;
-
+          z-index: 99;
           span {
-            width: 30rem;
+            //width: 30rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             font-size: 1.5rem;
             color: #FFFFFF;
           }
-
           img {
             margin-left: auto;
             width: 1.6rem;
             height: 1.6rem;
           }
         }
-
-        .video-length {
+        .bottom-info {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           position: absolute;
           bottom: 1.2rem;
-          right: 1.5rem;
-          padding: 0 0.5rem;
-          height: 1.8rem;
-          border-radius: 1rem;
-          color: #FFFFFF;
-          background-color: rgba(0, 0, 0, 0.3);
+          width: 100%;
+          overflow: hidden;
           z-index: 5;
+          .video-length {
+            margin-left: 1.5rem;
+            padding: 0 0.5rem;
+            height: 1.8rem;
+            border-radius: 1rem;
+            color: #FFFFFF;
+            background-color: rgba(0, 0, 0, 0.3);
+          }
+          .right-text {
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+            color: #FFFFFF;
+          }
         }
       }
-
       .video-info {
         width: 100%;
         height: 4.6rem;
@@ -617,24 +569,20 @@ page-lists {
         align-items: center;
         justify-content: space-between;
         background-color: #FFFFFF;
-
         .company {
           margin-left: 1.5rem;
           font-size: 1.2rem;
           color: #888888;
         }
-
         .num-info-box {
           margin-right: 1.5rem;
           margin-left: auto;
           display: flex;
           align-items: center;
-
           span {
             display: flex;
             align-items: center;
           }
-
           .comment-num {
             img {
               margin-right: 1rem;
@@ -642,7 +590,6 @@ page-lists {
               height: 1.7rem;
             }
           }
-
           .like-num {
             img {
               margin-left: 2rem;

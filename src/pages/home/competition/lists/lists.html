@@ -100,7 +100,7 @@
   </div>
   <!-- 帖子 所有 end -->
   <!--帖子排行榜 start -->
-  <div class="nav-type-3" *ngIf="hasArea && page.checkType === page.navliArr[1].lable && page.navliArr[1].secNav[1] && page.navliArr[1].secNav[1].isActived === true">
+  <div class="nav-type-3" *ngIf="page.hasArea && page.checkType === page.navliArr[1].lable && page.navliArr[1].secNav[1] && page.navliArr[1].secNav[1].isActived === true">
     <div (click)="changeThrNav(1, 1, thrNavIndex, item.isActived)" *ngFor="let item of page.navliArr[1].secNav[1].thrNav; let thrNavIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
       {{ item.navBtnText }}<span class="item-line"></span>
     </div>
@@ -115,7 +115,7 @@
   </div>
   <!-- 视频 所有 end -->
   <!-- 视频 大赛排行榜 start -->
-  <div class="nav-type-3" *ngIf="hasArea && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true">
+  <div class="nav-type-3" *ngIf="page.hasArea && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true">
     <div (click)="changeThrNav(2, 1, thrNavIndex, item.isActived)" *ngFor="let item of page.navliArr[2].secNav[1].thrNav; let thrNavIndex = index" class="type-btn"  [ngClass]="{'actived': item.isActived}">
       {{ item.navBtnText }}<span class="item-line"></span>
     </div>
@@ -195,7 +195,7 @@
 
   <!--视频列表-->
   <ul class="video-lists" *ngIf="page.checkType === 'short-video'">
-    <li (click)="goVideoBox(item.ID)" *ngFor="let item of page.competitionLists">
+    <li (click)="goVideoBox(item.ID)" *ngFor="let item of page.competitionLists, let cIndex = index">
       <div class="video-box">
         <img class="video-poster" src="{{item.CoverUrl || './assets/imgs/competition/fengmian@2x.png'}}" alt="视频图片">
         <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
@@ -204,7 +204,11 @@
           <span>{{ item.Title }}</span>
           <!--<img src="./assets/imgs/competition/delet@2x.png" alt="删除">-->
         </div>
-        <span class="video-length">{{ item.VideoMinute }}</span>
+        <div class="bottom-info">
+          <span class="video-length">{{ item.VideoMinute }}</span>
+          <span *ngIf="page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true && cIndex === 0" class="right-text">本人排名 第{{ item.MyRanking }}名</span>
+          <span  *ngIf="page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true && cIndex !== 0" class="right-text">大赛排名 第{{ item.AllRanking }}名</span>
+        </div>
       </div>
       <div class="video-info">
         <span class="company">{{ item.Creater }}</span>
