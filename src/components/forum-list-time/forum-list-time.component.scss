@@ -1,131 +1,145 @@
+.info-box {
+  display: flex;
+  align-items: center;
+  .company {
+    margin-top: 0.5rem;
+    margin-left: 3.8rem;
+    font-size: 1.1rem;
+    color: #888888;
+  }
+  .box-ranking {
+    margin-left: auto;font-size: 1.2rem;color: #888888;
+  }
+}
+
 .post-introduction-top {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    img {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-    }
+  img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
 
-    .name {
-        margin: 0 10px;
-        font-size: 13px;
-    }
+  .name {
+    margin: 0 10px;
+    font-size: 13px;
+  }
 
-    .oldDate {
-        color: #bfbfbf;
-        position: relative;
-        padding-left: 10px;
-        font-size: 11px;
-        min-width: 100px;
-    }
+  .oldDate {
+    color: #bfbfbf;
+    position: relative;
+    padding-left: 10px;
+    font-size: 11px;
+    min-width: 100px;
+  }
 
-    .oldDate::before {
-        content: " ";
-        display: block;
-        position: absolute;
-        background: #bfbfbf;
-        width: 1px;
-        height: 13px;
-        left: 0;
-        top: 2px;
-    }
+  .oldDate::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    background: #bfbfbf;
+    width: 1px;
+    height: 13px;
+    left: 0;
+    top: 2px;
+  }
 }
 
 .post-introduction-con {
-    p {
-        font-size: 16px;
-        line-height: 22px;
-        margin: 12px 0;
+  p {
+    font-size: 16px;
+    line-height: 22px;
+    margin: 12px 0;
+  }
+
+  .img-div {
+    max-height: 140px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  .img1 {
+    width: 240px;
+    height: 130px;
+    background-size: cover;
+    // img{
+    //     width: 240px;
+    // }
+  }
+
+  .img3 {
+    div {
+      flex: 1;
+      width: 33%;
+      max-height: 114px;
+      height: 114px;
+      background: #f3f3f3;
     }
 
-    .img-div {
-        max-height: 140px;
-        overflow: hidden;
-        border-radius: 5px;
+    :nth-child(2) {
+      margin: 0 0.5%;
+    }
+  }
+
+  .img2 {
+    div {
+      width: 33%;
+      max-height: 114px;
+      height: 114px;
+      // img{
+      //     height: 100%;
+      // }
     }
 
-    .img1 {
-        width: 240px;
-        height: 130px;
-        background-size: cover;
-        // img{
-        //     width: 240px;
-        // }
+    :nth-child(2) {
+      margin: 0 5px;
     }
-
-    .img3 {
-        div {
-            flex: 1;
-            width: 33%;
-            max-height: 114px;
-            height: 114px;
-            background: #f3f3f3;
-        }
-
-        :nth-child(2) {
-            margin: 0 0.5%;
-        }
-    }
-
-    .img2 {
-        div {
-            width: 33%;
-            max-height: 114px;
-            height: 114px;
-            // img{
-            //     height: 100%;
-            // }
-        }
-
-        :nth-child(2) {
-            margin: 0 5px;
-        }
-    }
+  }
 
 }
 
 .post-introduction-buttom {
-    padding: 15px 0;
-    color: #757575;
+  padding: 15px 0;
+  color: #757575;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 18px;
+    margin-right: 10px;
+  }
+
+  span:nth-child(1) {
+    flex: 1;
+    font-size: 12px;
+  }
+  .eye {
+    margin-right: 10px;
+    align-items: center;
+    display: flex;
+    img {
+      width: 22px !important;
+    }
+  }
+  .luntan_coment {
     display: flex;
     align-items: center;
+    margin-right: 10px;
+  }
 
-    img {
-        width: 18px;
-        margin-right: 10px;
-    }
+  .p771_comment_like {
+    display: flex;
+    align-items: center;
+  }
 
-    span:nth-child(1) {
-        flex: 1;
-        font-size: 12px;
-    }
-    .eye{
-        margin-right: 10px;
-        align-items: center;
-        display: flex;
-        img{
-            width: 22px !important;
-        }
-    }
-    .luntan_coment {
-        display: flex;
-        align-items: center;
-        margin-right: 10px;
-    }
-
-    .p771_comment_like {
-        display: flex;
-        align-items: center;
-    }
-
-    .share{
-        display: flex;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
-        align-items: center;
-        margin-left: 10px;
-    }
+  .share {
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-left: 10px;
+  }
 }
