@@ -244,7 +244,7 @@ export class ForumPage implements OnInit {
             // "PageSize": 10,
 
             "Title": "",
-  "TopicPlateId": "",
+//   "TopicPlateId": "",
   "Status": 2,
   "Poster": "",
   "IsPlate": 0,
@@ -255,10 +255,12 @@ export class ForumPage implements OnInit {
         };
 
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
+        // this.serve.forum_post_search(data).subscribe((res: any) => {
+            
             loading.dismiss();
             if (res.data) {
-
-                let arr = res.data.Items;
+                // let arr = res.data.Items;
+                let arr = res.data.ProductList;
                 this.forumLIst = this.forumLIst.concat(arr);
                 this.no_list = this.forumLIst.length > 0 ? false : true;
                 if (arr == 0) {

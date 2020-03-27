@@ -443,10 +443,11 @@ export class HomePage implements OnInit {
             "PageSize": 10
         };
         this.forum_serve.GetPostSearchhotpost(data).subscribe((res: any) => {
+        // this.forum_serve.forum_post_search(data).subscribe((res: any) => {
             if (res.data) {
                 // this.forumLIst = res.data.UnTopPosts.Items;
-                this.forumLIst = res.data.Items;
-
+                this.forumLIst = res.data.ProductList;
+                // let arr = res.data.Posts.Items;
                 if (this.forumLIst.length > 4) {
                     this.forumLIst.length = 4;
                 }
