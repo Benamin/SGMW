@@ -162,6 +162,7 @@ export class HomeService {
 
     // 所有短视频 最新最热列表接口
     GetShortVideoLists(data): Observable<any> {
+        let newData = Object.assign(data,{SortDir: 'desc'} );
         return this.http.post(SERVER_API_URL + '/AppShortVideo/GetAllShortVideoListByTopic', data);
     }
 
