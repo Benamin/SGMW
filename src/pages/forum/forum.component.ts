@@ -19,7 +19,7 @@ export class ForumPage implements OnInit {
     isdoInfinite = true;
     no_list = false;
     pageDate = {
-        OrderBy: "PostTimeFormatted",
+        OrderBy: "CreateTime",
         creater: "",
         name: "",
         pageIndex: 1,
@@ -237,18 +237,28 @@ export class ForumPage implements OnInit {
         });
         loading.present();
         let data = {
-            "IsHotPost": "0",
-            "OrderBy": "",
-            "OrderByDirection": "",
-            "PageIndex": this.pageDate.pageIndex,
-            "PageSize": 10
+            // "IsHotPost": "0",
+            // "OrderBy": this.pageDate.OrderBy,
+            // "OrderByDirection": "DESC",
+            // "PageIndex": this.pageDate.pageIndex,
+            // "PageSize": 10,
+
+            "Title": "",
+  "TopicPlateId": "",
+  "Status": 2,
+  "Poster": "",
+  "IsPlate": 0,
+  "OrderBy": this.pageDate.OrderBy,
+  "OrderByDirection": "DESC",
+  "PageIndex": this.pageDate.pageIndex,
+  "PageSize": 10
         };
 
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             loading.dismiss();
             if (res.data) {
 
-                let arr = res.data.UnTopPosts.Items;
+                let arr = res.data.Items;
                 this.forumLIst = this.forumLIst.concat(arr);
                 this.no_list = this.forumLIst.length > 0 ? false : true;
                 if (arr == 0) {
