@@ -309,9 +309,9 @@ export class InnerCoursePage {
         if (this.platform.is('ios')) {
             this.appSer.setIOS('platformIOS');
             // @ts-ignore
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.appSer.setIOS('innerCourse');
-            },1500)
+            }, 1500)
         }
         this.camera.getPicture(options).then((imagedata) => {
             let filePath = imagedata;
@@ -351,8 +351,8 @@ export class InnerCoursePage {
         });
         uploadLoading.present();
         // const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
-         // const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
-         const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+        // const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
+        const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
         const fileTransfer: FileTransferObject = this.transfer.create();
 
         fileTransfer.upload(file, SERVER_URL + '/Upload/UploadFiles', options).then(
@@ -368,8 +368,10 @@ export class InnerCoursePage {
             });
         fileTransfer.onProgress((listener) => {
             let per = <any>(listener.loaded / listener.total) * 100;
-            per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2)
-            uploadLoading.setContent('上传中...' + per + '%');
+            per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2);
+            this.zone.run(() => {
+                uploadLoading.setContent('上传中...' + per + '%');
+            })
         })
     }
 

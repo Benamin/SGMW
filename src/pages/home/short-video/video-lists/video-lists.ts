@@ -81,6 +81,7 @@ export class VideoListsPage {
             }
         )
         modal.present();
+        // this.navCtrl.push(EditPage);
     }
 
 // {

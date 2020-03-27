@@ -8,9 +8,13 @@
     <div class="title-input">
         <ion-input type="text" placeholder="填写视频标题，让更多人看到" [(ngModel)]="form.Title" autocomplete='off'></ion-input>
     </div>
-<!--    <div class="files-box">-->
-<!--        <div class="files-item">-->
-<!--            <img class="poster" [src]="resp.Imgurl">-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="files-box">
+        <div>封面图</div>
+        <div *ngIf="CoverUrl" class="files-item" (click)="takePic()">
+            <img class="poster" [src]="CoverUrl">
+        </div>
+        <div *ngIf="!CoverUrl" class="add-img" (click)="takePic()">
+            <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
+        </div>
+    </div>
 </ion-content>

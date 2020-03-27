@@ -1,9 +1,19 @@
-import {Component, ElementRef} from '@angular/core';
-import {LoadingController, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
+import {Component, ElementRef, NgZone} from '@angular/core';
+import {
+    ActionSheetController,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Platform
+} from 'ionic-angular';
 import {EidtModalComponent} from '../../../../components/eidt-modal/eidt-modal.component';
 import {ForumService} from "../../../forum/forum.service";
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
+import {Camera, CameraOptions} from "@ionic-native/camera";
+import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
+import {AppService} from "../../../../app/app.service";
 
 //需要弹出的页面
 
@@ -24,12 +34,19 @@ export class EditPage {
     resp; //上传到线上视频信息
     choicePlateList;  //话题列表
     tempList;  //板块列表
+    CoverUrl;
 
     constructor(public modalCtrl: ModalController, public navCtrl: NavController,
                 private serve: ForumService,
                 private commonSer: CommonService,
                 private homeSer: HomeService,
                 private platform: Platform,
+                private zone: NgZone,
+                private transfer: FileTransfer,
+                private loadingCtrl: LoadingController,
+                private camera: Camera,
+                private appSer: AppService,
+                private actionSheetCtrl: ActionSheetController,
                 private loading: LoadingController,
                 public navParams: NavParams, private elementRef: ElementRef) {
         this.mediaFile = this.navParams.get('mediaFile');
@@ -54,13 +71,129 @@ export class EditPage {
         this.navCtrl.pop();
     }
 
+    //选择图片
+    takePic() {
+        const actionSheet = this.actionSheetCtrl.create({
+            cssClass: 'cameraAction',
+            buttons: [
+                {
+                    text: '拍照',
+                    role: 'fromCamera',
+                    handler: () => {
+                        console.log('fromCamera');
+                        this.selectPicture(1);
+                    }
+                }, {
+                    text: '从相册中选',
+                    role: 'fromPhoto',
+                    handler: () => {
+                        console.log('fromPhoto');
+                        this.selectPicture(0);
+                    }
+                }, {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }
+            ]
+        });
+        actionSheet.present();
+    }
+
+    //选择图片
+    selectPicture(srcType) {
+        const options: CameraOptions = {
+            quality: 10,  //1 拍照  2 相册
+            destinationType: this.camera.DestinationType.FILE_URI,
+            encodingType: this.camera.EncodingType.PNG,
+            mediaType: this.camera.MediaType.PICTURE,
+            sourceType: srcType,
+            saveToPhotoAlbum: false
+        };
+        const option: FileUploadOptions = {
+            httpMethod: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            fileName: 'image.png'
+        };
+        if (this.platform.is('ios')) {
+            this.appSer.setIOS('platformIOS');
+            // @ts-ignore
+            setTimeout(() => {
+                this.appSer.setIOS('innerCourse');
+            }, 1500)
+        }
+        this.camera.getPicture(options).then((imagedata) => {
+            let filePath = imagedata;
+            if (filePath.indexOf('?') !== -1) {     //获取文件名
+                filePath = filePath.split('?')[0];
+            }
+            let arr = filePath.split('/');
+            option.fileName = arr[arr.length - 1];
+            console.log(imagedata);
+            console.log(arr);
+            if (this.platform.is('ios')) {
+
+            } else {
+                option.fileName = option.fileName.indexOf('.') == -1 ? `${option.fileName}.jpg` : option.fileName;
+            }
+
+            this.upload(imagedata, option);
+        })
+    }
+
+    //上传图片
+    upload(file, options) {
+        const uploadLoading = this.loadingCtrl.create({
+            content: '上传中...',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        uploadLoading.present();
+        const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
+        // const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
+        // const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+        const fileTransfer: FileTransferObject = this.transfer.create();
+
+        fileTransfer.upload(file, SERVER_URL + '/Upload/UploadFiles', options).then(
+            (res) => {
+                uploadLoading.dismiss();
+                this.commonSer.toast('上传成功');
+                const data = JSON.parse(res.response);
+                this.CoverUrl = data.data;
+                console.log(this.CoverUrl);
+            }, err => {
+                uploadLoading.dismiss();
+                this.commonSer.toast('上传错误');
+            });
+        fileTransfer.onProgress((listener) => {
+            let per = <any>(listener.loaded / listener.total) * 100;
+            per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2)
+            this.zone.run(() => {
+                uploadLoading.setContent('上传中...' + per + '%');
+            })
+        })
+    }
+
+    //提交
     uploadFile() {
+        if (!this.form.Title) {
+            this.commonSer.toast('请输入短视频标题')
+            return
+        }
+        if (!this.CoverUrl) {
+            this.commonSer.toast('请上传短视频封面');
+            return
+        }
         this.commonSer.alert('确定发布短视频?', () => {
             const data = {
                 Title: this.form.Title,
                 Description: this.form.Description,
                 VideoMinute: Math.ceil(this.mediaFile.duration),
-                CoverUrl: this.resp.Imgurl,
+                CoverUrl: this.CoverUrl,
                 SVTopicIDList: [this.form.SVTopicIDList],
                 files: {
                     "filename": this.mediaFile.name,//文件名称
