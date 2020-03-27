@@ -116,7 +116,6 @@ export class CompetitionListsPage {
     }
 
     ionViewDidEnter() {
-        this.GetSelfExamDetail();
         let competitionParam = this.navParams.get('competitionParam');
         if (competitionParam.userArea && competitionParam.userArea != 'null') {
             this.page.hasArea = true;
@@ -158,6 +157,7 @@ export class CompetitionListsPage {
                 TotalCount: null,
                 isLoad: false
             };
+            this.GetSelfExamDetail();
             this.getList();
         } else if (!competitionParam.cid) {
             console.log('大赛id不存在')
@@ -170,7 +170,7 @@ export class CompetitionListsPage {
             content: ''
         });
         loading.present();
-        this.homeSer.GetSelfExamDetail({}).subscribe(
+        this.homeSer.GetSelfExamDetail({ TopicId: this.page.competitionParam.cid }).subscribe(
             (res) => {
                 this.page.myInfo = res.data;
                 loading.dismiss();
@@ -221,7 +221,7 @@ export class CompetitionListsPage {
         let userArea = null
         let competitionParam = this.navParams.get('competitionParam');
         if (competitionParam.userArea && competitionParam.userArea != 'null') userArea = competitionParam.userArea;
-            this.navCtrl.push(ListsRankingPage, {userArea: userArea});
+            this.navCtrl.push(ListsRankingPage, {userArea: userArea, TopicId: this.page.competitionParam.cid });
     }
 
     // 进入考试排名列表
@@ -262,7 +262,7 @@ export class CompetitionListsPage {
         const loading = this.loadCtrl.create({
             content: ''
         });
-        console.log(item);
+        // console.log(item);
         loading.present();
         const ExamBegin = this.commonSer.transFormTime(item.ExamBegin);
         const ExamEnd = this.commonSer.transFormTime(item.ExamEnd);
@@ -300,19 +300,19 @@ export class CompetitionListsPage {
                 // 帖子最新/最热
                 this.page.getListsApi = (data) => { return this.homeSer.GetAllTopicLists(data) };;
                 if (this.page.navliArr[1].secNav[0].thrNav[0].isActived === true) {
-                    console.log('最新')
+                    // console.log('最新')
                     this.page.getParams.OrderBy = 'CreateTime';
                 } else if (this.page.navliArr[1].secNav[0].thrNav[1].isActived === true) {
-                    console.log('最热')
+                    // console.log('最热')
                     this.page.getParams.OrderBy = 'LikeCount';
                 }
             } else if (this.page.navliArr[1].secNav && this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].isActived === true) {
                 // 帖子排行榜
                 this.page.getListsApi = (data) => { return this.homeSer.GetTopicCompetitionLists(data) };
                 if (!this.page.navliArr[1].secNav[1] || (this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].thrNav && this.page.navliArr[1].secNav[1].thrNav[0] && this.page.navliArr[1].secNav[1].thrNav[0].isActived === true)) {
-                    console.log('所有排行')
+                    // console.log('所有排行')
                 } else if (this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].thrNav && this.page.navliArr[1].secNav[1].thrNav[1] && this.page.navliArr[1].secNav[1].thrNav[1].isActived === true) {
-                    console.log('区域排行')
+                    // console.log('区域排行')
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }
             }
@@ -322,19 +322,19 @@ export class CompetitionListsPage {
                 // 短视频最新/最热
                 this.page.getListsApi = (data) => { return this.homeSer.GetShortVideoLists(data) };
                 if (this.page.navliArr[2].secNav[0].thrNav[0].isActived === true) {
-                    console.log('视频最新')
+                    // console.log('视频最新')
                     this.page.getParams.OrderBy = 'ReplyTime';
                 } else if (this.page.navliArr[2].secNav[0].thrNav[1].isActived === true) {
-                    console.log('视频最热')
+                    // console.log('视频最热')
                     this.page.getParams.OrderBy = 'LikeCount';
                 }
             } else if (this.page.navliArr[2].secNav && this.page.navliArr[2].secNav[1]&& this.page.navliArr[2].secNav[1].isActived === true) {
                 // 短视频排行榜
                 this.page.getListsApi = (data) => { return this.homeSer.GetShortVideoCompitLists(data) };
                 if (!this.page.navliArr[2].secNav[1] || (this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].thrNav && this.page.navliArr[2].secNav[1].thrNav[0] && this.page.navliArr[2].secNav[1].thrNav[0].isActived === true)) {
-                    console.log('视频所有排行')
+                    // console.log('视频所有排行')
                 } else if (this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].thrNav && this.page.navliArr[2].secNav[1].thrNav[1] && this.page.navliArr[2].secNav[1].thrNav[1].isActived === true) {
-                    console.log('视频区域排行')
+                    // console.log('视频区域排行')
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }
             }
@@ -360,7 +360,7 @@ export class CompetitionListsPage {
                     this.page.getParams.TotalCount = res.data.TotalCount;
                     Lists = res.data.Items;
                 }
-                console.log(888, Lists)
+                // console.log(888, Lists)
 
                 if(this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
                     for (var i=0; i<Lists.length; i++) {
@@ -404,7 +404,7 @@ export class CompetitionListsPage {
                 } else {
                     Lists = res.data.Items;
                 }
-                console.log(888, Lists)
+                // console.log(888, Lists)
 
                 if(this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
                     for (var i=0; i<Lists.length; i++) {

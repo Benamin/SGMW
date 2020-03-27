@@ -13,9 +13,7 @@ export class ForumListTimeComponent implements OnInit {
     @Input () itemIndex;
   constructor() { }
   
-  ngOnInit() {
-      console.log(9999999, this.item)
-  }
+  ngOnInit() {}
 
   // 微信分享
   wxShare(data){

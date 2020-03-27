@@ -100,7 +100,7 @@
   </div>
   <!-- 帖子 所有 end -->
   <!--帖子排行榜 start -->
-  <div class="nav-type-3" *ngIf="hasArea && page.checkType === page.navliArr[1].lable && page.navliArr[1].secNav[1] && page.navliArr[1].secNav[1].isActived === true">
+  <div class="nav-type-3" *ngIf="page.hasArea && page.checkType === page.navliArr[1].lable && page.navliArr[1].secNav[1] && page.navliArr[1].secNav[1].isActived === true">
     <div (click)="changeThrNav(1, 1, thrNavIndex, item.isActived)" *ngFor="let item of page.navliArr[1].secNav[1].thrNav; let thrNavIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
       {{ item.navBtnText }}<span class="item-line"></span>
     </div>
@@ -115,7 +115,7 @@
   </div>
   <!-- 视频 所有 end -->
   <!-- 视频 大赛排行榜 start -->
-  <div class="nav-type-3" *ngIf="hasArea && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true">
+  <div class="nav-type-3" *ngIf="page.hasArea && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true">
     <div (click)="changeThrNav(2, 1, thrNavIndex, item.isActived)" *ngFor="let item of page.navliArr[2].secNav[1].thrNav; let thrNavIndex = index" class="type-btn"  [ngClass]="{'actived': item.isActived}">
       {{ item.navBtnText }}<span class="item-line"></span>
     </div>
