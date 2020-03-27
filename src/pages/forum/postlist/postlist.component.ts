@@ -26,7 +26,7 @@ export class PostlistComponent implements OnInit {
         pageSize: 5,
         status: 2,
         title: "",
-        topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
+        // topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
         total: 111,
         OrderBy: 'ReplyCount',
         OrderByDirection: 'desc'
