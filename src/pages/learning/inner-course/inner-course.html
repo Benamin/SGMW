@@ -65,9 +65,9 @@
             <ion-slide>
                 <div class="item" style="min-height: 350px">
                     <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
-                        <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end
-                              class="look">更多</span>
-                        <span *ngIf="comment.talk.length == 0" tappable (click)="goCourseDiscuss()"
+<!--                        <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end-->
+<!--                              class="look">更多</span>-->
+                        <span tappable (click)="goCourseDiscuss()"
                               class="focus focus-blue">去讨论</span>
                     </p>
                     <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>

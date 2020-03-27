@@ -1,5 +1,5 @@
-import { Injectable} from '@angular/core';
-import {Platform, ToastController, App, NavController, Tabs} from 'ionic-angular';
+import {Injectable} from '@angular/core';
+import {Platform, ToastController, App, NavController, Tabs, IonicApp} from 'ionic-angular';
 import {EmitService} from "./emit.service";
 import {LogoutService} from "../secret/logout.service";
 
@@ -12,11 +12,12 @@ export class BackButtonService {
     //  1.false  正常返回上一层，2.true，禁止返回上一层，3.result,返回列表页面
     isDo = 'false';
 
-    constructor(public platform: Platform,private logoutSer:LogoutService,
+    constructor(public platform: Platform, private logoutSer: LogoutService,
                 public appCtrl: App, public eventEmitSer: EmitService,
+                private ionicApp: IonicApp,
                 public toastCtrl: ToastController) {
         this.eventEmitSer.eventEmit.subscribe((value: any) => {
-            if(isNaN(value)){   //value为数字 代表消息
+            if (isNaN(value)) {   //value为数字 代表消息
                 this.isDo = value;
             }
         });
@@ -27,21 +28,24 @@ export class BackButtonService {
 
         this.platform.registerBackButtonAction(() => {
 
-            // let activePortal = this.ionicApp._modalPortal.getActive() ||this.ionicApp._overlayPortal.getActive();
-            // let loadingPortal = this.ionicApp._loadingPortal.getActive();
-            // if (activePortal) {
-            //     //其他的关闭
-            //     activePortal.dismiss().catch(() => {
-            //     });
-            //     activePortal.onDidDismiss(() => {
-            //     });
-            //     return;
-            // }
-            // if (loadingPortal) {
-            //     //loading的话，返回键无效
-            //     activePortal.dismiss(()=>{})
-            //     return;
-            // }
+            let activePortal = this.ionicApp._modalPortal.getActive() || this.ionicApp._overlayPortal.getActive();
+            console.log(activePortal);
+            let loadingPortal = this.ionicApp._loadingPortal.getActive();
+            console.log(loadingPortal);
+            if (activePortal) {
+                //其他的关闭
+                activePortal.dismiss().catch(() => {
+                });
+                activePortal.onDidDismiss(() => {
+                });
+                return;
+            }
+            if (loadingPortal) {
+                //loading的话，返回键无效
+                activePortal.dismiss(() => {
+                })
+                return;
+            }
 
             let activeNav: NavController = this.appCtrl.getActiveNavs()[0];
             //如果可以返回上一页，则执行pop

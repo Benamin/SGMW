@@ -25,6 +25,9 @@ import {CompetitionListsPage} from "./competition/lists/lists";
 import {EditPage} from "./competition/edit/edit";
 import {ListsRankingPage} from "./competition/lists-ranking/lists-ranking";
 import {TotalRankingPage} from "./competition/total-ranking/total-ranking";
+import {VideoReplyPage} from "./short-video/video-reply/video-reply";
+import {ReplyInputPage} from "./short-video/reply-input/reply-input";
+import {PipesModule} from "../../pipes/pipes.module";
 
 @NgModule({
     declarations: [
@@ -50,11 +53,14 @@ import {TotalRankingPage} from "./competition/total-ranking/total-ranking";
         CompetitionListsPage,
         ListsRankingPage,
         EditPage,
-        TotalRankingPage
+        TotalRankingPage,
+        VideoReplyPage,
+        ReplyInputPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
         ComponentsModule,
+        PipesModule,
     ],
     entryComponents: [
         SearchPage,
@@ -78,7 +84,9 @@ import {TotalRankingPage} from "./competition/total-ranking/total-ranking";
         CompetitionListsPage,
         ListsRankingPage,
         EditPage,
-        TotalRankingPage
+        TotalRankingPage,
+        VideoReplyPage,
+        ReplyInputPage
     ]
 })
 export class HomeModule {

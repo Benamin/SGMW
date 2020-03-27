@@ -28,7 +28,7 @@ export class PostAddComponent implements OnInit {
   editData=null;
   innerHeightOld=0;
   paddingBottom= '0px';
-  choicePlateShow=true;
+  choicePlateShow=false;
   constructor(
     private navCtrl: NavController,
     private serve:ForumService,
@@ -65,6 +65,7 @@ export class PostAddComponent implements OnInit {
       this.lidata.Id=data.TopicPlateId;
       this.lidata.postId=data.Id;
       this.lidata.Status=data.Status;
+      
       this.Title=data.Title;
       this.getData();
     }else{
@@ -91,12 +92,14 @@ export class PostAddComponent implements OnInit {
     this.serve.forum_topicplate_search({}).subscribe((res:any) => {
       console.log('板块列表',res);
       this.ForumHistory=res.data.Items;
+      this.init_TopicItem();
     })
   }
   topicplateSearchtopictag(){
     this.serve.topicplateSearchtopictag({PageSize:500}).subscribe((res:any) =>{
       console.log('话题列表',res);
       this.conversationData=res.data.Items;
+      this.init_TopicItem();
     })
   }
   choicePlate(type){
@@ -123,10 +126,37 @@ export class PostAddComponent implements OnInit {
       this.conversationDataSelection=[...this.choicePlateList.filter(e => e.Selection)]
     }
   }
-
+  init_=0;
+  init_TopicItem(){
+    this.init_++;
+    // ForumHistory=[];
+    // conversationData=[];
+    if(this.init_==3){
+      this.ForumHistory.forEach(e => {
+        this.P_data.TopicItem.forEach(element => {
+            if(element.TopicId==e.Id){
+              e['Selection']=true;
+            }
+        });
+      })
+      this.conversationData.forEach(e => {
+        this.P_data.TopicTagItem.forEach(element => {
+          if(element.TopicId==e.Id){
+            e['Selection']=true;
+          }
+        });
+      })
+    }
+  }
+  P_data={
+    TopicItem:[],
+    TopicTagItem:[],
+  };
   // 获取帖子信息
   getData(){
     this.serve.forum_post_get({ postId: this.lidata.postId }).subscribe((res: any) => {
+      this.P_data=res.data;
+      this.init_TopicItem();
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       textareaImg.innerHTML=res.data.Content;
       let imgDom = textareaImg.querySelectorAll('img');
@@ -417,34 +447,77 @@ export class PostAddComponent implements OnInit {
       this.serve.presentToast('请填写帖子或者内容');
       return;
     }
-    this.loading = this.loadCtrl.create({
-      content:''
-    });
-    this.loading.present();
+
     if(textInnerTEXT.length > 20000){
       this.serve.presentToast('帖子内容不能超过20000个字符');
       return
     }
-    // console.log(textInnerHTML);
-    if(this.lidata.Status==1){ // 草稿帖子 修改帖子
-      this.forum_post_edit(IsSaveAndPublish,textInnerHTML);
-    }else{
-      this.forum_post_add(IsSaveAndPublish,textInnerHTML);
+    
+    let TopicPlateIds=[];
+    let TopicTagPlateIds=[]
+    this.ForumHistorySelection.forEach (e => {
+      if(e.Selection){
+        TopicPlateIds.push(e.Id);
+      }
+    });
+    this.conversationDataSelection.forEach (e => {
+      if(e.Selection){
+        TopicTagPlateIds.push(e.Id);
+      }
+    });
+    if(TopicPlateIds.length==0){
+      return  this.serve.presentToast('请选择帖子板块');
     }
-    this.sevrData_click=true;
-  }
+    if(TopicTagPlateIds.length==0){
+      return  this.serve.presentToast('请选择帖子话题');
+    }
 
-  forum_post_edit(IsSaveAndPublish,textInnerHTML){
+    this.loading = this.loadCtrl.create({
+      content:''
+    });
+    this.loading.present();
+    if(this.lidata.Status){ // 修改 草稿 帖子
+      this.forum_post_edit(IsSaveAndPublish,textInnerHTML,TopicPlateIds,TopicTagPlateIds);
+    }else{
+      this.forum_post_add(IsSaveAndPublish,textInnerHTML,TopicPlateIds,TopicTagPlateIds);
+    }
+    this.sevrData_click = true;
+  }
+  
+  // 修改帖子
+  forum_post_edit(IsSaveAndPublish,textInnerHTML,TopicPlateIds,TopicTagPlateIds){
     let data={
       "Id":this.lidata.postId,//帖子编号
       "Title": this.Title,//帖子标题
       "TopicPlateId": this.lidata.Id,//帖子所属板块编号
       "Content": textInnerHTML,//帖子内容
       "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
+      "TopicPlateIds": TopicPlateIds,
+      "TopicTagPlateIds": TopicTagPlateIds,
     }
-    this.serve.forum_post_edit(data).subscribe((res:any) => {
-      console.log(res);
-      if(res.code == 200){
+    // this.serve.forum_post_edit(data).subscribe((res:any) => {
+    //   console.log(res);
+    //   if(res.code == 200){
+    //     if(IsSaveAndPublish){
+    //       this.editImgOkText='帖子发布成功';
+    //     }else{
+    //       this.editImgOkText='保存成功';
+    //     }
+    //     this.editImgOk=true;
+    //     this.loading.dismiss();
+        
+    //     setTimeout(() => {
+    //       this.editImgOk=false;
+    //       this.backPop();
+    //     }, 2000);
+    //   }else{
+    //     this.sevrData_click=false;
+    //   }
+    // })
+
+    this.serve.editforumtagpost(data).subscribe((res:any) => {
+      console.log('修改帖子',res)
+            if(res.code == 200){
         if(IsSaveAndPublish){
           this.editImgOkText='帖子发布成功';
         }else{
@@ -460,16 +533,15 @@ export class PostAddComponent implements OnInit {
       }else{
         this.sevrData_click=false;
       }
-
-    })
+    });
   }
 
   editImgOkText="";
 
 
   // 新增 或 保存草稿
-  forum_post_add(IsSaveAndPublish,textInnerHTML){
-    this.addnewforumtagpost(IsSaveAndPublish,textInnerHTML)
+  forum_post_add(IsSaveAndPublish,textInnerHTML,TopicPlateIds,TopicTagPlateIds){
+    this.addnewforumtagpost(IsSaveAndPublish,textInnerHTML,TopicPlateIds,TopicTagPlateIds)
     // let data={
     //   "Title": this.Title,//帖子标题
     //   "TopicPlateId": this.lidata.Id,//帖子所属板块编号
@@ -497,20 +569,8 @@ export class PostAddComponent implements OnInit {
   }
 
   // api/forum/post/addnewforumtagpost
-  addnewforumtagpost(IsSaveAndPublish,textInnerHTML){
-    
-    let TopicPlateIds=[];
-    let TopicTagPlateIds=[]
-    this.ForumHistorySelection.forEach (e => {
-      if(e.Selection){
-        TopicPlateIds.push(e.Id);
-      }
-    });
-    this.conversationDataSelection.forEach (e => {
-      if(e.Selection){
-        TopicTagPlateIds.push(e.Id);
-      }
-    });
+  addnewforumtagpost(IsSaveAndPublish,textInnerHTML,TopicPlateIds,TopicTagPlateIds){
+
     let data={
       // "CurrentUser": "string", //当前用户
       "IsSaveAndPublish": IsSaveAndPublish,//保持并发布
@@ -525,9 +585,24 @@ export class PostAddComponent implements OnInit {
       // "Status": 0,//是否有效，
       // "IsLocked": true//是否锁定，
     }
-    console.log('新增的帖子',data)
-    this.serve.addnewforumtagpost(data).subscribe(res => {
+
+    this.serve.addnewforumtagpost(data).subscribe((res:any) => {
       console.log('新增',res);
+            if(res.code == 200){
+        if(IsSaveAndPublish){
+          this.editImgOkText='帖子发布成功';
+        }else{
+          this.editImgOkText='保存成功';
+        }
+        this.editImgOk=true;
+        this.loading.dismiss();
+        setTimeout(() => {
+          this.editImgOk=false;
+          this.backPop();
+        }, 2000);
+      }else{
+        this.sevrData_click=false;
+      }
       this.loading.dismiss();
     })
   }

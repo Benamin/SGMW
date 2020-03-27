@@ -142,11 +142,21 @@ export class ForumService {
   // 新增帖子 可选择 板块 、话题
   addnewforumtagpost(data){
     return this.http.post(SERVER_API_URL + '/forum/post/addnewforumtagpost', data);
-
   }
+  // 修改帖子 可选择 板块 、话题
+  editforumtagpost(data){
+    return this.http.post(SERVER_API_URL + '/forum/post/editforumtagpost', data);
+  }
+    // 获取 帖子列表
+    forum_post_search_old(data) {
+      return this.http.post(SERVER_API_URL + '/forum/post/search', data);
+    }
   // 获取 帖子列表
   forum_post_search(data) {
-    return this.http.post(SERVER_API_URL + '/forum/post/search', data);
+    // return this.http.post(SERVER_API_URL + '/forum/post/search', data);
+    // return this.http.post(SERVER_API_URL + '/forum/post/searchnewvone', data);
+    return this.http.post(SERVER_API_URL + '/forum/post/searchbytopicplate', data);
+
   }
 
   // 发布指定的帖子信息
@@ -242,14 +252,19 @@ export class ForumService {
   // 热门帖子
   GetPostSearchhotpost(data){
     // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
-    return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
+    // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
+    return this.http.post(SERVER_API_URL + '/forum/post/searchall', data);
+
+    // forum/post/searchall
 
     
   }
 
   // 我我发布的 帖子
   GetMypost(data){
-    return this.http.post(SERVER_API_URL + '/forum/post/my', data);
+    // return this.http.post(SERVER_API_URL + '/forum/post/my', data);
+    return this.http.post(SERVER_API_URL + '/forum/post/MyPostsEdit', data);
+    
   }
   // 我是否关注收/收藏/点赞帖子
   GetForumPostOtherStatus(postId){

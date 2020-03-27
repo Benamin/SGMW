@@ -23,6 +23,7 @@ import {ForumService} from "../forum/forum.service";
 import {LogService} from "../../service/log.service";
 import {IntegralComponent} from "./Integral/Integral.component";
 import {MyShortVideoPage} from "./my-short-video/my-short-video";
+import {HomeService} from "../home/home.service";
 
 @Component({
     selector: 'page-mine',
@@ -31,7 +32,7 @@ import {MyShortVideoPage} from "./my-short-video/my-short-video";
 export class MinePage {
     mineInfo;
     userInfo;
-    number;
+    number = <any>{};
     version;
     CurrentRole;
     appVersionInfo = {
@@ -48,6 +49,7 @@ export class MinePage {
                 private platform: Platform,
                 private logSer: LogService,
                 private forumServe: ForumService,
+                private homeSer: HomeService,
                 private commonSer: CommonService,
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
@@ -69,10 +71,23 @@ export class MinePage {
             this.mineSer.GetMyProductCountInfo().subscribe(
                 (res2) => {
                     res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
-                    this.number = res2.data;
+                    Object.assign(this.number, res2.data);
                 }
             )
         });
+        const data = {
+            "GetMyList": 1,//是否获取我的短视频列表1代表我得，0代表所有
+            "Page": 1,
+            "PageSize": 10,
+        }
+        this.homeSer.GetVideoLists(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    const videoNum = res.data.TotalCount;
+                    Object.assign(this.number, {videoNum: videoNum});
+                }
+            }
+        )
     }
 
     //获取用户积分和勋章

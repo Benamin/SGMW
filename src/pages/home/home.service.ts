@@ -15,7 +15,7 @@ export class HomeService {
     //获取banner
     getBannerList(RoleID): Observable<any> {
         // return this.http.get(SERVER_API_URL + '/ENews/GetBannerList')
-        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID='+RoleID);
+        return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID=' + RoleID);
     }
 
     //优秀教师，关注教师
@@ -70,12 +70,12 @@ export class HomeService {
 
     //获取区域+省份+城市
     getAreaCitys(data): Observable<any> {
-        return this.http.post(SERVER_API_URL + '/area/getAreaCitys',data);
+        return this.http.post(SERVER_API_URL + '/area/getAreaCitys', data);
     }
 
     //今日提醒
-    GetTodayRemind(){
-        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind',{});
+    GetTodayRemind() {
+        return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind', {});
     }
 
     // 岗位认证列表
@@ -103,14 +103,25 @@ export class HomeService {
     doUnlineSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/BuyOfflineCourse?cspid=' + params.cspid + '&PostsCertificationpID=' + params.PostsCertificationpID);
     }
+
     // 岗位认证轮播的  点击报名按钮
     doJobLevelSignIn(params): Observable<any> {
         return this.http.get(SERVER_API_URL + '/EProduct/SignInPostCertification?pid=' + params);
     }
 
-    // 小视频总列表
+    // 小视频总列表列表
     GetVideoLists(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/AppShortVideo/GetShortVideoList', data);
+    }
+
+    //短视频发布
+    PublicShortVideo(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/PublicShortVideo', data);
+    }
+
+    //根据code获取话题ID
+    GetTopicID(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/appTopic/GetTopicID' + this.dataFormat.toQuery(data));
     }
 
     // 考试项目列表
@@ -164,10 +175,33 @@ export class HomeService {
         return this.http.get(SERVER_API_URL + '/appGetUserArea/GetUserArea' + this.dataFormat.toQuery(data));
     }
 
-    // 所有短视频 最新最热列表接口 "SVId": "00000000-0000-0000-0000-000000000000",//短视频ID
-    // "UserId": "00000000-0000-0000-0000-000000000000"
-    DelShortVideo(data): Observable<any> {
-        return this.http.post(SERVER_API_URL + '/AppShortVideo/DelShortVideo', data);
+    //点赞/取消点赞接口
+    shortVideoLike(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/AppShortVideo/Like' + this.dataFormat.toQuery(data));
     }
 
+    //获取某个短视频的评论列表
+    GetShortVideoReplyList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/GetShortVideoReplyList', data);
+    }
+
+    //新增评论
+    ShortVideoReplyAdd(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/reply/add', data);
+    }
+
+    //回复短视频评论
+    replyComment(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppShortVideo/replycomment/add', data);
+    }
+
+    //查询某个视频的详细信息
+    GetShortVideoDetail(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/AppShortVideo/GetShortVideoDetail' + this.dataFormat.toQuery(data));
+    }
+
+    //查询视频的上一个和下一个
+    GetTopDownShortVideoDetail(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/AppShortVideo/GetTopDownShortVideoDetail' + this.dataFormat.toQuery(data));
+    }
 }

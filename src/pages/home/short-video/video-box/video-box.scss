@@ -1,15 +1,26 @@
 page-video-box {
+  .video-js {
+    height: 100%;
+    width: 100%;
+  }
+
   position: relative;
+
   .video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: -1;
   }
+
   .btn-lists {
     position: absolute;
     right: 1rem;
     bottom: 8.9rem;
+    z-index: 9;
+    color: #fff;
+    text-shadow: 1px 1px #aaaaaa;
+
     .btn-box {
       margin-top: 1.7rem;
       width: 4.5rem;
@@ -18,26 +29,32 @@ page-video-box {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.3);
     }
   }
+
   .video-info {
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: 30px;
     padding: 1.2rem 1.6rem 1.1rem 1.6rem;
     width: 100%;
     color: #FFFFFF;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.3);
     z-index: 99;
+    text-align: left;
+
     .discription {
       margin-bottom: 0.8rem;
       font-size: 1.6rem;
     }
+
     .username {
       font-size: 1.4rem;
+      color: #999999;
     }
   }
+
   // 发表评论
   .send-comment {
     position: absolute;
@@ -46,6 +63,7 @@ page-video-box {
     width: 100%;
     background-color: #FFFFFF;
     z-index: 100;
+
     .textarea {
       margin: 0 auto;
       margin-top: 1.5rem;
@@ -54,24 +72,39 @@ page-video-box {
       height: 7rem;
       border-radius: 0.8rem;
       background-color: #F2F2F2;
+
       .text-input-ios {
         margin: 0;
       }
-      ion-textarea,textarea {
+
+      ion-textarea, textarea {
         width: 100%;
         height: 100%;
       }
     }
+
     .send-btn {
       margin: 15px;
       padding: 0;
-      width:80px;
-      height:26px;
-      background:linear-gradient(241deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
-      border-radius:13px;
+      width: 80px;
+      height: 26px;
+      background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+      border-radius: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+  }
+
+  .video-js .vjs-picture-in-picture-control,
+  .video-js .vjs-volume-panel,
+  .video-js .vjs-fullscreen-control {
+    display: none;
+  }
+
+  .video-js .vjs-big-play-button {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>论坛</title>
+  <title>分享</title>
 </head>
 
 <body>
@@ -98,7 +98,9 @@
     }else if(_href.indexOf('test')> -1){ // 考试
       scheme_url+="test/"+get_scheme_url[1];
       // http://a1.hellowbs.com/openApp.html?scheme_url=test&Fid=fdff59bc-7535-4e0a-8da5-66ee1f81a3ae
-    }else{ // 兼容旧版本分享，论坛
+    }else if(_href.indexOf('shortVideo')> -1){
+      scheme_url+="shortVideo/"+get_scheme_url[1];
+    } else{ // 兼容旧版本分享，论坛
       scheme_url+="forum/"+get_res[1]
     }
 

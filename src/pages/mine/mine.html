@@ -25,7 +25,8 @@
                         <span>{{mineInfo?.UserName}}</span>
                         <span *ngIf="userInfo?.TitleInfo?.ForumTitle"
                               class="forumTitle">{{userInfo?.TitleInfo?.ForumTitle}}</span>
-                        <span tappable (click)="goIntegral()" class="credit">积分：{{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</span>
+                        <span tappable (click)="goIntegral()"
+                              class="credit">积分：{{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</span>
                     </p>
                     <p class="badge" style="margin-top: 6px">
                         <span class="badgeSpan" *ngFor="let badge of userInfo?.Badges">
@@ -45,17 +46,13 @@
                     <p>作业</p>
                 </div>
                 <div tappable (click)="goMyshortVideo()">
-                    <p>111</p>
+                    <p>{{number?.videoNum || '0'}}</p>
                     <p>视频</p>
                 </div>
                 <div tappable (click)="goMyForum()">
                     <p>{{number?.PostCount || '0'}}</p>
                     <p>帖子</p>
                 </div>
-                <!--<div tappable (click)="goToCollection()">-->
-                    <!--<p>{{number?.CollectionCount || '0'}}</p>-->
-                    <!--<p>收藏</p>-->
-                <!--</div>-->
             </div>
 
         </div>
@@ -71,13 +68,14 @@
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>
             <div style="width: 0px;padding-left: 0px;white-space: nowrap;right: 160px;position: relative;">
-                当前角色 <span style="padding-left: 5px;color: #000;  font-weight: 700;font-size: 16px;">{{RoleName}}</span> 
+                当前角色 <span style="padding-left: 5px;color: #000;  font-weight: 700;font-size: 16px;">{{RoleName}}</span>
             </div>
             <div class="login-select" style="position: absolute;width: 100%;opacity: 0;">
-                <ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"  (ngModelChange)="switchUser()">
-                    <ion-option [value]="item.RoleName" *ngFor="let item of RoleNames" >{{item.RoleName}}</ion-option>
+                <ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"
+                            (ngModelChange)="switchUser()">
+                    <ion-option [value]="item.RoleName" *ngFor="let item of RoleNames">{{item.RoleName}}</ion-option>
                 </ion-select>
-             </div>
+            </div>
         </div>
     </div>
     <div class="mine-list" style="    margin-top: 10px;">
@@ -90,15 +88,15 @@
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>
         </div>
-      <div class="item" tappable (click)="goToCollection()">
-        <div class="left">
-          <img src="./assets/imgs/mine/shouchang.png">
+        <div class="item" tappable (click)="goToCollection()">
+            <div class="left">
+                <img src="./assets/imgs/mine/shouchang.png">
+            </div>
+            <div class="middle">我的收藏</div>
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
         </div>
-        <div class="middle">我的收藏</div>
-        <div class="right">
-          <ion-icon name="arrow-forward"></ion-icon>
-        </div>
-      </div>
         <!--        <div class="item" tappable (click)="goMyThumbsUpComponent()">-->
         <!--            <div class="left">-->
         <!--                <img src="./assets/imgs/mine/p41_likr.png">-->

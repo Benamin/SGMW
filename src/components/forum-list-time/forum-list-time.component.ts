@@ -17,7 +17,7 @@ export class ForumListTimeComponent implements OnInit {
 
   // 微信分享
   wxShare(data){
-    document.getElementById('inner-html')
+    // document.getElementById('inner-html')
     let description=data.ContentWithoutHtml.replace(/\&nbsp;/g,'');
     let thumb='';
     

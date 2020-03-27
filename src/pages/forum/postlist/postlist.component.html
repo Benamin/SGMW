@@ -1,7 +1,7 @@
 <ion-header class="forum-header">
   <ion-navbar>
     <ion-title></ion-title>
-    
+
   </ion-navbar>
   <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
@@ -32,49 +32,15 @@
   </div>
   <div class="content-div" [ngStyle]="{'margin-top': IsTopOpt?'30px':'10px'}">
     <div class="div-nav">
-      <div [ngClass]="{'act': pageDate.OrderBy=='PostTimeFormatted'}" tappable (click)="avtNav('PostTimeFormatted')">最新</div>
-      <div [ngClass]="{'act': pageDate.OrderBy=='LikeCount'}" tappable (click)="avtNav('LikeCount')">最热</div>
+      <div [ngClass]="{'act': pageDate.OrderBy=='CreateTime'}" tappable (click)="avtNav('CreateTime')">最新</div>
+      <div [ngClass]="{'act': pageDate.OrderBy=='ReplyCount'}" tappable (click)="avtNav('ReplyCount')">最热</div>
     </div>
     <div>
-      <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
-        <app-forum-list-time [item]='item'></app-forum-list-time>
-        <!-- <div class="post-introduction-top">
-          <img src="{{item.PosterUserHeadPhoto}}" alt="">
-          <div class="name nowrap-1">{{item.PosterUserName}}</div>
-          <div class="oldDate">{{item.PostRelativeTime}}</div>
+      <ng-container *ngFor="let item of forumLIst">
+        <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable (click)="goPostsContent(item)">
+          <app-forum-list-time [item]='item'></app-forum-list-time>
         </div>
-        <div class="post-introduction-con">
-          <p>{{item.Title}}</p>
-          <div class="img-div img1" *ngIf="item.Images.length==1" [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;" >
-            
-          </div>
-            <div class="img-div img2" *ngIf="item.Images.length==2">
-              <div *ngFor="let img of item.Images" >
-                <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;" [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
-                  </div>
-              </div>
-              </div>
-              <div class="img-div img3" *ngIf="item.Images.length>2" >
-                      <div *ngFor="let img of item.Images.slice(0,3)" >
-                        <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;" [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
-                        </div>
-                        </div>
-                </div>
-        </div>
-        <div class="post-introduction-buttom">
-          <span class="nowrap-1">
-            {{item.TopicPlateName}}
-          </span>
-          <span>
-            <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-            {{item.ReplyCount}}
-          </span>
-          <span >
-            <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-            {{item.LikeCount}}
-          </span>
-        </div> -->
-      </div>
+      </ng-container>
       <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="no_list ">
         <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
         <p text-center style="color: #666666;font-size: 16px">

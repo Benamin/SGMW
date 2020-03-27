@@ -307,12 +307,45 @@ page-forum{
             }
         }
     }
+    .div-nav {
+        padding: 0 15px;
+        background: #fff;
+        display: flex;
+
+        div {
+            margin-right: 20px;
+            padding: 10px 0;
+            position: relative;
+        }
+    }
+
+    .act {
+        color: rgba(0, 0, 0, 1);
+        transition: all 0.2s;
+    }
+
+    .act::before {
+        content: " ";
+        display: block;
+        position: absolute;
+        width: 28px;
+        height: 4px;
+        margin-left: -10px;
+        left: 50%;
+        bottom: 0px;
+        transition: all 0.2s;
+        background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+        background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+        background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+        background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+        border-radius: 2px;
+    }
 
     .new-add {
         width: 50px;
         height: 50px;
         position: fixed;
-        bottom: 50px;
+        bottom: 100px;
         right: 20px;
         border-radius: 50%;
         z-index: 99;

@@ -2,6 +2,7 @@ page-video-lists {
   .toolbar-ios {
     padding: 0;
   }
+
   .video-lists-title {
     width: 100%;
     height: 4.4rem;
@@ -11,15 +12,18 @@ page-video-lists {
     text-align: center;
     background-color: #343435;
   }
+
   ul {
     margin: 0;
     padding: 0;
+
     li {
       margin: 0;
       padding: 0;
       list-style: none;
     }
   }
+
   .search-box {
     display: flex;
     justify-content: space-between;
@@ -27,6 +31,7 @@ page-video-lists {
     background-color: #343435;
     width: 100%;
     height: 4.4rem;
+
     .input-box {
       margin-left: 1.5rem;
       width: 30rem;
@@ -37,11 +42,13 @@ page-video-lists {
       background-color: #FFF;
       border-radius: 1.5rem;
       overflow: hidden;
+
       img {
         margin: 0 1rem;
         width: 1.6rem;
         height: 1.6rem;
       }
+
       input {
         flex: 1;
         font-size: 1.3rem;
@@ -52,6 +59,7 @@ page-video-lists {
         box-shadow: none;
       }
     }
+
     .cancle-btn {
       margin-right: 1.4rem;
       font-size: 1.6rem;
@@ -62,12 +70,15 @@ page-video-lists {
   ion-scroll .scroll-content {
     overflow-y: scroll;
   }
+
   .video-lists {
-    -webkit-overflow-scrolling : touch;
+    -webkit-overflow-scrolling: touch;
+
     .video-lists-item {
       margin-bottom: 1rem;
       padding: 1rem 0;
       background-color: #FFFFFF;
+
       .title {
         margin: 0 auto;
         width: 35.2rem;
@@ -78,6 +89,7 @@ page-video-lists {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+
       .poster-box {
         position: relative;
         margin: 1rem auto;
@@ -85,12 +97,27 @@ page-video-lists {
         height: 19.7rem;
         border-radius: 1.2rem;
         overflow: hidden;
+        text-align: center;
+
         .video-poster {
-          display: block;
-          width: 35.2rem;
-          height: 19.7rem;
-          object-fit: cover;
+          max-height: 20rem;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          z-index: 99;
         }
+
+        .video-play-btn {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 4rem;
+          height: 4rem;
+          z-index: 100;
+        }
+
         .mask {
           position: absolute;
           top: 50%;
@@ -98,8 +125,15 @@ page-video-lists {
           transform: translateX(-50%) translateY(-50%);
           width: 35.2rem;
           height: 19.7rem;
-          background-color: rgba(0,0,0,0.1);
+          background-color: rgb(0, 0, 0);
           z-index: 9;
+
+          span {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            color: #fff;
+          }
         }
       }
 
@@ -107,14 +141,16 @@ page-video-lists {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         .info-text {
           margin-left: 1.2rem;
           font-size: 1.4rem;
           color: #7A7A7A;
         }
+
         .info-right {
           margin-left: auto;
-          margin-right: 1rem;
+          margin-right: 1.5rem;
           display: flex;
           align-items: center;
         }
@@ -123,10 +159,12 @@ page-video-lists {
           width: 2rem;
           height: 2rem;
         }
+
         .like-num {
           margin: 0 1rem;
           color: #747474;
         }
+
         .enjoy-icon {
           width: 1.8rem;
           height: 1.8rem;

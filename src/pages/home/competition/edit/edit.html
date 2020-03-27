@@ -1,52 +1,16 @@
-<!--
-  Generated template for the EditPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
 <ion-content>
-  <div class="top-nav">
-    <span class="nav-cancle" (click)="goBack()">取消</span>
-    <span class="nav-title">{{ editTitle }}</span>
-    <span class="nav-submit">提交</span>
-  </div>
-
-  <div class="title-input">
-    <ion-input type="text" placeholder="请输入标题" [(ngModel)]="form.title" autocomplete='off'></ion-input>
-  </div>
-
-  <div class="content-input">
-    <ion-textarea type="text" placeholder="请输入正文…" [(ngModel)]="form.content" autocomplete='off'></ion-textarea>
-  </div>
-  
-  <div class="files-box">
-    <div class="files-item">
-      <img class="poster" src="./assets/imgs/competition/banner.png">
-      <img class="deleted-btn" src="./assets/imgs/competition/p71_cancel@2x.png" alt="">
+    <div class="top-nav">
+        <span class="nav-cancle" (click)="goBack()">取消</span>
+        <span class="nav-title">{{ editTitle }}</span>
+        <span class="nav-submit" (click)="uploadFile()">发布</span>
     </div>
-    <div class="files-item">
-      <img class="add-btn" src="./assets/imgs/forum/other/p71_add@2x.png" alt="添加">
 
-      <input type="file" name="trendimg" accept="image/*" multiple class="picInput" (change)="uploadFile($event)">
-      <!--<input type="file" style="display: none" accept="video/*" class="videoInput" (change)="uploadDynamicImg($event)">-->
+    <div class="title-input">
+        <ion-input type="text" placeholder="填写视频标题，让更多人看到" [(ngModel)]="form.Title" autocomplete='off'></ion-input>
     </div>
-  </div>
-
-  <ul class="select-items">
-    <li>
-      <span style="margin-left: auto">
-        <img style="width: 1.4rem;height: 1.4rem;" src="./assets/imgs/forum/other/p71_save@2x.png">
-        <span style="margin-left: 1rem;color: #6D6D6D;font-size: 1.4rem;">保存草稿</span>
-      </span>
-    </li>
-    <li (click)="showModal('template')">
-      <span class="item-text">选择模板</span>
-      <img style="width: 2.2rem;height: 2.2rem;" src="./assets/imgs/competition/7_1jt@2x.png">
-    </li>
-    <li (click)="showModal('topic')">
-      <span class="item-text">选择话题</span>
-      <img style="width: 2.2rem;height: 2.2rem;" src="./assets/imgs/competition/7_1jt@2x.png">
-    </li>
-  </ul>
+<!--    <div class="files-box">-->
+<!--        <div class="files-item">-->
+<!--            <img class="poster" [src]="resp.Imgurl">-->
+<!--        </div>-->
+<!--    </div>-->
 </ion-content>
