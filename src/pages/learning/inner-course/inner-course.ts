@@ -369,7 +369,9 @@ export class InnerCoursePage {
         fileTransfer.onProgress((listener) => {
             let per = <any>(listener.loaded / listener.total) * 100;
             per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2)
-            uploadLoading.setContent('上传中...' + per + '%');
+            this.zone.run(() => {
+                uploadLoading.setContent('上传中...' + per + '%');
+            })
         })
     }
 

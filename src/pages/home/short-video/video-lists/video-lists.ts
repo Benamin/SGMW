@@ -81,6 +81,7 @@ export class VideoListsPage {
             }
         )
         modal.present();
+        // this.navCtrl.push(EditPage);
     }
 
 // {
@@ -150,8 +151,8 @@ export class VideoListsPage {
         fileTransfer.upload(mediaFile.fullPath, SERVER_URL + '/AppShortVideo/UploadMainFile', option).then(
             (res) => {
                 uploadLoading.dismiss();
-                this.commonSer.toast('上传成功');
                 const data = JSON.parse(res.response);
+                this.commonSer.toast('上传成功');
                 console.log("response data");
                 console.log(data);
                 this.navCtrl.push(EditPage, {mediaFile: mediaFile, resp: data.data});

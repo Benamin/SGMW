@@ -26,7 +26,9 @@
                             <ng-container *ngFor="let st of starList;let i = index">
                                 <img *ngIf="item.Score > i +1 || item.Score == i +1"
                                      src="./assets/imgs/learn/stars_5.png" alt="">
-                                <ng-container *ngIf="(item.Score+'').split('.')[0] == i +1 && item.Score != i +1">
+                                <ng-container
+                                        *ngIf="((item.Score+'').split('.')[0] == i +1 && item.Score != i +1) ||
+                                        ((item.Score+'').includes('0.') && i == 0)">
                                      <img *ngIf="(item.Score+'').includes('.1') || (item.Score+'').includes('.2')"
                                           src="./assets/imgs/learn/stars_1.png">
                                     <img *ngIf="(item.Score+'').includes('.3') || (item.Score+'').includes('.4')"
