@@ -442,15 +442,15 @@ export class HomePage implements OnInit {
             "PageIndex": 1,
             "PageSize": 10
         };
-        this.forum_serve.GetPostSearchhotpost(data).subscribe((res: any) => {
+        this.forum_serve.GetPostSearchnewret(data).subscribe((res: any) => {
         // this.forum_serve.forum_post_search(data).subscribe((res: any) => {
             if (res.data) {
-                // this.forumLIst = res.data.UnTopPosts.Items;
-                this.forumLIst = res.data.Posts.Items;
+                this.forumLIst = res.data.UnTopPosts.Items;
+                // this.forumLIst = res.data.Posts.Items;
                 // let arr = res.data.Posts.Items;
-                if (this.forumLIst.length > 4) {
-                    this.forumLIst.length = 4;
-                }
+                // if (this.forumLIst.length > 4) {
+                //     this.forumLIst.length = 4;
+                // }
             }
 
         });

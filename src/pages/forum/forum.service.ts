@@ -248,16 +248,19 @@ export class ForumService {
   GetSubscribeList(data) {
     return this.http.post(SERVER_API_URL + '/EStudentSubscribe/GetSubscribeList', data);
   }
+  
+  // 首页 热门帖子
+  GetPostSearchnewret(data){
+    return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
+  }
 
-  // 热门帖子
+
+  // 论坛 热门帖子
   GetPostSearchhotpost(data){
     // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
     // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
     return this.http.post(SERVER_API_URL + '/forum/post/searchnewret', data);
-
-    
     // forum/post/searchall
-
     
   }
 
