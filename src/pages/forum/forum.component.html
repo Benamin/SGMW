@@ -12,13 +12,14 @@
 
   <div class="navul">
     <div class="navli" [ngClass]="{'act': navli=='热帖'}" tappable (click)="switchInformation('热帖')">
-      热帖
-    </div>
-    <div class="navli" [ngClass]="{'act': navli=='板块'}" tappable (click)="switchInformation('板块')">
-      板块
+      <!-- 热帖 -->
+      帖子
     </div>
     <div class="navli" [ngClass]="{'act': navli=='话题'}" tappable (click)="switchInformation('话题')">
       话题
+    </div>
+    <div class="navli" [ngClass]="{'act': navli=='板块'}" tappable (click)="switchInformation('板块')">
+      板块
     </div>
   </div>
   <div *ngIf="navli=='热帖'">
@@ -96,7 +97,7 @@
     </div>
     <div class="more-com">
       <div class="left-bg">
-        <h3 class="more">全部专区</h3>
+        <h3 class="more">全部话题</h3>
       </div>
       <div class="con-div" *ngFor="let item of conversationData" tappable (click)="goPostlist(item)">
         <div class="list">
