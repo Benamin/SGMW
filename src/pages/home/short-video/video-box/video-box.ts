@@ -75,11 +75,9 @@ export class VideoBoxPage {
                 slideChangeTransitionStart: function () {
                 },
                 slidePrevTransitionStart: function () {
-                    console.log('上一个')
                     if (this.activeIndex == 0) that.getTopAndDown('pre', that.videoList[this.activeIndex]);
                 },
                 slideNextTransitionStart: function () {
-                    console.log('下一个', that.videoList[this.activeIndex])
                     if (that.videoList.length == this.activeIndex + 1) that.getTopAndDown('next', that.videoList[this.activeIndex]);
                 }
             },
@@ -93,6 +91,13 @@ export class VideoBoxPage {
                         src: e.files.AttachmentUrl,
                         type: 'application/x-mpegURL'
                     }],
+                })
+                that.initVideo[`video${e.files.ID}`].on('touchstart', () => {
+                    if (that.initVideo[`video${e.files.ID}`].paused()) {
+                        that.initVideo[`video${e.files.ID}`].play();
+                    } else {
+                        that.initVideo[`video${e.files.ID}`].pause();
+                    }
                 })
             });
             that.loading.dismiss();

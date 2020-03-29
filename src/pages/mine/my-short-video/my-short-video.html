@@ -21,14 +21,15 @@
 
     <div class="video-lists">
         <div class="video-lists-item" (click)="goVideoBox(item.id)" *ngFor="let item of page.videoLists">
-            <div class="title">{{item.Title}}</div>
+            <div class="title">{{item.Title}}
+                <img (click)="$event.stopPropagation();deleteShortVideo(item)" alt="删除"
+                     src="./assets/imgs/competition/delete_gray.png">
+            </div>
             <div class="poster-box">
                 <div class="mask">
                     <video hidden type="video/mp4" (canplay)="getDuration($event,item)"
                            [src]="item.files.DownLoadUrl"></video>
                     <span>{{item.VideoMinute}}</span>
-                    <img (click)="$event.stopPropagation();deleteShortVideo(item)" alt="删除"
-                         src="./assets/imgs/competition/delet@2x.png">
                 </div>
                 <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
             </div>

@@ -40,7 +40,7 @@ export class MyShortVideoPage {
 
     // 进入视频播放页
     goVideoBox(vid) {
-        this.navCtrl.push(VideoBoxPage, {vid: vid});
+        this.navCtrl.push(VideoBoxPage, {ID: vid});
     }
 
     goToEdit() {

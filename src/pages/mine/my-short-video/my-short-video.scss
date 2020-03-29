@@ -93,6 +93,15 @@ page-my-short-video {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        position: relative;
+
+        img {
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 25px;
+          z-index: 100;
+        }
       }
 
       .poster-box {
@@ -128,13 +137,7 @@ page-my-short-video {
             bottom: 15px;
             right: 15px;
             color: #fff;
-          }
-
-          img {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            width: 20px;
+            z-index: 100;
           }
         }
       }

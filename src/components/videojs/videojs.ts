@@ -71,11 +71,18 @@ export class VideojsComponent implements OnDestroy {
                         this.appSer.setIOS('videoReset');
                         document.getElementsByTagName('video')[0].webkitExitFullscreen();
                     }
-                    if (this.platform.is('android')){
+                    if (this.platform.is('android')) {
                         this.video.exitFullscreen();
                     }
                     this.statusBar.show();
                     this.updateVideoStatus();
+                })
+                this.video.on('touchstart', () => {
+                    if (this.video.paused()) {
+                        this.video.play();
+                    } else {
+                        this.video.pause();
+                    }
                 })
                 console.log(`播放器videojs${videoNum},初始化成功`);
                 this.global.videoNum++;

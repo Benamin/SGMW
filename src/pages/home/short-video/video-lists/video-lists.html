@@ -27,8 +27,9 @@
             <div class="title">{{item.Title}}</div>
             <div class="poster-box">
                 <div class="mask">
-                    <video hidden type="video/mp4" (canplay)="getDuration($event,item)" [src]="item.files.DownLoadUrl"></video>
-                    <span>{{item.VideoMinute}}</span>
+                    <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4" (canplay)="getDuration($event,item)"
+                           [src]="item.files.DownLoadUrl"></video>
+                    <span>{{item.VideoMinute || '00:00'}}</span>
                 </div>
                 <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
                 <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
