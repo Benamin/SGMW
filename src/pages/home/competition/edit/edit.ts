@@ -110,6 +110,8 @@ export class EditPage {
             encodingType: this.camera.EncodingType.PNG,
             mediaType: this.camera.MediaType.PICTURE,
             sourceType: srcType,
+            targetWidth: 375,
+            targetHeight: 667,
             saveToPhotoAlbum: false
         };
         const option: FileUploadOptions = {
@@ -192,7 +194,6 @@ export class EditPage {
             const data = {
                 Title: this.form.Title,
                 Description: this.form.Description,
-                VideoMinute: Math.ceil(this.mediaFile.duration),
                 CoverUrl: this.CoverUrl,
                 SVTopicIDList: [this.form.SVTopicIDList],
                 files: {
@@ -204,9 +205,8 @@ export class EditPage {
                     "Description": "短视频",//文件简介
                     "AssetId": this.resp.AssetId,//资产id
                     "JobId": this.resp.JobId,//作业id
-                    "icon": this.platform.is('ios') ? "MOV" : "mp4",//如果是mp4格式的需要写mp4，如果是avi格式的需要写avi
+                    "icon": this.mediaFile.name.includes('MOV') ? "MOV" : "MP4",//如果是mp4格式的需要写mp4，如果是avi格式的需要写avi
                     "UploadWay": 0,//上传方式:0.本地上传，1.外部链接，选择课件
-                    "Duration": Math.ceil(this.mediaFile.duration),//视频时长，单位：秒
                 }
             };
             const loading = this.loading.create({content: '发布中...'});
@@ -218,7 +218,7 @@ export class EditPage {
                         this.commonSer.toast('短视频发布成功!');
                         this.navCtrl.pop();
                     } else {
-                        this.commonSer.toast(res.message);
+                        this.commonSer.alert(res.message);
                     }
                     loading.dismiss();
                 }

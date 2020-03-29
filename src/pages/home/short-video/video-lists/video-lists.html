@@ -33,7 +33,8 @@
             <div class="title">{{item.Title}}</div>
             <div class="poster-box">
                 <div class="mask">
-                    <span>{{item.VideoMinute | secondFormat}}</span>
+                    <video hidden type="video/mp4" (canplay)="getDuration($event,item)" [src]="item.files.DownLoadUrl"></video>
+                    <span>{{item.VideoMinute}}</span>
                 </div>
                 <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
             </div>
@@ -45,7 +46,8 @@
             <img *ngIf="item.IsLike" (click)="handleLike(item,2,$event)" class="like-icon"
                  src="./assets/imgs/competition/dianzan-baise.png" alt="点赞icon">
             <span class="like-num">{{ item.LikeCount }}</span>
-            <img (click)="$event.stopPropagation();wxShare(item)" class="enjoy-icon" src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
+            <img (click)="$event.stopPropagation();wxShare(item)" class="enjoy-icon"
+                 src="./assets/imgs/consultation/share@3x.png  " alt="分享icon">
           </span>
             </div>
         </div>

@@ -16,6 +16,8 @@ import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
 import {MineService} from "../../mine/mine.service";
 import {GlobalData} from "../../../core/GlobleData";
+import {CommentComponent} from "../../../components/comment/comment";
+import {CommentByCourseComponent} from "../../../components/comment-by-course/comment-by-course";
 
 
 @Component({
@@ -634,24 +636,24 @@ export class CourseDetailPage {
 
     //课程评价
     getCommentList() {
-        if (this.teacherList.length > 0) {
-            const data1 = {
-                pageSize: 5,
-                page: 1,
-                TopicType: 'teacher',   //teacher  course
-                topicID: this.teacherList[0].UserID,
-            }
-            this.learnSer.GetComment(data1).subscribe(   //讲师评价
-                (res) => {
-                    if (res.data) {
-                        this.comment.teacher = res.data.CommentItems;
-                    }
-                }
-            );
-        }
+        // if (this.teacherList.length > 0) {
+        //     const data1 = {
+        //         pageSize: 5,
+        //         page: 1,
+        //         TopicType: 'teacher',   //teacher  course
+        //         topicID: this.teacherList[0].UserID,
+        //     }
+        //     this.learnSer.GetComment(data1).subscribe(   //讲师评价
+        //         (res) => {
+        //             if (res.data) {
+        //                 this.comment.teacher = res.data.CommentItems;
+        //             }
+        //         }
+        //     );
+        // }
 
         const data2 = {
-            pageSize: 5,
+            pageSize: 1000,
             page: 1,
             TopicType: 'course',   //teacher  course
             topicID: this.product.detail.PrId
@@ -703,7 +705,7 @@ export class CourseDetailPage {
         });
     }
 
-    //课程评价
+    //前往课程评价
     goCourseComment() {
         this.navCtrl.push(CourseCommentPage, {
             placeholder: '请理性发言，文明用语...',
@@ -712,6 +714,21 @@ export class CourseDetailPage {
             title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
             text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
         });
+    }
+
+    //打开课程评论弹窗
+    openComment() {
+        let modal = this.modalCtrl.create(CommentByCourseComponent, {
+            placeholder: '请理性发言，文明用语...',
+            type: 'course',
+            TopicID: this.product.detail.PrId,
+        });
+        modal.onDidDismiss(res => {
+            if (res) {
+                this.getCommentList();
+            }
+        });
+        modal.present();
     }
 
     //课程讨论

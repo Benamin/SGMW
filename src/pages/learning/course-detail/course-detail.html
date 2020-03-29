@@ -103,8 +103,8 @@
                 <ion-slide>
                     <div class="item" style="min-height: 350px">
                         <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
-<!--                            <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end-->
-<!--                                  class="look">更多</span>-->
+                            <!--                            <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end-->
+                            <!--                                  class="look">更多</span>-->
                             <span tappable (click)="goCourseDiscuss()"
                                   class="focus focus-blue">去讨论</span>
                         </p>
@@ -172,10 +172,6 @@
                 <ion-slide>
                     <div class="item" style="min-height: 350px">
                         <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
-<!--                            <span *ngIf="comment.course.length > 4" tappable class="look" float-end-->
-<!--                                  (click)="goCourseComment()">更多</span>-->
-                            <span tappable class="focus-blue focus"
-                                  (click)="goCourseComment()">去评价</span>
                         </p>
                         <page-comment-list [cList]="comment.course" [TopicType]="'course'"></page-comment-list>
                         <div class="no-comment" *ngIf="comment.course.length == 0">
@@ -198,6 +194,12 @@
                 </ion-slide>
             </ng-container>
         </ion-slides>
+    </div>
+
+    <div *ngIf="bar.type == 4" (click)="openComment()" class="comment-fixed" ion-fixed>
+        <div>
+            去评价
+        </div>
     </div>
 </ion-content>
 

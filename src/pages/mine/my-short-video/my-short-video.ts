@@ -185,5 +185,14 @@ export class MyShortVideoPage {
             )
         })
     }
+
+    getDuration(ev, item) {
+        let value = Math.ceil(ev.target.duration);
+        let minute = <any>Math.floor(value / 60);
+        let second = <any>(value % 60);
+        minute = minute > 9 ? minute : '0' + minute;
+        second = second > 9 ? second : '0' + second;
+        item.VideoMinute = minute + ':' + second
+    }
 }
 

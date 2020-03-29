@@ -24,7 +24,9 @@
             <div class="title">{{item.Title}}</div>
             <div class="poster-box">
                 <div class="mask">
-                    <span>{{item.VideoMinute | secondFormat}}</span>
+                    <video hidden type="video/mp4" (canplay)="getDuration($event,item)"
+                           [src]="item.files.DownLoadUrl"></video>
+                    <span>{{item.VideoMinute}}</span>
                     <img (click)="$event.stopPropagation();deleteShortVideo(item)" alt="删除"
                          src="./assets/imgs/competition/delet@2x.png">
                 </div>

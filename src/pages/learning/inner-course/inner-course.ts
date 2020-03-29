@@ -297,6 +297,8 @@ export class InnerCoursePage {
             encodingType: this.camera.EncodingType.PNG,
             mediaType: this.camera.MediaType.PICTURE,
             sourceType: srcType,
+            targetWidth: 375,
+            targetHeight: 667,
             saveToPhotoAlbum: false
         };
         const option: FileUploadOptions = {
@@ -370,7 +372,7 @@ export class InnerCoursePage {
             let per = <any>(listener.loaded / listener.total) * 100;
             per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2);
             this.zone.run(() => {
-                uploadLoading.setContent('上传中...' + per + '%');
+                uploadLoading.setContent(`上传中...${per}%`);
             })
         })
     }

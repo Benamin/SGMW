@@ -119,7 +119,6 @@ export class CourseCommentPage {
         modal.onDidDismiss(res => {
             if (res) {
                 if (this.TopicType == 'talk') this.talkhandle(res);
-                if (this.TopicType == 'course') this.replyHandle(res);
                 if (this.TopicType == 'teacher') this.teacherHandle(res);
             }
         });
@@ -157,30 +156,6 @@ export class CourseCommentPage {
                 } else {
                     this.commonSer.toast(`每人只能评价一次`);
                 }
-            }
-        )
-    }
-
-    //教师评价
-    replyHandle(res) {
-        const data = {
-            TopicID: this.topicID,
-            Score: 0,
-            Score1: res.Score1,
-            Score2: res.Score2,
-            Score3: res.Score3,
-            Contents: res.replyContent,
-            TopicType: this.TopicType
-        };
-        this.learnSer.SaveComment(data).subscribe(
-            (res) => {
-                if (res.data) {
-                    this.commonSer.toast('评价成功');
-                    this.getList();
-                } else {
-                    this.commonSer.toast(`每人只能评价一次`);
-                }
-
             }
         )
     }

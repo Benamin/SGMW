@@ -4,6 +4,7 @@ import {ModalController, NavController, NavParams, ViewController} from "ionic-a
 import {Keyboard} from "@ionic-native/keyboard";
 import {CommonService} from "../../core/common.service";
 import {SelectTeacherComponent} from "../select-teacher/select-teacher";
+import {LearnService} from "../../pages/learning/learn.service";
 
 @Component({
     selector: 'comment-by-course',
@@ -14,8 +15,9 @@ export class CommentByCourseComponent {
     @ViewChild('textAreaElement') textAreaElement: ElementRef;
 
     replyContent: string;
+    topicID: string;
     placeholder: string;
-    type: string;
+    TopicType: string;
     starList1 = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
     starList2 = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
     starList3 = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
@@ -24,13 +26,16 @@ export class CommentByCourseComponent {
     score3;
 
     defalutPhoto = defaultHeadPhoto;   //默认头像；
+    btnDisable = true;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private keyboard: Keyboard, private commonSer: CommonService,
                 public viewCtrl: ViewController,
+                private learnSer: LearnService,
                 private modalCtrl: ModalController) {
         this.placeholder = this.navParams.get('placeholder');
-        this.type = this.navParams.get('type');
+        this.TopicType = this.navParams.get('type');
+        this.topicID = this.navParams.get("TopicID");
         setTimeout(() => {
             this.textAreaElement.nativeElement.focus();
             this.keyboard.show();
@@ -101,13 +106,27 @@ export class CommentByCourseComponent {
             this.commonSer.toast("请至少输入10字以上的内容方可提交");
             return;
         }
-        const data = <any>{
-            'replyContent': this.replyContent,
-            'Score1': this.score1,
-            'Score2': this.score2,
-            'Score3': this.score3,
+        this.btnDisable = false;
+        const data = {
+            TopicID: this.topicID,
+            Score: 0,
+            Score1: this.score1,
+            Score2: this.score2,
+            Score3: this.score3,
+            Contents: this.replyContent,
+            TopicType: this.TopicType
         };
-        this.viewCtrl.dismiss(data);
-    }
+        this.learnSer.SaveComment(data).subscribe(
+            (res) => {
+                this.btnDisable = true;
+                if (res.data) {
+                    this.commonSer.toast('评价成功');
+                    this.viewCtrl.dismiss(data);
+                } else {
+                    this.commonSer.toast(`每人只能评价一次`);
+                }
 
+            }
+        )
+    }
 }
