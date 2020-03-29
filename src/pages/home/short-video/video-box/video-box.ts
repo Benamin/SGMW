@@ -54,7 +54,6 @@ export class VideoBoxPage {
                         if (res1.data.DownItem.CoverUrl) {
                             this.videoList.push(res1.data.DownItem);
                         }
-                        console.log(this.videoList);
                         this.init();
                     }
                 );
@@ -118,18 +117,34 @@ export class VideoBoxPage {
                 if (type == 'next' && res.data.DownItem.CoverUrl) {  //通过CoverUrl是否为null进行判断是否有下一个
                     this.videoList.push(res.data.DownItem);
                     timer(100).subscribe(() => {
-                        this.initVideo[`video${res.data.DownItem.files.ID}`] = videojs(`video${res.data.DownItem.files.ID}`, {  //video初始化
+                        const fileId = res.data.DownItem.files.ID;
+                        this.initVideo[`video${fileId}`] = videojs(`video${fileId}`, {  //video初始化
                             controls: true, autoplay: false,
                             "sources": [{src: res.data.DownItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
+                        })
+                        this.initVideo[`video${fileId}`].on('touchstart', () => {
+                            if (this.initVideo[`video${fileId}`].paused()) {
+                                this.initVideo[`video${fileId}`].play();
+                            } else {
+                                this.initVideo[`video${fileId}`].pause();
+                            }
                         })
                     })
                 }
                 if (type == 'pre' && res.data.TopItem.CoverUrl) {
                     this.videoList.unshift(res.data.TopItem);
                     timer(100).subscribe(() => {
-                        this.initVideo[`video${res.data.TopItem.files.ID}`] = videojs(`video${res.data.TopItem.files.ID}`, {  //video初始化
+                        const fileId = res.data.TopItem.files.ID;
+                        this.initVideo[`video${fileId}`] = videojs(`video${fileId}`, {  //video初始化
                             controls: true, autoplay: false,
                             "sources": [{src: res.data.TopItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
+                        })
+                        this.initVideo[`video${fileId}`].on('touchstart', () => {
+                            if (this.initVideo[`video${fileId}`].paused()) {
+                                this.initVideo[`video${fileId}`].play();
+                            } else {
+                                this.initVideo[`video${fileId}`].pause();
+                            }
                         })
                     })
                 }
@@ -149,7 +164,6 @@ export class VideoBoxPage {
         modal.onDidDismiss((data) => {
             this.getVideoDetail(item);
         })
-        console.log('modal.present');
         modal.present();
     }
 

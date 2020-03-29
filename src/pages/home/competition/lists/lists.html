@@ -230,7 +230,8 @@
                           class="right-text">大赛排名 第{{ item.AllRanking }}名</span>
                     <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4" (canplay)="getDuration($event,item)"
                            [src]="item.files.DownLoadUrl"></video>
-                    <span class="video-length">{{ item.VideoMinute || '00:00'}}</span>
+                    <span *ngIf="item.VideoMinute === 0" class="video-length">{{ item.duration || '00:00'}}</span>
+                    <span *ngIf="item.VideoMinute > 0" class="video-length">{{ item.VideoMinute | secondFormat}}</span>
                 </div>
             </div>
             <div class="video-info">

@@ -615,7 +615,7 @@ export class CompetitionListsPage {
         let second = <any>(value % 60);
         minute = minute > 9 ? minute : '0' + minute;
         second = second > 9 ? second : '0' + second;
-        item.VideoMinute = minute + ':' + second
+        item.duration = minute + ':' + second
     }
 
 }

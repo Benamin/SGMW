@@ -248,7 +248,7 @@ export class ForumService {
   GetSubscribeList(data) {
     return this.http.post(SERVER_API_URL + '/EStudentSubscribe/GetSubscribeList', data);
   }
-  
+
   // 首页 热门帖子
   GetPostSearchnewret(data){
     return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
@@ -261,14 +261,14 @@ export class ForumService {
     // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
     return this.http.post(SERVER_API_URL + '/forum/post/searchnewret', data);
     // forum/post/searchall
-    
+
   }
 
   // 我我发布的 帖子
   GetMypost(data){
     // return this.http.post(SERVER_API_URL + '/forum/post/my', data);
     return this.http.post(SERVER_API_URL + '/forum/post/MyPostsEdit', data);
-    
+
   }
   // 我是否关注收/收藏/点赞帖子
   GetForumPostOtherStatus(postId){
@@ -285,8 +285,8 @@ export class ForumService {
 
       // export const UploadFilesSERVER_API_URL = '/api';
       // const UploadFilesSERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api';  //测试
-      //   const UploadFilesSERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api';  //sit
-      const UploadFilesSERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api'; // 正式
+        const UploadFilesSERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api';  //sit
+      // const UploadFilesSERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api'; // 正式
 
       oReq.open("POST", UploadFilesSERVER_API_URL + "/Upload/UploadFiles", true);
       oReq.onload = function (oEvent: any) {

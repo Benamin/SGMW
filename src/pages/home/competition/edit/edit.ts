@@ -76,14 +76,14 @@ export class EditPage {
         const actionSheet = this.actionSheetCtrl.create({
             cssClass: 'cameraAction',
             buttons: [
-                // {
-                //     text: '拍照',
-                //     role: 'fromCamera',
-                //     handler: () => {
-                //         console.log('fromCamera');
-                //         this.selectPicture(1);
-                //     }
-                // },
+                {
+                    text: '拍照',
+                    role: 'fromCamera',
+                    handler: () => {
+                        console.log('fromCamera');
+                        this.selectPicture(1);
+                    }
+                },
                 {
                     text: '从相册中选',
                     role: 'fromPhoto',
