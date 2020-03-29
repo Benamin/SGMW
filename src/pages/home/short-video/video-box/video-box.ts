@@ -91,13 +91,16 @@ export class VideoBoxPage {
                         type: 'application/x-mpegURL'
                     }],
                 })
-                that.initVideo[`video${e.files.ID}`].on('touchstart', () => {
-                    if (that.initVideo[`video${e.files.ID}`].paused()) {
-                        that.initVideo[`video${e.files.ID}`].play();
-                    } else {
-                        that.initVideo[`video${e.files.ID}`].pause();
-                    }
-                })
+                that.initVideo[`video${e.files.ID}`].on('loadedmetadata', () => {
+                    that.initVideo[`video${e.files.ID}`].on('touchstart', () => {
+                        if (that.initVideo[`video${e.files.ID}`].paused()) {
+                            that.initVideo[`video${e.files.ID}`].play();
+                        } else {
+                            that.initVideo[`video${e.files.ID}`].pause();
+                        }
+                    })
+                });
+
             });
             that.loading.dismiss();
         })
@@ -122,13 +125,15 @@ export class VideoBoxPage {
                             controls: true, autoplay: false,
                             "sources": [{src: res.data.DownItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
                         })
-                        this.initVideo[`video${fileId}`].on('touchstart', () => {
-                            if (this.initVideo[`video${fileId}`].paused()) {
-                                this.initVideo[`video${fileId}`].play();
-                            } else {
-                                this.initVideo[`video${fileId}`].pause();
-                            }
-                        })
+                        this.initVideo[`video${fileId}`].on('loadedmetadata', () => {
+                            this.initVideo[`video${fileId}`].on('touchstart', () => {
+                                if (this.initVideo[`video${fileId}`].paused()) {
+                                    this.initVideo[`video${fileId}`].play();
+                                } else {
+                                    this.initVideo[`video${fileId}`].pause();
+                                }
+                            })
+                        });
                     })
                 }
                 if (type == 'pre' && res.data.TopItem.CoverUrl) {
@@ -139,13 +144,15 @@ export class VideoBoxPage {
                             controls: true, autoplay: false,
                             "sources": [{src: res.data.TopItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
                         })
-                        this.initVideo[`video${fileId}`].on('touchstart', () => {
-                            if (this.initVideo[`video${fileId}`].paused()) {
-                                this.initVideo[`video${fileId}`].play();
-                            } else {
-                                this.initVideo[`video${fileId}`].pause();
-                            }
-                        })
+                        this.initVideo[`video${fileId}`].on('loadedmetadata', () => {
+                            this.initVideo[`video${fileId}`].on('touchstart', () => {
+                                if (this.initVideo[`video${fileId}`].paused()) {
+                                    this.initVideo[`video${fileId}`].play();
+                                } else {
+                                    this.initVideo[`video${fileId}`].pause();
+                                }
+                            })
+                        });
                     })
                 }
             }
