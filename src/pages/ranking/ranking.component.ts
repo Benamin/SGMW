@@ -401,7 +401,8 @@ export class RankingComponent implements OnInit {
         this.serve.studentstudylist(data).subscribe((res:any) => {
             if(res.data.Items.length>0){
                 this.addlist(res.data)
-            }else{
+            }
+            if(res.data.Items.length<10){
                 this.isdoInfinite=false;
             }
         })
@@ -410,7 +411,18 @@ export class RankingComponent implements OnInit {
 
     addlist(data,key=null){
         let arr=data.Items;
+        if(data.Items[0]&&data.Items[0].UserId){
+            arr=[];
+        }
         let oldarr=this.GetRankListArr[this.navli][this.switchInListKey.key];
+        data.Items.forEach(e=>{
+         
+        let aa=oldarr.every(element => element.UserId!==e.UserId);
+           if(aa){
+            arr.push(e);
+           }
+         })
+      
         this.GetRankListArr[this.navli][this.switchInListKey.key] = oldarr.concat(arr);
       
         this.showList(this.GetRankListArr[this.navli][this.switchInListKey.key]);
