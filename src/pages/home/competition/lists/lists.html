@@ -224,6 +224,7 @@
                     <span>{{ item.Title }}</span>
                 </div>
                 <div class="bottom-info">
+                    {{item.VideoMinute}}
                     <span *ngIf="item.MyRanking && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true"
                           class="right-text">本人排名 第{{ item.MyRanking }}名</span>
                     <span *ngIf="item.AllRanking && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true"
