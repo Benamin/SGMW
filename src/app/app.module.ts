@@ -64,6 +64,7 @@ import {Camera} from "@ionic-native/camera";
 import {JPush} from "@jiguang-ionic/jpush";
 import {JpushUtil} from "../core/jPush.util";
 import {MediaCapture} from '@ionic-native/media-capture';
+import {ShortVideoProvider} from '../providers/short-video/short-video';
 
 @NgModule({
     declarations: [
@@ -150,7 +151,8 @@ import {MediaCapture} from '@ionic-native/media-capture';
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
             },
             VideoJsProvider,
-            DownloadFileProvider
+            DownloadFileProvider,
+            ShortVideoProvider
         ],
 
 })

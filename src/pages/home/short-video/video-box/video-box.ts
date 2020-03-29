@@ -173,7 +173,7 @@ export class VideoBoxPage {
                 if (res.data) {
                     this.getVideoDetail(item);
                 } else {
-                    this.commonSer.toast(res.message);
+                    this.commonSer.alert(res.message);
                 }
             }
         )
