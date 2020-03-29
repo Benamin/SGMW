@@ -27,7 +27,7 @@
             </div>
             <div class="poster-box">
                 <div class="mask">
-                    <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4" (canplay)="getDuration($event,item)"
+                    <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4" (loadedmetadata)="getDuration($event,item)"
                            [src]="item.files.DownLoadUrl"></video>
                 </div>
                 <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>

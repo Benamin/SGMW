@@ -113,7 +113,7 @@ export class ShortVideoProvider {
         const option = {
             sourceType: 0,
             destinationType: this.Camera.DestinationType.FILE_URI,
-            quality: 10,
+            quality: 100,
             mediaType: this.Camera.MediaType.VIDEO,
             allowEdit: false,
         };
