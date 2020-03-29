@@ -157,11 +157,12 @@ export class RankingComponent implements OnInit {
                     res.data.ManageExamTopList.forEach(item => {
                         item['UserName']=  item.Name;
                         item['FinishCount']= item.AvgScoreStr;
-                        
                     })
                 }
                 this.GetRankListArr['examination']=res.data;
                 this.examinationData = res.data;
+         
+
             }
             console.log('获取考试排行榜信息',res,this.examinationData);
         })
@@ -261,6 +262,10 @@ export class RankingComponent implements OnInit {
 
         this.serve.GetRankList().subscribe((res: any) => {
             this.GetRankListArr = res.data;
+            this.studentpostlist('',{ "OrderBy": "",
+            "OrderByDirection": "",
+            "PageIndex": 1,
+            "PageSize": 10})
             this.getExamTopList();
             this.switchInListType({key: "TeacherTitleModels", name: "头衔榜"});
             loading.dismiss();
@@ -376,10 +381,15 @@ export class RankingComponent implements OnInit {
     }
 
     // 学员活跃度
-    studentpostlist(data){
-        this.serve.studentpostlist(data).subscribe((res:any) => {
+    studentpostlist(data,get_data=null){
+          
+        this.serve.studentpostlist(get_data?get_data:data).subscribe((res:any) => {
             if(res.data.Items.length>0){
-                this.addlist(res.data)
+                if(get_data){
+                    this.GetRankListArr['StudentModel']['StudentPostList']=res.data.Items;
+                }else{
+                    this.addlist(res.data)
+                }
             }else{
                 this.isdoInfinite=false;
             }
@@ -398,10 +408,11 @@ export class RankingComponent implements OnInit {
     }
 
 
-    addlist(data){
+    addlist(data,key=null){
         let arr=data.Items;
         let oldarr=this.GetRankListArr[this.navli][this.switchInListKey.key];
         this.GetRankListArr[this.navli][this.switchInListKey.key] = oldarr.concat(arr);
+      
         this.showList(this.GetRankListArr[this.navli][this.switchInListKey.key]);
     }
     
