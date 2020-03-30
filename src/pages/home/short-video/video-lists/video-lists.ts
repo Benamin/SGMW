@@ -73,10 +73,8 @@ export class VideoListsPage {
         this.homeSer.GetVideoLists(data).subscribe(
             (res) => {
                 let videoLists = res.data.Items;
-                console.log('videoLists', videoLists)
                 this.page.videoLists = videoLists;
                 this.page.TotalCount = res.data.TotalCount;
-
                 this.page.isLoad = true;
                 loading.dismiss();
             }
