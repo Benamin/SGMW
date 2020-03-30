@@ -73,6 +73,8 @@ export class PostAddComponent implements OnInit {
       this.loading.present();
     }else{
       this.lidata=data;
+      this.forum_topicplate_search();
+      this.topicplateSearchtopictag();
     }
     console.log('新增帖子',this.lidata);
     console.log('this.innerHeightOld',this.innerHeightOld)
@@ -152,7 +154,9 @@ export class PostAddComponent implements OnInit {
           }
         });
       })
-      this.loading.dismiss();
+      if(this.loading){
+        this.loading.dismiss();
+      }
     }
   }
   P_data={
