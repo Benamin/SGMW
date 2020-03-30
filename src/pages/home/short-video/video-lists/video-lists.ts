@@ -25,6 +25,8 @@ export class VideoListsPage {
         isLoad: false
     };
 
+    type = 'ReplyTime'; //LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
+
     constructor(private homeSer: HomeService, public navCtrl: NavController,
                 private loadingCtrl: LoadingController,
                 private commonSer: CommonService,
@@ -53,7 +55,7 @@ export class VideoListsPage {
     }
 
     doSearch(event) {
-        if (event && event.keyCode == 13 && this.page.searchKey && this.page.searchKey !== '') {
+        if (event && event.keyCode == 13 && this.page.searchKey) {
             this.page.Page = 1;
             this.getList();
         }
@@ -65,12 +67,15 @@ export class VideoListsPage {
         });
         loading.present();
         const data = {
-            GetMyList: 0,
             Title: this.page.searchKey,
             Page: 1,
-            PageSize: this.page.PageSize
+            PageSize: this.page.PageSize,
+            "OrderBy": this.type,
+            "SortDir": "desc",
+            "IsAsc": true,
+            "TopicId": null
         };
-        this.homeSer.GetVideoLists(data).subscribe(
+        this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {
                 let videoLists = res.data.Items;
                 this.page.videoLists = videoLists;
@@ -98,12 +103,15 @@ export class VideoListsPage {
         }
         this.page.Page++;
         const data = {
-            GetMyList: 0,
             Title: this.page.searchKey,
             Page: this.page.Page,
-            PageSize: this.page.PageSize
+            PageSize: this.page.PageSize,
+            "OrderBy": this.type,
+            "SortDir": "desc",
+            "IsAsc": true,
+            "TopicId": null
         };
-        this.homeSer.GetVideoLists(data).subscribe(
+        this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {
                 let videoLists = res.data.Items
                 this.page.videoLists = this.page.videoLists.concat(videoLists);

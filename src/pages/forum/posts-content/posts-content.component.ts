@@ -8,12 +8,20 @@ import {ReportPage} from "../report/report";
 import {Storage} from "@ionic/storage";
 
 declare var Wechat;
-
+declare let Swiper: any;
+interface IInput{
+    canEdit: boolean,   //能否编辑
+    selectedIndex: number,    //默认选择项索引
+    images: any[],
+    selectedCount?: number    //选中总数
+  }
+  
 @Component({
     selector: 'page-posts-content',
     templateUrl: './posts-content.component.html',
 })
 export class PostsContentComponent implements OnInit {
+    @ViewChild('panel') panel: ElementRef;
     lidata = {Id: '', TopicPlateId: "", Name: ""};
     inputText = "";
     textareaBlur = false;
@@ -55,6 +63,13 @@ export class PostsContentComponent implements OnInit {
                 private photoLibrary: PhotoLibrary,
                 public commonSer: CommonService) {
     }
+    swiper: any;
+    vm: any = {
+        canEdit: false,
+        selectedIndex: 0,
+        images: [],
+        selectedCount: 0
+      }
 
     ngOnInit() {
 
@@ -98,7 +113,7 @@ export class PostsContentComponent implements OnInit {
             }
             let element = res.data;
             element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
-
+            
             if (res.data.Replys && res.code == 200) {
                 res.data.Replys.forEach(element => {
 
@@ -162,19 +177,36 @@ export class PostsContentComponent implements OnInit {
         let Dom = document.querySelectorAll('.inner-html');
         let imgs = Dom[0].querySelectorAll('img');
         // imgs.
+        this.vm.images=[];
         for (let n = 0; n < imgs.length; n++) {
             imgs[n].addEventListener('click', (e: any) => {
+                if(this.showImg){
+                    return
+                }
+                this.swiper=null;
                 console.log(e.srcElement.src);
-                this.showImg = true;
-                this.isenlarge = false;
+                this.vm.selectedIndex =n;
                 this.showImgSrc = e.srcElement.src;
+                setTimeout(() => {
+                    this.initImg();
+                }, 40);
+                this.isenlarge = false;
+                this.showImg = true;
             })
+            this.vm.images.push(imgs[n].src);
         }
+        // this.initImg();
+        // vm: any = {
+        //     canEdit: false,
+        //     selectedIndex: 0,
+        //     images
+        // this.vm=imgs;
         console.log('获取原始', imgs)
         // Dom.addEventListener()
     }
 
     isenlarge = false;
+    mousedownTime= new Date().getTime();
 
     enlarge() {
         this.isenlarge = true;
@@ -191,7 +223,7 @@ export class PostsContentComponent implements OnInit {
 
     photoLibraryDown() {
         this.photoLibrary.requestAuthorization({read: true, write: true}).then(() => {
-            this.photoLibrary.saveImage(this.showImgSrc, 'SGMw').then(() => {
+            this.photoLibrary.saveImage(this.showImgSrc, 'SGMW').then(() => {
                 alert('保存成功')
             })
         }, (err) => {
@@ -474,6 +506,35 @@ export class PostsContentComponent implements OnInit {
 
         actionSheet.present();
     }
-
+    initImg(){
+        this.swiper = new Swiper(this.panel.nativeElement, {
+            initialSlide: this.vm.selectedIndex,//初始化显示第几个
+            zoom: true,//双击,手势缩放
+            loop: false,//循环切换
+            // loopAdditionalSlides :3,
+            lazyLoading: true,//延迟加载
+            lazyLoadingOnTransitionStart: true,//    lazyLoadingInPrevNext : true,
+            pagination: '.swiper-pagination',//分页器
+            paginationType: 'fraction',//分页器类型
+            on:{
+                click:(e) =>{
+                    // window.event? window.event.cancelBubble = true : e.stopPropagation();
+                    setTimeout(() => {
+                        this.showImg=false;
+                    }, 20);
+                },
+                slideChange: ()=>{
+                if(this.swiper){
+                  let activeIndex = this.swiper.activeIndex;
+                  if(activeIndex < this.vm.images.length && activeIndex >= 0){
+                    this.vm.selectedIndex =  activeIndex;
+                    this.showImgSrc=this.vm.images[activeIndex];
+                    console.log('滑动量')
+                  }
+                }
+              }
+            }
+          })
+      }
 
 }

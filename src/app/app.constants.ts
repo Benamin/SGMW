@@ -8,8 +8,8 @@ export const SERVER_API_URL = '/api';
 export const sgmw_client_id = "2961C96D-4DB0-4FCF-99FA-FE18AC9A496A";
 
 //通过判断url来跳转内部还是外部
-// export const SERVER_HTTP_URL = 'https://sitportal.chinacloudsites.cn/dist/#/courseDetail/'; //测试
-export const SERVER_HTTP_URL = 'https://elearning.sgmw.com.cn/#/courseDetail';  //生产
+export const SERVER_HTTP_URL = 'https://sitportal.chinacloudsites.cn/dist/#/courseDetail/'; //测试
+// export const SERVER_HTTP_URL = 'https://elearning.sgmw.com.cn/#/courseDetail';  //生产
 /*****end******/
 
 /***骏客***/

@@ -296,12 +296,35 @@ export class CompetitionListsPage {
 
     // 获取列表
     getList() {
+        this.paramAssign();
+        let params = this.page.getParams;
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
+        this.page.getListsApi(params).subscribe(
+            (res) => {
+                if (res.code == 200) {
+                    let Data = res.data;
+                    this.page.competitionLists = this.DataAssign(Data);
+                    this.page.getParams.isLoad = true;
+                }
+                loading.dismiss();
+            }, err => {
+                console.log(err)
+                loading.dismiss();
+            }
+        )
+    }
+
+    paramAssign() {
+        // 第一次加载 或切换时候的参数处理
         this.page.getParams.OrderByDirection = '';
         this.page.getParams.Page = 1;
         this.page.getParams.PageIndex = 1;
         this.page.getParams.OrderBy = '' // LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
         this.page.getParams.AreaID = '' // 传入则查询地区排行和排行榜//不传则查询所有地区排行榜
-        let params = this.page.getParams;
+
         // 判断是考试/帖子/短视频
         if (this.page.checkType === this.page.navliArr[0].lable) {
             this.page.getListsApi = (data) => {
@@ -362,47 +385,6 @@ export class CompetitionListsPage {
                 }
             }
         }
-
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
-        this.page.getListsApi(params).subscribe(
-            (res) => {
-                let Data = res.data;
-                let Lists = []
-                if (Data.MyItems && Data.MyItems.ID) {
-                    Lists = res.data.LeaderboardItems.Items;
-                    this.page.getParams.TotalCount = res.data.LeaderboardItems.TotalCount;
-                    Lists.unshift(Data.MyItems);
-                } else if (Data.MyTopPost && Data.MyTopPost.Id) {
-                    Lists = res.data.AllPostByTopicTag.AllPost;
-                    this.page.getParams.TotalCount = res.data.AllPostByTopicTag.TotalCount;
-                    Lists.unshift(Data.MyTopPost);
-                } else {
-                    this.page.getParams.TotalCount = res.data.TotalCount;
-                    Lists = res.data.Items;
-                }
-
-                if (this.page.checkType === this.page.navliArr[2].lable && Data.LeaderboardItems) {
-                    Lists = Data.LeaderboardItems.Items;
-                    this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
-                }
-                // console.log(888, Lists)
-
-                // if (this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
-                //     for (var i = 0; i < Lists.length; i++) {
-                //         Lists[i].VideoMinute = this.formatSeconds(Lists[i].VideoMinute);
-                //     }
-                // }
-                this.page.competitionLists = Lists;
-                this.page.getParams.isLoad = true;
-                loading.dismiss();
-            }, err => {
-                console.log(err)
-                loading.dismiss();
-            }
-        )
     }
 
 
@@ -427,36 +409,45 @@ export class CompetitionListsPage {
         this.page.getListsApi(this.page.getParams).subscribe(
             (res) => {
                 let Data = res.data;
-                let Lists = []
-                if (Data.MyItems && Data.MyItems.ID) {
-                    Lists = res.data.LeaderboardItems.Items;
-                    this.page.getParams.TotalCount = res.data.LeaderboardItems.TotalCount;
-                    Lists.unshift(Data.MyItems);
-                } else if (Data.MyTopPost && Data.MyTopPost.Id) {
-                    Lists = res.data.AllPostByTopicTag.AllPost;
-                    this.page.getParams.TotalCount = res.data.AllPostByTopicTag.TotalCount;
-                    Lists.unshift(Data.MyTopPost);
-                } else {
-                    this.page.getParams.TotalCount = res.data.TotalCount;
-                    Lists = res.data.Items;
-                }
-
-                if (this.page.checkType === this.page.navliArr[2].lable && Data.LeaderboardItems) {
-                    Lists = Data.LeaderboardItems.Items;
-                    this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
-                }
-                // console.log(888, Lists)
-
-                // if (this.page.checkType === this.page.navliArr[2].lable) { // 判断是短视频就处理 返回的时间
-                //     for (var i = 0; i < Lists.length; i++) {
-                //         Lists[i].VideoMinute = this.formatSeconds(Lists[i].VideoMinute);
-                //     }
-                // }
-                this.page.competitionLists = this.page.competitionLists.concat(Lists);
-                this.page.getParams.TotalCount = res.data.TotalCount;
+                this.page.competitionLists = this.page.competitionLists.concat(this.DataAssign(Data));
                 e.complete();
             }
         )
+    }
+
+    DataAssign(Data) {
+        // 处理返回的 数据
+        let Lists = []
+        if (Data.MyItems && Data.MyItems.ID) {
+            // 大赛 视频
+            Lists = Data.LeaderboardItems.Items;
+            this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
+            Lists.unshift(Data.MyItems);
+        } else if (!Data.MyItems && Data.LeaderboardItems) {
+            // 视频 第一个返回null的情况
+            Lists = Data.LeaderboardItems.Items;
+            this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
+        } else if (Data.MyTopPost && Data.MyTopPost.Id) {
+            // 大赛 帖子
+            Lists = Data.AllPostByTopicTag.AllPost;
+            this.page.getParams.TotalCount = Data.AllPostByTopicTag.TotalCount;
+            Lists.unshift(Data.MyTopPost);
+        } else if (!Data.MyTopPost && Data.AllPostByTopicTag && Data.AllPostByTopicTag.AllPost) {
+            // 帖子 第一个返回null的情况
+            Lists = Data.AllPostByTopicTag.AllPost;
+            this.page.getParams.TotalCount = Data.AllPostByTopicTag.TotalCount;
+        } else {
+            this.page.getParams.TotalCount = Data.TotalCount;
+            Lists = Data.Items;
+        }
+
+        // if (this.page.checkType === this.page.navliArr[2].lable) {
+        //     // 判断是短视频就处理 返回时间搓-> 00:00
+        //     for (var i = 0; i < Lists.length; i++) {
+        //         Lists[i].VideoMinute = this.formatSeconds(Lists[i].VideoMinute);
+        //     }
+        // }
+        return Lists;
     }
 
     formatSeconds($times) {
@@ -494,6 +485,7 @@ export class CompetitionListsPage {
 
     //获取视频时长
     getDuration(ev, item) {
+        console.log(ev);
         let value = Math.ceil(ev.target.duration);
         let minute = <any>Math.floor(value / 60);
         let second = <any>(value % 60);

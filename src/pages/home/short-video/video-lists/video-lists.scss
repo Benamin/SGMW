@@ -174,4 +174,44 @@ page-video-lists {
     }
   }
 
+  .nav-type-3 {
+    width: 100%;
+    height: 4rem;
+    display: inline-flex;
+    justify-content: flex-start;
+    font-size: 1.4rem;
+    background-color: #FFFFFF;
+
+    .type-btn {
+      width: 6.8rem;
+      height: 4rem;
+      line-height: 4rem;
+      color: #888888;
+      position: relative;
+      flex-shrink: 0;
+      text-align: center;
+
+      .item-line {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        display: block;
+        width: 2.8rem;
+        height: 0.4rem;
+        background: transparent;
+        border-radius: 0.2rem;
+        opacity: 0.9;
+      }
+    }
+
+    .actived {
+      color: #000000;
+
+      .item-line {
+        background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+      }
+    }
+  }
+
 }

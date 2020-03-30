@@ -6,6 +6,7 @@
   <div class="info-box">
     <div class="company" *ngIf="item.AgentName">{{ item.AgentName }}</div>
     <span *ngIf="itemIndex === 0 && item.Ranking" class="box-ranking">本人排名：第{{ item.Ranking }}名</span>
+    <!--<span *ngIf="itemIndex === 0 && item.Ranking === 0" class="box-ranking">本人排名：第1名</span>-->
     <span *ngIf="itemIndex !== 0 && item.Ranking" class="box-ranking">大赛排名：第{{ item.Ranking }}名</span>
   </div>
   <div class="post-introduction-con">
