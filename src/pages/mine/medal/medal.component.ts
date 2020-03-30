@@ -58,11 +58,16 @@ export class MedalComponent implements OnInit {
       if(!res.data){
         return;
       }
-      if(res.data.Items[0].Badges.length==0){
-        this.no_list=true;
-      }
       
-      this.actionSheetList=res.data.Items[0].Badges;
+      res.data.Items.forEach(element => {
+        if(element.UserId == this.mineInfo.UserId){
+          if(element.Badges.length==0){
+            this.no_list=true;
+          }
+          this.actionSheetList=element.Badges;
+        }
+      });
+   
       this.badgeShowArr= this.actionSheetList.filter(e => e.IsDisplay);
     });
   }
