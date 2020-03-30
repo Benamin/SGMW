@@ -172,7 +172,7 @@ export class PostsContentComponent implements OnInit {
 
     showImgSrc = '';
     showImg = false;
-
+    CloseImgTime=new Date().getTime(); // 关闭 图片时间
     openImg() {
         let Dom = document.querySelectorAll('.inner-html');
         let imgs = Dom[0].querySelectorAll('img');
@@ -180,7 +180,7 @@ export class PostsContentComponent implements OnInit {
         this.vm.images=[];
         for (let n = 0; n < imgs.length; n++) {
             imgs[n].addEventListener('click', (e: any) => {
-                if(this.showImg){
+                if(this.showImg||new Date().getTime()-this.CloseImgTime<200){
                     return
                 }
                 this.swiper=null;
@@ -517,11 +517,12 @@ export class PostsContentComponent implements OnInit {
             pagination: '.swiper-pagination',//分页器
             paginationType: 'fraction',//分页器类型
             on:{
+                // tap:(e) =>{
                 click:(e) =>{
-                    // window.event? window.event.cancelBubble = true : e.stopPropagation();
                     setTimeout(() => {
+                        this.CloseImgTime=new Date().getTime();
                         this.showImg=false;
-                    }, 20);
+                    }, 10);
                 },
                 slideChange: ()=>{
                 if(this.swiper){
