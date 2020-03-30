@@ -59,8 +59,7 @@ export class PostAddComponent implements OnInit {
 
   ngOnInit() {
     let data = this.navParams.get('data');
-    this.forum_topicplate_search();
-    this.topicplateSearchtopictag();
+ 
     if(data.Status){
       this.lidata.Id=data.TopicPlateId;
       this.lidata.postId=data.Id;
@@ -68,6 +67,10 @@ export class PostAddComponent implements OnInit {
       
       this.Title=data.Title;
       this.getData();
+      this.loading = this.loadCtrl.create({
+        content:''
+      });
+      this.loading.present();
     }else{
       this.lidata=data;
     }
@@ -92,6 +95,7 @@ export class PostAddComponent implements OnInit {
     this.serve.forum_topicplate_search({}).subscribe((res:any) => {
       console.log('板块列表',res);
       this.ForumHistory=res.data.Items;
+      this.ForumHistorySelection
       this.init_TopicItem();
     })
   }
@@ -116,26 +120,26 @@ export class PostAddComponent implements OnInit {
   choicePlateListClick(itme){
     itme['Selection']=!itme.Selection;
   }
-  SelectionChoicePlate(){
+  SelectionChoicePlate(plateType){
     this.choicePlateShow=false;
     console.log(this.choicePlateList,this.plateType);
-    if(this.plateType=='ForumHistory'){
+    if(plateType=='ForumHistory'){
       this.ForumHistorySelection=[...this.choicePlateList.filter(e => e.Selection)]
     }
-    if(this.plateType=='conversationData'){
+    if(plateType=='conversationData'){
       this.conversationDataSelection=[...this.choicePlateList.filter(e => e.Selection)]
     }
   }
   init_=0;
   init_TopicItem(){
     this.init_++;
-    // ForumHistory=[];
-    // conversationData=[];
-    if(this.init_==3){
+   
+    if(this.init_==2){
       this.ForumHistory.forEach(e => {
         this.P_data.TopicItem.forEach(element => {
             if(element.TopicId==e.Id){
               e['Selection']=true;
+              this.ForumHistorySelection.push(e);
             }
         });
       })
@@ -143,9 +147,12 @@ export class PostAddComponent implements OnInit {
         this.P_data.TopicTagItem.forEach(element => {
           if(element.TopicId==e.Id){
             e['Selection']=true;
+            this.conversationDataSelection.push(e);
+
           }
         });
       })
+      this.loading.dismiss();
     }
   }
   P_data={
@@ -156,7 +163,9 @@ export class PostAddComponent implements OnInit {
   getData(){
     this.serve.forum_post_get({ postId: this.lidata.postId }).subscribe((res: any) => {
       this.P_data=res.data;
-      this.init_TopicItem();
+      // this.init_TopicItem();
+      this.forum_topicplate_search();
+      this.topicplateSearchtopictag();
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       textareaImg.innerHTML=res.data.Content;
       let imgDom = textareaImg.querySelectorAll('img');
