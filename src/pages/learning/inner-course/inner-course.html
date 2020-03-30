@@ -21,7 +21,7 @@
                             任务领取
                         </div>
                         <p class="tips" *ngIf="product.detail?.IsBuy">
-                            请到骏菱学社PC端下载内训资料、上传培训记录，如有问题，请致电0772-2650611
+                            请到骏菱学社PC端(https://elearning.sgmw.com.cn/)下载内训资料、上传培训记录，如有问题，请致电0772-2650611
                         </p>
                         <ng-container *ngIf="nowTime > product.detail?.EndTime && !product.detail?.IsBuy">
                             <span tappable class="applySign applySignDone">已过期</span>

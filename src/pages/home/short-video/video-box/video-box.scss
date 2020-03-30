@@ -18,6 +18,7 @@ page-video-box {
     right: 1rem;
     bottom: 8.9rem;
     z-index: 9;
+    transform: translateZ(0);
     color: #fff;
     text-shadow: 1px 1px #aaaaaa;
 
@@ -43,6 +44,7 @@ page-video-box {
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 99;
     text-align: left;
+    transform: translateZ(0);
 
     .discription {
       margin-bottom: 0.8rem;
