@@ -72,7 +72,7 @@ export class ShortVideoProvider {
         let option: CaptureVideoOptions = {
             limit: 1,
             duration: 15,
-            quality: 100
+            quality: 50
         };
         if (this.platform.is('ios')) {
             this.appSer.setIOS('platformIOS');
@@ -174,8 +174,8 @@ export class ShortVideoProvider {
             enableBackdropDismiss: true,
         });
         uploadLoading.present();
-        const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
-        // const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
+        // const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
+        const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
         // const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
         const fileTransfer: FileTransferObject = this.transfer.create();
 

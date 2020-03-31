@@ -29,11 +29,10 @@ export class VideoBoxPage {
                 private modalCtrl: ModalController,
                 private homeSer: HomeService) {
         this.itemID = this.navParams.get('ID');
-        this.getShortVideoList();
     }
 
     ionViewDidLoad() {
-
+        this.getShortVideoList();
     }
 
     //获取短视频
@@ -45,18 +44,24 @@ export class VideoBoxPage {
         };
         this.homeSer.GetTopDownShortVideoDetail(data).subscribe(
             (res1) => {
-                this.homeSer.GetShortVideoDetail(data).subscribe(
-                    (res2) => {
-                        if (res1.data.TopItem.CoverUrl) {
-                            this.videoList.push(res1.data.TopItem);
+                if (res1.data) {
+                    this.homeSer.GetShortVideoDetail(data).subscribe(
+                        (res2) => {
+                            if (res1.data.TopItem.CoverUrl) {
+                                this.videoList.push(res1.data.TopItem);
+                            }
+                            this.videoList.push(res2.data);
+                            if (res1.data.DownItem.CoverUrl) {
+                                this.videoList.push(res1.data.DownItem);
+                            }
+                            this.init();
                         }
-                        this.videoList.push(res2.data);
-                        if (res1.data.DownItem.CoverUrl) {
-                            this.videoList.push(res1.data.DownItem);
-                        }
-                        this.init();
-                    }
-                );
+                    );
+                } else {
+                    this.loading.dismiss();
+                    this.commonSer.toast('短视频已删除');
+                    this.navCtrl.pop();
+                }
             }
         )
     }
@@ -87,7 +92,7 @@ export class VideoBoxPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        src: e.files.AttachmentUrl,
+                        src: e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
                     }],
                 })
@@ -123,7 +128,7 @@ export class VideoBoxPage {
                         const fileId = res.data.DownItem.files.ID;
                         this.initVideo[`video${fileId}`] = videojs(`video${fileId}`, {  //video初始化
                             controls: true, autoplay: false,
-                            "sources": [{src: res.data.DownItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
+                            "sources": [{src: res.data.DownItem.files.DownLoadUrl, type: 'application/x-mpegURL'}],
                         })
                         this.initVideo[`video${fileId}`].on('loadedmetadata', () => {
                             this.initVideo[`video${fileId}`].on('touchstart', () => {
@@ -142,7 +147,7 @@ export class VideoBoxPage {
                         const fileId = res.data.TopItem.files.ID;
                         this.initVideo[`video${fileId}`] = videojs(`video${fileId}`, {  //video初始化
                             controls: true, autoplay: false,
-                            "sources": [{src: res.data.TopItem.files.AttachmentUrl, type: 'application/x-mpegURL'}],
+                            "sources": [{src: res.data.TopItem.files.DownLoadUrl, type: 'application/x-mpegURL'}],
                         })
                         this.initVideo[`video${fileId}`].on('loadedmetadata', () => {
                             this.initVideo[`video${fileId}`].on('touchstart', () => {
