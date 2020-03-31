@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>短视频</ion-title>
+        <ion-title>我的短视频</ion-title>
     </ion-navbar>
     <div class="search-box">
         <div class="input-box">
@@ -20,18 +20,23 @@
     </ion-refresher>
 
     <div class="video-lists">
-        <div class="video-lists-item" (click)="goVideoBox(item.id)" *ngFor="let item of page.videoLists">
+        <div class="video-lists-item" (click)="goVideoBox(item)" *ngFor="let item of page.videoLists">
             <div class="title">{{item.Title}}
                 <img (click)="$event.stopPropagation();deleteShortVideo(item)" alt="删除"
                      src="./assets/imgs/competition/delete_gray.png">
             </div>
             <div class="poster-box">
                 <div class="mask">
-                    <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4" (loadedmetadata)="getDuration($event,item)"
+                    <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4"
+                           (loadedmetadata)="getDuration($event,item)"
                            [src]="item.files.DownLoadUrl"></video>
                 </div>
                 <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>
                 <span *ngIf="item.VideoMinute > 0">{{item.VideoMinute | secondFormat}}</span>
+                <span class="item-state item-state-1" *ngIf="item.EncodeState == 1">转码中</span>
+                <span class="item-state item-state-2" *ngIf="item.EncodeState == 2">转码成功</span>
+                <span class="item-state item-state-3" *ngIf="item.EncodeState == -1">转码失败</span>
+                <span class="item-state item-state-4" *ngIf="item.EncodeState == 0">未处理</span>
                 <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
                 <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
             </div>

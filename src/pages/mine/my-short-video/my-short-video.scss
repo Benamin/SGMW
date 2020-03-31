@@ -188,4 +188,36 @@ page-my-short-video {
       }
     }
   }
+
+  .item-state {
+    position: absolute;
+    width: 58px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+    border-radius: 12px;
+    right: 10px;
+    top: 10px;
+    z-index: 100;
+  }
+
+  .item-state-1.item-state {
+    background: rgba(250, 93, 56, .8);
+    color: #fff;
+  }
+
+  .item-state-2.item-state {
+    background: #c5e975
+  }
+
+  .item-state-3.item-state {
+    background: #bad9e8
+  }
+
+
+  .item-state-4.item-state {
+    background: #d8d8d8
+  }
 }

@@ -78,7 +78,9 @@ export class MinePage {
         const data = {
             "GetMyList": 1,//是否获取我的短视频列表1代表我得，0代表所有
             "Page": 1,
-            "PageSize": 10,
+            EncodeState: 0,
+            "PageSize": 1,
+            Title: "",
         }
         this.homeSer.GetVideoLists(data).subscribe(
             (res) => {
