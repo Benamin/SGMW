@@ -1,0 +1,102 @@
+page-my-short-video-box {
+  .video-js {
+    height: 100%;
+    width: 100%;
+  }
+
+  position: relative;
+
+  .video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  .btn-lists {
+    position: absolute;
+    right: 1rem;
+    bottom: 8.9rem;
+    z-index: 9;
+    transform: translateZ(0);
+    color: #fff;
+    text-shadow: 1px 1px #aaaaaa;
+
+    .btn-box {
+      margin-top: 1.7rem;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .video-info {
+    position: absolute;
+    left: 0;
+    bottom: 30px;
+    padding: 1.2rem 1.6rem 1.1rem 1.6rem;
+    width: 100%;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    text-align: left;
+    transform: translateZ(0);
+
+    .discription {
+      margin-bottom: 0.8rem;
+      font-size: 1.6rem;
+    }
+
+    .username {
+      font-size: 1.4rem;
+      color: #999999;
+    }
+  }
+
+  .video-js .vjs-picture-in-picture-control,
+  .video-js .vjs-volume-panel,
+  .video-js .vjs-fullscreen-control {
+    display: none;
+  }
+
+  .video-js .vjs-big-play-button {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .vjs-paused .vjs-big-play-button,
+  .vjs-paused.vjs-has-started .vjs-big-play-button {
+    display: block;
+  }
+
+  .video-js .vjs-big-play-button {
+    font-size: 2.5em;
+    line-height: 2.3em;
+    height: 2.5em;
+    width: 2.5em;
+    -webkit-border-radius: 2.5em;
+    -moz-border-radius: 2.5em;
+    border-radius: 2.5em;
+    background-color: #73859f;
+    background-color: rgba(115, 133, 159, .5);
+    border-width: 0.15em;
+  }
+
+  /* 中间的播放箭头 */
+  .vjs-big-play-button .vjs-icon-placeholder {
+    font-size: 1.63em;
+  }
+
+  .video-js.vjs-playing .vjs-tech {
+    pointer-events: auto;
+  }
+
+  .vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
+    opacity: 1;
+  }
+}

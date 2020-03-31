@@ -42,6 +42,7 @@ import {DoTestPage} from "./test/do-test/do-test";
 import {LookTestPage} from "./test/look-test/look-test";
 import {CompetitionListsPage} from "./competition/lists/lists";
 import {VideoBoxPage} from "./short-video/video-box/video-box";
+import {MyShortVideoBoxPage} from "../mine/my-short-video-box/my-short-video-box";
 
 @Component({
     selector: 'page-home',
@@ -471,7 +472,7 @@ export class HomePage implements OnInit {
             this.getPaperDetailByStu(url_arr[1])
         } else if (url.indexOf('shortVideo') > -1) { // 短视频
             const ID = url.split('&Id=')[1].split('&from')[0];
-            this.navCtrl.push(VideoBoxPage, {ID: ID});
+            this.navCtrl.push(MyShortVideoBoxPage, {ID: ID});
         } else { // 兼容旧版本分享，论坛
             // scheme_url+="forum/"+get_res[1]
             this.goPostsContent({Id: url_arr[3]});
