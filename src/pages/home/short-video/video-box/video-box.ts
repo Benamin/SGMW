@@ -29,6 +29,8 @@ export class VideoBoxPage {
     index;  //序号
     TotalCount;
 
+    mySwiper;
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private commonSer: CommonService,
                 private loadCtrl: LoadingController,
@@ -69,7 +71,7 @@ export class VideoBoxPage {
     //swiper&&videojs初始化
     init() {
         let that = this;
-        let mySwiper = new Swiper('.swiper-container', {
+        this.mySwiper = new Swiper('.swiper-container', {
             direction: 'vertical',
             speed: 1000,// slide滑动动画时间
             observer: true,
@@ -187,6 +189,9 @@ export class VideoBoxPage {
     }
 
     ionViewDidLeave() {
+        for (let i = 0; i < this.mySwiper.length; i++) {
+            this.mySwiper[i].destroy(true, true);
+        }
         for (let i in this.initVideo) {
             this.initVideo[i].dispose();
         }
@@ -197,7 +202,7 @@ export class VideoBoxPage {
         let modal = this.modalCtrl.create(VideoReplyPage, {item: item});
         modal.onDidDismiss((data) => {
             this.getVideoDetail(item);
-        })
+        });
         modal.present();
     }
 

@@ -254,7 +254,7 @@ export class CompetitionListsPage {
         if (item.MyRanking && this.page.checkType === this.page.navliArr[2].lable && this.page.navliArr[2].secNav[1].isActived === true) {
             return;
         }
-        if (this.page.hasArea) {
+        if (this.page.navliArr[2].secNav[1].isActived == true) {  //大赛排行榜
             this.navCtrl.push(CompetitionVideoPage, {
                 Page: this.page.getParams.Page,
                 TopicId: this.page.competitionParam.cid,
@@ -262,7 +262,7 @@ export class CompetitionListsPage {
                 index: this.page.competitionLists[0].MyRanking ? index - 1 : index
             });
         } else {
-            this.navCtrl.push(VideoBoxPage, {
+            this.navCtrl.push(VideoBoxPage, {  //所有视频
                 Page: this.page.getParams.Page,
                 searchKey: "",
                 type: this.page.getParams.OrderBy,
