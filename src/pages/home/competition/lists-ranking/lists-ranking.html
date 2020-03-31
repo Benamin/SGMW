@@ -42,7 +42,7 @@
           {{page.upRankingLists[1].TotalScore}}分 （<span style="margin-left: 0.3rem;">{{ page.upRankingLists[1].accuracy }}</span>）
         </div>
         <div class="user-label nowrap-1">
-          {{ page.upRankingLists[1].ForumTitle }}
+          {{ page.upRankingLists[1].agentName }}
         </div>
       </div>
       <img class="phb_2bg" src="assets/imgs/ranking/phb_2@2x.png" alt="第二">
@@ -55,7 +55,7 @@
           {{page.upRankingLists[0].TotalScore}}分 （<span style="margin-left: 0.3rem;">{{ page.upRankingLists[0].accuracy }}</span>）
         </div>
         <div class="user-label nowrap-1">
-          {{ page.upRankingLists[0].ForumTitle }}
+          {{ page.upRankingLists[0].agentName }}
         </div>
       </div>
       <img class="phb_1bg" src="assets/imgs/ranking/phb_1@2x.png" alt="第一">
@@ -68,7 +68,7 @@
           {{page.upRankingLists[2].TotalScore}}分 （<span style="margin-left: 0.3rem;">{{ page.upRankingLists[2].accuracy }}</span>）
         </div>
         <div class="user-label nowrap-1">
-          {{ page.upRankingLists[2].ForumTitle }}
+          {{ page.upRankingLists[2].agentName }}
         </div>
       </div>
       <img class="phb_3bg" src="assets/imgs/ranking/phb_3@2x.png" alt="第三">
@@ -80,7 +80,7 @@
       <img class="avatar" src="{{ item.headPhoto || userDefaultImg }}">
       <div class="userinfo">
         <div class="username">{{item.UserName}}</div>
-        <div class="company">{{ item.ForumTitle }}</div>
+        <div class="company">{{ item.agentName }}</div>
       </div>
       <span class="ranking-points">
       <span class="points-total">{{item.TotalScore}}</span><span>（{{ item.accuracy }}）</span>
