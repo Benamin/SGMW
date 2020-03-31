@@ -72,7 +72,7 @@ export class ShortVideoProvider {
         let option: CaptureVideoOptions = {
             limit: 1,
             duration: 15,
-            quality: 100
+            quality: 50
         };
         if (this.platform.is('ios')) {
             this.appSer.setIOS('platformIOS');

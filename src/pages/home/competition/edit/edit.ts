@@ -184,12 +184,12 @@ export class EditPage {
 
     //提交
     uploadFile() {
-        if (!this.form.Title) {
-            this.commonSer.toast('请输入短视频标题')
+        if (!this.form.Title || this.form.Title.length > 16) {
+            this.commonSer.alert('请输入短视频标题且最多输入16个文字')
             return
         }
         if (!this.CoverUrl) {
-            this.commonSer.toast('请上传短视频封面');
+            this.commonSer.alert('请上传短视频封面');
             return
         }
         this.commonSer.alert('确定发布短视频?', () => {
@@ -217,7 +217,7 @@ export class EditPage {
             this.homeSer.PublicShortVideo(data).subscribe(
                 (res) => {
                     if (res.data) {
-                        this.commonSer.toast('短视频发布成功!');
+                        this.commonSer.alert('短视频上传成功,请至【个人中心-视频】查看短视频转码状态，转码完成后会自动发布');
                         this.navCtrl.pop();
                     } else {
                         this.commonSer.alert(res.message);

@@ -39,8 +39,12 @@ export class MyShortVideoPage {
     }
 
     // 进入视频播放页
-    goVideoBox(vid) {
-        this.navCtrl.push(VideoBoxPage, {ID: vid});
+    goVideoBox(item) {
+        if (item.EncodeState == 2) {
+            this.navCtrl.push(VideoBoxPage, {ID: item.ID});
+        } else {
+            this.commonSer.toast('视频未转码成功');
+        }
     }
 
     goToEdit() {
@@ -66,6 +70,7 @@ export class MyShortVideoPage {
         const data = {
             GetMyList: 1,
             Title: this.page.searchKey,
+            EncodeState: 0,
             Page: 1,
             PageSize: this.page.PageSize
         };
@@ -100,6 +105,7 @@ export class MyShortVideoPage {
             GetMyList: 1,
             Title: this.page.searchKey,
             Page: this.page.Page,
+            EncodeState: 0,
             PageSize: this.page.PageSize
         };
         this.homeSer.GetVideoLists(data).subscribe(
