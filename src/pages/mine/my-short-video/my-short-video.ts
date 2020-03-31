@@ -7,6 +7,7 @@ import {HomeService} from "../../home/home.service";
 import {Storage} from "@ionic/storage";
 import {CommonService} from "../../../core/common.service";
 import {MineService} from "../mine.service";
+import {MyShortVideoBoxPage} from "../my-short-video-box/my-short-video-box";
 
 declare let Wechat;
 
@@ -41,7 +42,7 @@ export class MyShortVideoPage {
     // 进入视频播放页
     goVideoBox(item) {
         if (item.EncodeState == 2) {
-            this.navCtrl.push(VideoBoxPage, {ID: item.ID});
+            this.navCtrl.push(MyShortVideoBoxPage, {ID: item.ID});
         } else {
             this.commonSer.toast('视频未转码成功');
         }

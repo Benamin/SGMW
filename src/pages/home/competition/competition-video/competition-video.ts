@@ -1,19 +1,20 @@
 import {Component} from '@angular/core';
 import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
-import Swiper from 'swiper';
-import {timer} from "rxjs/observable/timer";
-import {HomeService} from "../../home.service";
 import {CommonService} from "../../../../core/common.service";
-import {VideoReplyPage} from "../video-reply/video-reply";
+import {HomeService} from "../../home.service";
+import {timer} from "rxjs/observable/timer";
+import Swiper from 'swiper';
+import {VideoReplyPage} from "../../short-video/video-reply/video-reply";
 
 declare let videojs: any;
 declare var Wechat;
 
 @Component({
-    selector: 'page-video-box',
-    templateUrl: 'video-box.html',
+    selector: 'page-competition-video',
+    templateUrl: 'competition-video.html',
 })
-export class VideoBoxPage {
+export class CompetitionVideoPage {
+
     like: true;
     videoObj;
     comment: '';
@@ -24,8 +25,8 @@ export class VideoBoxPage {
     initVideo = <any>{};
 
     Page;  //页码
-    searchKey;  //搜索关键字
-    type;  //类型
+    TopicId;  //搜索关键字
+    AreaID;  //类型
     index;  //序号
     TotalCount;
 
@@ -35,8 +36,8 @@ export class VideoBoxPage {
                 private modalCtrl: ModalController,
                 private homeSer: HomeService) {
         this.Page = this.navParams.get('Page');
-        this.searchKey = this.navParams.get('searchKey');
-        this.type = this.navParams.get('type');
+        this.TopicId = this.navParams.get('TopicId');
+        this.AreaID = this.navParams.get('AreaID');
         this.index = this.navParams.get('index');
     }
 
@@ -49,18 +50,17 @@ export class VideoBoxPage {
         this.loading = this.loadCtrl.create({content: ''});
         this.loading.present();
         const data = {
-            Title: this.searchKey,
+            TopicId: this.TopicId,
             Page: this.Page,
             PageSize: 10,
-            "OrderBy": this.type,
+            "AreaID": this.AreaID,
             "SortDir": "desc",
             "IsAsc": true,
-            "TopicId": null
         };
-        this.homeSer.GetShortVideoLists(data).subscribe(
+        this.homeSer.GetShortVideoCompitLists(data).subscribe(
             (res) => {
-                this.videoList = res.data.Items;
-                this.TotalCount = res.data.TotalCount;
+                this.videoList = res.data.LeaderboardItems.Items;
+                this.TotalCount = res.data.LeaderboardItems.TotalCount;
                 this.init();
             }
         )
@@ -140,23 +140,22 @@ export class VideoBoxPage {
      */
     doInfinite(type) {
         const data = {
-            Title: this.searchKey,
+            TopicId: this.TopicId,
             Page: this.Page,
             PageSize: 10,
-            "OrderBy": this.type,
+            "AreaID": this.AreaID,
             "SortDir": "desc",
             "IsAsc": true,
-            "TopicId": null
         };
-        this.homeSer.GetShortVideoLists(data).subscribe(
+        this.homeSer.GetShortVideoCompitLists(data).subscribe(
             (res) => {
-                if (res.data.Items.length) this.loadVideo(res.data.Items);
+                if (res.data.Items.length) this.loadVideo(res.data.LeaderboardItems.Items);
                 if (type == 'pre') {  //上滑
-                    this.videoList.unshift(res.data.Items);
+                    this.videoList.unshift(res.data.LeaderboardItems.Items);
                 } else {
-                    this.videoList = [...this.videoList, ...res.data.Items];
+                    this.videoList = [...this.videoList, ...res.data.LeaderboardItems.Items];
                 }
-                this.TotalCount = res.data.TotalCount;
+                this.TotalCount = res.data.LeaderboardItems.TotalCount;
             }
         )
     }
@@ -257,5 +256,4 @@ export class VideoBoxPage {
             // alert("Failed: " + reason);
         });
     }
-
 }

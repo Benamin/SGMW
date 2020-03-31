@@ -21,6 +21,7 @@ import {MineService} from './medal/medal.serve';
 import {PipesModule} from "../../pipes/pipes.module";
 import {IntegralComponent} from "./Integral/Integral.component";
 import {MyShortVideoPage} from "./my-short-video/my-short-video";
+import {MyShortVideoBoxPage} from "./my-short-video-box/my-short-video-box";
 
 @NgModule({
     declarations: [
@@ -39,14 +40,15 @@ import {MyShortVideoPage} from "./my-short-video/my-short-video";
         MedalComponent,
         MyFilePage,
         IntegralComponent,
-        MyShortVideoPage
+        MyShortVideoPage,
+        MyShortVideoBoxPage
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
         ComponentsModule,
         PipesModule,
     ],
-    providers:[ForumService,MineService],
+    providers: [ForumService, MineService],
     entryComponents: [
         MycollectionPage,
         MyCoursePage,
@@ -63,7 +65,8 @@ import {MyShortVideoPage} from "./my-short-video/my-short-video";
         MedalComponent,
         MyFilePage,
         IntegralComponent,
-        MyShortVideoPage
+        MyShortVideoPage,
+        MyShortVideoBoxPage
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

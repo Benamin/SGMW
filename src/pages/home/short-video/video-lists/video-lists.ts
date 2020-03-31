@@ -39,8 +39,13 @@ export class VideoListsPage {
     }
 
     // 进入视频播放页
-    goVideoBox(item) {
-        this.navCtrl.push(VideoBoxPage, {ID: item.ID});
+    goVideoBox(index) {
+        this.navCtrl.push(VideoBoxPage, {
+            Page: this.page.Page,
+            searchKey: this.page.searchKey,
+            type: this.type,
+            index:index
+        });
     }
 
     goToEdit() {
@@ -77,8 +82,7 @@ export class VideoListsPage {
         };
         this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {
-                let videoLists = res.data.Items;
-                this.page.videoLists = videoLists;
+                this.page.videoLists = res.data.Items;
                 this.page.TotalCount = res.data.TotalCount;
                 this.page.isLoad = true;
                 loading.dismiss();
@@ -181,7 +185,6 @@ export class VideoListsPage {
 
 
     getDuration(ev, item) {
-        console.log(ev);
         let value = Math.ceil(ev.target.duration);
         let minute = <any>Math.floor(value / 60);
         let second = <any>(value % 60);

@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>短视频</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="swiper-slide">
+        <video id="myvideojs" class="video-js"
+               playsinline="true" webkit-playsinline="true"
+               width="100%" height="100%" controls preload="auto"
+               [poster]="itemObj?.CoverUrl">
+        </video>
+        <div class="video-info">
+            <div class="discription">{{itemObj?.Title}}</div>
+            <div class="username">{{itemObj?.Creater}}</div>
+        </div>
+        <div class="btn-lists">
+            <div class="btn-box">
+                <img (click)="handleLike(1)" *ngIf="!itemObj?.IsLike"
+                     src="./assets/imgs/competition/dz_w@2x.png" alt="点赞灰色"
+                     style="width: 2rem;height: 2rem;">
+                <img (click)="handleLike(2)" *ngIf="itemObj?.IsLike"
+                     src="./assets/imgs/competition/dianzan-baise.png" alt="点赞黄色"
+                     style="width: 2rem;height: 2rem;">
+            </div>
+            <p>{{itemObj?.LikeCount}}</p>
+            <div class="btn-box" (click)="goComment()">
+                <img src="./assets/imgs/competition/pinglun@2x(1).png" alt="评论按钮"
+                     style="width: 2rem;height: 1.889rem;">
+            </div>
+            <p>{{itemObj?.ReplyCount}}</p>
+            <div class="btn-box">
+                <img (click)="$event.stopPropagation();wxShare()" src="./assets/imgs/competition/enjoy.png"
+                     alt="分享按钮"
+                     style="width: 1.888rem;height: 1.888rem;">
+            </div>
+        </div>
+    </div>
+</ion-content>

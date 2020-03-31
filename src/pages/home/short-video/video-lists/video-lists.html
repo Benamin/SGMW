@@ -22,11 +22,13 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="nav-type-3">
-        <div class="type-btn" (click)="type = 'ReplyTime';getList()" [ngClass]="{'actived': type == 'ReplyTime'}">最新<span class="item-line"></span></div>
-        <div class="type-btn" (click)="type = 'LikeCount';getList()" [ngClass]="{'actived': type == 'LikeCount'}">最热<span class="item-line"></span></div>
+        <div class="type-btn" (click)="type = 'ReplyTime';getList()" [ngClass]="{'actived': type == 'ReplyTime'}">
+            最新<span class="item-line"></span></div>
+        <div class="type-btn" (click)="type = 'LikeCount';getList()" [ngClass]="{'actived': type == 'LikeCount'}">
+            最热<span class="item-line"></span></div>
     </div>
     <div class="video-lists">
-        <div class="video-lists-item" (click)="goVideoBox(item)" *ngFor="let item of page.videoLists">
+        <div class="video-lists-item" *ngFor="let item of page.videoLists;let i = index" (click)="goVideoBox(i)">
             <div class="title">{{item.Title}}</div>
             <div class="poster-box">
                 <div class="mask">
