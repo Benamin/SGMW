@@ -205,31 +205,9 @@ export class PostsContentComponent implements OnInit {
         // Dom.addEventListener()
     }
 
-    isenlarge = false;
-    mousedownTime= new Date().getTime();
 
-    enlarge() {
-        this.isenlarge = true;
-    }
 
-    narrow() {
-        this.isenlarge = false;
-    }
 
-    CloseImg() {
-        this.showImg = false;
-        this.showImgSrc = '';
-    }
-
-    photoLibraryDown() {
-        this.photoLibrary.requestAuthorization({read: true, write: true}).then(() => {
-            this.photoLibrary.saveImage(this.showImgSrc, 'SGMW').then(() => {
-                alert('保存成功')
-            })
-        }, (err) => {
-            this.commonSer.alert(`没有相册权限，请手动设置权限`);
-        })
-    }
 
 
     reasizeData() {
@@ -505,6 +483,22 @@ export class PostsContentComponent implements OnInit {
         });
 
         actionSheet.present();
+    }
+
+    isenlarge = false;
+    mousedownTime= new Date().getTime();
+    photoLibraryDown() {
+        this.photoLibrary.requestAuthorization({read: true, write: true}).then(() => {
+            this.photoLibrary.saveImage(this.showImgSrc, 'SGMW').then(() => {
+                this.commonSer.alert('保存成功');
+            })
+        }, (err) => {
+            this.commonSer.alert(`没有相册权限，请手动设置权限`);
+        })
+    }
+    CloseImg() {
+        this.showImg = false;
+        this.showImgSrc = '';
     }
     initImg(){
         this.swiper = new Swiper(this.panel.nativeElement, {
