@@ -70,25 +70,46 @@ export class CompetitionVideoPage {
     //swiper&&videojs初始化
     init() {
         let that = this;
-        this.mySwiper = new Swiper('.swiper-container', {
+        that.mySwiper = new Swiper('.swiper-container', {
             direction: 'vertical',
             speed: 1000,// slide滑动动画时间
             observer: true,
             initialSlide: that.index,
-            observeParents: false,
+            observeParents: true,
             on: {
-                slideChangeTransitionStart: function () {
+                touchEnd: function (event) {
+                    //你的事件
+                    if (that.mySwiper[1].swipeDirection == 'prev') {  //上滑
+                        if (this.activeIndex == 0 && that.Page === 1) {
+                            that.commonSer.toast('已经是最第一个了');
+                            return
+                        }
+                        if (this.activeIndex == 0 && that.Page > 1) {
+                            that.Page--;
+                            that.doInfinite('prev');
+                            return;
+                        }
+                    }
+                    if (that.mySwiper[1].swipeDirection == 'next') {  //下滑
+                        if (this.activeIndex == that.videoList.length) {
+                            that.commonSer.toast('已经是最后一个了');
+                            return;
+                        }
+                        if (that.videoList.length != that.TotalCount && this.activeIndex + 1 == that.videoList.length) {
+                            that.Page++;
+                            that.doInfinite('next');
+                        }
+                    }
                 },
                 slidePrevTransitionStart: function () {  //上滑
-                    console.log(this.activeIndex);
                     let nextIndex = this.activeIndex + 1;
                     if (that.initVideo[`video${that.videoList[nextIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[nextIndex].files.ID}`].pause();
+                        return;
                     }
                     if (this.activeIndex == 1 && that.Page > 1) {
                         that.Page--;
-                        console.log('pre', this.activeIndex)
-                        that.doInfinite('pre');
+                        that.doInfinite('prev');
                     } else if (that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`].play();
                     }
@@ -98,10 +119,10 @@ export class CompetitionVideoPage {
                     let preIndex = this.activeIndex - 1;
                     if (that.initVideo[`video${that.videoList[preIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[preIndex].files.ID}`].pause();
+                        return;
                     }
                     if (this.activeIndex == that.videoList.length - 2 && that.videoList.length != that.TotalCount) {
                         that.Page++;
-                        console.log('next', this.activeIndex)
                         that.doInfinite('next');
                     } else if (that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`].play();
@@ -150,13 +171,23 @@ export class CompetitionVideoPage {
         };
         this.homeSer.GetShortVideoCompitLists(data).subscribe(
             (res) => {
-                if (res.data.Items.length) this.loadVideo(res.data.LeaderboardItems.Items);
+                const loading = this.loadCtrl.create();
+                loading.present();
                 if (type == 'pre') {  //上滑
-                    this.videoList.unshift(res.data.LeaderboardItems.Items);
+                    this.videoList = [...res.data.LeaderboardItems.Items, ...this.videoList];
+                    setTimeout(() => {
+                        this.mySwiper[1].slideTo(9, 100);
+                        loading.dismiss();
+                    }, 500)
                 } else {
                     this.videoList = [...this.videoList, ...res.data.LeaderboardItems.Items];
+                    setTimeout(() => {
+                        this.mySwiper[1].slideTo(this.videoList.length - res.data.LeaderboardItems.Items.length, 100);
+                        loading.dismiss();
+                    }, 500)
                 }
-                this.TotalCount = res.data.LeaderboardItems.TotalCount;
+                if (res.data.Items.length) this.loadVideo(res.data.LeaderboardItems.Items);
+                this.TotalCount = res.data.TotalCount;
             }
         )
     }

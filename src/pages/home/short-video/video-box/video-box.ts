@@ -43,7 +43,6 @@ export class VideoBoxPage {
     }
 
     ionViewDidLoad() {
-        // this.getShortVideoList();
         this.getList();
     }
 
@@ -71,25 +70,48 @@ export class VideoBoxPage {
     //swiper&&videojs初始化
     init() {
         let that = this;
-        this.mySwiper = new Swiper('.swiper-container', {
+        that.mySwiper = new Swiper('.swiper-container', {
             direction: 'vertical',
             speed: 1000,// slide滑动动画时间
             observer: true,
             initialSlide: that.index,
-            observeParents: false,
+            observeParents: true,
             on: {
-                slideChangeTransitionStart: function () {
+                touchEnd: function (event) {
+                    console.log(that.mySwiper[1].swipeDirection);
+                    //你的事件
+                    if (that.mySwiper[1].swipeDirection == 'prev') {  //上滑
+                        if (this.activeIndex == 0 && that.Page === 1) {
+                            that.commonSer.toast('已经是最第一个了');
+                            return
+                        }
+                        if (this.activeIndex == 0 && that.Page > 1) {
+                            that.Page--;
+                            that.doInfinite('prev');
+                            return;
+                        }
+                    }
+                    if (that.mySwiper[1].swipeDirection == 'next') {  //下滑
+                        if (this.activeIndex == that.videoList.length) {
+                            that.commonSer.toast('已经是最后一个了');
+                            return;
+                        }
+                        if (that.videoList.length != that.TotalCount && this.activeIndex + 1 == that.videoList.length) {
+                            that.Page++;
+                            that.doInfinite('next');
+                        }
+                    }
+                    console.log(this.activeIndex)
                 },
                 slidePrevTransitionStart: function () {  //上滑
-                    console.log(this.activeIndex);
                     let nextIndex = this.activeIndex + 1;
                     if (that.initVideo[`video${that.videoList[nextIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[nextIndex].files.ID}`].pause();
+                        return;
                     }
                     if (this.activeIndex == 1 && that.Page > 1) {
                         that.Page--;
-                        console.log('pre', this.activeIndex)
-                        that.doInfinite('pre');
+                        that.doInfinite('prev');
                     } else if (that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`].play();
                     }
@@ -99,6 +121,7 @@ export class VideoBoxPage {
                     let preIndex = this.activeIndex - 1;
                     if (that.initVideo[`video${that.videoList[preIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[preIndex].files.ID}`].pause();
+                        return;
                     }
                     if (this.activeIndex == that.videoList.length - 2 && that.videoList.length != that.TotalCount) {
                         that.Page++;
@@ -133,11 +156,12 @@ export class VideoBoxPage {
             });
             that.loading.dismiss();
         })
+        console.log(that.mySwiper)
     }
 
     /**
      * 查询上一个&&下一个
-     * @param type 滑动方向 pre=>上一个 next=>下一个
+     * @param type 滑动方向 prev=>上一个 next=>下一个
      * @param item  //当前item
      */
     doInfinite(type) {
@@ -152,19 +176,29 @@ export class VideoBoxPage {
         };
         this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {
-                if (res.data.Items.length) this.loadVideo(res.data.Items);
-                if (type == 'pre') {  //上滑
-                    this.videoList.unshift(res.data.Items);
+                const loading = this.loadCtrl.create();
+                loading.present();
+                if (type == 'prev') {  //上滑
+                    this.videoList = [...res.data.Items, ...this.videoList];
+                    setTimeout(() => {
+                        this.mySwiper[1].slideTo(9, 100);
+                        loading.dismiss();
+                    }, 500)
                 } else {
                     this.videoList = [...this.videoList, ...res.data.Items];
+                    setTimeout(() => {
+                        this.mySwiper[1].slideTo(this.videoList.length - res.data.Items.length, 100);
+                        loading.dismiss();
+                    }, 500)
                 }
+                if (res.data.Items.length) this.loadVideo(res.data.Items);
                 this.TotalCount = res.data.TotalCount;
             }
         )
     }
 
     loadVideo(arr) {
-        timer(100).subscribe(() => {
+        timer(500).subscribe(() => {
             arr.forEach((e, index) => {
                 this.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
                     controls: true,

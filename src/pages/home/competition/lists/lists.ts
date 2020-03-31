@@ -254,19 +254,24 @@ export class CompetitionListsPage {
         if (item.MyRanking && this.page.checkType === this.page.navliArr[2].lable && this.page.navliArr[2].secNav[1].isActived === true) {
             return;
         }
+        let i = this.page.competitionLists[0].MyRanking ? index - 1 : index;
+        let index1 = i + 1;
+        let num = index1 % 10;
+        num = num == 0 ? 9 : num - 1;
+        const currentPage = Math.ceil(index1 / 10);
         if (this.page.navliArr[2].secNav[1].isActived == true) {  //大赛排行榜
             this.navCtrl.push(CompetitionVideoPage, {
-                Page: this.page.getParams.Page,
+                Page: currentPage,
                 TopicId: this.page.competitionParam.cid,
                 AreaID: this.page.getParams.AreaID,
-                index: this.page.competitionLists[0].MyRanking ? index - 1 : index
+                index: num
             });
         } else {
             this.navCtrl.push(VideoBoxPage, {  //所有视频
-                Page: this.page.getParams.Page,
+                Page: currentPage,
                 searchKey: "",
                 type: this.page.getParams.OrderBy,
-                index: this.page.competitionLists[0].MyRanking ? index - 1 : index
+                index: num
             });
         }
 
