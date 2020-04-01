@@ -66,6 +66,7 @@ export const defaultImg = './assets/imgs/default.jpg';
 export const defaultHeadPhoto = './assets/imgs/userDefault.jpg';
 
 export const pageSize = 10;
+export const LastVersin = '1.8.2';
 
 //提示信息
 export const NoUserMsg = "您的用户信息暂未同步到骏菱学社，请稍后再试。如有问题，请致电0772-2650611。";

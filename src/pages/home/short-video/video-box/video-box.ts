@@ -84,7 +84,7 @@ export class VideoBoxPage {
                     //你的事件
                     if (that.mySwiper.swipeDirection == 'prev') {  //上滑
                         if (this.activeIndex == 0 && that.Page === 1) {
-                            that.commonSer.toast('已经是最第一个了');
+                            that.commonSer.toast('已经是第一个了');
                             return
                         }
                         if (this.activeIndex == 0 && that.Page > 1) {
@@ -143,7 +143,8 @@ export class VideoBoxPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        src: e.files.AttachmentUrl,
+                        // src: e.files.DownloadUrl,  //android
+                        src: e.files.AttachmentUrl,  //ios
                         type: 'application/x-mpegURL'
                     }],
                 })
@@ -207,7 +208,8 @@ export class VideoBoxPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        src: e.files.AttachmentUrl,
+                        // src: e.files.DownloadUrl,  //android
+                        src: e.files.AttachmentUrl,  //ios
                         type: 'application/x-mpegURL'
                     }],
                 });

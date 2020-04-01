@@ -88,6 +88,11 @@ export class LoginService {
         return this.http.get(SERVER_API_URL + '/User/GetUserInfoByUPN');
     }
 
+    //查询MainUserID
+    GetUserByLoginId(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/user/GetUserByLoginId' + this.dataForm.toQuery(data));
+    }
+
     //根据cardno获取用户信息
     GetUserByCardNo(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/user/GetUserByCardNo' + this.dataForm.toQuery(data));

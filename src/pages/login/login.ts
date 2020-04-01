@@ -11,7 +11,7 @@ import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
 import {
     FWZS_appid, FWZS_client_id, FWZS_SecretKey,
-    JunKe_client_id, JunKe_PRIVATE_KEY,
+    JunKe_client_id, JunKe_PRIVATE_KEY, LastVersin,
     NoUserMsg,
     sgmw_client_id,
     XSZS_appId,
@@ -105,6 +105,8 @@ export class LoginPage {
     loading;
 
     RegiID;   //jPush注册ID
+
+    LastVersion = LastVersin;  //是否最新版
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
@@ -345,6 +347,7 @@ export class LoginPage {
             (res) => {
                 if (res.access_token) {
                     this.storage.set('Authorization', res.access_token);
+                    this.storage.set('lastVersion', this.LastVersion);
                     timer(300).subscribe(e => {
                         this.getUserInfo();
                     })
