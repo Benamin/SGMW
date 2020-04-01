@@ -140,8 +140,8 @@ export class CompetitionVideoPage {
                     controls: true,
                     autoplay: that.index === index ? true : false,
                     "sources": [{
-                        // src: e.files.DownloadUrl,  //android
-                        src: e.files.AttachmentUrl,  //ios
+                        src: e.files.DownLoadUrl,  //android
+                        // src: e.files.AttachmentUrl,  //ios
                         type: 'application/x-mpegURL'
                     }],
                 })
@@ -204,8 +204,8 @@ export class CompetitionVideoPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        // src: e.files.DownloadUrl,  //android
-                        src: e.files.AttachmentUrl,  //ios
+                        src: e.files.DownLoadUrl,  //android
+                        // src: e.files.AttachmentUrl,  //ios
                         type: 'application/x-mpegURL'
                     }],
                 });
