@@ -107,7 +107,6 @@ export class CompetitionVideoPage {
                     let nextIndex = this.activeIndex + 1;
                     if (that.initVideo[`video${that.videoList[nextIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[nextIndex].files.ID}`].pause();
-                        return;
                     }
                     if (this.activeIndex == 1 && that.Page > 1 && that.initSwiperBool) {
                         that.Page--;
@@ -121,7 +120,6 @@ export class CompetitionVideoPage {
                     let preIndex = this.activeIndex - 1;
                     if (that.initVideo[`video${that.videoList[preIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[preIndex].files.ID}`].pause();
-                        return;
                     }
                     if (this.activeIndex == that.videoList.length - 2 && that.videoList.length != that.TotalCount
                         && that.initSwiperBool) {
@@ -140,7 +138,7 @@ export class CompetitionVideoPage {
             that.videoList.forEach((e, index) => {
                 that.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
                     controls: true,
-                    autoplay: false,
+                    autoplay: index === 0 ? true : false,
                     "sources": [{
                         src: e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
