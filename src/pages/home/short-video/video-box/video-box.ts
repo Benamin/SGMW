@@ -143,7 +143,7 @@ export class VideoBoxPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        src: e.files.DownLoadUrl,
+                        src: e.files.AttachmentUrl,
                         type: 'application/x-mpegURL'
                     }],
                 })
@@ -160,7 +160,6 @@ export class VideoBoxPage {
             });
             that.loading.dismiss();
         })
-        console.log(that.mySwiper)
     }
 
     /**
@@ -208,7 +207,7 @@ export class VideoBoxPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        src: e.files.DownLoadUrl,
+                        src: e.files.AttachmentUrl,
                         type: 'application/x-mpegURL'
                     }],
                 });

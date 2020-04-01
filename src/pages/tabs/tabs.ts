@@ -55,12 +55,12 @@ export class TabsPage {
             index: 3
         },
         // {
-        //     root: CoursePage,
-        //     tabTitle: '我的学习',
-        //     tabIconOn: 'custom-serve-on',
-        //     tabIconOff: 'custom-serve-off',
-        //     index: 4
-        // },
+        //         //     root: CoursePage,
+        //         //     tabTitle: '我的学习',
+        //         //     tabIconOn: 'custom-serve-on',
+        //         //     tabIconOff: 'custom-serve-off',
+        //         //     index: 4
+        //         // },
         {
             root: VideoListsPage,
             tabTitle: '视频',
@@ -178,13 +178,9 @@ export class TabsPage {
         loading.present();
         this.loginSer.GetUserByCardNo(data).subscribe(
             (res) => {
-                if (res.data) {
-                    this.userInfoByCardNo = res.data;
-                    this.inputType = 'confirm';
-                    loading.dismiss();
-                } else {
-                    this.commonSer.toast(res.message);
-                }
+                this.userInfoByCardNo = res.data;
+                this.inputType = 'confirm';
+                loading.dismiss();
             }
         )
     }
