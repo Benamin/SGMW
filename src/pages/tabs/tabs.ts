@@ -96,7 +96,7 @@ export class TabsPage {
                 private events: Events, private nav: NavController, private tabSer: TabService) {
         this.storage.get('user').then(value => {
             console.log(value);
-            if (value && !value.MainUserID) {
+            if (value) {
                 this.getUserInfo();
                 return
             }
@@ -107,7 +107,7 @@ export class TabsPage {
         this.tabSer.tabChange.subscribe((value) => {
             this.tabParams = value;
             this.myTabs.select(value.index)
-        })
+        });
         this.listenEvents();
     }
 
@@ -178,9 +178,13 @@ export class TabsPage {
         loading.present();
         this.loginSer.GetUserByCardNo(data).subscribe(
             (res) => {
-                this.userInfoByCardNo = res.data;
-                this.inputType = 'confirm';
-                loading.dismiss();
+                if (res.data) {
+                    this.userInfoByCardNo = res.data;
+                    this.inputType = 'confirm';
+                    loading.dismiss();
+                } else {
+                    this.commonSer.toast(res.message);
+                }
             }
         )
     }
@@ -197,6 +201,8 @@ export class TabsPage {
                 if (res.data) {
                     this.storage.set('user', res.data);
                     this.getMyInfo();
+                } else {
+                    this.commonSer.toast(res.message);
                 }
             }
         )
@@ -217,5 +223,10 @@ export class TabsPage {
                 this.commonSer.toast(res2.message);
             }
         })
+    }
+
+    //重新登录
+    resetLogin() {
+        this.nav.setRoot(LoginPage);
     }
 }

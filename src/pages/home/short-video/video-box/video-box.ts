@@ -141,7 +141,7 @@ export class VideoBoxPage {
             that.videoList.forEach((e, index) => {
                 that.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
                     controls: true,
-                    autoplay: that.index === index ? true : false,
+                    autoplay: false,
                     "sources": [{
                         src: e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
