@@ -215,7 +215,7 @@
     <!--视频列表-->
     <ul class="video-lists" *ngIf="page.checkType === 'short-video'">
         <li (click)="goVideoBox(item,cIndex)" *ngFor="let item of page.competitionLists, let cIndex = index">
-            <div *ngIf="!item.MyRanking" class="video-box">
+            <div class="video-box">
                 <img class="video-poster" src="{{item.CoverUrl || './assets/imgs/competition/fengmian@2x.png'}}"
                      alt="视频图片">
                 <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">

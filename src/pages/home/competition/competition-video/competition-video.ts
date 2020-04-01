@@ -138,7 +138,7 @@ export class CompetitionVideoPage {
             that.videoList.forEach((e, index) => {
                 that.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
                     controls: true,
-                    autoplay: index === 0 ? true : false,
+                    autoplay: that.index === index ? true : false,
                     "sources": [{
                         src: e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
