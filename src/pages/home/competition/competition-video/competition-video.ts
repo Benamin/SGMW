@@ -31,6 +31,8 @@ export class CompetitionVideoPage {
     TotalCount;
     mySwiper;
 
+    initSwiperBool;
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private commonSer: CommonService,
                 private loadCtrl: LoadingController,
@@ -43,7 +45,7 @@ export class CompetitionVideoPage {
     }
 
     ionViewDidLoad() {
-        // this.getShortVideoList();
+        this.initSwiperBool = false;
         this.getList();
     }
 
@@ -70,7 +72,7 @@ export class CompetitionVideoPage {
     //swiper&&videojs初始化
     init() {
         let that = this;
-        that.mySwiper = new Swiper('.swiper-container', {
+        that.mySwiper = new Swiper('.swiper-competition-container', {
             direction: 'vertical',
             speed: 1000,// slide滑动动画时间
             observer: true,
@@ -79,7 +81,7 @@ export class CompetitionVideoPage {
             on: {
                 touchEnd: function (event) {
                     //你的事件
-                    if (that.mySwiper[1].swipeDirection == 'prev') {  //上滑
+                    if (that.mySwiper.swipeDirection == 'prev') {  //上滑
                         if (this.activeIndex == 0 && that.Page === 1) {
                             that.commonSer.toast('已经是最第一个了');
                             return
@@ -90,7 +92,7 @@ export class CompetitionVideoPage {
                             return;
                         }
                     }
-                    if (that.mySwiper[1].swipeDirection == 'next') {  //下滑
+                    if (that.mySwiper.swipeDirection == 'next') {  //下滑
                         if (this.activeIndex == that.videoList.length) {
                             that.commonSer.toast('已经是最后一个了');
                             return;
@@ -107,7 +109,7 @@ export class CompetitionVideoPage {
                         that.initVideo[`video${that.videoList[nextIndex].files.ID}`].pause();
                         return;
                     }
-                    if (this.activeIndex == 1 && that.Page > 1) {
+                    if (this.activeIndex == 1 && that.Page > 1 && that.initSwiperBool) {
                         that.Page--;
                         that.doInfinite('prev');
                     } else if (that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`]) {
@@ -121,12 +123,16 @@ export class CompetitionVideoPage {
                         that.initVideo[`video${that.videoList[preIndex].files.ID}`].pause();
                         return;
                     }
-                    if (this.activeIndex == that.videoList.length - 2 && that.videoList.length != that.TotalCount) {
+                    if (this.activeIndex == that.videoList.length - 2 && that.videoList.length != that.TotalCount
+                        && that.initSwiperBool) {
                         that.Page++;
                         that.doInfinite('next');
                     } else if (that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`].play();
                     }
+                },
+                init: function () {
+                    that.initSwiperBool = true;
                 }
             },
         });
@@ -176,13 +182,13 @@ export class CompetitionVideoPage {
                 if (type == 'pre') {  //上滑
                     this.videoList = [...res.data.LeaderboardItems.Items, ...this.videoList];
                     setTimeout(() => {
-                        this.mySwiper[1].slideTo(9, 100);
+                        this.mySwiper.slideTo(9, 100);
                         loading.dismiss();
                     }, 500)
                 } else {
                     this.videoList = [...this.videoList, ...res.data.LeaderboardItems.Items];
                     setTimeout(() => {
-                        this.mySwiper[1].slideTo(this.videoList.length - res.data.LeaderboardItems.Items.length, 100);
+                        this.mySwiper.slideTo(this.videoList.length - res.data.LeaderboardItems.Items.length, 100);
                         loading.dismiss();
                     }, 500)
                 }
@@ -218,9 +224,7 @@ export class CompetitionVideoPage {
     }
 
     ionViewDidLeave() {
-        for (let i = 0; i < this.mySwiper.length; i++) {
-            this.mySwiper[i].destroy(true, true);
-        }
+        this.mySwiper.destroy(true, true);
         for (let i in this.initVideo) {
             this.initVideo[i].dispose();
         }
