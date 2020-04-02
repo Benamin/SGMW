@@ -347,7 +347,6 @@ export class LoginPage {
             (res) => {
                 if (res.access_token) {
                     this.storage.set('Authorization', res.access_token);
-                    this.storage.set('lastVersion', this.LastVersion);
                     timer(300).subscribe(e => {
                         this.getUserInfo();
                     })
@@ -460,6 +459,7 @@ export class LoginPage {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
                 if (res.code == 200 && res.data) {
+                    this.storage.set('lastVersion', this.LastVersion);
                     // 获取用户角色 列表  存储用户角色
                     if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
                         this.userAsync(res);

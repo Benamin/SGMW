@@ -44,8 +44,8 @@ export class MyShortVideoBoxPage {
                         controls: true,
                         autoplay: true,
                         "sources": [{
-                            src: this.itemObj.files.DownLoadUrl,  //android
-                            // src: this.itemObj.files.AttachmentUrl,  //ios
+                            // src: this.itemObj.files.DownLoadUrl,  //android
+                            src: this.itemObj.files.AttachmentUrl,  //ios
                             type: 'application/x-mpegURL'
                         }],
                     });

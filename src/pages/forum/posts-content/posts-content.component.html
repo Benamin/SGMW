@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-title>{{lidata.Name}}</ion-title>
-        <ion-buttons end (click)="handleReport()">
+        <ion-buttons *ngIf="isShow" end (click)="handleReport()">
             <button class="icon-more">
                 <ion-icon name="more"></ion-icon>
             </button>

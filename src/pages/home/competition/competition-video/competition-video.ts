@@ -138,10 +138,10 @@ export class CompetitionVideoPage {
             that.videoList.forEach((e, index) => {
                 that.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
                     controls: true,
-                    autoplay: that.index === index ? true : false,
+                    autoplay: that.index === index,
                     "sources": [{
-                        src: e.files.DownLoadUrl,  //android
-                        // src: e.files.AttachmentUrl,  //ios
+                        // src: e.files.DownLoadUrl,  //android
+                        src: e.files.AttachmentUrl,  //ios
                         type: 'application/x-mpegURL'
                     }],
                 })
@@ -204,8 +204,8 @@ export class CompetitionVideoPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        src: e.files.DownLoadUrl,  //android
-                        // src: e.files.AttachmentUrl,  //ios
+                        // src: e.files.DownLoadUrl,  //android
+                        src: e.files.AttachmentUrl,  //ios
                         type: 'application/x-mpegURL'
                     }],
                 });
