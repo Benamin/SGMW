@@ -76,6 +76,7 @@ export class StudyPlanPage {
         })(document, window);
         this.getStydyPlan();
         this.getTheMonthCourse(this.now, false); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
+        if(this.navParams.get('CrateTime')) console.log('消息进入的时间', this.navParams.get('CrateTime'))
     }
 
     changeMonth() {

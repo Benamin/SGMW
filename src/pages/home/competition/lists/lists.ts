@@ -458,6 +458,7 @@ export class CompetitionListsPage {
             // 大赛 帖子
             Lists = Data.AllPostByTopicTag.AllPost;
             this.page.getParams.TotalCount = Data.AllPostByTopicTag.TotalCount;
+            Data.MyTopPost = Object.assign(Data.MyTopPost, { isMy: true })
             Lists.unshift(Data.MyTopPost);
         } else if (!Data.MyTopPost && Data.AllPostByTopicTag && Data.AllPostByTopicTag.AllPost) {
             // 帖子 第一个返回null的情况
