@@ -75,7 +75,7 @@ export class CompetitionVideoPage {
         let that = this;
         that.mySwiper = new Swiper('.swiper-competition-container', {
             direction: 'vertical',
-            speed: 1000,// slide滑动动画时间
+            speed: 300,// slide滑动动画时间
             observer: true,
             initialSlide: that.index,
             observeParents: true,
