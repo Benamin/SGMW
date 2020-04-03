@@ -32,8 +32,8 @@ export class StudyPlanPage {
         activedCol: null
     };
     now = new Date();
-    year = this.now.getFullYear();
-    month = this.now.getMonth() + 1;
+    year;
+    month;
     nextMonth = {
         year: this.getNextMonth().getFullYear(),
         month: this.getNextMonth().getMonth() + 1
@@ -47,6 +47,7 @@ export class StudyPlanPage {
 
     todayCourse = [];
     isLoad = false;
+    initYearMonth = <any>{};
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -61,30 +62,53 @@ export class StudyPlanPage {
     }
 
     ionViewDidLoad() {
-        (function (doc, win) {
-            var docEl = doc.documentElement,
-                resizeEvt =
-                    "orientationchange" in window ? "orientationchange" : "resize",
-                recalc = function () {
-                    var clientWidth = docEl.clientWidth;
-                    if (!clientWidth) return;
-                    docEl.style.fontSize = clientWidth / 37.5 + "px";
-                };
-            if (!doc.addEventListener) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener("DOMContentLoaded", recalc, false);
-        })(document, window);
+        if(this.navParams.get('CrateTime') && this.navParams.get('CrateTime').length > 0) {
+
+            let CrateTime = this.navParams.get('CrateTime');
+            let YMDArr = CrateTime.split(' ')[0].split('-');
+            let y = YMDArr[0];
+            let m = YMDArr[1];
+            let d = YMDArr[2];
+            this.now = new Date(`${y}/${m}/${d}`);
+            this.year = this.now.getFullYear();
+            this.month = this.now.getMonth() + 1;
+        } else {
+            this.year = this.now.getFullYear();
+            this.month = this.now.getMonth() + 1;
+        }
+        // 存初始 进入的时间YMD 同年月 显示页面右上角的日期
+        this.initYearMonth.year = this.year;
+        this.initYearMonth.month = this.month;
+        this.initYearMonth.day = this.now.getDate();
+        console.log('消息进入的时间', this.now, '日期', this.now.getDate())
+
         this.getStydyPlan();
         this.getTheMonthCourse(this.now, false); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
-        if(this.navParams.get('CrateTime')) console.log('消息进入的时间', this.navParams.get('CrateTime'))
     }
 
-    changeMonth() {
-        if (this.isThisMonth) {
-            this.getTheMonthCourse(this.getNextMonth(), true);
-        } else {
-            this.getTheMonthCourse(this.now, true);
+    changeMonth(status) {
+        this.now = new Date(`${this.year}/${this.month}/1`);
+        if(status === 'last') {
+            console.log('year', this.getLastMonth(), `${this.year}/${this.month}/1`)
+            this.now = this.getLastMonth();
+            this.year = this.now.getFullYear();
+            this.month = this.now.getMonth() + 1;
         }
+        if(status === 'next') {
+            console.log('year', this.getNextMonth(), `${this.year}/${this.month}/1`)
+            this.now = this.getNextMonth();
+            this.year = this.now.getFullYear();
+            this.month = this.now.getMonth() + 1;
+        }
+
+        this.getStydyPlan();
+        this.getTheMonthCourse(this.now, false); // 循环日历完成后 
+        // 重新获取日历和课程列表
+        // if (this.isThisMonth) {
+        //     this.getTheMonthCourse(this.getNextMonth(), true);
+        // } else {
+        //     this.getTheMonthCourse(this.now, true);
+        // }
     }
 
     getStydyPlan() {
@@ -155,21 +179,21 @@ export class StudyPlanPage {
 
     switchActived(isThisMonth, rowIndex, colIndex) {
         // calendarArr nextCalendarArr
-        if (isThisMonth) {
+        // if (isThisMonth) {
             for (let i = 0; i < this.calendarArr.length; i++) {
                 for (let j = 0; j < this.calendarArr[i].length; j++) {
                     this.calendarArr[i][j].actived = false;
                 }
             }
             this.calendarArr[rowIndex][colIndex].actived = true;
-        } else {
-            for (let i = 0; i < this.nextCalendarArr.length; i++) {
-                for (let j = 0; j < this.nextCalendarArr[i].length; j++) {
-                    this.nextCalendarArr[i][j].actived = false;
-                }
-            }
-            this.nextCalendarArr[rowIndex][colIndex].actived = true;
-        }
+        // } else {
+        //     for (let i = 0; i < this.nextCalendarArr.length; i++) {
+        //         for (let j = 0; j < this.nextCalendarArr[i].length; j++) {
+        //             this.nextCalendarArr[i][j].actived = false;
+        //         }
+        //     }
+        //     this.nextCalendarArr[rowIndex][colIndex].actived = true;
+        // }
     }
 
     clearActived() {
@@ -423,9 +447,25 @@ export class StudyPlanPage {
         return week;
     }
 
+    // 上个月
+    getLastMonth() {
+        let now = this.now;
+        var month = now.getMonth() + 1;
+        let year = now.getFullYear();
+        let monthStr;
+        if (month === 1) {
+            year -= 1;
+            monthStr = "12";
+        } else {
+            month -= 1;
+            monthStr = month < 10 ? "0" + month : month;
+        }
+        return new Date(`${year}-${monthStr}-01`);
+        // console.log("this.nextMonth", new Date(`${year}-${monthStr}-01`));
+    }
     // 下个月
     getNextMonth() {
-        let now = new Date();
+        let now = this.now;
         var month = now.getMonth() + 1;
         let year = now.getFullYear();
         let monthStr;

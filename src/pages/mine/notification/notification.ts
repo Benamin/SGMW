@@ -72,7 +72,9 @@ export class NotificationPage {
     }
 
     goDetail(item) {
+        // console.log(7777, this.checkType)
         if (this.checkType === 'training') { // 3-培训消息、4考试消息、除3-4以外都是系统消息
+            // console.log(888, item)
             this.getDetail(item);
         } else { //  || this.checkType === 'test'
             this.navCtrl.push(NotificationDetailPage, {id: item.Id});

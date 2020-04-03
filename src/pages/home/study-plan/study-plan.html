@@ -1,111 +1,117 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>学习计划</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-title>学习计划</ion-title>
+  </ion-navbar>
 </ion-header>
 <ion-content>
-    <div style="display: flex;align-items: center;height: 3.9rem;">
-        <span (click)="changeMonth()" style="margin-left: 2.8rem;font-size: 1.8rem;">
-            <span *ngIf="isThisMonth" style="display: flex;align-items: center;">
+  <div style="display: flex;align-items: center;height: 3.9rem;">
+        <span style="margin-left: 2.8rem;font-size: 1.8rem;">
+            <span style="display: flex;align-items: center;">
+              <ion-icon (click)="changeMonth('last')" style="padding-left: 1rem;transform: rotate(180deg);" name="arrow-forward"></ion-icon>
                 {{year}}年{{month}}月
-                <ion-icon style="margin-left: 0.5rem;" name="arrow-forward"></ion-icon>
+                <ion-icon (click)="changeMonth('next')" style="padding-left: 1rem;" name="arrow-forward"></ion-icon>
             </span>
-            <span *ngIf="!isThisMonth" style="display: flex;align-items: center;">
-                <ion-icon style="margin-right: 0.5rem;transform: rotate(180deg);" name="arrow-forward"></ion-icon>
-                {{nextMonth.year}}年{{nextMonth.month}}月
-            </span>
+          <!--<span *ngIf="!isThisMonth" style="display: flex;align-items: center;">-->
+          <!--<ion-icon style="margin-right: 0.5rem;transform: rotate(180deg);" name="arrow-forward"></ion-icon>-->
+          <!--{{nextMonth.year}}年{{nextMonth.month}}月-->
+          <!--</span>-->
         </span>
-        <span *ngIf="isThisMonth" style="margin-left: auto;display: flex;align-items: center;">
-            <span style="display: block;position: relative;margin-right: 2.1rem;width: 2.1rem;height: 2.2rem;text-align: center;background: url('./assets/imgs/home/rili@2x.png');background-size: 100% 100%;">
-                <span *ngIf="lableRC.currentRow" style="display: block;margin-top: 0.85rem;overflow: hidden;font-size: 1.2rem;line-height: 1;">
-                    {{ calendarArr[lableRC.currentRow][lableRC.currentCol].day }}
+    <span *ngIf="initYearMonth && initYearMonth.year === year && initYearMonth.month === month && initYearMonth.day" style="margin-left: auto;display: flex;align-items: center;">
+            <span
+              style="display: block;position: relative;margin-right: 2.1rem;width: 2.1rem;height: 2.2rem;text-align: center;background: url('./assets/imgs/home/rili@2x.png');background-size: 100% 100%;">
+                <span style="display: block;margin-top: 0.85rem;overflow: hidden;font-size: 1.2rem;line-height: 1;">
+                  {{ initYearMonth.day }}
                 </span>
             </span>
-            <!-- <img style="margin:0 2.9rem 0 2.1rem;width: 1.8rem;height: 1.8rem;" src="./assets/imgs/home/xxjh_seach@2x.png"> -->
+      <!-- <img style="margin:0 2.9rem 0 2.1rem;width: 1.8rem;height: 1.8rem;" src="./assets/imgs/home/xxjh_seach@2x.png"> -->
         </span>
-    </div>
-    <ul class="calendar_thead">
-        <li>一</li>
-        <li>二</li>
-        <li>三</li>
-        <li>四</li>
-        <li>五</li>
-        <li>六</li>
-        <li>日</li>
-    </ul>
-    <ul class="calendar_tbody" *ngIf="isThisMonth">
-        <li *ngFor="let row of calendarArr, let rowIndex = index" >
-            <div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box" *ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.canClick,actived: item.actived}">
-                <span class="day-text">{{ item.day }}</span>
-                <div class="point-box ">
-                    <span *ngIf="item.exam" class="point-yellow"></span>
-                    <span *ngIf="item.course" class="point-red"></span>
-                </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="calendar_tbody" *ngIf="!isThisMonth">
-        <li *ngFor="let row of nextCalendarArr, let rowIndex = index" >
-            <div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box" *ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.canClick,actived: item.actived}">
-                <span class="day-text">{{ item.day }}</span>
-                <div class="point-box">
-                    <span *ngIf="item.exam" class="point-yellow"></span>
-                    <span *ngIf="item.course" class="point-red"></span>
-                </div>
-            </div>
-        </li>
-    </ul>
+  </div>
+  <ul class="calendar_thead">
+    <li>一</li>
+    <li>二</li>
+    <li>三</li>
+    <li>四</li>
+    <li>五</li>
+    <li>六</li>
+    <li>日</li>
+  </ul>
+  <ul class="calendar_tbody">
+    <li *ngFor="let row of calendarArr, let rowIndex = index">
+      <div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box"
+           *ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.canClick,actived: item.actived}">
+        <span class="day-text">{{ item.day }}</span>
+        <div class="point-box ">
+          <span *ngIf="item.exam" class="point-yellow"></span>
+          <span *ngIf="item.course" class="point-red"></span>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <!--<ul class="calendar_tbody" *ngIf="!isThisMonth">-->
+    <!--<li *ngFor="let row of nextCalendarArr, let rowIndex = index">-->
+      <!--<div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box"-->
+           <!--*ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.canClick,actived: item.actived}">-->
+        <!--<span class="day-text">{{ item.day }}</span>-->
+        <!--<div class="point-box">-->
+          <!--<span *ngIf="item.exam" class="point-yellow"></span>-->
+          <!--<span *ngIf="item.course" class="point-red"></span>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</li>-->
+  <!--</ul>-->
 
-    <ul class="course-list">
-        <li *ngIf="todayCourse.length === 0 && isLoad" style="padding: 1rem 0;text-align: center;">
-            暂无课程
-        </li>
-        <li *ngFor="let item of todayCourse">
-            <div class="actived-day" *ngIf="lableRC.activedRow">
-                <span>{{ item.YMD }} <span *ngIf="item.IsExam" style="color: orange;">(今日有考试)</span></span>
-                <span>周{{ item.week }}</span>
-            </div>
-            <div class="item-time">
-                <span class="title-lable"></span>
-                <span class="title-text">课程列表</span>
-                <!--{{item.CourseNames}}-->
-            </div>
+  <ul class="course-list">
+    <li *ngIf="todayCourse.length === 0 && isLoad" style="padding: 1rem 0;text-align: center;">
+      暂无课程
+    </li>
+    <li *ngFor="let item of todayCourse">
+      <div class="actived-day" *ngIf="lableRC.activedRow">
+        <span>{{ item.YMD }} <span *ngIf="item.IsExam" style="color: orange;">(今日有考试)</span></span>
+        <span>周{{ item.week }}</span>
+      </div>
+      <div class="item-time">
+        <span class="title-lable"></span>
+        <span class="title-text">课程列表</span>
+        <!--{{item.CourseNames}}-->
+      </div>
 
-            <div>
-                <div *ngFor="let ourseItem of item.Courses" class="lists">
-                    <!--已完成-->
-                    <div class="list-item" *ngIf="ourseItem.IsSignIn == true && ourseItem.IsOver == true">
-                        <span>{{ourseItem.Title}}</span>
-                        <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon">
-                    </div>
-                    <!--未完成-->
-                    <div class="list-item" *ngIf="ourseItem.IsSignIn == true && ourseItem.IsOver == false" (click)="getCourseDetailById(ourseItem.ID)">
-                        <span>{{ourseItem.Title}}</span>
-                        <span style="display: flex;align-items: center;">
+      <div>
+        <div *ngFor="let ourseItem of item.Courses" class="lists">
+          <!--已完成-->
+          <div class="list-item" *ngIf="ourseItem.IsSignIn == true && ourseItem.IsOver == true">
+            <span>{{ourseItem.Title}}</span>
+            <img src="./assets/imgs/home/xxjh_wc@2x.png" class="play-icon">
+          </div>
+          <!--未完成-->
+          <div class="list-item" *ngIf="ourseItem.IsSignIn == true && ourseItem.IsOver == false"
+               (click)="getCourseDetailById(ourseItem.ID)">
+            <span>{{ourseItem.Title}}</span>
+            <span style="display: flex;align-items: center;">
                             继续学习
-                            <img src="./assets/imgs/home/xxjh_jxxx@2x.png" style="margin-left: 0.4rem;" class="play-icon">
+                            <img src="./assets/imgs/home/xxjh_jxxx@2x.png" style="margin-left: 0.4rem;"
+                                 class="play-icon">
                         </span>
-                    </div>
-                    <!--未报名-->
-                    <div class="list-item" *ngIf="ourseItem.IsSignIn == false" (click)="getCourseDetailById(ourseItem.ID)">
-                        <span>{{ourseItem.Title}}</span>
-                            <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
+          </div>
+          <!--未报名-->
+          <div class="list-item" *ngIf="ourseItem.IsSignIn == false" (click)="getCourseDetailById(ourseItem.ID)">
+            <span>{{ourseItem.Title}}</span>
+            <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
                             参加课程
                             <ion-icon class="more" name="arrow-forward"></ion-icon>
                         </span>
-                    </div>
-                </div>
-                <div *ngIf="item.IsExam" class="lists">
-                    <!--考试-->
-                    <div class="list-item" (click)="goTest()">
-                        <span>今日有考试</span>
-                        <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
+          </div>
+        </div>
+        <div *ngIf="item.IsExam" class="lists">
+          <!--考试-->
+          <div class="list-item" (click)="goTest()">
+            <span>今日有考试</span>
+            <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
                             去考试
                             <ion-icon class="more" name="arrow-forward"></ion-icon>
                         </span>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
 </ion-content>
