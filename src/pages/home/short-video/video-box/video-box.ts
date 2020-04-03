@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
 import Swiper from 'swiper';
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
@@ -36,6 +36,7 @@ export class VideoBoxPage {
                 private commonSer: CommonService,
                 private loadCtrl: LoadingController,
                 private modalCtrl: ModalController,
+                private platform: Platform,
                 private homeSer: HomeService) {
         this.Page = this.navParams.get('Page');
         this.searchKey = this.navParams.get('searchKey');
@@ -143,8 +144,8 @@ export class VideoBoxPage {
                     controls: true,
                     autoplay: that.index === index,
                     "sources": [{
-                        // src: e.files.DownLoadUrl,  //android
-                        src: e.files.AttachmentUrl,  //ios
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: this.platform.is('ios') ? e.files.AttachmentUrl : e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
                     }],
                 })
@@ -208,8 +209,8 @@ export class VideoBoxPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        // src: e.files.DownLoadUrl,  //android
-                        src: e.files.AttachmentUrl,  //ios
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: this.platform.is('ios') ? e.files.AttachmentUrl : e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
                     }],
                 });

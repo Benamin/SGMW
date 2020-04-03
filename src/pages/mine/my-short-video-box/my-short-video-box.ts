@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
 import Swiper from 'swiper';
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home/home.service";
@@ -23,6 +23,7 @@ export class MyShortVideoBoxPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private commonSer: CommonService,
                 private loadCtrl: LoadingController,
+                private platform: Platform,
                 private modalCtrl: ModalController,
                 private homeSer: HomeService) {
         this.itemId = this.navParams.get('ID');
@@ -44,8 +45,8 @@ export class MyShortVideoBoxPage {
                         controls: true,
                         autoplay: true,
                         "sources": [{
-                            // src: this.itemObj.files.DownLoadUrl,  //android
-                            src: this.itemObj.files.AttachmentUrl,  //ios
+                            //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                            src: this.platform.is('ios') ? this.itemObj.files.AttachmentUrl : this.itemObj.files.DownLoadUrl,
                             type: 'application/x-mpegURL'
                         }],
                     });

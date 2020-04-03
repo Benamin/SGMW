@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
 import {timer} from "rxjs/observable/timer";
@@ -35,6 +35,7 @@ export class CompetitionVideoPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private commonSer: CommonService,
+                private platform: Platform,
                 private loadCtrl: LoadingController,
                 private modalCtrl: ModalController,
                 private homeSer: HomeService) {
@@ -140,8 +141,8 @@ export class CompetitionVideoPage {
                     controls: true,
                     autoplay: that.index === index,
                     "sources": [{
-                        // src: e.files.DownLoadUrl,  //android
-                        src: e.files.AttachmentUrl,  //ios
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: this.platform.is('ios') ? e.files.AttachmentUrl : e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
                     }],
                 })
@@ -204,8 +205,8 @@ export class CompetitionVideoPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        // src: e.files.DownLoadUrl,  //android
-                        src: e.files.AttachmentUrl,  //ios
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: this.platform.is('ios') ? e.files.AttachmentUrl : e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
                     }],
                 });
