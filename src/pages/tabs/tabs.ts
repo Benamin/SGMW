@@ -55,12 +55,12 @@ export class TabsPage {
             index: 3
         },
         // {
-        //     root: CoursePage,
-        //     tabTitle: '我的学习',
-        //     tabIconOn: 'custom-serve-on',
-        //     tabIconOff: 'custom-serve-off',
-        //     index: 4
-        // },
+        //         //     root: CoursePage,
+        //         //     tabTitle: '我的学习',
+        //         //     tabIconOn: 'custom-serve-on',
+        //         //     tabIconOff: 'custom-serve-off',
+        //         //     index: 4
+        //         // },
         {
             root: VideoListsPage,
             tabTitle: '视频',
@@ -95,8 +95,7 @@ export class TabsPage {
                 private commonSer: CommonService,
                 private events: Events, private nav: NavController, private tabSer: TabService) {
         this.storage.get('user').then(value => {
-            console.log(value);
-            if (value && !value.MainUserID) {
+            if (value && value.MainUserID) {
                 this.getUserInfo();
                 return
             }
@@ -107,7 +106,7 @@ export class TabsPage {
         this.tabSer.tabChange.subscribe((value) => {
             this.tabParams = value;
             this.myTabs.select(value.index)
-        })
+        });
         this.listenEvents();
     }
 
@@ -115,11 +114,19 @@ export class TabsPage {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
                 if (res.data) {
-                    this.storage.set('user', res.data);
-                    if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
-                        this.userInfo = res.data;
-                        this.inputType = 'submit';
+                    if (!res.data.LoginUserId || res.data.LoginUserId === '00000000-0000-0000-0000-000000000000') {
+                        res.data.LoginUserId = res.data.UserId;
                     }
+                    this.loginSer.GetUserByLoginId({loginUserId: res.data.LoginUserId}).subscribe(
+                        (res) => {
+                            this.storage.set('user', res.data);
+                            if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
+                                this.userInfo = res.data;
+                                if (res.data.CardNo) this.CardNo = res.data.CardNo;
+                                this.inputType = 'submit';
+                            }
+                        }
+                    );
                 }
             })
     }
@@ -188,7 +195,7 @@ export class TabsPage {
     //提交信息
     submitInfo() {
         const data = {
-            LoginUserId: this.userInfo.LoginUserId,
+            LoginUserId: this.userInfo.LoginUserID,
             MobilePhone: this.MobilePhone,
             CardNo: this.CardNo
         };
@@ -197,6 +204,8 @@ export class TabsPage {
                 if (res.data) {
                     this.storage.set('user', res.data);
                     this.getMyInfo();
+                } else {
+                    this.commonSer.toast(res.message);
                 }
             }
         )
@@ -217,5 +226,11 @@ export class TabsPage {
                 this.commonSer.toast(res2.message);
             }
         })
+    }
+
+    //重新登录
+    resetLogin() {
+        this.storage.clear();
+        this.nav.setRoot(LoginPage);
     }
 }

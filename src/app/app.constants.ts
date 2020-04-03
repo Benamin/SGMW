@@ -1,15 +1,15 @@
 // /***培训平台***/
 // export const SERVER_API_URL = '/api';
 // export const SERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
-export const SERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
-// export const SERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+// export const SERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
+export const SERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
 
 //client_id
 export const sgmw_client_id = "2961C96D-4DB0-4FCF-99FA-FE18AC9A496A";
 
 //通过判断url来跳转内部还是外部
-export const SERVER_HTTP_URL = 'https://sitportal.chinacloudsites.cn/dist/#/courseDetail/'; //测试
-// export const SERVER_HTTP_URL = 'https://elearning.sgmw.com.cn/#/courseDetail';  //生产
+// export const SERVER_HTTP_URL = 'https://sitportal.chinacloudsites.cn/dist/#/courseDetail/'; //测试
+export const SERVER_HTTP_URL = 'https://elearning.sgmw.com.cn/#/courseDetail';  //生产
 /*****end******/
 
 /***骏客***/
@@ -66,6 +66,7 @@ export const defaultImg = './assets/imgs/default.jpg';
 export const defaultHeadPhoto = './assets/imgs/userDefault.jpg';
 
 export const pageSize = 10;
+export const LastVersin = '1.8.3';
 
 //提示信息
 export const NoUserMsg = "您的用户信息暂未同步到骏菱学社，请稍后再试。如有问题，请致电0772-2650611。";

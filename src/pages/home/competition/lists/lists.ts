@@ -19,6 +19,7 @@ import {File} from "@ionic-native/file";
 import {Camera} from "@ionic-native/camera";
 import {ShortVideoProvider} from "../../../../providers/short-video/short-video";
 import {CompetitionVideoPage} from "../competition-video/competition-video";
+import {MyShortVideoBoxPage} from "../../../mine/my-short-video-box/my-short-video-box";
 
 
 /**
@@ -252,6 +253,7 @@ export class CompetitionListsPage {
     // 进入视频播放页
     goVideoBox(item, index) {
         if (item.MyRanking && this.page.checkType === this.page.navliArr[2].lable && this.page.navliArr[2].secNav[1].isActived === true) {
+            this.navCtrl.push(MyShortVideoBoxPage, {ID: item.ID});
             return;
         }
         let i = this.page.competitionLists[0].MyRanking ? index - 1 : index;
