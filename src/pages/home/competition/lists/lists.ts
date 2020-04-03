@@ -259,7 +259,7 @@ export class CompetitionListsPage {
         let num = index1 % 10;
         num = num == 0 ? 9 : num - 1;
         const currentPage = Math.ceil(index1 / 10);
-        if (this.page.navliArr[2].secNav[1].isActived == true) {  //大赛排行榜
+        if (this.page.navliArr[2].secNav[1].isActived == true) { //大赛排行榜
             this.navCtrl.push(CompetitionVideoPage, {
                 Page: currentPage,
                 TopicId: this.page.competitionParam.cid,
@@ -267,7 +267,7 @@ export class CompetitionListsPage {
                 index: num
             });
         } else {
-            this.navCtrl.push(VideoBoxPage, {  //所有视频
+            this.navCtrl.push(VideoBoxPage, { //所有视频
                 Page: currentPage,
                 searchKey: "",
                 type: this.page.getParams.OrderBy,
