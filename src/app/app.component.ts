@@ -10,7 +10,7 @@ import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {GetRequestService} from "../secret/getRequest.service";
-import {JunKe_client_id, LastVersin, NoUserMsg} from "./app.constants";
+import {JunKe_client_id, LastVersion, NoUserMsg} from "./app.constants";
 import {AppVersion} from "@ionic-native/app-version";
 import {AppUpdateService} from "../core/appUpdate.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
@@ -53,7 +53,7 @@ export class MyApp {
     //  1.false  正常返回上一层，2.true，禁止返回上一层，3.result,返回列表页面
     isDo = 'false';
 
-    LastVersion = LastVersin;
+    LastVersion = LastVersion;
 
     constructor(private platform: Platform, private statusBar: StatusBar, private commonSer: CommonService,
                 private getRequest: GetRequestService, private appVersion: AppVersion,

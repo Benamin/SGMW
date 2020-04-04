@@ -86,12 +86,14 @@ export class TabsPage {
 
     inputType;
 
+    loading;
+
     constructor(private platform: Platform, private params: NavParams,
                 private global: GlobalData,
                 private loginSer: LoginService,
                 private storage: Storage,
                 private modalCtrl: ModalController,
-                private loading: LoadingController,
+                private loadCtrl: LoadingController,
                 private commonSer: CommonService,
                 private events: Events, private nav: NavController, private tabSer: TabService) {
         this.storage.get('user').then(value => {
@@ -179,7 +181,7 @@ export class TabsPage {
         const data = {
             cardNo: this.CardNo
         };
-        const loading = this.loading.create({
+        const loading = this.loadCtrl.create({
             content: '查询身份证号中...'
         });
         loading.present();
@@ -194,6 +196,10 @@ export class TabsPage {
 
     //提交信息
     submitInfo() {
+        this.loading = this.loadCtrl.create({
+            content: '绑定中...'
+        });
+        this.loading.present();
         const data = {
             LoginUserId: this.userInfo.LoginUserID,
             MobilePhone: this.MobilePhone,
@@ -205,6 +211,7 @@ export class TabsPage {
                     this.storage.set('user', res.data);
                     this.getMyInfo();
                 } else {
+                    this.loading.dismiss();
                     this.commonSer.toast(res.message);
                 }
             }
@@ -225,6 +232,7 @@ export class TabsPage {
             } else {
                 this.commonSer.toast(res2.message);
             }
+            this.loading.dismiss();
         })
     }
 
