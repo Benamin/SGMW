@@ -7,18 +7,16 @@
   <div style="display: flex;align-items: center;height: 3.9rem;">
         <span style="margin-left: 2.8rem;font-size: 1.8rem;">
             <span style="display: flex;align-items: center;">
-              <ion-icon (click)="changeMonth('last')" style="padding-left: 1rem;transform: rotate(180deg);" name="arrow-forward"></ion-icon>
+              <ion-icon (click)="changeMonth('last')" style="padding-left: 1rem;transform: rotate(180deg);"
+                        name="arrow-forward"></ion-icon>
                 {{year}}年{{month}}月
                 <ion-icon (click)="changeMonth('next')" style="padding-left: 1rem;" name="arrow-forward"></ion-icon>
             </span>
-          <!--<span *ngIf="!isThisMonth" style="display: flex;align-items: center;">-->
-          <!--<ion-icon style="margin-right: 0.5rem;transform: rotate(180deg);" name="arrow-forward"></ion-icon>-->
-          <!--{{nextMonth.year}}年{{nextMonth.month}}月-->
-          <!--</span>-->
         </span>
-    <span *ngIf="initYearMonth && initYearMonth.year === year && initYearMonth.month === month && initYearMonth.day" style="margin-left: auto;display: flex;align-items: center;">
+    <span *ngIf="initYearMonth && initYearMonth.year === year && initYearMonth.month === month && initYearMonth.day"
+          style="margin-left: auto;display: flex;align-items: center;">
             <span
-              style="display: block;position: relative;margin-right: 2.1rem;width: 2.1rem;height: 2.2rem;text-align: center;background: url('./assets/imgs/home/rili@2x.png');background-size: 100% 100%;">
+                style="display: block;position: relative;margin-right: 2.1rem;width: 2.1rem;height: 2.2rem;text-align: center;background: url('./assets/imgs/home/rili@2x.png');background-size: 100% 100%;">
                 <span style="display: block;margin-top: 0.85rem;overflow: hidden;font-size: 1.2rem;line-height: 1;">
                   {{ initYearMonth.day }}
                 </span>
@@ -47,18 +45,6 @@
       </div>
     </li>
   </ul>
-  <!--<ul class="calendar_tbody" *ngIf="!isThisMonth">-->
-    <!--<li *ngFor="let row of nextCalendarArr, let rowIndex = index">-->
-      <!--<div (click)="getItemCourse(item, rowIndex, colIndex)" class="td-box"-->
-           <!--*ngFor="let item of row, let colIndex = index" [ngClass]="{disabled: !item.canClick,actived: item.actived}">-->
-        <!--<span class="day-text">{{ item.day }}</span>-->
-        <!--<div class="point-box">-->
-          <!--<span *ngIf="item.exam" class="point-yellow"></span>-->
-          <!--<span *ngIf="item.course" class="point-red"></span>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</li>-->
-  <!--</ul>-->
 
   <ul class="course-list">
     <li *ngIf="todayCourse.length === 0 && isLoad" style="padding: 1rem 0;text-align: center;">
@@ -87,18 +73,17 @@
                (click)="getCourseDetailById(ourseItem.ID)">
             <span>{{ourseItem.Title}}</span>
             <span style="display: flex;align-items: center;">
-                            继续学习
-                            <img src="./assets/imgs/home/xxjh_jxxx@2x.png" style="margin-left: 0.4rem;"
-                                 class="play-icon">
-                        </span>
+              继续学习
+              <img src="./assets/imgs/home/xxjh_jxxx@2x.png" style="margin-left: 0.4rem;" class="play-icon">
+            </span>
           </div>
           <!--未报名-->
           <div class="list-item" *ngIf="ourseItem.IsSignIn == false" (click)="getCourseDetailById(ourseItem.ID)">
-            <span>{{ourseItem.Title}}</span>
-            <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
-                            参加课程
-                            <ion-icon class="more" name="arrow-forward"></ion-icon>
-                        </span>
+             <span>{{ourseItem.Title}}</span>
+             <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
+               参加课程
+               <ion-icon class="more" name="arrow-forward"></ion-icon>
+             </span>
           </div>
         </div>
         <div *ngIf="item.IsExam" class="lists">
@@ -106,9 +91,9 @@
           <div class="list-item" (click)="goTest()">
             <span>今日有考试</span>
             <span style="display: flex;align-items: center;color:rgba(0,0,0,1);color: #999999;">
-                            去考试
-                            <ion-icon class="more" name="arrow-forward"></ion-icon>
-                        </span>
+              去考试
+              <ion-icon class="more" name="arrow-forward"></ion-icon>
+            </span>
           </div>
         </div>
       </div>

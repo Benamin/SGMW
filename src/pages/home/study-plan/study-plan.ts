@@ -8,7 +8,6 @@ import {
 import {defaultImg} from "../../../app/app.constants";
 import {LearnService} from "../../learning/learn.service";
 import {LogService} from "../../../service/log.service";
-// import { Keyboard } from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 import {CommonService} from "../../../core/common.service";
 import {FocusCoursePage} from "../../learning/focus-course/focus-course";
@@ -34,17 +33,8 @@ export class StudyPlanPage {
     now = new Date();
     year;
     month;
-    nextMonth = {
-        year: this.getNextMonth().getFullYear(),
-        month: this.getNextMonth().getMonth() + 1
-    };
     week = "";
-    // 下个月数组
-    nextCalendarArr = [];
-    isThisMonth = true;
     once = false;
-    // todayHasCourse = false; // 当天是否有课程/考试
-
     todayCourse = [];
     isLoad = false;
     initYearMonth = <any>{};
@@ -80,35 +70,23 @@ export class StudyPlanPage {
         this.initYearMonth.year = this.year;
         this.initYearMonth.month = this.month;
         this.initYearMonth.day = this.now.getDate();
-        console.log('消息进入的时间', this.now, '日期', this.now.getDate())
-
+        // console.log('从消息进入学习计划的时间', this.now, '日期', this.now.getDate())
         this.getStydyPlan();
-        this.getTheMonthCourse(this.now, false); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
+        this.getTheMonthCourse(this.now); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
     }
 
     changeMonth(status) {
-        this.now = new Date(`${this.year}/${this.month}/1`);
         if(status === 'last') {
-            console.log('year', this.getLastMonth(), `${this.year}/${this.month}/1`)
             this.now = this.getLastMonth();
-            this.year = this.now.getFullYear();
-            this.month = this.now.getMonth() + 1;
         }
         if(status === 'next') {
-            console.log('year', this.getNextMonth(), `${this.year}/${this.month}/1`)
             this.now = this.getNextMonth();
-            this.year = this.now.getFullYear();
-            this.month = this.now.getMonth() + 1;
         }
+        this.year = this.now.getFullYear();
+        this.month = this.now.getMonth() + 1;
 
         this.getStydyPlan();
-        this.getTheMonthCourse(this.now, false); // 循环日历完成后 
-        // 重新获取日历和课程列表
-        // if (this.isThisMonth) {
-        //     this.getTheMonthCourse(this.getNextMonth(), true);
-        // } else {
-        //     this.getTheMonthCourse(this.now, true);
-        // }
+        this.getTheMonthCourse(this.now); // 循环日历完成后
     }
 
     getStydyPlan() {
@@ -129,28 +107,9 @@ export class StudyPlanPage {
                 }
             }
 
-            this.calendarArr = this.initCalendar(this.now, courseArr, "thisMonth");
+            this.calendarArr = this.initCalendar(this.now, courseArr);
             loading.dismiss();
             this.isLoad = true;
-        });
-        // 下个月的数据
-        const dataNext = {
-            Year: this.nextMonth.year, //传入年份
-            Month: this.nextMonth.month //传入月份
-        };
-        this.homeSer.StydyPlan(dataNext).subscribe(res => {
-            let courseArr = [];
-            if (res.data.item && res.data.item.length > 0) {
-                courseArr = res.data.item;
-                for (var i = 0; i < res.data.item.length; i++) {
-                    courseArr[i].PlanDate = new Date(courseArr[i].PlanDate).getDate();
-                }
-            }
-            this.nextCalendarArr = this.initCalendar(
-                this.getNextMonth(),
-                courseArr,
-                "nextMonth"
-            );
         });
     }
 
@@ -161,50 +120,30 @@ export class StudyPlanPage {
         let m;
 
         if (item.course === true || item.exam === true) { // 有课程/考试的获取列表
-            if (item.thisMonth) {
-                y = this.year;
-                m = this.month;
-            } else {
-                y = this.nextMonth.year;
-                m = this.nextMonth.month;
-            }
+            y = this.year;
+            m = this.month;
             let d
             if (item.day >= 10) d = item.day
             else d = '0' + item.day;
             let date = new Date(`${y}/${m}/${d}`);
             this.getTodayCourse(date);
-            this.switchActived(item.thisMonth, rowIndex, colIndex);
+            this.switchActived( rowIndex, colIndex);
         }
     }
 
-    switchActived(isThisMonth, rowIndex, colIndex) {
-        // calendarArr nextCalendarArr
-        // if (isThisMonth) {
-            for (let i = 0; i < this.calendarArr.length; i++) {
-                for (let j = 0; j < this.calendarArr[i].length; j++) {
-                    this.calendarArr[i][j].actived = false;
-                }
+    switchActived(rowIndex, colIndex) {
+        for (let i = 0; i < this.calendarArr.length; i++) {
+            for (let j = 0; j < this.calendarArr[i].length; j++) {
+                this.calendarArr[i][j].actived = false;
             }
-            this.calendarArr[rowIndex][colIndex].actived = true;
-        // } else {
-        //     for (let i = 0; i < this.nextCalendarArr.length; i++) {
-        //         for (let j = 0; j < this.nextCalendarArr[i].length; j++) {
-        //             this.nextCalendarArr[i][j].actived = false;
-        //         }
-        //     }
-        //     this.nextCalendarArr[rowIndex][colIndex].actived = true;
-        // }
+        }
+        this.calendarArr[rowIndex][colIndex].actived = true;
     }
 
     clearActived() {
         for (var i = 0; i < this.calendarArr.length; i++) {
             for (var j = 0; j < this.calendarArr[i].length; j++) {
                 this.calendarArr[i][j].actived = false;
-            }
-        }
-        for (var a = 0; a < this.nextCalendarArr.length; a++) {
-            for (var b = 0; b < this.nextCalendarArr[a].length; b++) {
-                this.nextCalendarArr[a][b].actived = false;
             }
         }
     }
@@ -218,13 +157,11 @@ export class StudyPlanPage {
             Page: 1,
             PageSize: 100
         };
-        this.getCourse(data, false);
+        this.getCourse(data);
     }
 
     // 获取该月的 课程/考试列表
-    getTheMonthCourse(date, isChange) {
-        let clickChange = false;
-        if (isChange == true) clickChange = true;
+    getTheMonthCourse(date) {
         // console.log("getNowFormatDate", this.getFormatDate(date));
         var dateMonth = date.getMonth(); //当前月
         var dateYear = date.getFullYear(); //当前年
@@ -239,10 +176,11 @@ export class StudyPlanPage {
             Page: 1,
             PageSize: 100
         };
-        this.getCourse(data, clickChange);
+        this.getCourse(data);
     }
 
-    getCourse(data, clickChange) {
+    getCourse(data) {
+        this.clearActived();
         let loading = this.loadCtrl.create({
             content: ""
         });
@@ -259,10 +197,6 @@ export class StudyPlanPage {
             this.todayCourse = todayCourse
             this.isLoad = true;
             loading.dismiss();
-            if (clickChange) {
-                this.clearActived();
-                this.isThisMonth = !this.isThisMonth;
-            }
         });
     }
 
@@ -314,7 +248,7 @@ export class StudyPlanPage {
     }
 
     // 循环日历数组 参数1： 当月的某时间， 参数2： 课程/考试对应的天数对象。
-    initCalendar(date, courseObj, isNextMonth) {
+    initCalendar(date, courseObj) {
         const now = date;
         const firstDay = new Date(now.getFullYear(), now.getMonth(), 1); // 输入该时间的月的第一条是周几
         const endDay = new Date(
@@ -340,7 +274,7 @@ export class StudyPlanPage {
                 current: false, // 是否今天
                 actived: false // 是否选中该天
             };
-            //   console.log(col, row, calendar);
+
             if (col < 0) col = 7 + col; // 第一天若是负数
             if (col === 7) {
                 row++;
@@ -349,13 +283,13 @@ export class StudyPlanPage {
             } else {
                 calendar[row][col] = dayObj;
             }
-            if (isNextMonth === "thisMonth") {
+            if (this.initYearMonth && this.initYearMonth.year === this.year && this.initYearMonth.month === this.month) {
                 dayObj.thisMonth = true;
             }
             // 判断是否今天 是则 current: true, actived: true
             if (thisDay === now.getDate()) {
                 // 现在日期在日历的行/列 选择的日期在日历的行/列
-                if (isNextMonth === "thisMonth") {
+                if (this.initYearMonth && this.initYearMonth.year === this.year && this.initYearMonth.month === this.month) {
                     this.once = true;
                     dayObj.current = true;
                     dayObj.actived = true;
@@ -364,10 +298,6 @@ export class StudyPlanPage {
                     that.lableRC.activedRow = row;
                     that.lableRC.activedCol = col;
                 }
-
-                // dayObj.course = true;
-                // dayObj.exam = true;
-                // console.log(999, that.lableRC.currentRow, that.lableRC.currentCol)
             }
             // 测试数据 是否 课程/考试
             let courseArr = [];
@@ -380,9 +310,6 @@ export class StudyPlanPage {
                     if (courseArr[i].ISExam == true) {
                         dayObj.exam = true;
                     }
-                    // if (thisDay === now.getDate()) { // 是当天 并且有课程 默认获 当天的取课程列表
-                    //     that.isTodayHasCourse();
-                    // }
                 }
             }
             thisDay++;
@@ -392,11 +319,8 @@ export class StudyPlanPage {
         let firstIndex = firstDay.getDay() === 0 ? 7 : firstDay.getDay();
         var myDate = new Date(now.getFullYear(), now.getMonth(), 0);
         var lastDay = myDate.getDate(); //上个月的最后一天
-        // console.log(lastDay);
         // 循环上个月
-        // debugger
         let lastLength = 7 - (7 - Math.abs(firstIndex - 1)); // firstIndex - 1 可能为负数周几不能为负数
-        // console.log("lastLength", lastLength, firstIndex);
         for (var k = 0; k < lastLength; k++) {
             let day = lastDay - lastLength + 1 + k;
             calendar[0][k] = {
@@ -410,7 +334,9 @@ export class StudyPlanPage {
             };
         }
         // 剩余部分循环下个月
-        var nextLength = 7 - ((end + lastLength) % 7);
+        let nextNum = 7;
+        if (((end + lastLength) % 7) !== 0) nextNum = ((end + lastLength) % 7);
+        var nextLength = 7 - nextNum;
         var nextDay = 1;
         for (var j = 0; j < nextLength; j++) {
             calendar[row][col] = {
@@ -425,14 +351,9 @@ export class StudyPlanPage {
             nextDay++;
             col++;
         }
-
         // console.log(calendar); // 完整的 日历二维数组
         return calendar;
     }
-
-    // isTodayHasCourse() {
-    //     this.todayHasCourse = true;
-    // }
 
     numTranWeek(num) {
         let week = "";
@@ -447,11 +368,12 @@ export class StudyPlanPage {
         return week;
     }
 
-    // 上个月
+    // 上个月的 时间戳
     getLastMonth() {
         let now = this.now;
         var month = now.getMonth() + 1;
         let year = now.getFullYear();
+        let day = 1
         let monthStr;
         if (month === 1) {
             year -= 1;
@@ -460,24 +382,26 @@ export class StudyPlanPage {
             month -= 1;
             monthStr = month < 10 ? "0" + month : month;
         }
-        return new Date(`${year}-${monthStr}-01`);
-        // console.log("this.nextMonth", new Date(`${year}-${monthStr}-01`));
+        if (this.initYearMonth && this.initYearMonth.year === year && this.initYearMonth.month === parseInt(monthStr) && this.initYearMonth.day) day = this.initYearMonth.day;
+        return new Date(`${year}-${monthStr}-${day}`);
     }
-    // 下个月
+    // 下个月 时间戳
     getNextMonth() {
         let now = this.now;
         var month = now.getMonth() + 1;
         let year = now.getFullYear();
+        let day = 1;
         let monthStr;
         if (month === 12) {
             year += 1;
             monthStr = "01";
+            month = 1;
         } else {
             month += 1;
             monthStr = month < 10 ? "0" + month : month;
         }
-        return new Date(`${year}-${monthStr}-01`);
-        // console.log("this.nextMonth", new Date(`${year}-${monthStr}-01`));
+        if (this.initYearMonth && this.initYearMonth.year === year && this.initYearMonth.month === parseInt(monthStr) && this.initYearMonth.day) day = this.initYearMonth.day;
+        return new Date(`${year}-${monthStr}-${day}`);
     }
 
     //考试中心
