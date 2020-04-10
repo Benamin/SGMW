@@ -29,6 +29,7 @@ export class PostAddComponent implements OnInit {
   innerHeightOld=0;
   paddingBottom= '0px';
   choicePlateShow=false;
+  textareaHeight='calc(100% - 10px)'
   constructor(
     private navCtrl: NavController,
     private serve:ForumService,
