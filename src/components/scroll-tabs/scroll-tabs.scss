@@ -9,7 +9,7 @@ scroll-tabs {
     left: 0;
     width: 100%;
     height: calc(100% - 4rem);
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(0, 0, 0, .3);
   }
 
   .three-type {
@@ -19,8 +19,8 @@ scroll-tabs {
     background-color: #fff;
     border-bottom: 1px solid #aaa;
     transition: height 500ms;
-    overflow: hidden;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+    z-index: 999;
 
     p {
       padding: 10px;
