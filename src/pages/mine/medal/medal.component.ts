@@ -58,9 +58,11 @@ export class MedalComponent implements OnInit {
       if(!res.data){
         return;
       }
-      
-      res.data.Items.forEach(element => {
-        if(element.UserId == this.mineInfo.UserId){
+      console.log('获取勋章',this.mineInfo.UserId);
+      res.data.Items.forEach(element => {     
+         console.log('勋章id',element,element.UserId);
+
+        if((this.mineInfo.UserId&&element.UserId == this.mineInfo.UserId) || (this.mineInfo.LoginUserID&&element.UserId == this.mineInfo.LoginUserID)){
           if(element.Badges.length==0){
             this.no_list=true;
           }

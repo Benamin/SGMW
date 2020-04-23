@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
 import {timer} from "rxjs/observable/timer";
@@ -29,9 +29,13 @@ export class CompetitionVideoPage {
     AreaID;  //类型
     index;  //序号
     TotalCount;
+    mySwiper;
+
+    initSwiperBool;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private commonSer: CommonService,
+                private platform: Platform,
                 private loadCtrl: LoadingController,
                 private modalCtrl: ModalController,
                 private homeSer: HomeService) {
@@ -42,7 +46,7 @@ export class CompetitionVideoPage {
     }
 
     ionViewDidLoad() {
-        // this.getShortVideoList();
+        this.initSwiperBool = false;
         this.getList();
     }
 
@@ -69,25 +73,45 @@ export class CompetitionVideoPage {
     //swiper&&videojs初始化
     init() {
         let that = this;
-        let mySwiper = new Swiper('.swiper-container', {
+        that.mySwiper = new Swiper('.swiper-competition-container', {
             direction: 'vertical',
-            speed: 1000,// slide滑动动画时间
+            speed: 300,// slide滑动动画时间
             observer: true,
             initialSlide: that.index,
-            observeParents: false,
+            observeParents: true,
             on: {
-                slideChangeTransitionStart: function () {
+                touchEnd: function (event) {
+                    //你的事件
+                    if (that.mySwiper.swipeDirection == 'prev') {  //上滑
+                        if (this.activeIndex == 0 && that.Page === 1) {
+                            that.commonSer.toast('已经是第一个了');
+                            return
+                        }
+                        if (this.activeIndex == 0 && that.Page > 1) {
+                            that.Page--;
+                            that.doInfinite('prev');
+                            return;
+                        }
+                    }
+                    if (that.mySwiper.swipeDirection == 'next') {  //下滑
+                        if (this.activeIndex == that.videoList.length) {
+                            that.commonSer.toast('已经是最后一个了');
+                            return;
+                        }
+                        if (that.videoList.length != that.TotalCount && this.activeIndex + 1 == that.videoList.length) {
+                            that.Page++;
+                            that.doInfinite('next');
+                        }
+                    }
                 },
                 slidePrevTransitionStart: function () {  //上滑
-                    console.log(this.activeIndex);
                     let nextIndex = this.activeIndex + 1;
                     if (that.initVideo[`video${that.videoList[nextIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[nextIndex].files.ID}`].pause();
                     }
-                    if (this.activeIndex == 1 && that.Page > 1) {
+                    if (this.activeIndex == 1 && that.Page > 1 && that.initSwiperBool) {
                         that.Page--;
-                        console.log('pre', this.activeIndex)
-                        that.doInfinite('pre');
+                        that.doInfinite('prev');
                     } else if (that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`].play();
                     }
@@ -98,13 +122,16 @@ export class CompetitionVideoPage {
                     if (that.initVideo[`video${that.videoList[preIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[preIndex].files.ID}`].pause();
                     }
-                    if (this.activeIndex == that.videoList.length - 2 && that.videoList.length != that.TotalCount) {
+                    if (this.activeIndex == that.videoList.length - 2 && that.videoList.length != that.TotalCount
+                        && that.initSwiperBool) {
                         that.Page++;
-                        console.log('next', this.activeIndex)
                         that.doInfinite('next');
                     } else if (that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`].play();
                     }
+                },
+                init: function () {
+                    that.initSwiperBool = true;
                 }
             },
         });
@@ -112,9 +139,10 @@ export class CompetitionVideoPage {
             that.videoList.forEach((e, index) => {
                 that.initVideo[`video${e.files.ID}`] = videojs(`video${e.files.ID}`, {
                     controls: true,
-                    autoplay: false,
+                    autoplay: that.index === index,
                     "sources": [{
-                        src: e.files.DownLoadUrl,
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: this.platform.is('ios') ? e.files.AttachmentUrl : e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
                     }],
                 })
@@ -149,13 +177,23 @@ export class CompetitionVideoPage {
         };
         this.homeSer.GetShortVideoCompitLists(data).subscribe(
             (res) => {
-                if (res.data.Items.length) this.loadVideo(res.data.LeaderboardItems.Items);
+                const loading = this.loadCtrl.create();
+                loading.present();
                 if (type == 'pre') {  //上滑
-                    this.videoList.unshift(res.data.LeaderboardItems.Items);
+                    this.videoList = [...res.data.LeaderboardItems.Items, ...this.videoList];
+                    setTimeout(() => {
+                        this.mySwiper.slideTo(9, 100);
+                        loading.dismiss();
+                    }, 500)
                 } else {
                     this.videoList = [...this.videoList, ...res.data.LeaderboardItems.Items];
+                    setTimeout(() => {
+                        this.mySwiper.slideTo(this.videoList.length - res.data.LeaderboardItems.Items.length, 100);
+                        loading.dismiss();
+                    }, 500)
                 }
-                this.TotalCount = res.data.LeaderboardItems.TotalCount;
+                if (res.data.Items.length) this.loadVideo(res.data.LeaderboardItems.Items);
+                this.TotalCount = res.data.TotalCount;
             }
         )
     }
@@ -167,7 +205,8 @@ export class CompetitionVideoPage {
                     controls: true,
                     autoplay: false,
                     "sources": [{
-                        src: e.files.DownLoadUrl,
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: this.platform.is('ios') ? e.files.AttachmentUrl : e.files.DownLoadUrl,
                         type: 'application/x-mpegURL'
                     }],
                 });
@@ -186,6 +225,7 @@ export class CompetitionVideoPage {
     }
 
     ionViewDidLeave() {
+        this.mySwiper.destroy(true, true);
         for (let i in this.initVideo) {
             this.initVideo[i].dispose();
         }

@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-    <div class="swiper-container">
+    <div class="swiper-container swiper-competition-container">
         <div class="swiper-wrapper">
             <div *ngFor="let item of videoList;let i = index" class="swiper-slide">
                 <video [id]="'video'+item?.files?.ID" class="video-js"

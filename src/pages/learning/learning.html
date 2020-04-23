@@ -1,17 +1,7 @@
 <ion-header>
-    <div #scrollTab class="scroll-tab">
-        <div #newContentParent class="news-content parent">
-            <div #tabsParent class="tabs-parent parent">
-                <div #tabsChildren *ngFor="let item of headList;let i = index;" tappable (click)="getSecondType(item,i)"
-                     class="tabs-children">
-                      <span #tabSpan [ngClass]="headType == i?'select':''">
-                                    {{item.name}}
-                      </span>
-                </div>
-                <!--                <span #tips id="tips"></span>-->
-            </div>
-        </div>
-    </div>
+    <ion-navbar>
+        <ion-title>{{title}}</ion-title>
+    </ion-navbar>
 </ion-header>
 <ion-content style="position: relative;">
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -19,7 +9,6 @@
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <scroll-tabs #scrollTabs  [tabsList]="tabsList" (done)="setSubjectID($event)"></scroll-tabs>
     <course-list [list]="productList" (done)="goCourse($event)"></course-list>
     <ion-list text-center style="margin-top: 10rem" *ngIf="productList.length == 0 && page.isLoading">
         <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">

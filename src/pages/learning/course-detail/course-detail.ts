@@ -636,22 +636,6 @@ export class CourseDetailPage {
 
     //课程评价
     getCommentList() {
-        // if (this.teacherList.length > 0) {
-        //     const data1 = {
-        //         pageSize: 5,
-        //         page: 1,
-        //         TopicType: 'teacher',   //teacher  course
-        //         topicID: this.teacherList[0].UserID,
-        //     }
-        //     this.learnSer.GetComment(data1).subscribe(   //讲师评价
-        //         (res) => {
-        //             if (res.data) {
-        //                 this.comment.teacher = res.data.CommentItems;
-        //             }
-        //         }
-        //     );
-        // }
-
         const data2 = {
             pageSize: 1000,
             page: 1,
@@ -661,13 +645,18 @@ export class CourseDetailPage {
         this.learnSer.GetComment(data2).subscribe(  //课程评价
             (res) => {
                 if (res.data) {
+                    res.data.CommentItems.forEach(e => {
+                        if ((e.Score + '').includes('.9')) {
+                            e.Score = Math.ceil(e.Score);
+                        }
+                    })
                     this.comment.course = res.data.CommentItems;
                 }
             }
         );
 
         const data3 = {
-            pageSize: 5,
+            pageSize: 1000,
             page: 1,
             TopicType: 'talk',   //teacher  course
             topicID: this.product.detail.PrId
@@ -732,14 +721,28 @@ export class CourseDetailPage {
     }
 
     //课程讨论
-    goCourseDiscuss() {
-        this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请理性发言，文明用语...',
-            TopicID: this.product.detail.PrId,
-            TopicType: 'talk',
-            title: this.product.detail.TeachTypeName == "直播" ? '直播讨论' : '课程讨论',
-            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
+    openTalk() {
+        let modal = this.modalCtrl.create(CommentComponent, {
+            placeholder: '请输入讨论内容',
+            type: 'talk',
+            teacherList: this.teacherList
         });
+        modal.onDidDismiss(res => {
+            if (res) {
+                const data = {
+                    TopicID: this.product.detail.PrId,
+                    Contents: res.replyContent,
+                    TopicType: 'talk'
+                };
+                this.learnSer.Savetalk(data).subscribe(
+                    (res) => {
+                        this.commonSer.toast('发表成功');
+                        this.getCommentList();
+                    }
+                )
+            }
+        });
+        modal.present();
     }
 
     changeType(item) {

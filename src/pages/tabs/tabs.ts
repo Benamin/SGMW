@@ -18,6 +18,7 @@ import {CommonService} from "../../core/common.service";
 import {Storage} from "@ionic/storage";
 import {PrivacyComponent} from "../../components/privacy/privacy";
 import {VideoListsPage} from "../home/short-video/video-lists/video-lists";
+import {CourseTypePage} from "../learning/course-type/course-type";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -41,7 +42,7 @@ export class TabsPage {
             index: 0
         },
         {
-            root: LearningPage,
+            root: CourseTypePage,
             tabTitle: '在线课程',
             tabIconOn: 'custom-discover-on',
             tabIconOff: 'custom-discover-off',
@@ -54,13 +55,6 @@ export class TabsPage {
             tabIconOff: 'custom-forum-off',
             index: 3
         },
-        // {
-        //     root: CoursePage,
-        //     tabTitle: '我的学习',
-        //     tabIconOn: 'custom-serve-on',
-        //     tabIconOff: 'custom-serve-off',
-        //     index: 4
-        // },
         {
             root: VideoListsPage,
             tabTitle: '视频',
@@ -86,17 +80,18 @@ export class TabsPage {
 
     inputType;
 
+    loading;
+
     constructor(private platform: Platform, private params: NavParams,
                 private global: GlobalData,
                 private loginSer: LoginService,
                 private storage: Storage,
                 private modalCtrl: ModalController,
-                private loading: LoadingController,
+                private loadCtrl: LoadingController,
                 private commonSer: CommonService,
                 private events: Events, private nav: NavController, private tabSer: TabService) {
         this.storage.get('user').then(value => {
-            console.log(value);
-            if (value && !value.MainUserID) {
+            if (value && value.MainUserID) {
                 this.getUserInfo();
                 return
             }
@@ -107,7 +102,7 @@ export class TabsPage {
         this.tabSer.tabChange.subscribe((value) => {
             this.tabParams = value;
             this.myTabs.select(value.index)
-        })
+        });
         this.listenEvents();
     }
 
@@ -115,11 +110,19 @@ export class TabsPage {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
                 if (res.data) {
-                    this.storage.set('user', res.data);
-                    if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
-                        this.userInfo = res.data;
-                        this.inputType = 'submit';
+                    if (!res.data.LoginUserId || res.data.LoginUserId === '00000000-0000-0000-0000-000000000000') {
+                        res.data.LoginUserId = res.data.UserId;
                     }
+                    this.loginSer.GetUserByLoginId({loginUserId: res.data.LoginUserId}).subscribe(
+                        (res) => {
+                            this.storage.set('user', res.data);
+                            if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
+                                this.userInfo = res.data;
+                                if (res.data.CardNo) this.CardNo = res.data.CardNo;
+                                this.inputType = 'submit';
+                            }
+                        }
+                    );
                 }
             })
     }
@@ -172,7 +175,7 @@ export class TabsPage {
         const data = {
             cardNo: this.CardNo
         };
-        const loading = this.loading.create({
+        const loading = this.loadCtrl.create({
             content: '查询身份证号中...'
         });
         loading.present();
@@ -187,8 +190,12 @@ export class TabsPage {
 
     //提交信息
     submitInfo() {
+        this.loading = this.loadCtrl.create({
+            content: '绑定中...'
+        });
+        this.loading.present();
         const data = {
-            LoginUserId: this.userInfo.LoginUserId,
+            LoginUserId: this.userInfo.LoginUserID,
             MobilePhone: this.MobilePhone,
             CardNo: this.CardNo
         };
@@ -197,6 +204,9 @@ export class TabsPage {
                 if (res.data) {
                     this.storage.set('user', res.data);
                     this.getMyInfo();
+                } else {
+                    this.loading.dismiss();
+                    this.commonSer.toast(res.message);
                 }
             }
         )
@@ -216,6 +226,13 @@ export class TabsPage {
             } else {
                 this.commonSer.toast(res2.message);
             }
+            this.loading.dismiss();
         })
+    }
+
+    //重新登录
+    resetLogin() {
+        this.storage.clear();
+        this.nav.setRoot(LoginPage);
     }
 }

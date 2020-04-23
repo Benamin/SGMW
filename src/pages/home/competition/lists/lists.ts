@@ -19,6 +19,7 @@ import {File} from "@ionic-native/file";
 import {Camera} from "@ionic-native/camera";
 import {ShortVideoProvider} from "../../../../providers/short-video/short-video";
 import {CompetitionVideoPage} from "../competition-video/competition-video";
+import {MyShortVideoBoxPage} from "../../../mine/my-short-video-box/my-short-video-box";
 
 
 /**
@@ -252,21 +253,27 @@ export class CompetitionListsPage {
     // 进入视频播放页
     goVideoBox(item, index) {
         if (item.MyRanking && this.page.checkType === this.page.navliArr[2].lable && this.page.navliArr[2].secNav[1].isActived === true) {
+            this.navCtrl.push(MyShortVideoBoxPage, {ID: item.ID});
             return;
         }
-        if (this.page.hasArea) {
+        let i = this.page.competitionLists[0].MyRanking ? index - 1 : index;
+        let index1 = i + 1;
+        let num = index1 % 10;
+        num = num == 0 ? 9 : num - 1;
+        const currentPage = Math.ceil(index1 / 10);
+        if (this.page.navliArr[2].secNav[1].isActived == true) { //大赛排行榜
             this.navCtrl.push(CompetitionVideoPage, {
-                Page: this.page.getParams.Page,
+                Page: currentPage,
                 TopicId: this.page.competitionParam.cid,
                 AreaID: this.page.getParams.AreaID,
-                index: this.page.competitionLists[0].MyRanking ? index - 1 : index
+                index: num
             });
         } else {
-            this.navCtrl.push(VideoBoxPage, {
-                Page: this.page.getParams.Page,
+            this.navCtrl.push(VideoBoxPage, { //所有视频
+                Page: currentPage,
                 searchKey: "",
                 type: this.page.getParams.OrderBy,
-                index: this.page.competitionLists[0].MyRanking ? index - 1 : index
+                index: num
             });
         }
 
@@ -451,6 +458,7 @@ export class CompetitionListsPage {
             // 大赛 帖子
             Lists = Data.AllPostByTopicTag.AllPost;
             this.page.getParams.TotalCount = Data.AllPostByTopicTag.TotalCount;
+            Data.MyTopPost = Object.assign(Data.MyTopPost, { isMy: true })
             Lists.unshift(Data.MyTopPost);
         } else if (!Data.MyTopPost && Data.AllPostByTopicTag && Data.AllPostByTopicTag.AllPost) {
             // 帖子 第一个返回null的情况

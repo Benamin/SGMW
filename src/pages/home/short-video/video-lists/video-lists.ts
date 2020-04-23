@@ -40,11 +40,14 @@ export class VideoListsPage {
 
     // 进入视频播放页
     goVideoBox(index) {
+        let index1 = index + 1;
+        const num = index1 % 10;
+        const currentPage = Math.ceil(index1 / 10);
         this.navCtrl.push(VideoBoxPage, {
-            Page: this.page.Page,
+            Page: currentPage,
             searchKey: this.page.searchKey,
             type: this.type,
-            index:index
+            index: num == 0 ? 9 : num - 1
         });
     }
 

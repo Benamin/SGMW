@@ -158,8 +158,8 @@ export class EditPage {
         });
         uploadLoading.present();
         // const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
-        const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
-        // const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+        // const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
+        const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
         const fileTransfer: FileTransferObject = this.transfer.create();
 
         fileTransfer.upload(file, SERVER_URL + '/Upload/UploadFiles', options).then(
@@ -217,7 +217,7 @@ export class EditPage {
             this.homeSer.PublicShortVideo(data).subscribe(
                 (res) => {
                     if (res.data) {
-                        this.commonSer.toast('短视频上传成功,请至【个人中心-视频】查看短视频转码状态!');
+                        this.commonSer.alert('短视频上传成功,请至【个人中心-视频】查看短视频转码状态，转码完成后会自动发布');
                         this.navCtrl.pop();
                     } else {
                         this.commonSer.alert(res.message);

@@ -1,0 +1,47 @@
+page-course-type {
+  .container-type {
+    display: flex;
+    height: 100%;
+
+    .left {
+      width: 35%;
+
+      p {
+        padding: 10px;
+      }
+    }
+
+    .right {
+      width: 65%;
+      background-color: #fff;
+      padding: 0 10px;
+      height: 100%;
+      overflow-y: scroll;
+
+      .ch {
+        font-weight: bolder;
+        margin: 10px 0;
+      }
+
+      .ch2 {
+        span {
+          border: 1px solid #ddd;
+          border-radius: 10px;
+          padding: 5px 10px;
+          margin-right: 10px;
+          display: inline-block;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .left-actived {
+    background-color: #fff;
+  }
+
+  .right-actived {
+    background: linear-gradient(242deg, #fff7cb 0%, #ffc92d 100%);
+    border: 1px solid #fff !important;
+  }
+}

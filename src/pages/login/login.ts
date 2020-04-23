@@ -11,7 +11,7 @@ import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
 import {
     FWZS_appid, FWZS_client_id, FWZS_SecretKey,
-    JunKe_client_id, JunKe_PRIVATE_KEY,
+    JunKe_client_id, JunKe_PRIVATE_KEY, LastVersion,
     NoUserMsg,
     sgmw_client_id,
     XSZS_appId,
@@ -77,9 +77,9 @@ export class LoginPage {
             inputCode: ''
         },
         xszs: {
-            jxsh: '',
-            czymc: '',
-            pwd: '',
+            jxsh: '000000',
+            czymc: '丁林玲',
+            pwd: 'sgmw50@',
             source: 'TrainingSystem',
             codeRight: '',
             inputCode: ''
@@ -105,6 +105,8 @@ export class LoginPage {
     loading;
 
     RegiID;   //jPush注册ID
+
+    LastVersion = LastVersion;  //是否最新版
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
@@ -457,6 +459,7 @@ export class LoginPage {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
                 if (res.code == 200 && res.data) {
+                    this.storage.set('lastVersion', this.LastVersion);
                     // 获取用户角色 列表  存储用户角色
                     if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
                         this.userAsync(res);

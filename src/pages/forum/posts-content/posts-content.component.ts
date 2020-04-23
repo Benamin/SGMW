@@ -6,16 +6,18 @@ import {CommonService} from "../../../core/common.service";
 import {ViewReplyComponent} from '../view-reply/view-reply.component';
 import {ReportPage} from "../report/report";
 import {Storage} from "@ionic/storage";
+import {DatePipe} from "@angular/common";
 
 declare var Wechat;
 declare let Swiper: any;
-interface IInput{
+
+interface IInput {
     canEdit: boolean,   //能否编辑
     selectedIndex: number,    //默认选择项索引
     images: any[],
     selectedCount?: number    //选中总数
-  }
-  
+}
+
 @Component({
     selector: 'page-posts-content',
     templateUrl: './posts-content.component.html',
@@ -60,16 +62,20 @@ export class PostsContentComponent implements OnInit {
                 private loadCtrl: LoadingController,
                 private actionSheetCtrl: ActionSheetController,
                 private storage: Storage,
+                private datePipe: DatePipe,
                 private photoLibrary: PhotoLibrary,
                 public commonSer: CommonService) {
     }
+
     swiper: any;
     vm: any = {
         canEdit: false,
         selectedIndex: 0,
         images: [],
         selectedCount: 0
-      }
+    };
+
+    isShow = false;
 
     ngOnInit() {
 
@@ -78,6 +84,12 @@ export class PostsContentComponent implements OnInit {
     ionViewDidEnter() {
         this.lidata = this.navParams.get('data');
         this.forum_post_publish();
+        let nowDate = Date.now();
+        if (new Date('2020-04-02 00:00').getTime() < nowDate && nowDate < new Date('2020-04-06 23:59').getTime()) {
+            this.isShow = true;
+        } else {
+            this.isShow = false;
+        }
     }
 
     textareaclick() {
@@ -113,7 +125,7 @@ export class PostsContentComponent implements OnInit {
             }
             let element = res.data;
             element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
-            
+
             if (res.data.Replys && res.code == 200) {
                 res.data.Replys.forEach(element => {
 
@@ -172,20 +184,20 @@ export class PostsContentComponent implements OnInit {
 
     showImgSrc = '';
     showImg = false;
-
+    CloseImgTime = new Date().getTime(); // 关闭 图片时间
     openImg() {
         let Dom = document.querySelectorAll('.inner-html');
         let imgs = Dom[0].querySelectorAll('img');
         // imgs.
-        this.vm.images=[];
+        this.vm.images = [];
         for (let n = 0; n < imgs.length; n++) {
             imgs[n].addEventListener('click', (e: any) => {
-                if(this.showImg){
+                if (this.showImg || new Date().getTime() - this.CloseImgTime < 200) {
                     return
                 }
-                this.swiper=null;
+                this.swiper = null;
                 console.log(e.srcElement.src);
-                this.vm.selectedIndex =n;
+                this.vm.selectedIndex = n;
                 this.showImgSrc = e.srcElement.src;
                 setTimeout(() => {
                     this.initImg();
@@ -203,32 +215,6 @@ export class PostsContentComponent implements OnInit {
         // this.vm=imgs;
         console.log('获取原始', imgs)
         // Dom.addEventListener()
-    }
-
-    isenlarge = false;
-    mousedownTime= new Date().getTime();
-
-    enlarge() {
-        this.isenlarge = true;
-    }
-
-    narrow() {
-        this.isenlarge = false;
-    }
-
-    CloseImg() {
-        this.showImg = false;
-        this.showImgSrc = '';
-    }
-
-    photoLibraryDown() {
-        this.photoLibrary.requestAuthorization({read: true, write: true}).then(() => {
-            this.photoLibrary.saveImage(this.showImgSrc, 'SGMW').then(() => {
-                alert('保存成功')
-            })
-        }, (err) => {
-            this.commonSer.alert(`没有相册权限，请手动设置权限`);
-        })
     }
 
 
@@ -506,7 +492,26 @@ export class PostsContentComponent implements OnInit {
 
         actionSheet.present();
     }
-    initImg(){
+
+    isenlarge = false;
+    mousedownTime = new Date().getTime();
+
+    photoLibraryDown() {
+        this.photoLibrary.requestAuthorization({read: true, write: true}).then(() => {
+            this.photoLibrary.saveImage(this.showImgSrc, 'SGMW').then(() => {
+                this.commonSer.alert('保存成功');
+            })
+        }, (err) => {
+            this.commonSer.alert(`没有相册权限，请手动设置权限`);
+        })
+    }
+
+    CloseImg() {
+        this.showImg = false;
+        this.showImgSrc = '';
+    }
+
+    initImg() {
         this.swiper = new Swiper(this.panel.nativeElement, {
             initialSlide: this.vm.selectedIndex,//初始化显示第几个
             zoom: true,//双击,手势缩放
@@ -516,25 +521,26 @@ export class PostsContentComponent implements OnInit {
             lazyLoadingOnTransitionStart: true,//    lazyLoadingInPrevNext : true,
             pagination: '.swiper-pagination',//分页器
             paginationType: 'fraction',//分页器类型
-            on:{
-                click:(e) =>{
-                    // window.event? window.event.cancelBubble = true : e.stopPropagation();
+            on: {
+                // tap:(e) =>{
+                click: (e) => {
                     setTimeout(() => {
-                        this.showImg=false;
-                    }, 20);
+                        this.CloseImgTime = new Date().getTime();
+                        this.showImg = false;
+                    }, 10);
                 },
-                slideChange: ()=>{
-                if(this.swiper){
-                  let activeIndex = this.swiper.activeIndex;
-                  if(activeIndex < this.vm.images.length && activeIndex >= 0){
-                    this.vm.selectedIndex =  activeIndex;
-                    this.showImgSrc=this.vm.images[activeIndex];
-                    console.log('滑动量')
-                  }
+                slideChange: () => {
+                    if (this.swiper) {
+                        let activeIndex = this.swiper.activeIndex;
+                        if (activeIndex < this.vm.images.length && activeIndex >= 0) {
+                            this.vm.selectedIndex = activeIndex;
+                            this.showImgSrc = this.vm.images[activeIndex];
+                            console.log('滑动量')
+                        }
+                    }
                 }
-              }
             }
-          })
-      }
+        })
+    }
 
 }

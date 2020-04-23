@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>课程分类</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="container-type">
+        <div class="left">
+            <p (click)="changeType(item)" [ngClass]="{'left-actived':item.value == rightList.value}"
+               *ngFor="let item of typeList">{{item.label}}</p>
+        </div>
+        <div class="right">
+            <div *ngFor="let ch of rightList.children">
+                <p class="ch">{{ch.label}}</p>
+                <p class="ch2">
+                    <span [ngClass]="{'right-actived':ch.value == rightActived}" (click)="goToList(ch.value,ch.label)">全部</span>
+                    <span [ngClass]="{'right-actived':ch2.value == rightActived}" *ngFor="let ch2 of ch.children"
+                          (click)="goToList(ch2.value,ch2.label)">{{ch2.label}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</ion-content>

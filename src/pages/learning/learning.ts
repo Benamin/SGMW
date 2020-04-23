@@ -33,24 +33,18 @@ export class LearningPage {
         isLoading: false,
     };
     loading;
+    title;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private logSer: LogService,
                 private learnSer: LearnService, private homeSer: HomeService, private storage: Storage) {
+        this.page.SubjectID = this.navParams.get('SubjectID');
+        this.title = this.navParams.get('title');
     }
 
     ionViewDidLoad() {
         this.logSer.visitLog('zxkc');
-        this.storage.get('course').then((value => {
-            if (value) {   //其他路径转入
-                this.page.SubjectID = value.item.ID;
-                this.headType = value.headType;
-                this.getOneType(this.headType);
-            } else {  //tab栏进入
-                this.headType = 'all';
-                this.getOneType(0);
-            }
-        }))
+        this.getProduct();
     }
 
     doRefresh(e) {
@@ -121,6 +115,8 @@ export class LearningPage {
     }
 
     getProduct() {
+        this.loading = this.loadCtrl.create();
+        this.loading.present();
         const data = {
             SubjectID: this.page.SubjectID,
             page: this.page.page,
