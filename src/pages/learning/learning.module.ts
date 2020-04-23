@@ -14,6 +14,7 @@ import {CommentListPage} from "./comment-list/comment-list";
 import {FocusCoursePage} from "./focus-course/focus-course";
 import {InnerCoursePage} from "./inner-course/inner-course";
 import {CourseFilePage} from "./course-file/course-file";
+import {CourseTypePage} from "./course-type/course-type";
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import {CourseFilePage} from "./course-file/course-file";
         FocusCoursePage,
         InnerCoursePage,
         CourseFilePage,
+        CourseTypePage
     ],
     imports: [
         PdfViewerModule,
@@ -46,6 +48,7 @@ import {CourseFilePage} from "./course-file/course-file";
         FocusCoursePage,
         InnerCoursePage,
         CourseFilePage,
+        CourseTypePage
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
