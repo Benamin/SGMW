@@ -1,7 +1,7 @@
 <ion-content style="background-color: #ffffff">
   <div class="qIndex">
     <p class="title">
-      共{{list.length}}题
+      共做{{list.length}}题
     </p>
     <ion-row>
       <ion-col col-3 *ngFor="let item of list;let i = index" tappable (click)="chooseItem(item,i)">
