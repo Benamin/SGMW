@@ -308,16 +308,11 @@ export class MyApp {
 
     //用户是否同步
     userAsync(res) {
-        if (res.data.UserId == '00000000-0000-0000-0000-000000000000') {  //用户不存在
-            this.rootPage = LoginPage;
-            this.commonSer.alert(this.noUserMsg);
-        } else {   //用户存在
-            this.storage.set('user', res.data);
-            this.storage.set('lastVersion', this.LastVersion);
-            timer(300).subscribe(e => {
-                this.rootPage = TabsPage;
-            })
-        }
+        this.storage.set('user', res.data);
+        this.storage.set('lastVersion', this.LastVersion);
+        timer(300).subscribe(e => {
+            this.rootPage = TabsPage;
+        })
     }
 
     //检测版本
