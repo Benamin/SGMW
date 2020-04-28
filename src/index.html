@@ -38,7 +38,7 @@
     <link href="assets/videojs/video-js.min.css" rel="stylesheet" />
     <link href="assets/css/swiper.min.css" rel="stylesheet" />
 
-    
+
   </head>
   <body>
     <!-- Ionic's root component and where the app will load -->
@@ -61,19 +61,19 @@
     <script>
       new WOW().init();
 
-      (function (doc, win) {
-        var docEl = doc.documentElement,
-          resizeEvt =
-            "orientationchange" in window ? "orientationchange" : "resize",
-          recalc = function () {
-            var clientWidth = docEl.clientWidth;
-            if (!clientWidth) return;
-            docEl.style.fontSize = clientWidth / 37.5 + "px";
-          };
-        if (!doc.addEventListener) return;
-        win.addEventListener(resizeEvt, recalc, false);
-        doc.addEventListener("DOMContentLoaded", recalc, false);
-      })(document, window);
+      // (function (doc, win) {
+      //   var docEl = doc.documentElement,
+      //     resizeEvt =
+      //       "orientationchange" in window ? "orientationchange" : "resize",
+      //     recalc = function () {
+      //       var clientWidth = docEl.clientWidth;
+      //       if (!clientWidth) return;
+      //       docEl.style.fontSize = clientWidth / 37.5 + "px";
+      //     };
+      //   if (!doc.addEventListener) return;
+      //   win.addEventListener(resizeEvt, recalc, false);
+      //   doc.addEventListener("DOMContentLoaded", recalc, false);
+      // })(document, window);
     </script>
   </body>
 </html>

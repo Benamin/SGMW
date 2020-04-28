@@ -94,6 +94,9 @@ export class CommentByCourseComponent {
     }
 
     submit() {
+        if (!this.btnDisable) {
+            return;
+        }
         if (!this.replyContent || this.replyContent.trim() == "") {
             this.commonSer.toast('请输入评价!');
             return

@@ -62,7 +62,7 @@ export class JobLevelPage {
                 //     res.data.Items[i].OverPercentage = 34;
                 // } // 测试数据
                 this.page.PositionName = res.data.PositionName
-                this.page.jobLevelList = this.tranTimeArea(res.data.Items);
+                this.page.jobLevelList = (res.data.Items);
                 this.page.TotalCount = res.data.TotalCount;
                 this.page.isLoad = true;
                 loading.dismiss();

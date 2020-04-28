@@ -81,6 +81,7 @@ export class TabsPage {
     inputType;
 
     loading;
+    disBtn = true;
 
     constructor(private platform: Platform, private params: NavParams,
                 private global: GlobalData,
@@ -190,6 +191,9 @@ export class TabsPage {
 
     //提交信息
     submitInfo() {
+        if (!this.disBtn) {
+            return
+        }
         this.loading = this.loadCtrl.create({
             content: '绑定中...'
         });
@@ -199,6 +203,7 @@ export class TabsPage {
             MobilePhone: this.MobilePhone,
             CardNo: this.CardNo
         };
+        this.disBtn = false;
         this.loginSer.UpdateUserByCardNo(data).subscribe(
             (res) => {
                 if (res.data) {
@@ -214,6 +219,7 @@ export class TabsPage {
 
     getMyInfo() {
         this.loginSer.GetMyInfo().subscribe(res2 => {
+            this.disBtn = true;
             if (res2.data) {
                 this.commonSer.toast('保存身份信息成功');
                 this.inputType = null;

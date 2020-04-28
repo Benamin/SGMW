@@ -6,21 +6,24 @@
 <ion-content>
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingText="下拉刷新"
-                                refreshingSpinner="bubbles">
+                               refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
     <ul class="nav-type">
-        <li *ngFor="let item of navliArr" (click)="changeCheckType(item.lable)" [ngClass]="{'actived': checkType == item.lable}">
+        <li *ngFor="let item of navliArr" (click)="changeCheckType(item.lable)"
+            [ngClass]="{'actived': checkType == item.lable}">
             <div>{{ item.text }}</div>
             <span class="item-line"></span>
         </li>
     </ul>
 
-    <div *ngIf="navliArr && checkType === navliArr[0].lable" style="display: flex;align-items: flex-end;padding: 0 1rem;height: 4rem;">
+    <div *ngIf="navliArr && checkType === navliArr[0].lable"
+         style="display: flex;align-items: flex-end;padding: 0 1rem;height: 4rem;">
         <div class="search-inp">
             <img class="search-icon" src="./assets/imgs/train/search@2x.png">
             <form class="input">
-                <ion-input [(ngModel)]="page.Search" placeholder="搜索课程" type="search" (keypress)="search($event)" (focus)="showKey()" autocomplete='off' [ngModelOptions]="{standalone: true}"></ion-input>
+                <ion-input [(ngModel)]="page.Search" placeholder="搜索课程" type="search" (keypress)="search($event)"
+                           (focus)="showKey()" autocomplete='off' [ngModelOptions]="{standalone: true}"></ion-input>
             </form>
         </div>
         <div class="search-btn">
@@ -29,7 +32,8 @@
     </div>
 
     <div class="job-level-text">
-        <img src="./assets/imgs/home/zhiwei@2x.png" style="margin-left: 1.6rem;margin-right: 0.6rem;width: 1.5rem;height: 1.4rem;">
+        <img src="./assets/imgs/home/zhiwei@2x.png"
+             style="margin-left: 1.6rem;margin-right: 0.6rem;width: 1.5rem;height: 1.4rem;">
         <span>当前职位：{{page.PositionName}}</span>
     </div>
 
@@ -40,9 +44,11 @@
             <img [src]="item.CoverUrl || './assets/imgs/home/xbj.jpg'">
             <!--  -->
             <div class="lists-item-info">
-                <div class="lists-item-title" [ngClass]="{'short': navliArr && checkType === navliArr[2].lable,'long': navliArr && checkType !== navliArr[2].lable}">{{ item.Title }}</div>
-                <div class="item-timer" *ngIf="navliArr && checkType === navliArr[2].lable;else other_content" [ngStyle]="{'bottom': '2.7rem'}">{{item.timeArea}}</div>
-                <ng-template #other_content class="item-timer">{{item.timeArea}}</ng-template>
+                <div class="lists-item-title"
+                     [ngClass]="{'short': navliArr && checkType === navliArr[2].lable,'long': navliArr && checkType !== navliArr[2].lable}">{{ item.Title }}</div>
+                <div class="item-timer" *ngIf="navliArr && checkType === navliArr[2].lable;else other_content"
+                     [ngStyle]="{'bottom': '2.7rem'}">{{item.StartTime | date:'yyyy-MM-dd'}}至{{item.EndTime | date:'yyyy-MM-dd'}}</div>
+                <ng-template #other_content class="item-timer">{{item.StartTime | date:'yyyy-MM-dd'}}至{{item.EndTime | date:'yyyy-MM-dd'}}</ng-template>
                 <div *ngIf="navliArr && checkType !== navliArr[2].lable" class="lists-item-sign-num">
                     <img src="./assets/imgs/home/sign-num.png">
                     <span>{{item.SignInCount}}</span>人报名
@@ -50,7 +56,8 @@
 
                 <div *ngIf="navliArr && checkType === navliArr[2].lable" class="lists-item-progress">
                     <div class="progress—text">认证进度：{{item.OverPercentage}}%</div>
-                    <div class="progress—box"><span [ngStyle]="{'width': (item.OverPercentage / 100 * 24) + 'rem'}"></span></div>
+                    <div class="progress—box"><span
+                            [ngStyle]="{'width': (item.OverPercentage / 100 * 24) + 'rem'}"></span></div>
                 </div>
             </div>
         </div>
