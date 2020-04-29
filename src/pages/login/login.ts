@@ -79,7 +79,7 @@ export class LoginPage {
         xszs: {
             jxsh: '',
             czymc: '',
-            pwd: '@',
+            pwd: '',
             source: 'TrainingSystem',
             codeRight: '',
             inputCode: ''

@@ -149,7 +149,7 @@ export class VideojsComponent implements OnDestroy {
     @Input() set GetVideo(videoInfo) {
         if (this.video && videoInfo) {
             this.isPlay = true;
-            this.video.src({type: 'application/vnd.ms-sstr+xml', src: videoInfo.fileUrl});
+            this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
             this.video.removeChild('TitleBar');
             // this.video.addChild(`danmu`,{text: `${videoInfo.DisplayName}`});
