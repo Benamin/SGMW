@@ -1,8 +1,14 @@
 page-look-exam {
-  .submit-score{
-    img{
+  .submit-score {
+    img {
       width: 25px;
       height: 25px;
     }
+  }
+
+  .noDone {
+    padding: 20px 30px;
+    font-size: 14px;
+    color: red;
   }
 }
