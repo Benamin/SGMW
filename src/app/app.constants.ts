@@ -3,8 +3,8 @@ let env = 'localhost';
 // let env = 'uat';
 // let env = 'prod';
 
-// let keyEnv = 'dev';
-let keyEnv = 'prod';
+let keyEnv = 'dev';
+// let keyEnv = 'prod';
 
 // /***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';
@@ -28,7 +28,7 @@ export const SERVER_HTTP_URL = env === 'localhost' ? SERVER_HTTP_URL_DEV : SERVE
 export const JunKe_HTTP_URL_LOCALHOST = "/JunKeAPI";  //代理地址
 export const JunKe_HTTP_URL_DEV = "https://nbjtest.sgmw.com.cn";   //测试
 export const JunKe_HTTP_URL_PROD = "https://nbj.sgmw.com.cn";   //生产
-export const JunKe_HTTP_URL = (env == 'localhost' ? JunKe_HTTP_URL_LOCALHOST : (env == ('dev' || 'uat') ? JunKe_HTTP_URL_DEV : JunKe_HTTP_URL_PROD));
+export const JunKe_HTTP_URL = (env == 'localhost' ? JunKe_HTTP_URL_LOCALHOST : (env == 'dev' || env == 'uat') ? JunKe_HTTP_URL_DEV : JunKe_HTTP_URL_PROD);
 
 //秘钥
 //开发环境
@@ -48,7 +48,7 @@ export const JunKe_client_id = "41BC3798-5392-49A4-A191-0891F322920B";
 export const XSZS_HTTP_URL_LOCALHOST = "/XSZSAPI";  //代理地址
 export const XSZS_HTTP_URL_DEV = "http://112.124.23.230:8010/API";  //测试
 export const XSZS_HTTP_URL_PROD = "https://promotion.sgmw.com.cn/API";  //生产
-export let XSZS_HTTP_URL = (env == 'localhost' ? XSZS_HTTP_URL_LOCALHOST : (env == ('dev' || 'uat') ? XSZS_HTTP_URL_DEV : XSZS_HTTP_URL_PROD));
+export let XSZS_HTTP_URL = (env == 'localhost' ? XSZS_HTTP_URL_LOCALHOST : ((env == 'dev' || env == 'uat') ? XSZS_HTTP_URL_DEV : XSZS_HTTP_URL_PROD));
 
 //appid  登录销售助手接口使用
 export const XSZS_appId_DEV = "npuehtqbtp1puya9obgb";  //测试
@@ -67,7 +67,7 @@ export const XSZS_client_id = "138B0798-8D43-4588-B291-DB8545865C8A";
 /***服务助手***/
 export const FWZS_HTTP_URL_LOCALHOST = "FWZSAPI";
 export const FWZS_HTTP_URL_PROD = "https://sgmwsa.shaoxingzhuoyue.com/api";
-export const FWZS_HTTP_URL = env === ('localhost' || 'dev' || 'uat') ? FWZS_HTTP_URL_LOCALHOST : FWZS_HTTP_URL_PROD;
+export const FWZS_HTTP_URL = (env === 'localhost') || (env === 'dev') || (env === 'uat') ? FWZS_HTTP_URL_LOCALHOST : FWZS_HTTP_URL_PROD;
 
 //appid
 export const FWZS_appid = "52492bf5765840b192fac6c7ca3d10c8";
