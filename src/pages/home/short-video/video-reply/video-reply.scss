@@ -78,7 +78,7 @@ page-video-reply {
     }
   }
 
-  .comment-btn{
+  .comment-btn {
     color: #999999;
     font-size: 12px;
     margin-left: 10px;
@@ -106,7 +106,8 @@ page-video-reply {
       height: 20px;
     }
   }
-  .comment-list + .comment-list{
+
+  .comment-list + .comment-list {
     margin-top: 6px;
   }
 
@@ -127,6 +128,7 @@ page-video-reply {
 
   .item-content {
     padding-left: 10px;
+    width: 90%;
 
     > p:first-child {
       color: #888;
