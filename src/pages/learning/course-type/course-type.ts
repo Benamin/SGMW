@@ -61,13 +61,16 @@ export class CourseTypePage {
     }
 
     search(event) {
-        if (event && event.keyCode == 13) {
+        if ((event && event.keyCode == 13)) {
             this.navCtrl.push(LearningPage, {keyWord: this.keyWord});
             //搜索日志
             if (this.keyWord) this.logSer.keyWordLog(this.keyWord);
+        } else {
+
         }
     }
 
-    clear() {
+    gotoListAll() {
+        this.navCtrl.push(LearningPage, {keyWord: ''});
     }
 }

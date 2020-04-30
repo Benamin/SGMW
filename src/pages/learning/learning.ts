@@ -45,6 +45,7 @@ export class LearningPage {
             this.title = '课程';
         } else {
             this.title = this.navParams.get('title');
+            this.keyWord = '';
         }
     }
 
