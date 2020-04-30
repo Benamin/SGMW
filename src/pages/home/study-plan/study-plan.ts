@@ -52,10 +52,10 @@ export class StudyPlanPage {
     }
 
     ionViewDidLoad() {
-        if(this.navParams.get('CrateTime') && this.navParams.get('CrateTime').length > 0) {
+        if(this.navParams.get('PlanTime') && this.navParams.get('PlanTime').length > 0) {
 
-            let CrateTime = this.navParams.get('CrateTime');
-            let YMDArr = CrateTime.split(' ')[0].split('-');
+            let PlanTime = this.navParams.get('PlanTime');
+            let YMDArr = PlanTime.split(' ')[0].split('-');
             let y = YMDArr[0];
             let m = YMDArr[1];
             let d = YMDArr[2];

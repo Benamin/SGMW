@@ -88,7 +88,7 @@ export class NotificationPage {
         this.mineSer.GetNewsById(data).subscribe(
             (res) => {
                 // this.detail = res.data;
-                this.navCtrl.push(StudyPlanPage, { CrateTime: item.CrateTime });
+                this.navCtrl.push(StudyPlanPage, { PlanTime: item.PlanTime });
                 this.page.isLoad = true;
             }
         )
