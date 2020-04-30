@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {LearnService} from "../learn.service";
 import {LearningPage} from "../learning";
+import {Keyboard} from "@ionic-native/keyboard";
+import {LogService} from "../../../service/log.service";
 
 
 @Component({
@@ -14,7 +16,11 @@ export class CourseTypePage {
     rightList = [];
     rightActived;
 
+    keyWord;
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
+                private keyboard: Keyboard,
+                public logSer: LogService,
                 private loadCtrl: LoadingController,
                 private learnSer: LearnService) {
     }
@@ -50,4 +56,18 @@ export class CourseTypePage {
         this.navCtrl.push(LearningPage, {SubjectID: SubjectID, title: label});
     }
 
+    showKey() {
+        this.keyboard.show();
+    }
+
+    search(event) {
+        if (event && event.keyCode == 13) {
+            this.navCtrl.push(LearningPage, {keyWord: this.keyWord});
+            //搜索日志
+            if (this.keyWord) this.logSer.keyWordLog(this.keyWord);
+        }
+    }
+
+    clear() {
+    }
 }

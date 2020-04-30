@@ -1,4 +1,73 @@
 page-course-type {
+  .back-button.show-back-button {
+    display: none;
+  }
+
+  .text-input-ios {
+    margin: 7px 8px 7px 0;
+    padding: 0;
+    width: calc(100% - 8px);
+  }
+
+  ion-input, ion-textarea {
+    color: #333;
+    background-color: #fff;
+    border-radius: 100px;
+    padding-left: 35px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+    border: none;
+  }
+
+  .searchToolBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    box-sizing: border-box;
+  }
+
+  .toolbar-background-ios {
+    border-bottom: none;
+  }
+
+  .search-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    margin-left: 5px;
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 2px;
+    left: 30px;
+    color: #333;
+    z-index: 999;
+    font-size: 2.5rem;
+  }
+
+  .clear {
+    color: #ffffff;
+    width: 5rem;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    margin-right: 10px;
+  }
+
+  input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+
   .container-type {
     display: flex;
     height: 100%;
@@ -7,7 +76,7 @@ page-course-type {
       width: 35%;
 
       p {
-        padding: 10px;
+        padding: 15px;
       }
     }
 
@@ -21,16 +90,25 @@ page-course-type {
       .ch {
         font-weight: bolder;
         margin: 10px 0;
+        height: 25px;
+        line-height: 25px;
+
+        ion-icon {
+          vertical-align: middle;
+          margin-left: 5px;
+        }
       }
 
       .ch2 {
         span {
           border: 1px solid #ddd;
           border-radius: 10px;
-          padding: 5px 10px;
+          padding: 0px 10px;
           margin-right: 10px;
           display: inline-block;
           margin-bottom: 10px;
+          height: 32px;
+          line-height: 30px;
         }
       }
     }
@@ -38,6 +116,18 @@ page-course-type {
 
   .left-actived {
     background-color: #fff;
+    font-weight: bolder;
+    position: relative;
+  }
+
+  .left-actived::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: #ffc92d;
   }
 
   .right-actived {

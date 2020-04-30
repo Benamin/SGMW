@@ -34,12 +34,18 @@ export class LearningPage {
     };
     loading;
     title;
+    keyWord;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private logSer: LogService,
                 private learnSer: LearnService, private homeSer: HomeService, private storage: Storage) {
         this.page.SubjectID = this.navParams.get('SubjectID');
-        this.title = this.navParams.get('title');
+        this.keyWord = this.navParams.get('keyWord');
+        if (this.keyWord) {
+            this.title = '课程';
+        } else {
+            this.title = this.navParams.get('title');
+        }
     }
 
     ionViewDidLoad() {
@@ -118,6 +124,7 @@ export class LearningPage {
         this.loading = this.loadCtrl.create();
         this.loading.present();
         const data = {
+            title: this.keyWord,
             SubjectID: this.page.SubjectID,
             page: this.page.page,
             pageSize: this.page.pageSize,
