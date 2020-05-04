@@ -119,4 +119,7 @@
     <plugin name="cordova-plugin-photo-library" spec="git+https://github.com/nilebma/cordova-plugin-photo-library.git">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <engine name="browser" spec="^6.0.0" />
+    <engine name="android" spec="^8.0.0" />
+    <engine name="ios" spec="^5.1.1" />
 </widget>
