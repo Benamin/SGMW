@@ -513,14 +513,17 @@ export class PostsContentComponent implements OnInit {
 
     initImg() {
         this.swiper = new Swiper(this.panel.nativeElement, {
+            direction: 'horizontal',
             initialSlide: this.vm.selectedIndex,//初始化显示第几个
             zoom: true,//双击,手势缩放
             loop: false,//循环切换
             // loopAdditionalSlides :3,
             lazyLoading: true,//延迟加载
             lazyLoadingOnTransitionStart: true,//    lazyLoadingInPrevNext : true,
-            pagination: '.swiper-pagination',//分页器
-            paginationType: 'fraction',//分页器类型
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'fraction'
+            },
             on: {
                 // tap:(e) =>{
                 click: (e) => {

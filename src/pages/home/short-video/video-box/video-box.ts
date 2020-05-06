@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {IonicPage, LoadingController, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
-import Swiper from 'swiper';
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
 import {CommonService} from "../../../../core/common.service";
@@ -8,6 +7,7 @@ import {VideoReplyPage} from "../video-reply/video-reply";
 
 declare let videojs: any;
 declare var Wechat;
+declare let Swiper: any;
 
 @Component({
     selector: 'page-video-box',

@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {IonicPage, LoadingController, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
-import Swiper from 'swiper';
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home/home.service";
 import {CommonService} from "../../../core/common.service";

@@ -189,7 +189,6 @@ export class DoTestPage {
             const data = {
                 submitType: status
             };
-            console.log(this.exam);
             this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
@@ -212,6 +211,10 @@ export class DoTestPage {
         this.exam.QnAInfos.forEach(e => {
             if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
         });
+        const loading = this.loadCtrl.create({
+            content: '答题时间结束，提交答案...'
+        });
+        loading.present();
         const data = {
             submitType: 3
         };
@@ -223,6 +226,7 @@ export class DoTestPage {
                 } else {
                     this.commonSer.toast(res.Message);
                 }
+                loading.dismiss();
             }
         )
     }
