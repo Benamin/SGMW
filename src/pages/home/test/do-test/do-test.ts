@@ -212,7 +212,7 @@ export class DoTestPage {
             if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
         });
         const loading = this.loadCtrl.create({
-            content: '答题时间结束，提交答案...'
+            content: '答题时间结束,提交答案...'
         });
         loading.present();
         const data = {
