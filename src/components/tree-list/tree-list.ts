@@ -6,9 +6,7 @@ import {ModalController, NavController} from "ionic-angular";
 import {FileService} from "../../core/file.service";
 import {CommonService} from "../../core/common.service";
 import {timer} from "rxjs/observable/timer";
-import {ExamPage} from "../../pages/mine/exam/exam";
 import {LearnService} from "../../pages/learning/learn.service";
-import {DownloadFileService} from "../../core/downloadFile.service";
 import {DownloadFileProvider} from "../../providers/download-file/download-file";
 import {LookExamPage} from "../../pages/mine/look-exam/look-exam";
 import {DoExamPage} from "../../pages/mine/do-exam/do-exam";
@@ -33,8 +31,7 @@ export class TreeListComponent {
                 private navCtrl: NavController,
                 private mineSer: MineService,
                 private global: GlobalData,
-                private downloadPro: DownloadFileProvider,
-                private downloadSer: DownloadFileService) {
+                private downloadPro: DownloadFileProvider) {
         timer(10).subscribe(
             (res) => {
                 this.treeList.forEach(e => e.show = true);
@@ -137,7 +134,7 @@ export class TreeListComponent {
     saveProcess(file) {
         const data = {
             EAttachmentID: file.ID,
-            postsCertID:this.global.PostsCertID
+            postsCertID: this.global.PostsCertID
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {

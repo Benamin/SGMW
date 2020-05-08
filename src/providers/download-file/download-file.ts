@@ -1,11 +1,15 @@
 import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {FileTransfer, FileTransferObject} from "@ionic-native/file-transfer";
 import {AlertController, LoadingController, Platform} from "ionic-angular";
 import {File} from "@ionic-native/file";
 import {CommonService} from "../../core/common.service";
 import {Storage} from "@ionic/storage";
 import {PhotoLibrary} from "@ionic-native/photo-library";
+
+/**
+ * 1、android下载文件 2、IOS下载文件
+ */
 
 @Injectable()
 export class DownloadFileProvider {
@@ -17,6 +21,7 @@ export class DownloadFileProvider {
                 public transfer: FileTransfer,
                 public alertCtrl: AlertController,
                 private storage: Storage,
+                private zone: NgZone,
                 private photoLibrary: PhotoLibrary,
                 public loadingCtrl: LoadingController) {
         console.log('Hello DownloadFileProvider Provider');
@@ -58,7 +63,9 @@ export class DownloadFileProvider {
         fileTransfer.onProgress(listener => {
             let per = <any>(listener.loaded / listener.total) * 100;
             per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2);
-            alert.setMessage(`下载中...${per}%`);
+            this.zone.run(() => {
+                alert.setMessage(`下载中...${per}%`);
+            })
         })
 
     }
@@ -89,7 +96,9 @@ export class DownloadFileProvider {
             fileTransfer.onProgress(listener => {
                 let per = <any>(listener.loaded / listener.total) * 100;
                 per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2);
-                alert.setMessage(`下载中...${per}%`);
+                this.zone.run(() => {
+                    alert.setMessage(`下载中...${per}%`);
+                })
             })
         }, (err) => {
             this.commonSer.alert(`没有相册权限，请手动设置权限`);

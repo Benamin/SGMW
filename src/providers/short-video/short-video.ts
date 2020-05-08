@@ -9,6 +9,10 @@ import {EditPage} from "../../pages/home/competition/edit/edit";
 import {Camera} from "@ionic-native/camera";
 import {CommonService} from "../../core/common.service";
 
+/**
+ * 1、录制视频 2、上传本地视频
+ */
+
 @Injectable()
 export class ShortVideoProvider {
 
