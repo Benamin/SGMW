@@ -1,0 +1,140 @@
+page-talk-exam {
+  .scroll-content {
+    background-color: #fff;
+  }
+
+  .talk-exam {
+    padding: 25px 15px;
+    margin-bottom: 80px;
+  }
+
+  .content-textarea {
+    margin-top: 10px;
+    padding: 10px;
+    min-height: 100px;
+    width: 100%;
+    border: 1px solid #f2f2f2;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+  }
+
+  .bottom-start {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #fff;
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.16);
+    border-top: 1px solid #ddd;
+
+    div.submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80%;
+      margin: 0 auto;
+
+      span {
+        width: 50%;
+        text-align: center;
+        margin: 9px auto;
+        height: 32px;
+        line-height: 32px;
+        background: linear-gradient(216deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+        box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
+        border-radius: 16px;
+      }
+
+      span + span {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .exam-item {
+    > P {
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+
+  .share {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-checkbox {
+      margin-right: 7px;
+    }
+  }
+
+  .checkbox-ios .checkbox-checked {
+    border-color: #f1cb5e;
+    background-color: #f1cb5e;
+    width: 18px;
+    height: 18px;
+  }
+
+  .checkbox-ios .checkbox-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .checkbox-ios .checkbox-checked .checkbox-inner {
+    border-color: #333333;
+    width: 5px;
+    height: 10px;
+    left: 6px;
+    top: 1px;
+  }
+
+  .score {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
+    z-index: 999;
+
+    .content {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      width: 60%;
+      background-color: #fff;
+      border-radius: 10px;
+      text-align: center;
+      padding: 15px;
+
+      img {
+        position: absolute;
+        top: -1.5rem;
+        left: 42%;
+        width: 2.5rem;
+        background-color: #fff;
+        border-radius: 50%;
+      }
+
+      p {
+        margin-bottom: 15px;
+      }
+
+
+      .number {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      div {
+        background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+        border-radius: 100px;
+        margin-top: 10px;
+        padding: 5px 0;
+      }
+    }
+  }
+}

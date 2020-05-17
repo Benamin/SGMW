@@ -148,9 +148,6 @@ export class DoExamPage {
                 content: `${msg}中...`
             });
             loading.present();
-            this.exam.QnAInfos.forEach(e => {
-                if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
-            });
             const data = {
                 submitType: status,
                 postsCertID: this.global.PostsCertID

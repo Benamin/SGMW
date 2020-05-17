@@ -1,0 +1,44 @@
+<!--
+  讨论类作业
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>讨论类作业</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="talk-exam">
+        <div class="exam-item" *ngFor="let item of exam.QnAInfos">
+            <p>{{item.QContent}}</p>
+            <textarea class="content-textarea" [(ngModel)]="item.StuAnswer" placeholder="请输入你的答案..."></textarea>
+        </div>
+    </div>
+    <div class="bottom-start" ion-fixed>
+        <div class="submit">
+            <span (click)="submit(2)">暂存</span>
+            <span (click)="submit(3)">提交</span>
+        </div>
+        <div class="share">
+            <ion-checkbox [(ngModel)]="isrelease"></ion-checkbox>
+            共享到讨论区，其他学员将会看到您的作业结果
+        </div>
+    </div>
+</ion-content>
+<div *ngIf="score.show" class="score" tappable (click)="close($event)">
+    <div class="content">
+        <img src="./assets/imgs/mine/exam-submit.png" alt="">
+        <p>作业提交成功</p>
+        <div>确定</div>
+    </div>
+</div>
+<div *ngIf="score.isDone" class="score" tappable (click)="closeDone($event)">
+    <div class="content" style="width: 60%">
+        <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
+        <p>温馨提示</p>
+        <p class="number  test">
+            题目未完成，无法提交作业，请完成全部题目。
+        </p>
+        <div>我知道了</div>
+    </div>
+</div>

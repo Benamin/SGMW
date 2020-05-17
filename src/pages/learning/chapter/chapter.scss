@@ -54,15 +54,15 @@ page-chapter {
   }
 
   .yes, .no {
-    float: right;
-    font-size: 13px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
     display: flex;
     align-items: center;
 
     img {
-      width: 14px;
-      height: 14px;
-      margin-right: 5px;
+      width: 18px;
+      height: 18px;
     }
   }
 
@@ -89,5 +89,82 @@ page-chapter {
     width: 0.25rem;
     height: 100%;
     background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+  }
+
+  .col-item {
+    padding: 10px;
+
+    p {
+      margin-top: 12px;
+      text-align: center;
+      overflow: hidden;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+
+    }
+  }
+
+  .record-item {
+    position: relative;
+    height: 142px;
+    box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
+    .deleIcon {
+      position: absolute;
+      top: 5px;
+      right: 15px;
+      font-size: 18px;
+      color: #e93c46;
+    }
+  }
+
+  .file-type {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    line-height: 14px;
+    padding: 2px 5px;
+    background: rgba(99, 158, 238, 1);
+  }
+
+  .jobType {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 35px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 4px;
+    opacity: 0.99;
+    color: #FFFFFF;
+    font-size: 12px;
+    display: inline-block;
+    transform: scale(0.8);
+    text-align: center;
+  }
+
+  .shipin_zy {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 56px;
+  }
+
+  .green {
+    background: rgba(80, 183, 144, 1);
+  }
+
+  .blue {
+    background: rgba(101, 160, 239, 1);
   }
 }

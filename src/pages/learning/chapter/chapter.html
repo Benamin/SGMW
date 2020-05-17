@@ -14,7 +14,7 @@
             </div>
             <div>{{item.UserName}}</div>
             <div>
-                上课时间：{{item.StartTime | date:"yyyy-MM-dd"}}至{{item.EndTime | date:"yyyy-MM-dd"}}
+                上课时间:{{item.StartTime | date:"yyyy-MM-dd"}}至{{item.EndTime | date:"yyyy-MM-dd"}}
             </div>
         </div>
         <div *ngIf="item.children && item.show">
@@ -25,21 +25,26 @@
             ></tree-list>
         </div>
         <ng-container *ngIf="IsBuy">
-            <div *ngFor="let itemExam of item.tags">
-                <p tappable
-                   (click)="handleExam(item,itemExam,$event)">
-                    <span [ngStyle]="{'margin-left':(item.NodeLevel*5)+'px'}" class="exam">
-                        {{itemExam.label | stringSlice:15:15}}
-                    </span>
-                    <span class="no" *ngIf="itemExam.examStatus == 4 || itemExam.StudyStatus == 2">
-                    <img src="./assets/imgs/course/daiwancheng.png" alt="">
-                    待完成
-                </span>
-                    <span class="yes" *ngIf="itemExam.examStatus == 8">
-                    <img src="./assets/imgs/course/yiwancheng.png" alt="">
-                    已完成
-                </span>
-            </div>
+            <ion-row>
+                <ng-container *ngFor="let itemExam of item.tags">
+                    <ion-col col-6 class="col-item" tappable (click)="handleExam(item,itemExam,$event)">
+                        <div class="record-item">
+                            <span *ngIf="itemExam.JopType == 0" class="jobType blue">作业</span>
+                            <span *ngIf="itemExam.JopType == 1" class="jobType blue">讨论</span>
+                            <span *ngIf="itemExam.JopType == 2" class="jobType green">视频</span>
+                            <span class="no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
+                    || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
+                                 <img src="./assets/imgs/course/daiwancheng.png" alt="">
+                                  </span>
+                            <span class="yes" *ngIf="itemExam.examStatus == 8">
+                                 <img src="./assets/imgs/course/yiwancheng.png" alt="">
+                            </span>
+                            <img class="shipin_zy" src="./assets/imgs/learn/shipin_zy.png">
+                        </div>
+                        <p>{{itemExam.label | stringSlice:15:15}}</p>
+                    </ion-col>
+                </ng-container>
+            </ion-row>
         </ng-container>
     </ng-container>
 </div>

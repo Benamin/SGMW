@@ -1,0 +1,33 @@
+<!--
+  视频类作业、讨论类作业 详情
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>作业详情</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <!--    讨论作业-->
+    <ng-container *ngIf="exam?.ExamInfo?.JopType == 1">
+        <div class="talk-exam">
+            <div class="exam-item" *ngFor="let item of exam.QnAInfos">
+                <p>答：{{item.QContent}}</p>
+                <div [innerHTML]="item.StuAnswer | lineFeed">
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!--    视频作业-->
+    <ng-container *ngIf="exam?.ExamInfo?.JobType == 2">
+        <div class="talk-exam">
+            <div class="exam-item" *ngFor="let item of exam.QnAInfos">
+                <p>{{item.QContent}}</p>
+                <video #example_video id="videoExam" class="video-js"
+                       width="100%" height="180" controls preload="auto"
+                       [poster]="defaultImg">
+                </video>
+            </div>
+        </div>
+    </ng-container>
+</ion-content>

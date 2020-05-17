@@ -35,6 +35,7 @@ export class TreeListComponent {
         timer(10).subscribe(
             (res) => {
                 this.treeList.forEach(e => e.show = true);
+                console.log(this.treeList);
             }
         )
         this.nowTime = new Date().getTime();

@@ -19,6 +19,8 @@ import {Storage} from "@ionic/storage";
 import {PrivacyComponent} from "../../components/privacy/privacy";
 import {VideoListsPage} from "../home/short-video/video-lists/video-lists";
 import {CourseTypePage} from "../learning/course-type/course-type";
+import {ExamTipPage} from "../learning/exam-tip/exam-tip";
+import {TalkExamPage} from "../learning/talk-exam/talk-exam";
 
 @Component({
     templateUrl: 'tabs.html'

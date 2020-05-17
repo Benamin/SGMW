@@ -1,18 +1,16 @@
 tree-list {
 
   .list {
-    //padding: 10px 0;
-    img {
-      width: 1.1rem;
-      height: 1.1rem;
-    }
 
-    img.done {
-      float: right;
-      margin-right: 10px;
-      width: 15px;
-      height: 15px;
-      margin-top: 2px;
+    .done {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      img {
+        width: 18px;
+        height: 18px;
+      }
     }
 
     img.suo {
@@ -28,15 +26,6 @@ tree-list {
     margin-top: 2px;
     color: rgba(0, 0, 0, .3);
     margin-right: 10px;
-  }
-
-  .file-icon {
-    padding: 0px 5px;
-    border: 1px solid #66a0eb;
-    border-radius: 4px;
-    background-color: #66a0eb;
-    color: #ffffff;
-    margin-left: 10px;
   }
 
   .exam {
@@ -71,16 +60,20 @@ tree-list {
   }
 
   img.download-file {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     height: 18px;
     width: 18px;
-    float: right;
   }
 
   .yes, .no {
-    float: right;
-    font-size: 13px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
     display: flex;
     align-items: center;
+
 
     img {
       width: 14px;
@@ -95,5 +88,41 @@ tree-list {
 
   .no {
     color: #e2af73;
+  }
+
+  .col-item {
+    padding: 10px;
+
+    p {
+      margin-top: 12px;
+      text-align: center;
+      overflow: hidden;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      border: none !important;
+    }
+  }
+
+  .record-item {
+    position: relative;
+    height: 142px;
+    box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
+
+    .deleIcon {
+      position: absolute;
+      top: 5px;
+      right: 15px;
+      font-size: 18px;
+      color: #e93c46;
+    }
+  }
+
+  .file-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 4px;
   }
 }

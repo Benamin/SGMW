@@ -1,8 +1,11 @@
 import {Component, Input} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
 import {CommonService} from "../../../core/common.service";
+import {MineService} from "../../mine/mine.service";
+import {ExamTipPage} from "../exam-tip/exam-tip";
+import {LookTalkVideoExamPage} from "../look-talk-video-exam/look-talk-video-exam";
 
 @Component({
     selector: 'page-chapter',
@@ -14,10 +17,13 @@ export class ChapterPage {
     @Input() TeachTypeName;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
+                public loadCtrl: LoadingController,
+                public mineSer: MineService,
                 private commonSer: CommonService) {
     }
 
     ionViewDidLoad() {
+        console.log(this.chapter);
     }
 
     getMore(e) {
@@ -36,12 +42,27 @@ export class ChapterPage {
             this.commonSer.toast('请完成课程学习');
             return
         }
+        let load = this.loadCtrl.create({
+            content: '正在前往作业，请等待...'
+        });
+        load.present();
         exam.Fid = exam.fId;
-        if (exam.examStatus == 8) {
-            this.navCtrl.push(LookExamPage, {item: exam});
-        } else {
-            this.navCtrl.push(DoExamPage, {item: exam});
-        }
+        const data = {
+            Eid: exam.id
+        };
+        this.mineSer.getExam(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    exam.Fid = res.data.ID;
+                    if (exam.examStatus == 8) {
+                        this.navCtrl.push(LookTalkVideoExamPage, {item: exam, source: 'course'});
+                    } else {
+                        this.navCtrl.push(ExamTipPage, {item: exam});
+                    }
+                    load.dismiss();
+                }
+            }
+        )
     }
 
 }

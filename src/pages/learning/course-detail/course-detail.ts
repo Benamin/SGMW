@@ -48,12 +48,10 @@ export class CourseDetailPage {
 
     relationList = [];
     navbarList = [
-        {type: 1, name: '简介', code: 'desc'},
-        {type: 2, name: '章节', code: 'chapter'},
-        {type: 3, name: '讨论', code: 'talk'},
-        // {type: 4, name: '讲师', code: 'teacher'},
-        {type: 4, name: '评价', code: 'comment'},
-        {type: 5, name: '相关', code: 'relation'},
+        {type: 1, name: '章节', code: 'chapter'},
+        {type: 2, name: '讨论', code: 'talk'},
+        {type: 3, name: '评价', code: 'comment'},
+        {type: 4, name: '相关', code: 'relation'},
     ];
 
     signObj = {
@@ -84,6 +82,7 @@ export class CourseDetailPage {
     isLoad = false;
 
     SortType;  //课程有序还是无序 1 有序 2 无序
+    StructureType; //章节结构状态  1 老结构即4层 2 新结构即两层
 
     nodeLevel4;   //视频播放当前课时节点
     tagsNodeList;   //包含作业的节点列表
@@ -636,6 +635,18 @@ export class CourseDetailPage {
 
     //课程评价
     getCommentList() {
+        //讨论分享
+        const data1 = {
+            postId: this.product.detail.PostID
+        }
+        this.learnSer.getortype(data1).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.comment.talk = res.data.Replys;
+                }
+            }
+        )
+
         const data2 = {
             pageSize: 1000,
             page: 1,
@@ -664,7 +675,7 @@ export class CourseDetailPage {
         this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
             (res) => {
                 if (res.data) {
-                    this.comment.talk = res.data.CommentItems;
+                    // this.comment.talk = res.data.CommentItems;
                 }
             }
         );

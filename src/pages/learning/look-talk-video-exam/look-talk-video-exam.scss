@@ -1,0 +1,28 @@
+page-look-talk-video-exam {
+  .scroll-content {
+    background-color: #fff;
+  }
+
+  .talk-exam {
+    padding: 25px 15px;
+    margin-bottom: 80px;
+
+    .exam-item {
+      p {
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      div {
+        color: #666666;
+        margin-top: 8px;
+      }
+    }
+
+    .exam-item + .exam-item {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #dddddd;
+    }
+  }
+}

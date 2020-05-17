@@ -1,0 +1,86 @@
+<!--
+讨论中回复的部分
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>查看回复</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content style="background: #fff;">
+    <div class="original">
+        <div class="reply">
+            <div class="reply-top">
+                <img class="heard-img" src="{{data?.PosterHeadPhoto}}" alt="">
+                <div class="text">
+                    <h4>
+              <span class="PosterUserName">
+                  {{data?.PosterUserName}}
+              </span>
+                        <span *ngIf="data?.PosterUserForumTitle?.ForumTitle"
+                              class="ForumTitle">{{data?.PosterUserForumTitle?.ForumTitle}}</span>
+                        <span class="PosterBadges" *ngFor="let data of data?.PosterBadges">
+              <img src="{{data?.BadgeIcon}}" alt="">
+              <span class="PosterBadges-BadgeName">
+                  {{data?.BadgeName}}
+              </span>
+            </span>
+                    </h4>
+                    <p>{{data?._ReplyTimeFormatted}}</p>
+                </div>
+                <div class="comment">
+                </div>
+            </div>
+            <div class="reply-text">
+                {{data?.Content}}
+            </div>
+        </div>
+    </div>
+    <div style="background: #f2f2f2;height: 10px;width: 100%;">
+
+    </div>
+    <div class="discuss-list">
+        <p class="number-all">回复（{{data?.CommentCount}}）</p>
+        <div class="reply" *ngFor="let item of data?.Comments">
+            <div class="reply-top">
+                <img class="heard-img" src="{{item?.PosterHeadPhoto}}" alt="">
+                <div class="text">
+                    <h4>
+                        <span class="PosterUserName">
+                            {{item.PosterUserName.length > 3 && item?.PosterBadges.length > 1 ? (item?.PosterUserName | stringSlice:3:3) : item.PosterUserName}}
+                        </span>
+                        <span *ngIf="item?.PosterUserForumTitle?.ForumTitle"
+                              class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
+                        <span class="PosterBadges" *ngFor="let n of item?.PosterBadges">
+                            <img src="{{n.BadgeIcon}}" alt="">
+                            <span class="PosterBadges-BadgeName">
+                                {{n.BadgeName}}
+                            </span>
+                    </span>
+
+                    </h4>
+                    <p>{{item?._ReplyTimeFormatted}}</p>
+                </div>
+                <div class="comment">
+                </div>
+            </div>
+            <div class="reply-text">
+                {{item?.Content}}
+            </div>
+        </div>
+
+    </div>
+    <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="data.Comments.length==0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            没有评论，快发一条吧~
+        </p>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <div class="input-div" (click)="openComment()">
+        <div>
+            输入你的评论
+        </div>
+    </div>
+</ion-footer>
+

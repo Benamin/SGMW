@@ -1,0 +1,48 @@
+<!--
+  视频类作业
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>视频类作业</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="exam-content">
+        {{exam.QnAInfos?.QContent}}
+    </div>
+    <div class="handle-video">
+        <span>视频</span>
+        <span *ngIf="videoObj">{{videoObj?.mediaFile?.name | stringSlice:5:5}}</span>
+        <span (click)="takeVideo()">选择视频</span>
+    </div>
+    <div class="files-box">
+        <div>封面图</div>
+        <div *ngIf="CoverUrl" class="files-item" (click)="takePic()">
+            <img class="poster" [src]="CoverUrl">
+        </div>
+        <div *ngIf="!CoverUrl" class="add-img" (click)="takePic()">
+            <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
+        </div>
+    </div>
+    <div class="bottom-start" ion-fixed>
+        <div class="submit">
+            <span (click)="submit(2)">暂存</span>
+            <span (click)="submit(3)">提交</span>
+        </div>
+        <div class="share">
+            <ion-checkbox [(ngModel)]="isrelease"></ion-checkbox>
+            共享到讨论区，其他学员将会看到您的作业结果
+        </div>
+    </div>
+</ion-content>
+<div *ngIf="score.isDone" class="score" tappable (click)="closeDone($event)">
+    <div class="content" style="width: 60%">
+        <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
+        <p>温馨提示</p>
+        <p class="number  test">
+            题目未完成，无法提交作业，请完成全部题目。
+        </p>
+        <div>我知道了</div>
+    </div>
+</div>
