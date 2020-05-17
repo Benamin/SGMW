@@ -5,7 +5,7 @@ page-look-talk-video-exam {
 
   .talk-exam {
     padding: 25px 15px;
-    margin-bottom: 80px;
+    margin-bottom: 20px;
 
     .exam-item {
       p {
@@ -23,6 +23,94 @@ page-look-talk-video-exam {
       margin-top: 10px;
       padding-top: 10px;
       border-top: 1px solid #dddddd;
+    }
+  }
+
+  .vjs-title-bar {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  .vjs-danmu {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+  }
+
+  .vjs-right {
+    position: absolute;
+    visibility: hidden;
+    white-space: nowrap;
+    transform: translate(100%);
+  }
+
+  .vjs-left {
+    position: absolute;
+    white-space: nowrap;
+    user-select: none;
+    transition: transform 10s linear;
+  }
+
+  iframe {
+    height: 200px;
+    width: 100%;
+  }
+
+  .vjs-paused .vjs-big-play-button,
+  .vjs-paused.vjs-has-started .vjs-big-play-button {
+    display: block;
+  }
+
+  .video-js {
+    width: 100% !important;
+    margin-top: 20px;
+  }
+
+  .video-js .vjs-big-play-button {
+    font-size: 2.5em;
+    line-height: 2.3em;
+    height: 2.5em;
+    width: 2.5em;
+    -webkit-border-radius: 2.5em;
+    -moz-border-radius: 2.5em;
+    border-radius: 2.5em;
+    background-color: #73859f;
+    background-color: rgba(115, 133, 159, .5);
+    border-width: 0.15em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* 中间的播放箭头 */
+  .vjs-big-play-button .vjs-icon-placeholder {
+    font-size: 1.63em;
+  }
+
+  /* 加载圆圈 */
+  .vjs-loading-spinner {
+    font-size: 2.5em;
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
+  }
+
+  .video-js.vjs-playing .vjs-tech {
+    pointer-events: auto;
+  }
+
+  .share-img {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+
+    img {
+      margin-left: auto;
+      width: 18px;
+      margin-right: 10px;
     }
   }
 }

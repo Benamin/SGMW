@@ -13,10 +13,11 @@
         <span class="right">下一节<ion-icon name="arrow-forward"></ion-icon></span>
     </div>
     <div class="exam-content">
-        <img src="./assets/imgs/learn/taolun_zy.png" alt="">
+        <img *ngIf="exam?.JopType == 1" src="./assets/imgs/learn/taolun_zy.png" alt="">
+        <img *ngIf="exam?.JopType == 2" src="./assets/imgs/learn/shipin_zy.png" alt="">
         <div class="font-tips">
-            {{mineInfo?.UserName}}您好！<ng-container *ngIf="exam?.JobType == 1">本章节作业为“话术编写”，请根据本章节学习到的知识，编写对应话术，点击下方“开始”开始输入
-            </ng-container><ng-container *ngIf="exam?.JobType == 2">
+            {{mineInfo?.UserName}}您好！<ng-container *ngIf="exam?.JopType == 1">本章节作业为“话术编写”，请根据本章节学习到的知识，编写对应话术，点击下方“开始”开始输入
+            </ng-container><ng-container *ngIf="exam?.JopType == 2">
                 本章节作业为视频作业，请根据本章节学习到的知识，上传对应视频，点击下方“开始”开始上传
             </ng-container>
         </div>

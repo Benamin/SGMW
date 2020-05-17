@@ -39,7 +39,9 @@
             <ng-container *ngFor="let itemExam of itemNode.tags">
                 <ion-col col-6 class="col-item" tappable (click)="handleExam(itemNode,itemExam,$event)">
                     <div class="record-item">
-                        <span class="jobType green">视频</span>
+                        <span *ngIf="itemExam.JopType == 0" class="jobType blue">作业</span>
+                        <span *ngIf="itemExam.JopType == 1" class="jobType blue">讨论</span>
+                        <span *ngIf="itemExam.JopType == 2" class="jobType green">视频</span>
                         <span class="no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
                     || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
                                  <img src="./assets/imgs/course/daiwancheng.png" alt="">
@@ -47,7 +49,11 @@
                         <span class="yes" *ngIf="itemExam.examStatus == 8">
                                  <img src="./assets/imgs/course/yiwancheng.png" alt="">
                             </span>
-                        <img class="shipin_zy" src="./assets/imgs/learn/shipin_zy.png">
+                        <img *ngIf="itemExam.JopType == 0" class="shipin_zy" src="./assets/imgs/learn/fujian.png">
+                        <img *ngIf="itemExam.JopType == 1" class="shipin_zy"
+                             src="./assets/imgs/learn/taolun_zy.png">
+                        <img *ngIf="itemExam.JopType == 2" class="shipin_zy"
+                             src="./assets/imgs/learn/shipin_zy.png">
                     </div>
                     <p>{{itemExam.label | stringSlice:15:15}}</p>
                 </ion-col>

@@ -58,7 +58,7 @@ export class LookTalkVideoExamPage {
                 }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
-                if (this.exam.ExamInfo.JobType == 2) {
+                if (this.exam.ExamInfo.JopType == 2) {
                     this.initVideo();
                 }
                 loading.dismiss();

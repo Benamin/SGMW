@@ -125,8 +125,7 @@ export class TalkExamPage {
                         this.score.show = true;
                     } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');
-                        this.navCtrl.getPrevious().data.courseEnterSource = '';
-                        this.navCtrl.pop();
+                        this.navCtrl.remove(2, 2);
                     } else {
                         this.commonSer.toast(JSON.stringify(res));
                     }
@@ -138,7 +137,7 @@ export class TalkExamPage {
     //考分提示
     close(e) {
         this.score.show = false;
-        this.navCtrl.pop();
+        this.navCtrl.remove(2, 2);
     }
 
     //未做完提示关闭

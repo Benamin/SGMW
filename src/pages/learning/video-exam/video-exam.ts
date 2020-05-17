@@ -156,7 +156,8 @@ export class VideoExamPage {
                 (res) => {
                     loading.dismiss();
                     if (res.code == 200 && status == 3) {
-                        this.navCtrl.remove(2, 2);
+                        this.score.score = Math.ceil(res.message);
+                        this.score.show = true;
                     } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');
                         this.navCtrl.getPrevious().data.courseEnterSource = '';
@@ -172,7 +173,7 @@ export class VideoExamPage {
     //考分提示
     close(e) {
         this.score.show = false;
-        this.navCtrl.pop();
+        this.navCtrl.remove(2, 2);
     }
 
     //未做完提示关闭

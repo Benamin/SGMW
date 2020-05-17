@@ -8,19 +8,17 @@
 </ion-header>
 
 <ion-content>
-    <!--    讨论作业-->
-    <ng-container *ngIf="exam?.ExamInfo?.JopType == 1">
-        <div class="talk-exam">
+    <div class="talk-exam">
+        <!--    讨论作业-->
+        <ng-container *ngIf="exam?.ExamInfo?.JopType == 1">
             <div class="exam-item" *ngFor="let item of exam.QnAInfos">
-                <p>答：{{item.QContent}}</p>
+                <p>{{item.QContent}}</p>
                 <div [innerHTML]="item.StuAnswer | lineFeed">
                 </div>
             </div>
-        </div>
-    </ng-container>
-    <!--    视频作业-->
-    <ng-container *ngIf="exam?.ExamInfo?.JobType == 2">
-        <div class="talk-exam">
+        </ng-container>
+        <!--    视频作业-->
+        <ng-container *ngIf="exam?.ExamInfo?.JopType == 2">
             <div class="exam-item" *ngFor="let item of exam.QnAInfos">
                 <p>{{item.QContent}}</p>
                 <video #example_video id="videoExam" class="video-js"
@@ -28,6 +26,11 @@
                        [poster]="defaultImg">
                 </video>
             </div>
-        </div>
-    </ng-container>
+        </ng-container>
+        <p class="share-img">
+            <img src="./assets/imgs/forum/other/share.png"
+                 alt="分享按钮">已共享到讨论区
+        </p>
+    </div>
+
 </ion-content>
