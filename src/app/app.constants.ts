@@ -1,5 +1,5 @@
-// let env = 'localhost';
-let env = 'dev';
+let env = 'localhost';
+// let env = 'dev';
 // let env = 'uat';
 // let env = 'prod';
 

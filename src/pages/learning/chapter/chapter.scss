@@ -3,6 +3,8 @@ page-chapter {
     > p {
       font-weight: bold;
       margin-bottom: 6px;
+      display: flex;
+      align-items: center;
     }
 
     > div p {
@@ -139,7 +141,7 @@ page-chapter {
     position: absolute;
     left: 5px;
     top: 5px;
-    width: 35px;
+    padding: 0 6px;
     height: 22px;
     line-height: 22px;
     border-radius: 4px;
@@ -166,5 +168,38 @@ page-chapter {
 
   .blue {
     background: rgba(101, 160, 239, 1);
+  }
+
+  .done {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .file-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 4px;
+  }
+
+  img.suo {
+    width: 14px;
+    height: 15px;
+    vertical-align: text-top;
+    margin-left: 10px;
+  }
+
+  img.download-file {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    height: 18px;
+    width: 18px;
   }
 }

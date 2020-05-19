@@ -58,6 +58,11 @@ page-course-detail {
         color: rgba(255, 255, 255, 1);
         line-height: 2.67rem;
         margin-bottom: 10px;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
       }
 
       .course-desc {
@@ -608,5 +613,6 @@ page-course-detail {
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
     }
+
   }
 }

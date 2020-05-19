@@ -19,7 +19,7 @@
                                 <span style="padding-left: 2px" class="icon iconfont icon-error"></span>
                             </span>
                             <p>
-                                {{i + 1}}:
+                                {{i + 1}}、
                                 <span *ngIf="item.QType == -1">(不限)</span>
                                 <span *ngIf="item.QType == 1">(单选)</span>
                                 <span *ngIf="item.QType == 2">(多选)</span>
@@ -155,7 +155,7 @@
                                 </ng-container>
                                 <!--填空-->
                                 <ng-container *ngIf="item.QType == 4">
-                                    <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                                    【答】{{item.StuAnswer}}
                                 </ng-container>
                                 <!--判断题-->
                                 <ng-container *ngIf="item.QType == 3">
@@ -179,17 +179,17 @@
                                     </p>
                                 </ng-container>
                                 <!--问答-->
-                                <ng-container *ngIf="item.questionType == 5">
-                                    <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                                <ng-container *ngIf="item.QType == 5">
+                                    【答】{{item.StuAnswer}}
                                 </ng-container>
                             </div>
                         </div>
-                        <div class="item-answer">
+                        <div class="item-answer" *ngIf="item.QType != 4">
                             答案：
                             <ng-container *ngIf="item.QType == 3">{{item.QAnswer == 1 ? 'A' : 'B'}}</ng-container>
-                            <ng-container *ngIf="item.QType != 3">{{item.QAnswer}}</ng-container>
+                            <ng-container *ngIf="item.QType != 3 ">{{item.QAnswer}}</ng-container>
                         </div>
-                        <div class="item-explain">
+                        <div *ngIf="item.QType != 4" class="item-explain">
                             解析：{{item.Explain}}
                         </div>
                     </div>
@@ -203,7 +203,7 @@
             <div class="inner" [style.width]="'100%'"></div>
         </div>
         <div class="footer-subject">
-            <div class="submit">
+            <div class="submit" *ngIf="exam.ExamInfo?.JopType == 0">
                 <div>作业得分：{{exam.ExamInfo?.TotalScore}}</div>
             </div>
             <div class="saveStuExams">

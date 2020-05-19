@@ -76,8 +76,12 @@
             </div>
         </div>
         <div class="course-introduction">
-            <p>课程简介</p>
-            <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
+            <p>课程简介
+                <ion-icon *ngIf="!showMore" (click)="showMore = true" class="more-icon" name="arrow-down"></ion-icon>
+                <ion-icon *ngIf="showMore" (click)="showMore = false" class="more-icon" name="arrow-up"></ion-icon>
+            </p>
+            <div *ngIf="!showMore" class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
+            <div *ngIf="showMore" [innerHTML]="product.detail?.Description | lineFeed"></div>
         </div>
         <navbar #navbar [select]="bar.type" [list]="navbarList" (done)="changeType($event)"></navbar>
     </div>

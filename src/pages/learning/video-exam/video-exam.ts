@@ -45,12 +45,6 @@ export class VideoExamPage {
 
 
     ionViewDidLoad() {
-        this.navbar.backButtonClick = () => {
-            this.commonSer.alert("确定暂存答案吗？", (res) => {
-                this.backSubmit();
-            })
-        };
-
         const loading = this.loadCtrl.create({
             content: '作业加载中...'
         });
@@ -139,12 +133,20 @@ export class VideoExamPage {
                 "StuQnAID": this.exam.QnAInfos.StuQnAID,
                 "StuAnswer": "",
                 videoData: {
-                    "AssetId": this.videoObj.resp.AssetId,
-                    "JobId": this.videoObj.resp.JobId,
-                    "Url": this.videoObj.resp.Url,
-                    "DownloadUrl": this.videoObj.resp.DownloadUrl,
-                    "Type": this.videoObj.resp.Type,
-                    "Imgurl": this.CoverUrl
+                    AssetId: this.videoObj.resp.AssetId,
+                    JobId: this.videoObj.resp.JobId,
+                    Url: this.videoObj.resp.Url,
+                    DownloadUrl: this.videoObj.resp.DownloadUrl,
+                    Type: this.videoObj.resp.Type,
+                    Imgurl: this.CoverUrl,
+                    icon: this.videoObj.mediaFile.name.includes('MOV') ? "MOV" : "MP4",//如果是mp4格式的需要写mp4，如果是avi格式的需要写avi
+                    DisplayName: this.videoObj.mediaFile.name,//文件显示名称
+                    Size: this.videoObj.mediaFile.size,//文件大小
+                    fileUrl: this.videoObj.resp.Url,//文件转码地址
+                    Duration: this.videoObj.mediaFile.duration || 0,
+                    filename: this.videoObj.mediaFile.name,//文件名称
+                    Description: "视频作业",//文件简介
+                    UploadWay: 0,//上传方式:0.本地上传，1.外部链接，选择课件
                 }
             }
             this.exam.ExamInfo.qnAInfos = this.exam.QnAInfos;
@@ -161,7 +163,7 @@ export class VideoExamPage {
                     } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');
                         this.navCtrl.getPrevious().data.courseEnterSource = '';
-                        this.navCtrl.remove(2, 2);
+                        this.navCtrl.remove(3, 2);
                     } else {
                         this.commonSer.toast(JSON.stringify(res));
                     }
@@ -173,7 +175,7 @@ export class VideoExamPage {
     //考分提示
     close(e) {
         this.score.show = false;
-        this.navCtrl.remove(2, 2);
+        this.navCtrl.remove(3, 2);
     }
 
     //未做完提示关闭

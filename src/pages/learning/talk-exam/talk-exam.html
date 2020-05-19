@@ -9,8 +9,8 @@
 
 <ion-content>
     <div class="talk-exam">
-        <div class="exam-item" *ngFor="let item of exam.QnAInfos">
-            <p>{{item.QContent}}</p>
+        <div class="exam-item" *ngFor="let item of exam.QnAInfos;let i = index">
+            <p>{{i + 1}}、{{item.QContent}}</p>
             <textarea class="content-textarea" [(ngModel)]="item.StuAnswer" placeholder="请输入你的答案..."></textarea>
         </div>
     </div>

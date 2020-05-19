@@ -16,6 +16,11 @@ page-video-exam {
     border-top: 1px solid #eeeeee;
     border-bottom: 1px solid #eeeeee;
 
+    span:nth-child(2) {
+      margin-left: auto;
+      margin-right: 10px
+    }
+
     span:last-child {
       margin-left: auto;
       width: 90px;

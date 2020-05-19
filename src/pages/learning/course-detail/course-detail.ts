@@ -89,6 +89,7 @@ export class CourseDetailPage {
     nodeLevel4List;   //所有的课时节点列表
     enterSource;   //进入来源
 
+    showMore = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -141,6 +142,7 @@ export class CourseDetailPage {
         this.showFooter = false;
         this.appSer.setFile(null)
         if (this.videojsCom) this.videojsCom.pageLeave();
+        console.log(this.navCtrl.getViews());
         const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
         const doExamArr = this.navCtrl.getViews().filter(e => e.name == 'DoExamPage');
         const lookExamArr = this.navCtrl.getViews().filter(e => e.name == 'LookExamPage');
@@ -635,18 +637,6 @@ export class CourseDetailPage {
 
     //课程评价
     getCommentList() {
-        //讨论分享
-        const data1 = {
-            postId: this.product.detail.PostID
-        }
-        this.learnSer.getortype(data1).subscribe(
-            (res) => {
-                if (res.data) {
-                    this.comment.talk = res.data.Replys;
-                }
-            }
-        )
-
         const data2 = {
             pageSize: 1000,
             page: 1,
@@ -672,10 +662,10 @@ export class CourseDetailPage {
             TopicType: 'talk',   //teacher  course
             topicID: this.product.detail.PrId
         };
-        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
+        this.learnSer.GetTalkLists(data3).subscribe(   //课程讨论
             (res) => {
                 if (res.data) {
-                    // this.comment.talk = res.data.CommentItems;
+                    this.comment.talk = res.data.CommentItems;
                 }
             }
         );

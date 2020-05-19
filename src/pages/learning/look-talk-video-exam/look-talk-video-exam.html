@@ -27,7 +27,7 @@
                 </video>
             </div>
         </ng-container>
-        <p class="share-img">
+        <p *ngIf="exam.QnAInfos && exam.QnAInfos.length && exam.QnAInfos[0].isRelease !== 0" class="share-img">
             <img src="./assets/imgs/forum/other/share.png"
                  alt="分享按钮">已共享到讨论区
         </p>

@@ -3,11 +3,10 @@ page-comment-list {
     background-color: #fff;
 
     .comment-item {
-      padding-top: 20px;
+      padding-top: 30px;
 
       .first {
         display: flex;
-        margin-bottom: 10px;
 
         .headPhoto {
           img {
@@ -90,7 +89,7 @@ page-comment-list {
   }
 
   .introduction-buttom {
-    padding: 15px 0;
+    padding-bottom: 10px;
     color: #757575;
     display: flex;
     align-items: center;
@@ -110,6 +109,16 @@ page-comment-list {
     span:nth-child(2) {
       display: flex;
       align-items: center;
+      margin-right: 20px;
     }
+
+    span:nth-child(3) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .last.teacher {
+    padding: 10px 0;
   }
 }

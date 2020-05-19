@@ -249,13 +249,13 @@ page-talk-reply {
     border-top: 1px solid #F2F2F2;
 
     div {
-      height: 30px;
+      height: 43px;
       color: #606060;
       background: #F2F2F2;
       text-align: center;
       border-radius: 15px;
-      line-height: 30px;
-      font-size: 12px;
+      line-height: 43px;
+      font-size: 14px;
     }
 
   }
@@ -338,4 +338,33 @@ page-talk-reply {
     height: 60px;
     opacity: 1;
   }
+
+  .video-content {
+    position: relative;
+    height: 160px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    border-radius: 4px;
+
+    img {
+      max-height: 160px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 99;
+    }
+
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 4rem;
+      height: 4rem;
+      z-index: 100;
+    }
+  }
+
+
 }
