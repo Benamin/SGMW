@@ -7,7 +7,7 @@ tree-list {
       height: 1.1rem;
     }
 
-    img.done {
+    img.tree-done {
       float: right;
       margin-right: 10px;
       width: 15px;
@@ -30,7 +30,7 @@ tree-list {
     margin-right: 10px;
   }
 
-  .file-icon {
+  .tree-file-icon {
     padding: 0px 5px;
     border: 1px solid #66a0eb;
     border-radius: 4px;
@@ -70,13 +70,13 @@ tree-list {
     top: 65% !important;
   }
 
-  img.download-file {
+  img.tree-download-file {
     height: 18px;
     width: 18px;
     float: right;
   }
 
-  .yes, .no {
+  .tree-yes, .tree-no {
     float: right;
     font-size: 13px;
     display: flex;
@@ -89,11 +89,11 @@ tree-list {
     }
   }
 
-  .yes {
+  .tree-yes {
     color: #5dba98;
   }
 
-  .no {
+  .tree-no {
     color: #e2af73;
   }
 }

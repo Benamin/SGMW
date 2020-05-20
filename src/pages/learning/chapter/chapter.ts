@@ -19,6 +19,7 @@ import {ViewFilePage} from "../view-file/view-file";
 })
 export class ChapterPage {
     @Input() chapter;
+    @Input() StructureType;
     @Input() IsBuy;
     @Input() TeachTypeName;
 
@@ -38,6 +39,7 @@ export class ChapterPage {
 
     ionViewDidLoad() {
         console.log(this.chapter);
+        console.log('StructureType', this.StructureType);
     }
 
     getMore(e) {
@@ -68,16 +70,16 @@ export class ChapterPage {
             (res) => {
                 if (res.data) {
                     exam.Fid = res.data.ID;
-                    if (exam.examStatus == 8) {
-                        if (exam.JopType == 0) {
+                    if (exam.examStatus == 8) {  //作业完成
+                        if (exam.JopType == 0) {   //选项作业
                             this.navCtrl.push(LookExamPage, {item: exam, source: 'course'})
-                        } else {
+                        } else {    //视频作业、讨论作业
                             this.navCtrl.push(LookTalkVideoExamPage, {item: exam, source: 'course'});
                         }
-                    } else {
+                    } else {  //作业未完成
                         if (exam.JopType == 0) {
                             this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
-                        } else {
+                        } else {  //视频作业、讨论作业
                             this.navCtrl.push(ExamTipPage, {item: exam});
                         }
                     }

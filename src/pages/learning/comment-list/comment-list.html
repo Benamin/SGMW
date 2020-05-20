@@ -54,10 +54,12 @@
         <div class="last teacher">
             <!--            视频作业-->
             <ng-container *ngIf="item.qtype == 2">
-                <p>【答题分享】</p>
-                <div class="video-content" *ngFor="let vi of item.Contents">
-                    <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
-                    <img [src]="vi.imageurrl">
+                <div class="video-share">
+                    <p>【答题分享】</p>
+                    <div class="video-content" *ngFor="let vi of item.Contents">
+                        <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+                        <img [src]="vi.imageurrl">
+                    </div>
                 </div>
             </ng-container>
             <!--            讨论作业-->
@@ -70,11 +72,11 @@
                 </div>
             </ng-container>
             <!--            普通作业-->
-            <ng-container *ngIf="item.qtype == 0">
+            <ng-container *ngIf="item.qtype == 0 || TopicType == 'course'">
                 <div [innerHTML]="item.Contents | lineFeed" class="Contents"></div>
             </ng-container>
         </div>
-        <div class="introduction-buttom">
+        <div *ngIf="TopicType == 'talk'" class="introduction-buttom">
                     <span>
                         <img src="./assets/imgs/forum/list/luntan_coment@3x.png">
                         {{item.ReplyCount || 0}}

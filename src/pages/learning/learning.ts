@@ -148,7 +148,7 @@ export class LearningPage {
         } else if (e.TeachTypeName == "内训") {
             this.navCtrl.push(InnerCoursePage, {id: e.Id});
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+            this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType});
         }
     }
 

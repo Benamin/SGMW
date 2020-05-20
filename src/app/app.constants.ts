@@ -1,6 +1,6 @@
-let env = 'localhost';
+// let env = 'localhost';
 // let env = 'dev';
-// let env = 'uat';
+let env = 'uat';
 // let env = 'prod';
 
 let keyEnv = 'dev';
@@ -11,8 +11,8 @@ export const SERVER_API_URL_LOCALHOST = '/api';
 export const SERVER_API_URL_DEV = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
 export const SERVER_API_URL_UAT = 'http://sitapi1.chinacloudsites.cn/api'; //uat环境
 export const SERVER_API_URL_PROD = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
-export const SERVER_API_URL = (env === 'localhost' ? SERVER_API_URL_LOCALHOST : env == 'dev' ? SERVER_API_URL_DEV : env == 'uat' ?
-    SERVER_API_URL_UAT : env == 'prod' ? SERVER_API_URL_PROD : '');
+export const SERVER_API_URL = (env === 'localhost' ? SERVER_API_URL_LOCALHOST : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
+    SERVER_API_URL_UAT : (env == 'prod' ? SERVER_API_URL_PROD : ''))));
 
 //client_id
 export const sgmw_client_id = "2961C96D-4DB0-4FCF-99FA-FE18AC9A496A";
@@ -67,7 +67,7 @@ export const XSZS_client_id = "138B0798-8D43-4588-B291-DB8545865C8A";
 /***服务助手***/
 export const FWZS_HTTP_URL_LOCALHOST = "FWZSAPI";
 export const FWZS_HTTP_URL_PROD = "https://sgmwsa.shaoxingzhuoyue.com/api";
-export const FWZS_HTTP_URL = (env === 'localhost') || (env === 'dev') || (env === 'uat') ? FWZS_HTTP_URL_LOCALHOST : FWZS_HTTP_URL_PROD;
+export const FWZS_HTTP_URL = (env === 'localhost' || env === 'dev' || env === 'uat') ? FWZS_HTTP_URL_LOCALHOST : FWZS_HTTP_URL_PROD;
 
 //appid
 export const FWZS_appid = "52492bf5765840b192fac6c7ca3d10c8";

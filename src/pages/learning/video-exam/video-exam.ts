@@ -113,7 +113,11 @@ export class VideoExamPage {
         if (status == 2) msg = '暂存';
         if (status == 3) {
             msg = '提交';
-            if (!this.CoverUrl || !this.videoObj) {
+            if (!this.CoverUrl) {
+                this.commonSer.toast('请上传封面图');
+                return;
+            }
+            if (!this.videoObj) {
                 this.score.isDone = true;
                 return
             }

@@ -33,7 +33,6 @@ export class CommentListPage {
         value.forEach(e => {
             if (e.qtype == 1 || e.qtype == 2) {
                 e.Contents = JSON.parse(e.Contents)
-                console.log(e.Contents);
             }
         })
         this.List = value;

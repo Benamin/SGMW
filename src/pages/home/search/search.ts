@@ -182,7 +182,7 @@ export class SearchPage {
         } else if (e.TeachTypeName == "内训") {
             this.navCtrl.push(InnerCoursePage, {id: e.Id});
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+            this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType});
         }
     }
 
@@ -255,7 +255,7 @@ export class SearchPage {
         }
         arr.length = arr.length > 6 ? 6 : arr.length;
         window.localStorage.setItem('userForumHistory', JSON.stringify(arr));
-        
+
         this.navCtrl.push(PostlistComponent, {data: data});
     }
 

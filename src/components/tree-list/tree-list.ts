@@ -12,6 +12,8 @@ import {LookExamPage} from "../../pages/mine/look-exam/look-exam";
 import {DoExamPage} from "../../pages/mine/do-exam/do-exam";
 import {MineService} from "../../pages/mine/mine.service";
 import {GlobalData} from "../../core/GlobleData";
+import {LookTalkVideoExamPage} from "../../pages/learning/look-talk-video-exam/look-talk-video-exam";
+import {ExamTipPage} from "../../pages/learning/exam-tip/exam-tip";
 
 @Component({
     selector: 'tree-list',
@@ -19,6 +21,7 @@ import {GlobalData} from "../../core/GlobleData";
 })
 export class TreeListComponent {
     @Input() treeList = [];
+    @Input() StructureType;
     @Input() IsBuy = [];
     @Input() TeachTypeName;
     @Output() fileData = new EventEmitter<any>();
@@ -36,6 +39,7 @@ export class TreeListComponent {
             (res) => {
                 this.treeList.forEach(e => e.show = true);
                 console.log(this.treeList);
+                console.log('StructureType', this.StructureType);
             }
         )
         this.nowTime = new Date().getTime();
@@ -167,10 +171,18 @@ export class TreeListComponent {
             (res) => {
                 if (res.data) {
                     exam.Fid = res.data.ID;
-                    if (exam.examStatus == 8) {
-                        this.navCtrl.push(LookExamPage, {item: exam});
-                    } else {
-                        this.navCtrl.push(DoExamPage, {item: exam, source: 'course'});
+                    if (exam.examStatus == 8) {  //作业完成
+                        if (exam.JopType == 0) {   //选项作业
+                            this.navCtrl.push(LookExamPage, {item: exam, source: 'course'})
+                        } else {    //视频作业、讨论作业
+                            this.navCtrl.push(LookTalkVideoExamPage, {item: exam, source: 'course'});
+                        }
+                    } else {  //作业未完成
+                        if (exam.JopType == 0) {
+                            this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
+                        } else {  //视频作业、讨论作业
+                            this.navCtrl.push(ExamTipPage, {item: exam});
+                        }
                     }
                 }
             }

@@ -72,7 +72,7 @@ export class CoursePage {
     }
 
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType});
     }
 
     //下拉加载更多

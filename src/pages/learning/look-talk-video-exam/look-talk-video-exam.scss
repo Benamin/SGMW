@@ -114,4 +114,31 @@ page-look-talk-video-exam {
       margin-right: 10px;
     }
   }
+
+  .video-content {
+    position: relative;
+    height: 160px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    border-radius: 4px;
+
+    img {
+      max-height: 160px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 99;
+    }
+
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 4rem;
+      height: 4rem;
+      z-index: 100;
+    }
+  }
 }
