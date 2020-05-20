@@ -64,7 +64,11 @@ export class LookTalkVideoExamPage {
                 this.exam.ExamInfo = res.data.ExamInfo;
                 if (this.exam.ExamInfo.JopType == 2) {
                     this.exam.QnAInfos.forEach(e => {
-                        e.StuAnswer = JSON.parse(e.StuAnswer);
+                        if (e.StuAnswer) {
+                            e.StuAnswer = JSON.parse(e.StuAnswer);
+                        } else {
+                            e.StuAnswer.AttachmentUrl = '';
+                        }
                     })
                 }
             }
@@ -73,7 +77,7 @@ export class LookTalkVideoExamPage {
 
     //视频弹窗
     openVideo(item) {
-        if (!item.AttachmentUrl) {
+        if (!item.AttachmentUrl || item.AttachmentUrl == '转码中') {
             this.commonSer.toast('视频未转码完成');
             return
         }

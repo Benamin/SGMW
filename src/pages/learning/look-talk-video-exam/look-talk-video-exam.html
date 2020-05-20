@@ -25,6 +25,7 @@
                 <div class="video-content">
                     <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
                     <img [src]="item.StuAnswer.CoverUrl || defaultImg">
+                    <span *ngIf="!item.StuAnswer.AttachmentUrl || item.StuAnswer.AttachmentUrl == '转码中'" class="gray">转码中</span>
                 </div>
             </div>
         </ng-container>

@@ -7,15 +7,15 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://sitapi1.chinacloudsites.cn/api"
+      "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
     },
     {
       "path": "/XSZSAPI",
-      "proxyUrl": "http://112.124.23.230:8010/API"
+      "proxyUrl": "https://promotion.sgmw.com.cn/API"
     },
     {
       "path": "/JunKeAPI",
-      "proxyUrl": "https://nbjtest.sgmw.com.cn"
+      "proxyUrl": "https://nbj.sgmw.com.cn"
     },
     {
       "path": "/FWZSAPI",

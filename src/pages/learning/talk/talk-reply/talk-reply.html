@@ -30,17 +30,23 @@
                 <div class="comment">
                 </div>
             </div>
+            <!--            普通讨论-->
             <div *ngIf="item?.qtype == 0" class="reply-text">
-                {{item?.Contents}}
+                <p [innerHTML]="item?.Contents | lineFeed"></p>
             </div>
+            <!--            讨论作业-->
             <div *ngIf="item?.qtype == 1" class="reply-text">
-                【答题分享】
-                <ng-container *ngFor="let ques of item.Contents;let i = index;">
-                    {{i + 1}}、<span [innerHTML]="ques.QContent | lineFeed"></span><br>
-                    <span [innerHTML]="ques.StuAnswer | lineFeed"></span>
-                </ng-container>
+                <div>
+                    <p>【答题分享】</p>
+                    <ng-container *ngFor="let ques of item.Contents;let i = index;">
+                        {{i + 1}}、<span [innerHTML]="ques.QContent | lineFeed"></span><br>
+                        <span [innerHTML]="ques.StuAnswer | lineFeed"></span><br>
+                    </ng-container>
+                </div>
             </div>
+            <!--            视频作业-->
             <div *ngIf="item?.qtype == 2" class="reply-text">
+                <p>【答题分享】</p>
                 <div class="video-content" *ngFor="let vi of item.Contents" (click)="openVideo(vi)">
                     <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
                     <img [src]="vi.imageurrl">

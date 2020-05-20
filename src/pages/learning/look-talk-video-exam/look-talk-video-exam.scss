@@ -141,4 +141,15 @@ page-look-talk-video-exam {
       z-index: 100;
     }
   }
+
+  .gray {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: gray;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
 }
