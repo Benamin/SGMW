@@ -75,25 +75,4 @@ tree-list {
     width: 18px;
     float: right;
   }
-
-  .tree-yes, .tree-no {
-    float: right;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-
-    img {
-      width: 14px;
-      height: 14px;
-      margin-right: 5px;
-    }
-  }
-
-  .tree-yes {
-    color: #5dba98;
-  }
-
-  .tree-no {
-    color: #e2af73;
-  }
 }

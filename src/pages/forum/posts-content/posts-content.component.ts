@@ -85,7 +85,7 @@ export class PostsContentComponent implements OnInit {
         this.lidata = this.navParams.get('data');
         this.forum_post_publish();
         let nowDate = Date.now();
-        if (new Date('2020-05-06 00:00').getTime() < nowDate && nowDate < new Date('2020-05-07 23:59').getTime()) {
+        if (new Date('2020-05-21 00:00').getTime() < nowDate && nowDate < new Date('2020-05-23 23:59').getTime()) {
             this.isShow = true;
         } else {
             this.isShow = false;

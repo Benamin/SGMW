@@ -60,11 +60,11 @@
                                 <span *ngIf="itemExam.JopType == 0" class="jobType blue">作业</span>
                                 <span *ngIf="itemExam.JopType == 1" class="jobType blue">讨论作业</span>
                                 <span *ngIf="itemExam.JopType == 2" class="jobType green">视频作业</span>
-                                <span class="no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
-                    || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
+                                <span class="new-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
+                                    || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
                                  <img src="./assets/imgs/course/daiwancheng.png" alt="">
                                   </span>
-                                <span class="yes" *ngIf="itemExam.examStatus == 8">
+                                <span class="new-yes" *ngIf="itemExam.examStatus == 8">
                                  <img src="./assets/imgs/course/yiwancheng.png" alt="">
                             </span>
                                 <img *ngIf="itemExam.JopType == 0" class="shipin_zy"
@@ -87,12 +87,12 @@
                 <span [ngStyle]="{'margin-left':(item.NodeLevel*5)+'px'}" class="exam">
                     {{itemExam.label | stringSlice:15:15}}
                 </span>
-                        <span class="tree-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
+                        <span class="old-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
                 || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
                     <img src="./assets/imgs/course/daiwancheng.png" alt="">
                     待完成
                 </span>
-                        <span class="tree-yes" *ngIf="itemExam.examStatus == 8">
+                        <span class="old-yes" *ngIf="itemExam.examStatus == 8">
                     <img src="./assets/imgs/course/yiwancheng.png" alt="">
                     已完成
                 </span>

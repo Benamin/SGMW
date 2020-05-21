@@ -55,7 +55,20 @@ page-chapter {
     }
   }
 
-  .yes, .no {
+  .old-yes, .old-no {
+    float: right;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 14px;
+      height: 14px;
+      margin-right: 5px;
+    }
+  }
+
+  .new-yes, .new-no {
     position: absolute;
     right: 5px;
     top: 5px;
@@ -68,11 +81,11 @@ page-chapter {
     }
   }
 
-  .yes {
+  .new-yes, .old-yes {
     color: #5dba98;
   }
 
-  .no {
+  .new-no, .old-no {
     color: #e2af73;
   }
 
