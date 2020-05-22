@@ -140,6 +140,9 @@ export class DoExamPage {
             this.score.isDone = true;
             return
         }
+        this.exam.QnAInfos.forEach(e => {
+            if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
+        });
         let msg;
         if (status == 2) msg = '暂存';
         if (status == 3) msg = '提交';
