@@ -67,7 +67,7 @@ export const XSZS_client_id = "138B0798-8D43-4588-B291-DB8545865C8A";
 /***服务助手***/
 export const FWZS_HTTP_URL_LOCALHOST = "FWZSAPI";
 export const FWZS_HTTP_URL_PROD = "https://sgmwsa.shaoxingzhuoyue.com/api";
-export const FWZS_HTTP_URL = (env === 'localhost' || env === 'dev' || env === 'uat') ? FWZS_HTTP_URL_LOCALHOST : FWZS_HTTP_URL_PROD;
+export const FWZS_HTTP_URL = env === 'localhost' ? FWZS_HTTP_URL_LOCALHOST : FWZS_HTTP_URL_PROD;
 
 //appid
 export const FWZS_appid = "52492bf5765840b192fac6c7ca3d10c8";
