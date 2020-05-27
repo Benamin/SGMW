@@ -52,10 +52,10 @@ export class TestCenterPage {
     }
 
     ionViewDidLoad() {
+        this.logSer.visitLog('kszx');
     }
 
     ionViewDidEnter() {
-        this.logSer.visitLog('kszx');
         this.eventEmitSer.eventEmit.emit('false');
         this.getList();
     }
