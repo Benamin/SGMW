@@ -17,7 +17,7 @@
             <div class="name nowrap-1">{{dataCon.PosterUserName}}</div>
             <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
         </div>
-        <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content'>
+        <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content | lineFeed'>
         </div>
         <div class="type-label">
       <span class="Topic-PlateName">
