@@ -41,6 +41,7 @@ import {GlobalData} from "../../core/GlobleData";
 import {DoTestPage} from "./test/do-test/do-test";
 import {LookTestPage} from "./test/look-test/look-test";
 import {CompetitionListsPage} from "./competition/lists/lists";
+import {CompetitionFWPage} from "./fw-competition/lists/lists";
 import {MyShortVideoBoxPage} from "../mine/my-short-video-box/my-short-video-box";
 
 @Component({
@@ -557,14 +558,23 @@ export class HomePage implements OnInit {
     }
 
     // 前往销售大赛
-    goToCompetition() {
+    goToXSCompetition() {
         if (!this.competitionParam.cid) {
             console.log('销售大赛ID不存在！')
             return
         }
         this.navCtrl.push(CompetitionListsPage, {
-            competitionParam: this
-                .competitionParam
+            competitionParam: this.competitionParam
+        });
+    }
+    // 前往销售大赛
+    goToFWCompetition() {
+        if (!this.competitionParam.cid) {
+            console.log('服务大赛ID不存在！')
+            return
+        }
+        this.navCtrl.push(CompetitionFWPage, {
+            competitionParam: this.competitionParam
         });
     }
 }
