@@ -18,6 +18,8 @@ import {MineService} from "../../mine/mine.service";
 import {GlobalData} from "../../../core/GlobleData";
 import {CommentComponent} from "../../../components/comment/comment";
 import {CommentByCourseComponent} from "../../../components/comment-by-course/comment-by-course";
+import {LookTalkVideoExamPage} from "../look-talk-video-exam/look-talk-video-exam";
+import {ExamTipPage} from "../exam-tip/exam-tip";
 
 
 @Component({
@@ -27,6 +29,7 @@ import {CommentByCourseComponent} from "../../../components/comment-by-course/co
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild('CourseIntroduction') CourseIntroduction: ElementRef;
     @ViewChild('ionSlidesDIV') ionSlidesDIV: ElementRef;
     @ViewChild('videojsCom') videojsCom: VideojsComponent;
     @ViewChild(Slides) slides: Slides;
@@ -47,14 +50,20 @@ export class CourseDetailPage {
     iframObj;
 
     relationList = [];
-    navbarList = [
+    oldNavbarList = [
         {type: 1, name: '简介', code: 'desc'},
         {type: 2, name: '章节', code: 'chapter'},
         {type: 3, name: '讨论', code: 'talk'},
-        // {type: 4, name: '讲师', code: 'teacher'},
         {type: 4, name: '评价', code: 'comment'},
         {type: 5, name: '相关', code: 'relation'},
     ];
+    newNavbarList = [
+        {type: 1, name: '章节', code: 'chapter'},
+        {type: 2, name: '讨论', code: 'talk'},
+        {type: 3, name: '评价', code: 'comment'},
+        {type: 4, name: '相关', code: 'relation'},
+    ];
+    navbarList;
 
     signObj = {
         isSign: false,
@@ -84,12 +93,15 @@ export class CourseDetailPage {
     isLoad = false;
 
     SortType;  //课程有序还是无序 1 有序 2 无序
+    StructureType; //章节结构状态  1 老结构即4层 2 新结构即两层
 
     nodeLevel4;   //视频播放当前课时节点
     tagsNodeList;   //包含作业的节点列表
     nodeLevel4List;   //所有的课时节点列表
     enterSource;   //进入来源
 
+    showMore = false;  //简介折叠
+    marginTop;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -99,6 +111,12 @@ export class CourseDetailPage {
                 private global: GlobalData,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
+        this.StructureType = this.navParams.get('StructureType') || 1;
+        if (this.StructureType == 1) {
+            this.navbarList = this.oldNavbarList;
+        } else {
+            this.navbarList = this.newNavbarList;
+        }
     }
 
     ionViewDidLoad() {
@@ -109,7 +127,7 @@ export class CourseDetailPage {
         this.ionSlidesDIV.nativeElement.style.width = screenWidth + 'px';
     }
 
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.enterSource = this.navParams.get('courseEnterSource');
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
@@ -131,6 +149,10 @@ export class CourseDetailPage {
                 }
                 //接受文件通知
                 this.getFileInfo();
+
+                setTimeout(() => {
+                    this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
+                })
             }
         );
     }
@@ -142,6 +164,7 @@ export class CourseDetailPage {
         this.showFooter = false;
         this.appSer.setFile(null)
         if (this.videojsCom) this.videojsCom.pageLeave();
+        console.log(this.navCtrl.getViews());
         const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
         const doExamArr = this.navCtrl.getViews().filter(e => e.name == 'DoExamPage');
         const lookExamArr = this.navCtrl.getViews().filter(e => e.name == 'LookExamPage');
@@ -279,10 +302,18 @@ export class CourseDetailPage {
             (res) => {
                 if (res.data) {
                     exam.Fid = res.data.ID;
-                    if (exam.examStatus == 8) {
-                        this.navCtrl.push(LookExamPage, {item: exam});
-                    } else {
-                        this.navCtrl.push(DoExamPage, {item: exam, source: 'course'});
+                    if (exam.examStatus == 8) {  //作业完成
+                        if (exam.JopType == 0) {   //选项作业
+                            this.navCtrl.push(LookExamPage, {item: exam, source: 'course'})
+                        } else {    //视频作业、讨论作业
+                            this.navCtrl.push(LookTalkVideoExamPage, {item: exam, source: 'course'});
+                        }
+                    } else {  //作业未完成
+                        if (exam.JopType == 0) {
+                            this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
+                        } else {  //视频作业、讨论作业
+                            this.navCtrl.push(ExamTipPage, {item: exam});
+                        }
                     }
                     load.dismiss();
                 }
@@ -440,7 +471,7 @@ export class CourseDetailPage {
 
     //课程
     goCourse(e) {
-        this.navCtrl.push(CourseDetailPage, {id: e.Id});
+        this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType});
     }
 
     //报名
@@ -661,7 +692,7 @@ export class CourseDetailPage {
             TopicType: 'talk',   //teacher  course
             topicID: this.product.detail.PrId
         };
-        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
+        this.learnSer.GetTalkLists(data3).subscribe(   //课程讨论
             (res) => {
                 if (res.data) {
                     this.comment.talk = res.data.CommentItems;
@@ -767,6 +798,14 @@ export class CourseDetailPage {
         this.videoInfo.poster = null;
         this.iframObj = null;
         this.courseFileType = null;
+    }
+
+    //简介显示
+    showIntroduction() {
+        this.showMore = !this.showMore;
+        setTimeout(() => {
+            this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
+        })
     }
 
 }

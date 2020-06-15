@@ -85,7 +85,7 @@ export class PostsContentComponent implements OnInit {
         this.lidata = this.navParams.get('data');
         this.forum_post_publish();
         let nowDate = Date.now();
-        if (new Date('2020-04-02 00:00').getTime() < nowDate && nowDate < new Date('2020-04-06 23:59').getTime()) {
+        if (new Date('2020-05-23 00:00').getTime() < nowDate && nowDate < new Date('2020-05-25 23:59').getTime()) {
             this.isShow = true;
         } else {
             this.isShow = false;
@@ -513,14 +513,17 @@ export class PostsContentComponent implements OnInit {
 
     initImg() {
         this.swiper = new Swiper(this.panel.nativeElement, {
+            direction: 'horizontal',
             initialSlide: this.vm.selectedIndex,//初始化显示第几个
             zoom: true,//双击,手势缩放
             loop: false,//循环切换
             // loopAdditionalSlides :3,
             lazyLoading: true,//延迟加载
             lazyLoadingOnTransitionStart: true,//    lazyLoadingInPrevNext : true,
-            pagination: '.swiper-pagination',//分页器
-            paginationType: 'fraction',//分页器类型
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'fraction'
+            },
             on: {
                 // tap:(e) =>{
                 click: (e) => {

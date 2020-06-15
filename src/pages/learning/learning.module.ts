@@ -15,6 +15,11 @@ import {FocusCoursePage} from "./focus-course/focus-course";
 import {InnerCoursePage} from "./inner-course/inner-course";
 import {CourseFilePage} from "./course-file/course-file";
 import {CourseTypePage} from "./course-type/course-type";
+import {ExamTipPage} from "./exam-tip/exam-tip";
+import {TalkExamPage} from "./talk-exam/talk-exam";
+import {VideoExamPage} from "./video-exam/video-exam";
+import {LookTalkVideoExamPage} from "./look-talk-video-exam/look-talk-video-exam";
+import {TalkReplyPage} from "./talk/talk-reply/talk-reply";
 
 @NgModule({
     declarations: [
@@ -29,7 +34,12 @@ import {CourseTypePage} from "./course-type/course-type";
         FocusCoursePage,
         InnerCoursePage,
         CourseFilePage,
-        CourseTypePage
+        CourseTypePage,
+        ExamTipPage,
+        TalkExamPage,
+        LookTalkVideoExamPage,
+        VideoExamPage,
+        TalkReplyPage
     ],
     imports: [
         PdfViewerModule,
@@ -48,7 +58,12 @@ import {CourseTypePage} from "./course-type/course-type";
         FocusCoursePage,
         InnerCoursePage,
         CourseFilePage,
-        CourseTypePage
+        CourseTypePage,
+        ExamTipPage,
+        TalkExamPage,
+        VideoExamPage,
+        LookTalkVideoExamPage,
+        TalkReplyPage
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

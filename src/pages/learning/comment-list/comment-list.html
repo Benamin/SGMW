@@ -1,18 +1,21 @@
 <!--评价-->
 <div class="comment-list">
-    <div class="comment-item" *ngFor="let item of List;">
+    <div class="comment-item" *ngFor="let item of List;" (click)="goDetail(item)">
         <div class="first">
             <div class="headPhoto">
-                <img [src]="item.HeadPhoto" alt="">
+                <img [src]="item.HeadPhoto">
             </div>
             <div style="text-align: left">
                 <p class="badge">
-                        <span>
+                    <!--                    名称-->
+                    <span>
                             {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
                         </span>
+                    <!--                    段位-->
                     <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                             {{item?.TitleInfo?.ForumTitle}}
                         </span>
+                    <!--                    勋章-->
                     <ng-container *ngFor="let badge of item?.Badges;let i = index;">
                             <span class="badgeSpan" *ngIf="i < 2">
                                 <img [src]="badge.BadgeIcon">
@@ -21,11 +24,13 @@
                     </ng-container>
                 </p>
                 <p>
+                    <!--                    评价时间-->
                     <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>
+                    <!--                课程评价时才有    评价的星级-->
                     <span class="img-star" *ngIf="TopicType != 'talk'">
                             <ng-container *ngFor="let st of starList;let i = index">
                                 <img *ngIf="item.Score > i +1 || item.Score == i +1"
-                                     src="./assets/imgs/learn/stars_5.png" alt="">
+                                     src="./assets/imgs/learn/stars_5.png">
                                 <ng-container
                                         *ngIf="((item.Score+'').split('.')[0] == i +1 && item.Score != i +1) ||
                                         ((item.Score+'').includes('0.') && i == 0)">
@@ -41,21 +46,55 @@
                                 <ng-container *ngIf="item.Score < i || item.Score == i">
                                     <img src="./assets/imgs/learn/stars_outline.jpg">
                                 </ng-container>
-                                <!--                                <span [ngClass]=" item.Score > i?'icon-star-fill':'icon-star' "-->
-                                <!--                                      class="icon iconfont "></span>-->
                             </ng-container>
                         </span>
                 </p>
             </div>
         </div>
         <div class="last teacher">
-            <div class="Contents" [innerHTML]="item.Contents | lineFeed"></div>
-            <div *ngIf="TopicType == 'teacher'" class="item-teacher">
-                <div>
-                    <img [src]="item.TeacherHeadPhoto || defalutPhoto" alt="">
+            <!--            视频作业-->
+            <ng-container *ngIf="item.qtype == 2">
+                <div class="video-share">
+                    <p>【答题分享】</p>
+                    <div class="video-content" *ngFor="let vi of item.Contents">
+                        <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+                        <img [src]="vi.imageurrl">
+                    </div>
                 </div>
-                <div>{{item.TeacherName}}</div>
-            </div>
+            </ng-container>
+            <!--            讨论作业-->
+            <ng-container *ngIf="item.qtype == 1">
+                <div class="Contents question-share"><p>【答题分享】</p>
+                    <ng-container *ngFor="let ques of item.Contents;let i = index;">
+                        {{i + 1}}、<span [innerHTML]="ques.QContent | lineFeed"></span><br>
+                        <span [innerHTML]="ques.StuAnswer | lineFeed"></span><br>
+                    </ng-container>
+                </div>
+            </ng-container>
+            <!--            普通作业-->
+            <ng-container *ngIf="item.qtype == 0 || TopicType == 'course'">
+                <div [innerHTML]="item.Contents | lineFeed" class="Contents"></div>
+            </ng-container>
+        </div>
+        <div *ngIf="TopicType == 'talk'" class="introduction-buttom">
+                    <span>
+                        <img src="./assets/imgs/forum/list/luntan_coment@3x.png">
+                        {{item.ReplyCount || 0}}
+                    </span>
+            <span>
+                        <img *ngIf="item.IsMyLike" (click)="handleCancelLike(item);$event.stopPropagation();"
+                             src="./assets/imgs/forum/other/p771_comment_like_on@3x.png">
+                        <img *ngIf="!item.IsMyLike" (click)="handleLike(item);$event.stopPropagation();"
+                             src="./assets/imgs/forum/other/p771_comment_like@3x.png">
+                {{item.LikeCount || 0}}
+                            </span>
+            <span>
+                        <img *ngIf="item.IsMyDisLike" (click)="handleCancelDisLike(item);$event.stopPropagation();"
+                             src="./assets/imgs/learn/cai_yes.png">
+                        <img *ngIf="!item.IsMyDisLike" (click)="handleDisLike(item);$event.stopPropagation();"
+                             src="./assets/imgs/learn/cai_no.png">
+                {{item.DisLikeCount || 0}}
+                    </span>
         </div>
     </div>
 </div>

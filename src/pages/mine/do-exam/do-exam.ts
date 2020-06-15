@@ -38,7 +38,6 @@ export class DoExamPage {
                 private loadCtrl: LoadingController, private commonSer: CommonService, private modalCtrl: ModalController,
                 public eventEmitSer: EmitService,) {
         this.source = this.navParams.get('source');
-        console.log(`source:${this.source}`);
     }
 
     ionViewDidLoad() {
@@ -129,17 +128,15 @@ export class DoExamPage {
 
     //确认提交 status 2-暂存 3-提交
     submit(status) {
-        let countDone = 0;
-        this.exam.QnAInfos.forEach(e => {
-                if (e.StuAnswer.length > 0) {
-                    countDone++;
-                }
-            }
-        );
-        if (countDone < this.exam.QnAInfos.length && status == 3) {
+        let isDone = this.exam.QnAInfos.every(e => e.StuAnswer.length > 0);
+        if (!isDone && status == 3) {
             this.score.isDone = true;
             return
         }
+
+        this.exam.QnAInfos.forEach(e => {
+            if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
+        });
         let msg;
         if (status == 2) msg = '暂存';
         if (status == 3) msg = '提交';
@@ -148,9 +145,6 @@ export class DoExamPage {
                 content: `${msg}中...`
             });
             loading.present();
-            this.exam.QnAInfos.forEach(e => {
-                if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
-            });
             const data = {
                 submitType: status,
                 postsCertID: this.global.PostsCertID

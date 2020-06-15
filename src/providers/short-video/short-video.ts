@@ -9,6 +9,10 @@ import {EditPage} from "../../pages/home/competition/edit/edit";
 import {Camera} from "@ionic-native/camera";
 import {CommonService} from "../../core/common.service";
 
+/**
+ * 1、录制视频 2、上传本地视频
+ */
+
 @Injectable()
 export class ShortVideoProvider {
 
@@ -72,7 +76,7 @@ export class ShortVideoProvider {
         let option: CaptureVideoOptions = {
             limit: 1,
             duration: 15,
-            quality: 50
+            quality: 100
         };
         if (this.platform.is('ios')) {
             this.appSer.setIOS('platformIOS');
@@ -98,6 +102,7 @@ export class ShortVideoProvider {
      * 上传本地短视频
      * 大小限制20M 即20971520 bytes
      */
+    // 【mediaFile】=>
     // {   //fileMeta
     //     "name":"trim.3D31C4A3-6329-4DD2-B056-EB6AD746D239.MOV",
     //     "localURL":"cdvfile://localhost/temporary/trim.3D31C4A3-6329-4DD2-B056-EB6AD746D239.MOV",
@@ -154,6 +159,7 @@ export class ShortVideoProvider {
      * 上传文件 【视频】
      * @param mediaFile
      */
+    // 【resp】=>
     // AssetId:"nb:cid:UUID:c7a84183-07bc-4f34-b607-912b29cc09fa"
     // DownloadUrl:"https://devstorgec.blob.core.chinacloudapi.cn/asset-c7a84183-07bc-4f34-b607-912b29cc09fa/VID_20200323_111446.mp4?sv=2018-03-28&sr=b&sig=ds86zkaBbVXIDDx5KzPMLNX6xxb1GrQ8o2slCHZG5PM%3D&se=2030-03-23T03%3A15%3A40Z&sp=rcw"
     // Imgurl:"https://devstorgec.blob.core.chinacloudapi.cn/asset-f15e6c34-b6b1-4717-8ac0-4dfad2d43b5a/VID_20200323_111446_000001.jpg?sv=2017-04-17&sr=c&si=6bed0a50-3f07-42ec-acc5-bb4e0376f44c&sig=doTiLv1%2BL3KmqLcD8iU2QK7S8cGBb%2B6Zjm2K6HVma68%3D&se=2020-04-02T03%3A16%3A37Z"

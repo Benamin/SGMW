@@ -32,11 +32,11 @@ export class ConsultationService {
                         } else if (e_data.TeachTypeName == "内训") {
                             navCtrl.push(InnerCoursePage, {id: e_data.Id});
                         } else {
-                            navCtrl.push(CourseDetailPage, {id: e_data.Id});
+                            navCtrl.push(CourseDetailPage, {id: e_data.Id, StructureType: e_data.StructureType});
                         }
                     }
                 });
-                
+
             }
         },
         {
@@ -61,11 +61,11 @@ export class ConsultationService {
                 }});
             }
         }
-    
+
     ]
     constructor(
         private http: HttpClient,
-        private nativeHttp: HTTP, 
+        private nativeHttp: HTTP,
         private inAppBrowser: InAppBrowser) {
     }
 
@@ -86,7 +86,7 @@ export class ConsultationService {
     GetRelationNewsByID(id): Observable<any> {
         return this.http.get(SERVER_API_URL + '/ENews/GetRelationNewsByID?id=' + id);
     }
-    
+
     //课程详情
     GetProductById(id): Observable<any> {
          return this.http.get(SERVER_API_URL + '/EProduct/GetProductById?pid=' + id);

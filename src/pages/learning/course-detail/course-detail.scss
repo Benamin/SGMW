@@ -58,6 +58,11 @@ page-course-detail {
         color: rgba(255, 255, 255, 1);
         line-height: 2.67rem;
         margin-bottom: 10px;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
       }
 
       .course-desc {
@@ -577,7 +582,7 @@ page-course-detail {
     width: 100%;
     height: 50px;
     background-color: #fff;
-    box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.16);
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.16);
     border-top: 1px solid #ddd;
 
     div {
@@ -590,5 +595,24 @@ page-course-detail {
       box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
       border-radius: 16px;
     }
+  }
+
+  .course-introduction {
+    padding: 10px;
+    border-bottom: 1px solid #eeeeee;
+
+    p {
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .introduction {
+      overflow: hidden;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
   }
 }

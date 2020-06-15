@@ -1,4 +1,8 @@
 page-course-type {
+  .scroll-content {
+    overflow-y: hidden;
+  }
+
   .back-button.show-back-button {
     display: none;
   }
@@ -74,6 +78,8 @@ page-course-type {
 
     .left {
       width: 35%;
+      overflow-y: scroll;
+      padding-bottom: 60px;
 
       p {
         padding: 15px;
@@ -86,6 +92,7 @@ page-course-type {
       padding: 0 10px;
       height: 100%;
       overflow-y: scroll;
+      padding-bottom: 60px;
 
       .ch {
         font-weight: bolder;
@@ -136,12 +143,9 @@ page-course-type {
   }
 
   .all-course {
-    text-align: center;
-    background-color: #fff;
+    text-align: left;
     font-weight: bolder;
-    padding-top: 10px;
-    font-size: 16px;
-    padding-bottom: 10px;
+    padding: 15px;
 
     ion-icon {
       vertical-align: middle;

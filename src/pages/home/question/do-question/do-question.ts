@@ -117,23 +117,18 @@ export class DoQuestionPage {
 
     //确认提交
     submit(status) {
-        let countDone = 0;
-        this.exam.QnAInfos.forEach(e => {
-                if (e.StuAnswer.length > 0) {
-                    countDone++;
-                }
-            }
-        );
-        if (countDone < this.exam.QnAInfos.length && status == 3) {
+        let isDone = this.exam.QnAInfos.every(e => e.StuAnswer.length > 0);
+        if (!isDone && status == 3) {
             this.score.isDone = true;
             return
         }
+
         let msg;
         if (status == 2) msg = '暂存';
         if (status == 3) msg = '提交';
         this.commonSer.alert(`确认${msg}?`, () => {
             const loading = this.loadCtrl.create({
-                content: '提交中...'
+                content: `${msg}中...`
             });
             loading.present();
             this.exam.QnAInfos.forEach(e => {

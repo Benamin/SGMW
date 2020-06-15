@@ -46,17 +46,6 @@ export class DoTestPage {
     ionViewDidLoad() {
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
-            let countDone = 0;
-            this.exam.QnAInfos.forEach(e => {
-                    if (e.StuAnswer.length > 0) {
-                        countDone++;
-                    }
-                }
-            );
-            if (countDone < this.exam.QnAInfos.length) {
-                this.score.isDone = true;
-                return
-            }
             this.submit(3);
         };
     }
@@ -161,16 +150,13 @@ export class DoTestPage {
         }
     }
 
-    //确认提交
+    /**
+     * 提交作业
+     * @param status 2-暂存 3-提交
+     */
     submit(status) {
-        let countDone = 0;
-        this.exam.QnAInfos.forEach(e => {
-                if (e.StuAnswer.length > 0) {
-                    countDone++;
-                }
-            }
-        );
-        if (countDone < this.exam.QnAInfos.length && status == 3) {
+        let isDone = this.exam.QnAInfos.every(e => e.StuAnswer.length > 0);
+        if (!isDone && status == 3) {
             this.score.isDone = true;
             return
         }
@@ -179,7 +165,7 @@ export class DoTestPage {
         if (status == 3) msg = '提交';
         this.commonSer.alert(`确认${msg}?`, () => {
             const loading = this.loadCtrl.create({
-                content: '提交中...'
+                content: `${msg}中...`
             });
             window.clearInterval(this.clock);
             loading.present();
@@ -189,7 +175,6 @@ export class DoTestPage {
             const data = {
                 submitType: status
             };
-            console.log(this.exam);
             this.homeSer.submitPaper(data, this.exam).subscribe(
                 (res) => {
                     loading.dismiss();
@@ -212,6 +197,10 @@ export class DoTestPage {
         this.exam.QnAInfos.forEach(e => {
             if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
         });
+        const loading = this.loadCtrl.create({
+            content: '答题时间结束,提交答案...'
+        });
+        loading.present();
         const data = {
             submitType: 3
         };
@@ -223,6 +212,7 @@ export class DoTestPage {
                 } else {
                     this.commonSer.toast(res.Message);
                 }
+                loading.dismiss();
             }
         )
     }
@@ -259,7 +249,6 @@ export class DoTestPage {
     }
 
     //关闭题目未做完提示
-    //未做完提示关闭
     closeDone(e) {
         this.score.isDone = false;
     }

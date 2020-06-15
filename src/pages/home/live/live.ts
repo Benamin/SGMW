@@ -100,7 +100,7 @@ export class LivePage {
     }
 
     goDetail(item) {
-        this.navCtrl.push(CourseDetailPage, {id: item.Id});
+        this.navCtrl.push(CourseDetailPage, {id: item.Id, StructureType: item.StructureType});
     }
 
     //下啦刷新

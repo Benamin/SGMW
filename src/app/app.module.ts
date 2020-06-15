@@ -31,11 +31,9 @@ import {EmitService} from "../core/emit.service";
 import {FileOpener} from "@ionic-native/file-opener";
 import {File} from "@ionic-native/file";
 import {FileService} from "../core/file.service";
-import {UntilService} from "../core/until.service";
 import {MineService} from "../pages/mine/mine.service";
 import {ModalFromRightEnter, ModalFromRightLeave, ModalScaleEnter, ModalScaleLeave} from "./modal-transitions";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
-import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
 import {TabService} from "../core/tab.service";
 import {AppVersion} from "@ionic-native/app-version";
 import {LogoutService} from "../secret/logout.service";
@@ -52,7 +50,6 @@ import {RankingComponent} from '../pages/ranking/ranking.component';
 import {ForumPage} from '../pages/forum/forum.component';
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
-import {DownloadFileService} from "../core/downloadFile.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {GlobalData} from "../core/GlobleData";
@@ -65,6 +62,7 @@ import {JPush} from "@jiguang-ionic/jpush";
 import {JpushUtil} from "../core/jPush.util";
 import {MediaCapture} from '@ionic-native/media-capture';
 import {ShortVideoProvider} from '../providers/short-video/short-video';
+import {ChooseImageProvider} from '../providers/choose-image/choose-image';
 
 @NgModule({
     declarations: [
@@ -133,13 +131,11 @@ import {ShortVideoProvider} from '../providers/short-video/short-video';
             DataFormatService,
             EmitService,
             FileService,
-            UntilService,
             LogoutService,
             GetRequestService,
             AppUpdateService,
             DatePipe,
             RandomWordService,
-            DownloadFileService,
             GlobalData,
             LogService,
             Camera,
@@ -152,7 +148,8 @@ import {ShortVideoProvider} from '../providers/short-video/short-video';
             },
             VideoJsProvider,
             DownloadFileProvider,
-            ShortVideoProvider
+            ShortVideoProvider,
+            ChooseImageProvider
         ],
 
 })

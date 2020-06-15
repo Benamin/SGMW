@@ -20,6 +20,7 @@ import {PrivacyComponent} from './privacy/privacy';
 import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
 import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
 import {UserAgreementComponent} from './user-agreement/user-agreement';
+import {FloatVideoBoxComponent} from './float-video-box/float-video-box';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {UserAgreementComponent} from './user-agreement/user-agreement';
         PrivacyComponent,
         CommentByCourseComponent,
         EidtModalComponent,
-        UserAgreementComponent
+        UserAgreementComponent,
+        FloatVideoBoxComponent
 
     ],
     imports: [
@@ -70,7 +72,8 @@ import {UserAgreementComponent} from './user-agreement/user-agreement';
         PrivacyComponent,
         CommentByCourseComponent,
         EidtModalComponent,
-        UserAgreementComponent
+        UserAgreementComponent,
+        FloatVideoBoxComponent
 
     ],
     providers: [
@@ -94,7 +97,8 @@ import {UserAgreementComponent} from './user-agreement/user-agreement';
         PrivacyComponent,
         CommentByCourseComponent,
         EidtModalComponent,
-        UserAgreementComponent
+        UserAgreementComponent,
+        FloatVideoBoxComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

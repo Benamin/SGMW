@@ -3,11 +3,11 @@ import {IonicPage, LoadingController, ModalController, NavController, NavParams,
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
 import {timer} from "rxjs/observable/timer";
-import Swiper from 'swiper';
 import {VideoReplyPage} from "../../short-video/video-reply/video-reply";
 
 declare let videojs: any;
 declare var Wechat;
+declare let Swiper: any;
 
 @Component({
     selector: 'page-competition-video',

@@ -8,6 +8,8 @@ import {HomeService} from "../../home/home.service";
 import {CommonService} from "../../../core/common.service";
 import {EmitService} from "../../../core/emit.service";
 import {LogService} from "../../../service/log.service";
+import {LookTalkVideoExamPage} from "../../learning/look-talk-video-exam/look-talk-video-exam";
+import {ExamTipPage} from "../../learning/exam-tip/exam-tip";
 
 @Component({
     selector: 'page-exam',
@@ -71,7 +73,7 @@ export class ExamPage {
                 if (res.Result == 1) {
                     this.commonSer.toast(res.Message);
                 }
-                this.exam.no = res.data.Items.filter(e => e.ExamStatus == 2 || e.ExamStatus == 4  );
+                this.exam.no = res.data.Items.filter(e => e.ExamStatus == 2 || e.ExamStatus == 4);
                 this.exam.done = res.data.Items.filter(e => e.ExamStatus == 8);
                 this.page.TotalItems = res.data.TotalItems;
                 this.IsLoad = true;
@@ -81,14 +83,24 @@ export class ExamPage {
     }
 
     // 1 未解锁  2 已解锁
-    goExam(item) {
-        if (item.ExamStatus == 1) {
+    goExam(exam) {
+        if (exam.ExamStatus == 1) {
             this.commonSer.toast('作业课时未完成');
         }
-        if (item.ExamStatus == 8) {
-            this.navCtrl.push(LookExamPage, {item: item});
-        } else {
-            this.navCtrl.push(DoExamPage, {item: item});
+
+        if (exam.ExamStatus == 8) {  //作业完成
+            if (exam.JopType == 0) {   //选项作业
+                this.navCtrl.push(LookExamPage, {item: exam, source: 'course'})
+            } else {    //视频作业、讨论作业
+                this.navCtrl.push(LookTalkVideoExamPage, {item: exam, source: 'course'});
+            }
+        } else {  //作业未完成
+            if (exam.JopType == 0) {
+                this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
+            } else {  //视频作业、讨论作业
+                exam.id = exam.Eid;
+                this.navCtrl.push(ExamTipPage, {item: exam});
+            }
         }
     }
 

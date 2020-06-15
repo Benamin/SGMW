@@ -52,10 +52,11 @@ export class StudyPlanPage {
     }
 
     ionViewDidLoad() {
-        if(this.navParams.get('PlanTime') && this.navParams.get('PlanTime').length > 0) {
+        if(this.navParams.get('CrateTime') && this.navParams.get('CrateTime').length > 0) {
 
-            let PlanTime = this.navParams.get('PlanTime');
-            let YMDArr = PlanTime.split(' ')[0].split('-');
+            let CrateTime = this.navParams.get('CrateTime');
+            console.log(CrateTime);
+            let YMDArr = CrateTime.split(' ')[0].split('-');
             let y = YMDArr[0];
             let m = YMDArr[1];
             let d = YMDArr[2];
@@ -227,7 +228,7 @@ export class StudyPlanPage {
         } else if (e.TeachTypeName == "内训") {
             this.navCtrl.push(InnerCoursePage, {id: e.Id});
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+            this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType});
         }
     }
 
@@ -383,7 +384,7 @@ export class StudyPlanPage {
             monthStr = month < 10 ? "0" + month : month;
         }
         if (this.initYearMonth && this.initYearMonth.year === year && this.initYearMonth.month === parseInt(monthStr) && this.initYearMonth.day) day = this.initYearMonth.day;
-        return new Date(`${year}-${monthStr}-${day}`);
+        return new Date(`${year}/${monthStr}/${day}`);
     }
     // 下个月 时间戳
     getNextMonth() {
@@ -401,7 +402,7 @@ export class StudyPlanPage {
             monthStr = month < 10 ? "0" + month : month;
         }
         if (this.initYearMonth && this.initYearMonth.year === year && this.initYearMonth.month === parseInt(monthStr) && this.initYearMonth.day) day = this.initYearMonth.day;
-        return new Date(`${year}-${monthStr}-${day}`);
+        return new Date(`${year}/${monthStr}/${day}`);
     }
 
     //考试中心
