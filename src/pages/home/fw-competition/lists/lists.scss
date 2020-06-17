@@ -1,0 +1,490 @@
+page-lists {
+
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+  .menu-inner {
+    width: 31.5rem;
+  }
+
+  .content {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F2F2F2;
+  }
+  //导航 start
+  .nav-type {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 4rem;
+    line-height: 4rem;
+    list-style: none;
+    background-color: #fff;
+    color: #918F92;
+    li {
+      position: relative;
+      flex: 1;
+      text-align: center;
+      .item-line {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        display: block;
+        width: 2.8rem;
+        height: 0.4rem;
+        background: transparent;
+        border-radius: 0.2rem;
+        opacity: 0.9;
+      }
+    }
+    .actived {
+      color: #000000;
+      .item-line {
+        background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+      }
+    }
+  }
+  //导航 end
+
+  // 二级导航
+  .nav-type-2 {
+    margin-top: 1.5rem;
+    margin-bottom: 1.6rem;
+    width: 100%;
+    height: auto;
+    background-color: #F2F2F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0;
+    border-bottom: 0;
+    .nav-box {
+      padding: 0.3rem;
+      height: 3.5rem;
+      border-radius: 1.7rem;
+      background-color: #FCFCFC;
+      .btn-box {
+        width: 34.8rem;
+        height: 2.9rem;
+        border-radius: 1.45rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        .type-btn {
+          flex: 1;
+          height: 2.9rem;
+          line-height: 2.9rem;
+          border-radius: 1.45rem;
+          color: #888888;
+        }
+        .type-btn.actived {
+          color: #000000;
+          background-color: orange;
+          background: linear-gradient(242deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+        }
+      }
+    }
+  }
+
+  // 侧边筛选
+  .select-lists-title {
+    margin: 1.7rem 0 1rem 1.4rem;
+    font-size: 1.6rem;
+    color:rgba(51,51,51,1);
+    font-weight:500;
+  }
+  .default-btn {
+    position: relative;
+    margin-left: 1.4rem;
+    margin-bottom: 1.4rem;
+    width:72px;
+    height:27px;
+    background-color: #F4F4F4;
+    border-radius:2px;
+    font-size: 1.4rem;
+    color:rgba(51,51,51,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    .address-icon {
+      margin-right: 0.4rem;
+      width: 1rem;
+      height: 1.3rem;
+    }
+    .iconfont {
+      position: absolute;
+      right: 0.1rem;
+      bottom: 0.1rem;
+      color: #FFFFFF;
+      font-size: 4px;
+    }
+    .triangle-bottomright {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 15px solid #FFC51D;
+      border-left: 15px solid transparent;
+    }
+    &.actived {
+      background:linear-gradient(242deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+    }
+  }
+  .address-lists {
+    padding-left: 1.4rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    .address-item {
+      margin-right: 0.6rem;
+      margin-bottom: 0.6rem;
+      width: 9.1rem;
+      height: 2.9rem;
+      line-height: 2.9rem;
+      border-radius: 0.2rem;
+      color:rgba(51,51,51,1);
+      text-align: center;
+      background-color: #F4F4F4;
+      &.actived {
+        background:linear-gradient(242deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+      }
+    }
+  }
+  .sub-btn {
+    position: absolute;
+    left: 7.1rem;
+    bottom: 3.5rem;
+    width:17.4rem;
+    height:3.2rem;
+    line-height:3.2rem;
+    text-align: center;
+    background:linear-gradient(242deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+    border-radius:1.6rem;
+  }
+  // 侧边筛选 end
+
+  // 搜索
+  .search-box {
+    margin: 0 auto;
+    margin-bottom: 1.6rem;
+    width: 35.4rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    .search-icon {
+      margin-left: 1rem;
+      margin-right: 0.8rem;
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    input{
+      flex: 1;
+      height: 100%;
+      max-width: 30rem;
+      background:none;
+      outline:none;
+      border: none;
+    }
+    input:focus{
+      border:none;
+    }
+  }
+
+  .rank-box {
+    position: relative;
+    margin: 0 auto;
+    width: 32.9rem;
+    height: 19.1rem;
+    text-align: center;
+    line-height: 1.41;
+    overflow: hidden;
+    .avatar {
+      margin: 0 auto;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .username {
+      margin-bottom: 0.2rem;
+      font-size: 1.2rem;
+    }
+    .address-text {
+      font-size: 1rem;
+      color:rgba(102,102,102,1);
+    }
+    .rank-num {
+      z-index: 4;
+      margin-top: 0.2rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      div {
+        margin: 0 auto;
+        padding: 0 1.1rem;
+        height: 1.3rem;
+        line-height: 1.3rem;
+        max-width: 9rem;
+        border-radius: 0.65rem;
+        font-size: 1rem;
+        color: #FFFFFF;
+        background:rgba(87,87,87,1);
+      }
+    }
+    .rank-number1-info {
+      position: absolute;
+      top: -0.15rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+    }
+    .rank-number2-info {
+      position: absolute;
+      top: 1.7rem;
+      left: 0;
+      transform: translateX(50%);
+      z-index: 4;
+    }
+    .rank-number3-info {
+      position: absolute;
+      top: 2.6rem;
+      left: 50%;
+      transform: translateX(75%);
+      z-index: 4;
+    }
+    .rank-number1 {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 18.5rem;
+      height: 17.4rem;
+
+      background-image: url("../assets/imgs/ranking/number1.png");
+      background-position: 0 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 2;
+    }
+    .rank-number2 {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 13.4rem;
+      height: 15.7rem;
+
+      background-image: url("../assets/imgs/ranking/number2.png");
+      background-position: 0 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+    .rank-number3 {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 13rem;
+      height: 13.6rem;
+
+      background-image: url("../assets/imgs/ranking/number3.png");
+      background-position: 0 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+  }
+
+  // 排名列表 从第四位开始
+  .lists-ranking {
+    background-color: #FFFFFF;
+    li {
+      height: 6rem;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #f2f2f2;
+      .ranking-num {
+        margin-left: 2.2rem;
+        margin-right: 1.8rem;
+        color: #333333;
+      }
+      .avatar {
+        margin-right: 1rem;
+        width: 2.8rem;
+        height: 2.8rem;
+        border-radius: 50%;
+      }
+      .userinfo {
+        flex: 1;
+        .username {
+          margin-bottom: 0.5rem;
+          font-size: 1.3rem;
+          color: #000000;
+          .serve-num {
+            display: inline-flex;
+            padding: 0 1.1rem;
+            height: 1.4rem;
+            line-height: 1.4rem;
+            border-radius: 0.65rem;
+            font-size: 1rem;
+            color:rgba(51,51,51,1);
+            background:rgba(237,237,237,1);
+          }
+        }
+        .company {
+          font-size: 1.2rem;
+          color: #888888;
+        }
+      }
+      .ranking-points {
+        margin-right: 1.8rem;
+        font-size: 1.4rem;
+        color: #000000;
+        //.points-total {
+        //  margin-right: 0.5rem;
+        //}
+      }
+    }
+  }
+
+  // 视频列表start
+  .video-lists {
+    li {
+      margin-bottom: 1rem;
+      .video-box {
+        position: relative;
+        width: 100%;
+        height: 21rem;
+        text-align: center;
+        .video-poster {
+          max-height: 21rem;
+          object-fit: cover;
+          z-index: 11;
+        }
+        .mask {
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 21rem;
+          object-fit: cover;
+          z-index: 2;
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+        .video-play-btn {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 4rem;
+          height: 4rem;
+          z-index: 5;
+        }
+        .video-title {
+          position: absolute;
+          top: 1.6rem;
+          margin: 0 1.6rem;
+          width: calc(100% - 3.2rem);
+          display: flex;
+          align-items: center;
+          z-index: 99;
+          span {
+            //width: 30rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+          }
+          img {
+            margin-left: auto;
+            width: 1.6rem;
+            height: 1.6rem;
+          }
+        }
+        .bottom-info {
+          position: absolute;
+          bottom: 1.2rem;
+          left: 1.2rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          overflow: hidden;
+          z-index: 5;
+          .video-length {
+            margin-left: 1.5rem;
+            padding: 0 0.5rem;
+            height: 1.8rem;
+            border-radius: 0.4rem;
+            color: #FFFFFF;
+            background-color: rgba(0, 0, 0, 0.3);
+          }
+          .right-text {
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+            color: #FFFFFF;
+          }
+        }
+      }
+      .video-info {
+        width: 100%;
+        height: 4.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #FFFFFF;
+        .company {
+          margin-left: 1.5rem;
+          font-size: 1.2rem;
+          color: #888888;
+        }
+        .num-info-box {
+          margin-right: 1.5rem;
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+          span {
+            display: flex;
+            align-items: center;
+          }
+          .comment-num {
+            img {
+              margin-right: 1rem;
+              width: 1.8rem;
+              height: 1.7rem;
+            }
+          }
+          .like-num {
+            img {
+              margin-left: 2rem;
+              margin-right: 0.8rem;
+              width: 1.8rem;
+              height: 1.8rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

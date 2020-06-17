@@ -1,0 +1,187 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>服务大赛排行榜</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!--<div class="content" >-->
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingText="下拉刷新"
+                             refreshingSpinner="bubbles">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ul class="nav-type">
+      <li *ngFor="let item of page.navliArr" (click)="changeCheckType(item.lable)"
+          [ngClass]="{'actived': page.checkType == item.lable}">
+        <div>{{ item.text }}</div>
+        <span class="item-line"></span>
+      </li>
+    </ul>
+
+    <div *ngIf="page.checkType === page.navliArr[0].lable">
+      <!-- 二级导航-->
+      <div class="nav-type-2">
+        <div class="nav-box">
+          <div class="btn-box">
+            <div (click)="changeSecNav(0, secNavIndex, item.isActived)"
+                 *ngFor="let item of page.navliArr[0].secNav; let secNavIndex = index" class="type-btn"
+                 [ngClass]="{'actived': item.isActived}">
+              {{ item.navBtnText }}<span class="item-line"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--二级级导航-->
+
+      <div class="search-box">
+        <img class="search-icon" src="./assets/imgs/train/search@2x.png">
+        <input placeholder="请输入姓名、单位、服务商代码" type="text"/>
+      </div>
+
+      <div class="rank-box">
+        <div class="rank-number1-info">
+          <div class="avatar">
+            <img src="{{ userDefaultImg }}">
+          </div>
+          <div class="username">李大大</div>
+          <div class="address-text">江苏省 华东区</div>
+          <div class="address-text">江苏金宇</div>
+          <div class="rank-num">
+            <div>621212</div>
+          </div>
+        </div>
+        <div class="rank-number1"></div>
+        <div class="rank-number2-info">
+          <div class="avatar">
+            <img src="{{ userDefaultImg }}">
+          </div>
+          <div class="username">李大大</div>
+          <div class="address-text">江苏省 华东区</div>
+          <div class="address-text">江苏金宇</div>
+          <div class="rank-num">
+            <div>621212</div>
+          </div>
+        </div>
+        <div class="rank-number2"></div>
+        <div class="rank-number3-info">
+          <div class="avatar">
+            <img src="{{ userDefaultImg }}">
+          </div>
+          <div class="username">李大大</div>
+          <div class="address-text">江苏省 华东区</div>
+          <div class="address-text">江苏金宇</div>
+          <div class="rank-num">
+            <div>621212</div>
+          </div>
+        </div>
+        <div class="rank-number3"></div>
+      </div>
+
+      <ul class="lists-ranking">
+        <li *ngFor="let item of page.rankingLists">
+          <span class="ranking-num">{{ item.Rankid }}</span>
+          <img class="avatar" src="{{ item.headPhoto || userDefaultImg }}">
+          <div class="userinfo">
+            <div class="username">{{item.UserName}} <span class="serve-num">{{ item.serveNum }}</span></div>
+            <div class="company">{{ item.province }} {{ item.area }} {{ item.city }}</div>
+          </div>
+          <span class="ranking-points">
+            <span class="points-total">{{item.TotalScore}}</span><span>分</span>
+          </span>
+        </li>
+
+        <!--<ion-list text-center style="margin-top: 10rem" *ngIf="page.isLoad && page.rankingLists.length == 0">-->
+          <!--<img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">-->
+          <!--<p text-center style="color: #666666;font-size: 16px">-->
+            <!--暂无数据-->
+          <!--</p>-->
+        <!--</ion-list>-->
+        <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">-->
+          <!--<ion-infinite-scroll-content-->
+            <!--loadingSpinner="bubbles"-->
+            <!--loadingText="加载中"></ion-infinite-scroll-content>-->
+        <!--</ion-infinite-scroll>-->
+
+      </ul>
+
+    </div>
+
+    <!--视频列表-->
+    <ul class="video-lists" *ngIf="page.checkType === page.navliArr[1].lable">
+      <li (click)="goVideoBox(item,cIndex)" *ngFor="let item of page.competitionLists, let cIndex = index">
+        <div class="video-box">
+          <img class="video-poster" src="{{item.CoverUrl || './assets/imgs/competition/fengmian@2x.png'}}"
+               alt="视频图片">
+          <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+          <div class="mask"></div>
+          <div class="video-title">
+            <span>{{ item.Title }}</span>
+          </div>
+          <div class="bottom-info">
+            <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4" (loadedmetadata)="getDuration($event,item)"
+                   [src]="item.files.DownLoadUrl"></video>
+            <span *ngIf="item.VideoMinute === 0" class="video-length">{{ item.duration || '00:00'}}</span>
+            <span *ngIf="item.VideoMinute > 0" class="video-length">{{ item.VideoMinute | secondFormat}}</span>
+          </div>
+        </div>
+        <div class="video-info">
+        <span class="num-info-box">
+          <span class="comment-num">
+            <img src="./assets/imgs/competition/pinglun@2x.png" alt="评论量">
+              {{ item.commentCount || 0 }}
+          </span>
+          <span class="like-num">
+            <img src="./assets/imgs/competition/dianzan@2x.png" alt="点赞量">
+              {{ item.ReplyCount }}
+          </span>
+        </span>
+        </div>
+      </li>
+    </ul>
+
+  <!--</div> $event.stopPropagation(); -->
+  <span #myNav></span>
+  <ion-menu (touchmove)="stop($event)" (click)="closeMenu()" [content]="myNav" side="right"
+            style="z-index: 99;background-color: rgba(0,0,0, 0.1);">
+    <div style="height: 100%;overflow: hidden;background-color: #FFFFFF;position: relative;" (click)="stop($event)">
+
+      <div *ngFor="let dataItem of page.sidebarData, let dataIndex = index">
+
+        <div *ngIf="page.nowClick == dataItem.type">
+          <div class="select-lists-title">{{ dataItem.typeText }}</div>
+          <div [ngClass]="{ 'actived': dataItem.isActivedAll === true }" class="default-btn" (click)="changeBtnState(dataIndex, -1)">
+            <img class="address-icon" src="./assets/imgs/train/location_h@2x.png">
+            不限
+            <div class="triangle-bottomright" *ngIf="dataItem.isActivedAll"></div>
+            <span class="iconfont" *ngIf="dataItem.isActivedAll">&#xe72a;</span>
+          </div>
+          <div class="address-lists">
+            <div *ngFor="let arrItem of dataItem.changeTypeArr, let arrIndex = index" class="address-item actived" [ngClass]="{ 'actived': arrItem.actived === true }" (click)="changeBtnState(dataIndex, arrIndex)">{{ arrItem.text }}</div>
+          </div>
+
+          <div class="sub-btn" (click)="changeListsType()">确定</div>
+        </div>
+
+      </div>
+
+      <!--<div *ngIf="">-->
+        <!--<div class="select-lists-title">省份</div>-->
+        <!--<div class="default-btn" (click)="changeBtnState(item.dataIndex, -1)">-->
+          <!--<img class="address-icon" src="./assets/imgs/train/location_h@2x.png">-->
+          <!--不限-->
+          <!--<div class="triangle-bottomright"></div>-->
+          <!--<span class="iconfont">&#xe72a;</span>-->
+        <!--</div>-->
+        <!--<div class="address-lists">-->
+          <!--<div *ngFor="let item of page.sidebarData[2].changeTypeArr" class="address-item" [ngClass]="{ 'actived': item.actived === true }">{{ item.text }}</div>-->
+        <!--</div>-->
+
+        <!--<div class="sub-btn" (click)="changeListsType('province')">确定</div>-->
+      <!--</div>-->
+
+    </div>
+  </ion-menu>
+
+</ion-content>
