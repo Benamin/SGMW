@@ -205,4 +205,24 @@ export class HomeService {
     GetTopDownShortVideoDetail(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/AppShortVideo/GetTopDownShortVideoDetail' + this.dataFormat.toQuery(data));
     }
+
+    // 获取话题ID接口
+    GetCompetitionID(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/appTopic/GetTopicID' + this.dataFormat.toQuery(data));
+    }
+
+    // 获取服务大赛 的区域和省份 数据
+    GetServerCompArea(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/appGetUserArea/NewGetUserAreaQY' + this.dataFormat.toQuery(data));
+    }
+
+    // 获取服务大赛 的区域和省份 数据
+    GetServerCompProvince(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/appGetUserArea/NewGetUserAreaSF' + this.dataFormat.toQuery(data));
+    }
+
+    // 获取 服务大赛 排行列表
+    GetServiceRankingList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/forum/post/getservicecontestdatalist', data);
+    }
 }

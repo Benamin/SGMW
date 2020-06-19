@@ -4,12 +4,12 @@ import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
 
 /**
- * 服务大赛
- * 排行榜 列表
+ * 服务大赛 排行榜 列表
+ *
  *    |-所有
  *    |-区域
  *    |-省份
- * 短视频
+ * 短视频 列表
  */
 
 @Component({
@@ -58,6 +58,8 @@ export class CompetitionFWPage {
         sidebarData: [
             {
                 type: 'all',
+                typeText: '所有',
+                isActivedAll: true,
                 changeTypeArr: null
             },
             {
@@ -67,22 +69,22 @@ export class CompetitionFWPage {
                 changeTypeArr: [{
                     id: 0,
                     text: '江浙泸',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 1,
                     text: '珠三角',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 2,
                     text: '港澳台',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 3,
                     text: '海外',
-                    actived: 'false'
+                    actived: false
                 }]
             },
             {
@@ -92,152 +94,152 @@ export class CompetitionFWPage {
                 changeTypeArr: [{
                     id: 0,
                     text: '安徽',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 1,
                     text: '福建',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 2,
                     text: '甘肃',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 3,
                     text: '广东',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 4,
                     text: '广西',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 5,
                     text: '贵州',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 6,
                     text: '海南',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 7,
                     text: '河北',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 8,
                     text: '河南',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 9,
                     text: '湖北',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 10,
                     text: '湖南',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 11,
                     text: '江苏',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 12,
                     text: '黑龙江',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 13,
                     text: '江西',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 14,
                     text: '吉林',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 15,
                     text: '辽宁',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 16,
                     text: '内蒙古',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 17,
                     text: '宁夏',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 18,
                     text: '青海',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 19,
                     text: '山东',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 20,
                     text: '山西',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 21,
                     text: '陕西',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 22,
                     text: '四川',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 23,
                     text: '西藏',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 24,
                     text: '新疆',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 25,
                     text: '云南',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 26,
                     text: '浙江',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 27,
                     text: '香港',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 28,
                     text: '澳门',
-                    actived: 'false'
+                    actived: false
                 },
                 {
                     id: 29,
                     text: '台湾',
-                    actived: 'false'
+                    actived: false
                 }]
             }
         ],
@@ -274,8 +276,50 @@ export class CompetitionFWPage {
             duration: '00:23',
             commentCount: 22,
             ReplyCount: 23
-        }]
+        }];
+
+
+
+        let competitionParam = this.navParams.get('competitionParam');
+        if (this.competitionParam.ServerArea && this.competitionParam.ServerProvince) {
+            this.page.competitionParam = competitionParam;
+            this.page.getParams = {
+                TopicTagPlateId: this.page.competitionParam.cid,
+                TopicId: this.page.competitionParam.cid,
+                topicID: this.page.competitionParam.cid,
+                PageIndex: 1,
+                PageSize: 10,
+                TotalCount: null,
+                isLoad: false
+            };
+            // this.getList(null);
+            this.getAPData(); // 获取 区域 / 省 数据
+        } else if (!competitionParam.cid) {
+            console.log('服务大赛区域或省份列表 不存在！')
+        }
     }
+
+    getAPData() {
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        this.homeSer.GetServiceCompetitionArea({}).subscribe(
+            (res) => {
+                if (res.code == 200) {
+                    let Data = res.data;
+                    console.log('区域/省:', Data);
+                    // this.page.competitionLists = this.DataAssign(Data);
+                    // this.page.getParams.isLoad = true;
+                    this.getList(null);
+                }
+                loading.dismiss();
+            }, err => {
+                console.log(err)
+                loading.dismiss();
+            }
+        )
+    }
+
     // 阻止时间冒泡
     stop(event: Event){
         if (event) event.stopPropagation();
@@ -283,7 +327,10 @@ export class CompetitionFWPage {
 
     // 获取列表
     getList(callback) {
-        let params = {};
+        let params = {
+            PageIndex: 1,
+            PageSize: 10
+        };
         let loading = this.loadCtrl.create({
             content: ''
         });
@@ -293,19 +340,41 @@ export class CompetitionFWPage {
             loading.dismiss();
         }, 500)
 
-        // this.page.getListsApi(params).subscribe(
-        //     (res) => {
-        //         if (res.code == 200) {
-        //             let Data = res.data;
-        //             this.page.competitionLists = this.DataAssign(Data);
-        //             this.page.getParams.isLoad = true;
-        //         }
-        //         loading.dismiss();
-        //     }, err => {
-        //         console.log(err)
-        //         loading.dismiss();
-        //     }
-        // )
+        this.homeSer.GetServiceRankingList(params).subscribe(
+            (res) => {
+                if (res.code == 200) {
+                    let Data = res.data;
+                    console.log(111, Data)
+                    // this.page.competitionLists = this.DataAssign(Data);
+                    // this.page.getParams.isLoad = true;
+                }
+                loading.dismiss();
+            }, err => {
+                console.log(err)
+                loading.dismiss();
+            }
+        )
+    }
+
+    paramAssign() {
+        // 第一次加载 或切换时候的参数处理
+        this.page.getParams.Page = 1;
+        this.page.getParams.PageIndex = 1;
+        this.page.getParams.OrderBy = '' // LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
+        this.page.getParams.AreaID = '' // 传入则查询地区排行和排行榜//不传则查询所有地区排行榜
+
+
+        if (this.page.checkType === this.page.navliArr[0].lable) {
+            // 判断是 排行榜/短视频
+            this.page.getListsApi = (data) => {
+                return this.homeSer.GetServiceRankingList(data)
+            };
+        } else if (this.page.checkType === this.page.navliArr[1].lable) {
+            // 短视频排行榜
+            this.page.getListsApi = (data) => {
+                return this.homeSer.GetShortVideoCompitLists(data)
+            };
+        }
     }
 
     // 点击 区域按钮 或者 省份按钮
@@ -354,7 +423,7 @@ export class CompetitionFWPage {
                     if (dataIndex === i && arrIndex === j) {
                         this.page.dataIndex = dataIndex;
                         this.page.arrIndex = arrIndex;
-                        console.log(33333, this.page)
+                        // console.log(33333, this.page)
                         sidebarData[i].changeTypeArr[j].actived = true;
                         sidebarData[i].isActivedAll = false;
                     } else {

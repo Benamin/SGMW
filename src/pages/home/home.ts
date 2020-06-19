@@ -557,6 +557,28 @@ export class HomePage implements OnInit {
         )
     }
 
+    // 获取服务大赛ID 和 用户所属 区域列表 和 省份列表
+    getServerCompetition() {
+        this.competitionParam = {
+            ServerAreaArr: null,
+            ServerProvinceArr: null
+        }
+        // 获取区域列表
+        this.homeSer.GetServerCompArea({}).subscribe(
+            (res) => {
+                // console.log('GetCompetitionListUserArea', res)
+                this.competitionParam.ServerArea = res.data;
+            }
+        )
+        // 获取省份列表
+        this.homeSer.GetServerCompProvince({}).subscribe(
+            (res) => {
+                this.competitionParam.ServerProvince = res.data;
+            }
+        )
+
+    }
+
     // 前往销售大赛
     goToXSCompetition() {
         if (!this.competitionParam.cid) {
@@ -569,8 +591,8 @@ export class HomePage implements OnInit {
     }
     // 前往销售大赛
     goToFWCompetition() {
-        if (!this.competitionParam.cid) {
-            console.log('服务大赛ID不存在！')
+        if (!this.competitionParam.ServerArea || !this.competitionParam.ServerProvince) {
+            console.log('服务大赛区域或省份列表 不存在！')
             return
         }
         this.navCtrl.push(CompetitionFWPage, {
