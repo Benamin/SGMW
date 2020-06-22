@@ -41,7 +41,6 @@ import {GlobalData} from "../../core/GlobleData";
 import {DoTestPage} from "./test/do-test/do-test";
 import {LookTestPage} from "./test/look-test/look-test";
 import {CompetitionListsPage} from "./competition/lists/lists";
-import {VideoBoxPage} from "./short-video/video-box/video-box";
 import {MyShortVideoBoxPage} from "../mine/my-short-video-box/my-short-video-box";
 
 @Component({
@@ -87,9 +86,6 @@ export class HomePage implements OnInit {
         this.storage.get('user').then(value => {
             if (value) {
                 this.mineInfo = value;
-                if (this.mineInfo.UserName && this.mineInfo.UserName.length > 3) {
-                    this.mineInfo.UserName = this.mineInfo.UserName.slice(0, 3) + '...';
-                }
             }
         });
         let app_url = (window as any).localStorage.getItem("app_url");
@@ -326,7 +322,7 @@ export class HomePage implements OnInit {
         } else if (e.TeachTypeName == "内训") {
             this.navCtrl.push(InnerCoursePage, {id: e.Id});
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: e.Id});
+            this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType});
         }
     }
 

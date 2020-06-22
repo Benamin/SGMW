@@ -11,13 +11,15 @@ import {PostAddComponent} from './post-add/post-add.component';
 // import {ForumListTimeComponent} from './forum-list-time/forum-list-time.component';
 import {ComponentsModule} from "../../components/components.module";
 import {ReportPage} from "./report/report";
+import {PipesModule} from "../../pipes/pipes.module";
 
 
 @NgModule({
     imports: [
         IonicPageModule.forChild(ForumPage),
         CommonModule,
-        ComponentsModule
+        ComponentsModule,
+        PipesModule
     ],
     entryComponents: [
         ForumPage,

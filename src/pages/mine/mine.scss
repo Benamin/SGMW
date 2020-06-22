@@ -31,7 +31,7 @@ page-mine {
     align-items: center;
     justify-content: center;
 
-    > div{
+    > div {
       width: 25%;
     }
 
@@ -111,7 +111,7 @@ page-mine {
   //列表区域
   .mine-list {
     margin: 65px 20px;
-    margin-top: 60px ;
+    margin-top: 60px;
 
     background-color: #fff;
     border-radius: 6px;
@@ -165,8 +165,7 @@ page-mine {
   }
 
   .img3 {
-    width: auto;
+    width: 100%;
     height: 100%;
-    //margin-left:0;
   }
 }

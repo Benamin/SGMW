@@ -9,9 +9,11 @@ import {Pipe, PipeTransform} from '@angular/core';
     name: 'stringSlice',
 })
 export class StringSlicePipe implements PipeTransform {
-    transform(value: string, len: number,index:number) {
-        let str;
-        str = value.length > len ? value.slice(0, index) + "..." : value;
+    transform(value: string, len: number, index: number) {
+        let str = "";
+        if (value && value.length > 0) {
+            str = value.length > len ? value.slice(0, index) + "..." : value;
+        }
         return str;
     }
 }

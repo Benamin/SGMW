@@ -1,0 +1,106 @@
+<!--
+讨论中回复的部分
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>查看回复</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content style="background: #fff;">
+    <div class="original">
+        <div class="reply">
+            <div class="reply-top">
+                <img class="heard-img" src="{{item?.HeadPhoto}}" alt="">
+                <div class="text">
+                    <h4>
+              <span class="PosterUserName">
+                  {{item?.UserName}}
+              </span>
+                        <span *ngIf="item?.TitleInfo?.ForumTitle"
+                              class="ForumTitle">{{item?.TitleInfo?.ForumTitle}}</span>
+                        <span class="PosterBadges" *ngFor="let data of item?.Badges">
+              <img src="{{data?.BadgeIcon}}" alt="">
+              <span class="PosterBadges-BadgeName">
+                  {{data?.BadgeName}}
+              </span>
+            </span>
+                    </h4>
+                    <p>{{item?.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                </div>
+                <div class="comment">
+                </div>
+            </div>
+            <!--            普通讨论-->
+            <div *ngIf="item?.qtype == 0" class="reply-text">
+                <p [innerHTML]="item?.Contents | lineFeed"></p>
+            </div>
+            <!--            讨论作业-->
+            <div *ngIf="item?.qtype == 1" class="reply-text">
+                <div>
+                    <p>【答题分享】</p>
+                    <ng-container *ngFor="let ques of item.Contents;let i = index;">
+                        {{i + 1}}、<span [innerHTML]="ques.QContent | lineFeed"></span><br>
+                        <span [innerHTML]="ques.StuAnswer | lineFeed"></span><br>
+                    </ng-container>
+                </div>
+            </div>
+            <!--            视频作业-->
+            <div *ngIf="item?.qtype == 2" class="reply-text">
+                <p>【答题分享】</p>
+                <div class="video-content" *ngFor="let vi of item.Contents" (click)="openVideo(vi)">
+                    <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+                    <img [src]="vi.imageurrl">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="background: #f2f2f2;height: 10px;width: 100%;">
+
+    </div>
+    <div class="discuss-list">
+        <!--        <p class="number-all">回复（{{data?}}）</p>-->
+        <div class="reply" *ngFor="let replay of data">
+            <div class="reply-top">
+                <img class="heard-img" src="{{replay?.PosterHeadPhoto}}" alt="">
+                <div class="text">
+                    <h4>
+                        <span class="PosterUserName">
+                            {{replay.PosterUserName.length > 3 && replay?.PosterBadges.length > 1 ? (replay?.PosterUserName | stringSlice:3:3) : replay.PosterUserName}}
+                        </span>
+                        <span *ngIf="replay?.PosterUserForumTitle?.ForumTitle"
+                              class="ForumTitle">{{replay?.PosterUserForumTitle?.ForumTitle}}</span>
+                        <span class="PosterBadges" *ngFor="let n of replay?.PosterBadges">
+                            <img src="{{n.BadgeIcon}}" alt="">
+                            <span class="PosterBadges-BadgeName">
+                                {{n.BadgeName}}
+                            </span>
+                    </span>
+
+                    </h4>
+                    <p>{{replay?.CommentTimeFormatted}}</p>
+                </div>
+                <div class="comment">
+                </div>
+            </div>
+            <div class="reply-text">
+                {{replay?.Content}}
+            </div>
+        </div>
+
+    </div>
+    <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="data.length==0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            没有评论，快发一条吧~
+        </p>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <div class="input-div" (click)="openComment()">
+        <div>
+            输入你的讨论...
+        </div>
+    </div>
+</ion-footer>
+<!--<float-video-box #floatVideoBoxComponent [isHidden]="isHidden"></float-video-box>-->
+

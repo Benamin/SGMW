@@ -1,0 +1,37 @@
+<!--
+  视频类作业、讨论类作业 详情
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>作业详情</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="talk-exam">
+        <!--    讨论作业-->
+        <ng-container *ngIf="exam?.ExamInfo?.JopType == 1">
+            <div class="exam-item" *ngFor="let item of exam.QnAInfos;let i = index;">
+                <p>{{i + 1}}、{{item.QContent}}</p>
+                <div [innerHTML]="item.StuAnswer | lineFeed">
+                </div>
+            </div>
+        </ng-container>
+        <!--    视频作业-->
+        <ng-container *ngIf="exam?.ExamInfo?.JopType == 2">
+            <div class="exam-item" *ngFor="let item of exam.QnAInfos;let i = index;"
+                 (click)="openVideo(item.StuAnswer)">
+                <p>{{i + 1}}、{{item.QContent}}</p>
+                <div class="video-content">
+                    <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+                    <img [src]="item.StuAnswer.CoverUrl || defaultImg">
+                    <span *ngIf="!item.StuAnswer.AttachmentUrl || item.StuAnswer.AttachmentUrl == '转码中'" class="gray">转码中</span>
+                </div>
+            </div>
+        </ng-container>
+        <p *ngIf="exam.ExamInfo?.ScoreIsRelease == 1" class="share-img">
+            <img src="./assets/imgs/forum/other/share.png"
+                 alt="分享按钮">已共享到讨论区
+        </p>
+    </div>
+</ion-content>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.SGMW.start.h" version="1.9.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.SGMW.start.h" version="1.9.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>骏菱学社</name>
     <description>An awesome Ionic/Cordova app.</description>
     <content src="index.html" />
@@ -119,4 +119,10 @@
     <plugin name="cordova-plugin-photo-library" spec="git+https://github.com/nilebma/cordova-plugin-photo-library.git">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="jpush-phonegap-plugin" spec="^3.7.6">
+        <variable name="APP_KEY" value="235665a384e33f0f3b98fba3" />
+    </plugin>
+    <engine name="browser" spec="^6.0.0" />
+    <engine name="android" spec="^8.0.0" />
+    <engine name="ios" spec="^5.1.1" />
 </widget>

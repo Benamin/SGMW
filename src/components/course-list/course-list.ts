@@ -24,13 +24,10 @@ export class CourseListComponent {
       console.log('分享内容',data)
       let description=data.Description;
       let thumb=data.ImageUrl;
-      
+
       if(description.length>100){
         description = description.slice(0,100);
        }
-      
-       console.log(description,data.TeachTypeCode);
-       
         Wechat.share({
             message: {
             title: data.Title, // 标题

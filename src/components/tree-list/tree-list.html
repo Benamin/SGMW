@@ -9,6 +9,7 @@
     </p>
     <tree-list *ngIf="itemNode.children.length > 0 && itemNode.show"
                [IsBuy]="IsBuy"
+               [StructureType]="StructureType"
                [TeachTypeName]="TeachTypeName"
                [treeList]="itemNode.children"
     ></tree-list>
@@ -18,31 +19,63 @@
             <img *ngIf="itemFile.icon != 'mp4'" src="./assets/imgs/learn/file.png">
             <img *ngIf="itemFile.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
             {{itemFile.DisplayName | stringSlice:15:15}}
-            <span class="file-icon">{{itemFile.icon}}</span>
+            <span class="tree-file-icon">{{itemFile.icon}}</span>
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                  tappable (click)="downLoad(itemFile,$event)"
-                 class="download-file" src="./assets/imgs/course/xiazai.png">
-            <img class="done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png" alt="">
+                 class="tree-download-file" src="./assets/imgs/course/xiazai.png">
+            <img class="tree-done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png"
+                 alt="">
         </p>
     </div>
     <!--   作业      -->
     <ng-container *ngIf="IsBuy">
-        <div *ngFor="let itemExam of itemNode.tags">
-            <p tappable
-               (click)="handleExam(itemNode,itemExam,$event)">
-                <span [ngStyle]="{'margin-left':(itemNode.NodeLevel*5)+'px'}" class="exam">
+        <!--            新结构-->
+        <ng-container *ngIf="StructureType == 2">
+            <ion-row>
+                <ng-container *ngFor="let itemExam of itemNode.tags">
+                    <ion-col col-6 class="col-item" tappable (click)="handleExam(itemExam,itemExam,$event)">
+                        <div class="record-item">
+                            <span *ngIf="itemExam.JopType == 0" class="jobType blue">作业</span>
+                            <span *ngIf="itemExam.JopType == 1" class="jobType blue">讨论作业</span>
+                            <span *ngIf="itemExam.JopType == 2" class="jobType green">视频作业</span>
+                            <span class="new-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
+                    || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
+                                 <img src="./assets/imgs/course/daiwancheng.png" alt="">
+                                  </span>
+                            <span class="new-yes" *ngIf="itemExam.examStatus == 8">
+                                 <img src="./assets/imgs/course/yiwancheng.png" alt="">
+                            </span>
+                            <img *ngIf="itemExam.JopType == 0" class="shipin_zy"
+                                 src="./assets/imgs/learn/fujian.png">
+                            <img *ngIf="itemExam.JopType == 1" class="shipin_zy"
+                                 src="./assets/imgs/learn/taolun_zy.png">
+                            <img *ngIf="itemExam.JopType == 2" class="shipin_zy"
+                                 src="./assets/imgs/learn/shipin_zy.png">
+                        </div>
+                        <p>{{itemExam.label | stringSlice:15:15}}</p>
+                    </ion-col>
+                </ng-container>
+            </ion-row>
+        </ng-container>
+        <!--        老结构-->
+        <ng-container *ngIf="StructureType == 1">
+            <div *ngFor="let itemExam of itemNode.tags">
+                <p tappable
+                   (click)="handleExam(itemExam,itemExam,$event)">
+                <span [ngStyle]="{'margin-left':(itemExam.NodeLevel*5)+'px'}" class="exam">
                     {{itemExam.label | stringSlice:15:15}}
                 </span>
-                <span class="no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
+                    <span class="old-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
                 || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
                     <img src="./assets/imgs/course/daiwancheng.png" alt="">
                     待完成
                 </span>
-                <span class="yes" *ngIf="itemExam.examStatus == 8">
+                    <span class="old-yes" *ngIf="itemExam.examStatus == 8">
                     <img src="./assets/imgs/course/yiwancheng.png" alt="">
                     已完成
                 </span>
-        </div>
+            </div>
+        </ng-container>
     </ng-container>
 </div>
 

@@ -1,0 +1,8 @@
+<div [hidden]="isHidden" data-wow-duration="1s" class="replay-video-box wow bounceInDown">
+    <span (click)="destroy()" class="close">关闭</span>
+    <video [id]="videoEle" class="video-js"
+           playsinline="true" webkit-playsinline="true"
+           width="100%" height="180" controls preload="auto"
+           [poster]="defaultImg">
+    </video>
+</div>

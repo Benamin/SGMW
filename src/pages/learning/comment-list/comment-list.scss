@@ -3,11 +3,10 @@ page-comment-list {
     background-color: #fff;
 
     .comment-item {
-      padding: 20px 0;
+      padding-top: 30px;
 
       .first {
         display: flex;
-        margin-bottom: 10px;
 
         .headPhoto {
           img {
@@ -56,5 +55,74 @@ page-comment-list {
     .comment-item + .comment-item {
       border-top: 1px solid #e3e3e3;
     }
+
+    .comment-item:last-child {
+      margin-bottom: 40px;
+    }
+  }
+
+  .video-content {
+    position: relative;
+    height: 160px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    border-radius: 4px;
+
+    img {
+      max-height: 160px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 99;
+    }
+
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 4rem;
+      height: 4rem;
+      z-index: 100;
+    }
+  }
+
+  .introduction-buttom {
+    padding: 10px 0;
+    color: #757575;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 18px;
+      margin-right: 8px;
+    }
+
+    span:nth-child(1) {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      margin-right: 20px;
+    }
+
+    span:nth-child(2) {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+
+    span:nth-child(3) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .last.teacher {
+    padding: 10px 0;
+  }
+
+  .video-share {
+    width: 100%;
   }
 }

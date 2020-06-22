@@ -85,7 +85,7 @@ export class PostsContentComponent implements OnInit {
         this.lidata = this.navParams.get('data');
         this.forum_post_publish();
         let nowDate = Date.now();
-        if (new Date('2020-04-02 00:00').getTime() < nowDate && nowDate < new Date('2020-04-06 23:59').getTime()) {
+        if (new Date('2020-05-23 00:00').getTime() < nowDate && nowDate < new Date('2020-05-25 23:59').getTime()) {
             this.isShow = true;
         } else {
             this.isShow = false;
@@ -94,11 +94,6 @@ export class PostsContentComponent implements OnInit {
 
     textareaclick() {
         this.textareaBlur = true;
-        // setTimeout(() => {
-        //   let textDiv: HTMLElement = document.getElementById('textareainp');
-        //   console.log(textDiv);
-        //   textDiv.focus();
-        // }, 20);
     }
 
     inputshow_on() {
@@ -196,7 +191,6 @@ export class PostsContentComponent implements OnInit {
                     return
                 }
                 this.swiper = null;
-                console.log(e.srcElement.src);
                 this.vm.selectedIndex = n;
                 this.showImgSrc = e.srcElement.src;
                 setTimeout(() => {
@@ -207,14 +201,6 @@ export class PostsContentComponent implements OnInit {
             })
             this.vm.images.push(imgs[n].src);
         }
-        // this.initImg();
-        // vm: any = {
-        //     canEdit: false,
-        //     selectedIndex: 0,
-        //     images
-        // this.vm=imgs;
-        console.log('获取原始', imgs)
-        // Dom.addEventListener()
     }
 
 
@@ -303,7 +289,6 @@ export class PostsContentComponent implements OnInit {
         });
         loading.present();
         this.serve.follow(data.Id).subscribe((res: any) => {
-            console.log(res);
             data['is_guanzhu'] = true;
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) + 1 + '';
             loading.dismiss();
@@ -320,7 +305,6 @@ export class PostsContentComponent implements OnInit {
         });
         loading.present();
         this.serve.cancelfollow(data.Id).subscribe((res: any) => {
-            console.log(res);
             data['is_guanzhu'] = false;
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) - 1 + '';
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) < 0 ? '0' : this.dataCon['FollowCount'];
@@ -336,7 +320,6 @@ export class PostsContentComponent implements OnInit {
         });
         loading.present();
         this.serve.favorites(data.Id).subscribe((res: any) => {
-            console.log(res);
             data['is_collect'] = true;
             this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount']) + 1 + '';
             loading.dismiss();
@@ -365,7 +348,6 @@ export class PostsContentComponent implements OnInit {
         });
         loading.present();
         this.serve.forum_post_like(data.Id).subscribe((res: any) => {
-            console.log(res);
             data['is_like'] = true;
             this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount']) + 1 + '';
             loading.dismiss();
@@ -405,7 +387,6 @@ export class PostsContentComponent implements OnInit {
         loading.present();
         this.reply_add_click = true
         this.serve.reply_add(data).subscribe((res: any) => {
-            console.log(res);
             this.inputText = "";
             if (res.code == 200) {
                 this.textareaBlur = false;
@@ -418,7 +399,6 @@ export class PostsContentComponent implements OnInit {
 
     // 微信分享
     wxShare(data) {
-        console.log(this.greetDiv.nativeElement);
         let img = this.greetDiv.nativeElement.querySelector('img');
         let description = this.greetDiv.nativeElement.innerText.replace(/\&nbsp;/g, '');
         let thumb = '';
@@ -475,7 +455,6 @@ export class PostsContentComponent implements OnInit {
                                 } else {
                                     this.storage.set('Blacklist', [this.dataCon.Id]);
                                 }
-                                console.log(value);
                             })
                         })
                     }
@@ -513,14 +492,17 @@ export class PostsContentComponent implements OnInit {
 
     initImg() {
         this.swiper = new Swiper(this.panel.nativeElement, {
+            direction: 'horizontal',
             initialSlide: this.vm.selectedIndex,//初始化显示第几个
             zoom: true,//双击,手势缩放
             loop: false,//循环切换
             // loopAdditionalSlides :3,
             lazyLoading: true,//延迟加载
             lazyLoadingOnTransitionStart: true,//    lazyLoadingInPrevNext : true,
-            pagination: '.swiper-pagination',//分页器
-            paginationType: 'fraction',//分页器类型
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'fraction'
+            },
             on: {
                 // tap:(e) =>{
                 click: (e) => {
@@ -535,7 +517,6 @@ export class PostsContentComponent implements OnInit {
                         if (activeIndex < this.vm.images.length && activeIndex >= 0) {
                             this.vm.selectedIndex = activeIndex;
                             this.showImgSrc = this.vm.images[activeIndex];
-                            console.log('滑动量')
                         }
                     }
                 }
