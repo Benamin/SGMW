@@ -28,6 +28,7 @@ export class TreeListComponent {
 
     isSign = false;
     nowTime;
+    isOpen = false;
 
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
@@ -159,6 +160,8 @@ export class TreeListComponent {
      * @param ev 点击事件
      */
     handleExam(itemNode, exam, ev) {
+        if (this.isOpen) return;
+        this.isOpen = true;
         ev.stopPropagation();
         if (exam.StudyStatus == 1 || exam.StudyStatus == 0) {
             this.commonSer.toast('作业尚未解锁，请先完成解锁课时的课件和课后作业!');
@@ -171,6 +174,7 @@ export class TreeListComponent {
             (res) => {
                 if (res.data) {
                     exam.Fid = res.data.ID;
+                    this.isOpen = false;
                     if (exam.examStatus == 8) {  //作业完成
                         if (exam.JopType == 0) {   //选项作业
                             this.navCtrl.push(LookExamPage, {item: exam, source: 'course'})
