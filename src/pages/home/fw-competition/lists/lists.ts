@@ -232,6 +232,7 @@ export class CompetitionFWPage {
             (res) => {
                 if (res.code == 200) {
                     let Data = res.data;
+
                     console.log(111, Data)
                     this.page.competitionLists = this.DataAssign(Data);
                     this.page.getParams.isLoad = true;
@@ -250,10 +251,19 @@ export class CompetitionFWPage {
     DataAssign(Data) {
         // 处理返回的 数据
         let Lists = []
-        if (Data.Items && Data.Items.length > 0) {
-            this.page.getParams.TotalCount = Data.TotalCount;
-            Lists = Data.Items;
+        // 判断是否短视频
+        if (this.page.checkType === this.page.navliArr[1].lable) {
+            if (Data && Data.LeaderboardItems && Data.LeaderboardItems.Items && Data.LeaderboardItems.Items.length > 0) {
+                Lists = Data.LeaderboardItems.Items
+                this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
+            }
+        } else {
+            if (Data.Items && Data.Items.length > 0) {
+                this.page.getParams.TotalCount = Data.TotalCount;
+                Lists = Data.Items;
+            }
         }
+
         return Lists;
     }
 
