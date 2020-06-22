@@ -359,11 +359,23 @@ export class CompetitionFWPage {
     // 一级导航切换 （注：考试不会有）
     changeCheckType(checkType) {
         if (this.page.checkType === checkType) return;
+
+        this.page.getParams.isLoad = false;
+        this.page.getParams.Agent = ''; // 区域 string
+        this.page.getParams.Province = '';  // 省份 string
+
         this.page.competitionLists = [];
         this.page.checkType = checkType;
 
         this.page.getParams.Page = 1;
         this.page.getParams.PageIndex = 1;
+
+        if (this.page.checkType === this.page.navliArr[0].lable) {
+            // 大赛 视频列表
+            this.page.getListsApi = (data) => {
+                return this.homeSer.GetServiceRankingList(data);
+            };
+        }
         this.getList(null);
         // console.log(2333, this.page.checkType, this.page.navliArr[1].lable)
     }

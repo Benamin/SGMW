@@ -41,7 +41,7 @@
         <!--<input placeholder="" type="text"/>-->
       </div>
 
-      <div class="rank-box" *ngIf="!page.isSearch">
+      <div class="rank-box" *ngIf="!page.isSearch && page.competitionLists.length > 0">
         <div class="rank-number1-info" *ngIf="page.competitionLists[0]">
           <div class="avatar">
             <img src="{{ page.competitionLists[0].HeadURL || userDefaultImg }}">
@@ -115,19 +115,6 @@
         </div>
         <!-- 搜索列表 -->
 
-
-        <ion-list text-center style="margin-top: 10rem" *ngIf="page.isLoad && page.competitionLists.length == 0">
-          <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-          <p text-center style="color: #666666;font-size: 16px">
-            暂无数据
-          </p>
-        </ion-list>
-        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-          <ion-infinite-scroll-content
-            loadingSpinner="bubbles"
-            loadingText="加载中"></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-
       </ul>
 
     </div>
@@ -165,6 +152,19 @@
       </li>
     </ul>
 
+  <ion-list text-center style="margin-top: 10rem" *ngIf="this.page.getParams && this.page.getParams.isLoad && page.competitionLists.length == 0">
+    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+    <p text-center style="color: #666666;font-size: 16px">
+      暂无数据
+    </p>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="加载中"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
   <!--</div> $event.stopPropagation(); -->
   <span #myNav></span>
   <ion-menu (touchmove)="stop($event)" (click)="closeMenu()" [content]="myNav" side="right"
@@ -173,7 +173,7 @@
 
       <div *ngFor="let dataItem of page.sidebarData, let dataIndex = index">
 
-        <div *ngIf="page.nowClick == dataItem.type">
+        <div style="height: 100vh; overflow-y: scroll;" *ngIf="page.nowClick == dataItem.type">
           <div class="select-lists-title">{{ dataItem.typeText }}</div>
           <div [ngClass]="{ 'actived': dataItem.isActivedAll === true }" class="default-btn" (click)="changeBtnState(dataIndex, -1)">
             <img class="address-icon" src="./assets/imgs/train/location_h@2x.png">
@@ -185,7 +185,9 @@
             <div *ngFor="let arrItem of dataItem.changeTypeArr, let arrIndex = index" class="address-item actived" [ngClass]="{ 'actived': arrItem.actived === true }" (click)="changeBtnState(dataIndex, arrIndex)">{{ arrItem.text }}</div>
           </div>
 
-          <div class="sub-btn" (click)="changeListsType()">确定</div>
+          <div style="height: 150px;">
+            <div class="sub-btn" (click)="changeListsType()">确定</div>
+          </div>
         </div>
 
       </div>
