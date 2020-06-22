@@ -591,6 +591,7 @@ export class HomePage implements OnInit {
     goToXSCompetition() {
         if (!this.competitionParam.cid) {
             console.log('销售大赛ID不存在！')
+            this.getCompetitionId();
             return
         }
         this.navCtrl.push(CompetitionListsPage, {
@@ -600,7 +601,8 @@ export class HomePage implements OnInit {
     // 前往销售大赛
     goToFWCompetition() {
         if (!this.competitionParam.cid || !this.competitionParam.ServerAreaArr || !this.competitionParam.ServerProvinceArr) {
-            console.log('服务大赛区域或省份列表 不存在！')
+            console.log('服务大赛区域或省份列表 不存在！');
+            this.getServerCompetition();
             return
         }
         this.navCtrl.push(CompetitionFWPage, {

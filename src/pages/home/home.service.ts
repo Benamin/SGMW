@@ -224,4 +224,9 @@ export class HomeService {
     GetServiceRankingTJList(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/forum/post/getservicecontestdata' + this.dataFormat.toQuery(data));
     }
+
+    //获取服务大赛 是否有 上传短视频 的 权限
+    GetAddAuthority(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/appGetUserArea/NewGetUserAreaQX' + this.dataFormat.toQuery(data));
+    }
 }

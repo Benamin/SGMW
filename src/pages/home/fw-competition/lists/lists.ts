@@ -4,6 +4,7 @@ import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
 import {ShortVideoProvider} from "../../../../providers/short-video/short-video";
 import {EditPage} from "../../competition/edit/edit";
+import {CompetitionVideoPage} from "../../competition/competition-video/competition-video";
 import {GlobalData} from "../../../../core/GlobleData";
 
 /**
@@ -89,7 +90,8 @@ export class CompetitionFWPage {
         nowClick: 'all',
         dataIndex: null,
         arrIndex: null,
-        isSearch: false
+        isSearch: false,
+        canAddAuthority: false // 权限
     }
 
     constructor(
@@ -168,6 +170,8 @@ export class CompetitionFWPage {
                 return this.homeSer.GetServiceRankingList(data)
             };
             this.getList(null);
+
+            this.GetAddAuthority();
             // this.getAPData(); // 获取 区域 / 省 数据
         } else if (!competitionParam.cid) {
             console.log('服务大赛区域或省份列表 不存在！')
@@ -412,30 +416,18 @@ export class CompetitionFWPage {
     // 进入视频播放页
     goVideoBox(item, index) {
         console.log(item, index)
-        // if (item.MyRanking && this.page.checkType === this.page.navliArr[1].lable && this.page.navliArr[1].secNav[1].isActived === true) {
-        //     this.navCtrl.push(MyShortVideoBoxPage, {ID: item.ID});
-        //     return;
-        // }
-        // let i = this.page.competitionLists[0].MyRanking ? index - 1 : index;
-        // let index1 = i + 1;
-        // let num = index1 % 10;
-        // num = num == 0 ? 9 : num - 1;
-        // const currentPage = Math.ceil(index1 / 10);
-        // if (this.page.navliArr[2].secNav[1].isActived == true) { //大赛排行榜
-        //     this.navCtrl.push(CompetitionVideoPage, {
-        //         Page: currentPage,
-        //         TopicId: this.page.competitionParam.cid,
-        //         AreaID: this.page.getParams.AreaID,
-        //         index: num
-        //     });
-        // } else {
-        //     this.navCtrl.push(VideoBoxPage, { //所有视频
-        //         Page: currentPage,
-        //         searchKey: "",
-        //         type: this.page.getParams.OrderBy,
-        //         index: num
-        //     });
-        // }
+        let i = this.page.competitionLists[0].MyRanking ? index - 1 : index;
+        let index1 = i + 1;
+        let num = index1 % 10;
+        num = num == 0 ? 9 : num - 1;
+        const currentPage = Math.ceil(index1 / 10);
+        //大赛排行榜
+        this.navCtrl.push(CompetitionVideoPage, {
+            Page: currentPage,
+            TopicId: this.page.competitionParam.cid,
+            AreaID: this.page.getParams.AreaID,
+            index: num
+        });
     }
 
     //加载更多
@@ -452,6 +444,13 @@ export class CompetitionFWPage {
                 e.complete();
             }
         )
+    }
+
+    GetAddAuthority() {
+        this.homeSer.GetAddAuthority({}).subscribe((res: any) => {
+            let Data = res.data;
+            if (Data) this.page.canAddAuthority = true;
+        });
     }
 
     takePhoto() {
