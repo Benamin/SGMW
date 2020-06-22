@@ -6,6 +6,7 @@ import {VideoBoxPage} from "../video-box/video-box";
 import {HomeService} from "../../home.service";
 import {CommonService} from "../../../../core/common.service";
 import {ShortVideoProvider} from "../../../../providers/short-video/short-video";
+import {GlobalData} from "../../../../core/GlobleData";
 
 declare var Wechat;
 
@@ -30,6 +31,7 @@ export class VideoListsPage {
     constructor(private homeSer: HomeService, public navCtrl: NavController,
                 private loadingCtrl: LoadingController,
                 private commonSer: CommonService,
+                private globalData: GlobalData,
                 private shortVideoPro: ShortVideoProvider,
                 public navParams: NavParams, private loadCtrl: LoadingController) {
     }
@@ -53,6 +55,7 @@ export class VideoListsPage {
 
     goToEdit() {
         this.shortVideoPro.chooseVideo((data) => {
+            this.globalData.TopicType = 'xsds';
             this.navCtrl.push(EditPage, data);
         })
     }
