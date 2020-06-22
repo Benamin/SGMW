@@ -128,7 +128,7 @@ export class CompetitionListsPage {
 
     ionViewDidEnter() {
         let competitionParam = this.navParams.get('competitionParam');
-        if (competitionParam.userArea && competitionParam.userArea != 'null') {
+        if (competitionParam && competitionParam.userArea && competitionParam.userArea != 'null') {
             this.page.hasArea = true;
             // 帖子区域
             this.page.navliArr[1].secNav[1].thrNav = [
@@ -412,7 +412,6 @@ export class CompetitionListsPage {
             }
         }
     }
-
 
     //下拉刷新
     doRefresh(e) {
