@@ -1,11 +1,10 @@
-let env = 'localhost';  //本地环境 浏览器调试用
-// let env = 'dev';   //dev环境 打包才会开启
-// let env = 'uat';   //uat环境 打包才会开启
-// let env = 'prod';  //prod环境 打包才会开启
+let env = 'localhost';
+// let env = 'dev';
+// let env = 'uat';
+// let env = 'prod';
 
-/**环境密钥，uat环境和dev环境的密钥相同**/
-// let keyEnv = 'dev';   //dev or uat 环境
-let keyEnv = 'prod';   //prod环境
+let keyEnv = 'dev';
+// let keyEnv = 'prod';
 
 // /***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';
