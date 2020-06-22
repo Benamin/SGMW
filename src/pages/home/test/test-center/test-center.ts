@@ -114,9 +114,7 @@ export class TestCenterPage {
 
     //考试有效期校验
     checkTesttime(item) {
-        const loading = this.loadCtrl.create({
-            content: ''
-        });
+        const loading = this.loadCtrl.create();
         loading.present();
         const ExamBegin = this.commonSer.transFormTime(item.ExamBegin);
         const ExamEnd = this.commonSer.transFormTime(item.ExamEnd);

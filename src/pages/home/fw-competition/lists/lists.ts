@@ -4,6 +4,7 @@ import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
 import {ShortVideoProvider} from "../../../../providers/short-video/short-video";
 import {EditPage} from "../../competition/edit/edit";
+import {GlobalData} from "../../../../core/GlobleData";
 
 /**
  * 服务大赛 排行榜 列表
@@ -49,7 +50,7 @@ export class CompetitionFWPage {
                 lable: 'short-video',
                 text: '短视频',
                 secNav: null
-            }, ],
+            },],
 
         competitionLists: [],
         getListsApi: null, // 请求接口服务
@@ -95,10 +96,12 @@ export class CompetitionFWPage {
         private shortVideoPro: ShortVideoProvider,
         public navCtrl: NavController,
         public navParams: NavParams,
+        public globalData: GlobalData,
         private loadCtrl: LoadingController,
         private homeSer: HomeService,
         public menuCtrl: MenuController
-    ) {}
+    ) {
+    }
 
     ionViewDidEnter() {
         let competitionParam = this.navParams.get('competitionParam');
@@ -122,7 +125,7 @@ export class CompetitionFWPage {
             let ServerProvinceArr = competitionParam.ServerProvinceArr;
 
             let areaChangeTypeArr = [];
-            for (var i=0; i<ServerAreaArr.length; i++) {
+            for (var i = 0; i < ServerAreaArr.length; i++) {
                 let arritem = {
                     id: ServerAreaArr[i].AreaCode,
                     text: ServerAreaArr[i].AreaName,
@@ -131,7 +134,7 @@ export class CompetitionFWPage {
                 areaChangeTypeArr.push(arritem)
             }
             let provinceChangeTypeArr = [];
-            for (var j=0; j<ServerProvinceArr.length; j++) {
+            for (var j = 0; j < ServerProvinceArr.length; j++) {
                 let arritem = {
                     id: ServerProvinceArr[j].ProvinceCode,
                     text: ServerProvinceArr[j].ProvinceName,
@@ -139,7 +142,7 @@ export class CompetitionFWPage {
                 }
                 provinceChangeTypeArr.push(arritem)
             }
-            this.page.sidebarData =  [
+            this.page.sidebarData = [
                 {
                     type: 'all',
                     typeText: '所有',
@@ -180,7 +183,8 @@ export class CompetitionFWPage {
             this.search(3);
         }
     }
-    search (CXType) {
+
+    search(CXType) {
         this.page.competitionLists = [];
         if (CXType != '') {
             this.page.getListsApi = (data) => {
@@ -207,7 +211,7 @@ export class CompetitionFWPage {
     }
 
     // 阻止时间冒泡
-    stop(event: Event){
+    stop(event: Event) {
         if (event) event.stopPropagation();
     }
 
@@ -238,7 +242,7 @@ export class CompetitionFWPage {
                     this.page.getParams.isLoad = true;
                     this.page.getParams.SearchCriteria = '';
 
-                    if(callback) callback();
+                    if (callback) callback();
                 }
                 loading.dismiss();
             }, err => {
@@ -292,14 +296,14 @@ export class CompetitionFWPage {
         this.initBtnState(dataIndex, arrIndex);
     }
 
-    changeListsType () {
+    changeListsType() {
         this.page.getParams.Agent = ''; // 区域 string
         this.page.getParams.Province = '';  // 省份 string
 
         // 所有省份 / 所有区域
         if (this.page.arrIndex === -1) {
             this.page.nowClick = this.page.navliArr[0].secNav[0].navBtnEn;
-            this.search ('');
+            this.search('');
             return
         }
 
@@ -310,21 +314,21 @@ export class CompetitionFWPage {
         if (this.page.dataIndex === 1 && this.page.arrIndex !== -1) {
             // 区域 多选还是单选
             this.page.getParams.Agent = sidebarData[this.page.dataIndex].changeTypeArr[this.page.arrIndex].text; // 区域 string
-            this.search (1);
+            this.search(1);
         }
         if (this.page.dataIndex === 2 && this.page.arrIndex !== -1) {
             // 省 多选还是单选
             this.page.getParams.Province = sidebarData[this.page.dataIndex].changeTypeArr[this.page.arrIndex].text; //  省份 string
-            this.search (2);
+            this.search(2);
         }
     }
 
     initBtnState(dataIndex, arrIndex) {
         console.log(78, dataIndex, arrIndex)
         var sidebarData = this.page.sidebarData; // sidebarData[1].changeTypeArr
-        for (var i=0; i<sidebarData.length; i++) {
+        for (var i = 0; i < sidebarData.length; i++) {
             if (sidebarData[i].changeTypeArr && sidebarData[i].changeTypeArr.length > 0) {
-                for (var j=0; j<sidebarData[i].changeTypeArr.length; j++) {
+                for (var j = 0; j < sidebarData[i].changeTypeArr.length; j++) {
                     //
                     if (dataIndex === i && arrIndex === j) {
                         this.page.dataIndex = dataIndex;
@@ -359,6 +363,7 @@ export class CompetitionFWPage {
         this.getList(null);
         // console.log(2333, this.page.checkType, this.page.navliArr[1].lable)
     }
+
     // 二级导航切换 （注：考试不会有）
     changeSecNav(typeIndex, secNavIndex, bool) {
         if (bool) return;
@@ -367,8 +372,7 @@ export class CompetitionFWPage {
         if (this.page.navliArr[typeIndex].secNav[secNavIndex].navBtnEn !== 'all') {
             this.changeBtnState(typeIndex, -1);
             this.menuCtrl.open();
-        }
-        else {
+        } else {
             this.resetSecNavState(typeIndex, secNavIndex);
         }
         this.page.nowClick = this.page.navliArr[typeIndex].secNav[secNavIndex].navBtnEn;
@@ -378,7 +382,7 @@ export class CompetitionFWPage {
             this.page.getParams.Agent = ''; // 区域 string
             this.page.getParams.Province = '';  // 省份 string
             // 所有省份 / 所有区域
-            this.search ('');
+            this.search('');
         }
     }
 
@@ -452,6 +456,7 @@ export class CompetitionFWPage {
 
     takePhoto() {
         this.shortVideoPro.chooseVideo((data) => {
+            this.globalData.TopicType = 'fwds';
             this.navCtrl.push(EditPage, data);
         })
     }

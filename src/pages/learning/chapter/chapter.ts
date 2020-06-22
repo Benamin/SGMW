@@ -24,6 +24,7 @@ export class ChapterPage {
     @Input() TeachTypeName;
 
     nowTime;
+    isOpen = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public loadCtrl: LoadingController,
@@ -53,6 +54,8 @@ export class ChapterPage {
      * @param ev 点击事件
      */
     handleExam(itemNode, exam, ev) {
+        if (this.isOpen) return;
+        this.isOpen = true;
         ev.stopPropagation();
         if (exam.StudyStatus == 1 || exam.StudyStatus == 0) {
             this.commonSer.toast('请完成课程学习');
@@ -70,6 +73,7 @@ export class ChapterPage {
             (res) => {
                 if (res.data) {
                     exam.Fid = res.data.ID;
+                    this.isOpen = false;
                     if (exam.examStatus == 8) {  //作业完成
                         if (exam.JopType == 0) {   //选项作业
                             this.navCtrl.push(LookExamPage, {item: exam, source: 'course'})
@@ -97,8 +101,6 @@ export class ChapterPage {
      * StudyStatus 0 1 未解锁  2 已解锁
      */
     handle(node, file, event) {
-        console.log(node);
-        console.log(file);
         event.stopPropagation();
 
         if (node.StudyStatus == 1 || node.StudyStatus == 0) {

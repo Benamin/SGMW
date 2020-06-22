@@ -20,6 +20,7 @@ import {Camera} from "@ionic-native/camera";
 import {ShortVideoProvider} from "../../../../providers/short-video/short-video";
 import {CompetitionVideoPage} from "../competition-video/competition-video";
 import {MyShortVideoBoxPage} from "../../../mine/my-short-video-box/my-short-video-box";
+import {GlobalData} from "../../../../core/GlobleData";
 
 
 /**
@@ -122,6 +123,7 @@ export class CompetitionListsPage {
 
     constructor(private commonSer: CommonService, public navCtrl: NavController,
                 private loadingCtrl: LoadingController,
+                private globalData:GlobalData,
                 private shortVideoPro: ShortVideoProvider,
                 public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService, private sanitizer: DomSanitizer) {
     }
@@ -506,6 +508,7 @@ export class CompetitionListsPage {
 
     takePhoto() {
         this.shortVideoPro.chooseVideo((data) => {
+            this.globalData.TopicType = 'xsds';
             this.navCtrl.push(EditPage, data);
         })
     }
