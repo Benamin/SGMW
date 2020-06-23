@@ -1,16 +1,11 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-/**
- * Generated class for the SecondFormatPipe pipe.
- *
- * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
- */
 @Pipe({
     name: 'secondFormat',
 })
 export class SecondFormatPipe implements PipeTransform {
     /**
-     * Takes a value and makes it lowercase.
+     * 将秒转化为mm:ss 如78->01:18
      */
     transform(value: number, ...args) {
         let minute = <any>Math.floor(value / 60);

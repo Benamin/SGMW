@@ -204,7 +204,7 @@
         </div>
         <div class="footer-subject">
             <div class="submit" *ngIf="exam.ExamInfo?.JopType == 0">
-                <div>作业得分：{{exam.ExamInfo?.TotalScore}}</div>
+                <div>作业得分：{{exam.ExamInfo?.TotalScore | toCeil}}</div>
             </div>
             <div class="saveStuExams">
                 <div>批改时间:{{exam.ExamInfo?.EndTime | date:'yyyy-MM-dd HH:mm' }}</div>

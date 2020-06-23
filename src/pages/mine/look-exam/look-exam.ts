@@ -16,7 +16,7 @@ export class LookExamPage {
     index = 0;  //当前题目的序号
     exam = {
         QnAInfos: [],
-        ExamInfo: null
+        ExamInfo: <any>null
     };
     doneTotal = 0;
     opTips;
@@ -28,6 +28,7 @@ export class LookExamPage {
 
     }
 
+    //初始化
     ionViewDidLoad() {
         const loading = this.loadCtrl.create({
             content: ''
