@@ -10,7 +10,7 @@ export class LineFeedPipe implements PipeTransform {
     }
 
     /**
-     * 内容换行
+     * 内容换行,格式化html
      */
     transform(value: string,) {
         let str;
