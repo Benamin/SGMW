@@ -10,7 +10,7 @@ import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {GetRequestService} from "../secret/getRequest.service";
-import {JunKe_client_id, LastVersion, NoUserMsg} from "./app.constants";
+import {JunKe_client_id, LastVersion, NoUserMsg, XSZS_client_id} from "./app.constants";
 import {AppVersion} from "@ionic-native/app-version";
 import {AppUpdateService} from "../core/appUpdate.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
@@ -249,7 +249,7 @@ export class MyApp {
     XSZSLogin(req) {
         const data = {
             "grant_type": "password",
-            "client_id": JunKe_client_id,
+            "client_id": XSZS_client_id,
             "username": req.czymc,
             "jxsh": req.jxsh,
             "czydm": req.czydm,
