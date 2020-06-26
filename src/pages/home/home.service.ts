@@ -229,4 +229,9 @@ export class HomeService {
     GetAddAuthority(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/appGetUserArea/NewGetUserAreaQX' + this.dataFormat.toQuery(data));
     }
+
+    //每日一学
+    GetMeiryx(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/news/GetMeiryx', data);
+    }
 }

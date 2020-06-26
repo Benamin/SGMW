@@ -26,6 +26,7 @@ export class Componentsdetails {
     this.lidata = this.navParams.get('data');
     this.navli = this.navParams.get('navli');
     console.log(this.lidata);
+    console.log(this.navli);
     this.title = this.lidata.GetNewsList == 'xsal' ? "详情" : '详情中心'
     this.GetRelationNewsByID(this.lidata.Id);
   }
@@ -44,7 +45,7 @@ export class Componentsdetails {
           item.ReleaseTime=item.ReleaseTime.slice(0,16);
         });
 
-    
+
         this.RelationArr = res1.data;
         this.data = res2.data;
         this.data.ReleaseTime=this.data.ReleaseTime.replace('T',' ');

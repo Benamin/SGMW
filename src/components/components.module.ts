@@ -21,6 +21,7 @@ import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
 import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
 import {UserAgreementComponent} from './user-agreement/user-agreement';
 import {FloatVideoBoxComponent} from './float-video-box/float-video-box';
+import {DayilySchoolComponent} from './dayily-school/dayily-school';
 
 
 @NgModule({
@@ -45,8 +46,8 @@ import {FloatVideoBoxComponent} from './float-video-box/float-video-box';
         CommentByCourseComponent,
         EidtModalComponent,
         UserAgreementComponent,
-        FloatVideoBoxComponent
-
+        FloatVideoBoxComponent,
+        DayilySchoolComponent,
     ],
     imports: [
         IonicPageModule,
@@ -73,7 +74,8 @@ import {FloatVideoBoxComponent} from './float-video-box/float-video-box';
         CommentByCourseComponent,
         EidtModalComponent,
         UserAgreementComponent,
-        FloatVideoBoxComponent
+        FloatVideoBoxComponent,
+        DayilySchoolComponent,
 
     ],
     providers: [
@@ -98,7 +100,8 @@ import {FloatVideoBoxComponent} from './float-video-box/float-video-box';
         CommentByCourseComponent,
         EidtModalComponent,
         UserAgreementComponent,
-        FloatVideoBoxComponent
+        FloatVideoBoxComponent,
+        DayilySchoolComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

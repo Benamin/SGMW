@@ -598,6 +598,7 @@ export class HomePage implements OnInit {
             competitionParam: this.competitionParam
         });
     }
+
     // 前往销售大赛
     goToFWCompetition() {
         if (!this.competitionParam.cid || !this.competitionParam.ServerAreaArr || !this.competitionParam.ServerProvinceArr) {
@@ -608,5 +609,21 @@ export class HomePage implements OnInit {
         this.navCtrl.push(CompetitionFWPage, {
             competitionParam: this.competitionParam
         });
+    }
+
+    //前往每日一学
+    goTo() {
+        const load = this.loadCtrl.create();
+        load.present();
+        this.homeSer.GetMeiryx({}).subscribe(
+            (res) => {
+                load.dismiss();
+                if (res.data) {
+                    this.navCtrl.push(Componentsdetails, {data: {Id: res.data.Id}, navli: '每日一学'});
+                } else {
+                    this.commonSer.toast('今日没有学习资讯');
+                }
+            }
+        )
     }
 }
