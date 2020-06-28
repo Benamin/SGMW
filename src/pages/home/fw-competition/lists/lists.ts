@@ -179,11 +179,16 @@ export class CompetitionFWPage {
     }
 
     doSearch(event) {
-        this.page.nowClick = this.page.navliArr[0].secNav[0].navBtnEn;
-        this.page.getParams.Agent = ''; // 区域 string
-        this.page.getParams.Province = '';  // 省份 string
         // 所有省份 / 所有区域
         if (event && event.keyCode == 13) {
+            this.page.nowClick = this.page.navliArr[0].secNav[0].navBtnEn;
+            this.page.getParams.Agent = ''; // 区域 string
+            this.page.getParams.Province = '';  // 省份 string
+
+            if (this.page.getParams.SearchCriteria === '') {
+                this.changeSecNav(0, 0, false);
+                return
+            }
             this.search(3);
         }
     }
@@ -307,13 +312,14 @@ export class CompetitionFWPage {
         // 所有省份 / 所有区域
         if (this.page.arrIndex === -1) {
             this.page.nowClick = this.page.navliArr[0].secNav[0].navBtnEn;
-            this.search('');
+            this.changeSecNav(0, 0, false);
+            // this.search('');
             return
         }
 
         let sidebarData = this.page.sidebarData;
-        console.log(this.page.dataIndex, this.page.arrIndex, 'sidebarData:', this.page);
-        console.log(`当前${sidebarData[this.page.dataIndex].typeText}是${sidebarData[this.page.dataIndex].changeTypeArr[this.page.arrIndex].text}-id:`, sidebarData[this.page.dataIndex].changeTypeArr[this.page.arrIndex].id);
+        // console.log(this.page.dataIndex, this.page.arrIndex, 'sidebarData:', this.page);
+        // console.log(`当前${sidebarData[this.page.dataIndex].typeText}是${sidebarData[this.page.dataIndex].changeTypeArr[this.page.arrIndex].text}-id:`, sidebarData[this.page.dataIndex].changeTypeArr[this.page.arrIndex].id);
 
         if (this.page.dataIndex === 1 && this.page.arrIndex !== -1) {
             // 区域 多选还是单选
@@ -382,7 +388,13 @@ export class CompetitionFWPage {
 
     // 二级导航切换 （注：考试不会有）
     changeSecNav(typeIndex, secNavIndex, bool) {
-        if (bool) return;
+        if (bool) {
+            if (this.page.navliArr[typeIndex].secNav[secNavIndex].navBtnEn !== 'all') {
+                this.resetSecNavState(typeIndex, secNavIndex);
+                this.menuCtrl.open();
+            }
+            return;
+        }
         console.log(233, typeIndex, secNavIndex, bool, this.page.navliArr[typeIndex].secNav[secNavIndex].navBtnEn)
         // this.getList();
         if (this.page.navliArr[typeIndex].secNav[secNavIndex].navBtnEn !== 'all') {

@@ -20,16 +20,19 @@
       </li>
     </ul>
 
-    <div *ngIf="page.checkType === page.navliArr[0].lable">
+    <div *ngIf="page.checkType === page.navliArr[0].lable && page.getParams">
       <!-- 二级导航-->
       <div class="nav-type-2">
         <div class="nav-box">
           <div class="btn-box">
+
             <div (click)="changeSecNav(0, secNavIndex, item.isActived)"
-                 *ngFor="let item of page.navliArr[0].secNav; let secNavIndex = index" class="type-btn"
-                 [ngClass]="{'actived': item.isActived}">
-              {{ item.navBtnText }}<span class="item-line"></span>
+                 *ngFor="let item of page.navliArr[0].secNav; let secNavIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
+              <span *ngIf=""></span>
+              {{ (page.getParams.Agent || page.getParams.Province) && item.isActived ? page.getParams.Agent || page.getParams.Province : item.navBtnText }}
+              <span class="item-line"></span>
             </div>
+
           </div>
         </div>
       </div>
