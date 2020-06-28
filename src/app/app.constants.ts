@@ -1,10 +1,10 @@
-let env = 'localhost';
-// let env = 'dev';
+// let env = 'localhost';
+let env = 'dev';
 // let env = 'uat';
 // let env = 'prod';
 
-// let keyEnv = 'dev';
-let keyEnv = 'prod';
+let keyEnv = 'dev';
+// let keyEnv = 'prod';
 
 // /***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';

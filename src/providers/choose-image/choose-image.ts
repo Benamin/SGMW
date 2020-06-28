@@ -108,9 +108,9 @@ export class ChooseImageProvider {
             enableBackdropDismiss: true,
         });
         uploadLoading.present();
-        // const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
+        const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
         // const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
-        const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+        // const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
         const fileTransfer: FileTransferObject = this.transfer.create();
 
         fileTransfer.upload(file, SERVER_URL + '/Upload/UploadFiles', options).then(
