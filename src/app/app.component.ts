@@ -317,19 +317,19 @@ export class MyApp {
 
     //检测版本
     checkVersion() {
-        let versionCode;
+        let localVersion;
         let platform;
         if (this.platform.is('ios')) platform = 'IOS';
         if (this.platform.is('android')) platform = 'android';
         this.appVersion.getVersionNumber().then((version: string) => {
-            versionCode = version.split('.').join('');
+            localVersion = version.split('.').join('');
             const data = {
                 code: platform
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
                     const onlineVersion = res.data.AppVersion.split('.').join('');
-                    if (versionCode < onlineVersion) {
+                    if (localVersion < onlineVersion) {
                         this.app.UpdateTips = true;
                         this.app.AppUrl = res.data.AppUrl;
                         this.app.UpdateText = res.data.UpdateText;

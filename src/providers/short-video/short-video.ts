@@ -8,6 +8,7 @@ import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native
 import {EditPage} from "../../pages/home/competition/edit/edit";
 import {Camera} from "@ionic-native/camera";
 import {CommonService} from "../../core/common.service";
+import {env, SERVER_API_URL_DEV, SERVER_API_URL_PROD, SERVER_API_URL_UAT} from "../../app/app.constants";
 
 /**
  * 1、录制视频 2、上传本地视频
@@ -180,9 +181,8 @@ export class ShortVideoProvider {
             enableBackdropDismiss: true,
         });
         uploadLoading.present();
-        const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
-        // const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
-        // const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+        const SERVER_URL = (env === 'localhost' ? SERVER_API_URL_DEV : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
+            SERVER_API_URL_UAT : (env == 'prod' ? SERVER_API_URL_PROD : ''))));
         const fileTransfer: FileTransferObject = this.transfer.create();
 
         fileTransfer.upload(mediaFile.fullPath, SERVER_URL + '/AppShortVideo/UploadMainFile', option).then(

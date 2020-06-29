@@ -5,6 +5,7 @@ import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native
 import {ActionSheetController, LoadingController, Platform} from "ionic-angular";
 import {AppService} from "../../app/app.service";
 import {CommonService} from "../../core/common.service";
+import {env, SERVER_API_URL_DEV, SERVER_API_URL_PROD, SERVER_API_URL_UAT} from "../../app/app.constants";
 
 /**
  * 1、拍照  2、上传本地图片
@@ -108,9 +109,8 @@ export class ChooseImageProvider {
             enableBackdropDismiss: true,
         });
         uploadLoading.present();
-        const SERVER_URL = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
-        // const SERVER_URL = 'http://sitapi1.chinacloudsites.cn/api'; //sit环境
-        // const SERVER_URL = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
+        const SERVER_URL = (env === 'localhost' ? SERVER_API_URL_DEV : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
+            SERVER_API_URL_UAT : (env == 'prod' ? SERVER_API_URL_PROD : ''))));
         const fileTransfer: FileTransferObject = this.transfer.create();
 
         fileTransfer.upload(file, SERVER_URL + '/Upload/UploadFiles', options).then(

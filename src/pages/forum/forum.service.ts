@@ -1,88 +1,16 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { SERVER_API_URL } from "../../app/app.constants";
-import { HTTP } from "@ionic-native/http";
-import { DataFormatService } from "../../core/dataFormat.service";
-import { ToastController } from 'ionic-angular';
+import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {
+  env,
+  SERVER_API_URL,
+  SERVER_API_URL_DEV,
+  SERVER_API_URL_PROD,
+  SERVER_API_URL_UAT
+} from "../../app/app.constants";
+import {HTTP} from "@ionic-native/http";
+import {DataFormatService} from "../../core/dataFormat.service";
+import {ToastController} from 'ionic-angular';
 
-/**
- *
- *
-
-/api/forum/post/status 获取论坛帖子状态列表,参数:无
-/api/forum/topicplate/list 获取论坛版块列表,参数:无
-/api/forum/post/add 新增论坛帖子信息,参数:
-{
-  "Id": "00000000-0000-0000-0000-000000000000",//帖子编号,可忽略
-  "Title": "string",//帖子标题
-  "TopicPlateId": "00000000-0000-0000-0000-000000000000",//帖子所属板块编号
-  "Content": "string",//帖子内容
-  "Creater": "string",//帖子创建人,可忽略
-  "Modifyer": "string",//修改人,可忽略
-  "IsSaveAndPublish": true//是否保存并提交
-}
-/api/forum/post/delete 删除论坛帖子信息,参数:postId,帖子编号
-/api/forum/post/get 获取指定编号的帖子信息,参数:postId,帖子编号
-/api/forum/post/search 搜索论坛帖子信息,参数:
-{
-  "Title": "string",//标题关键字
-  "TopicPlateId": "00000000-0000-0000-0000-000000000000",//所属板块
-  "Status": 0,//状态
-  "Creater": "string",//发帖人
-  "OrderBy": "string",//排序字段
-  "OrderByDirection": "string",//排序方式
-  "PageIndex": 0,//数据分页索引
-  "PageSize": 0//每页显示的记录数
-}
-/api/forum/post/publish 发布指定的帖子信息,参数:postId,帖子编号
-/api/forum/post/edit 修改指定的论坛帖子信息,参数:
-{
-  "Id": "00000000-0000-0000-0000-000000000000",//帖子编号
-  "Title": "string",//帖子标题
-  "TopicPlateId": "00000000-0000-0000-0000-000000000000",//帖子所属板块编号
-  "Content": "string",//帖子内容
-  "Creater": "string",//帖子创建人,可忽略
-  "Modifyer": "string",//修改人,可忽略
-  "IsSaveAndPublish": true,//是否保存并提交
-}
-/api/forum/reply/add 新增论坛回帖信息,参数:
-{
-  "Id": "00000000-0000-0000-0000-000000000000",//回帖编号,可忽略
-  "PostId": "00000000-0000-0000-0000-000000000000",//帖子编号
-  "Content": "string",//回帖内容
-  "CurrentUser": "string"//当前用户,可忽略
-}
-/api/forum/reply/delete 删除回帖,参数:postReplyId,回帖编号
-/api/forum/replycomment/add 新增论坛回帖评论信息,参数:
-{
-  "Id": "00000000-0000-0000-0000-000000000000",//回帖评论编号,可忽略
-  "PostReplyId": "00000000-0000-0000-0000-000000000000",//评论的回帖编号
-  "Content": "string",//评论内容
-  "MentionUser": "string",//回复用户的loginName
-  "CurrentUser": "string"//当前用户,可忽略
-}
-/api/forum/replycomment/delete 删除回帖评论,参数:postReplyCommentId,回帖评论编号
-
-
-/api/forum/post/follow 关注帖子,参数:postId,帖子编号
-/api/forum/post/cancelfollow 取消关注帖子,参数:postId,帖子编号
-/api/forum/post/myfollows 我关注的帖子列表,参数:{"PageIndex": int,"PageSize": int},参数描述:PageIndex:数据分页索引,PageSize:每页显示的记录数
-/api/forum/post/favorites 收藏帖子,参数:postId,帖子编号
-/api/forum/post/cancelfavorites 取消收藏帖子,参数:postId,帖子编号
-/api/forum/post/myfavorites 我收藏的帖子列表,参数:{"PageIndex": int,"PageSize": int},参数描述:PageIndex:数据分页索引,PageSize:每页显示的记录数
-/api/forum/post/like 帖子点赞,参数:postId,帖子编号
-/api/forum/post/cancellike 取消点赞帖子,参数:postId,帖子编号
-/api/forum/post/mylikes 我点赞的帖子列表,参数:{"PageIndex": int,"PageSize": int},参数描述:PageIndex:数据分页索引,PageSize:每页显示的记录数
-/api/forum/post/dislike 帖子点踩,参数:postId,帖子编号
-/api/forum/post/canceldislike 取消点踩帖子,参数:postId,帖子编号
-/api/forum/post/mydislikes 我点踩的帖子列表,参数:{"PageIndex": int,"PageSize": int},参数描述:PageIndex:数据分页索引,PageSize:每页显示的记录数
-/api/forum/badge/mybadges 我的论坛勋章,参数:无
-
-/api/forum/post/GetForumPostOtherStatus 获取用户是否已点赞、关注、收藏帖子
-
-
- * */
 let aa = {
   "Result": 0, "data": {
     "SetTopTime": "0001-01-01T00:00:00",
@@ -166,13 +94,6 @@ export class ForumService {
 
   // 新增帖子
   forum_post_add(data) {
-    // "Id": "00000000-0000-0000-0000-000000000000",//帖子编号,可忽略
-    // "Title": "string",//帖子标题
-    // "TopicPlateId": "00000000-0000-0000-0000-000000000000",//帖子所属板块编号
-    // "Content": "string",//帖子内容
-    // "Creater": "string",//帖子创建人,可忽略
-    // "Modifyer": "string",//修改人,可忽略
-    // "IsSaveAndPublish": true//是否保存并提交
     return this.http.post(SERVER_API_URL + '/forum/post/add', data);
   }
 
@@ -180,11 +101,6 @@ export class ForumService {
   forum_post_edit(data){
     return this.http.post(SERVER_API_URL + '/forum/post/edit', data);
   }
-
-
-  //   /api/forum/post/follow 关注帖子,参数:postId,帖子编号
-  // /api/forum/post/cancelfollow 取消关注帖子,参数:postId,帖子编号
-  // /api/forum/post/myfollows 我关注的帖子列表,参数:{"PageIndex": int,"PageSize": int},参数描述:PageIndex:数据分页索引,PageSize:每页显示的记录数
 
   // 关注帖子
   follow(postId) {
@@ -257,16 +173,12 @@ export class ForumService {
 
   // 论坛 热门帖子
   GetPostSearchhotpost(data){
-    // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpost', data);
-    // return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
     return this.http.post(SERVER_API_URL + '/forum/post/searchnewret', data);
-    // forum/post/searchall
 
   }
 
   // 我我发布的 帖子
   GetMypost(data){
-    // return this.http.post(SERVER_API_URL + '/forum/post/my', data);
     return this.http.post(SERVER_API_URL + '/forum/post/MyPostsEdit', data);
 
   }
@@ -275,18 +187,13 @@ export class ForumService {
     return this.http.post(SERVER_API_URL + '/forum/post/GetForumPostOtherStatus?postId=' + postId, { postId: postId });
   }
 
-  // /api/forum/post/GetForumPostOtherStatus
-
-
   // 上传图片
   Upload_UploadFiles(formData) {
     return new Promise((resolve, reject) => {
       var oReq = new XMLHttpRequest();
 
-      // export const UploadFilesSERVER_API_URL = '/api';
-      const UploadFilesSERVER_API_URL = 'http://devapi1.chinacloudsites.cn/api';  //测试
-        // const UploadFilesSERVER_API_URL = 'http://sitapi1.chinacloudsites.cn/api';  //sit
-      // const UploadFilesSERVER_API_URL = 'https://elearningapi.sgmw.com.cn/api'; // 正式
+      const UploadFilesSERVER_API_URL = (env === 'localhost' ? SERVER_API_URL_DEV : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
+           SERVER_API_URL_UAT : (env == 'prod' ? SERVER_API_URL_PROD : ''))));
 
       oReq.open("POST", UploadFilesSERVER_API_URL + "/Upload/UploadFiles", true);
       oReq.onload = function (oEvent: any) {

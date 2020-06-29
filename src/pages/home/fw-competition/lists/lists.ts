@@ -246,11 +246,8 @@ export class CompetitionFWPage {
                 if (res.code == 200) {
                     let Data = res.data;
 
-                    console.log(111, Data)
                     this.page.competitionLists = this.DataAssign(Data);
                     this.page.getParams.isLoad = true;
-                    this.page.getParams.SearchCriteria = '';
-
                     if (callback) callback();
                 }
                 loading.dismiss();
