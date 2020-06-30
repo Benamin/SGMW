@@ -119,6 +119,7 @@ export class CompetitionFWPage {
                 CXType: '', // 查询类型：1：区域，2：省份，3：姓名或服务商或单位简称  int
                 SearchCriteria: '', // 姓名或服务商或单位简称 string
                 PageIndex: 1,
+                Page: 1,
                 PageSize: 10,
                 TotalCount: null,
                 isLoad: false
@@ -208,6 +209,7 @@ export class CompetitionFWPage {
         }
         this.page.getParams.CXType = CXType; // CXType -- 查询类型：1：区域，2：省份，3：姓名或服务商或单位简称  int
         this.page.getParams.PageIndex = 1;
+        this.page.getParams.Page = 1;
 
         this.getList(() => {
             // 获取数据后关闭侧边栏并且更改tab状态
@@ -451,6 +453,7 @@ export class CompetitionFWPage {
             return;
         }
         this.page.getParams.PageIndex++;
+        this.page.getParams.Page++;
         this.page.getListsApi(this.page.getParams).subscribe(
             (res) => {
                 let Data = res.data;
