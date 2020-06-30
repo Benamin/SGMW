@@ -140,16 +140,20 @@
           </div>
         </div>
         <div class="video-info">
-        <span class="num-info-box">
-          <span class="comment-num">
-            <img src="./assets/imgs/competition/pinglun@2x.png" alt="评论量">
-              {{ item.commentCount || 0 }}
+          <span class="company">
+              {{ item.Creater }}
+            <!--<span class="right-text">——大赛排名 第{{ item.AllRanking }}名</span>-->
           </span>
-          <span class="like-num">
-            <img src="./assets/imgs/competition/dianzan@2x.png" alt="点赞量">
-              {{ item.ReplyCount }}
+          <span class="num-info-box">
+            <span class="comment-num">
+              <img src="./assets/imgs/competition/pinglun@2x.png" alt="评论量">
+                {{ item.commentCount || 0 }}
+            </span>
+            <span class="like-num">
+              <img src="./assets/imgs/competition/dianzan@2x.png" alt="点赞量">
+                {{ item.ReplyCount }}
+            </span>
           </span>
-        </span>
         </div>
       </li>
     </ul>

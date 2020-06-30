@@ -237,7 +237,7 @@ export class CompetitionFWPage {
             this.page.getParams.PageIndex = 1;
             // 大赛 视频列表
             this.page.getListsApi = (data) => {
-                return this.homeSer.GetShortVideoCompitLists(data)
+                return this.homeSer.GetShortVideoLists(data)
             };
         }
 
@@ -262,16 +262,9 @@ export class CompetitionFWPage {
         // 处理返回的 数据
         let Lists = []
         // 判断是否短视频
-        if (this.page.checkType === this.page.navliArr[1].lable) {
-            if (Data && Data.LeaderboardItems && Data.LeaderboardItems.Items && Data.LeaderboardItems.Items.length > 0) {
-                Lists = Data.LeaderboardItems.Items
-                this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
-            }
-        } else {
-            if (Data.Items && Data.Items.length > 0) {
-                this.page.getParams.TotalCount = Data.TotalCount;
-                Lists = Data.Items;
-            }
+        if (Data.Items && Data.Items.length > 0) {
+            this.page.getParams.TotalCount = Data.TotalCount;
+            Lists = Data.Items;
         }
 
         return Lists;
@@ -292,7 +285,7 @@ export class CompetitionFWPage {
         } else if (this.page.checkType === this.page.navliArr[1].lable) {
             // 短视频排行榜
             this.page.getListsApi = (data) => {
-                return this.homeSer.GetShortVideoCompitLists(data)
+                return this.homeSer.GetShortVideoLists(data)
             };
         }
     }
