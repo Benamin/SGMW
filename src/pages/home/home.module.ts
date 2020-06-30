@@ -30,6 +30,7 @@ import {VideoReplyPage} from "./short-video/video-reply/video-reply";
 import {ReplyInputPage} from "./short-video/reply-input/reply-input";
 import {PipesModule} from "../../pipes/pipes.module";
 import {CompetitionVideoPage} from "./competition/competition-video/competition-video";
+import {FwVideoPage} from "./fw-competition/fw-video/fw-video";
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import {CompetitionVideoPage} from "./competition/competition-video/competition-
         VideoReplyPage,
         ReplyInputPage,
         CompetitionVideoPage,
+        FwVideoPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -93,6 +95,7 @@ import {CompetitionVideoPage} from "./competition/competition-video/competition-
         VideoReplyPage,
         ReplyInputPage,
         CompetitionVideoPage,
+        FwVideoPage
     ]
 })
 export class HomeModule {

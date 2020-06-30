@@ -155,7 +155,7 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/forum/post/searchrownum', data);
     }
 
-    // 短视频排行榜
+    // 短视频排行榜-销售大赛
     GetShortVideoCompitLists(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/AppShortVideo/GetShortVideoLeaderboardListByTopic', data);
     }

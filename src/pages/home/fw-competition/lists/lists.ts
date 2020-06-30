@@ -6,6 +6,7 @@ import {ShortVideoProvider} from "../../../../providers/short-video/short-video"
 import {EditPage} from "../../competition/edit/edit";
 import {CompetitionVideoPage} from "../../competition/competition-video/competition-video";
 import {GlobalData} from "../../../../core/GlobleData";
+import {FwVideoPage} from "../fw-video/fw-video";
 
 /**
  * 服务大赛 排行榜 列表
@@ -437,8 +438,10 @@ export class CompetitionFWPage {
         let num = index1 % 10;
         num = num == 0 ? 9 : num - 1;
         const currentPage = Math.ceil(index1 / 10);
+        console.log('currentPage',currentPage);
+        console.log('num',num);
         //大赛排行榜
-        this.navCtrl.push(CompetitionVideoPage, {
+        this.navCtrl.push(FwVideoPage, {
             Page: currentPage,
             TopicId: this.page.competitionParam.cid,
             AreaID: this.page.getParams.AreaID,
