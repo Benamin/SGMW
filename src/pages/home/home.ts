@@ -73,6 +73,7 @@ export class HomePage implements OnInit {
 
     wow;   //是否执行动画
     competitionParam = null;
+    serveCompetitionParam = null;
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
@@ -560,7 +561,7 @@ export class HomePage implements OnInit {
 
     // 获取服务大赛ID 和 用户所属 区域列表 和 省份列表
     getServerCompetition() {
-        this.competitionParam = {
+        this.serveCompetitionParam = {
             cid: null,
             ServerAreaArr: null,
             ServerProvinceArr: null
@@ -568,20 +569,20 @@ export class HomePage implements OnInit {
         this.homeSer.GetCompetitionID({code: 'fwds'}).subscribe(
             (res) => {
                 // console.log('GetCompetitionList', res)
-                this.competitionParam.cid = res.data;
+                this.serveCompetitionParam.cid = res.data;
             }
         )
         // 获取区域列表
         this.homeSer.GetServerCompArea({}).subscribe(
             (res) => {
                 // console.log('GetCompetitionListUserArea', res)
-                this.competitionParam.ServerAreaArr = res.data;
+                this.serveCompetitionParam.ServerAreaArr = res.data;
             }
         )
         // 获取省份列表
         this.homeSer.GetServerCompProvince({}).subscribe(
             (res) => {
-                this.competitionParam.ServerProvinceArr = res.data;
+                this.serveCompetitionParam.ServerProvinceArr = res.data;
             }
         )
 
@@ -599,15 +600,15 @@ export class HomePage implements OnInit {
         });
     }
 
-    // 前往销售大赛
+    // 前往服务大赛
     goToFWCompetition() {
-        if (!this.competitionParam.cid || !this.competitionParam.ServerAreaArr || !this.competitionParam.ServerProvinceArr) {
+        if (!this.serveCompetitionParam.cid || !this.serveCompetitionParam.ServerAreaArr || !this.serveCompetitionParam.ServerProvinceArr) {
             console.log('服务大赛区域或省份列表 不存在！');
             this.getServerCompetition();
             return
         }
         this.navCtrl.push(CompetitionFWPage, {
-            competitionParam: this.competitionParam
+            competitionParam: this.serveCompetitionParam
         });
     }
 
