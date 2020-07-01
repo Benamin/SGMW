@@ -28,6 +28,7 @@ export class VideoBoxPage {
     type;  //类型
     index;  //序号
     TotalCount;
+    TopicId;
 
     mySwiper;
     initSwiperBool;
@@ -42,6 +43,7 @@ export class VideoBoxPage {
         this.searchKey = this.navParams.get('searchKey');
         this.type = this.navParams.get('type');
         this.index = this.navParams.get('index');
+        this.TopicId = this.navParams.get('TopicId');
     }
 
     ionViewDidLoad() {
@@ -59,7 +61,8 @@ export class VideoBoxPage {
             "OrderBy": this.type,
             "SortDir": "desc",
             "IsAsc": true,
-            "TopicId": null
+            "TopicId": this.TopicId,
+            "TopicTagPlateId": this.TopicId,
         };
         this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {
@@ -177,7 +180,8 @@ export class VideoBoxPage {
             "OrderBy": this.type,
             "SortDir": "desc",
             "IsAsc": true,
-            "TopicId": null
+            "TopicId": this.TopicId,
+            "TopicTagPlateId": this.TopicId,
         };
         this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {

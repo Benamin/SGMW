@@ -21,6 +21,7 @@ export class VideoListsPage {
         searchKey: "",
         videoLists: [],
         Page: 1,
+        TopicId: '',
         PageSize: 10,
         TotalCount: null,
         isLoad: false
@@ -37,7 +38,12 @@ export class VideoListsPage {
     }
 
     ionViewDidLoad() {
-        this.getList();
+        this.homeSer.GetCompetitionID({code: 'xsds'}).subscribe(
+            (res) => {
+                this.page.TopicId = res.data;
+                this.getList();
+            }
+        )
     }
 
     // 进入视频播放页
@@ -49,6 +55,7 @@ export class VideoListsPage {
             Page: currentPage,
             searchKey: this.page.searchKey,
             type: this.type,
+            TopicId: this.page.TopicId,
             index: num == 0 ? 9 : num - 1
         });
     }
@@ -84,7 +91,8 @@ export class VideoListsPage {
             "OrderBy": this.type,
             "SortDir": "desc",
             "IsAsc": true,
-            "TopicId": null
+            "TopicId": this.page.TopicId,
+            "TopicTagPlateId": this.page.TopicId,
         };
         this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {
@@ -119,7 +127,8 @@ export class VideoListsPage {
             "OrderBy": this.type,
             "SortDir": "desc",
             "IsAsc": true,
-            "TopicId": null
+            "TopicId": this.page.TopicId,
+            "TopicTagPlateId": this.page.TopicId,
         };
         this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {
