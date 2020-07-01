@@ -1,6 +1,6 @@
 <div class="dayily-school">
   <img class="bgImage" src="./assets/imgs/home/home_mryx.png">
-  <div class="container">
+  <div class="container" (click)="goToDetail()">
     <div class="left">
       <div class="day">{{obj.day}}</div>
       <div class="other">
@@ -8,7 +8,7 @@
         <p>{{obj.year}}</p>
       </div>
     </div>
-    <div class="right" (click)="goToDetail()">
+    <div class="right">
       <button>每日一学</button>
     </div>
   </div>
