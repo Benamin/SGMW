@@ -164,7 +164,7 @@ export class ForumPage implements OnInit {
                 loading.present();
             }, 7000);
         }
-        this.serve.forum_topicplate_search(this.pageDate).subscribe((res: any) => {
+        this.serve.newsearchforumtopicplate(this.pageDate).subscribe((res: any) => {
             console.log('板块列表', res);
             if (!res.data) {
                 return
@@ -173,7 +173,7 @@ export class ForumPage implements OnInit {
             if (arr.length == 0) {
                 this.isdoInfinite = false;
             }
-    
+
             this.forumLIst = this.forumLIst.concat(arr);
             this.no_list = this.forumLIst.length == 0 ? true : false;
             loading.dismiss();
@@ -256,7 +256,7 @@ export class ForumPage implements OnInit {
 
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
         // this.serve.forum_post_search(data).subscribe((res: any) => {
-            
+
             loading.dismiss();
             if (res.data) {
                 // let arr = res.data.Items;

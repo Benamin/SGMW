@@ -125,17 +125,24 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
-        this.getCompetitionId();
-        this.getServerCompetition();
+        // this.getCompetitionId();
+        // this.getServerCompetition();
     }
 
+    //首页初始化
     ionViewDidLoad() {
+
+        //根据角色查询banner和产品列表
         this.storage.get('RoleID').then(value => {
             this.getBanner(value);
             this.getProductList(value);
         })
+
         this.getGoodsTeacher();
         this.getLIistData();
+        this.getCompetitionId();
+        this.getServerCompetition();
+        this.getProductType();
     }
 
     ionViewWillEnter() {
@@ -217,16 +224,11 @@ export class HomePage implements OnInit {
     }
 
     //获取产品分类 nlts
-    async getProductList(RoleID) {
+    getProductList(RoleID) {
         let loading = this.loadCtrl.create({
             content: '加载中...'
         });
         loading.present();
-        await this.homeSer.GetDictionaryByPCode("Subject").subscribe(
-            (res) => {
-                this.saleList = res.data;
-            }
-        );
         const data = {
             "page": 1,
             "pageSize": 4,
@@ -236,12 +238,21 @@ export class HomePage implements OnInit {
             "SortDir": "DESC",
             "RoleID": RoleID
         };
-        await this.learnSer.GetProductList(data).subscribe(
+        this.learnSer.GetProductList(data).subscribe(
             (res) => {
                 this.productList = res.data.ProductList;
+                loading.dismiss();
             }
         );
-        await loading.dismiss();
+    }
+
+    //获取课程分类
+    getProductType() {
+        this.homeSer.GetDictionaryByPCode("Subject").subscribe(
+            (res) => {
+                this.saleList = res.data;
+            }
+        );
     }
 
     //更多课程

@@ -11,8 +11,8 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="teacher" *ngFor="let item of  teacherList">
-        <div class="teacher-info" >
-            <div class="headPhoto" tappable (click)="teachDetail(item)">
+        <div class="teacher-info" (click)="teachDetail(item)">
+            <div class="headPhoto" tappable>
                 <img [src]="item.HeadPhoto">
             </div>
             <div class="name">
@@ -20,8 +20,10 @@
                 <p>{{item.Position || ' '}}</p>
             </div>
             <div class="focuscontent">
-                <span *ngIf="item.IsSubscribe == false" tappable (click)="focusHandle(item)" class="focus focus-blue">关注</span>
-                <span *ngIf="item.IsSubscribe == true" tappable (click)="cancleFocusHandle(item)" class="focus noFocus-blue">已关注</span>
+                <span *ngIf="item.IsSubscribe == false" tappable (click)="focusHandle(item)"
+                      class="focus focus-blue">关注</span>
+                <span *ngIf="item.IsSubscribe == true" tappable (click)="cancleFocusHandle(item)"
+                      class="focus noFocus-blue">已关注</span>
             </div>
         </div>
         <div class="infomation">

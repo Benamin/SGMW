@@ -236,6 +236,7 @@ export class MinePage {
             }
         })
         this.storage.set('RoleName', this.RoleName);
+        this.events.publish('RoleID');  //广播切换角色事件
     }
 
 }

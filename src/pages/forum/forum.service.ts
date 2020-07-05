@@ -53,13 +53,16 @@ export class ForumService {
   // https://devapi.chinacloudsites.cn/api/forum/post/get?postId=C1F48775-C0EE-4A32-87BB-016D7D4C5F08
   forum_post_get(postId) {
     return this.http.post(SERVER_API_URL + '/forum/post/get?postId=' + postId.postId, { postId });
-
-    // return this.http.post(SERVER_API_URL + '/forum/post/get',{postId});
   }
   // searchnewbkandht
   // 获取 板块列表
   forum_topicplate_search(data) {
     return this.http.post(SERVER_API_URL + '/forum/topicplate/search', data);
+  }
+
+  //获取 板块列表
+  newsearchforumtopicplate(data) {
+    return this.http.post(SERVER_API_URL + '/forum/topicplate/newsearchforumtopicplate', data);
   }
 
   // 获取 话题列表
