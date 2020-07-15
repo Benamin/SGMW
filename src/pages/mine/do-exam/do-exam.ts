@@ -8,6 +8,8 @@ import {Storage} from "@ionic/storage";
 import {HomeService} from "../../home/home.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {GlobalData} from "../../../core/GlobleData";
+import {LookExamPage} from "../look-exam/look-exam";
+import {ErrorExamPage} from "../error-exam/error-exam";
 
 @Component({
     selector: 'page-do-exam',
@@ -30,6 +32,8 @@ export class DoExamPage {
         isDone: false,
     };
     source;  //来源 course 课程
+
+    Fid;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private storage: Storage,
@@ -55,6 +59,7 @@ export class DoExamPage {
         });
         loading.present();
         const item = this.navParams.get('item');
+        this.Fid = item.Fid;
         const data = {
             Fid: item.Fid
         };
@@ -100,7 +105,6 @@ export class DoExamPage {
     }
 
     //返回键触犯暂存
-
 
 
     backSubmit() {
@@ -200,5 +204,13 @@ export class DoExamPage {
     //未做完提示关闭
     closeDone(e) {
         this.score.isDone = false;
+    }
+
+    //查看错题
+    lookError() {
+        const data = {
+            Fid: this.Fid
+        };
+        this.navCtrl.push(ErrorExamPage, {item: data, source: 'course'})
     }
 }

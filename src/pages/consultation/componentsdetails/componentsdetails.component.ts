@@ -1,73 +1,94 @@
-import { Component,ElementRef } from '@angular/core';
-import { NavParams, NavController, LoadingController } from "ionic-angular";
-import { ConsultationService } from '../consultation.service';
+import {Component, ElementRef} from '@angular/core';
+import {NavParams, NavController, LoadingController} from "ionic-angular";
+import {ConsultationService} from '../consultation.service';
+import {PCURL} from "../../../app/app.constants";
+import {CommonService} from "../../../core/common.service";
 
 @Component({
-  selector: 'page-componentsdetails',
-  templateUrl: 'componentsdetails.html',
+    selector: 'page-componentsdetails',
+    templateUrl: 'componentsdetails.html',
 })
 export class Componentsdetails {
-  lidata;
-  title = "";
-  data: any = { Title: '', ReleaseTime: '', Text: '' };
-  RelationArr = [];
-  navli='';
-  constructor(public navParams: NavParams,
-    private serve: ConsultationService,
-    private navCtrl: NavController,
-    private loadCtrl: LoadingController,
-    private el:ElementRef
+    lidataId;
+    title = "";
+    data: any = {Title: '', ReleaseTime: '', Text: ''};
+    RelationArr = [];
+    navli = '';
+
+    constructor(public navParams: NavParams,
+                private serve: ConsultationService,
+                private navCtrl: NavController,
+                private loadCtrl: LoadingController,
+                private el: ElementRef,
+                public commonSer: CommonService
     ) {
-  }
-  ngOnInit(): void {
+    }
 
-  }
-  ionViewDidEnter() {
-    this.lidata = this.navParams.get('data');
-    this.navli = this.navParams.get('navli');
-    console.log(this.lidata);
-    console.log(this.navli);
-    this.title = this.lidata.GetNewsList == 'xsal' ? "详情" : '详情中心'
-    this.GetRelationNewsByID(this.lidata.Id);
-  }
+    ionViewDidLoad() {
+        this.lidataId = this.navParams.get('dataId');
+        this.navli = this.navParams.get('navli');
+        this.serve.UpdateNewsReadCount(this.lidataId).subscribe(res => {
+            if (!res.data) {
+                console.log('阅读量更新失败');
+            }
+        })
+        this.GetRelationNewsByID(this.lidataId);
+    }
 
-  GetRelationNewsByID(id) {
-    let loading = this.loadCtrl.create({
-      content: '加载中...'
-    });
-
-    loading.present();
-    this.serve.GetRelationNewsByID(id).subscribe(res1 => {
-      this.serve.GetNewsByID(id).subscribe((res2: any) => {
-
-        res1.data.forEach(item => {
-          item.ReleaseTime=item.ReleaseTime.replace('T',' ');
-          item.ReleaseTime=item.ReleaseTime.slice(0,16);
+    GetRelationNewsByID(id) {
+        let loading = this.loadCtrl.create({
+            content: '加载中...'
         });
 
+        loading.present();
+        this.serve.GetRelationNewsByID(id).subscribe(res1 => {
+            this.serve.GetNewsByID(id).subscribe((res2: any) => {
 
-        this.RelationArr = res1.data;
-        this.data = res2.data;
-        this.data.ReleaseTime=this.data.ReleaseTime.replace('T',' ');
-        this.data.ReleaseTime=this.data.ReleaseTime.slice(0,16);
-        console.log(this.el.nativeElement);
-        this.el.nativeElement.querySelector('.inner-html').innerHTML=this.data.Text;
-        loading.dismiss();
+                res1.data.forEach(item => {
+                    item.ReleaseTime = item.ReleaseTime.replace('T', ' ');
+                    item.ReleaseTime = item.ReleaseTime.slice(0, 16);
+                });
+
+
+                this.RelationArr = res1.data;
+                this.data = res2.data;
+                this.data.ReleaseTime = this.data.ReleaseTime.replace('T', ' ');
+                this.data.ReleaseTime = this.data.ReleaseTime.slice(0, 16);
+                this.el.nativeElement.querySelector('.inner-html').innerHTML = this.data.Text;
+                loading.dismiss();
+                setTimeout(() => {
+                    // let innerHtml=document.getElementById('innerHtml');
+                    let innerHtml: any = document.querySelectorAll('.inner-html');
+                    for (let n = 0; n < innerHtml.length; n++) {
+                        this.serve.ModifyALabelSkip(innerHtml[n], this.navCtrl);
+                    }
+                }, 30);
+            });
+        });
+    }
+
+
+    goComponentsdetails(data) {
+        this.navCtrl.push(Componentsdetails, {dataId: data.Id});
         setTimeout(() => {
-          // let innerHtml=document.getElementById('innerHtml');
-          let innerHtml:any=document.querySelectorAll('.inner-html');
-          console.log(innerHtml);
-          for(let n=0;n<innerHtml.length;n++){
-            this.serve.ModifyALabelSkip(innerHtml[n],this.navCtrl);
-          }
-        }, 30);
-      });
-    });
-  }
+            data.ReadCount++;
+        }, 2000)
+    }
 
+    //微信分享
+    wxShare(item) {
+        let description = item.Text.replace(/\&nbsp;/g, '');
 
+        if (description.length > 100) {
+            description = description.slice(0, 100);
+        }
 
-  goComponentsdetails(data) {
-    this.navCtrl.push(Componentsdetails, { data: data });
-  }
+        const obj = {
+            Title: item.Title,
+            description: this.navli,
+            thumb: item.SourceURL,
+            webpageUrl: `${PCURL}noticedetails/${item.Id}`
+        }
+        this.commonSer.weChatShare(obj);
+    }
 }

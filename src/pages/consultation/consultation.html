@@ -29,11 +29,16 @@
                     <h4 class="nowrap-2">{{item.Title}}</h4>
                     <div class="time">
                         {{item.ReleaseTime}}
+                        <span class="eye"><img src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
+                        <span class="share" (click)="wxShare(item);$event.stopPropagation()">
+                            <img src="./assets/imgs/forum/other/share.png" alt="">
+                            分享
+                      </span>
                     </div>
                 </div>
                 <div class="imgdiv">
                    <div [ngStyle]="{'background-image': 'url('+item.SourceURLList[0]+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
-                   </div> 
+                   </div>
                 </div>
             </div>
             <div class="information-list img3" *ngIf="!item.IsSingle" tappable (click)="goComponentsdetails(item)">
@@ -44,9 +49,14 @@
                 </div>
                 <div class="time">
                     {{item.ReleaseTime}}
+                    <span class="eye"><img src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
+                    <span class="share" (click)="wxShare(item);$event.stopPropagation()">
+                        <img src="./assets/imgs/forum/other/share.png" alt="">
+                        分享
+                      </span>
                 </div>
             </div>
-       
+
         </ng-container>
         <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
             <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>

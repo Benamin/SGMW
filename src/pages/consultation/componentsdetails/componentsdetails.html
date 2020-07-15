@@ -1,31 +1,40 @@
 <!--component html goes here -->
 <ion-header>
-    <ion-navbar >
-        <ion-title>{{navli}}</ion-title>
+    <ion-navbar>
+        <ion-title>{{navli || '资讯详情'}}</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content >
-  <div class="details">
-      <h4>{{data.Title}}</h4>
-      <div class="time">{{navli}} /  {{data.ReleaseTime}}</div>
-      <div class="inner-html" id="innerHtml">
-        <!-- <span [innerHTML]='data.Text'></span> -->
-      </div>
-  </div>
+<ion-content>
+    <div class="details">
+        <h4>{{data.Title}}</h4>
+        <div class="time">详情 /  {{data.ReleaseTime}}</div>
+        <div class="inner-html" id="innerHtml">
+            <!-- <span [innerHTML]='data.Text'></span> -->
+        </div>
+        <div class="eye">
+            <img src="./assets/imgs/forum/other/eye.png">{{(data.ReadCount - 1) || '0'}}
+            <img (click)="wxShare(data);$event.stopPropagation()" src="./assets/imgs/forum/other/share.png" alt="">
+            分享
+        </div>
+    </div>
 
-  <div class="information-ul" *ngIf="RelationArr.length>0" >
-      <h3>相关推荐</h3>
-      <div class="information-list img1" tappable (click)="goComponentsdetails(item)" *ngFor="let item of RelationArr">
-          <div class="list-time">
-              <h4 class="nowrap-2">{{item.Title}}</h4>
-              <div class="time">
-                {{item.ReleaseTime}}
-              </div>
-          </div>
-          <div class="imgdiv">
-                <div [ngStyle]="{'background-image': 'url('+item.SourceURL+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
+    <div class="information-ul" *ngIf="RelationArr.length>0">
+        <h3>相关推荐</h3>
+        <div class="information-list img1" tappable (click)="goComponentsdetails(item)"
+             *ngFor="let item of RelationArr">
+            <div class="list-time">
+                <h4 class="nowrap-2">{{item.Title}}</h4>
+                <div class="time">
+                    {{item.ReleaseTime}}
+                    <span class="eye" style="justify-content: flex-start"><img style="margin-left: 0"
+                                                                               src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
                 </div>
-          </div>
-      </div>
-  </div>
+            </div>
+            <div class="imgdiv">
+                <div [ngStyle]="{'background-image': 'url('+item.SourceURL+')','background-size':'cover'}"
+                     style="background-size: cover;background: no-repeat center;">
+                </div>
+            </div>
+        </div>
+    </div>
 </ion-content>

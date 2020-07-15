@@ -63,7 +63,6 @@ export class ForumPage implements OnInit {
 
     // 前往帖子详情
     goPostsContent(data) {
-        console.log(888, data)
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
 
@@ -118,7 +117,6 @@ export class ForumPage implements OnInit {
     }
 
     doInfinite(e) {
-        console.log('加载');
         this.pageDate.pageIndex++;
         if (this.navli == '板块') {
             this.forum_topicplate_search();
@@ -146,7 +144,6 @@ export class ForumPage implements OnInit {
             "PageSize": 10
         }
         this.serve.topicplateSearchtopictag(data).subscribe((res: any) => {
-            console.log('话题列表', res)
             // this.conversationData=res.data.Items;
             let arr = res.data.Items;
             this.conversationData = this.conversationData.concat(arr);
@@ -165,7 +162,6 @@ export class ForumPage implements OnInit {
             }, 7000);
         }
         this.serve.newsearchforumtopicplate(this.pageDate).subscribe((res: any) => {
-            console.log('板块列表', res);
             if (!res.data) {
                 return
             }
@@ -270,7 +266,6 @@ export class ForumPage implements OnInit {
                     this.isdoInfinite = false;
                 }
             }
-            console.log(res);
         });
     }
 

@@ -1,10 +1,10 @@
 // export let env = 'localhost';
-// export let env = 'dev';
+export let env = 'dev';
 // export let env = 'uat';
-export let env = 'prod';
+// export let env = 'prod';
 
-// let keyEnv = 'dev';
-let keyEnv = 'prod';
+let keyEnv = 'dev';
+// let keyEnv = 'prod';
 
 // /***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';
@@ -88,3 +88,12 @@ export const LastVersion = '2.0.0';
 
 //提示信息
 export const NoUserMsg = "您的用户信息暂未同步到骏菱学社，请稍后再试。如有问题，请致电0772-2650611。";
+
+
+//分享
+export const PCURLDEV = "https://devportal1.chinacloudsites.cn/#/"  //dev
+export const PCURLUAT = "https://sitportal1.chinacloudsites.cn/#/"  //uat
+export const PCURLPROD = "http://elearning.sgmw.com.cn/#/"  //prod
+
+export const PCURL = (env === 'localhost' ? PCURLDEV : (env == 'dev' ? PCURLDEV : (env == 'uat' ?
+    PCURLUAT : (env == 'prod' ? PCURLPROD : ''))));

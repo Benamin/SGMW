@@ -92,6 +92,11 @@ export class ConsultationService {
          return this.http.get(SERVER_API_URL + '/EProduct/GetProductById?pid=' + id);
     }
 
+    //更新资讯浏览量
+    UpdateNewsReadCount(id): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/ENews/UpdateNewsReadCount?id=' + id);
+    }
+
     // 遍历元素 为元素 修改元素的转跳方法
     ModifyALabelSkip(innerHtml: HTMLElement,navCtrl) {
         let allA = innerHtml.querySelectorAll('a');

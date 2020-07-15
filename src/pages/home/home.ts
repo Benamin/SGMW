@@ -225,10 +225,6 @@ export class HomePage implements OnInit {
 
     //获取产品分类 nlts
     getProductList(RoleID) {
-        let loading = this.loadCtrl.create({
-            content: '加载中...'
-        });
-        loading.present();
         const data = {
             "page": 1,
             "pageSize": 4,
@@ -241,7 +237,6 @@ export class HomePage implements OnInit {
         this.learnSer.GetProductList(data).subscribe(
             (res) => {
                 this.productList = res.data.ProductList;
-                loading.dismiss();
             }
         );
     }
@@ -349,26 +344,31 @@ export class HomePage implements OnInit {
 
         }
         if (e.URLType == 2) {
-            if (e.HttpURL.includes('/#/courseDetail')) {
-                const arr = e.HttpURL.split('/');
-                this.getCourseDetailById(arr[arr.length - 1]);
-            } else if (e.HttpURL.includes('#/notice/detail/')) {
-                const arr = e.HttpURL.split('/');
-                this.navCtrl.push(Componentsdetails, {
-                    data: {
-                        Id: arr[arr.length - 1]
-                    }
-                });
-            } else if (e.HttpURL.includes('#/notice/xsgjdetail/')) {
-                const arr = e.HttpURL.split('/');
-                this.navCtrl.push(NumberOneDetailsComponent, {
-                    data: {
-                        Id: arr[arr.length - 1]
-                    }
-                });
-            } else {
-                this.commonSer.openUrlByBrowser(e.HttpURL);
+            const arr = e.HttpURL.split('/');
+            const ID = arr[arr.length - 1];
+            if (e.HttpURL.includes('/#/courseDetail')) {  //课程
+                this.getCourseDetailById(ID);
+                return;
             }
+            if (e.HttpURL.includes('#/notice/detail/')) {   //资讯
+                this.navCtrl.push(Componentsdetails, {data: {Id: ID}});
+                return;
+            }
+            if (e.HttpURL.includes('#/notice/xsgjdetail/')) {  //狼灭榜
+                this.navCtrl.push(NumberOneDetailsComponent, {
+                    data: {Id: ID}
+                });
+                return;
+            }
+            if (e.HttpURL.includes('#/bbsDetail/')) {
+                this.navCtrl.push(NumberOneDetailsComponent, {
+                    data: {Id: ID}
+                });
+                return;
+            }
+
+            this.commonSer.openUrlByBrowser(e.HttpURL);  //打开外链
+
         }
     }
 
@@ -459,11 +459,6 @@ export class HomePage implements OnInit {
             // this.forum_serve.forum_post_search(data).subscribe((res: any) => {
             if (res.data) {
                 this.forumLIst = res.data.UnTopPosts.Items;
-                // this.forumLIst = res.data.Posts.Items;
-                // let arr = res.data.Posts.Items;
-                // if (this.forumLIst.length > 4) {
-                //     this.forumLIst.length = 4;
-                // }
             }
 
         });
@@ -472,15 +467,31 @@ export class HomePage implements OnInit {
     openPosts(url) {
         let url_arr = url.split('/');
         // sgmw://forum/afd79774-4ad7-4c1f-838d-016e1d8705f7
+
+        if (url.indexOf('consultation') > -1) {  //资讯
+            this.navCtrl.push(Componentsdetails, {dataId: url_arr[3]});
+            return
+        }
+
         if (url.indexOf('forum') > -1) { // 论坛
             this.goPostsContent({Id: url_arr[3]});
-        } else if (url.indexOf('learning') > -1) { //课程
+            return;
+        }
+
+
+        if (url.indexOf('learning') > -1) { //课程
             url_arr = url.split('&Id=');
-            this.getCourseDetailById(url_arr[1])
-        } else if (url.indexOf('test') > -1) { // 考试
+            this.getCourseDetailById(url_arr[1]);
+            return;
+        }
+
+        if (url.indexOf('test') > -1) { // 考试
             url_arr = url.split('&Fid=');
-            this.getPaperDetailByStu(url_arr[1])
-        } else if (url.indexOf('shortVideo') > -1) { // 短视频
+            this.getPaperDetailByStu(url_arr[1]);
+            return;
+        }
+
+        if (url.indexOf('shortVideo') > -1) { // 短视频
             const ID = url.split('&Id=')[1].split('&from')[0];
             this.navCtrl.push(MyShortVideoBoxPage, {ID: ID});
         } else { // 兼容旧版本分享，论坛
@@ -586,7 +597,6 @@ export class HomePage implements OnInit {
         // 获取区域列表
         this.homeSer.GetServerCompArea({}).subscribe(
             (res) => {
-                // console.log('GetCompetitionListUserArea', res)
                 this.serveCompetitionParam.ServerAreaArr = res.data;
             }
         )

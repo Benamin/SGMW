@@ -22,6 +22,7 @@ import {PipesModule} from "../../pipes/pipes.module";
 import {IntegralComponent} from "./Integral/Integral.component";
 import {MyShortVideoPage} from "./my-short-video/my-short-video";
 import {MyShortVideoBoxPage} from "./my-short-video-box/my-short-video-box";
+import {ErrorExamPage} from "./error-exam/error-exam";
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import {MyShortVideoBoxPage} from "./my-short-video-box/my-short-video-box";
         MyFilePage,
         IntegralComponent,
         MyShortVideoPage,
-        MyShortVideoBoxPage
+        MyShortVideoBoxPage,
+        ErrorExamPage
     ],
     imports: [
         IonicPageModule.forChild(MinePage),
@@ -66,7 +68,8 @@ import {MyShortVideoBoxPage} from "./my-short-video-box/my-short-video-box";
         MyFilePage,
         IntegralComponent,
         MyShortVideoPage,
-        MyShortVideoBoxPage
+        MyShortVideoBoxPage,
+        ErrorExamPage
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

@@ -1,36 +1,43 @@
 // component css goes here
-page-componentsdetails{
-  .details{
+page-componentsdetails {
+  .details {
     background: #fff;
     padding: 0 15px;
-    h4{
+
+    h4 {
       font-size: 20px;
-      padding-top:10px; 
+      padding-top: 10px;
       margin-top: 0;
     }
-    .time{
-      color: rgba(0,0,0,0.4)
+
+    .time {
+      color: rgba(0, 0, 0, 0.4)
     }
-    .inner-html{
+
+    .inner-html {
       line-height: 22px;
-      color: rgba(0,0,0,0.7);
+      color: rgba(0, 0, 0, 0.7);
       padding-bottom: 10px;
-      p{
+
+      p {
         margin: 10px 0;
       }
     }
-  } 
-  .information-ul{
+  }
+
+  .information-ul {
     background: #fff;
     margin-top: 10px;
-    h3{
+
+    h3 {
       margin: 0;
       line-height: 40px;
       font-size: 14px;
       // font-weight: 700;
       padding-left: 15px;
     }
-    h3::before{
+
+    h3::before {
       content: " ";
       display: block;
       position: absolute;
@@ -41,55 +48,78 @@ page-componentsdetails{
       margin-top: 10px;
       background: -webkit-linear-gradient(#FFF7CB, #FFC92D);
     }
-    
+
   }
-  .information-list{
+
+  .information-list {
     padding-top: 10px;
     padding-bottom: 10px;
     background: #fff;
     margin-left: 15px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-right: 15px;
     overflow: hidden;
-    .list-time{
-      flex:1;
+
+    .list-time {
+      flex: 1;
       display: inline-grid;
     }
-    h4{
-      color: rgba(0,0,0,0.8);
+
+    h4 {
+      color: rgba(0, 0, 0, 0.8);
       font-size: 16px;
       margin-top: 0px;
       line-height: 22px;
     }
-    .imgdiv{
+
+    .imgdiv {
       overflow: hidden;
       height: 50px;
       border-radius: 6px;
-      div{
+
+      div {
         width: 100%;
         height: 100%;
       }
     }
 
-    .time{
-      color: rgba(0,0,0,0.4)
+    .time {
+      color: rgba(0, 0, 0, 0.4)
     }
 
   }
-  .img1{
+
+  .img1 {
     display: flex;
-    h4{
+
+    h4 {
       height: 40px;
     }
-    .imgdiv{
+
+    .imgdiv {
       background: #e4e4e4;
       height: 97px !important;
       width: 125px !important;
-      flex-shrink:0;
-      img{
+      flex-shrink: 0;
+
+      img {
         width: 100%;
         // height: 100%;
       }
+    }
+  }
+
+  .eye {
+    padding: 10px 0;
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    img {
+      width: 14px;
+      margin: 0 10px;
     }
   }
 

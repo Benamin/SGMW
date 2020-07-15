@@ -7,6 +7,7 @@ import {ViewReplyComponent} from '../view-reply/view-reply.component';
 import {ReportPage} from "../report/report";
 import {Storage} from "@ionic/storage";
 import {DatePipe} from "@angular/common";
+import {PCURL} from "../../../app/app.constants";
 
 declare var Wechat;
 declare let Swiper: any;
@@ -410,26 +411,15 @@ export class PostsContentComponent implements OnInit {
             thumb = img.src;
         }
 
-        Wechat.share({
-            message: {
-                title: data.Title, // 标题
-                description: description, // 简介
-                thumb: thumb, //帖子图片
-                mediaTagName: "TEST-TAG-001",
-                messageExt: "这是第三方带的测试字段",
-                messageAction: "<action>dotalist</action>",
-                // media: "YOUR_MEDIA_OBJECT_HERE",
-                media: {
-                    type: Wechat.Type.WEBPAGE,
-                    webpageUrl: "http://a1.hellowbs.com/openApp.html?Id=" + data.Id
-                }
-            },
-            scene: Wechat.Scene.SESSION
-        }, function () {
-            // alert("Success");
-        }, function (reason) {
-            // alert("Failed: " + reason);
-        });
+        const pcUrl = PCURL;
+        const obj = {
+            Title: data.Title,
+            description: description,
+            thumb: thumb,
+            webpageUrl: `${pcUrl}bbsdetails/${data.Id}`
+        }
+
+        this.commonSer.weChatShare(obj)
     }
 
     //我要投诉

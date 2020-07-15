@@ -219,9 +219,11 @@
         <p>作业提交成功</p>
         <p class="number">{{score.score}}</p>
         <p>作业得分</p>
-        <p *ngIf="score.score > exam.ExamInfo.PassScore || score.score == exam.ExamInfo.PassScore">恭喜您，通过本次作业，请点击确定继续学习</p>
+        <p *ngIf="score.score > exam.ExamInfo.PassScore || score.score == exam.ExamInfo.PassScore">
+            恭喜您，通过本次作业，请点击确定继续学习</p>
         <p *ngIf="score.score < exam.ExamInfo.PassScore">对不起，您的作业作业未通过，请重新观看本课时视频</p>
         <div>确定</div>
+        <div *ngIf="score.score < exam.ExamInfo.PassScore" (click)="lookError();$event.stopPropagation()">查看错题</div>
     </div>
 </div>
 <div *ngIf="score.isDone" class="score" tappable (click)="closeDone($event)">
