@@ -66,13 +66,6 @@ export class CourseDetailPage {
     ];
     navbarList;
 
-    signObj = {
-        isSign: false,
-    };
-
-    collectionObj = {
-        isCollection: false
-    };
     showFooter = false;
 
     comment = {
@@ -278,7 +271,9 @@ export class CourseDetailPage {
                 this.isLoad = true;
                 //视图未更新 强制更新
                 this.changeDetectorRef.markForCheck();
-                this.changeDetectorRef.detectChanges();
+                if (!this.changeDetectorRef['destroyed']) {
+                    this.changeDetectorRef.detectChanges();
+                }
             }
         );
     }
@@ -496,8 +491,6 @@ export class CourseDetailPage {
                 this.getCourseDetail();
                 this.initStudy();
                 this.studyNow();
-                this.signObj.isSign = true;
-                timer(1000).subscribe(() => this.signObj.isSign = false);
             }
         )
     }
@@ -527,7 +520,9 @@ export class CourseDetailPage {
                 this.global.PostsCertID = res.data.PostCertificationID;
                 //页面不更新进度 强制更新
                 this.changeDetectorRef.markForCheck();
-                this.changeDetectorRef.detectChanges();
+                if (!this.changeDetectorRef['destroyed']) {
+                    this.changeDetectorRef.detectChanges();
+                }
             }
         );
     }
@@ -546,8 +541,6 @@ export class CourseDetailPage {
         this.learSer.SaveCollectionByCSID(data).subscribe(
             (res) => {
                 this.getCourseDetail();
-                this.collectionObj.isCollection = true;
-                timer(1000).subscribe(() => this.collectionObj.isCollection = false);
             }
         )
     }
@@ -675,6 +668,7 @@ export class CourseDetailPage {
                 if (res.data) {
                     this.teacherList = res.data;
                     this.getCommentList();
+                    this.getTalkList();
                 }
             }
         )
@@ -684,7 +678,7 @@ export class CourseDetailPage {
     //课程评价
     getCommentList() {
         const data2 = {
-            pageSize: 1000,
+            pageSize: 5,
             page: 1,
             TopicType: 'course',   //teacher  course
             topicID: this.product.detail.PrId
@@ -701,9 +695,12 @@ export class CourseDetailPage {
                 }
             }
         );
+    }
 
+    //课程讨论
+    getTalkList(){
         const data3 = {
-            pageSize: 1000,
+            pageSize: 5,
             page: 1,
             TopicType: 'talk',   //teacher  course
             topicID: this.product.detail.PrId
@@ -784,7 +781,7 @@ export class CourseDetailPage {
                 this.learnSer.Savetalk(data).subscribe(
                     (res) => {
                         this.commonSer.toast('发表成功');
-                        this.getCommentList();
+                        this.getTalkList();
                     }
                 )
             }
