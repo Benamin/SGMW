@@ -99,6 +99,11 @@ export class CourseDetailPage {
 
     isError = false;   //回顾错题弹窗
 
+    talkObj = {  //讨论 分页
+        Page: 0,
+        TotalCount: 0
+    }
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
@@ -678,7 +683,7 @@ export class CourseDetailPage {
     //课程评价
     getCommentList() {
         const data2 = {
-            pageSize: 5,
+            pageSize: 100,
             page: 1,
             TopicType: 'course',   //teacher  course
             topicID: this.product.detail.PrId
@@ -698,10 +703,11 @@ export class CourseDetailPage {
     }
 
     //课程讨论
-    getTalkList(){
+    getTalkList() {
+        this.talkObj.Page = 1;
         const data3 = {
             pageSize: 5,
-            page: 1,
+            page: this.talkObj.Page,
             TopicType: 'talk',   //teacher  course
             topicID: this.product.detail.PrId
         };
@@ -709,6 +715,7 @@ export class CourseDetailPage {
             (res) => {
                 if (res.data) {
                     this.comment.talk = res.data.CommentItems;
+                    this.talkObj.TotalCount = res.data.TotalCount;
                 }
             }
         );
@@ -837,5 +844,37 @@ export class CourseDetailPage {
         if (type == 2) {   //继续作业
             this.navCtrl.push(DoExamPage, {item: data, source: 'course'})
         }
+    }
+
+
+    doInfinite(e) {
+        console.log('doInfinite');
+        if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
+            this.commonSer.toast('没有更多讨论了');
+            setTimeout(() => {
+                e.complete();
+            }, 800)
+            return
+        }
+        this.talkObj.Page++;
+        const data3 = {
+            pageSize: 5,
+            page: this.talkObj.Page,
+            TopicType: 'talk',   //teacher  course
+            topicID: this.product.detail.PrId
+        };
+        this.learnSer.GetTalkLists(data3).subscribe(   //课程讨论
+            (res) => {
+                if (res.data) {
+                    this.comment.talk = [...this.comment.talk, ...res.data.CommentItems];
+                    this.talkObj.TotalCount = res.data.TotalCount;
+                    setTimeout(() => {
+                        e.complete();
+                    }, 1000)
+                }
+            }
+        );
+
+        console.log('doInfinite');
     }
 }

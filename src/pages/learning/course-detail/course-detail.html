@@ -114,7 +114,7 @@
                 </ion-slide>
                 <!--      讨论      -->
                 <ion-slide>
-                    <div class="item" style="min-height: 350px">
+                    <div class="item" style="min-height: 350px;overflow-y: scroll">
                         <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论</p>
                         <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
                         <div class="no-comment" *ngIf="comment.talk.length == 0">
@@ -174,7 +174,12 @@
             去评价
         </div>
     </div>
-
+    <ion-infinite-scroll *ngIf="(StructureType == 1 && bar.type == 3) || (StructureType == 2 && bar.type == 2)"
+                         (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
 <div *ngIf="isError" class="score" tappable ion-fixed (click)="isError = false; $event.stopPropagation();">
     <div class="content" style="width: 60%">

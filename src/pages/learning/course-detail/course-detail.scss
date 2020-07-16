@@ -4,7 +4,8 @@ page-course-detail {
   }
 
   .ionSlides {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .fixed-top {
@@ -96,6 +97,7 @@ page-course-detail {
     border-radius: 6px;
     text-align: left;
     position: relative;
+    width: 100%;
 
     > p:first-child {
       font-size: 14px;
@@ -681,6 +683,28 @@ page-course-detail {
         }
       }
     }
+  }
+
+  .talk-content {
+    height: 400px;
+
+    .scroll-content {
+      height: 100%;
+
+      .item {
+        height: 100%;
+        overflow-y: scroll;
+      }
+    }
+  }
+
+  .swiper-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  ion-infinite-scroll-content {
+    min-height: 56px;
   }
 
 }
