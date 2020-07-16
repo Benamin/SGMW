@@ -1,4 +1,4 @@
-import {Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
 import {Content, IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
@@ -20,6 +20,7 @@ import {CommentComponent} from "../../../components/comment/comment";
 import {CommentByCourseComponent} from "../../../components/comment-by-course/comment-by-course";
 import {LookTalkVideoExamPage} from "../look-talk-video-exam/look-talk-video-exam";
 import {ExamTipPage} from "../exam-tip/exam-tip";
+import {ErrorExamPage} from "../../mine/error-exam/error-exam";
 
 
 @Component({
@@ -103,11 +104,14 @@ export class CourseDetailPage {
     showMore = false;  //简介折叠
     marginTop;
 
+    isError = false;   //回顾错题弹窗
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
                 private mineSer: MineService,
+                private changeDetectorRef: ChangeDetectorRef,
                 private global: GlobalData,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
@@ -197,6 +201,9 @@ export class CourseDetailPage {
                 this.courseFileType = 'iframe';
                 this.iframObj = value.iframe;
             }
+            if (value.type == 'ExamTip') {  //提示错题弹窗
+                this.isError = true;
+            }
             if (value.type == 'mp4') {  //video
                 this.courseFileType = 'video';
                 this.videoInfo.video = value.video;
@@ -232,7 +239,7 @@ export class CourseDetailPage {
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
-        if (type === 'video') {
+        if (type === 'video' || type == 'document') {
             this.getCourseDetail();
         }
 
@@ -269,6 +276,9 @@ export class CourseDetailPage {
                 this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
                 this.isLoad = true;
+                //视图未更新 强制更新
+                this.changeDetectorRef.markForCheck();
+                this.changeDetectorRef.detectChanges();
             }
         );
     }
@@ -418,17 +428,19 @@ export class CourseDetailPage {
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
         }
-        if (file.icon.includes('pdf')) {
+        if (file.icon.includes('pdf')) {   //pdf文件
             this.openPDF(file);
+            return
         }
-        if (file.icon.includes('iframe')) {
+        if (file.icon.includes('iframe')) {  //iframe
             const iframe = {
                 type: 'iframe',
                 iframe: file
             };
             this.appSer.setFile(iframe);
+            return;
         }
-        if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
+        if (!file.icon.includes('pdf') && !file.icon.includes('mp4') && !file.icon.includes('iframe')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
 
@@ -443,7 +455,7 @@ export class CourseDetailPage {
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
-                this.getChapter();  //查询最新章节信息
+                this.getChapter('document');  //查询最新章节信息
             }
         )
     }
@@ -511,7 +523,11 @@ export class CourseDetailPage {
             (res) => {
                 this.loading.dismiss();
                 this.product.detail = res.data;
+                console.log('overpercentage', this.product.detail.overpercentage)
                 this.global.PostsCertID = res.data.PostCertificationID;
+                //页面不更新进度 强制更新
+                this.changeDetectorRef.markForCheck();
+                this.changeDetectorRef.detectChanges();
             }
         );
     }
@@ -808,4 +824,21 @@ export class CourseDetailPage {
         })
     }
 
+
+    /**
+     * 作业提示的情况触发的方法 仅存在普通选项作业的错误回顾
+     * @param type  1=>回顾  2=>继续作业
+     */
+    handleShowError(type) {
+        const data = {
+            Fid: this.global.ExamFid
+        };
+        if (type == 1) {   //回顾作业
+            this.navCtrl.push(ErrorExamPage, {item: data, source: 'courseExam'})
+            return
+        }
+        if (type == 2) {   //继续作业
+            this.navCtrl.push(DoExamPage, {item: data, source: 'course'})
+        }
+    }
 }

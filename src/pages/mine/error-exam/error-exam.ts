@@ -22,6 +22,8 @@ export class ErrorExamPage {
     doneTotal = 0;
     opTips;
 
+    source;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController,
                 private homeSer: HomeService,
                 private commonSer: CommonService,
@@ -31,9 +33,15 @@ export class ErrorExamPage {
 
     //初始化
     ionViewDidLoad() {
+        this.source = this.navParams.get('source');
+
         this.navbar.backButtonClick = () => {
-            let index = this.navCtrl.length() - 2;
-            this.navCtrl.remove(index, 2)
+            if (this.source == 'courseExam') {  //通过课程进入 直接返回上一层
+                this.navCtrl.pop();
+            } else {   //通过作业进入 返回课程
+                let index = this.navCtrl.length() - 2;
+                this.navCtrl.remove(index, 2);
+            }
         };
 
         const loading = this.loadCtrl.create({
@@ -49,7 +57,7 @@ export class ErrorExamPage {
                 if (res.Result == 1) {
                     this.commonSer.toast(res.Message);
                 }
-                this.exam.QnAInfos = res.data.QnAInfos.filter(e => e.IsOk !== 1);
+                this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {

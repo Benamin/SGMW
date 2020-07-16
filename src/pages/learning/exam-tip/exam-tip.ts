@@ -24,7 +24,6 @@ export class ExamTipPage {
                 public storage: Storage,
                 private mineSer: MineService) {
         this.exam = this.navParams.get('item');
-        console.log(this.exam);
     }
 
     ionViewDidLoad() {

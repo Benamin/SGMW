@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
 import {CommonService} from "../../../core/common.service";
@@ -12,6 +12,7 @@ import {GlobalData} from "../../../core/GlobleData";
 import {DownloadFileProvider} from "../../../providers/download-file/download-file";
 import {AppService} from "../../../app/app.service";
 import {ViewFilePage} from "../view-file/view-file";
+import {ErrorExamPage} from "../../mine/error-exam/error-exam";
 
 @Component({
     selector: 'page-chapter',
@@ -32,6 +33,7 @@ export class ChapterPage {
                 private fileSer: FileService, private learSer: LearnService,
                 private global: GlobalData,
                 private appSer: AppService,
+                public alertCtrl: AlertController,
                 private downloadPro: DownloadFileProvider,
                 public mineSer: MineService,
                 private commonSer: CommonService) {
@@ -62,7 +64,7 @@ export class ChapterPage {
             return
         }
         let load = this.loadCtrl.create({
-            content: '正在前往作业，请等待...'
+            content: '正在查询作业，请等待...'
         });
         load.present();
         exam.Fid = exam.fId;
@@ -81,8 +83,13 @@ export class ChapterPage {
                             this.navCtrl.push(LookTalkVideoExamPage, {item: exam, source: 'course'});
                         }
                     } else {  //作业未完成
-                        if (exam.JopType == 0) {
-                            this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
+                        if (exam.JopType == 0) {  //普通题目
+                            if (exam.examStatus == 4) {  //是否做过一次题目
+                                this.global.ExamFid = exam.Fid;
+                                this.appSer.setFile({type: 'ExamTip'});
+                            } else {
+                                this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
+                            }
                         } else {  //视频作业、讨论作业
                             this.navCtrl.push(ExamTipPage, {item: exam});
                         }
@@ -92,6 +99,7 @@ export class ChapterPage {
             }
         )
     }
+
 
     /**
      * 打开课件
@@ -175,13 +183,13 @@ export class ChapterPage {
         let fileUrl;
         if (file.icon.includes('mp4')) {   //视频
             fileUrl = file.DownloadUrl;
-            // this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
             this.downloadPro.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
         } else {   //文档
             this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
         }
     }
 
+    //打开PDF文件
     openPDF(file) {
         console.log(file);
         let modal = this.modalCtrl.create(ViewFilePage, {

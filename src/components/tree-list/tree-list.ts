@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AppService} from "../../app/app.service";
 import {EmitService} from "../../core/emit.service";
 import {ViewFilePage} from "../../pages/learning/view-file/view-file";
-import {ModalController, NavController} from "ionic-angular";
+import {ActionSheetController, AlertController, ModalController, NavController} from "ionic-angular";
 import {FileService} from "../../core/file.service";
 import {CommonService} from "../../core/common.service";
 import {timer} from "rxjs/observable/timer";
@@ -26,7 +26,6 @@ export class TreeListComponent {
     @Input() TeachTypeName;
     @Output() fileData = new EventEmitter<any>();
 
-    isSign = false;
     nowTime;
     isOpen = false;
 
@@ -34,6 +33,7 @@ export class TreeListComponent {
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,
                 private navCtrl: NavController,
                 private mineSer: MineService,
+                public alertCtrl: AlertController,
                 private global: GlobalData,
                 private downloadPro: DownloadFileProvider) {
         timer(10).subscribe(
@@ -114,7 +114,7 @@ export class TreeListComponent {
         if (file.icon.includes('pdf')) {   //pdf课件
             this.openPDF(file);
         }
-        if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
+        if (!file.icon.includes('pdf') && !file.icon.includes('mp4') && !file.icon.includes('iframe')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
     }
@@ -129,7 +129,6 @@ export class TreeListComponent {
         let fileUrl;
         if (file.icon.includes('mp4')) {   //视频
             fileUrl = file.DownloadUrl;
-            // this.downloadSer.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
             this.downloadPro.downloadVideo(file.DisplayName + "." + file.icon, fileUrl);
         } else {   //文档
             this.fileSer.downloadFile(file.fileUrl, file.DisplayName + "." + file.icon);
@@ -183,7 +182,12 @@ export class TreeListComponent {
                         }
                     } else {  //作业未完成
                         if (exam.JopType == 0) {
-                            this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
+                            if (exam.examStatus == 4) {  //是否做过一次题目
+                                this.global.ExamFid = exam.Fid;
+                                this.appSer.setFile({type: 'ExamTip'});
+                            } else {
+                                this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
+                            }
                         } else {  //视频作业、讨论作业
                             this.navCtrl.push(ExamTipPage, {item: exam});
                         }

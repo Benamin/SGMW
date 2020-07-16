@@ -105,8 +105,6 @@ export class DoExamPage {
     }
 
     //返回键触犯暂存
-
-
     backSubmit() {
         const loading = this.loadCtrl.create({
             content: `暂存中...`
@@ -212,5 +210,13 @@ export class DoExamPage {
             Fid: this.Fid
         };
         this.navCtrl.push(ErrorExamPage, {item: data, source: 'course'})
+    }
+
+    //重做作业
+    resetExam() {
+        this.exam.QnAInfos.forEach(e => e.StuAnswer = "");
+        this.doneTotal = 0;
+        this.score.show = false;
+        this.slides.slideTo(0, 300);
     }
 }

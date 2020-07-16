@@ -185,3 +185,14 @@
     <img src="./assets/imgs/course/collection-success.png">
     <p>收藏成功</p>
 </div>
+<div *ngIf="isError" class="score" tappable ion-fixed (click)="isError = false; $event.stopPropagation();">
+    <div class="content" style="width: 60%">
+        <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
+        <p>温馨提示</p>
+        <p class="number test">是否查看上一次作业情况?</p>
+        <div class="btn">
+            <div class="lookExam" (click)="handleShowError(1)">回顾作业</div>
+            <div class="begin" (click)="handleShowError(2)">开始作业</div>
+        </div>
+    </div>
+</div>
