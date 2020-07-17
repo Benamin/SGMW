@@ -84,7 +84,8 @@ export class ChapterPage {
                         }
                     } else {  //作业未完成
                         if (exam.JopType == 0) {  //普通题目
-                            if (exam.examStatus == 4) {  //是否做过一次题目
+                            //是否做过一次题目  TotalScore为-1表示 作业是保存的
+                            if (exam.examStatus == 4 && res.data.TotalScore > -1) {
                                 this.global.ExamFid = exam.Fid;
                                 this.appSer.setFile({type: 'ExamTip'});
                             } else {
@@ -149,6 +150,7 @@ export class ChapterPage {
             this.appSer.setFile(iframe);  //通知主页面播放视频
         }
         if (file.icon.includes('pdf')) {   //pdf课件
+            this.global.CourseEnterSource = "PDF";
             this.openPDF(file);
         }
         if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {

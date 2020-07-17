@@ -41,11 +41,13 @@ export class LookTalkVideoExamPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public loadCtrl: LoadingController,
                 public homeSer: HomeService,
+                public global: GlobalData,
                 public modalCtrl: ModalController,
                 public commonSer: CommonService) {
     }
 
     ionViewDidLoad() {
+        this.global.CourseEnterSource = "LookExam";
         const loading = this.loadCtrl.create({
             content: ''
         });

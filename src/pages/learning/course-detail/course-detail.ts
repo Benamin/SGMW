@@ -92,7 +92,7 @@ export class CourseDetailPage {
     nodeLevel4;   //视频播放当前课时节点
     tagsNodeList;   //包含作业的节点列表
     nodeLevel4List;   //所有的课时节点列表
-    enterSource;   //进入来源
+    CourseEnterSource;   //进入来源
 
     showMore = false;  //简介折叠
     marginTop;
@@ -121,16 +121,14 @@ export class CourseDetailPage {
         }
     }
 
+    //仅进入初始化加载一次
     ionViewDidLoad() {
         this.slides.autoHeight = true;
         this.slides.onlyExternal = true;
         this.courseFileType = null;
         const screenWidth = <any>window.screen.width;
         this.ionSlidesDIV.nativeElement.style.width = screenWidth + 'px';
-    }
-
-    ionViewDidEnter() {
-        this.enterSource = this.navParams.get('courseEnterSource');
+        this.getRelationProduct();  //
         this.showFooter = true;
         this.loading = this.loadCtrl.create({
             content: '',
@@ -138,20 +136,16 @@ export class CourseDetailPage {
             enableBackdropDismiss: true,
         });
         this.loading.present();
-        console.log('ionViewWillEnter');
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
                 this.global.PostsCertID = res.data.PostCertificationID;
                 this.SortType = res.data.SortType;
+
                 this.getChapter();  //章节信息
-                this.getRelationProduct();  //
-                if (this.enterSource != 'examBack') {
-                    this.getTeacher();
-                }
+                this.getTeacher();   //讲师信息
                 //接受文件通知
                 this.getFileInfo();
-
                 setTimeout(() => {
                     this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
                 })
@@ -159,14 +153,45 @@ export class CourseDetailPage {
         );
     }
 
+    //每次进入均加载
+    ionViewDidEnter() {
+        this.CourseEnterSource = this.global.CourseEnterSource;
+        switch (this.CourseEnterSource) {
+            case 'PDF':   //打开PDF文件返回
+                break;
+            case 'CourseTalk':   // 课程讨论详情返回
+                this.getTalkList();   //获取课程讨论
+                break;
+            case 'CourseComment':   //课程评价详情返回
+                this.getCommentList();  //获取课程评价
+                break;
+            case 'RelationCourse':          // 相关课程返回
+                break;
+            case 'DoExam':        //做普通选项类作业返回
+                this.getChapter();   //查询课程目录
+                this.getCourseDetail();  //查询课程详情
+                break;
+            case 'TalkExam':      //讨论作业返回
+                this.getTalkList();   //获取课程讨论
+                break;
+            case 'VideoExam':      //视频作业返回
+                this.getTalkList();   //获取课程讨论
+                break;
+            case 'LookExam':      //查看作业返回
+                break;
+            case 'LookErrorExam':      //回顾作业返回
+                break;
+        }
+
+    }
+
     //离开页面
     ionViewDidLeave() {
-        console.log('leave');
         this.courseFileType = null;
         this.showFooter = false;
-        this.appSer.setFile(null)
+        this.appSer.setFile(null);
+        this.CourseEnterSource = "";
         if (this.videojsCom) this.videojsCom.pageLeave();
-        console.log(this.navCtrl.getViews());
         const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
         const doExamArr = this.navCtrl.getViews().filter(e => e.name == 'DoExamPage');
         const lookExamArr = this.navCtrl.getViews().filter(e => e.name == 'LookExamPage');
@@ -255,7 +280,7 @@ export class CourseDetailPage {
                     this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
                     this.checkTag();   //校验作业
                 }
-                if (this.enterSource == 'examBack') {  //做完作业返回
+                if (this.CourseEnterSource == 'DoExam') {  //做完作业返回
                     if (this.product.detail.overpercentage == 100) {
                         this.commonSer.toast('恭喜您完成课程学习!');
                     } else {
@@ -396,7 +421,7 @@ export class CourseDetailPage {
      */
     studyContinue() {
         console.log('studyContinue');
-        this.enterSource = '';
+        this.CourseEnterSource = '';
         let arr = [];
         if (this.SortType == 1) {
             arr = this.nodeLevel4List.filter(e => e.StudyStatus == 2);
@@ -847,6 +872,7 @@ export class CourseDetailPage {
     }
 
 
+    //加载更多--课程讨论
     doInfinite(e) {
         console.log('doInfinite');
         if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {

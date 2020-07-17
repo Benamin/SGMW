@@ -182,7 +182,8 @@ export class TreeListComponent {
                         }
                     } else {  //作业未完成
                         if (exam.JopType == 0) {
-                            if (exam.examStatus == 4) {  //是否做过一次题目
+                            //是否做过一次题目  TotalScore为-1表示 作业是保存的
+                            if (exam.examStatus == 4 && res.data.TotalScore > -1) {
                                 this.global.ExamFid = exam.Fid;
                                 this.appSer.setFile({type: 'ExamTip'});
                             } else {

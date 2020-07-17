@@ -37,6 +37,7 @@ export class TalkExamPage {
     }
 
     ionViewDidLoad() {
+        this.global.CourseEnterSource = "TalkExam";
         this.navbar.backButtonClick = () => {
             this.commonSer.alert("确定暂存答案吗？", (res) => {
                 this.backSubmit();

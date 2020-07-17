@@ -45,6 +45,7 @@ export class VideoExamPage {
 
 
     ionViewDidLoad() {
+        this.global.CourseEnterSource = "VideoExam";
         const loading = this.loadCtrl.create({
             content: '作业加载中...'
         });

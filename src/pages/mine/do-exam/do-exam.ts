@@ -45,6 +45,7 @@ export class DoExamPage {
     }
 
     ionViewDidLoad() {
+        this.global.CourseEnterSource = "DoExam";
         this.eventEmitSer.eventEmit.emit('true');
         this.navbar.backButtonClick = () => {
             this.commonSer.alert("确定暂存答案吗？", (res) => {

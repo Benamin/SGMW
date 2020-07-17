@@ -5,6 +5,7 @@ import {QIndexComponent} from "../../../components/q-index/q-index";
 import {Storage} from "@ionic/storage";
 import {HomeService} from "../../home/home.service";
 import {CommonService} from "../../../core/common.service";
+import {GlobalData} from "../../../core/GlobleData";
 
 @Component({
     selector: 'page-look-exam',
@@ -24,12 +25,14 @@ export class LookExamPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController,
                 private homeSer: HomeService,
                 private commonSer: CommonService,
+                public global: GlobalData,
                 private mineSer: MineService, private loadCtrl: LoadingController, private storage: Storage) {
 
     }
 
     //初始化
     ionViewDidLoad() {
+        this.global.CourseEnterSource = "LookExam";
         const loading = this.loadCtrl.create({
             content: ''
         });
@@ -54,7 +57,7 @@ export class LookExamPage {
     }
 
     slideChanged() {
-        if(this.slides.realIndex) this.index = this.slides.realIndex;
+        if (this.slides.realIndex) this.index = this.slides.realIndex;
     }
 
     //查看题目
