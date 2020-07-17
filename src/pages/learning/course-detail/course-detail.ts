@@ -29,7 +29,6 @@ import {ErrorExamPage} from "../../mine/error-exam/error-exam";
 })
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
-    @ViewChild('navbar') navbar: ElementRef;
     @ViewChild('CourseIntroduction') CourseIntroduction: ElementRef;
     @ViewChild('ionSlidesDIV') ionSlidesDIV: ElementRef;
     @ViewChild('videojsCom') videojsCom: VideojsComponent;
@@ -173,8 +172,8 @@ export class CourseDetailPage {
             case 'RelationCourse':          // 相关课程返回
                 break;
             case 'DoExam':        //做普通选项类作业返回
-                this.getChapter();   //查询课程目录
                 this.getCourseDetail();  //查询课程详情
+                this.getChapter();   //获取章节列表
                 break;
             case 'TalkExam':      //讨论作业返回
                 this.getTalkList();   //获取课程讨论
@@ -193,7 +192,6 @@ export class CourseDetailPage {
     ionViewDidLeave() {
         this.courseFileType = null;
         this.showFooter = false;
-        // this.appSer.setFile(null);
         this.appSer.destroyFile();
         this.CourseEnterSource = "";
         if (this.videojsCom) this.videojsCom.pageLeave();
@@ -208,39 +206,31 @@ export class CourseDetailPage {
     //接受文件打开事件通知
     getFileInfo() {
         this.appSer.fileInfo.subscribe(value => {
+            console.log(value);
             if (!value) {
                 return
             }
-            console.error('接受文件打开事件')
-            console.error(value);
             if (value.type == 'videoPlayEnd') {
-                if (!this.global.subscribeDone) {
-                    this.global.subscribeDone = true;
-                    this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
-                }
+                this.getCourseDetail('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
-                if (!this.global.subscribeDone) {
-                    this.global.subscribeDone = true;
-                    this.getChapter('document');
-                }
+                this.getCourseDetail('Document');
             }
             if (value.type == 'iframe') {  //iframe
                 this.courseFileType = 'iframe';
                 this.iframObj = value.iframe;
             }
             if (value.type == 'ExamTip') {  //提示错题弹窗
-                this.isError = true;
+                this.zone.run(() => {
+                    this.isError = true;
+                })
             }
             if (value.type == 'mp4') {  //video
                 this.courseFileType = 'video';
                 this.videoInfo.video = value.video;
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
-                if (!this.global.subscribeDone) {
-                    this.global.subscribeDone = true;
-                    this.saveProcess(value.video);
-                }
+                this.saveProcess(value.video);
             }
         });
     }
@@ -263,10 +253,6 @@ export class CourseDetailPage {
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
-        if (type === 'video' || type == 'document') {
-            this.getCourseDetail();
-        }
-
         this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
@@ -276,17 +262,17 @@ export class CourseDetailPage {
                 this.nodeLevel4List = [];  //重置课时节点数组
                 this.f(this.product.chapter.Course.children);
                 this.fNode(this.product.chapter.Course.children);
-                if (type == 'video') {   //只有视频播放结束之后才校验是否打开作业
+                if (type && type == 'video') {   //只有视频播放结束之后才校验是否打开作业
                     this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
                     this.checkTag();   //校验作业
                 }
-                if (this.CourseEnterSource == 'DoExam') {  //做完作业返回
-                    if (this.product.detail.overpercentage == 100) {
-                        this.commonSer.toast('恭喜您完成课程学习!');
-                    } else {
-                        this.studyContinue();
-                    }
-                }
+                // if (this.CourseEnterSource == 'DoExam') {  //做完作业返回
+                //     if (this.product.detail.overpercentage == 100) {
+                //         this.commonSer.toast('恭喜您完成课程学习!');
+                //     } else {
+                //         this.studyContinue();
+                //     }
+                // }
                 this.files.forEach(e => {
                     if (e.PlanStartTime) {
                         e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
@@ -295,6 +281,7 @@ export class CourseDetailPage {
                 this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
                 this.isLoad = true;
+                console.log('加载完毕')
             }
         );
     }
@@ -431,7 +418,6 @@ export class CourseDetailPage {
         const loading = this.loadCtrl.create();
         loading.present();
         this.saveProcess(file);   //创建学习记录
-        this.global.subscribeDone = false;
         if (file.icon.includes('mp4')) {
             const mp4 = {
                 type: 'mp4',
@@ -501,7 +487,10 @@ export class CourseDetailPage {
 
     //报名
     sign() {
+        if (this.disableBtn.signBtnDisable) return;
+
         this.disableBtn.signBtnDisable = true;
+
         const data = {
             pid: this.global.pId
         };
@@ -530,11 +519,14 @@ export class CourseDetailPage {
     }
 
     //课程详情
-    getCourseDetail() {
+    getCourseDetail(type?: any) {
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.loading.dismiss();
                 this.global.PostsCertID = res.data.PostCertificationID;
+                if (type == "video" || type == "Document") {
+                    this.getChapter(type);   //查询课程目录
+                }
                 //页面不更新进度 强制更新
                 this.zone.run(() => {
                     this.product.detail = res.data;
@@ -807,9 +799,12 @@ export class CourseDetailPage {
         modal.present();
     }
 
+    //tab切换
     changeType(item) {
-        this.bar.type = item.type;
-        this.slides.slideTo(item.type - 1, 100);
+        if (this.isLoad) {
+            this.bar.type = item.type;
+            this.slides.slideTo(item.type - 1, 100);
+        }
     }
 
 
@@ -820,7 +815,9 @@ export class CourseDetailPage {
 
     //切换slide
     slideChanged() {
-        this.bar.type = this.slides.realIndex + 1;
+        if (this.isLoad) {
+            this.bar.type = this.slides.realIndex + 1;
+        }
     }
 
     //关闭弹窗
@@ -852,8 +849,8 @@ export class CourseDetailPage {
             this.navCtrl.push(ErrorExamPage, {item: data, source: 'courseExam'})
             return
         }
-        if (type == 2) {   //继续作业
-            this.navCtrl.push(DoExamPage, {item: data, source: 'course'})
+        if (type == 2) {   //重新开始
+            this.navCtrl.push(DoExamPage, {item: data, ExamStatusMine: 'ChongXinKaiShi'})
         }
     }
 

@@ -31,7 +31,8 @@ export class DoExamPage {
         show: false,
         isDone: false,
     };
-    source;  //来源 course 课程
+    //ChongXinKaiShi  重新开始  ZanCun 暂存
+    ExamStatusMine;  //来源 course 课程
 
     Fid;
 
@@ -41,7 +42,7 @@ export class DoExamPage {
                 private homeSer: HomeService,
                 private loadCtrl: LoadingController, private commonSer: CommonService, private modalCtrl: ModalController,
                 public eventEmitSer: EmitService,) {
-        this.source = this.navParams.get('source');
+        this.ExamStatusMine = this.navParams.get('ExamStatusMine');
     }
 
     ionViewDidLoad() {
@@ -77,6 +78,10 @@ export class DoExamPage {
                         this.doneTotal++;
                     }
                 });
+                if (this.ExamStatusMine == 'ChongXinKaiShi') {   //未通过作业  上次的回答清空
+                    this.exam.QnAInfos.forEach(e => e.StuAnswer = "");
+                    this.doneTotal = 0;
+                }
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
@@ -123,7 +128,6 @@ export class DoExamPage {
                 loading.dismiss();
                 if (res.code == 200) {
                     this.commonSer.toast('暂存成功');
-                    this.navCtrl.getPrevious().data.courseEnterSource = '';
                     this.navCtrl.pop();
                 } else {
                     this.commonSer.toast(res.Message);
@@ -163,7 +167,6 @@ export class DoExamPage {
                         this.score.show = true;
                     } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');
-                        this.navCtrl.getPrevious().data.courseEnterSource = '';
                         this.navCtrl.pop();
                     } else {
                         this.commonSer.toast(JSON.stringify(res));
@@ -196,7 +199,6 @@ export class DoExamPage {
     //考分提示
     close(e) {
         this.score.show = false;
-        this.navCtrl.getPrevious().data.courseEnterSource = 'examBack';
         this.navCtrl.pop();
     }
 

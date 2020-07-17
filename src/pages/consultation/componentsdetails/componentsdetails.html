@@ -7,7 +7,7 @@
 <ion-content>
     <div class="details">
         <h4>{{data.Title}}</h4>
-        <div class="time">详情 /  {{data.ReleaseTime}}</div>
+        <div class="time">详情 /  {{data.ReleaseTime | date:'yyyy-MM-dd'}}</div>
         <div class="inner-html" id="innerHtml">
             <!-- <span [innerHTML]='data.Text'></span> -->
         </div>
@@ -25,7 +25,7 @@
             <div class="list-time">
                 <h4 class="nowrap-2">{{item.Title}}</h4>
                 <div class="time">
-                    {{item.ReleaseTime}}
+                    {{item.ReleaseTime | date:'yyyy-MM-dd'}}
                     <span class="eye" style="justify-content: flex-start"><img style="margin-left: 0"
                                                                                src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
                 </div>

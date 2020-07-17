@@ -635,7 +635,7 @@ export class HomePage implements OnInit {
             (res) => {
                 load.dismiss();
                 if (res.data) {
-                    this.navCtrl.push(Componentsdetails, {data: {Id: res.data.Id}, navli: '每日一学'});
+                    this.navCtrl.push(Componentsdetails, {dataId: res.data.Id, navli: '每日一学'});
                 } else {
                     this.commonSer.toast('今日没有学习资讯');
                 }

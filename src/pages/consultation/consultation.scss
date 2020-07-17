@@ -84,10 +84,11 @@ page-consultation {
         display: flex;
         align-items: flex-end;
 
-        .eye, .share {
+        .eye, .share, .date_time {
           display: flex;
           align-items: center;
           justify-content: center;
+          height: 18px;
 
           img {
             width: 14px;

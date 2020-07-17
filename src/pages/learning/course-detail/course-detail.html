@@ -88,7 +88,13 @@
                 <div *ngIf="showMore" [innerHTML]="product.detail?.Description | lineFeed"></div>
             </div>
         </div>
-        <navbar #navbar [select]="bar.type" [list]="navbarList" (done)="changeType($event)"></navbar>
+        <div class="navbar">
+            <ng-container *ngFor="let item of navbarList;let i = index;">
+                <div class="navbar-item" tappable (click)="changeType(item);$event.stopPropagation()">
+                    <span class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</span>
+                </div>
+            </ng-container>
+        </div>
     </div>
     <div [ngStyle]="{'margin-top': 256 + marginTop+'px'}" #space class="space"></div>
     <div class="ionSlides" #ionSlidesDIV>

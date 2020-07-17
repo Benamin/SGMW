@@ -1,1 +1,1 @@
-课程里章节的相关字段说明StructureType  1老结构 2新结构//作业相关字段JopType  0 = 选项类作业，1=讨论类作业 2=视频类作业isrelease:int //是否分享讨论组 0 不发，1发ScoreIsRelease:int //是否分享讨论组 0 不发，1发QType   题目类型 1-单选 2-多选 3-判断 4-问答StudyStatus 0,1作业未解锁  2 作业已解锁examStatus 0=>未解锁 2=>未提交过  4=>(1)暂存,(2)提交但是未通过  8=>作业完成
+课程里章节的相关字段说明StructureType  1老结构 2新结构//作业相关字段JopType  0 = 选项类作业，1=讨论类作业 2=视频类作业isrelease:int //是否分享讨论组 0 不发，1发ScoreIsRelease:int //是否分享讨论组 0 不发，1发QType   题目类型 1-单选 2-多选 3-判断 4-问答StudyStatus 0,1作业未解锁  2 作业已解锁examStatus 0=>未解锁 2=>未提交过 3=>已完成  4=>(1)暂存,(2)提交但是未通过  8=>作业完成

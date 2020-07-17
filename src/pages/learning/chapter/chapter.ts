@@ -83,11 +83,14 @@ export class ChapterPage {
                     } else {  //作业未完成
                         if (exam.JopType == 0) {  //普通题目
                             //是否做过一次题目  TotalScore为-1表示 作业是保存的
-                            if (exam.examStatus == 4 && res.data.TotalScore > -1) {
+                            console.log('TotalScore为-1表示 作业是保存的')
+                            if(res.data.TotalScore == -1){   //暂存
+                                this.navCtrl.push(DoExamPage, {item: exam, ExamStatusMine: 'ZanCun'})
+                            }else if (exam.examStatus == 4 && res.data.TotalScore > -1) {  //回顾
                                 this.global.ExamFid = exam.Fid;
                                 this.appSer.setFile({type: 'ExamTip'});
-                            } else {
-                                this.navCtrl.push(DoExamPage, {item: exam, source: 'course'})
+                            } else {  //重新开始作业
+                                this.navCtrl.push(DoExamPage, {item: exam, ExamStatusMine: 'ChongXinKaiShi'})
                             }
                         } else {  //视频作业、讨论作业
                             this.navCtrl.push(ExamTipPage, {item: exam});
@@ -130,7 +133,6 @@ export class ChapterPage {
         }
 
         if (!file.icon.includes('mp4')) this.saveProcess(file);  //非视频文件保存进度
-        this.global.subscribeDone = false;
         if (file.icon.includes('mp4')) {  //视频
             const mp4 = {
                 type: 'mp4',

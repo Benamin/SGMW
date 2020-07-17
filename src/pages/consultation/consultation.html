@@ -11,24 +11,27 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="navul">
-        <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable (click)="switchInformation(item.label)">
-                {{item.label}}
+        <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable
+             (click)="switchInformation(item.label)">
+            {{item.label}}
         </div>
     </div>
     <div class="information-ul">
-            <ion-list text-center style="margin-top: 10rem" *ngIf="no_list">
-                    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                    <p text-center style="color: #666666;font-size: 16px">
-                        暂无数据
-                    </p>
-            </ion-list>
+        <ion-list text-center style="margin-top: 10rem" *ngIf="no_list">
+            <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+            <p text-center style="color: #666666;font-size: 16px">
+                暂无数据
+            </p>
+        </ion-list>
 
         <ng-container *ngFor="let item of dataList">
             <div class="information-list img1" *ngIf="item.IsSingle" tappable (click)="goComponentsdetails(item)">
                 <div class="list-time">
                     <h4 class="nowrap-2">{{item.Title}}</h4>
                     <div class="time">
-                        {{item.ReleaseTime}}
+                        <span class="date_time">
+                                            {{item.ReleaseTime | date:'yyyy-MM-dd'}}
+                    </span>
                         <span class="eye"><img src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
                         <span class="share" (click)="wxShare(item);$event.stopPropagation()">
                             <img src="./assets/imgs/forum/other/share.png" alt="">
@@ -37,18 +40,23 @@
                     </div>
                 </div>
                 <div class="imgdiv">
-                   <div [ngStyle]="{'background-image': 'url('+item.SourceURLList[0]+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
-                   </div>
+                    <div [ngStyle]="{'background-image': 'url('+item.SourceURLList[0]+')','background-size':'cover'}"
+                         style="background-size: cover;background: no-repeat center;">
+                    </div>
                 </div>
             </div>
             <div class="information-list img3" *ngIf="!item.IsSingle" tappable (click)="goComponentsdetails(item)">
                 <h4 class="nowrap-2">{{item.Title}}</h4>
                 <div class="imgdiv-flex">
-                    <div *ngFor="let img of item.SourceURLList" [ngStyle]="{'background-image': 'url('+img+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
+                    <div *ngFor="let img of item.SourceURLList"
+                         [ngStyle]="{'background-image': 'url('+img+')','background-size':'cover'}"
+                         style="background-size: cover;background: no-repeat center;">
                     </div>
                 </div>
                 <div class="time">
-                    {{item.ReleaseTime}}
+                    <span class="date_time">
+                                            {{item.ReleaseTime  | date:'yyyy-MM-dd'}}
+                    </span>
                     <span class="eye"><img src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
                     <span class="share" (click)="wxShare(item);$event.stopPropagation()">
                         <img src="./assets/imgs/forum/other/share.png" alt="">

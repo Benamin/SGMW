@@ -142,10 +142,7 @@ export class FocusCoursePage {
                 return
             }
             if (value.type == 'videoPlayEnd') {
-                if (!this.global.subscribeDone) {
-                    this.global.subscribeDone = true;
                     this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
-                }
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
                 this.getChapter('document');
@@ -159,10 +156,7 @@ export class FocusCoursePage {
                 this.videoInfo.video = value.video;
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
-                if (!this.global.subscribeDone) {
-                    this.global.subscribeDone = true;
-                    this.saveProcess(value.video);
-                }
+                this.saveProcess(value.video);
             }
         });
     }
