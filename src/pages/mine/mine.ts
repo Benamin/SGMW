@@ -110,7 +110,6 @@ export class MinePage {
                         RoleID: this.CurrentRole.CurrentRoleID,
                     });
                 }
-                console.log(this.RoleNames);
             }
         )
     }

@@ -6,7 +6,6 @@ import { Directive } from '@angular/core';
 export class TreeDirective {
 
   constructor() {
-    console.log('Hello TreeDirective Directive');
   }
 
 }

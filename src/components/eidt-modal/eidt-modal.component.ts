@@ -24,7 +24,6 @@ export class EidtModalComponent {
     }
 
     ionViewDidLoad() {
-        console.log('this.navParams', this.navParams.get('modalType'))
         this.modalType = this.navParams.get('modalType');
         this.list = this.navParams.get('list');
         this.list.forEach(e => e.selected = false);

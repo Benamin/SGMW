@@ -32,7 +32,6 @@ export class ChooseImageProvider {
                     text: '拍照',
                     role: 'fromCamera',
                     handler: () => {
-                        console.log('fromCamera');
                         this.selectPicture(1, successCallback);
                     }
                 },
@@ -40,7 +39,6 @@ export class ChooseImageProvider {
                     text: '从相册中选',
                     role: 'fromPhoto',
                     handler: () => {
-                        console.log('fromPhoto');
                         this.selectPicture(0, successCallback);
                     }
                 },
@@ -89,8 +87,6 @@ export class ChooseImageProvider {
             }
             let arr = filePath.split('/');
             option.fileName = arr[arr.length - 1];
-            console.log(imagedata);
-            console.log(arr);
             if (this.platform.is('ios')) {
 
             } else {

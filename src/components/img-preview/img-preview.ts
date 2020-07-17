@@ -17,7 +17,6 @@ export class ImgPreviewComponent {
     }
 
     @Input() set src(preImgSrc) {
-        console.log(preImgSrc);
         this.preImgSrc = preImgSrc;
     }
 

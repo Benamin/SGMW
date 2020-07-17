@@ -14,7 +14,6 @@ export class SelectTeacherComponent {
   constructor(private viewCtrl:ViewController,
               private navParams:NavParams) {
     this.teacherList = this.navParams.get('teacherList');
-    console.log(this.teacherList);
   }
 
   close() {

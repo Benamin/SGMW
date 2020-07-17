@@ -78,7 +78,6 @@ export class MyFollowsComponent implements OnInit {
             loading.present();
         }
         this.forumServe.GetSubscribeList(this.GetSubscribeListpage).subscribe((res: any) => {
-            console.log('关注的讲师', res);
             if (this.GetSubscribeListpage.page == 1) {
                 loading.dismiss();
             }
@@ -91,7 +90,6 @@ export class MyFollowsComponent implements OnInit {
     }
 
     teachDetail(data) {
-        console.log(data);
         data['UserID'] = data.TopicID;
         data['IsSubscribe'] = true;
         this.navCtrl.push(TeacherPage, {item: data});
@@ -152,7 +150,6 @@ export class MyFollowsComponent implements OnInit {
     }
 
     cancleFocusHandle(item) {
-        console.log(item);
         const data = {
             TopicID: item.TopicID
         };

@@ -41,8 +41,6 @@ export class ChapterPage {
     }
 
     ionViewDidLoad() {
-        console.log(this.chapter);
-        console.log('StructureType', this.StructureType);
     }
 
     getMore(e) {
@@ -166,7 +164,6 @@ export class ChapterPage {
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
-                console.log(res.message);
                 const data = {
                     type: 'updateDocumentProcess'
                 };
@@ -193,7 +190,6 @@ export class ChapterPage {
 
     //打开PDF文件
     openPDF(file) {
-        console.log(file);
         let modal = this.modalCtrl.create(ViewFilePage, {
             displayData: {
                 pdfSource: {

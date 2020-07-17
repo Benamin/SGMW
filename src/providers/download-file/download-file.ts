@@ -24,7 +24,6 @@ export class DownloadFileProvider {
                 private zone: NgZone,
                 private photoLibrary: PhotoLibrary,
                 public loadingCtrl: LoadingController) {
-        console.log('Hello DownloadFileProvider Provider');
     }
 
     downloadVideo(fileName, fileUrl) {
@@ -40,7 +39,6 @@ export class DownloadFileProvider {
 
     downloadForAndroid(fileUrl, fileName) {
         this.file.createDir(this.file.externalRootDirectory, 'sgmw', true).then((result) => {
-            console.log("Directory created" + result);
         });
         const storageDirectory = this.file.externalRootDirectory + 'sgmw/';
         const alert = this.alertCtrl.create({
@@ -54,7 +52,6 @@ export class DownloadFileProvider {
         fileTransfer.download(fileUrl, storageDirectory + fileName).then((entry) => {
             alert.dismiss();
             this.commonSer.alert('视频下载成功!');
-            console.log(`download complete:${entry.toURL()} `);
         }, (error) => {
             alert.dismiss();
             this.commonSer.alert(`视频下载失败!${JSON.stringify(error)}`);

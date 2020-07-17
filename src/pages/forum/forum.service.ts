@@ -251,7 +251,6 @@ export class ForumService {
       closeButtonText:"关闭"
     });
     toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
     });
     toast.present();
   }

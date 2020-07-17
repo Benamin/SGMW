@@ -38,14 +38,12 @@ export class ScrollTabsComponent implements OnChanges {
 
     ngOnChanges(change: SimpleChanges) {
         if (change['isShow'] && change['isShow'].currentValue.length > 0) {
-            console.log(change['inputValue'].currentValue);
         }
     }
 
     changeParent(item, index) {
         this.select.index = index;
         this.select.item = item;
-        console.log(index);
         // this.tips.nativeElement.style.width = this.tabSpan.nativeElement.offsetWidth + 'px';
         // 自身div的一半 - 滑块的一半
         // this.tips.nativeElement.style.left = this.itemWidth * (index) + (this.itemWidth - this.spanWidth) / 2 + 'px';

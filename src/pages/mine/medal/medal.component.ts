@@ -20,7 +20,7 @@ export class MedalComponent implements OnInit {
     this.storage.get('user').then(value => {
       if (value) {
           this.mineInfo = value;
-       
+
       }
       this.GetUserbadgeSearch();
     });
@@ -46,22 +46,17 @@ export class MedalComponent implements OnInit {
   }
 
   GetUserbadgeSearch(){
-    console.log( this.mineInfo);
     let loading = this.loadCtrl.create({
       content: '加载中...'
     });
     loading.present();
     let data={pageIndex: 1, pageSize: 100, total: 0, userName: this.mineInfo.UserName, badgeName: ""};
     this.serve.GetUserbadgeSearch(data).subscribe((res:any) => {
-      console.log(res);
       loading.dismiss();
       if(!res.data){
         return;
       }
-      console.log('获取勋章',this.mineInfo.UserId);
-      res.data.Items.forEach(element => {     
-         console.log('勋章id',element,element.UserId);
-
+      res.data.Items.forEach(element => {
         if((this.mineInfo.UserId&&element.UserId == this.mineInfo.UserId) || (this.mineInfo.LoginUserID&&element.UserId == this.mineInfo.LoginUserID)){
           if(element.Badges.length==0){
             this.no_list=true;
@@ -69,7 +64,7 @@ export class MedalComponent implements OnInit {
           this.actionSheetList=element.Badges;
         }
       });
-   
+
       this.badgeShowArr= this.actionSheetList.filter(e => e.IsDisplay);
     });
   }
@@ -117,7 +112,6 @@ export class MedalComponent implements OnInit {
       badgeIds:arr
     }
     this.serve.userbadgeShowlist(arr).subscribe(res => {
-      console.log('tag', '设置完成');
       loading.dismiss();
       this.setCurrentMedalHide();
       this.GetUserbadgeSearch();

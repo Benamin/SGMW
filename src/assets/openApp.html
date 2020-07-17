@@ -113,15 +113,12 @@
         download_IOSurl: "https://apps.apple.com/us/app/骏菱学社/id1478072690?l=zh&ls=1",
         download_ANDurl: "https://fir.im/x3g9",
       };
-      console.log(config);
 
     gotoAppDowm = function(){
-      console.log('下载');
       const u = navigator.userAgent;
       if (u.indexOf('Android') != - 1 || u.indexOf('Linux') != - 1) {
           window.location = config.download_ANDurl;
       } else if (u.indexOf('iPhone') !=- 1) {
-        console.log(config.download_IOSurl)
           window.location = config.download_IOSurl;
       }
     }

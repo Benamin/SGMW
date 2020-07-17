@@ -19,7 +19,6 @@ export class TotalRankingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TotalRankingPage');
     for (var i=1; i<=5; i++) {
       this.TotalRankingLists.push({id: i})
     }; //

@@ -22,11 +22,10 @@ export class NumberOneDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-   
+
 }
 ionViewDidEnter() {
   this.lidata = this.navParams.get('data');
-  console.log(this.lidata);
   this.title=this.lidata.GetNewsList=='xsal'?"详情":'详情中心'
   // this.GetNewsByID(this.lidata.ID);
   this.GetRelationNewsByID(this.lidata.ID);
@@ -56,14 +55,13 @@ ionViewDidEnter() {
 
         this.data=res2.data;
         this.RelationArr=res1.data;
-      
+
         // this.data.Text 是简介
         this.el.nativeElement.querySelector('.inner-html').innerHTML=this.data.Mark ?this.data.Mark:'';
 
         loading.dismiss();
         setTimeout(() => {
           let innerHtml:any=document.querySelectorAll('.inner-html');
-          console.log(innerHtml);
           for(let n=0;n<innerHtml.length;n++){
             this.serve.ModifyALabelSkip(innerHtml[n],this.navCtrl);
           }

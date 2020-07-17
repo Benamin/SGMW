@@ -566,16 +566,13 @@ export class HomePage implements OnInit {
             cid: '',
             userArea: ''
         }
-        // console.log('competitionParam', this.competitionParam)
         this.homeSer.GetCompetitionID({code: 'xsds'}).subscribe(
             (res) => {
-                // console.log('GetCompetitionList', res)
                 this.competitionParam.cid = res.data;
             }
         )
         this.homeSer.GetCompetitionListUserArea({}).subscribe(
             (res) => {
-                // console.log('GetCompetitionListUserArea', res)
                 this.competitionParam.userArea = res.data;
             }
         )
@@ -590,7 +587,6 @@ export class HomePage implements OnInit {
         }
         this.homeSer.GetCompetitionID({code: 'fwds'}).subscribe(
             (res) => {
-                // console.log('GetCompetitionList', res)
                 this.serveCompetitionParam.cid = res.data;
             }
         )
@@ -612,7 +608,6 @@ export class HomePage implements OnInit {
     // 前往销售大赛
     goToXSCompetition() {
         if (!this.competitionParam.cid) {
-            console.log('销售大赛ID不存在！')
             this.getCompetitionId();
             return
         }
@@ -624,7 +619,6 @@ export class HomePage implements OnInit {
     // 前往服务大赛
     goToFWCompetition() {
         if (!this.serveCompetitionParam.cid || !this.serveCompetitionParam.ServerAreaArr || !this.serveCompetitionParam.ServerProvinceArr) {
-            console.log('服务大赛区域或省份列表 不存在！');
             this.getServerCompetition();
             return
         }

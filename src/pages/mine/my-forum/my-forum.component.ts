@@ -28,13 +28,12 @@ export class MyForumComponent implements OnInit {
   }
   constructor(public navCtrl: NavController,
     private serve:ForumService,
-    private loadCtrl:LoadingController, 
+    private loadCtrl:LoadingController,
     private zone: NgZone,
     private toastCtrl: ToastController) { }
 
     ionViewDidEnter() {
       this.pageDate.pageIndex=1;
-      console.log('刷新数据');
       this.forumLIst=[];
       this.getData();
     }
@@ -66,20 +65,17 @@ export class MyForumComponent implements OnInit {
   delITem(data){
     this.delData=data;
     this.isDelShow=true;
-    console.log(data);
   }
 
   // 确定删除
   delOk(){
     this.isDelShow=false;
-    console.log(this.delData);
     let loading = null;
     loading = this.loadCtrl.create({
       content:''
     });
     loading.present();
     this.serve.post_delete(this.delData.Id).subscribe((res:any )=> {
-      console.log(res);
       if(res.code==200){
         for(let n =0 ;n<this.forumLIst.length;n++){
           if(this.forumLIst[n].Id==this.delData.Id){
@@ -93,7 +89,7 @@ export class MyForumComponent implements OnInit {
       if(loading){
         loading.dismiss();
       }
-      
+
     });
   }
   presentToast(text) {
@@ -125,14 +121,13 @@ export class MyForumComponent implements OnInit {
     }
     // GetMypost
     this.serve.GetMypost(data).subscribe((res:any) => {
-      console.log('板块列表',res);
       if(loading){
         loading.dismiss();
       }
       if(!res.data){
         this.isdoInfinite=false;
         this.zone.run(() => {
-         
+
         })
         return
       }
@@ -147,7 +142,7 @@ export class MyForumComponent implements OnInit {
       this.serve.listSplice(this.forumLIst);
       this.forumLIst_length_0 = this.forumLIst.length == 0 ?true:false;
       this.zone.run(() => {
-      
+
       })
 
 
@@ -156,7 +151,6 @@ export class MyForumComponent implements OnInit {
 
   // 下拉加载更多
   doInfinite(e) {
-    console.log('加载')
     this.pageDate.pageIndex++;
     this.getData();
     setTimeout(() => {
@@ -164,7 +158,6 @@ export class MyForumComponent implements OnInit {
     }, 1000);
   }
   doRefresh(e){
-    console.log('刷新')
     this.pageDate.pageIndex=1;
     this.forumLIst=[];
     this.getData();

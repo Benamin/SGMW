@@ -29,7 +29,6 @@ export class Componentsdetails {
         this.navli = this.navParams.get('navli');
         this.serve.UpdateNewsReadCount(this.lidataId).subscribe(res => {
             if (!res.data) {
-                console.log('阅读量更新失败');
             }
         })
         this.GetRelationNewsByID(this.lidataId);

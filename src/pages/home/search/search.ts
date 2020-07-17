@@ -59,7 +59,6 @@ export class SearchPage {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad SearchPage');
     }
 
     ionViewDidLeave() {
@@ -167,7 +166,6 @@ export class SearchPage {
         this.showTips = false;
         this.forumService.forum_topicplate_search(topicplateDate).subscribe((res: any) => {
             this.topicplate = res.data.Items;
-            console.log('论坛结果', res);
         });
     }
 

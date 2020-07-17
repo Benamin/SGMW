@@ -76,14 +76,12 @@ export class FloatVideoBoxComponent {
                     this.statusBar.show();
                 })
                 this.video.on('touchstart', () => {
-                    console.log('touchstart')
                     if (this.video.paused()) {
                         this.video.play();
                     } else {
                         this.video.pause();
                     }
                 })
-                console.log(`播放器videojs${videoNum},初始化成功`);
                 this.global.videoNum++;
             });
         });

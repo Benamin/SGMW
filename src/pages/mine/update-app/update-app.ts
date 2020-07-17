@@ -11,7 +11,6 @@ export class UpdateAppPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UpdateAppPage');
   }
 
 }

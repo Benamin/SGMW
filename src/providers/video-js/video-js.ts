@@ -48,8 +48,6 @@ export class VideoJsProvider {
         let component = videojs.getComponent('Component');
         let danmu = videojs.extend(component, {
             constructor(player, options) {
-                console.log(options);
-                console.log(danmuPool);
                 component.apply(this, arguments);
                 this.init();
                 if (options.text.length) {
@@ -68,7 +66,6 @@ export class VideoJsProvider {
                         this.shootDanmu(dom, danmu, channel);
                     }
                     if (danmu_num > danmuPool.length || danmu_num == danmuPool.length) {  //清楚定时器
-                        console.log('清除定时器');
                         clearInterval(danmuInterval);
                     }
                 }, 1000);

@@ -238,11 +238,7 @@ export class CourseDetailPage {
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
                 if (!this.global.subscribeDone) {
-                    console.log(`getFileInfo,pid:${this.global.pId}`);
-                    console.info('当前视频播放节点');
                     this.global.subscribeDone = true;
-                    console.info(this.nodeLevel4);
-                    console.log(`courseFileType:${this.courseFileType}`);
                     this.saveProcess(value.video);
                 }
             }
@@ -271,7 +267,6 @@ export class CourseDetailPage {
             this.getCourseDetail();
         }
 
-        console.log('打开课件后更新章节进度');
         this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
@@ -415,7 +410,6 @@ export class CourseDetailPage {
      * SortType 1有序 2 无序
      */
     studyContinue() {
-        console.log('studyContinue');
         this.CourseEnterSource = '';
         let arr = [];
         if (this.SortType == 1) {
@@ -540,7 +534,6 @@ export class CourseDetailPage {
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.loading.dismiss();
-                console.log('overpercentage', res.data.overpercentage)
                 this.global.PostsCertID = res.data.PostCertificationID;
                 //页面不更新进度 强制更新
                 this.zone.run(() => {
@@ -867,7 +860,6 @@ export class CourseDetailPage {
 
     //加载更多--课程讨论
     doInfinite(e) {
-        console.log('doInfinite');
         if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
             this.commonSer.toast('没有更多讨论了');
             setTimeout(() => {
@@ -893,7 +885,5 @@ export class CourseDetailPage {
                 }
             }
         );
-
-        console.log('doInfinite');
     }
 }

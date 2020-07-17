@@ -22,7 +22,6 @@ export class VotePage {
             if (this.qnAInfo) {
                 this.qnAInfo.StuAnswer = this.qnAInfo.StuAnswer ? this.qnAInfo.StuAnswer : '';
                 this.qnAInfo.AllFX = this.qnAInfo.ChoiceAFx + this.qnAInfo.ChoiceBFx + this.qnAInfo.ChoiceCFx + this.qnAInfo.ChoiceDFx + this.qnAInfo.ChoiceEFx + this.qnAInfo.ChoiceFFx + this.qnAInfo.ChoiceGFx;
-                console.log(this.qnAInfo.AllFX);
             }
         }, 100)
     }

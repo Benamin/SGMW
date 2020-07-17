@@ -69,7 +69,6 @@ export class PostlistComponent implements OnInit {
     // 我收藏的帖子
     myfavorites() {
         this.serve.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe(res => {
-            console.log('我收藏的帖子', res)
         })
     }
 
@@ -114,7 +113,6 @@ export class PostlistComponent implements OnInit {
             }, 5000);
         }
         this.serve.forum_post_search(this.pageDate).subscribe((res: any) => {
-            console.log('板块列表', res);
             if (this.pageDate.PageIndex == 1) {
                 loading.dismiss();
             }
@@ -130,7 +128,6 @@ export class PostlistComponent implements OnInit {
                         this.IsTopOpt = arr[n];
                         break;
                     }
-                    console.log(n);
                 }
             }
             arr.forEach(element => {
@@ -143,13 +140,11 @@ export class PostlistComponent implements OnInit {
 
             this.forumLIst = this.forumLIst.concat(arr);
             this.no_list = this.forumLIst.length == 0 ? true : false;
-            // console.log('帖子列表',res.data.Posts.Items);
         });
     }
 
 
     doInfinite(e) {
-        console.log('加载');
         this.pageDate.PageIndex++;
         this.forum_post_search();
         setTimeout(() => {
@@ -158,7 +153,6 @@ export class PostlistComponent implements OnInit {
     }
 
     doRefresh(e) {
-        console.log('刷新')
         this.pageDate.PageIndex = 1;
         this.forumLIst = [];
         this.forum_post_search();

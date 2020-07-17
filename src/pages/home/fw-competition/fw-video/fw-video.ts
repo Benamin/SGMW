@@ -119,7 +119,6 @@ export class FwVideoPage {
           }
         },
         slideNextTransitionStart: function () {  //下滑
-          console.log(this.activeIndex);
           let preIndex = this.activeIndex - 1;
           if (that.initVideo[`video${that.videoList[preIndex].files.ID}`]) {
             that.initVideo[`video${that.videoList[preIndex].files.ID}`].pause();
@@ -278,7 +277,6 @@ export class FwVideoPage {
 
 // 微信分享
   wxShare(data) {
-    console.log('分享内容', data)
     let thumb = data.CoverUrl;
     Wechat.share({
       message: {

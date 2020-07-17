@@ -53,7 +53,6 @@ export class CommentListPage {
         const data = {
             TalkId: item.ID
         };
-        console.log(item);
         this.learnSer.Liketalk(data).subscribe(
             (res) => {
                 if (res.Result == 0) {
@@ -74,7 +73,6 @@ export class CommentListPage {
         const data = {
             TalkId: item.ID
         };
-        console.log(data);
         this.learnSer.CancelLiketalk(data).subscribe(
             (res) => {
                 if (res.Result == 0) {

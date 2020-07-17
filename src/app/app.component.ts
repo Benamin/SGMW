@@ -148,7 +148,6 @@ export class MyApp {
         const str = navigator.userAgent.toLowerCase();
         const ver = str.match(/cpu iphone os (.*?) like mac os/);
         const v = ver[1].replace(/_/g, ".");
-        console.log(v)
         if (v.includes('13')) {
             return true
         } else {
@@ -337,7 +336,6 @@ export class MyApp {
                 }
             )
         }).catch(err => {
-            console.log(err);
         });
     }
 
@@ -357,7 +355,6 @@ export class MyApp {
             let activePortal = this.ionicApp._toastPortal.getActive() ||
                 this.ionicApp._overlayPortal.getActive() ||
                 this.ionicApp._modalPortal.getActive();
-            console.log(activePortal);
             let loadingPortal = this.ionicApp._loadingPortal.getActive();
             if (activePortal) {
                 //其他的关闭

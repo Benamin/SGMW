@@ -160,11 +160,7 @@ export class FocusCoursePage {
                 this.videoInfo.poster = value.video;
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
                 if (!this.global.subscribeDone) {
-                    console.log(`getFileInfo,pid:${this.global.pId}`);
-                    console.info('当前视频播放节点');
                     this.global.subscribeDone = true;
-                    console.info(this.nodeLevel4);
-                    console.log(`courseFileType:${this.courseFileType}`);
                     this.saveProcess(value.video);
                 }
             }
@@ -200,7 +196,6 @@ export class FocusCoursePage {
                         e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
                     }
                 });
-                console.log(this.files);
                 this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
                 this.isLoad = true;
@@ -275,10 +270,6 @@ export class FocusCoursePage {
                         e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
                     }
                 });
-                console.log(`包含作业的节点列表：`);
-                console.log(this.tagsNodeList);
-                console.log(`所有的课时节点列表：`);
-                console.log(this.nodeLevel4List);
                 this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
                 this.isLoad = true;
@@ -304,7 +295,6 @@ export class FocusCoursePage {
 
     //查询作业信息
     handleVideoExam(exam) {
-        console.log(exam);
         const data = {
             Eid: exam.id
         };
@@ -455,7 +445,6 @@ export class FocusCoursePage {
         } else {
             this.studyNow();
         }
-        console.log(this.tagsNodeList)
     }
 
     /**
@@ -464,7 +453,6 @@ export class FocusCoursePage {
      * @param file 课件信息
      */
     openFileByType(node, file) {
-        console.log(file);
         const loading = this.loadCtrl.create();
         loading.present();
         this.saveProcess(file);   //创建学习记录
@@ -501,7 +489,6 @@ export class FocusCoursePage {
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
-                console.log(res.message);
             }
         )
     }

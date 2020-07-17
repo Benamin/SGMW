@@ -15,7 +15,6 @@ export class CourseListComponent {
 
 
     constructor(private commonSer: CommonService) {
-        console.log('Hello CourseListComponent Component');
     }
 
     getItem(item) {
@@ -24,7 +23,6 @@ export class CourseListComponent {
 
     // 微信分享
     wxShare(data) {
-        console.log('分享内容', data)
         let description = data.Description;
         let thumb = data.ImageUrl;
 

@@ -25,7 +25,6 @@ export class ConsultationService {
                 // navCtrl.push(CourseDetailPage,{id:id});
                 this.GetProductById(id).subscribe(res => {
                     if (res.data) {
-                        console.log('课程详情',res)
                         let e_data=res.data;
                         if (e_data.TeachTypeName == "集中培训") {
                             navCtrl.push(FocusCoursePage, {id: e_data.Id});

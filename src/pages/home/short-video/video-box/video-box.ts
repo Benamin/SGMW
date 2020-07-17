@@ -84,7 +84,6 @@ export class VideoBoxPage {
             observeParents: true,
             on: {
                 touchEnd: function (event) {
-                    console.log('touchEnd', that.mySwiper.swipeDirection);
                     //你的事件
                     if (that.mySwiper.swipeDirection == 'prev') {  //上滑
                         if (this.activeIndex == 0 && that.Page === 1) {
@@ -119,10 +118,8 @@ export class VideoBoxPage {
                     } else if (that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[this.activeIndex].files.ID}`].play();
                     }
-                    console.log('slidePrevTransitionStart', this.activeIndex);
                 },
                 slideNextTransitionStart: function () {  //下滑
-                    console.log('slideNextTransitionStart', this.activeIndex);
                     let preIndex = this.activeIndex - 1;
                     if (that.initVideo[`video${that.videoList[preIndex].files.ID}`]) {
                         that.initVideo[`video${that.videoList[preIndex].files.ID}`].pause();
@@ -137,7 +134,6 @@ export class VideoBoxPage {
                 },
                 init: function () {
                     that.initSwiperBool = true;
-                    console.log('init', this.activeIndex);
                 }
             },
         });
@@ -282,7 +278,6 @@ export class VideoBoxPage {
 
 // 微信分享
     wxShare(data) {
-        console.log('分享内容', data)
         let thumb = data.CoverUrl;
         Wechat.share({
             message: {

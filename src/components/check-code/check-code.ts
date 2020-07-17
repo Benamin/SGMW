@@ -69,7 +69,6 @@ export class CheckCodeComponent {
             ctx.arc(this.randomNum(0, _width), this.randomNum(0, _height), 1, 0, 2 * Math.PI);
             ctx.fill();
         }
-        console.log(_picTxt);
         this.done.emit(_picTxt);
         return _picTxt;//返回随机数字符串
     }

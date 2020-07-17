@@ -15,7 +15,7 @@ export class ViewReplyComponent implements OnInit {
   mineInfo=null;
   constructor(
     private serve: ForumService,
-    public navParams: NavParams, 
+    public navParams: NavParams,
     private navCtrl: NavController,
     private loadCtrl:LoadingController,
     private storage: Storage
@@ -27,7 +27,6 @@ export class ViewReplyComponent implements OnInit {
     this.lidata = this.navParams.get('lidata');
     this.storage.get('user').then(value => {
       this.mineInfo = value;
-      console.log(this.mineInfo )
     })
     if(this.data.Comments&&this.data.Comments.length>0){
       this.data.Comments.forEach((element,i )=> {
@@ -39,15 +38,15 @@ export class ViewReplyComponent implements OnInit {
             if(element.PosterBadges.length>1){
               if(e['BadgeName'].length>4){
                 e['BadgeName']=e['BadgeName'].slice(0,4)+'...';
-              } 
+              }
             }
-          
+
           });
-       
+
       });
       this.data.Comments.reverse();
     }
-    
+
   }
   textareaclick() {
     this.textareaBlur = true;
@@ -56,7 +55,7 @@ export class ViewReplyComponent implements OnInit {
     this.textareaBlur = false;
   }
 
-  
+
   replycomment_add() {
     if(!this.inputText){
       this.serve.presentToast('请输入内容');
@@ -73,8 +72,8 @@ export class ViewReplyComponent implements OnInit {
     });
     this.loading.present();
     this.textareaBlur = false;
-    this.serve.replycomment_add(data).subscribe((res:any) => { 
-      
+    this.serve.replycomment_add(data).subscribe((res:any) => {
+
       if(res.code==200){
         this.forum_post_publish();
       }else{
@@ -94,7 +93,7 @@ export class ViewReplyComponent implements OnInit {
           if(element.Id==this.data.Id){
             let huifu=element.Comments[element.Comments.length-1];
             huifu['_ReplyTimeFormatted']=huifu.CommentTimeFormatted.slice(0,-3);
-            
+
             this.data.Comments.unshift(huifu);
           }
       });

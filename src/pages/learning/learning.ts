@@ -85,7 +85,6 @@ export class LearningPage {
     //二级菜单
     getSecondType(title, index) {
         this.scrollTabs.select.index = 0;
-        console.log(this.scrollTabs.select.index)
         this.page.page = 1;
         this.headType = index;
         this.loading = this.loadCtrl.create({

@@ -90,8 +90,6 @@ export class ShortVideoProvider {
             const mediaFile = mediaFiles[0];
             mediaFile.getFormatData((data: MediaFileData) => {
                 Object.assign(mediaFile, data);
-                console.log("mediaFile");
-                console.log(mediaFile);
                 this.uploadVideo(mediaFile, successCallback)
             }, error => {
                 console.log(error);
@@ -130,14 +128,12 @@ export class ShortVideoProvider {
             }, 1500)
         }
         this.Camera.getPicture(option).then((videoData) => {
-            console.log(`file://${videoData}`);
             let filePath = videoData.startsWith("file://") ? videoData : "file://" + videoData;
             this.file.resolveLocalFilesystemUrl(filePath).then((fileEntry: FileEntry) => {
                 return new Promise((resolve, reject) => {
                     fileEntry.file(meta => resolve(meta), error => reject(error));
                 });
             }).then((fileMeta: IFile) => {
-                console.log(fileMeta);
                 if (fileMeta.size > 20971520) { //判断是否超过20M
                     this.commonSer.alert('上传视频不能超过20M');
                 } else if (fileMeta.name.includes('.MOV') || fileMeta.name.includes('.mp4') || fileMeta.name.includes('.MP4')) {
@@ -150,8 +146,6 @@ export class ShortVideoProvider {
                 } else {
                     this.commonSer.alert('上传视频格式仅支持MOV、MP4');
                 }
-
-                console.log('fileMeta');
             });
         })
     }
@@ -190,8 +184,6 @@ export class ShortVideoProvider {
                 uploadLoading.dismiss();
                 this.commonSer.toast('上传成功');
                 const data = JSON.parse(res.response);
-                console.log("response data");
-                console.log(data);
                 const backData = {mediaFile: mediaFile, resp: data.data}
                 successCallback(backData);
             }, err => {

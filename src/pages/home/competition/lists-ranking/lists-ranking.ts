@@ -40,7 +40,6 @@ export class ListsRankingPage {
             isLoad: false,
         }
         this.page.userArea = this.navParams.get("userArea")
-        // console.log('考试项目id：', this.page.userArea);
         if (this.page.userArea && this.page.userArea != null) {
             this.page.showNav = true;
             this.page.navliArr[1].text = this.page.userArea.AreaName; // ID
@@ -87,7 +86,6 @@ export class ListsRankingPage {
                 let Items = res.data.Items;
                 this.page.upRankingLists = Items.slice(0, 3)
                 this.page.rankingLists = Items.slice(3);
-                // console.log(99888, this.page.upRankingLists, this.page.rankingLists)
                 this.page.getParams.TotalCount = res.data.TotalCount;
                 this.page.getParams.isLoad = true;
                 loading.dismiss();

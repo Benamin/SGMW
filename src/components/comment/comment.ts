@@ -69,7 +69,6 @@ export class CommentComponent {
         });
         modal.onDidDismiss(res => {
             if (res) {
-                console.log(res);
                 this.teacher = res;
             }
         });

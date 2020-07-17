@@ -15,8 +15,8 @@ declare let ImagePicker;
   templateUrl: './post-add.component.html'
 })
 export class PostAddComponent implements OnInit {
-  url:any;  
-  data: string = "";  
+  url:any;
+  data: string = "";
   lidata={
     Id:"7051bb5e-8729-49f4-b95a-016d7d8474ce", // 板块id
     postId:'',  // 帖子Id
@@ -48,7 +48,7 @@ export class PostAddComponent implements OnInit {
             paddingBottomdom.style.paddingBottom=this.paddingBottom;
             //this.keyboardshowHeightBottom=event.keyboardHeight+'px';
         });
-  
+
         Observable.fromEvent(window, "native.keyboardhide")
         .debounceTime(100)
         .subscribe((event: any) => {
@@ -60,12 +60,12 @@ export class PostAddComponent implements OnInit {
 
   ngOnInit() {
     let data = this.navParams.get('data');
- 
+
     if(data.Status){
       this.lidata.Id=data.TopicPlateId;
       this.lidata.postId=data.Id;
       this.lidata.Status=data.Status;
-      
+
       this.Title=data.Title;
       this.getData();
       this.loading = this.loadCtrl.create({
@@ -77,8 +77,6 @@ export class PostAddComponent implements OnInit {
       this.forum_topicplate_search();
       this.topicplateSearchtopictag();
     }
-    console.log('新增帖子',this.lidata);
-    console.log('this.innerHeightOld',this.innerHeightOld)
   }
 
   focusAmeR=false;
@@ -96,7 +94,6 @@ export class PostAddComponent implements OnInit {
   // 获取模块列表
   forum_topicplate_search(){
     this.serve.forum_topicplate_search({}).subscribe((res:any) => {
-      console.log('板块列表',res);
       this.ForumHistory=res.data.Items;
       this.ForumHistorySelection
       this.init_TopicItem();
@@ -104,7 +101,6 @@ export class PostAddComponent implements OnInit {
   }
   topicplateSearchtopictag(){
     this.serve.topicplateSearchtopictag({PageSize:500}).subscribe((res:any) =>{
-      console.log('话题列表',res);
       this.conversationData=res.data.Items;
       this.init_TopicItem();
     })
@@ -125,7 +121,6 @@ export class PostAddComponent implements OnInit {
   }
   SelectionChoicePlate(plateType){
     this.choicePlateShow=false;
-    console.log(this.choicePlateList,this.plateType);
     if(plateType=='ForumHistory'){
       this.ForumHistorySelection=[...this.choicePlateList.filter(e => e.Selection)]
     }
@@ -136,7 +131,7 @@ export class PostAddComponent implements OnInit {
   init_=0;
   init_TopicItem(){
     this.init_++;
-   
+
     if(this.init_==2){
       this.ForumHistory.forEach(e => {
         this.P_data.TopicItem.forEach(element => {
@@ -189,13 +184,12 @@ export class PostAddComponent implements OnInit {
        })
        }
      }
-     
+
     });
   }
 
   upload(e:any) {
     let f=e.target.files;
-    console.log(f);
     var reader = new FileReader(); //
     reader.readAsDataURL(f[0]);
     reader.onload = (e:any) => {// 当读取操作成功完成时调用.
@@ -211,10 +205,7 @@ export class PostAddComponent implements OnInit {
 
   // 光标失去焦点
   blurSelectionStart(element){
-    console.log(element);
-      
     let Selection=(<any>document).getSelection();
-    console.log(Selection);
     this.focusNode=Selection.focusNode;
     this.anchorOffset=Selection.anchorOffset;
     (<any>document).getSelection().anchorOffset;
@@ -228,10 +219,7 @@ export class PostAddComponent implements OnInit {
 
   // 光标变化 获取光标位置
   selectionStart(element){
-      console.log(element);
-      
       let Selection=(<any>document).getSelection();
-      console.log(Selection);
       this.focusNode=Selection.focusNode;
       this.anchorOffset=Selection.anchorOffset;
       (<any>document).getSelection().anchorOffset;
@@ -253,10 +241,9 @@ export class PostAddComponent implements OnInit {
 
     let pic_selector:any=document.getElementById('pic_selector');
     pic_selector.value = '';
-    console.log();
     pic_selector.click();
   }
-  
+
   letfImgSrc='';
   addImgDom(insert_element,target_element){
     let newDiv=document.createElement("div");
@@ -286,7 +273,7 @@ export class PostAddComponent implements OnInit {
       return
     }
     let textareaImg:HTMLElement=document.getElementById('textareaImg');
-    
+
     if(!this.focusNode.parentElement){
       imgSrcArr.forEach(imgSrc => {
         let domText=`
@@ -307,7 +294,7 @@ export class PostAddComponent implements OnInit {
     if(this.focusNode&&this.focusNode.data){
         textArr = this.focusNode.data.split('');
     }
-    
+
     imgSrcArr.reverse();
     imgSrcArr.forEach(imgSrc => {
       this.letfImgSrc=imgSrc;
@@ -317,13 +304,13 @@ export class PostAddComponent implements OnInit {
     textArr.forEach(element => {
       NewText += element;
     });
-    
+
     if(this.focusNode.id== "textareaImg"){
       textareaImg.innerHTML=NewText;
     }else{
       this.focusNode.data=NewText;
     }
-    
+
     this.replaceText();
   }
 
@@ -344,7 +331,7 @@ export class PostAddComponent implements OnInit {
     }
      this.replaceText();
   }
-  
+
   replaceText(){
       let textareaImg:HTMLElement=document.getElementById('textareaImg');
       let textInnerHTML:any=textareaImg.innerHTML;
@@ -428,7 +415,7 @@ export class PostAddComponent implements OnInit {
     let textareaImg:any=document.getElementById('textareaImg');
     let ImgDom:any= textareaImg.querySelector(`img[src='${this.editImg.src}']`);
     let DivDom:any= textareaImg.querySelector(`div[src='${this.editImg.src}']`);
-    
+
     if(!DivDom){
       let newDiv=document.createElement("div");
       newDiv.innerHTML=`
@@ -440,15 +427,14 @@ export class PostAddComponent implements OnInit {
       DivDom.innerText=this.editImg['newalt'];
     }
     ImgDom.alt=this.editImg['newalt'];
-    console.log(ImgDom);
     this.iseditImg=false;
   }
-  
+
   loading=null;
   sevrData_click=false;
 
   sevrData(IsSaveAndPublish){
-    
+
     if(this.Title.length>50){
       this.serve.presentToast('标题不能超过50个字符');
       return ;
@@ -466,7 +452,7 @@ export class PostAddComponent implements OnInit {
       this.serve.presentToast('帖子内容不能超过20000个字符');
       return
     }
-    
+
     let TopicPlateIds=[];
     let TopicTagPlateIds=[]
     this.ForumHistorySelection.forEach (e => {
@@ -497,7 +483,7 @@ export class PostAddComponent implements OnInit {
     }
     this.sevrData_click = true;
   }
-  
+
   // 修改帖子
   forum_post_edit(IsSaveAndPublish,textInnerHTML,TopicPlateIds,TopicTagPlateIds){
     let data={
@@ -510,7 +496,6 @@ export class PostAddComponent implements OnInit {
       "TopicTagPlateIds": TopicTagPlateIds,
     }
     // this.serve.forum_post_edit(data).subscribe((res:any) => {
-    //   console.log(res);
     //   if(res.code == 200){
     //     if(IsSaveAndPublish){
     //       this.editImgOkText='帖子发布成功';
@@ -519,7 +504,7 @@ export class PostAddComponent implements OnInit {
     //     }
     //     this.editImgOk=true;
     //     this.loading.dismiss();
-        
+
     //     setTimeout(() => {
     //       this.editImgOk=false;
     //       this.backPop();
@@ -530,7 +515,6 @@ export class PostAddComponent implements OnInit {
     // })
 
     this.serve.editforumtagpost(data).subscribe((res:any) => {
-      console.log('修改帖子',res)
             if(res.code == 200){
         if(IsSaveAndPublish){
           this.editImgOkText='帖子发布成功';
@@ -539,7 +523,7 @@ export class PostAddComponent implements OnInit {
         }
         this.editImgOk=true;
         this.loading.dismiss();
-        
+
         setTimeout(() => {
           this.editImgOk=false;
           this.backPop();
@@ -601,7 +585,6 @@ export class PostAddComponent implements OnInit {
     }
 
     this.serve.addnewforumtagpost(data).subscribe((res:any) => {
-      console.log('新增',res);
             if(res.code == 200){
         if(IsSaveAndPublish){
           this.editImgOkText='帖子发布成功';
@@ -635,7 +618,7 @@ presentToast(text) {
     position: 'middle',//位置
     showCloseButton:true,
     closeButtonText:"关闭"
-   }); 
+   });
     toast.onDidDismiss(() => { console.log('toast被关闭之后执行'); });
     toast.present();//符合触发条件后立即执行显示。一定不能忘了这个
   }

@@ -171,7 +171,6 @@ export class FocusTrainPage {
 
     //打开筛选
     openFilter() {
-        console.log(this.allList);
         let modal = this.modalCtrl.create(SearchSidebarComponent, {allList: this.allList, filterObj: this.filterObj},
             {
                 enterAnimation: 'modal-from-right-enter',

@@ -16,7 +16,6 @@ export class IframeFileComponent {
 
     constructor(private sanitizer: DomSanitizer) {
         window.addEventListener('message',function(event){
-            console.log(event);
         });
         setTimeout(() => {
             // this.iframeMask.nativeElement.style.width = document.body.clientWidth + "px";

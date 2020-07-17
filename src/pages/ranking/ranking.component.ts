@@ -67,7 +67,7 @@ export class RankingComponent implements OnInit {
             StudentPostList:1,  // 完成课程数
             StudentFinishCourseViewModels:1, // 活跃度
         },
-      
+
     }
     GetRankListArr:any = {
         TeacherViewModel:{ // 讲师榜
@@ -125,8 +125,6 @@ export class RankingComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('排行榜');
-       
         this.logSer.visitLog('pxb');
         this.storage.get('user').then(value => {
             if (value) {
@@ -142,9 +140,6 @@ export class RankingComponent implements OnInit {
 
     }
     getExamTopList( ){
-        // api/exam/getExamTopList
-        // this.GetRankListArr = res.data;
-        console.log('列表信息', this.GetRankListArr) ;
         this.serve.getExamTopList().subscribe((res:any) => {
             if(res.data){
                 if(Array.isArray(res.data.AreaExamTopList)){
@@ -161,10 +156,9 @@ export class RankingComponent implements OnInit {
                 }
                 this.GetRankListArr['examination']=res.data;
                 this.examinationData = res.data;
-         
+
 
             }
-            console.log('获取考试排行榜信息',res,this.examinationData);
         })
     }
 
@@ -173,7 +167,6 @@ export class RankingComponent implements OnInit {
         this.navlistType = this.listType[text];
         let typeKey = this.listTypeName[text].key;
         this.switchInListKey=this.listTypeName[text];
-        console.log('切换',this.listTypeName[text])
         // StudentTitleModels TeacherViewModel
         // this.dataList=this.GetRankListArr[text][typeKey];
         this.isdoInfinite=true;
@@ -187,10 +180,8 @@ export class RankingComponent implements OnInit {
         this.switchInListKey=data;
         this.isdoInfinite=true;
         this.listTypeName[this.navli] = data;
-        console.log(this.GetRankListArr,'数据组');
         this.dataList=[];
         this.showList(this.GetRankListArr[this.navli][data.key]);
-        console.log(this.listTypeName);
     }
 
     no_list = false;
@@ -226,7 +217,7 @@ export class RankingComponent implements OnInit {
             }
 
         });
-        
+
         if (arr[0]) {
             this.phb_1 = arr[0];
         }
@@ -282,15 +273,12 @@ export class RankingComponent implements OnInit {
             userName: this.mineInfo.UserName
         };
         this.serve.GetUsertitleSearch(data).subscribe(res => {
-            console.log(res);
         })
     }
 
     // /forum/userbadge/rankList
     isdoInfinite=true;
     Infinite(e){
-        console.log('模块',this.navli,this.listTypeName[this.navli] );
-   
         this.GetRankListPage[this.navli][this.switchInListKey.key]++;
         let data={
             "OrderBy": "",
@@ -334,8 +322,6 @@ export class RankingComponent implements OnInit {
         setTimeout(() => {
             e.complete();
         }, 1000);
-        console.log('页码',this.GetRankListPage);
-      
     }
     //讲师头衔
     badgeteachertitlelist(data){
@@ -382,7 +368,7 @@ export class RankingComponent implements OnInit {
 
     // 学员活跃度
     studentpostlist(data,get_data=null){
-          
+
         this.serve.studentpostlist(get_data?get_data:data).subscribe((res:any) => {
             if(res.data.Items.length>0){
                 if(get_data){
@@ -395,7 +381,7 @@ export class RankingComponent implements OnInit {
             }
         })
     }
-    
+
     // 加载更多学员完成课程数
     studentstudylist(data){
         this.serve.studentstudylist(data).subscribe((res:any) => {
@@ -416,16 +402,16 @@ export class RankingComponent implements OnInit {
         }
         let oldarr=this.GetRankListArr[this.navli][this.switchInListKey.key];
         data.Items.forEach(e=>{
-         
+
         let aa=oldarr.every(element => element.UserId!==e.UserId);
            if(aa){
             arr.push(e);
            }
          })
-      
+
         this.GetRankListArr[this.navli][this.switchInListKey.key] = oldarr.concat(arr);
-      
+
         this.showList(this.GetRankListArr[this.navli][this.switchInListKey.key]);
     }
-    
+
 }

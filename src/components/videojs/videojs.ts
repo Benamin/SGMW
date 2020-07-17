@@ -83,7 +83,6 @@ export class VideojsComponent implements OnDestroy {
                         this.video.pause();
                     }
                 })
-                console.log(`播放器videojs${videoNum},初始化成功`);
                 this.global.videoNum++;
             });
         });
@@ -121,7 +120,6 @@ export class VideojsComponent implements OnDestroy {
 
     destroy() {
         if (this.video) {
-            console.log('dispose video');
             this.video.dispose();
         }
     }

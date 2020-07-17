@@ -174,7 +174,6 @@ export class VideoListsPage {
 
     // 微信分享
     wxShare(data) {
-        console.log('分享内容', data)
         let thumb = data.CoverUrl;
         Wechat.share({
             message: {

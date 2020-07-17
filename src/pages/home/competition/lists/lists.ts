@@ -173,7 +173,6 @@ export class CompetitionListsPage {
             this.GetSelfExamDetail();
             this.getList();
         } else if (!competitionParam.cid) {
-            console.log('大赛id不存在')
         }
     }
 
@@ -188,7 +187,6 @@ export class CompetitionListsPage {
                 this.page.myInfo = res.data;
                 loading.dismiss();
             }, err => {
-                console.log(err)
                 loading.dismiss();
             }
         )
@@ -301,7 +299,6 @@ export class CompetitionListsPage {
         const loading = this.loadCtrl.create({
             content: ''
         });
-        // console.log(item);
         loading.present();
         const ExamBegin = this.commonSer.transFormTime(item.ExamBegin);
         const ExamEnd = this.commonSer.transFormTime(item.ExamEnd);
@@ -368,10 +365,8 @@ export class CompetitionListsPage {
                 };
                 ;
                 if (this.page.navliArr[1].secNav[0].thrNav[0].isActived === true) {
-                    // console.log('最新')
                     this.page.getParams.OrderBy = 'CreateTime';
                 } else if (this.page.navliArr[1].secNav[0].thrNav[1].isActived === true) {
-                    // console.log('最热')
                     this.page.getParams.OrderBy = 'LikeCount';
                 }
             } else if (this.page.navliArr[1].secNav && this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].isActived === true) {
@@ -380,9 +375,7 @@ export class CompetitionListsPage {
                     return this.homeSer.GetTopicCompetitionLists(data)
                 };
                 if (!this.page.navliArr[1].secNav[1] || (this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].thrNav && this.page.navliArr[1].secNav[1].thrNav[0] && this.page.navliArr[1].secNav[1].thrNav[0].isActived === true)) {
-                    // console.log('所有排行')
                 } else if (this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].thrNav && this.page.navliArr[1].secNav[1].thrNav[1] && this.page.navliArr[1].secNav[1].thrNav[1].isActived === true) {
-                    // console.log('区域排行')
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }
             }
@@ -394,10 +387,8 @@ export class CompetitionListsPage {
                     return this.homeSer.GetShortVideoLists(data)
                 };
                 if (this.page.navliArr[2].secNav[0].thrNav[0].isActived === true) {
-                    // console.log('视频最新')
                     this.page.getParams.OrderBy = 'ReplyTime';
                 } else if (this.page.navliArr[2].secNav[0].thrNav[1].isActived === true) {
-                    // console.log('视频最热')
                     this.page.getParams.OrderBy = 'LikeCount';
                 }
             } else if (this.page.navliArr[2].secNav && this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].isActived === true) {
@@ -406,9 +397,7 @@ export class CompetitionListsPage {
                     return this.homeSer.GetShortVideoCompitLists(data)
                 };
                 if (!this.page.navliArr[2].secNav[1] || (this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].thrNav && this.page.navliArr[2].secNav[1].thrNav[0] && this.page.navliArr[2].secNav[1].thrNav[0].isActived === true)) {
-                    // console.log('视频所有排行')
                 } else if (this.page.navliArr[2].secNav[1] && this.page.navliArr[2].secNav[1].thrNav && this.page.navliArr[2].secNav[1].thrNav[1] && this.page.navliArr[2].secNav[1].thrNav[1].isActived === true) {
-                    // console.log('视频区域排行')
                     this.page.getParams.AreaID = this.navParams.get('competitionParam').userArea.ID;
                 }
             }
@@ -417,7 +406,6 @@ export class CompetitionListsPage {
 
     //下拉刷新
     doRefresh(e) {
-        console.log('doRefresh');
         this.page.getParams.Page = 1;
         this.page.getParams.PageIndex = 1;
         this.getList();

@@ -42,7 +42,6 @@ export class MyThumbsUpComponent implements OnInit {
             loading.present();
         }
         this.serve.mylikes(this.page).subscribe((res: any) => {
-            console.log('帖子列表', res);
             if (!res.data) {
                 return
             }
@@ -58,7 +57,6 @@ export class MyThumbsUpComponent implements OnInit {
                 loading.dismiss();
             }
             this.data = this.data.concat(arr);
-            console.log('帖子列表', res.data.Items);
         });
     }
 
@@ -76,7 +74,6 @@ export class MyThumbsUpComponent implements OnInit {
     }
 
     forum_post_cancellike(data, index) {
-        console.log(index);
         this.data.splice(index, 1);
         this.serve.forum_post_cancellike(data.Id).subscribe((res: any) => {
             if (res.code == 200) {
@@ -85,7 +82,6 @@ export class MyThumbsUpComponent implements OnInit {
     }
 
     doRefresh(e) {
-        console.log('刷新')
         this.page.PageIndex = 1;
         this.data = [];
         this.mylikes();

@@ -10,7 +10,6 @@ export class UserAgreementComponent {
     text: string;
 
     constructor(private viewCtrl: ViewController) {
-        console.log('Hello UserAgreementComponent Component');
         this.text = 'Hello World';
     }
 

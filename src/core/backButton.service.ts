@@ -29,9 +29,7 @@ export class BackButtonService {
         this.platform.registerBackButtonAction(() => {
 
             let activePortal = this.ionicApp._modalPortal.getActive() || this.ionicApp._overlayPortal.getActive();
-            console.log(activePortal);
             let loadingPortal = this.ionicApp._loadingPortal.getActive();
-            console.log(loadingPortal);
             if (activePortal) {
                 //其他的关闭
                 activePortal.dismiss().catch(() => {

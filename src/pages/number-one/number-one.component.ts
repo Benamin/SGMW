@@ -94,8 +94,6 @@ export class NumberOne {
 
     GetDictionaryByPCode() {
         this.serve.GetDictionaryByPCode().subscribe(res => {
-            console.log(res);
-
             if (!res.data) {
                 return
             }
@@ -124,7 +122,6 @@ export class NumberOne {
             loading.present();
         }
         this.serve.GetNewsList(this.crownData).subscribe(res => {
-            console.log('销冠风采', res);
             if (res.data.NewsItems.length == 0) {
                 this.isdoInfinite = false;
             }
@@ -159,7 +156,6 @@ export class NumberOne {
 
     // 下拉加载更多
     doInfinite(e) {
-        console.log('加载')
         this.dataPost.page++;
         this.crownData.page++;
         this.getData();

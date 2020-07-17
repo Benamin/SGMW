@@ -55,7 +55,6 @@ export class StudyPlanPage {
         if(this.navParams.get('CrateTime') && this.navParams.get('CrateTime').length > 0) {
 
             let CrateTime = this.navParams.get('CrateTime');
-            console.log(CrateTime);
             let YMDArr = CrateTime.split(' ')[0].split('-');
             let y = YMDArr[0];
             let m = YMDArr[1];
@@ -71,7 +70,6 @@ export class StudyPlanPage {
         this.initYearMonth.year = this.year;
         this.initYearMonth.month = this.month;
         this.initYearMonth.day = this.now.getDate();
-        // console.log('从消息进入学习计划的时间', this.now, '日期', this.now.getDate())
         this.getStydyPlan();
         this.getTheMonthCourse(this.now); // 循环日历完成后 若当天有课程/考试 获取该天的 课程列表
     }
@@ -115,7 +113,6 @@ export class StudyPlanPage {
     }
 
     getItemCourse(item, rowIndex, colIndex) {
-        // console.log('item, rowIndex, colIndex',JSON.stringify(item), rowIndex, colIndex);
         if (!item.canClick) return;
         let y;
         let m;
@@ -151,7 +148,6 @@ export class StudyPlanPage {
 
     // 获取该日的 课程/考试列表
     getTodayCourse(date) {
-        // console.log("getNowFormatDate", this.getFormatDate(date));
         let data = {
             BeginDate: this.getFormatDate(date) + "T00:00:00",
             EndDate: this.getFormatDate(date) + "T23:59:59",
@@ -263,7 +259,6 @@ export class StudyPlanPage {
         const calendar = [[]];
         let thisDay = 1;
         const end = endDay.getDate();
-        // console.log(end);
         let that = this;
         while (thisDay <= end) {
             var dayObj = {
@@ -352,7 +347,6 @@ export class StudyPlanPage {
             nextDay++;
             col++;
         }
-        // console.log(calendar); // 完整的 日历二维数组
         return calendar;
     }
 

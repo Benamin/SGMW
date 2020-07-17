@@ -39,8 +39,6 @@ export class TreeListComponent {
         timer(10).subscribe(
             (res) => {
                 this.treeList.forEach(e => e.show = true);
-                console.log(this.treeList);
-                console.log('StructureType', this.StructureType);
             }
         )
         this.nowTime = new Date().getTime();
@@ -48,7 +46,6 @@ export class TreeListComponent {
     }
 
     openPDF(file) {
-        console.log(file);
         let modal = this.modalCtrl.create(ViewFilePage, {
             displayData: {
                 pdfSource: {
@@ -70,8 +67,6 @@ export class TreeListComponent {
      * StudyStatus 0 1 未解锁  2 已解锁
      */
     handle(node, file, event) {
-        console.log(node);
-        console.log(file);
         event.stopPropagation();
 
         if (node.StudyStatus == 1 || node.StudyStatus == 0) {
@@ -143,7 +138,6 @@ export class TreeListComponent {
         };
         this.learSer.SaveStudy(data).subscribe(
             (res) => {
-                console.log(res.message);
                 const data = {
                     type: 'updateDocumentProcess'
                 };

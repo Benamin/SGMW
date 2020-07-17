@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './Integral.component.html'
 })
 export class IntegralComponent implements OnInit {
-  
+
   navliArr=[{
     ParentName: "学员" ,
     src: "./assets/imgs/home/integral-student.jpg",
@@ -27,7 +27,6 @@ export class IntegralComponent implements OnInit {
   }
 
   switchInformation (data){
-    console.log(data);
     this.navli = data.label;
     this.img_src = data.src;
   }

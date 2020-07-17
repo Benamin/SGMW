@@ -165,7 +165,6 @@ export class TestCenterPage {
 
     // 微信分享
     wxShare(data) {
-        console.log('分享内容', data)
         let description = data.SubjectName;
         let thumb = data.PictureSrc;
         let Title = data.EName
@@ -174,8 +173,6 @@ export class TestCenterPage {
         }
 
         let webpageUrl = `http://a1.hellowbs.com/openApp.html?scheme_url=test&Fid=${data.Fid}`;
-        console.log(description);
-
         Wechat.share({
             message: {
                 title: Title, // 标题

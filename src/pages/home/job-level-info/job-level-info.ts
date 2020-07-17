@@ -80,7 +80,6 @@ export class JobLevelInfoPage {
             PositionCertificationID: this.id
         };
         this.homeSer.GetJobLevelInfoById(data).subscribe(res => {
-            // console.log(999, res)
             let data = res.data
             if (data.Items.AuthenticationType === 'xm') {
                 let GCList = data.Items.GCapabilityModelList;
@@ -122,7 +121,6 @@ export class JobLevelInfoPage {
 
     // 线上 点击参加认证
     doUnlineSignIn(courseID, Index, pIndex, cIndex) {
-        // console.log(this.detail.Items.ID);
         let ID = this.detail.Items.ID
         if (courseID) {
             ID = courseID

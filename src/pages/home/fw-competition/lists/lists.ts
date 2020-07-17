@@ -108,7 +108,6 @@ export class CompetitionFWPage {
 
     ionViewDidEnter() {
         let competitionParam = this.navParams.get('competitionParam');
-        console.log('competitionParam', competitionParam);
         if (competitionParam.ServerAreaArr && competitionParam.ServerProvinceArr) {
             this.page.competitionParam = competitionParam;
             this.page.getParams = {
@@ -166,8 +165,6 @@ export class CompetitionFWPage {
                     changeTypeArr: provinceChangeTypeArr
                 }
             ];
-            console.log('侧边栏数据', this.page.sidebarData);
-
             this.page.getListsApi = (data) => {
                 return this.homeSer.GetServiceRankingList(data)
             };
@@ -176,7 +173,6 @@ export class CompetitionFWPage {
             this.GetAddAuthority();
             // this.getAPData(); // 获取 区域 / 省 数据
         } else if (!competitionParam.cid) {
-            console.log('服务大赛区域或省份列表 不存在！')
         }
     }
 
@@ -216,7 +212,6 @@ export class CompetitionFWPage {
             // 获取数据后关闭侧边栏并且更改tab状态
             this.closeMenu();
             if (this.page.nowClick !== 'all') {
-                console.log('this.page.nowClick', this.page.nowClick)
                 this.resetSecNavState(0, CXType);
             }
         });
@@ -255,7 +250,6 @@ export class CompetitionFWPage {
                 }
                 loading.dismiss();
             }, err => {
-                console.log(err)
                 loading.dismiss();
             }
         )
@@ -327,7 +321,6 @@ export class CompetitionFWPage {
     }
 
     initBtnState(dataIndex, arrIndex) {
-        console.log(78, dataIndex, arrIndex)
         var sidebarData = this.page.sidebarData; // sidebarData[1].changeTypeArr
         for (var i = 0; i < sidebarData.length; i++) {
             if (sidebarData[i].changeTypeArr && sidebarData[i].changeTypeArr.length > 0) {
@@ -336,7 +329,6 @@ export class CompetitionFWPage {
                     if (dataIndex === i && arrIndex === j) {
                         this.page.dataIndex = dataIndex;
                         this.page.arrIndex = arrIndex;
-                        // console.log(33333, this.page)
                         sidebarData[i].changeTypeArr[j].actived = true;
                         sidebarData[i].isActivedAll = false;
                     } else {
@@ -388,7 +380,6 @@ export class CompetitionFWPage {
             }
             return;
         }
-        console.log(233, typeIndex, secNavIndex, bool, this.page.navliArr[typeIndex].secNav[secNavIndex].navBtnEn)
         // this.getList();
         if (this.page.navliArr[typeIndex].secNav[secNavIndex].navBtnEn !== 'all') {
             this.changeBtnState(typeIndex, -1);
@@ -397,8 +388,6 @@ export class CompetitionFWPage {
             this.resetSecNavState(typeIndex, secNavIndex);
         }
         this.page.nowClick = this.page.navliArr[typeIndex].secNav[secNavIndex].navBtnEn;
-
-        console.log('this.page.nowClick', this.page.nowClick)
         if (this.page.nowClick === 'all') {
             this.page.getParams.Agent = ''; // 区域 string
             this.page.getParams.Province = '';  // 省份 string
@@ -408,7 +397,6 @@ export class CompetitionFWPage {
     }
 
     resetSecNavState(typeIndex, secNavIndex) {
-        console.log(8889, typeIndex, secNavIndex);
         this.page.navliArr[typeIndex].secNav[0].isActived = false;
         this.page.navliArr[typeIndex].secNav[1].isActived = false;
         this.page.navliArr[typeIndex].secNav[2].isActived = false;
@@ -421,7 +409,6 @@ export class CompetitionFWPage {
 
     //下拉刷新
     doRefresh(e) {
-        console.log('doRefresh');
         this.page.getParams.Page = 1;
         this.page.getParams.PageIndex = 1;
         this.getList(null);
@@ -432,14 +419,11 @@ export class CompetitionFWPage {
 
     // 进入视频播放页
     goVideoBox(item, index) {
-        console.log(item, index)
         let i = this.page.competitionLists[0].MyRanking ? index - 1 : index;
         let index1 = i + 1;
         let num = index1 % 10;
         num = num == 0 ? 9 : num - 1;
         const currentPage = Math.ceil(index1 / 10);
-        console.log('currentPage',currentPage);
-        console.log('num',num);
         //大赛排行榜
         this.navCtrl.push(FwVideoPage, {
             Page: currentPage,
