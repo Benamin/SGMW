@@ -9,6 +9,7 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {AppService} from "../../../../app/app.service";
 import {StatusBar} from "@ionic-native/status-bar";
 import {FloatVideoBoxComponent} from "../../../../components/float-video-box/float-video-box";
+import {GlobalData} from "../../../../core/GlobleData";
 
 declare let videojs: any;
 
@@ -26,13 +27,14 @@ export class TalkReplyPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public learnSer: LearnService,
+                public global: GlobalData,
                 public commonSer: CommonService,
                 public modalCtrl: ModalController) {
         this.item = this.navParams.get('item');
-        console.log(JSON.stringify(this.item));
     }
 
     ionViewDidLoad() {
+        this.global.CourseEnterSource = "CourseTalk";
         this.getReplayList();
     }
 

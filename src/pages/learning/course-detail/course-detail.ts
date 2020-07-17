@@ -104,6 +104,10 @@ export class CourseDetailPage {
         TotalCount: 0
     }
 
+    disableBtn = {
+        signBtnDisable: false
+    }
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
@@ -145,7 +149,8 @@ export class CourseDetailPage {
                 this.getChapter();  //章节信息
                 this.getTeacher();   //讲师信息
                 //接受文件通知
-                this.getFileInfo();
+                if (this.global.FileNum == 1) this.getFileInfo();
+                this.global.FileNum++;
                 setTimeout(() => {
                     this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
                 })
@@ -182,14 +187,14 @@ export class CourseDetailPage {
             case 'LookErrorExam':      //回顾作业返回
                 break;
         }
-
     }
 
     //离开页面
     ionViewDidLeave() {
         this.courseFileType = null;
         this.showFooter = false;
-        this.appSer.setFile(null);
+        // this.appSer.setFile(null);
+        this.appSer.destroyFile();
         this.CourseEnterSource = "";
         if (this.videojsCom) this.videojsCom.pageLeave();
         const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
@@ -292,18 +297,9 @@ export class CourseDetailPage {
                         e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
                     }
                 });
-                console.log(`包含作业的节点列表：`);
-                console.log(this.tagsNodeList);
-                console.log(`所有的课时节点列表：`);
-                console.log(this.nodeLevel4List);
                 this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
                 this.loading.dismiss();
                 this.isLoad = true;
-                //视图未更新 强制更新
-                this.changeDetectorRef.markForCheck();
-                if (!this.changeDetectorRef['destroyed']) {
-                    this.changeDetectorRef.detectChanges();
-                }
             }
         );
     }
@@ -397,7 +393,6 @@ export class CourseDetailPage {
 
     //立即学习 打开第一个课件
     studyNow() {
-        console.log('studyNow')
         if (this.files.length == 0) {
             this.commonSer.toast('暂无学习文件');
             return;
@@ -439,7 +434,6 @@ export class CourseDetailPage {
      * @param file 课件信息
      */
     openFileByType(node, file) {
-        console.log(file);
         const loading = this.loadCtrl.create();
         loading.present();
         this.saveProcess(file);   //创建学习记录
@@ -513,11 +507,13 @@ export class CourseDetailPage {
 
     //报名
     sign() {
+        this.disableBtn.signBtnDisable = true;
         const data = {
             pid: this.global.pId
         };
         this.learSer.BuyProduct(data).subscribe(
             (res) => {
+                this.disableBtn.signBtnDisable = false;
                 this.getCourseDetail();
                 this.initStudy();
                 this.studyNow();
@@ -541,18 +537,15 @@ export class CourseDetailPage {
 
     //课程详情
     getCourseDetail() {
-        console.log('课程详情');
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.loading.dismiss();
-                this.product.detail = res.data;
-                console.log('overpercentage', this.product.detail.overpercentage)
+                console.log('overpercentage', res.data.overpercentage)
                 this.global.PostsCertID = res.data.PostCertificationID;
                 //页面不更新进度 强制更新
-                this.changeDetectorRef.markForCheck();
-                if (!this.changeDetectorRef['destroyed']) {
-                    this.changeDetectorRef.detectChanges();
-                }
+                this.zone.run(() => {
+                    this.product.detail = res.data;
+                })
             }
         );
     }

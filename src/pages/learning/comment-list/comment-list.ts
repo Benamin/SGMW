@@ -4,6 +4,7 @@ import {defaultHeadPhoto} from "../../../app/app.constants";
 import {TalkReplyPage} from "../talk/talk-reply/talk-reply";
 import {LearnService} from "../learn.service";
 import {CommonService} from "../../../core/common.service";
+import {GlobalData} from "../../../core/GlobleData";
 
 @Component({
     selector: 'page-comment-list',
@@ -19,10 +20,12 @@ export class CommentListPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public commonSer: CommonService,
+                public global: GlobalData,
                 private learnSer: LearnService) {
     }
 
     ionViewDidLoad() {
+        this.global.CourseEnterSource = "CourseComment";
     }
 
     get cList() {

@@ -16,7 +16,8 @@
                         {{product.detail?.Title}}
                     </div>
                     <div class="course-button" *ngIf="product.detail?.IsAuth">
-                        <div tappable *ngIf="!product.detail?.IsBuy" (click)="sign()">
+                        <div [ngClass]="{'disableBtn':disableBtn.signBtnDisable}" tappable
+                             *ngIf="!product.detail?.IsBuy" (click)="sign()">
                             立即报名
                         </div>
                         <div tappable *ngIf="product.detail?.IsBuy && product.detail?.overpercentage == 100"
