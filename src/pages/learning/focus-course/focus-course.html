@@ -157,7 +157,7 @@
         </ng-container>
     </ion-slides>
 </ion-content>
-<img-preview (close)="preImgSrc = null" [src]="preImgSrc"></img-preview>
+<img-preview (close)="preImgSrc = ''" [src]="preImgSrc"></img-preview>
 <div *ngIf="signObj.isSign" class="sign">
     <img src="./assets/imgs/course/sign-success.png">
     <p>报名成功</p>

@@ -10,7 +10,7 @@
     <div class="original">
         <div class="reply">
             <div class="reply-top">
-                <img class="heard-img" src="{{item?.HeadPhoto}}" alt="">
+                <img class="heard-img" [src]="item?.HeadPhoto || ''" alt="">
                 <div class="text">
                     <h4>
               <span class="PosterUserName">
@@ -19,7 +19,7 @@
                         <span *ngIf="item?.TitleInfo?.ForumTitle"
                               class="ForumTitle">{{item?.TitleInfo?.ForumTitle}}</span>
                         <span class="PosterBadges" *ngFor="let data of item?.Badges">
-              <img src="{{data?.BadgeIcon}}" alt="">
+              <img [src]="data?.BadgeIcon || ''" alt="">
               <span class="PosterBadges-BadgeName">
                   {{data?.BadgeName}}
               </span>
@@ -61,7 +61,7 @@
         <!--        <p class="number-all">回复（{{data?}}）</p>-->
         <div class="reply" *ngFor="let replay of data">
             <div class="reply-top">
-                <img class="heard-img" src="{{replay?.PosterHeadPhoto}}" alt="">
+                <img class="heard-img" [src]="replay?.PosterHeadPhoto || ''" alt="">
                 <div class="text">
                     <h4>
                         <span class="PosterUserName">
@@ -70,7 +70,7 @@
                         <span *ngIf="replay?.PosterUserForumTitle?.ForumTitle"
                               class="ForumTitle">{{replay?.PosterUserForumTitle?.ForumTitle}}</span>
                         <span class="PosterBadges" *ngFor="let n of replay?.PosterBadges">
-                            <img src="{{n.BadgeIcon}}" alt="">
+                            <img [src]="n.BadgeIcon || ''" alt="">
                             <span class="PosterBadges-BadgeName">
                                 {{n.BadgeName}}
                             </span>

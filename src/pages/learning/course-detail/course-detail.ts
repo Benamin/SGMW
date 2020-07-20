@@ -44,10 +44,12 @@ export class CourseDetailPage {
 
     courseFileType;
     videoInfo = {
-        poster: null,
-        video: null,   //视频文件信息
+        poster: "",
+        video: "",   //视频文件信息
     };  //视频播放的信息
-    iframObj;
+    iframObj = {
+        fileUrl: ""
+    };
 
     relationList = [];
     oldNavbarList = [
@@ -207,8 +209,8 @@ export class CourseDetailPage {
 
     //接受文件打开事件通知
     getFileInfo() {
+        console.log(this.appSer.fileInfo);
         this.appSer.fileInfo.subscribe(value => {
-            console.log(value);
             if (!value) {
                 return
             }

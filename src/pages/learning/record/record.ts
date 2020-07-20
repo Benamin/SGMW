@@ -14,7 +14,7 @@ export class RecordPage {
     @Input() score;
     @Output() image = new EventEmitter();
     @Output() delete = new EventEmitter();
-    preImgSrc;
+    preImgSrc = "";
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private learnSer: LearnService,

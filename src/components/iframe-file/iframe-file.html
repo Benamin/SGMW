@@ -1,7 +1,7 @@
 　
 <div #iframeMask class="iframe-mask" *ngIf="show">
     <span (click)="close()" class="close">关闭</span>
-    <iframe #iframeEle [src]="iframeUrl"
+    <iframe #iframeEle [src]="iframeUrl || ''"
             frameborder=0
             allowfullscreen="true"
             webkitallowfullscreen="true"

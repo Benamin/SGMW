@@ -1,5 +1,5 @@
   <div class="post-introduction-top">
-    <img src="{{item.PosterUserHeadPhoto}}" alt="">
+    <img [src]="item.PosterUserHeadPhoto || ''" alt="">
     <div class="name nowrap-1">{{item.PosterUserName}}</div>
     <div class="oldDate">{{item.PostRelativeTime}}</div>
   </div>
@@ -15,7 +15,7 @@
       <!--{{ item.RowNumber }}-->
     </p>
     <div *ngIf="!item.Images || (item.Images && item.Images.length==0)" class="nowrap-2"  [innerHTML]='item.ContentWithoutHtml'>
-       
+
     </div>
     <div class="img-div img1" *ngIf="item.Images && item.Images.length==1"
       [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"

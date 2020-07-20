@@ -1,6 +1,6 @@
 <div *ngIf="preImgSrc" class="imgPreview">
   <div class="img">
-    <img src="{{preImgSrc}}">
+    <img [src]="preImgSrc || ''">
     <span (click)="closePreview()" tappable class="icon-close">
             <ion-icon name="close"></ion-icon>
         </span>

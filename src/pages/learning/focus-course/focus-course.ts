@@ -86,7 +86,7 @@ export class FocusCoursePage {
     unFinishedTask = [];   //未审批作业
     overTask = [];   //已审批作业
     nowTime;
-    preImgSrc = null;
+    preImgSrc = "";
 
     SortType;  //课程有序还是无序
 

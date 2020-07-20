@@ -88,7 +88,7 @@ export class InnerCoursePage {
     mainFile = [];   //已上传资料
     teacherFileList = []
 
-    preImgSrc = null; //图片URL
+    preImgSrc = ""; //图片URL
     nowTime;
 
     uploadFile;  //上传文件信息

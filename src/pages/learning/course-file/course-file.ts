@@ -11,7 +11,7 @@ import {LearnService} from "../learn.service";
 export class CourseFilePage {
     mainFile = [];
     title;
-    preImgSrc;
+    preImgSrc = "";
     pId;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
