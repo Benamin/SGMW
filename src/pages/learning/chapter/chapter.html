@@ -11,7 +11,7 @@
         </p>
         <div *ngIf="item.show" class="chapter-teacher">
             <div>
-                <img [src]="item.UserImage" alt="">
+                <img [src]="item.UserImage || ''" alt="">
             </div>
             <div>{{item.UserName}}</div>
             <div>

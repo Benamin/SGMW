@@ -6,7 +6,7 @@
 
 <ion-content>
     <div class="container">
-        <div><img [src]="info?.HeadPhoto" alt=""></div>
+        <div><img [src]="info?.HeadPhoto || ''" alt=""></div>
         <p class="name">{{info?.UserName}}</p>
         <p class="position">{{info?.Position}}</p>
         <p>

@@ -3,7 +3,7 @@
     <div class="comment-item" *ngFor="let item of List;" (click)="goDetail(item)">
         <div class="first">
             <div class="headPhoto">
-                <img [src]="item.HeadPhoto">
+                <img [src]="item.HeadPhoto || ''">
             </div>
             <div style="text-align: left">
                 <p class="badge">
@@ -18,7 +18,7 @@
                     <!--                    勋章-->
                     <ng-container *ngFor="let badge of item?.Badges;let i = index;">
                             <span class="badgeSpan" *ngIf="i < 2">
-                                <img [src]="badge.BadgeIcon">
+                                <img [src]="badge.BadgeIcon || ''">
                                 <span>{{badge.BadgeName | stringSlice:4:3}}</span>
                             </span>
                     </ng-container>
@@ -58,7 +58,7 @@
                     <p>【答题分享】</p>
                     <div class="video-content" *ngFor="let vi of item.Contents">
                         <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
-                        <img [src]="vi.imageurrl">
+                        <img [src]="vi.imageurrl || ''">
                     </div>
                 </div>
             </ng-container>

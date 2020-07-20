@@ -561,6 +561,7 @@ export class LoginPage {
         modal.present();
     }
 
+    //loading实例只能当前使用 当前销毁 故创建一个方法 判断是否存在loading
     showLoading() {
         if (!this.loading) {
             this.loading = this.loadCtrl.create({

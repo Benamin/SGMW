@@ -9,6 +9,6 @@
             {{item.label}}
     </div>
   </div>
-  <img class="integral-img" [src]="img_src" alt="">
+  <img class="integral-img" [src]="img_src || ''" alt="">
   <!-- <navbar [list]="navbarList" [select]="2" (done)="changeType($event)"></navbar> -->
 </ion-content>

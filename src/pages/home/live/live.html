@@ -15,7 +15,7 @@
             <div *ngIf="list.changeType == 0" class="live-all-item " tappable (click)="goDetail(item)">
                 <div class="live-background">
                     <div class="live-img">
-                        <img [src]="item.ImageUrl">
+                        <img [src]="item.ImageUrl || ''">
                     </div>
                     <span *ngIf="item.IsLive == 0" class="live-status live-status-1">未开始</span>
                     <span *ngIf="item.IsLive == 1" class="live-status live-status-2">直播中</span>
@@ -42,7 +42,7 @@
                 <p>今天 {{item.StartTime | date:'HH:mm'}}</p>
                 <div class="live-background">
                     <div class="live-img">
-                        <img [src]="item.ImageUrl">
+                        <img [src]="item.ImageUrl || ''">
                     </div>
                     <span *ngIf="item.IsLive == 0" class="live-status live-status-1">未开始</span>
                     <span *ngIf="item.IsLive == 1" class="live-status live-status-2">直播中</span>

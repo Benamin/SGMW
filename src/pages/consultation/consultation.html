@@ -25,6 +25,7 @@
         </ion-list>
 
         <ng-container *ngFor="let item of dataList">
+            <!--            一个图片的-->
             <div class="information-list img1" *ngIf="item.IsSingle" tappable (click)="goComponentsdetails(item)">
                 <div class="list-time">
                     <h4 class="nowrap-2">{{item.Title}}</h4>
@@ -45,6 +46,7 @@
                     </div>
                 </div>
             </div>
+            <!--            三个图片-->
             <div class="information-list img3" *ngIf="!item.IsSingle" tappable (click)="goComponentsdetails(item)">
                 <h4 class="nowrap-2">{{item.Title}}</h4>
                 <div class="imgdiv-flex">
@@ -53,15 +55,18 @@
                          style="background-size: cover;background: no-repeat center;">
                     </div>
                 </div>
-                <div class="time">
-                    <span class="date_time">
+                <div class="three-img">
+                    <div class="time">
+                        <span class="date_time">
                                             {{item.ReleaseTime  | date:'yyyy-MM-dd'}}
                     </span>
-                    <span class="eye"><img src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
-                    <span class="share" (click)="wxShare(item);$event.stopPropagation()">
+                        <span class="eye"><img src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
+                        <span class="share" (click)="wxShare(item);$event.stopPropagation()">
                         <img src="./assets/imgs/forum/other/share.png" alt="">
                         分享
                       </span>
+                    </div>
+                    <div class="other"></div>
                 </div>
             </div>
 

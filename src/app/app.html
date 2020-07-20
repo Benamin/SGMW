@@ -1,5 +1,5 @@
 <div *ngIf="showSplash" class="splash">
-    <img (load)="imgLoad()" tappable (click)="openUrl()" [src]="load.imgUrl">
+    <img (load)="imgLoad()" tappable (click)="openUrl()" [src]="load.imgUrl || ''">
 </div>
 <ng-container *ngIf="!showSplash">
     <ion-nav [ngClass]="{'isIOS': isIOS, 'isIphone11IOS13': isIphone11IOS13,'isIphoneIOS13':isIphoneIOS13}" [root]="rootPage"></ion-nav>

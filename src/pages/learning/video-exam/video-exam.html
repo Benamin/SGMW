@@ -19,7 +19,7 @@
     <div class="files-box">
         <div>封面图</div>
         <div *ngIf="CoverUrl" class="files-item" (click)="takePic()">
-            <img class="poster" [src]="CoverUrl">
+            <img class="poster" [src]="CoverUrl || ''">
         </div>
         <div *ngIf="!CoverUrl" class="add-img" (click)="takePic()">
             <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">

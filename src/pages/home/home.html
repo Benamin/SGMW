@@ -32,7 +32,7 @@
              data-wow-offset="20">
             <ion-slides *ngIf="bannerList.length > 0" #slides pager autoplay="3000" (ionSlideAutoplayStop)="aotuPlay()">
                 <ion-slide *ngFor="let item of bannerList" tappable (click)="goCourseBanner(item)">
-                    <img [src]="item.SourceUrl">
+                    <img [src]="item.SourceUrl || ''">
                 </ion-slide>
             </ion-slides>
         </div>
@@ -175,7 +175,7 @@
         <div class="teacher">
             <div class="teacher-info" *ngFor="let item of teacherList">
                 <div class="headPhoto" tappable (click)="teachDetail(item)">
-                    <img [src]="item.HeadPhoto">
+                    <img [src]="item.HeadPhoto || ''">
                 </div>
                 <div class="name">
                     <p style="font-weight: bold">{{item.UserName}}</p>

@@ -49,7 +49,7 @@
                 <p>【答题分享】</p>
                 <div class="video-content" *ngFor="let vi of item.Contents" (click)="openVideo(vi)">
                     <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
-                    <img [src]="vi.imageurrl">
+                    <img [src]="vi.imageurrl || ''">
                 </div>
             </div>
         </div>

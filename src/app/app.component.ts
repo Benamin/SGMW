@@ -1,5 +1,14 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {App, IonicApp, MenuController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
+import {
+    App,
+    IonicApp,
+    LoadingController,
+    MenuController,
+    NavController,
+    NavParams,
+    Platform,
+    ToastController
+} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -32,7 +41,7 @@ export class MyApp {
     showSplash = true;
 
     load = {
-        imgUrl: null,
+        imgUrl: "",
         httpUrl: null
     };
 
@@ -66,6 +75,7 @@ export class MyApp {
                 public eventEmitSer: EmitService,
                 private ionicApp: IonicApp,
                 private menuCtrl: MenuController,
+                public loadCtrl: LoadingController,
                 private jPushUtil: JpushUtil,
                 private globalData: GlobalData,
                 public toastCtrl: ToastController,

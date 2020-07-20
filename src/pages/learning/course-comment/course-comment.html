@@ -11,7 +11,7 @@
                 <div [ngClass]="selectTeacher == null?'teacher-item-select':''" tappable class="teacher-item"
                      (click)="setTeacher('',null)">
                     <div class="flex-teacher">
-                        <img [src]="defalutPhoto">
+                        <img [src]="defalutPhoto || ''">
                         <span class="teacher-desc">全部讲师</span>
                     </div>
                 </div>

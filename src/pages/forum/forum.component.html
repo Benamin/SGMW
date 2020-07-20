@@ -45,7 +45,7 @@
       <div class="list-con">
         <div class="history-list" tappable (click)="goPostlist(item)" *ngFor="let item of ForumHistory">
           <div class="img-div">
-            <img [src]="item.CoverImage" alt="">
+            <img [src]="item.CoverImage || ''" alt="">
           </div>
           <div class='text'>
             <h4>{{item.Name}}</h4>
@@ -62,7 +62,7 @@
       <div class="con-div" *ngFor="let item of forumLIst" tappable (click)="goPostlist(item)">
         <div class="list">
           <div class="img-div">
-            <img [src]="item.CoverImage" alt="">
+            <img [src]="item.CoverImage || ''" alt="">
           </div>
           <div class="text">
             <div class="number-text">
@@ -85,7 +85,7 @@
       <div class="list-con">
         <div class="history-list" tappable (click)="goPostlist(item)" *ngFor="let item of SearchtopictagHistory">
           <div class="img-div">
-            <img [src]="item.CoverImage" alt="">
+            <img [src]="item.CoverImage || ''" alt="">
           </div>
           <div class='text'>
             <h4>{{item.Name}}</h4>
@@ -102,7 +102,7 @@
       <div class="con-div" *ngFor="let item of conversationData" tappable (click)="goPostlist(item)">
         <div class="list">
           <div class="img-div">
-            <img [src]="item.CoverImage" alt="">
+            <img [src]="item.CoverImage || ''" alt="">
           </div>
           <div class="text">
             <div class="number-text">

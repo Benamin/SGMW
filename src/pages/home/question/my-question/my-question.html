@@ -24,7 +24,7 @@
                 <div class="item" style="padding: 10px 5px;" tappable (click)="goExam(item,'问卷')">
                     <div class="test-item">
                         <div class="test-item-image">
-                            <img [src]="item.PictureSrc" alt="">
+                            <img [src]="item.PictureSrc || ''" alt="">
                         </div>
                         <div class="test-item-desc">
                             <p class="courseName">{{item.EName}}</p>

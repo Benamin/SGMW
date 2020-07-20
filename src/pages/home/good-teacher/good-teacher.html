@@ -13,7 +13,7 @@
     <div class="teacher" *ngFor="let item of  teacherList">
         <div class="teacher-info" (click)="teachDetail(item)">
             <div class="headPhoto" tappable>
-                <img [src]="item.HeadPhoto">
+                <img [src]="item.HeadPhoto || ''">
             </div>
             <div class="name">
                 <p style="font-weight: bold">{{item.UserName}}</p>

@@ -126,6 +126,7 @@ export class CourseDetailPage {
 
     //仅进入初始化加载一次
     ionViewDidLoad() {
+        this.isError = false;
         this.slides.autoHeight = true;
         this.slides.onlyExternal = true;
         this.courseFileType = null;
@@ -192,6 +193,7 @@ export class CourseDetailPage {
     ionViewDidLeave() {
         this.courseFileType = null;
         this.showFooter = false;
+        this.isError = false;
         this.appSer.destroyFile();
         this.CourseEnterSource = "";
         if (this.videojsCom) this.videojsCom.pageLeave();
@@ -226,9 +228,11 @@ export class CourseDetailPage {
                 })
             }
             if (value.type == 'mp4') {  //video
-                this.courseFileType = 'video';
-                this.videoInfo.video = value.video;
-                this.videoInfo.poster = value.video;
+                this.zone.run(() => {
+                    this.courseFileType = 'video';
+                    this.videoInfo.video = value.video;
+                    this.videoInfo.poster = value.video;
+                })
                 this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
                 this.saveProcess(value.video);
             }
@@ -845,6 +849,7 @@ export class CourseDetailPage {
         const data = {
             Fid: this.global.ExamFid
         };
+        this.isError = false;
         if (type == 1) {   //回顾作业
             this.navCtrl.push(ErrorExamPage, {item: data, source: 'courseExam'})
             return

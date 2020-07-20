@@ -30,7 +30,7 @@
                     </p>
                     <p class="badge" style="margin-top: 6px">
                         <span class="badgeSpan" *ngFor="let badge of userInfo?.Badges">
-                            <img [src]="badge.BadgeIcon">
+                            <img [src]="badge.BadgeIcon || ''">
                             <span>{{badge.BadgeName}}</span>
                         </span>
                     </p>
