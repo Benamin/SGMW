@@ -117,9 +117,6 @@ export class LoginPage {
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
-        this.loading = this.loadCtrl.create({
-            content: '登录中...'
-        });
     }
 
     ionViewDidLoad() {
@@ -161,7 +158,7 @@ export class LoginPage {
             return;
         }
 
-        this.loading.present();
+        this.showLoading();
         this.loginSer.connectToken(this.ygObj).subscribe(
             (res) => {
                 if (res.access_token) {
@@ -170,13 +167,13 @@ export class LoginPage {
                         this.getUserInfo();
                     })
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             },
             (error1) => {
-                this.loading.dismiss()
+                this.dismissLoading();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -200,7 +197,7 @@ export class LoginPage {
             this.commonSer.toast('请输入正确的验证码');
             return;
         }
-        this.loading.present();
+        this.showLoading();
         this.loginSer.connectToken(this.gysObj).subscribe(
             (res) => {
                 if (res.access_token) {
@@ -209,13 +206,13 @@ export class LoginPage {
                         this.getUserInfo();
                     })
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             },
             (error1) => {
-                this.loading.dismiss();
+                this.dismissLoading();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -235,7 +232,7 @@ export class LoginPage {
             return;
         }
 
-        this.loading.present();
+        this.showLoading();
         const timestamp = this.datePipe.transform(new Date(), 'yyyyMMddHHmmss');
         const nonce = this.randomWord.uuid();
         const sign = XSZS_appId + XSZS_appKey + timestamp + nonce;
@@ -251,12 +248,12 @@ export class LoginPage {
                 if (res.success == "true") {
                     this.connectTokenByXSZS(res.data);
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             }, error1 => {
-                this.loading.dismiss();
+                this.dismissLoading();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -281,13 +278,13 @@ export class LoginPage {
                         this.getUserInfo();
                     })
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             },
             (error1) => {
-                this.loading.dismiss();
+                this.dismissLoading();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -311,7 +308,7 @@ export class LoginPage {
             return;
         }
 
-        this.loading.present();
+        this.showLoading();
         encrypt.setPublicKey(JunKe_PRIVATE_KEY);
         const password = encrypt.encrypt(this.jxs.junke.password);
         const data = {
@@ -323,12 +320,12 @@ export class LoginPage {
                 if (res.status) {
                     this.connectTokenByJunKe(res.data);
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.msg);
                 }
             }, error => {
-                this.loading.dismiss();
+                this.dismissLoading();
                 this.commonSer.alert(error.error.errorMsg);
             }
         )
@@ -351,12 +348,12 @@ export class LoginPage {
                         this.getUserInfo();
                     })
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             }, error1 => {
-                this.loading.dismiss();
+                this.dismissLoading();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -382,7 +379,7 @@ export class LoginPage {
             return;
         }
 
-        this.loading.present();
+        this.showLoading();
         const d = Date.now();
         const timeStamp = Math.round(d / 1000) + '';
         const nonce = this.randomWord.uuidNum();
@@ -410,12 +407,12 @@ export class LoginPage {
                 if (res.code == "1") {
                     this.connectTokenByFWZS(content);
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.message);
                 }
             }, error1 => {
-                this.loading.dismiss();
+                this.dismissLoading();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -439,13 +436,13 @@ export class LoginPage {
                         this.getUserInfo();
                     })
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             },
             (error1) => {
-                this.loading.dismiss();
+                this.dismissLoading();
                 const error = error1.error.error;
                 this.commonSer.alert(error);
             }
@@ -478,7 +475,7 @@ export class LoginPage {
                         })
                     }
                 } else {
-                    this.loading.dismiss();
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.message);
                 }
@@ -516,7 +513,7 @@ export class LoginPage {
 
     //用户是否同步
     userAsync(res) {
-        this.loading.dismiss();
+        this.dismissLoading();
         if (res.data.LoginUserId == '00000000-0000-0000-0000-000000000000') {
             this.commonSer.alert(this.noUserMsg);
         } else {
@@ -562,5 +559,23 @@ export class LoginPage {
     openModal() {
         const modal = this.modalCtrl.create(UserAgreementComponent);
         modal.present();
+    }
+
+    showLoading() {
+        if (!this.loading) {
+            this.loading = this.loadCtrl.create({
+                content: '登录中...',
+                enableBackdropDismiss: true,
+                dismissOnPageChange: true,
+            });
+            this.loading.present();
+        }
+    }
+
+    dismissLoading() {
+        if (this.loading) {
+            this.loading.dismiss();
+            this.loading = null;
+        }
     }
 }
