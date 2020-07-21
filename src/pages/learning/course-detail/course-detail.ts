@@ -29,6 +29,7 @@ import {ErrorExamPage} from "../../mine/error-exam/error-exam";
 })
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
+    @ViewChild('TalkContent') TalkContent: ElementRef;
     @ViewChild('CourseIntroduction') CourseIntroduction: ElementRef;
     @ViewChild('ionSlidesDIV') ionSlidesDIV: ElementRef;
     @ViewChild('videojsCom') videojsCom: VideojsComponent;
@@ -73,6 +74,7 @@ export class CourseDetailPage {
         course: [],
         teacher: [],
         talk: [],
+        talkLoad: false,
     };
 
     files = [];
@@ -128,6 +130,7 @@ export class CourseDetailPage {
 
     //仅进入初始化加载一次
     ionViewDidLoad() {
+        this.listenerScroll();
         this.isError = false;
         this.slides.autoHeight = true;
         this.slides.onlyExternal = true;
@@ -832,11 +835,11 @@ export class CourseDetailPage {
 
 
     //加载更多--课程讨论
-    doInfinite(e) {
+    doInfinite() {
         if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
             this.commonSer.toast('没有更多讨论了');
             setTimeout(() => {
-                e.complete();
+                this.comment.talkLoad = false;
             }, 800)
             return
         }
@@ -850,14 +853,34 @@ export class CourseDetailPage {
         this.learnSer.GetTalkLists(data3).subscribe(   //课程讨论
             (res) => {
                 if (res.data) {
-                    this.comment.talk = [...this.comment.talk, ...res.data.CommentItems];
+                    this.zone.run(() => {
+                        this.comment.talk = [...this.comment.talk, ...res.data.CommentItems];
+                    });
                     this.talkObj.TotalCount = res.data.TotalCount;
+                    this.slides.autoHeight = true;
                     setTimeout(() => {
-                        e.complete();
-                    }, 1000)
+                        this.comment.talkLoad = false;
+                    }, 1000);
                 }
             }
         );
+    }
+
+    listenerScroll() {
+        const documentHeight = document.body.clientHeight;   //窗口高度
+        // 256为banner区域高度  44 为ion-heider的高度
+        const talkHeight = documentHeight - 256 - 50 - 44;   //中间讨论区域可视高度
+        this.content.ionScroll.subscribe(($event: any) => {
+            const TalkContentHeight = this.TalkContent.nativeElement.clientHeight - 40;  //讨论列表高度
+            if (this.comment.talkLoad) return
+            //给予50px高度的差异值
+            if ((TalkContentHeight - 50 < $event.scrollTop + talkHeight && $event.scrollTop + talkHeight < TalkContentHeight)
+                || ($event.scrollTop + talkHeight == TalkContentHeight)) {
+                console.log('加载更多');
+                this.doInfinite();
+                this.comment.talkLoad = true;
+            }
+        });
     }
 
     //loading实例只能当前使用 当前销毁 故创建一个方法 判断是否存在loading

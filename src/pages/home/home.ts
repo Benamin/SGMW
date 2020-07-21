@@ -326,6 +326,10 @@ export class HomePage implements OnInit {
 
     //前往课程
     goCourse(e) {
+        if (!e) {
+            this.commonSer.toast('数据加载中,请稍后...');
+            return
+        }
         if (e.TeachTypeName == "集中培训") {
             this.navCtrl.push(FocusCoursePage, {id: e.Id});
         } else if (e.TeachTypeName == "内训") {
