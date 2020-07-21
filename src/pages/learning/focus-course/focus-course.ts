@@ -108,6 +108,7 @@ export class FocusCoursePage {
 
     ionViewDidLoad() {
         this.slides.autoHeight = true;
+        //接受文件通知
         this.slides.onlyExternal = true;
     }
 
@@ -129,8 +130,10 @@ export class FocusCoursePage {
                 this.product.detail.ApplicantETime = this.commonSer.transFormTime(this.product.detail.ApplicantETime);
                 this.nowTime = Date.now();  //当前时间
                 this.getProductInfo();
-                this.getFileInfo();
                 this.getTeacher();
+
+                if (this.global.FileNum == 1) this.getFileInfo();
+                this.global.FileNum++;
             }
         );
     }
@@ -142,7 +145,7 @@ export class FocusCoursePage {
                 return
             }
             if (value.type == 'videoPlayEnd') {
-                    this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                this.getChapter('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
                 this.getChapter('document');

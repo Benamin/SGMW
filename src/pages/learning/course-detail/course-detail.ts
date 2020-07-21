@@ -136,12 +136,7 @@ export class CourseDetailPage {
         this.ionSlidesDIV.nativeElement.style.width = screenWidth + 'px';
         this.getRelationProduct();  //
         this.showFooter = true;
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
+        this.showLoading();
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
@@ -209,7 +204,6 @@ export class CourseDetailPage {
 
     //接受文件打开事件通知
     getFileInfo() {
-        console.log(this.appSer.fileInfo);
         this.appSer.fileInfo.subscribe(value => {
             if (!value) {
                 return
@@ -259,6 +253,7 @@ export class CourseDetailPage {
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
+        this.showLoading();
         this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 this.product.chapter = res.data;
@@ -285,9 +280,8 @@ export class CourseDetailPage {
                     }
                 });
                 this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
-                this.loading.dismiss();
+                this.dismissLoading();
                 this.isLoad = true;
-                console.log('加载完毕')
             }
         );
     }
@@ -526,9 +520,10 @@ export class CourseDetailPage {
 
     //课程详情
     getCourseDetail(type?: any) {
+        this.showLoading();
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
-                this.loading.dismiss();
+                this.dismissLoading();
                 this.global.PostsCertID = res.data.PostCertificationID;
                 if (type == "video" || type == "Document") {
                     this.getChapter(type);   //查询课程目录
@@ -537,18 +532,14 @@ export class CourseDetailPage {
                 this.zone.run(() => {
                     this.product.detail = res.data;
                 })
+                this.dismissLoading();
             }
         );
     }
 
     //收藏
     saveCollection() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
+        this.showLoading();
         const data = {
             CSID: this.product.detail.PrId
         };
@@ -561,12 +552,7 @@ export class CourseDetailPage {
 
     //取消收藏
     cancleCollection() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
+        this.showLoading();
         const data = {
             CSID: this.product.detail.PrId
         };
@@ -583,12 +569,7 @@ export class CourseDetailPage {
             this.commonSer.toast('您已经扔鸡蛋了哦～');
             return
         }
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
+        this.showLoading();
         const data = {
             TopicID: this.product.detail.PrId
         }
@@ -602,12 +583,7 @@ export class CourseDetailPage {
 
     //取消点赞
     cancelPraise() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
+        this.showLoading();
         const data = {
             TopicID: this.product.detail.PrId
         }
@@ -624,12 +600,7 @@ export class CourseDetailPage {
             this.commonSer.toast('您已经点赞了哦～');
             return
         }
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
+        this.showLoading();
         const data = {
             TopicID: this.product.detail.PrId
         }
@@ -642,12 +613,7 @@ export class CourseDetailPage {
 
     //取消扔鸡蛋
     cancelHate() {
-        this.loading = this.loadCtrl.create({
-            content: '',
-            dismissOnPageChange: true,
-            enableBackdropDismiss: true,
-        });
-        this.loading.present();
+        this.showLoading();
         const data = {
             TopicID: this.product.detail.PrId
         }
@@ -808,6 +774,7 @@ export class CourseDetailPage {
     //tab切换
     changeType(item) {
         if (this.isLoad) {
+            this.slides.autoHeight = true;
             this.bar.type = item.type;
             this.slides.slideTo(item.type - 1, 100);
         }
@@ -889,5 +856,24 @@ export class CourseDetailPage {
                 }
             }
         );
+    }
+
+    //loading实例只能当前使用 当前销毁 故创建一个方法 判断是否存在loading
+    showLoading() {
+        if (!this.loading) {
+            this.loading = this.loadCtrl.create({
+                content: '',
+                enableBackdropDismiss: true,
+                dismissOnPageChange: true,
+            });
+            this.loading.present();
+        }
+    }
+
+    dismissLoading() {
+        if (this.loading) {
+            this.loading.dismiss();
+            this.loading = null;
+        }
     }
 }

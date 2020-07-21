@@ -45,14 +45,14 @@ export class Componentsdetails {
 
                 res1.data.forEach(item => {
                     item.ReleaseTime = item.ReleaseTime.replace('T', ' ');
-                    item.ReleaseTime = item.ReleaseTime.slice(0, 16);
+                    item.ReleaseTime = item.ReleaseTime.slice(0, 10);
                 });
 
 
                 this.RelationArr = res1.data;
                 this.data = res2.data;
                 this.data.ReleaseTime = this.data.ReleaseTime.replace('T', ' ');
-                this.data.ReleaseTime = this.data.ReleaseTime.slice(0, 16);
+                this.data.ReleaseTime = this.data.ReleaseTime.slice(0, 10);
                 this.el.nativeElement.querySelector('.inner-html').innerHTML = this.data.Text;
                 loading.dismiss();
                 setTimeout(() => {

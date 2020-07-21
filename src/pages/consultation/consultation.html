@@ -31,7 +31,7 @@
                     <h4 class="nowrap-2">{{item.Title}}</h4>
                     <div class="time">
                         <span class="date_time">
-                                            {{item.ReleaseTime | date:'yyyy-MM-dd'}}
+                                            {{item.ReleaseTime}}
                     </span>
                         <span class="eye"><img src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
                         <span class="share" (click)="wxShare(item);$event.stopPropagation()">
@@ -58,7 +58,7 @@
                 <div class="three-img">
                     <div class="time">
                         <span class="date_time">
-                                            {{item.ReleaseTime  | date:'yyyy-MM-dd'}}
+                                            {{item.ReleaseTime}}
                     </span>
                         <span class="eye"><img src="./assets/imgs/forum/other/eye.png">{{item.ReadCount}}</span>
                         <span class="share" (click)="wxShare(item);$event.stopPropagation()">

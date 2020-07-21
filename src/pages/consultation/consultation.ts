@@ -6,6 +6,7 @@ import {ConsultationService} from './consultation.service';
 import {LogService} from "../../service/log.service";
 import {CommonService} from "../../core/common.service";
 import {PCURL} from "../../app/app.constants";
+import {DatePipe} from "@angular/common";
 
 @IonicPage()
 @Component({
@@ -38,6 +39,7 @@ export class ConsultationPage {
         public navParams: NavParams,
         private serve: ConsultationService,
         private logSer: LogService,
+        public datePipe: DatePipe,
         public commonSer: CommonService,
         private loadCtrl: LoadingController) {
     }
@@ -85,7 +87,10 @@ export class ConsultationPage {
             if (res.data.NewsItems.length == 0) {
                 this.isdoInfinite = false;
             }
-            let arr = res.data.NewsItems;
+            let arr = res.data.NewsItems.map(e => {
+                e.ReleaseTime = e.ReleaseTime.slice(0, 10);
+                return e;
+            });
             arr.forEach((element, i) => {
                 element['imgarr'] = 'img1';
             });
