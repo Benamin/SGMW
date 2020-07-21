@@ -132,8 +132,7 @@ export class FocusCoursePage {
                 this.getProductInfo();
                 this.getTeacher();
 
-                if (this.global.FileNum == 1) this.getFileInfo();
-                this.global.FileNum++;
+                this.getFileInfo();
             }
         );
     }

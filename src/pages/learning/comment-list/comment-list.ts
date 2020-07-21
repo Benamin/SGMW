@@ -32,9 +32,10 @@ export class CommentListPage {
         return this.List;
     }
 
+    //每一次 增加数据 都会在处理一次  需要再次优化 =>优化
     @Input() set cList(value) {
         value.forEach(e => {
-            if (e.qtype == 1 || e.qtype == 2) {
+            if ((e.qtype == 1 || e.qtype == 2) && !Array.isArray(e.Contents)) {
                 e.Contents = JSON.parse(e.Contents)
             }
         })

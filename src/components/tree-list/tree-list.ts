@@ -89,6 +89,7 @@ export class TreeListComponent {
         }
 
         if (!file.icon.includes('mp4')) this.saveProcess(file);  //非视频文件保存进度
+        this.global.subscribeDone = false;
         if (file.icon.includes('mp4')) {  //视频
             const mp4 = {
                 type: 'mp4',

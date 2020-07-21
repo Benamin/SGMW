@@ -135,7 +135,6 @@ export class CourseDetailPage {
     ionViewDidLoad() {
         this.listenerScroll();
         this.isError = false;
-        this.courseFileType = null;
         const screenWidth = <any>window.screen.width;
         this.ionSlidesDIV.nativeElement.style.width = screenWidth + 'px';
         this.getRelationProduct();  //
@@ -150,8 +149,7 @@ export class CourseDetailPage {
                 this.getChapter();  //章节信息
                 this.getTeacher();   //讲师信息
                 //接受文件通知
-                if (this.global.FileNum == 1) this.getFileInfo();
-                this.global.FileNum++;
+                this.getFileInfo();
                 setTimeout(() => {
                     this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
                 });
@@ -167,7 +165,7 @@ export class CourseDetailPage {
         that.mySwiper = new Swiper('.swiper-course-container', {
             speed: 300,// slide滑动动画时间
             observer: true,
-            noSwiping : true,
+            noSwiping: true,
             observeParents: true,
             on: {
                 touchEnd: function (event) {
@@ -223,7 +221,7 @@ export class CourseDetailPage {
         this.courseFileType = null;
         this.showFooter = false;
         this.isError = false;
-        this.appSer.destroyFile();
+        this.appSer.setFile(null);
         this.CourseEnterSource = "";
         if (this.videojsCom) this.videojsCom.pageLeave();
         const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
@@ -241,10 +239,16 @@ export class CourseDetailPage {
                 return
             }
             if (value.type == 'videoPlayEnd') {
-                this.getCourseDetail('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                if (!this.global.subscribeDone) {
+                    this.global.subscribeDone = true;
+                    this.getCourseDetail('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                }
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
-                this.getCourseDetail('Document');
+                if (!this.global.subscribeDone) {
+                    this.global.subscribeDone = true;
+                    this.getCourseDetail('Document');
+                }
             }
             if (value.type == 'iframe') {  //iframe
                 this.courseFileType = 'iframe';
@@ -256,13 +260,15 @@ export class CourseDetailPage {
                 })
             }
             if (value.type == 'mp4') {  //video
-                this.zone.run(() => {
-                    this.courseFileType = 'video';
-                    this.videoInfo.video = value.video;
-                    this.videoInfo.poster = value.video;
-                })
-                this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
-                this.saveProcess(value.video);
+
+                this.courseFileType = 'video';
+                this.videoInfo.video = value.video;
+                this.videoInfo.poster = value.video;
+                if (!this.global.subscribeDone) {
+                    this.nodeLevel4 = value.nodeLevel;  //视频播放的节点信息
+                    this.saveProcess(value.video);
+                    this.global.subscribeDone = true;
+                }
             }
         });
     }
@@ -447,6 +453,7 @@ export class CourseDetailPage {
      * @param file 课件信息
      */
     openFileByType(node, file) {
+        this.global.subscribeDone = false;
         const loading = this.loadCtrl.create();
         loading.present();
         this.saveProcess(file);   //创建学习记录
