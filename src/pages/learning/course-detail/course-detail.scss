@@ -780,4 +780,13 @@ page-course-detail {
       margin-right: 15px;
     }
   }
+
+  .swiper-slide {
+    height: 1px
+  }
+
+  /* 随意指定一个height值即可 */
+  .swiper-slide-active {
+    height: auto
+  }
 }

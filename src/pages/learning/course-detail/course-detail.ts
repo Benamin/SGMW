@@ -22,6 +22,7 @@ import {LookTalkVideoExamPage} from "../look-talk-video-exam/look-talk-video-exa
 import {ExamTipPage} from "../exam-tip/exam-tip";
 import {ErrorExamPage} from "../../mine/error-exam/error-exam";
 
+declare let Swiper: any;
 
 @Component({
     selector: 'page-course-detail',
@@ -111,6 +112,8 @@ export class CourseDetailPage {
         signBtnDisable: false
     }
 
+    mySwiper;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
@@ -132,8 +135,6 @@ export class CourseDetailPage {
     ionViewDidLoad() {
         this.listenerScroll();
         this.isError = false;
-        this.slides.autoHeight = true;
-        this.slides.onlyExternal = true;
         this.courseFileType = null;
         const screenWidth = <any>window.screen.width;
         this.ionSlidesDIV.nativeElement.style.width = screenWidth + 'px';
@@ -153,9 +154,37 @@ export class CourseDetailPage {
                 this.global.FileNum++;
                 setTimeout(() => {
                     this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
-                })
+                });
+                this.initSwiper();
+
             }
         );
+    }
+
+    //初始化swiper
+    initSwiper() {
+        let that = this;
+        that.mySwiper = new Swiper('.swiper-course-container', {
+            speed: 300,// slide滑动动画时间
+            observer: true,
+            noSwiping : true,
+            observeParents: true,
+            on: {
+                touchEnd: function (event) {
+                    //你的事件
+                    if (that.isLoad) {
+                        that.bar.type = this.activeIndex + 1;
+                    }
+                },
+                slidePrevTransitionStart: function () {  //上滑
+
+                },
+                slideNextTransitionStart: function () {  //下滑
+
+                },
+
+            },
+        });
     }
 
     //每次进入均加载
@@ -777,9 +806,8 @@ export class CourseDetailPage {
     //tab切换
     changeType(item) {
         if (this.isLoad) {
-            this.slides.autoHeight = true;
             this.bar.type = item.type;
-            this.slides.slideTo(item.type - 1, 500);
+            this.mySwiper.slideTo(item.type - 1, 100);
         } else {
             this.commonSer.toast('数据加载中...')
         }
@@ -793,9 +821,6 @@ export class CourseDetailPage {
 
     //切换slide
     slideChanged() {
-        if (this.isLoad) {
-            this.bar.type = this.slides.realIndex + 1;
-        }
     }
 
     //关闭弹窗
@@ -838,9 +863,7 @@ export class CourseDetailPage {
     doInfinite() {
         if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
             this.commonSer.toast('没有更多讨论了');
-            setTimeout(() => {
-                this.comment.talkLoad = false;
-            }, 800)
+            this.comment.talkLoad = false;
             return
         }
         this.talkObj.Page++;
@@ -857,21 +880,24 @@ export class CourseDetailPage {
                         this.comment.talk = [...this.comment.talk, ...res.data.CommentItems];
                     });
                     this.talkObj.TotalCount = res.data.TotalCount;
-                    this.slides.autoHeight = true;
-                    setTimeout(() => {
-                        this.comment.talkLoad = false;
-                    }, 1000);
+                    this.comment.talkLoad = false;
                 }
             }
         );
     }
 
+    //监听讨论列表滚动
     listenerScroll() {
         const documentHeight = document.body.clientHeight;   //窗口高度
         // 256为banner区域高度  44 为ion-heider的高度
         const talkHeight = documentHeight - 256 - 50 - 44;   //中间讨论区域可视高度
         this.content.ionScroll.subscribe(($event: any) => {
             const TalkContentHeight = this.TalkContent.nativeElement.clientHeight - 40;  //讨论列表高度
+            if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
+                this.comment.talkLoad = false;
+                return
+            }
+
             if (this.comment.talkLoad) return
             //给予50px高度的差异值
             if ((TalkContentHeight - 50 < $event.scrollTop + talkHeight && $event.scrollTop + talkHeight < TalkContentHeight)
