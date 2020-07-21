@@ -776,7 +776,9 @@ export class CourseDetailPage {
         if (this.isLoad) {
             this.slides.autoHeight = true;
             this.bar.type = item.type;
-            this.slides.slideTo(item.type - 1, 100);
+            this.slides.slideTo(item.type - 1, 500);
+        } else {
+            this.commonSer.toast('数据加载中...')
         }
     }
 

@@ -18,7 +18,7 @@
         <p [ngStyle]="{'padding-left':(itemFile.NodeLevel*5)+'px'}" tappable (click)="handle(itemNode,itemFile,$event)">
             <img *ngIf="itemFile.icon != 'mp4'" src="./assets/imgs/learn/file.png">
             <img *ngIf="itemFile.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
-            {{itemFile.DisplayName | stringSlice:15:15}}
+            {{itemFile.DisplayName | stringSlice:10:10}}
             <span class="tree-file-icon">{{itemFile.icon}}</span>
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                  tappable (click)="downLoad(itemFile,$event)"
@@ -52,7 +52,7 @@
                             <img *ngIf="itemExam.JopType == 2" class="shipin_zy"
                                  src="./assets/imgs/learn/shipin_zy.png">
                         </div>
-                        <p>{{itemExam.label | stringSlice:15:15}}</p>
+                        <p>{{itemExam.label | stringSlice:10:10}}</p>
                     </ion-col>
                 </ng-container>
             </ion-row>
@@ -63,7 +63,7 @@
                 <p tappable
                    (click)="handleExam(itemExam,itemExam,$event)">
                 <span [ngStyle]="{'margin-left':(itemExam.NodeLevel*5)+'px'}" class="exam">
-                    {{itemExam.label | stringSlice:15:15}}
+                    {{itemExam.label | stringSlice:10:10}}
                 </span>
                     <span class="old-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
                 || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
