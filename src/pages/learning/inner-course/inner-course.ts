@@ -2,10 +2,11 @@ import {Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core
 import {
     ActionSheetController,
     Content,
+    IonicPage,
     LoadingController,
     ModalController,
     NavController,
-    NavParams,
+    NavParams, Platform,
     Slides
 } from 'ionic-angular';
 import {VideojsComponent} from "../../../components/videojs/videojs";
@@ -21,11 +22,14 @@ import {AppService} from "../../../app/app.service";
 import {CommonService} from "../../../core/common.service";
 import {EmitService} from "../../../core/emit.service";
 import {FileService} from "../../../core/file.service";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {ViewFilePage} from "../view-file/view-file";
+import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
 import {CourseFilePage} from "../course-file/course-file";
-import {ChooseImageProvider} from "../../../providers/choose-image/choose-image";
+import {Camera, CameraOptions} from "@ionic-native/camera";
+import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 
 @Component({
     selector: 'page-inner-course',
@@ -88,7 +92,7 @@ export class InnerCoursePage {
     mainFile = [];   //已上传资料
     teacherFileList = []
 
-    preImgSrc = ""; //图片URL
+    preImgSrc = null; //图片URL
     nowTime;
 
     uploadFile;  //上传文件信息
@@ -96,11 +100,13 @@ export class InnerCoursePage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
-                private chooseImage: ChooseImageProvider,
                 private learnSer: LearnService,
+                private camera: Camera,
+                private platform: Platform,
                 private loadingCtrl: LoadingController,
+                private transfer: FileTransfer,
                 private actionSheetCtrl: ActionSheetController,
-                private fileSer: FileService, private modalCtrl: ModalController) {
+                private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.pId = this.navParams.get('id');
     }
 
@@ -260,9 +266,120 @@ export class InnerCoursePage {
             this.commonSer.toast('内训尚未开始');
             return
         }
-        this.chooseImage.takePic((data) => {
-            this.addRecord(data);
+        const actionSheet = this.actionSheetCtrl.create({
+            cssClass: 'cameraAction',
+            buttons: [
+                {
+                    text: '拍照',
+                    role: 'fromCamera',
+                    handler: () => {
+                        console.log('fromCamera');
+                        this.selectPicture(1);
+                    }
+                }, {
+                    text: '从相册中选',
+                    role: 'fromPhoto',
+                    handler: () => {
+                        console.log('fromPhoto');
+                        this.selectPicture(0);
+                    }
+                }, {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }
+            ]
         });
+        actionSheet.present();
+    }
+
+    //选择图片
+    selectPicture(srcType) {
+        const options: CameraOptions = {
+            quality: 10,  //1 拍照  2 相册
+            destinationType: this.camera.DestinationType.FILE_URI,
+            encodingType: this.camera.EncodingType.PNG,
+            mediaType: this.camera.MediaType.PICTURE,
+            sourceType: srcType,
+            targetWidth: 375,
+            targetHeight: 667,
+            saveToPhotoAlbum: false
+        };
+        const option: FileUploadOptions = {
+            httpMethod: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            fileName: 'image.png'
+        };
+        if (this.platform.is('ios')) {
+            this.appSer.setIOS('platformIOS');
+            // @ts-ignore
+            setTimeout(()=>{
+                this.appSer.setIOS('innerCourse');
+            },1500)
+        }
+        this.camera.getPicture(options).then((imagedata) => {
+            let filePath = imagedata;
+            if (filePath.indexOf('?') !== -1) {     //获取文件名
+                filePath = filePath.split('?')[0];
+            }
+            let arr = filePath.split('/');
+            option.fileName = arr[arr.length - 1];
+            console.log(imagedata);
+            console.log(arr);
+            if (this.platform.is('ios')) {
+                this.uploadFile = {
+                    AttachmentName: option.fileName,
+                    AttachmentDIsplayName: option.fileName,
+                    AttachmentExt: option.fileName.split('.')[1],
+                };
+            } else {
+                const AttachmentName = option.fileName.indexOf('.') == -1 ? `${option.fileName}.jpg` : option.fileName;
+                const AttachmentExt = option.fileName.indexOf('.') == -1 ? `jpg` : option.fileName.split('.')[1];
+                this.uploadFile = {
+                    AttachmentName: AttachmentName,
+                    AttachmentDIsplayName: AttachmentName,
+                    AttachmentExt: AttachmentExt,
+                };
+            }
+
+            this.upload(imagedata, option);
+        })
+    }
+
+    //上传图片
+    upload(file, options) {
+        const uploadLoading = this.loadingCtrl.create({
+            content: '上传中...',
+            dismissOnPageChange: true,
+            enableBackdropDismiss: true,
+        });
+        uploadLoading.present();
+        const SERVER_URL = (env === 'localhost' ? SERVER_API_URL_DEV : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
+            SERVER_API_URL_UAT : (env == 'prod' ? SERVER_API_URL_PROD : ''))));
+        const fileTransfer: FileTransferObject = this.transfer.create();
+
+        fileTransfer.upload(file, SERVER_URL + '/Upload/UploadFiles', options).then(
+            (res) => {
+                uploadLoading.dismiss();
+                this.commonSer.toast('上传成功');
+                const data = JSON.parse(res.response);
+                console.log(data);
+                this.addRecord(data.data);
+            }, err => {
+                uploadLoading.dismiss();
+                this.commonSer.toast('上传错误');
+            });
+        fileTransfer.onProgress((listener) => {
+            let per = <any>(listener.loaded / listener.total) * 100;
+            per = Math.round(per * Math.pow(10, 2)) / Math.pow(10, 2)
+            this.zone.run(() => {
+                uploadLoading.setContent(`上传中...${per}%`);
+            })
+        })
     }
 
     //提交记录
@@ -314,6 +431,7 @@ export class InnerCoursePage {
     }
 
     viewimage(e) {
+        console.log(e);
         this.preImgSrc = e;
     }
 

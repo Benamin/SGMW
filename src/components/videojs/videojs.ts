@@ -102,6 +102,7 @@ export class VideojsComponent implements OnDestroy {
                         type: 'videoPlayEnd',
                         source: 'videojs',
                     };
+                    this.global.subscribeDone = false;
                     this.appSer.setFile(data);  //主页面接收消息
                 } else {
                     this.commonSer.toast('学习进度更新失败')

@@ -35,26 +35,24 @@
                             人学习</span>
                     </div>
                     <div class="course-desc">
-                    <span>  <!--点赞-->
-                        <img tappable (click)="savePraise()" *ngIf="!product.detail?.IsPraise"
+                    <span tappable (click)="handlePraise()">  <!--点赞-->
+                        <img *ngIf="!product.detail?.IsPraise"
                              src="./assets/imgs/course/hua@2x.png" alt="">
-                        <img tappable (click)="cancelPraise()" *ngIf="product.detail?.IsPraise"
+                        <img *ngIf="product.detail?.IsPraise"
                              src="./assets/imgs/course/hua_y@2x.png" alt="">
-                        点赞·
-                        {{product.detail?.ZanCount || "0"}}
+                        点赞·{{product.detail?.ZanCount || "0"}}
                     </span>
-                        <span>  <!--扔鸡蛋-->
-                        <img tappable (click)="saveHate()" *ngIf="!product.detail?.IsHate"
+                        <span tappable (click)="handleHate()">  <!--扔鸡蛋-->
+                        <img *ngIf="!product.detail?.IsHate"
                              src="./assets/imgs/course/jd@2x.png" alt="">
-                        <img tappable (click)="cancelHate()" *ngIf="product.detail?.IsHate"
+                        <img *ngIf="product.detail?.IsHate"
                              src="./assets/imgs/course/jd_y@2x.png" alt="">
-                            扔蛋·
-                            {{product.detail?.HateCount || "0"}}
+                            扔蛋·{{product.detail?.HateCount || "0"}}
                     </span>
-                        <span>  <!--收藏-->
-                        <img tappable (click)="saveCollection()" *ngIf="!product.detail?.IsCollection"
+                        <span tappable (click)="handleCollection()">  <!--收藏-->
+                        <img *ngIf="!product.detail?.IsCollection"
                              src="./assets/imgs/course/sc@2x.png" alt="">
-                        <img tappable (click)="cancleCollection()" *ngIf="product.detail?.IsCollection"
+                        <img *ngIf="product.detail?.IsCollection"
                              src="./assets/imgs/course/sc_y@2x.png" alt="">
                             收藏·
                             {{product.detail?.CollectionCount || "0"}}</span>
@@ -99,68 +97,68 @@
     <div [ngStyle]="{'margin-top': 256 + marginTop+'px'}" #space class="space"></div>
     <div class="ionSlides" #ionSlidesDIV>
         <div class="swiper-container swiper-course-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide swiper-no-swiping" *ngIf="StructureType == 1">
-                        <!--      简介      -->
-                        <div class="item">
-                            <p>简介</p>
-                            <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
-                        </div>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide swiper-no-swiping" *ngIf="StructureType == 1">
+                    <!--      简介      -->
+                    <div class="item">
+                        <p>简介</p>
+                        <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
                     </div>
-                    <div class="swiper-slide swiper-no-swiping">
-                        <!--      章节      -->
-                        <div id="chapter" class="item" style="min-height: 350px">
-                            <p>章节</p>
-                            <page-chapter
-                                    [chapter]="product.chapter?.Course?.children"
-                                    [IsBuy]="product.detail?.IsBuy"
-                                    [StructureType]="StructureType"
-                                    [TeachTypeName]="product.detail?.TeachTypeName"
-                            ></page-chapter>
-                        </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--      章节      -->
+                    <div id="chapter" class="item" style="min-height: 350px">
+                        <p>章节</p>
+                        <page-chapter
+                                [chapter]="product.chapter?.Course?.children"
+                                [IsBuy]="product.detail?.IsBuy"
+                                [StructureType]="StructureType"
+                                [TeachTypeName]="product.detail?.TeachTypeName"
+                        ></page-chapter>
                     </div>
-                    <div class="swiper-slide swiper-no-swiping">
-                        <!--      讨论      -->
-                        <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
-                            <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论</p>
-                            <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
-                            <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
-                                <ion-spinner icon="spiral"></ion-spinner>
-                                正在加载
-                            </div>
-                            <div class="no-comment" *ngIf="comment.talk.length == 0">
-                                <ion-list text-center style="margin-top: 40px">
-                                    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                                    <p style="color: #666666;font-size: 13px">
-                                        暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
-                                </ion-list>
-                            </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--      讨论      -->
+                    <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
+                        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论</p>
+                        <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
+                        <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
+                            <ion-spinner icon="spiral"></ion-spinner>
+                            正在加载
                         </div>
-                    </div>
-                    <div class="swiper-slide swiper-no-swiping">
-                        <!--      评价      -->
-                        <div class="item" style="min-height: 350px">
-                            <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
-                            </p>
-                            <page-comment-list [cList]="comment.course" [TopicType]="'course'"></page-comment-list>
-                            <div class="no-comment" *ngIf="comment.course.length == 0">
-                                <ion-list text-center style="margin-top: 40px">
-                                    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                                    <p style="color: #666666;font-size: 13px">
-                                        暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价，快去发一条吧～
-                                    </p>
-                                </ion-list>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide swiper-no-swiping">
-                        <!--            相关-->
-                        <div class="item" style="margin-bottom: 5rem">
-                            <p>相关推荐</p>
-                            <course-list [list]="relationList" (done)="goCourse($event)"></course-list>
+                        <div class="no-comment" *ngIf="comment.talk.length == 0">
+                            <ion-list text-center style="margin-top: 40px">
+                                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                                <p style="color: #666666;font-size: 13px">
+                                    暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
+                            </ion-list>
                         </div>
                     </div>
                 </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--      评价      -->
+                    <div class="item" style="min-height: 350px">
+                        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
+                        </p>
+                        <page-comment-list [cList]="comment.course" [TopicType]="'course'"></page-comment-list>
+                        <div class="no-comment" *ngIf="comment.course.length == 0">
+                            <ion-list text-center style="margin-top: 40px">
+                                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                                <p style="color: #666666;font-size: 13px">
+                                    暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价，快去发一条吧～
+                                </p>
+                            </ion-list>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--            相关-->
+                    <div class="item" style="margin-bottom: 5rem">
+                        <p>相关推荐</p>
+                        <course-list [list]="relationList" (done)="goCourse($event)"></course-list>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

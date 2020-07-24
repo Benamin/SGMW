@@ -576,35 +576,10 @@ export class CourseDetailPage {
         );
     }
 
-    //收藏
-    saveCollection() {
-        this.showLoading();
-        const data = {
-            CSID: this.product.detail.PrId
-        };
-        this.learSer.SaveCollectionByCSID(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-    }
-
-    //取消收藏
-    cancleCollection() {
-        this.showLoading();
-        const data = {
-            CSID: this.product.detail.PrId
-        };
-        this.learSer.CancelCollectionByCSID(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-    }
-
-    //点赞
-    savePraise() {
-        if (this.product.detail.IsHate) {
+    //点赞or取消点赞
+    handlePraise() {
+        //已经扔鸡蛋且想点赞
+        if (!this.product.detail.IsPraise && this.product.detail.IsHate) {
             this.commonSer.toast('您已经扔鸡蛋了哦～');
             return
         }
@@ -612,30 +587,25 @@ export class CourseDetailPage {
         const data = {
             TopicID: this.product.detail.PrId
         }
-        this.learnSer.SavePraise(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
-
-    }
-
-    //取消点赞
-    cancelPraise() {
-        this.showLoading();
-        const data = {
-            TopicID: this.product.detail.PrId
+        if (this.product.detail.IsPraise) {   //已经点赞了，去取消点赞
+            this.learnSer.CancelPraise(data).subscribe(
+                (res) => {
+                    this.getCourseDetail();
+                }
+            )
+        } else {
+            this.learnSer.SavePraise(data).subscribe(
+                (res) => {
+                    this.getCourseDetail();
+                }
+            )
         }
-        this.learnSer.CancelPraise(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
     }
 
-    //扔鸡蛋
-    saveHate() {
-        if (this.product.detail.IsPraise) {
+    //扔鸡蛋or取消扔鸡蛋
+    handleHate() {
+        //已经点赞但是未扔鸡蛋
+        if (this.product.detail.IsPraise && !this.product.detail.IsHate) {
             this.commonSer.toast('您已经点赞了哦～');
             return
         }
@@ -643,24 +613,41 @@ export class CourseDetailPage {
         const data = {
             TopicID: this.product.detail.PrId
         }
-        this.learnSer.SaveHate(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
+        if (this.product.detail.IsHate) {  //取消扔鸡蛋
+            this.learnSer.CancelHate(data).subscribe(
+                (res) => {
+                    this.getCourseDetail();
+                }
+            )
+        } else {   //扔鸡蛋
+            this.learnSer.SaveHate(data).subscribe(
+                (res) => {
+                    this.getCourseDetail();
+                }
+            )
+        }
     }
 
-    //取消扔鸡蛋
-    cancelHate() {
+    //收藏or取消收藏
+    handleCollection() {
         this.showLoading();
         const data = {
-            TopicID: this.product.detail.PrId
+            CSID: this.product.detail.PrId
+        };
+        if (!this.product.detail.IsCollection) {
+            this.learSer.SaveCollectionByCSID(data).subscribe(
+                (res) => {
+                    this.getCourseDetail();
+                }
+            )
+        } else {
+            this.learSer.CancelCollectionByCSID(data).subscribe(
+                (res) => {
+                    this.getCourseDetail();
+                }
+            )
         }
-        this.learnSer.CancelHate(data).subscribe(
-            (res) => {
-                this.getCourseDetail();
-            }
-        )
+
     }
 
     //关注讲师
@@ -921,8 +908,6 @@ export class CourseDetailPage {
         if (!this.loading) {
             this.loading = this.loadCtrl.create({
                 content: '',
-                enableBackdropDismiss: true,
-                dismissOnPageChange: true,
             });
             this.loading.present();
         }
