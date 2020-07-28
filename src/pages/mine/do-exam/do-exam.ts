@@ -136,7 +136,7 @@ export class DoExamPage {
         )
     }
 
-    //确认提交 status 2-暂存 3-提交
+    //确认提交 status 11-暂存 3-提交
     submit(status) {
         let isDone = this.exam.QnAInfos.every(e => e.StuAnswer.length > 0);
         if (!isDone && status == 3) {
@@ -148,7 +148,7 @@ export class DoExamPage {
             if (e.QType == 2) e.StuAnswer = e.StuAnswer.replace(/,/g, '').split('').sort().join(',');
         });
         let msg;
-        if (status == 2) msg = '暂存';
+        if (status == 11) msg = '暂存';
         if (status == 3) msg = '提交';
         this.commonSer.alert(`确认${msg}?`, () => {
             const loading = this.loadCtrl.create({
@@ -165,7 +165,7 @@ export class DoExamPage {
                     if (res.code == 200 && status == 3) {
                         this.score.score = Math.ceil(res.message);
                         this.score.show = true;
-                    } else if (res.code == 200 && status == 2) {
+                    } else if (res.code == 200 && status == 11) {
                         this.commonSer.toast('暂存成功');
                         this.navCtrl.pop();
                     } else {

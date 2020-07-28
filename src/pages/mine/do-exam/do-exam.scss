@@ -279,6 +279,13 @@ page-do-exam {
         margin-bottom: 5px;
       }
 
+      > div {
+        background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+        border-radius: 100px;
+        margin-top: 10px;
+        padding: 5px 0;
+      }
+
       > div.sureBtn {
         background-image: linear-gradient(to right, #fecc4b, #feeaa5);
         border-radius: 100px;
