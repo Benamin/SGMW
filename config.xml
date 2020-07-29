@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.SGMW.start.h" version="2.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.SGMW.start.h" version="2.1.21" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>骏菱学社</name>
     <description>An awesome Ionic/Cordova app.</description>
     <content src="index.html" />
@@ -122,6 +122,11 @@
     <plugin name="jpush-phonegap-plugin" spec="^3.7.6">
         <variable name="APP_KEY" value="235665a384e33f0f3b98fba3" />
     </plugin>
+    <plugin name="cordova-plugin-wechat" spec="^3.0.0">
+        <variable name="WECHATAPPID" value="wxb5bb0aae5137074c" />
+        <variable name="UNIVERSALLINK" value="YOUR_UNIVERSAL_LINK" />
+    </plugin>
+    <plugin name="cordova-plugin-inappbrowser" spec="^4.0.0" />
     <engine name="browser" spec="^6.0.0" />
     <engine name="android" spec="^8.0.0" />
     <engine name="ios" spec="^5.1.1" />
