@@ -1,10 +1,10 @@
 // export let env = 'localhost';
-// export let env = 'dev';
+export let env = 'dev';
 // export let env = 'uat';
-export let env = 'prod';
+// export let env = 'prod';
 
-let keyEnv = 'dev';
-// let keyEnv = 'prod';
+// let keyEnv = 'dev';
+let keyEnv = 'prod';
 
 // /***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';
@@ -64,6 +64,16 @@ export const XSZS_appKey = keyEnv === 'dev' ? XSZS_appKey_DEV : XSZS_appKey_PROD
 export const XSZS_client_id = "138B0798-8D43-4588-B291-DB8545865C8A";
 /*****end******/
 
+/***新销售助手***/
+//环境
+export const NXSZS_HTTP_URL_LOCALHOST = "/NXSZSAPI";  //代理地址
+export const NXSZS_HTTP_URL_DEV = "https://sso-test.baojunev.com";   //测试
+export const NXSZS_HTTP_URL_PROD = "https://sso-sales.sgmwsales.com";   //生产
+export const NXSZS_HTTP_URL = (env == 'localhost' ? NXSZS_HTTP_URL_LOCALHOST : (env == 'dev' || env == 'uat') ? NXSZS_HTTP_URL_DEV : NXSZS_HTTP_URL_PROD);
+
+export const NXSZS_client_id = "8ee2c202-1e5e-4c50-b620-016cb967c768";
+/*****end******/
+
 /***服务助手***/
 export const FWZS_HTTP_URL_LOCALHOST = "FWZSAPI";
 export const FWZS_HTTP_URL_PROD = "https://sgmwsa.shaoxingzhuoyue.com/api";
@@ -84,7 +94,7 @@ export const defaultImg = './assets/imgs/default.jpg';
 export const defaultHeadPhoto = './assets/imgs/userDefault.jpg';
 
 export const pageSize = 10;
-export const LastVersion = '2.1.1';
+export const LastVersion = '2.1.2';
 
 //提示信息
 export const NoUserMsg = "您的用户信息暂未同步到骏菱学社，请稍后再试。如有问题，请致电0772-2650611。";

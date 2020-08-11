@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
-import {FWZS_HTTP_URL, JunKe_HTTP_URL, SERVER_API_URL, XSZS_HTTP_URL} from "../../app/app.constants";
+import {FWZS_HTTP_URL, JunKe_HTTP_URL, NXSZS_HTTP_URL, SERVER_API_URL, XSZS_HTTP_URL} from "../../app/app.constants";
 import {HTTP} from "@ionic-native/http";
 import {DataFormatService} from "../../core/dataFormat.service";
 
@@ -106,6 +106,14 @@ export class LoginService {
     /***服务助手***/
     fwzsLogin(data, header): Observable<any> {
         return this.http.post(FWZS_HTTP_URL + '/login/userlogin', data,
+            {
+                headers: header
+            })
+    }
+
+    /***新销售助手登录***/
+    NXSZSLogin(data, header): Observable<any> {
+        return this.http.post(NXSZS_HTTP_URL + '/user/api/checkUserByAccessToken', this.dataForm.toFormData(data),
             {
                 headers: header
             })

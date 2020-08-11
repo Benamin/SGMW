@@ -19,7 +19,7 @@ import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {GetRequestService} from "../secret/getRequest.service";
-import {JunKe_client_id, LastVersion, NoUserMsg, XSZS_client_id} from "./app.constants";
+import {JunKe_client_id, LastVersion, NoUserMsg, NXSZS_client_id, XSZS_client_id} from "./app.constants";
 import {AppVersion} from "@ionic-native/app-version";
 import {AppUpdateService} from "../core/appUpdate.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
@@ -81,7 +81,12 @@ export class MyApp {
                 public toastCtrl: ToastController,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         (window as any).handleOpenURL = (url: string) => {
-            (window as any).localStorage.setItem("app_url", url);
+            console.log(url);
+            if (url.includes('Source')) {
+                this.checkAuthByHybrid(url);
+            } else {
+                (window as any).localStorage.setItem("app_url", url);
+            }
         };
 
         this.eventEmitSer.eventEmit.subscribe((value: any) => {
@@ -190,18 +195,32 @@ export class MyApp {
         timer(500).subscribe(() => this.splashScreen.hide());
     }
 
-    //鉴权
+    /**
+     * 原生跳转
+     */
     checkAuth() {
         //骏客app权限校验
         const req = <any>this.getRequest.getParams();
-        // alert("req:" + JSON.stringify(req));
         if (req.source != undefined && req.source) {
             const source = req.source;
             const token = req.token;
             if (source == "Junke") this.trainAuth(token);
             if (source == "xszs") this.XSZSLogin(req);
+            if (source == 'nxszs') this.NXSZSLogin(req);
         } else {
             this.checkLogin();
+        }
+    }
+
+    /**
+     * 混合app跳转 或者h5跳转
+     * @param url
+     */
+    checkAuthByHybrid(url) {
+        const req = <any>this.getRequest.getParamsByHybrid(url);
+        if (req.Source != undefined && req.Source) {
+            const source = req.Source;
+            if (source == 'nxszs') this.NXSZSLogin(req);
         }
     }
 
@@ -214,11 +233,39 @@ export class MyApp {
                     this.connectTokenByJunKe(res.data);
                 } else {
                     this.rootPage = LoginPage;
-                    this.commonSer.toast(res.msg);
+                    this.commonSer.alert(res.msg);
                 }
             },
             (err) => {
                 this.rootPage = LoginPage;
+                this.commonSer.alert(JSON.stringify(err));
+            }
+        )
+    }
+
+    /**
+     * 新销售助手app跳转登录
+     * sgmw://CourseId=c26e07c8-0882-44d7-8403-017371040d5d&&Source=nxszs&CardNo=110101193803074478&unionId=7417&Name=李某人&JumpURL=course
+     * @param req accessToken:跳转到骏菱学社时带的access_token cardNo:身份证号码 unionId:跳转到骏菱学社时带的unionId
+     * @constructor
+     */
+    NXSZSLogin(req) {
+        const data = {
+            accessToken: req.accessToken,
+            cardNo: req.CardNo,
+            unionId: req.unionId
+        }
+        const header = {
+            clientId: 'elearning'
+        }
+        this.loginSer.NXSZSLogin(data, header).subscribe(
+            (res) => {
+                if (res.code == 200) {
+                    this.connectTokenByNXSZS(req, res.data);
+                } else {
+                    this.rootPage = LoginPage;
+                    this.commonSer.alert(res.msg);
+                }
             }
         )
     }
@@ -230,6 +277,33 @@ export class MyApp {
             client_id: JunKe_client_id,
             username: res.userAccount,
             jxsh: res.dealerCode,
+        };
+        this.loginSer.connectToken(data).subscribe(
+            (res) => {
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
+                } else {
+                    this.storage.clear();
+                    this.commonSer.alert(res.error);
+                }
+            }, error1 => {
+                this.rootPage = LoginPage;
+                const error = error1.error.error;
+                this.commonSer.alert(error);
+            }
+        )
+    }
+
+    //获取新销售助手用户信息
+    connectTokenByNXSZS(req, res) {
+        const data = {
+            grant_type: "password",
+            client_id: NXSZS_client_id,
+            Czydm: res.cardNo,
+            UserName: req.Name,
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
@@ -282,6 +356,7 @@ export class MyApp {
             }
         )
     }
+
 
     checkLogin() {
         this.storage.get('Authorization').then(AuthorizationValue => {

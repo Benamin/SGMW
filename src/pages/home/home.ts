@@ -43,6 +43,7 @@ import {LookTestPage} from "./test/look-test/look-test";
 import {CompetitionListsPage} from "./competition/lists/lists";
 import {CompetitionFWPage} from "./fw-competition/lists/lists";
 import {MyShortVideoBoxPage} from "../mine/my-short-video-box/my-short-video-box";
+import {GetRequestService} from "../../secret/getRequest.service";
 
 @Component({
     selector: 'page-home',
@@ -81,6 +82,7 @@ export class HomePage implements OnInit {
                 private mineSer: MineService, private tabSer: TabService, private inAppBrowser: InAppBrowser,
                 private renderer: Renderer2,
                 private global: GlobalData,
+                private getRequest: GetRequestService,
                 private events: Events,
                 private learSer: LearnService,
                 private forum_serve: ForumService) {
@@ -471,6 +473,12 @@ export class HomePage implements OnInit {
     openPosts(url) {
         let url_arr = url.split('/');
         // sgmw://forum/afd79774-4ad7-4c1f-838d-016e1d8705f7
+        console.log(url);
+        if (url.indexOf('Course') > -1) {
+            const req = <any>this.getRequest.getParamsByHybrid(url)
+            this.navCtrl.push(CourseDetailPage, {id: req.CourseId});
+            return;
+        }
 
         if (url.indexOf('consultation') > -1) {  //资讯
             this.navCtrl.push(Componentsdetails, {dataId: url_arr[3]});
@@ -498,7 +506,9 @@ export class HomePage implements OnInit {
         if (url.indexOf('shortVideo') > -1) { // 短视频
             const ID = url.split('&Id=')[1].split('&from')[0];
             this.navCtrl.push(MyShortVideoBoxPage, {ID: ID});
-        } else { // 兼容旧版本分享，论坛
+            return;
+        }
+        if (url.indexOf('forum/') > -1) { // 兼容旧版本分享，论坛
             // scheme_url+="forum/"+get_res[1]
             this.goPostsContent({Id: url_arr[3]});
         }

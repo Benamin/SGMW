@@ -40,6 +40,7 @@ export class ErrorExamPage {
                 this.navCtrl.pop();
             } else {   //通过作业进入 返回课程
                 let index = this.navCtrl.length() - 2;
+                this.navCtrl.getViews()
                 this.navCtrl.remove(index, 2);
             }
         };

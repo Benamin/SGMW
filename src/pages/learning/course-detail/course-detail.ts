@@ -454,8 +454,7 @@ export class CourseDetailPage {
      */
     openFileByType(node, file) {
         this.global.subscribeDone = false;
-        const loading = this.loadCtrl.create();
-        loading.present();
+        this.showLoading();
         this.saveProcess(file);   //创建学习记录
         if (file.icon.includes('mp4')) {
             const mp4 = {
@@ -468,6 +467,7 @@ export class CourseDetailPage {
         }
         if (file.icon.includes('pdf')) {   //pdf文件
             this.openPDF(file);
+            this.dismissLoading();
             return
         }
         if (file.icon.includes('iframe')) {  //iframe
@@ -482,7 +482,7 @@ export class CourseDetailPage {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
 
-        loading.dismiss();
+        this.dismissLoading();
     }
 
     //更新学习进度  非视频
