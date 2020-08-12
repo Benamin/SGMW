@@ -46,6 +46,7 @@ export class MyApp {
     };
 
     noUserMsg = NoUserMsg;
+    loading;
 
     app = {
         UpdateTips: false,
@@ -258,11 +259,13 @@ export class MyApp {
         const header = {
             clientId: 'elearning'
         }
+        this.showLoading();
         this.loginSer.NXSZSLogin(data, header).subscribe(
             (res) => {
                 if (res.code == 200) {
-                    this.connectTokenByNXSZS(req, res.data);
+                    this.connectTokenByNXSZS(req);
                 } else {
+                    this.dismissLoading();
                     this.rootPage = LoginPage;
                     this.commonSer.alert(res.msg);
                 }
@@ -298,11 +301,11 @@ export class MyApp {
     }
 
     //获取新销售助手用户信息
-    connectTokenByNXSZS(req, res) {
+    connectTokenByNXSZS(req) {
         const data = {
             grant_type: "password",
             client_id: NXSZS_client_id,
-            Czydm: res.cardNo,
+            Czydm: req.CardNo,
             UserName: req.Name,
         };
         this.loginSer.connectToken(data).subscribe(
@@ -313,10 +316,12 @@ export class MyApp {
                         this.getUserInfo();
                     })
                 } else {
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.error);
                 }
             }, error1 => {
+                this.dismissLoading();
                 this.rootPage = LoginPage;
                 const error = error1.error.error;
                 this.commonSer.alert(error);
@@ -380,6 +385,7 @@ export class MyApp {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
+                this.dismissLoading();
                 if (res.code == 200 && res.data) {
                     this.userAsync(res);
                 } else {
@@ -497,6 +503,23 @@ export class MyApp {
             this.backButtonPressed = true;
             //两秒后标记为false，如果退出的话，就不会执行了
             setTimeout(() => this.backButtonPressed = false, 2000);
+        }
+    }
+
+    //loading实例只能当前使用 当前销毁 故创建一个方法 判断是否存在loading
+    showLoading() {
+        if (!this.loading) {
+            this.loading = this.loadCtrl.create({
+                content: '',
+            });
+            this.loading.present();
+        }
+    }
+
+    dismissLoading() {
+        if (this.loading) {
+            this.loading.dismiss();
+            this.loading = null;
         }
     }
 }
