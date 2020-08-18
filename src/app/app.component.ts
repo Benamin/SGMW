@@ -82,7 +82,6 @@ export class MyApp {
                 public toastCtrl: ToastController,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         (window as any).handleOpenURL = (url: string) => {
-            console.log(url);
             if (url.includes('Source')) {
                 this.checkAuthByHybrid(url);
             } else {
