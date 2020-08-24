@@ -1,0 +1,79 @@
+page-simulation-test {
+  .scroll-content {
+    background-color: #fff;
+  }
+
+  .test-item, .test-time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > div {
+      flex: 1;
+      text-align: center;
+    }
+
+    input {
+      width: 70px;
+      height: 30px;
+      line-height: 33px;
+      background-color: #efefef;
+      border: none;
+      border-radius: 100px;
+      margin: 2px 8px;
+      padding: 5px 10px;
+      text-align: center;
+    }
+  }
+
+  .test-time {
+    margin: 10px;
+    display: flex;
+    justify-content: start;
+  }
+
+  .test-type {
+    > p {
+      font-weight: 500;
+      margin: 10px;
+    }
+  }
+
+  .test-brand {
+    margin: 10px;
+  }
+
+  .submit-btn {
+    text-align: center;
+    width: 50%;
+    margin: 9px auto;
+    height: 32px;
+    line-height: 32px;
+    background: linear-gradient(216deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+    box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
+    border-radius: 16px;
+  }
+
+  .brand-item {
+    background: linear-gradient(216deg, #fff7cb 0%, #ffc92d 100%);
+    border: 1px solid #999;
+    border-radius: 100px;
+    padding: 2px 10px;
+    margin: 5px 10px 5px 0;
+    display: inline-block;
+  }
+
+  .brandList {
+    margin-top: 10px;
+  }
+
+  .addHandle {
+    border: 1px solid #111;
+    border-radius: 100px;
+    width: 60px;
+    display: inline-block;
+    text-align: center;
+    height: 25px;
+    line-height: 20px;
+  }
+}

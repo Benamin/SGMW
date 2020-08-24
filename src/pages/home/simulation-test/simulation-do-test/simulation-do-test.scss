@@ -1,0 +1,351 @@
+page-simulation-do-test {
+  .main-container {
+    height: 100%;
+    background-color: #e6e8ed;
+    padding: 1.8rem;
+  }
+
+  .bgc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  .learn-item {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding-bottom: 1rem;
+  }
+
+  ion-slides {
+    height: 100%;
+  }
+
+  .swiper-slide, .slide-zoom {
+    text-align: left;
+  }
+
+  .swiper-slide {
+    justify-content: normal;
+    align-items: normal;
+  }
+
+  .learn-title {
+    background-color: rgba(18, 28, 52, 0.34);
+    font-size: 1.8rem;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    border-top-left-radius: .8rem;
+    border-top-right-radius: .8rem;
+  }
+
+  .item-container {
+    background-color: #fff;
+    height: calc(100% - 85px);
+    border-bottom-left-radius: .8rem;
+    border-bottom-right-radius: .8rem;
+    overflow-y: scroll;
+  }
+
+  .item-title {
+    padding: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .item-content {
+    padding: 2rem;
+    font-size: 1.6rem;
+
+    div {
+      p {
+        margin-bottom: 16px;
+        margin-left: 1rem;
+        line-height: 1.5rem;
+      }
+    }
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 85px;
+    width: 100%;
+    z-index: 999;
+    background-color: #fff;
+  }
+
+  .doIt {
+    font-size: 1.2rem;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    letter-spacing: 1px;
+  }
+
+  .outer {
+    height: 3px;
+    background-color: #bee1ec;
+    position: relative;
+
+    .inner {
+      background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+      height: 3px;
+      transition: all 500ms;
+    }
+  }
+
+  .footer-subject {
+    padding: 0 1rem;
+    height: 5rem;
+    background-color: #ffffff;
+    display: flex;
+    font-size: 1.8rem;
+
+    div {
+      line-height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .submit {
+      flex: 4;
+
+      div {
+        background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+        border-radius: 100px;
+        text-align: center;
+        height: 3rem;
+        width: 90%;
+      }
+    }
+
+    .saveStuExams {
+      flex: 2;
+
+      div {
+        background-color: #aedae8;
+        border-radius: 100px;
+        text-align: center;
+        height: 3rem;
+        width: 90%;
+      }
+    }
+
+    .more {
+      flex: 1;
+      font-size: 3.5rem;
+    }
+  }
+
+  .footer-submit {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4rem;
+    width: 100%;
+    border-top: .1rem solid #34b4fc;
+    display: flex;
+
+    div {
+      line-height: 4rem;
+    }
+
+    .time {
+      text-align: center;
+      flex: 4;
+    }
+
+    .submit {
+      background-color: #34b4fc;
+      color: #ffffff;
+      text-align: center;
+      flex: 1;
+    }
+  }
+
+  .item-ios p {
+    margin: 15px 0;
+    white-space: normal;
+  }
+
+  label {
+    position: relative;
+
+    input {
+      display: none;
+    }
+  }
+
+  .content-textarea {
+    padding: 10px;
+    min-height: 100px;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+
+  .selectIndex {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #333;
+    border-radius: 50%;
+    margin-right: 5px;
+    color: #333;
+    font-size: 1.5rem;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  input:checked + .selectIndex {
+    background-color: #fed25b;
+    border: 1px solid #333333;
+  }
+
+  .op-tips {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
+    z-index: 999;
+
+    .op-content {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+    }
+
+    .btn-op {
+      font-size: 1.8rem;
+      color: #fff;
+      width: 50%;
+      padding: 8px 12px;
+      margin: 40px auto;
+      border: 1px solid #ffffff;
+      border-radius: 10px;
+      text-align: center;
+    }
+  }
+
+  .score {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
+    z-index: 999;
+
+    .content {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      width: 60%;
+      background-color: #fff;
+      border-radius: 10px;
+      text-align: center;
+      padding: 15px;
+
+      img {
+        position: absolute;
+        top: -1.5rem;
+        left: 42%;
+        width: 2.5rem;
+      }
+
+      p {
+        margin-bottom: 15px;
+      }
+
+      .number {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      > div {
+        border-radius: 100px;
+        margin-top: 10px;
+        padding: 5px 0;
+      }
+
+      > div.sureBtn {
+        background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+        border-radius: 100px;
+        margin-top: 10px;
+        padding: 5px 0;
+      }
+    }
+  }
+
+  .lookError {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div:first-child {
+      margin-right: 5px;
+    }
+
+    div {
+      flex: 1;
+      background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+      border-radius: 100px;
+      margin-top: 10px;
+      padding: 5px 0;
+    }
+  }
+
+  .test-process {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .doIt {
+      width: 50%;
+    }
+
+    .countTime {
+      width: 50%;
+      text-align: right;
+      color: #EF0E0F;
+      padding-right: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      letter-spacing: 1px;
+    }
+  }
+
+  .score .content .test.number {
+    font-size: 13px;
+    font-weight: normal;
+    margin: 30px 0;
+  }
+
+  .score .content img.tips {
+    background-color: #fff;
+    border-radius: 100%;
+    border: 3px solid #fff;
+  }
+
+  .know {
+    background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+  }
+}

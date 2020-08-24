@@ -10,6 +10,7 @@ import {DatePipe} from "@angular/common";
 import {EmitService} from "../../../../core/emit.service";
 import {LogService} from "../../../../service/log.service";
 import {Storage} from "@ionic/storage";
+import {SimulationTestPage} from "../../simulation-test/simulation-test";
 
 declare var Wechat;
 
@@ -193,6 +194,11 @@ export class TestCenterPage {
         }, function (reason) {
             // alert("Failed: " + reason);
         });
+    }
+
+    //模拟考试
+    goToSimulation() {
+        this.navCtrl.push(SimulationTestPage);
     }
 
 }

@@ -31,6 +31,10 @@ import {ReplyInputPage} from "./short-video/reply-input/reply-input";
 import {PipesModule} from "../../pipes/pipes.module";
 import {CompetitionVideoPage} from "./competition/competition-video/competition-video";
 import {FwVideoPage} from "./fw-competition/fw-video/fw-video";
+import {SimulationTestPage} from "./simulation-test/simulation-test";
+import {SimulationDoTestPage} from "./simulation-test/simulation-do-test/simulation-do-test";
+import {SimulationLookTestPage} from "./simulation-test/simulation-look-test/simulation-look-test";
+import {TreeModule} from 'ng2-tree'
 
 @NgModule({
     declarations: [
@@ -61,12 +65,16 @@ import {FwVideoPage} from "./fw-competition/fw-video/fw-video";
         VideoReplyPage,
         ReplyInputPage,
         CompetitionVideoPage,
-        FwVideoPage
+        FwVideoPage,
+        SimulationTestPage,
+        SimulationDoTestPage,
+        SimulationLookTestPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
         ComponentsModule,
         PipesModule,
+        TreeModule
     ],
     entryComponents: [
         SearchPage,
@@ -95,7 +103,10 @@ import {FwVideoPage} from "./fw-competition/fw-video/fw-video";
         VideoReplyPage,
         ReplyInputPage,
         CompetitionVideoPage,
-        FwVideoPage
+        FwVideoPage,
+        SimulationTestPage,
+        SimulationDoTestPage,
+        SimulationLookTestPage
     ]
 })
 export class HomeModule {

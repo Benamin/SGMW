@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>模拟考试</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="simulation-test">
+        <div class="test-time">
+            考试时长<input type="number" max="120" [(ngModel)]="exam.Exam.ExamTimer">分钟
+        </div>
+        <div class="test-type">
+            <p>单选题</p>
+            <div class="test-item">
+                <div>
+                    共<input [(ngModel)]="exam.PaperRule.ChoiceScore" type="number">分
+                </div>
+                <div>
+                    共<input [(ngModel)]="exam.PaperRule.ChoiceNum" type="number">题
+                </div>
+            </div>
+            <p>多选题</p>
+            <div class="test-item">
+                <div>
+                    共<input [(ngModel)]="exam.PaperRule.MultipleScore" type="number">分
+                </div>
+                <div>
+                    共<input [(ngModel)]="exam.PaperRule.MultipleNum" type="number">题
+                </div>
+            </div>
+            <p>判断题</p>
+            <div class="test-item">
+                <div>
+                    共<input [(ngModel)]="exam.PaperRule.JudgeScore" type="number">分
+                </div>
+                <div>
+                    共<input [(ngModel)]="exam.PaperRule.JudgeNum" type="number">题
+                </div>
+            </div>
+        </div>
+        <div class="test-brand">
+            <p>分类</p>
+            <div class="brandList">
+                <span class="brand-item" *ngFor="let item of brandList">{{item.label}}</span>
+                <span class="addHandle" (click)="addBrand()">+</span>
+            </div>
+        </div>
+    </div>
+    <div (click)="createTeat()">
+        <div class="submit-btn">
+            确定
+        </div>
+    </div>
+</ion-content>

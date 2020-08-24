@@ -33,7 +33,6 @@ export class RecordPage {
         }
         if (file.AttachmentExt.includes('png') || file.AttachmentExt.includes('jpg') || file.AttachmentExt.includes('jpeg')) {
             this.image.emit(file.AttachmentUrl);
-
         } else {
             this.fileSer.viewFile(file.AttachmentUrl, file.AttachmentName);
         }

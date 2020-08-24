@@ -162,7 +162,7 @@ export class HomeService {
 
     // 所有短视频 最新最热列表接口
     GetShortVideoLists(data): Observable<any> {
-        let newData = Object.assign(data,{SortDir: 'desc'} );
+        let newData = Object.assign(data, {SortDir: 'desc'});
         return this.http.post(SERVER_API_URL + '/AppShortVideo/GetAllShortVideoListByTopic', data);
     }
 
@@ -220,6 +220,7 @@ export class HomeService {
     GetServiceRankingList(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/forum/post/getservicecontestdatalist' + this.dataFormat.toQuery(data));
     }
+
     //获取服务大赛 所有 列表
     GetServiceRankingTJList(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/forum/post/getservicecontestdata' + this.dataFormat.toQuery(data));
@@ -233,5 +234,27 @@ export class HomeService {
     //每日一学
     GetMeiryx(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/news/GetMeiryx', data);
+    }
+
+    //获取subject tree
+    getSubjectTree(): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/common/getSubjectTree');
+    }
+
+    /***刷题***/
+    //创建考试
+    InsertExercise(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/exam/InsertExercise', data);
+    }
+
+    //查询刷题的试题
+    SelectExamByStu(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/exam/SelectExamByStu', data);
+    }
+
+
+    //刷题考试回顾
+    GetOldExamDetailByStu(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/exam/GetOldExamDetailByStu', data);
     }
 }

@@ -30,6 +30,7 @@ import {JpushUtil} from "../core/jPush.util";
 import {GlobalData} from "../core/GlobleData";
 import {BackButtonService} from "../core/backButton.service";
 import {EmitService} from "../core/emit.service";
+import {SimulationTestPage} from "../pages/home/simulation-test/simulation-test";
 
 @Component({
     templateUrl: 'app.html'
@@ -251,7 +252,7 @@ export class MyApp {
      */
     NXSZSLogin(req) {
         const data = {
-            accessToken: req.accessToken,
+            // accessToken: req.accessToken,
             cardNo: req.CardNo,
             unionId: req.unionId
         }
@@ -372,6 +373,7 @@ export class MyApp {
                     //是否有token
                 } else if (AuthorizationValue) {
                     this.rootPage = TabsPage;
+                    // this.rootPage = SimulationTestPage;
                 } else {
                     this.rootPage = LoginPage;
                 }

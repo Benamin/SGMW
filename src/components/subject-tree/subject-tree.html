@@ -1,0 +1,17 @@
+<ion-content style="background-color: #ffffff">
+    <div class="qIndex">
+        <div class="parent" *ngFor="let item1 of list">
+            <p>{{item1.label}}</p>
+            <ion-row>
+                <ion-col col-3 *ngFor="let chil of item1.children;let i = index" tappable (click)="chooseItem(chil,i)">
+                    <div class="item-style" [ngClass]="classSelect.includes(chil.value)?'select':''">
+                        {{chil.label}}
+                    </div>
+                </ion-col>
+            </ion-row>
+        </div>
+        <div (click)="close()" class="submit-btn">
+            确定
+        </div>
+    </div>
+</ion-content>
