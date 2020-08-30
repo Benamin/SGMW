@@ -19,7 +19,7 @@ export class ForumPage implements OnInit {
     isdoInfinite = true;
     no_list = false;
     pageDate = {
-        OrderBy: "CreateTime",
+        OrderBy: "ViewCount",
         creater: "",
         name: "",
         pageIndex: 1,
@@ -233,32 +233,25 @@ export class ForumPage implements OnInit {
         });
         loading.present();
         let data = {
-            // "IsHotPost": "0",
-            // "OrderBy": this.pageDate.OrderBy,
-            // "OrderByDirection": "DESC",
-            // "PageIndex": this.pageDate.pageIndex,
-            // "PageSize": 10,
-
             "Title": "",
-//   "TopicPlateId": "",
-  "Status": 2,
-  "Poster": "",
-  "IsPlate": 0,
-  "OrderBy": this.pageDate.OrderBy,
-  "OrderByDirection": "DESC",
-  "PageIndex": this.pageDate.pageIndex,
-  "PageSize": 10
+            "Status": 2,
+            "Poster": "",
+            "IsPlate": 0,
+            "OrderBy": this.pageDate.OrderBy,
+            "OrderByDirection": "DESC",
+            "PageIndex": this.pageDate.pageIndex,
+            "PageSize": 10
         };
 
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
-        // this.serve.forum_post_search(data).subscribe((res: any) => {
+            // this.serve.forum_post_search(data).subscribe((res: any) => {
 
             loading.dismiss();
             if (res.data) {
                 // let arr = res.data.Items;
                 // let arr = res.data.ProductList;
                 let arr = res.data.Posts.Items;
-                if(arr.length!=0){
+                if (arr.length != 0) {
                     this.forumLIst = this.forumLIst.concat(arr);
                 }
                 this.no_list = this.forumLIst.length > 0 ? false : true;

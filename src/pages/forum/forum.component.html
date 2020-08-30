@@ -25,7 +25,7 @@
   <div *ngIf="navli=='热帖'">
     <div class="div-nav">
       <div [ngClass]="{'act': pageDate.OrderBy=='CreateTime'}" tappable (click)="avtNav('CreateTime')">最新</div>
-      <div [ngClass]="{'act': pageDate.OrderBy=='ReplyCount'}" tappable (click)="avtNav('ReplyCount')">最热</div>
+      <div [ngClass]="{'act': pageDate.OrderBy=='ViewCount'}" tappable (click)="avtNav('ViewCount')">最热</div>
     </div>
     <ng-container *ngFor="let item of forumLIst">
       <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable (click)="goPostsContent(item)">

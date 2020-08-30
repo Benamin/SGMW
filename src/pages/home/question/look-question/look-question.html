@@ -13,7 +13,7 @@
             <div class="item-title">
               <!--判断题目类型-->
               <p>
-                {{i + 1}}:
+                {{i + 1}}、
                 <span *ngIf="item.QType == -1">(不限)</span>
                 <span *ngIf="item.QType == 1">(单选)</span>
                 <span *ngIf="item.QType == 2">(多选)</span>
@@ -143,7 +143,7 @@
                 </ng-container>
                 <!--填空-->
                 <ng-container *ngIf="item.QType == 4">
-                  <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                  <textarea [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
                 </ng-container>
                 <!--判断题-->
                 <ng-container *ngIf="item.QType == 3">
@@ -166,7 +166,7 @@
                 </ng-container>
                 <!--问答-->
                 <ng-container *ngIf="item.questionType == 5">
-                  <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                  <textarea [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
                 </ng-container>
               </div>
             </div>

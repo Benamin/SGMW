@@ -83,8 +83,16 @@ export class MyApp {
                 public toastCtrl: ToastController,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         (window as any).handleOpenURL = (url: string) => {
-            if (url.includes('Source')) {
-                this.checkAuthByHybrid(url);
+            console.log('handleOpenURL', url);
+            if (url.includes('JumpURL')) {
+                this.storage.get('Authorization').then((value) => {
+                    if (value) {
+                        const req = <any>this.getRequest.getParamsByHybrid(url);
+                        this.storage.set('CourseId', req.CourseId);
+                    } else {
+                        this.checkAuthByHybrid(url);
+                    }
+                })
             } else {
                 (window as any).localStorage.setItem("app_url", url);
             }
@@ -219,6 +227,9 @@ export class MyApp {
      */
     checkAuthByHybrid(url) {
         const req = <any>this.getRequest.getParamsByHybrid(url);
+        if (req.JumpURL == "course") {   //新销售助手判断
+            req.Source = 'nxszs';
+        }
         if (req.Source != undefined && req.Source) {
             const source = req.Source;
             if (source == 'nxszs') this.NXSZSLogin(req);
@@ -259,10 +270,13 @@ export class MyApp {
         const header = {
             clientId: 'elearning'
         }
+        console.log('NXSZSLogin', JSON.stringify(data));
         this.showLoading();
         this.loginSer.NXSZSLogin(data, header).subscribe(
             (res) => {
                 if (res.code == 200) {
+                    console.log('NXSZSLogin',JSON.stringify(res) )
+                    this.storage.set('CourseId', req.CourseId);
                     this.connectTokenByNXSZS(req);
                 } else {
                     this.dismissLoading();
@@ -308,6 +322,7 @@ export class MyApp {
             Czydm: req.CardNo,
             UserName: req.Name,
         };
+        console.log('connectTokenByNXSZS',JSON.stringify(data));
         this.loginSer.connectToken(data).subscribe(
             (res) => {
                 if (res.access_token) {
@@ -362,23 +377,15 @@ export class MyApp {
         )
     }
 
-
+    //校验登录
     checkLogin() {
         this.storage.get('Authorization').then(AuthorizationValue => {
-            this.storage.get('lastVersion').then(lastVersionValue => {
-                //不是通过最新版登录的 强制让其登录
-                if (!lastVersionValue || lastVersionValue !== this.LastVersion) {
-                    this.rootPage = LoginPage
-                    this.storage.clear();
-                    //是否有token
-                } else if (AuthorizationValue) {
-                    this.rootPage = TabsPage;
-                    // this.rootPage = SimulationTestPage;
-                } else {
-                    this.rootPage = LoginPage;
-                }
-            })
-
+            if (AuthorizationValue) {
+                this.rootPage = TabsPage;
+                // this.rootPage = SimulationTestPage;
+            } else {
+                this.rootPage = LoginPage;
+            }
         });
     }
 
@@ -386,10 +393,10 @@ export class MyApp {
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
-                this.dismissLoading();
                 if (res.code == 200 && res.data) {
                     this.userAsync(res);
                 } else {
+                    this.dismissLoading();
                     this.storage.clear();
                     this.commonSer.alert(res.message);
                 }
@@ -397,12 +404,20 @@ export class MyApp {
         )
     }
 
-    //用户是否同步
+    //用户是否同步 并查询ROLEID
     userAsync(res) {
-        this.storage.set('user', res.data);
-        this.storage.set('lastVersion', this.LastVersion);
-        timer(300).subscribe(e => {
-            this.rootPage = TabsPage;
+        this.loginSer.GetMyInfo().subscribe(res2 => {
+            this.dismissLoading();
+            if (res2.data) {
+                this.storage.set('CurrentRole', {
+                    CurrentRoleID: res2.data.CurrentRoleID,
+                    CurrentRoleName: res2.data.CurrentRoleNames
+                });
+                this.storage.set('RoleID', res2.data.CurrentRoleID);
+                this.storage.set('user', res.data);
+                this.storage.set('lastVersion', this.LastVersion);
+                this.rootPage = TabsPage;
+            }
         })
     }
 

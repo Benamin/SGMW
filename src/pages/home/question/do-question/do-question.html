@@ -150,7 +150,7 @@
                                 </ng-container>
                                 <!--填空-->
                                 <ng-container *ngIf="item.QType == 4">
-                                    <textarea [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
+                                    <textarea placeholder="请输入内容..." [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
                                 </ng-container>
                                 <!--判断题-->
                                 <ng-container *ngIf="item.QType == 3">
@@ -173,7 +173,7 @@
                                 </ng-container>
                                 <!--问答-->
                                 <ng-container *ngIf="item.questionType == 5">
-                                    <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                                    <textarea placeholder="请输入内容..." [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
                                 </ng-container>
                             </div>
                         </div>

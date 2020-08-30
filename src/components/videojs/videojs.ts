@@ -46,7 +46,8 @@ export class VideojsComponent implements OnDestroy {
             this.video = videojs(this.videoEle, {
                 muted: false,
                 controls: true,
-                autoplay: true
+                autoplay: true,
+                // playbackRates: [0.5, 1, 1.5, 2, 3]  //倍速
             }, (event) => {
                 this.video.on('fullscreenchange', () => {
                     if (!this.isPlay) return;
@@ -147,10 +148,16 @@ export class VideojsComponent implements OnDestroy {
     @Input() set GetVideo(videoInfo) {
         if (this.video && videoInfo) {
             this.isPlay = true;
-            this.video.src({type: 'application/x-mpegURL', src: videoInfo.fileUrl, res: 720, label: '720'});
+            let type = 'application/x-mpegURL';
+            if (this.platform.is('android')) {
+                videoInfo.fileUrl = videoInfo.fileUrl.replace('manifest(format=m3u8-aapl)', 'manifest(format=mpd-time-csf)')
+                videoInfo.fileUrl = videoInfo.fileUrl.replace('manifest(format=m3u8-cmaf)', 'manifest(format=mpd-time-cmaf)')
+                type = "application/dash+xml"
+            }
+            console.log(' videoInfo.fileUrl', videoInfo.fileUrl)
+            this.video.src({type: type, src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
             this.video.removeChild('TitleBar');
-            // this.video.addChild(`danmu`,{text: `${videoInfo.DisplayName}`});
             this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
         }
     }

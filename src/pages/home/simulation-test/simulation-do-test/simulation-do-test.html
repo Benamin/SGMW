@@ -150,7 +150,7 @@
                                 </ng-container>
                                 <!--填空-->
                                 <ng-container *ngIf="item.QType == 4">
-                                    <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                                    <textarea placeholder="请输入内容..." [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
                                 </ng-container>
                                 <!--判断题-->
                                 <ng-container *ngIf="item.QType == 3">
@@ -173,7 +173,7 @@
                                 </ng-container>
                                 <!--问答-->
                                 <ng-container *ngIf="item.questionType == 5">
-                                    <textarea [(ngModel)]="item.answer" class="content-textarea"></textarea>
+                                    <textarea placeholder="请输入内容..." [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
                                 </ng-container>
                             </div>
                         </div>
@@ -222,8 +222,8 @@
         <p>考试完成</p>
         <p class="number">{{score.score}}</p>
         <div class="lookError">
-            <div (click)="lookTest();$event.stopPropagation()">考试回顾</div>
-            <div (click)="exitTest();$event.stopPropagation()">退出考试</div>
+            <div tappable (click)="lookTest();$event.stopPropagation()">考试回顾</div>
+            <div tappable (click)="exitTest();$event.stopPropagation()">退出考试</div>
         </div>
     </div>
 </div>

@@ -237,9 +237,11 @@ page-look-exam {
 
   .content-textarea {
     padding: 10px;
-    min-height: 100px;
+    min-height: 120px;
     width: 100%;
-    border: 1px solid #ddd;
+    border: 1px solid #f2f2f2;
+    background-color: #f2f2f2;
+    border-radius: 5px;
   }
 
   .submit-error {

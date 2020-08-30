@@ -140,6 +140,12 @@ export class HomePage implements OnInit {
             this.getProductList(value);
         })
 
+        this.storage.get('CourseId').then(value => {
+            if (value) {
+                this.navCtrl.push(CourseDetailPage, {id: value});
+            }
+        })
+
         this.getGoodsTeacher();
         this.getLIistData();
         this.getCompetitionId();
@@ -366,9 +372,9 @@ export class HomePage implements OnInit {
                 });
                 return;
             }
-            if (e.HttpURL.includes('#/bbsDetail/')) {
-                this.navCtrl.push(NumberOneDetailsComponent, {
-                    data: {Id: ID}
+            if (e.HttpURL.includes('#/bbsDetail/')) {   //论坛
+                this.navCtrl.push(PostsContentComponent, {
+                    data: {Id: ID, TopicPlateId: "", Name: ""}
                 });
                 return;
             }

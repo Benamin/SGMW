@@ -110,7 +110,7 @@ export class SimulationTestPage {
     }
 
     addBrand() {
-        let modal = this.modalCtrl.create(SubjectTreeComponent, {list: this.subjecTree},
+        let modal = this.modalCtrl.create(SubjectTreeComponent, {list: this.subjecTree, choice: this.brandList},
             {
                 enterAnimation: 'modal-from-right-enter',
                 leaveAnimation: 'modal-from-right-leave'
@@ -118,9 +118,34 @@ export class SimulationTestPage {
         modal.onDidDismiss(res => {
             if (res) {
                 this.brandList = res;
+                const arr = this.brandList.map(e => e.value);
+                this.exam.Exam.SubjectCode = arr.join(',')
             }
         })
         modal.present();
     }
 
+    //add
+    addHandleExam(params) {
+        this.exam.Exam[params]++;
+    }
+
+    //remove
+    removeHandleExam(params) {
+        if (this.exam.Exam[params] > 0) {
+            this.exam.Exam[params]--;
+        }
+    }
+
+    //add
+    addHandle(params) {
+        this.exam.PaperRule[params]++;
+    }
+
+    //remove
+    removeHandle(params) {
+        if (this.exam.PaperRule[params] > 0) {
+            this.exam.PaperRule[params]--;
+        }
+    }
 }

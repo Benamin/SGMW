@@ -7,34 +7,64 @@
 <ion-content>
     <div class="simulation-test">
         <div class="test-time">
-            考试时长<input type="number" max="120" [(ngModel)]="exam.Exam.ExamTimer">分钟
+            考试时长
+            <span class="outline">
+                 <ion-icon (click)="addHandleExam('ExamTimer')" class="add-icon" name="add-circle-outline"></ion-icon>
+                <input type="number" style="width: 120px" max="120" [(ngModel)]="exam.Exam.ExamTimer">
+                <ion-icon (click)="removeHandleExam('ExamTimer')" class="remove-icon" name="remove-circle-outline"></ion-icon>
+            </span>
+            分钟
         </div>
         <div class="test-type">
             <p>单选题</p>
             <div class="test-item">
                 <div>
-                    共<input [(ngModel)]="exam.PaperRule.ChoiceScore" type="number">分
+                    共<span class="outline">
+                           <ion-icon (click)="addHandle('ChoiceScore')" class="add-icon" name="add-circle-outline"></ion-icon>
+                            <input [(ngModel)]="exam.PaperRule.ChoiceScore" type="number">
+                           <ion-icon (click)="removeHandle('ChoiceScore')" class="remove-icon" name="remove-circle-outline"></ion-icon>
+                    </span>分
                 </div>
                 <div>
-                    共<input [(ngModel)]="exam.PaperRule.ChoiceNum" type="number">题
+                    共<span class="outline">
+                            <ion-icon (click)="addHandle('ChoiceNum')" class="add-icon" name="add-circle-outline"></ion-icon>
+                            <input [(ngModel)]="exam.PaperRule.ChoiceNum" type="number">
+                            <ion-icon (click)="removeHandle('ChoiceNum')" class="remove-icon" name="remove-circle-outline"></ion-icon>
+                    </span>题
                 </div>
             </div>
             <p>多选题</p>
             <div class="test-item">
                 <div>
-                    共<input [(ngModel)]="exam.PaperRule.MultipleScore" type="number">分
+                    共<span class="outline">
+                            <ion-icon (click)="addHandle('MultipleScore')" class="add-icon" name="add-circle-outline"></ion-icon>
+                            <input [(ngModel)]="exam.PaperRule.MultipleScore" type="number">
+                            <ion-icon (click)="removeHandle('MultipleScore')" class="remove-icon" name="remove-circle-outline"></ion-icon>
+                    </span>分
                 </div>
                 <div>
-                    共<input [(ngModel)]="exam.PaperRule.MultipleNum" type="number">题
+                    共<span class="outline">
+                            <ion-icon (click)="addHandle('MultipleNum')" class="add-icon" name="add-circle-outline"></ion-icon>
+                            <input [(ngModel)]="exam.PaperRule.MultipleNum" type="number">
+                            <ion-icon (click)="removeHandle('MultipleNum')" class="remove-icon" name="remove-circle-outline"></ion-icon>
+                    </span>题
                 </div>
             </div>
             <p>判断题</p>
             <div class="test-item">
                 <div>
-                    共<input [(ngModel)]="exam.PaperRule.JudgeScore" type="number">分
+                    共<span class="outline">
+                            <ion-icon (click)="addHandle('JudgeScore')" class="add-icon" name="add-circle-outline"></ion-icon>
+                            <input [(ngModel)]="exam.PaperRule.JudgeScore" type="number">
+                            <ion-icon (click)="removeHandle('JudgeScore')" class="remove-icon" name="remove-circle-outline"></ion-icon>
+                    </span>分
                 </div>
                 <div>
-                    共<input [(ngModel)]="exam.PaperRule.JudgeNum" type="number">题
+                    共<span class="outline">
+                            <ion-icon (click)="addHandle('JudgeNum')" class="add-icon" name="add-circle-outline"></ion-icon>
+                            <input [(ngModel)]="exam.PaperRule.JudgeNum" type="number">
+                            <ion-icon (click)="removeHandle('JudgeNum')" class="remove-icon" name="remove-circle-outline"></ion-icon>
+                    </span>题
                 </div>
             </div>
         </div>

@@ -21,6 +21,7 @@ import {CommentByCourseComponent} from "../../../components/comment-by-course/co
 import {LookTalkVideoExamPage} from "../look-talk-video-exam/look-talk-video-exam";
 import {ExamTipPage} from "../exam-tip/exam-tip";
 import {ErrorExamPage} from "../../mine/error-exam/error-exam";
+import {Storage} from "@ionic/storage";
 
 declare let Swiper: any;
 
@@ -95,7 +96,7 @@ export class CourseDetailPage {
 
     nodeLevel4;   //视频播放当前课时节点
     tagsNodeList;   //包含作业的节点列表
-    nodeLevel4List;   //所有的课时节点列表
+    nodeLevel4List;   //所有的课时节点列表 --第四层  旧结构
     CourseEnterSource;   //进入来源
 
     showMore = false;  //简介折叠
@@ -119,6 +120,7 @@ export class CourseDetailPage {
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
                 private learnSer: LearnService,
                 private mineSer: MineService,
+                private storage: Storage,
                 private changeDetectorRef: ChangeDetectorRef,
                 private global: GlobalData,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
@@ -133,6 +135,7 @@ export class CourseDetailPage {
 
     //仅进入初始化加载一次
     ionViewDidLoad() {
+        this.storage.remove('CourseId')
         this.listenerScroll();
         this.isError = false;
         const screenWidth = <any>window.screen.width;
@@ -377,7 +380,10 @@ export class CourseDetailPage {
      */
     fNode(data) {
         for (let j = 0; j < data.length; j++) {
-            if (data[j].NodeLevel == 4) {
+            if (data[j].NodeLevel == 4 && this.StructureType == 1) {  //老结构
+                this.nodeLevel4List.push(data[j]);
+            }
+            if (data[j].NodeLevel == 2 && this.StructureType == 2) {   //新结构
                 this.nodeLevel4List.push(data[j]);
             }
             if (data[j].children.length > 0) this.fNode(data[j].children);
@@ -435,12 +441,15 @@ export class CourseDetailPage {
      * SortType 1有序 2 无序
      */
     studyContinue() {
+        console.log('studyContinue');
         this.CourseEnterSource = '';
         let arr = [];
         if (this.SortType == 1) {
             arr = this.nodeLevel4List.filter(e => e.StudyStatus == 2);
             if (arr.length && arr[arr.length - 1].files.length > 0) {
                 this.openFileByType(arr[arr.length - 1], arr[arr.length - 1].files[0])
+            }else{
+                this.commonSer.toast('课件已学习完毕')
             }
         } else {
             this.studyNow();

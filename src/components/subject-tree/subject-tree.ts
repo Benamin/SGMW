@@ -15,6 +15,8 @@ export class SubjectTreeComponent {
     constructor(private params: NavParams, private statusBar: StatusBar,
                 private viewCtrl: ViewController) {
         this.list = this.params.get('list');
+        this.choice = this.params.get('choice');
+        this.classSelect = this.choice.map(e => e.value);
     }
 
     chooseItem(item, i) {

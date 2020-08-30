@@ -7,6 +7,7 @@ page-simulation-test {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 
     > div {
       flex: 1;
@@ -14,15 +15,53 @@ page-simulation-test {
     }
 
     input {
-      width: 70px;
+      width: 90px;
       height: 30px;
-      line-height: 33px;
+      line-height: 28px;
       background-color: #efefef;
       border: none;
       border-radius: 100px;
       margin: 2px 8px;
       padding: 5px 10px;
       text-align: center;
+    }
+  }
+
+  .test-item {
+    .outline {
+      ion-icon {
+        top: 8px;
+      }
+
+      .add-icon {
+        left: 15px;
+      }
+
+      .remove-icon {
+        right: 15px;
+      }
+    }
+  }
+
+  .outline {
+    position: relative;
+    margin: 0 10px;
+    display: inline-block;
+    line-height: 30px;
+
+    ion-icon {
+      position: absolute;
+      top: 8px;
+      font-size: 20px;
+      font-weight: bolder;
+    }
+
+    .add-icon {
+      left: 12px;
+    }
+
+    .remove-icon {
+      right: 12px;
     }
   }
 
