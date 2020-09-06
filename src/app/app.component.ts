@@ -428,13 +428,13 @@ export class MyApp {
         if (this.platform.is('ios')) platform = 'IOS';
         if (this.platform.is('android')) platform = 'android';
         this.appVersion.getVersionNumber().then((version: string) => {
-            localVersion = version.split('.').join('');
+            localVersion = version.split('.').join('');  //2123
             const data = {
                 code: platform
             }
             this.loginSer.GetAppVersionByCode(data).subscribe(
                 (res) => {
-                    const onlineVersion = res.data.AppVersion.split('.').join('');
+                    const onlineVersion = res.data.AppVersion.split('.').join('');  //2200
                     if (localVersion < onlineVersion) {
                         this.app.UpdateTips = true;
                         this.app.AppUrl = res.data.AppUrl;
