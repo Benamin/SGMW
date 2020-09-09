@@ -275,7 +275,7 @@ export class MyApp {
         this.loginSer.NXSZSLogin(data, header).subscribe(
             (res) => {
                 if (res.code == 200) {
-                    console.log('NXSZSLogin',JSON.stringify(res) )
+                    console.log('NXSZSLogin', JSON.stringify(res))
                     this.storage.set('CourseId', req.CourseId);
                     this.connectTokenByNXSZS(req);
                 } else {
@@ -322,7 +322,7 @@ export class MyApp {
             Czydm: req.CardNo,
             UserName: req.Name,
         };
-        console.log('connectTokenByNXSZS',JSON.stringify(data));
+        console.log('connectTokenByNXSZS', JSON.stringify(data));
         this.loginSer.connectToken(data).subscribe(
             (res) => {
                 if (res.access_token) {

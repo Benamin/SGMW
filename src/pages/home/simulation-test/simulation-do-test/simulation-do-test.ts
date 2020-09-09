@@ -141,11 +141,6 @@ export class SimulationDoTestPage {
      * @param status 2-暂存 3-提交
      */
     submit(status) {
-        let isDone = this.exam.QnAInfos.every(e => e.StuAnswer.length > 0);
-        if (!isDone && status == 3) {
-            this.score.isDone = true;
-            return
-        }
         let msg;
         if (status == 2) msg = '暂存';
         if (status == 3) msg = '提交';
@@ -232,11 +227,6 @@ export class SimulationDoTestPage {
     close(e) {
         this.score.show = false;
         this.navCtrl.remove(3, 2)
-    }
-
-    //关闭题目未做完提示
-    closeDone(e) {
-        this.score.isDone = false;
     }
 
     //考试回顾

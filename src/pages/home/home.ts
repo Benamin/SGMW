@@ -235,7 +235,7 @@ export class HomePage implements OnInit {
     getProductList(RoleID) {
         const data = {
             "page": 1,
-            "pageSize": 4,
+            "pageSize": 10,
             "OrderBy": "CreateTime",
             "IsAsc": "DESC",
             "IsHot": true,

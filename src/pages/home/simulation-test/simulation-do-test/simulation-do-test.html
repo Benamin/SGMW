@@ -233,19 +233,9 @@
         <p>温馨提示</p>
         <p class="number  test">
             <ng-container *ngIf="exam.ExamInfo?.PaperTimer > 0">试卷时长{{exam.ExamInfo?.PaperTimer}}
-                分钟，请在规定时间内完成，时间到达后将自动提交，考试过程中不可退出
+                分钟，请在规定时间内完成，时间到达后将自动提交
             </ng-container>
         </p>
         <div class="know">我知道了</div>
-    </div>
-</div>
-<div *ngIf="score.isDone" class="score" tappable (click)="closeDone($event)">
-    <div class="content" style="width: 60%">
-        <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
-        <p>温馨提示</p>
-        <p class="number  test">
-            题目未完成，无法提交作业，请左右滑动切换完成全部题目。
-        </p>
-        <div>我知道了</div>
     </div>
 </div>
