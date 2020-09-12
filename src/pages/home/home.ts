@@ -31,6 +31,7 @@ import {FocusTrainPage} from "./focus-train/focus-train";
 
 import {StudyPlanPage} from "./study-plan/study-plan";
 import {JobLevelPage} from "./job-level/job-level";
+import {AdvancedLevelPage} from "./advanced/level/level";
 
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
@@ -456,6 +457,11 @@ export class HomePage implements OnInit {
     // 前往帖子详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
+    }
+
+    // 前往 认证进阶 的 勋章设置
+    goAdvancedLevel() {
+        this.navCtrl.push(AdvancedLevelPage);
     }
 
     // 获取热门帖子
