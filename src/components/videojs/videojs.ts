@@ -11,6 +11,7 @@ import {CommonService} from "../../core/common.service";
 import {Platform} from "ionic-angular";
 
 declare let videojs: any;
+declare let amp: any;
 
 @Component({
     selector: 'videojs',
@@ -36,20 +37,20 @@ export class VideojsComponent implements OnDestroy {
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.global.videoNum;
         this.videoEle = `video${videoNum}`;
-        videojs.addLanguage('zh-CN', {
-            "A network error caused the media download to fail part-way.": "网络错误导致视频下载中途失败。",
-            "The media could not be loaded, either because the server or network failed or because the format is not supported.": "视频播放未能正常加载，请检查网络环境或者内存空间。",
-            "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
-        });
+        // videojs.addLanguage('zh-CN', {
+        //     "A network error caused the media download to fail part-way.": "网络错误导致视频下载中途失败。",
+        //     "The media could not be loaded, either because the server or network failed or because the format is not supported.": "视频播放未能正常加载，请检查网络环境或者内存空间。",
+        //     "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
+        // });
 
         timer(100).subscribe(() => {
-            this.video = videojs(this.videoEle, {
+            this.video = amp(this.videoEle, {
                 muted: false,
                 controls: true,
                 autoplay: true,
                 // playbackRates: [0.5, 1, 1.5, 2, 3]  //倍速
             }, (event) => {
-                this.video.on('fullscreenchange', () => {
+                this.video.addEventListener('fullscreenchange', () => {
                     if (!this.isPlay) return;
                     if (this.video.isFullscreen()) {  //全屏
                         if (this.platform.is('ios')) {
@@ -64,7 +65,8 @@ export class VideojsComponent implements OnDestroy {
                         this.statusBar.show();
                     }
                 });
-                this.video.on('ended', () => {
+                this.video.addEventListener('ended', () => {
+                    console.log('ended')
                     this.isPlay = false;
                     this.screenOrientation.lock('portrait');  //锁定竖屏
                     if (this.platform.is('ios')) {
@@ -77,7 +79,7 @@ export class VideojsComponent implements OnDestroy {
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
-                this.video.on('touchstart', () => {
+                this.video.addEventListener('touchstart', () => {
                     if (this.video.paused()) {
                         this.video.play();
                     } else {
@@ -121,7 +123,7 @@ export class VideojsComponent implements OnDestroy {
 
     destroy() {
         if (this.video) {
-            this.video.dispose();
+            // this.video.dispose();
         }
     }
 
@@ -138,6 +140,7 @@ export class VideojsComponent implements OnDestroy {
     }
 
     @Input() set poster(poster) {
+        console.log(poster);
         this.videoPoster = poster;
     }
 
@@ -157,8 +160,8 @@ export class VideojsComponent implements OnDestroy {
             console.log(' videoInfo.fileUrl', videoInfo.fileUrl)
             this.video.src({type: type, src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
-            this.video.removeChild('TitleBar');
-            this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
+            // this.video.removeChild('TitleBar');
+            // this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
         }
     }
 

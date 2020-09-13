@@ -122,14 +122,14 @@
         "APP_KEY": "235665a384e33f0f3b98fba3"
       },
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-file-opener2": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
       "cordova-plugin-wechat": {
         "WECHATAPPID": "wxb5bb0aae5137074c",
         "UNIVERSALLINK": "YOUR_UNIVERSAL_LINK"
-      }
+      },
+      "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
       "browser",
