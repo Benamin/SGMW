@@ -157,7 +157,6 @@ export class VideojsComponent implements OnDestroy {
                 videoInfo.fileUrl = videoInfo.fileUrl.replace('manifest(format=m3u8-cmaf)', 'manifest(format=mpd-time-cmaf)')
                 type = "application/dash+xml"
             }
-            console.log(' videoInfo.fileUrl', videoInfo.fileUrl)
             this.video.src({type: type, src: videoInfo.fileUrl});
             this.videoInfo = videoInfo;
             // this.video.removeChild('TitleBar');
