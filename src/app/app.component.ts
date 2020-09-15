@@ -19,7 +19,14 @@ import {LoginService} from "../pages/login/login.service";
 import {CommonService} from "../core/common.service";
 import {timer} from "rxjs/observable/timer";
 import {GetRequestService} from "../secret/getRequest.service";
-import {JunKe_client_id, LastVersion, NoUserMsg, NXSZS_client_id, XSZS_client_id} from "./app.constants";
+import {
+    JunKe_client_id,
+    JunKe_HTTP_URL,
+    LastVersion,
+    NoUserMsg,
+    NXSZS_client_id, NXSZS_HTTP_URL,
+    XSZS_client_id
+} from "./app.constants";
 import {AppVersion} from "@ionic-native/app-version";
 import {AppUpdateService} from "../core/appUpdate.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
@@ -31,6 +38,7 @@ import {GlobalData} from "../core/GlobleData";
 import {BackButtonService} from "../core/backButton.service";
 import {EmitService} from "../core/emit.service";
 import {SimulationTestPage} from "../pages/home/simulation-test/simulation-test";
+import {HTTP} from "@ionic-native/http";
 
 @Component({
     templateUrl: 'app.html'
@@ -72,6 +80,7 @@ export class MyApp {
                 public appCtrl: App,
                 private mobileAccess: MobileAccessibility,
                 private appSer: AppService,
+                private nativeHttp: HTTP,
                 private Keyboard: Keyboard,
                 private jPush: JPush,
                 public eventEmitSer: EmitService,
@@ -105,6 +114,8 @@ export class MyApp {
         });
         this.platform.ready().then(() => {
             this.getLoad();
+
+            console.log(this.platform.platforms());
 
             //jpush推送
             this.jPush.init();
@@ -237,10 +248,11 @@ export class MyApp {
     }
 
     //骏客鉴权
-    async trainAuth(token) {
+    trainAuth(token) {
         const data = <any>{};
-        await this.loginSer.JunkeTrainAuth(token).subscribe(
-            (res) => {
+        this.nativeHttp.post(`${JunKe_HTTP_URL}/dmscloud.interfaceServer.yunyang/external/trainSys/tranAuth`, {}, {headers: {"jwt": token}}).then(
+            (response) => {
+                let res = JSON.parse(response.data);
                 if (res.status) {
                     this.connectTokenByJunKe(res.data);
                 } else {
@@ -248,11 +260,10 @@ export class MyApp {
                     this.commonSer.alert(res.msg);
                 }
             },
-            (err) => {
-                this.rootPage = LoginPage;
-                this.commonSer.alert(JSON.stringify(err));
-            }
-        )
+        ).catch(error => {
+            this.rootPage = LoginPage;
+            this.commonSer.alert(JSON.stringify(error));
+        })
     }
 
     /**
@@ -272,8 +283,10 @@ export class MyApp {
         }
         console.log('NXSZSLogin', JSON.stringify(data));
         this.showLoading();
-        this.loginSer.NXSZSLogin(data, header).subscribe(
-            (res) => {
+        this.nativeHttp.setDataSerializer('json');
+        this.nativeHttp.post(`${NXSZS_HTTP_URL}/user/api/checkUserByAccessToken`, data, header).then(
+            (response) => {
+                let res = JSON.parse(response.data);
                 if (res.code == 200) {
                     console.log('NXSZSLogin', JSON.stringify(res))
                     this.storage.set('CourseId', req.CourseId);
@@ -284,7 +297,11 @@ export class MyApp {
                     this.commonSer.alert(res.msg);
                 }
             }
-        )
+        ).catch(error => {
+            this.dismissLoading();
+            this.rootPage = LoginPage;
+            this.commonSer.alert(error.error);
+        })
     }
 
     //获取骏客用户信息

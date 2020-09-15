@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams, Platform, Slides} from 'ionic-angular';
 import {TabsPage} from "../tabs/tabs";
 import {LoginService} from "./login.service";
 import {Storage} from "@ionic/storage";
@@ -10,19 +10,20 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
 import {
-    FWZS_appid, FWZS_client_id, FWZS_SecretKey,
-    JunKe_client_id, JunKe_PRIVATE_KEY, LastVersion,
+    FWZS_appid, FWZS_client_id, FWZS_HTTP_URL, FWZS_SecretKey,
+    JunKe_client_id, JunKe_HTTP_URL, JunKe_PRIVATE_KEY, LastVersion,
     NoUserMsg,
     sgmw_client_id,
     XSZS_appId,
     XSZS_appKey,
-    XSZS_client_id
+    XSZS_client_id, XSZS_HTTP_URL
 } from "../../app/app.constants";
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../../secret/randomWord.service";
 import {GlobalData} from "../../core/GlobleData";
 import {JPush} from "@jiguang-ionic/jpush";
 import {UserAgreementComponent} from "../../components/user-agreement/user-agreement";
+import {HTTP} from "@ionic-native/http";
 
 declare let md5: any;
 declare let JSEncrypt: any;
@@ -108,15 +109,24 @@ export class LoginPage {
 
     LastVersion = LastVersion;  //是否最新版
 
+    isMobile = true;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
                 private jPush: JPush,
+                private nativeHttp: HTTP,
                 private modalCtrl: ModalController,
+                private platform: Platform,
                 private randomWord: RandomWordService,
                 private globalData: GlobalData,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
+        console.log(this.platform.is('mobileweb'))
+        console.log(this.platform.is('core'))
+        if (this.platform.is('mobileweb') || this.platform.is('code')) {
+            this.isMobile = false;
+        }
     }
 
     ionViewDidLoad() {
@@ -243,21 +253,41 @@ export class LoginPage {
             sign: this.randomWord.hex_md5(sign)
         };
 
-        this.loginSer.sgmwLogin(this.jxs.xszs, header).subscribe(
-            (res) => {
-                if (res.success == "true") {
-                    this.connectTokenByXSZS(res.data);
-                } else {
-                    this.dismissLoading();
-                    this.storage.clear();
-                    this.commonSer.alert(res.error);
+        if (this.isMobile) {
+            this.nativeHttp.setDataSerializer('json');
+            this.nativeHttp.post(`${XSZS_HTTP_URL}/LoginAPIHandler.ashx?action=validLogin_JXS`, this.jxs.xszs, header).then(
+                (response) => {
+                    const res = JSON.parse(response.data);
+                    if (res.success == "true") {
+                        this.connectTokenByXSZS(res.data);
+                    } else {
+                        this.dismissLoading();
+                        this.storage.clear();
+                        this.commonSer.alert(res.error);
+                    }
                 }
-            }, error1 => {
+            ).catch(error => {
                 this.dismissLoading();
-                const error = error1.error.error;
-                this.commonSer.alert(error);
-            }
-        )
+                const errorMsg = JSON.parse(error.error);
+                this.commonSer.alert(errorMsg.error);
+            })
+        } else {
+            this.loginSer.sgmwLogin(this.jxs.xszs, header).subscribe(
+                (res) => {
+                    if (res.success == "true") {
+                        this.connectTokenByXSZS(res.data);
+                    } else {
+                        this.dismissLoading();
+                        this.storage.clear();
+                        this.commonSer.alert(res.error);
+                    }
+                }, error1 => {
+                    this.dismissLoading();
+                    const error = error1.error.error;
+                    this.commonSer.alert(error);
+                }
+            )
+        }
     }
 
     //获取token --销售助手
@@ -315,20 +345,43 @@ export class LoginPage {
             "userName": this.jxs.junke.username.trim(),
             "password": password
         };
-        this.loginSer.JunkeAppAuthCas(data).subscribe(
-            (res) => {
-                if (res.status) {
-                    this.connectTokenByJunKe(res.data);
-                } else {
-                    this.dismissLoading();
-                    this.storage.clear();
-                    this.commonSer.alert(res.msg);
-                }
-            }, error => {
+
+        if (this.isMobile) {
+            this.nativeHttp.setDataSerializer('json');
+            this.nativeHttp.post(`${JunKe_HTTP_URL}/dmscloud.interfaceServer.yunyang/external/trainSys/login/appAuthCas`, data, {}).then(
+                (response) => {
+                    const res = JSON.parse(response.data);
+                    console.log(res);
+                    if (res.status) {
+                        this.connectTokenByJunKe(res.data);
+                    } else {
+                        this.dismissLoading();
+                        this.storage.clear();
+                        this.commonSer.alert(res.msg);
+                    }
+                },
+            ).catch(error => {
+                console.log(error);
                 this.dismissLoading();
-                this.commonSer.alert(error.error.errorMsg);
-            }
-        )
+                let message = JSON.parse(error.error);
+                this.commonSer.alert(message.errorMsg);
+            })
+        } else {
+            this.loginSer.JunkeAppAuthCas(data).subscribe(
+                (res) => {
+                    if (res.status) {
+                        this.connectTokenByJunKe(res.data);
+                    } else {
+                        this.dismissLoading();
+                        this.storage.clear();
+                        this.commonSer.alert(res.msg);
+                    }
+                }, error => {
+                    this.dismissLoading();
+                    this.commonSer.alert(error.error.errorMsg);
+                }
+            )
+        }
     }
 
     //获取junke token
@@ -402,21 +455,44 @@ export class LoginPage {
             timeStamp: timeStamp,
             sign: this.randomWord.hex_md5(sign)
         };
-        this.loginSer.fwzsLogin(content, header).subscribe(
-            (res) => {
-                if (res.code == "1") {
-                    this.connectTokenByFWZS(content);
-                } else {
-                    this.dismissLoading();
-                    this.storage.clear();
-                    this.commonSer.alert(res.message);
+
+        if (this.isMobile) {
+            this.nativeHttp.setDataSerializer('json');
+            this.nativeHttp.post(`${FWZS_HTTP_URL}/login/userlogin`, content, header).then(
+                (response) => {
+                    let res = JSON.parse(response.data);
+                    console.log(res);
+                    if (res.code == "1") {
+                        this.connectTokenByFWZS(content);
+                    } else {
+                        this.dismissLoading();
+                        this.storage.clear();
+                        this.commonSer.alert(res.message);
+                    }
                 }
-            }, error1 => {
+            ).catch(error => {
+                console.log(error);
                 this.dismissLoading();
-                const error = error1.error.error;
-                this.commonSer.alert(error);
-            }
-        )
+                const message = JSON.parse(error.error);
+                this.commonSer.alert(message.error);
+            })
+        } else {
+            this.loginSer.fwzsLogin(content, header).subscribe(
+                (res) => {
+                    if (res.code == "1") {
+                        this.connectTokenByFWZS(content);
+                    } else {
+                        this.dismissLoading();
+                        this.storage.clear();
+                        this.commonSer.alert(res.message);
+                    }
+                }, error1 => {
+                    this.dismissLoading();
+                    const error = error1.error.error;
+                    this.commonSer.alert(error);
+                }
+            )
+        }
     }
 
     //获取token --服务助手
