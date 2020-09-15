@@ -64,6 +64,9 @@ page-level {
       margin-left: 1.2rem;
       height: 5rem;
     }
+    .bg.zero {
+      margin-left: 1rem;
+    }
     .posi-box {
       position: absolute;
       left: 0;
@@ -141,18 +144,57 @@ page-level {
     }
   }
 
-  .default_process {
-    margin-top: -0.4rem;
-    margin-left: 3.8rem;
+  .default_progress, .in_progress, .finish_progress {
+    margin-top: -0.8rem;
+    margin-left: 3.6rem;
     box-sizing: border-box;
-    width: 3px;
-    height: 50px;
+    width: 0.1rem;
+    height: 4.2rem;
+    z-index: -1;
     // border-left: 1px dashed #FFFFFF;
-
-    background: linear-gradient(to top, #BED4E3, #EAC23A 50px, transparent 50px, transparent);
     // border-image: -webkit-linear-gradient(#EAC23A,#BED4E3) 0 0;
     // border-image: -moz-linear-gradient(#EAC23A,#BED4E3) 0 0;
     // border-image: linear-gradient(#EAC23A,#BED4E3) 0 0;
   }
+
+  .default_progress {
+    // height: px;
+    &.p_level4 {
+      background: linear-gradient(to top, #EAC23A, #9549BC 3px, transparent 3px, transparent);
+      background-size: 100% 7px;
+    }
+    &.p_level3 {
+      background: linear-gradient(to top, #BED4E3, #EAC23A 3px, transparent 3px, transparent);
+      background-size: 100% 7px;
+    }
+    &.p_level2 {
+      background: linear-gradient(to top, #DDA791, #708591 3px, transparent 3px, transparent);
+      background-size: 100% 7px;
+    }
+    &.p_level1 {
+      background: linear-gradient(to top, #3C3C3C, #DDA791 3px, transparent 3px, transparent);
+      background-size: 100% 7px;
+    }
+  } 
   
+  .in_progress, .finish_progress {
+    &.p_level4 {
+      background: linear-gradient(to top, #EAC23A, #9549BC 50px, transparent 50px, transparent);
+    }
+    &.p_level3 {
+      background: linear-gradient(to top, #BED4E3, #EAC23A 50px, transparent 50px, transparent);
+    }
+    &.p_level2 {
+      background: linear-gradient(to top, #DDA791, #708591 50px, transparent 50px, transparent);
+    }
+    &.p_level1 {
+      background: linear-gradient(to top, #3C3C3C, #DDA791 50px, transparent 50px, transparent);
+      margin-bottom: -0.5rem;
+    }
+  }
+  .in_progress {
+    margin-left: 3.52rem;
+    width: 0.3rem;
+  }
+
 }

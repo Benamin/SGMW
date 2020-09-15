@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  <div class="level-top">
+  <div class="level-top" (click)="goAdvancedLists()">
     <img class="bg" src="assets/imgs/advanced/level-1.png" alt="当前阶级">
     <div class="posi-box">
       <div class="content">
@@ -31,7 +31,13 @@
     </div>
   </div>
 
-  <div class="default_process"></div>
+  <!--默认 进度条虚线-->
+  <!-- <div class="default_progress p_level4"></div> -->
+  <!--进行中 进度条粗实线 -->
+  <!-- <div class="in_progress p_level4"></div> -->
+  <!--已完成 进度条细实线 -->
+  <div class="finish_progress p_level4"></div>
+
 
   <div class="level3">
     <img class="bg" src="assets/imgs/advanced/level-3-advanced.png" alt="高级">
@@ -44,7 +50,9 @@
     </div>
   </div>
 
-  <div class="default_process"></div>
+  <!-- <div class="default_progress p_level3"></div> -->
+  <!-- <div class="in_progress p_level3"></div> -->
+  <div class="finish_progress p_level3"></div>
 
   <div class="level2">
     <img class="bg" src="assets/imgs/advanced/level-2-advanced.png" alt="中级">
@@ -57,7 +65,9 @@
     </div>
   </div>
 
-  <div class="default_process"></div>
+  <!-- <div class="default_progress p_level2"></div> -->
+  <!-- <div class="in_progress p_level2"></div> -->
+  <div class="finish_progress p_level2"></div> 
 
   <div class="level1">
     <img class="bg" src="assets/imgs/advanced/level-1-advanced.png" alt="初级">
@@ -70,10 +80,15 @@
     </div>
   </div>
 
-  <div class="default_process"></div>
+   <!--默认 进度条虚线-->
+  <!-- <div class="default_progress p_level1"></div> -->
+   <!--进行中 进度条粗实线 -->
+  <!-- <div class="in_progress p_level1"></div> -->
+   <!--已完成 进度条细实线 -->
+  <div class="finish_progress p_level1"></div>
 
   <div class="level0">
-    <img class="bg" src="assets/imgs/advanced/level-0-advanced.png" alt="新进销售顾问">
+    <img class="bg zero" src="assets/imgs/advanced/level-0-advanced.png" alt="新进销售顾问">
     <div class="posi-box">
       <div class="content">
         <span class="level-name">新进销售顾问</span>
