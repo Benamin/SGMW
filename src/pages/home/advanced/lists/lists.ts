@@ -9,11 +9,12 @@ import {HomeService} from "../../home.service";
 })
 export class AdvancedListsPage {
     page = {
+        plid: null,
         advancedArr: [
             {
                 title: "课程",
                 en: 'course',
-                isOpen: true,
+                isOpen: false,
                 listType: {
                     navliArr: [{
                         lable: 'all',
@@ -43,14 +44,14 @@ export class AdvancedListsPage {
             {
                 title: "考试",
                 en: 'exam',
-                isOpen: true,
+                isOpen: false,
                 listType: null,
                 lists: []
             },
             {
                 title: "其他",
                 en: 'other',
-                isOpen: true,
+                isOpen: false,
                 listType: null,
                 lists: []
             },
@@ -64,13 +65,17 @@ export class AdvancedListsPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        // private loadCtrl: LoadingController,
-        // private homeSer: HomeService
+        private loadCtrl: LoadingController,
+        private homeSer: HomeService
     ) {
     }
 
     ionViewDidEnter() {
-        console.log('JS:OK')
+        
+        this.page.plid = this.navParams.get('plid');
+        console.log('JS:OK', this.page.plid);
+        this.getAdvancedLists();
+        // this.getAdvancedLists();
     }
 
     // 二级导航切换 （注：考试不会有）
@@ -95,5 +100,26 @@ export class AdvancedListsPage {
     changeFold(advancedIndex) {
         this.page.advancedArr[advancedIndex].isOpen = !this.page.advancedArr[advancedIndex].isOpen;
     }
+
+    // 用户等级信息 获取学习情况
+    getAdvancedLists() {
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
+        this.homeSer.getAdvancedLists({
+            plid: 6,
+            csStatus: 2
+        }).subscribe(
+            (res) => {
+                console.log('获取学习情况', res)
+                // this.page.myInfo = res.data;
+                loading.dismiss();
+            }, err => {
+                loading.dismiss();
+            }
+        )
+    }
+
 
 }

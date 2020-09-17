@@ -252,9 +252,20 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/exam/SelectExamByStu', data);
     }
 
-
     //刷题考试回顾
     GetOldExamDetailByStu(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/exam/GetOldExamDetailByStu', data);
     }
+
+    // 用户等级信息
+    getAdvancedLevel(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/SelectApproeInformation', data);
+    }
+
+    // 用户等级对应学习情况
+    getAdvancedLists(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/SelectCsExamDeatil', data);
+    }
+
+
 }
