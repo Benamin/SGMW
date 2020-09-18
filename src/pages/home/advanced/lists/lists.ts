@@ -83,7 +83,7 @@ export class AdvancedListsPage {
     ionViewDidEnter() {
         
         this.page.plid = this.navParams.get('plid');
-        console.log('JS:OK', this.page.plid);
+        // console.log('JS:OK', this.page.plid);
         this.getAdvancedLists(2);
         // this.getAdvancedLists();
     }
@@ -91,7 +91,7 @@ export class AdvancedListsPage {
     // 二级导航切换 （注：考试不会有）
     changeSecNav(classNavIndex, bool) {
         if (bool) return;
-        console.log('bool', bool)
+        // console.log('bool', bool)
         let navliArr = Object.assign([], this.page.advancedArr[0].listType.navliArr);
         for (var i=0;i<navliArr.length; i++) {
             navliArr[i].isActived = false;
@@ -128,18 +128,18 @@ export class AdvancedListsPage {
         });
         loading.present();
         // learningState 课程状态 -1 未开始 0进行中 1已完成 2 所有
-        // let paramsObj = {
-        //     plid: this.page.plid,
-        //     csStatus: learningState
-        // }
         let paramsObj = {
-            plid: 6,
-            csStatus: 2
+            plid: this.page.plid,
+            csStatus: learningState
         }
+        // let paramsObj = { // 测试使用
+        //     plid: 6,
+        //     csStatus: 2
+        // }
         
         this.homeSer.getAdvancedLists(paramsObj).subscribe(
             (res) => {
-                console.log('获取学习情况', res)
+                // console.log('获取学习情况', res)
                 if (res.code === 200) {
                     this.page.advancedArr[0].lists = res.data.product; // 课程
                     this.page.advancedArr[1].lists = res.data.stuexam; // 考试
@@ -155,10 +155,6 @@ export class AdvancedListsPage {
     }
 
     // 点击课程
-    // goStudy(item) {
-    //     console.log('goStudy', item)
-    // }
-    // 点击考试
     //获取课程详情
     getCourseDetailById(id) {
         this.learSer.GetProductById(id).subscribe(

@@ -29,7 +29,6 @@ export class AdvancedLevelPage {
     }
 
     ionViewDidEnter() {
-        console.log('JS:OK');
         this.getAdvancedLevel();
     }
 

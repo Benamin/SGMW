@@ -204,10 +204,7 @@ page-level {
     width: 0.1rem;
     height: 5.2rem;
     z-index: -1;
-    // border-left: 1px dashed #FFFFFF;
-    // border-image: -webkit-linear-gradient(#EAC23A,#BED4E3) 0 0;
-    // border-image: -moz-linear-gradient(#EAC23A,#BED4E3) 0 0;
-    // border-image: linear-gradient(#EAC23A,#BED4E3) 0 0;
+
     &.now-level {
       height: 8.5rem;
     }
