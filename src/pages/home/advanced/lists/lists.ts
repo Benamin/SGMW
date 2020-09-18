@@ -9,6 +9,7 @@ import {HomeService} from "../../home.service";
 })
 export class AdvancedListsPage {
     page = {
+        defaultImg: 'assets/imgs/default.jpg',
         plid: null,
         advancedArr: [
             {
@@ -113,6 +114,12 @@ export class AdvancedListsPage {
         }).subscribe(
             (res) => {
                 console.log('获取学习情况', res)
+                if (res.code === 200) {
+                    this.page.advancedArr[0].lists = res.data.product; // 课程
+                    this.page.advancedArr[1].lists = res.data.stuexam; // 考试
+                    // this.page.advancedArr[2].lists = res.data.product; // 其他
+                }
+                
                 // this.page.myInfo = res.data;
                 loading.dismiss();
             }, err => {

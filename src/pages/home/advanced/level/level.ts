@@ -16,7 +16,8 @@ export class AdvancedLevelPage {
         getParams: null,
         hasArea: false,
         levelInformation: [],
-        nowLevel: 0
+        nowLevel: 0,
+        nowProgress: 0
     }
 
     constructor(
@@ -46,12 +47,15 @@ export class AdvancedLevelPage {
         this.homeSer.getAdvancedLevel({}).subscribe(
             (res) => {
                 if (res.code === 200) {
-                    console.log('Lv:', res)
-                   var nowLevel = Number(res.data.Level.split('LV')[1]);
+                    // console.log('Lv:', res)
+                   let nowLevel = Number(res.data.Level.split('LV')[1]);
                    this.page.levelInformation =  res.data.levelInformation;
                    this.page.nowLevel = nowLevel;
+                   let nowProgress = Number(res.data.schedule) || 0;
+                // let nowProgress = 30; // 模拟
+                   this.page.nowProgress = nowProgress
                 } else {
-                    console.log('获取学习情况', res)
+                    // console.log('获取学习情况', res)
                 }
                 
                 // this.page.myInfo = res.data;

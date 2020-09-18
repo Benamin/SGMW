@@ -11,7 +11,7 @@
       <img class="flod-icon" [ngClass]="{ 'fold-rolate': advancedItem.isOpen }" src="assets/imgs/advanced/zedie@2x.png" alt="折叠">
     </div>
     <!-- 课程 -->
-    <div class="item-course" [ngClass]="{ 'fold': advancedItem.isOpen}" *ngIf="advancedItem.en === 'course'">
+    <div class="item-course" [ngClass]="{ 'fold': advancedItem.isOpen}" *ngIf="advancedItem.en === 'course' && page.advancedArr[0].lists.length>0">
       <!-- 课程 二级导航 -->
       <div class="nav-type-2">
         <div class="btn-box">
@@ -24,11 +24,11 @@
       </div>
       <!-- 课程 二级导航 end-->
       <!-- 课程列表 -->
-      <div class="course-li">
-        <img src="assets/imgs/default.jpg" alt="课程图片">
+      <div class="course-li" *ngFor="let item of page.advancedArr[0].lists">
+        <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
         <div class="course-right">
           <div class="title article">
-            的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨
+            {{ item.Title }}
           </div>
           <div class="status">
             <img src="assets/imgs/advanced/status-finish.png"/>
@@ -63,11 +63,11 @@
       <div class="dir-title">KPI</div>
       <div class="other-li">
         <span class="title">参加认证当月以下KPI高于省份平均（系数取数）</span>
-        <span class="num">145</span>
+        <span class="num">0</span>
       </div>
       <div class="other-li">
         <span class="title">我的KPI系数</span>
-        <span class="num">45</span>
+        <span class="num">0</span>
       </div>
     </div>
 
