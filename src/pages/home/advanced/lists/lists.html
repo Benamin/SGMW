@@ -24,13 +24,21 @@
       </div>
       <!-- 课程 二级导航 end-->
       <!-- 课程列表 -->
-      <div class="course-li" *ngFor="let item of page.advancedArr[0].lists">
+      <div class="course-li" *ngFor="let item of page.advancedArr[0].lists" (click)="getCourseDetailById(item.Id)">
         <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
         <div class="course-right">
           <div class="title article">
             {{ item.Title }}
           </div>
-          <div class="status">
+          <div class="status" *ngIf="item.studystate === -1">
+            <img src="assets/imgs/advanced/status-default.png"/>
+            未开始
+          </div>
+          <div class="status" *ngIf="item.studystate === 0">
+            <img src="assets/imgs/advanced/status-doing.png"/>
+            进行中
+          </div>
+          <div class="status" *ngIf="item.studystate === 1">
             <img src="assets/imgs/advanced/status-finish.png"/>
             已完成
           </div>
@@ -39,16 +47,14 @@
     </div>
     <!-- 课程 end -->
     <!-- 考试列表 -->
-    <div class="item-exam" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'exam'">
-      <div class="exam-li">
+    <div class="item-exam" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'exam' && page.advancedArr[0].lists.length>0">
+      <div class="exam-li"  *ngFor="let item of page.advancedArr[1].lists" (click)="goExam(item)">
         <img src="assets/imgs/default.jpg" alt="课程图片">
         <div class="exam-right">
-          <div class="title">
-            的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨的发生的范德萨
-          </div>
-          <div class="achievement">85分通过</div>
+          <div class="title">{{ item.EName }}</div>
+          <div class="achievement" *ngIf="item.PassScore || item.PassScore === 0">{{ item.PassScore }}分通过</div>
           <div class="right_bottom">
-            <span style="color: #666;">时间：50分钟</span>
+            <span style="color: #666;">时间：{{ item.ExamTimer }}分钟</span>
             <div class="status">
               已完成
               <img src="assets/imgs/advanced/status-finish.png"/>
