@@ -36,6 +36,10 @@ import {SimulationDoTestPage} from "./simulation-test/simulation-do-test/simulat
 import {SimulationLookTestPage} from "./simulation-test/simulation-look-test/simulation-look-test";
 import {TreeModule} from 'ng2-tree'
 
+import {AdvancedLevelPage} from "./advanced/level/level";
+import {AdvancedListsPage} from "./advanced/lists/lists";
+
+
 @NgModule({
     declarations: [
         HomePage,
@@ -68,7 +72,9 @@ import {TreeModule} from 'ng2-tree'
         FwVideoPage,
         SimulationTestPage,
         SimulationDoTestPage,
-        SimulationLookTestPage
+        SimulationLookTestPage,
+        AdvancedLevelPage,
+        AdvancedListsPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -106,7 +112,9 @@ import {TreeModule} from 'ng2-tree'
         FwVideoPage,
         SimulationTestPage,
         SimulationDoTestPage,
-        SimulationLookTestPage
+        SimulationLookTestPage,
+        AdvancedLevelPage,
+        AdvancedListsPage
     ]
 })
 export class HomeModule {

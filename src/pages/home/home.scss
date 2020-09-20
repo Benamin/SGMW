@@ -57,6 +57,20 @@ page-home {
     transition: all 500ms;
   }
 
+  .category-box {
+    .swiper-pagination-bullet {
+      width: 5px;
+      height: 5px;
+    }
+
+    .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+      bottom: 0;
+    }
+    .swiper-pagination-bullet-active {
+      width: 23px;
+    }
+  }
+
   .search-button .button-inner {
     height: 3rem;
   }
