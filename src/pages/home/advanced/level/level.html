@@ -8,16 +8,16 @@
 
   <div class="level-top" *ngIf="page.nowLevel > 0">
     <img *ngIf="page.nowLevel == 0" class="bg" src="assets/imgs/advanced/level-0.png" alt="当前阶级(新进销售顾问)">
-    <img *ngIf="page.nowLevel == 1" class="bg" src="assets/imgs/advanced/level-1.png" alt="当前阶级(初级)">
-    <img *ngIf="page.nowLevel == 2" class="bg" src="assets/imgs/advanced/level-2.png" alt="当前阶级(中级)">
-    <img *ngIf="page.nowLevel == 3" class="bg" src="assets/imgs/advanced/level-3.png" alt="当前阶级(高级)">
+    <img *ngIf="page.nowLevel == 1" class="bg" src="assets/imgs/advanced/level-1.png" alt="当前阶级(实习顾问)">
+    <img *ngIf="page.nowLevel == 2" class="bg" src="assets/imgs/advanced/level-2.png" alt="当前阶级(销售顾问)">
+    <img *ngIf="page.nowLevel == 3" class="bg" src="assets/imgs/advanced/level-3.png" alt="当前阶级(资深顾问)">
     <img *ngIf="page.nowLevel == 4" class="bg" src="assets/imgs/advanced/level-4.png" alt="当前阶级(体验专家)">
     <div class="posi-box">
       <div class="content">
         <span *ngIf="page.nowLevel == 1" class="level-text-left" style="color: #FFC9B1;">新进销售顾问</span>
-        <span *ngIf="page.nowLevel == 1" class="level-text-left" style="color: #FFC9B1;">初级</span>
-        <span *ngIf="page.nowLevel == 2" class="level-text-left" style="color: #708591;">中级</span>
-        <span *ngIf="page.nowLevel == 3" class="level-text-left" style="color: #EAC23A;">高级</span>
+        <span *ngIf="page.nowLevel == 1" class="level-text-left" style="color: #FFC9B1;">实习顾问</span>
+        <span *ngIf="page.nowLevel == 2" class="level-text-left" style="color: #708591;">销售顾问</span>
+        <span *ngIf="page.nowLevel == 3" class="level-text-left" style="color: #EAC23A;">资深顾问</span>
         <span *ngIf="page.nowLevel == 4" class="level-text-left" style="color: #9549BC;">体验专家</span>
 
         <img *ngIf="page.nowLevel >= 1" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
@@ -57,7 +57,7 @@
       <div *ngIf="page.nowLevel === 3" class="line-text-box">
         <div class="box-text">
           <span class="text-p">{{page.nowProgress}}%</span>
-          <span class="text-l">高级学习进度</span>
+          <span class="text-l">专家学习进度</span>
         </div>
         <div class="gl">再接再厉 更上一层！</div>
       </div>
@@ -70,7 +70,7 @@
       <img class="bg" src="assets/imgs/advanced/level-3-advanced.png" alt="高级">
       <div class="posi-box">
         <div class="content">
-          <span class="level-name">高级</span>
+          <span class="level-name">资深顾问</span>
           <span class="level-status">{{ page.nowLevel >= 3 ? '已完成' : page.nowLevel == 2 ? '进行中' : '' }}</span>
           <img *ngIf="page.nowLevel >= 3" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
           <img *ngIf="page.nowLevel < 3" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
@@ -89,7 +89,7 @@
       <div *ngIf="page.nowLevel === 2" class="line-text-box">
         <div class="box-text">
           <span class="text-p">{{page.nowProgress}}%</span>
-          <span class="text-l">中级学习进度</span>
+          <span class="text-l">高级学习进度</span>
         </div>
         <div class="gl">再接再厉 更上一层！</div>
       </div>
@@ -102,7 +102,7 @@
       <img class="bg" src="assets/imgs/advanced/level-2-advanced.png" alt="中级">
       <div class="posi-box">
         <div class="content">
-          <span class="level-name">中级</span>
+          <span class="level-name">销售顾问</span>
           <span class="level-status">{{ page.nowLevel >= 2 ? '已完成' : page.nowLevel == 1 ? '进行中' : '' }}</span>
           <img *ngIf="page.nowLevel >= 2" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
           <img *ngIf="page.nowLevel < 2" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
@@ -121,7 +121,7 @@
       <div *ngIf="page.nowLevel === 1" class="line-text-box">
         <div class="box-text">
           <span class="text-p">{{page.nowProgress}}%</span>
-          <span class="text-l">初级学习进度</span>
+          <span class="text-l">中级学习进度</span>
         </div>
         <div class="gl">再接再厉 更上一层！</div>
       </div>
@@ -134,7 +134,7 @@
       <img class="bg" src="assets/imgs/advanced/level-1-advanced.png" alt="初级">
       <div class="posi-box">
         <div class="content">
-          <span class="level-name">初级</span>
+          <span class="level-name">实习顾问</span>
           <span class="level-status">{{ page.nowLevel >= 1 ? '已完成' : '进行中' }}</span>
           <img *ngIf="page.nowLevel >= 1" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
           <img *ngIf="page.nowLevel < 1" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
@@ -153,7 +153,7 @@
       <div *ngIf="page.nowLevel === 0" class="line-text-box">
         <div class="box-text">
           <span class="text-p">{{page.nowProgress}}%</span>
-          <span class="text-l">新进销售顾问学习进度</span>
+          <span class="text-l">初级学习进度</span>
         </div>
         <div class="gl">再接再厉 更上一层！</div>
       </div>
@@ -169,7 +169,5 @@
       </div>
     </div>
   </div>
-  设置勋章
-  <div (click)="goAdvancedLists()">认证进阶</div>
 
 </ion-content>
