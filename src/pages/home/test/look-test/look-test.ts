@@ -21,9 +21,11 @@ export class LookTestPage {
     doneTotal = 0;
     opTips;
 
+    isTestEnd = false;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController,
-                private homeSer:HomeService,
-                private commonSer:CommonService,
+                private homeSer: HomeService,
+                private commonSer: CommonService,
                 private mineSer: MineService, private loadCtrl: LoadingController, private storage: Storage) {
 
     }
@@ -39,11 +41,16 @@ export class LookTestPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
-                if(res.Result == 1){
+                if (res.Result == 1) {
                     this.commonSer.toast(res.Message);
                 }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
+
+                if (Date.now() > this.commonSer.transFormTime(this.exam.ExamInfo.ExamEnd)) {
+                    this.isTestEnd = true;
+                }
+
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
@@ -53,7 +60,7 @@ export class LookTestPage {
     }
 
     slideChanged() {
-        if(this.slides.realIndex) this.index = this.slides.realIndex;
+        if (this.slides.realIndex) this.index = this.slides.realIndex;
     }
 
     //查看题目

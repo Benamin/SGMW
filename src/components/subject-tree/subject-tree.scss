@@ -11,9 +11,12 @@ subject-tree {
   }
 
   .subject {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  }
+
+  .chil1 {
+    > p {
+      font-weight: bold;
+    }
   }
 
   .qIndex {
@@ -26,14 +29,9 @@ subject-tree {
 
     .item-style {
       font-weight: normal;
-      text-align: center;
       font-size: 13px;
-      width: 80px;
-      height: 27px;
-      line-height: 27px;
-      margin-right: 5px;
-      margin-bottom: 10px;
-      background: rgba(238, 238, 238, 1);
+      margin-bottom: 6px;
+      padding: 8px 0;
       border-radius: 2px;
     }
 
@@ -53,5 +51,14 @@ subject-tree {
   .parent + .parent {
     border-top: 1px solid #ddd;
     margin-top: 5px;
+  }
+
+  .p_flex {
+    display: flex;
+    align-items: center;
+
+    ion-icon {
+      margin-left: 6px;
+    }
   }
 }

@@ -166,7 +166,7 @@ export class SimulationDoTestPage {
                         this.commonSer.toast('暂存成功');
                         this.navCtrl.pop();
                     } else {
-                        this.commonSer.toast(res.Message);
+                        this.commonSer.toast(res.message);
                     }
                 }
             )

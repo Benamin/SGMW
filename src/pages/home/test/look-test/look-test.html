@@ -176,19 +176,27 @@
                                 </ng-container>
                             </div>
                         </div>
-                        <ng-container *ngIf="item.QAnswer;else other_content">
+                        <ng-container *ngIf="!isTestEnd">
                             <div class="item-answer">
-                                答案：
-                                <ng-container *ngIf="item.QType == 3">{{item.QAnswer == 1 ? 'A' : 'B'}}</ng-container>
-                                <ng-container *ngIf="item.QType != 3">{{item.QAnswer}}</ng-container>
-                            </div>
-                            <div class="item-explain">
-                                解析：{{item.Explain}}
+                                对不起，考试尚未全部结束，待考试结束了统一开放答案
                             </div>
                         </ng-container>
-                        <ng-template #other_content>
-                            <div class="noDone">未答题</div>
-                        </ng-template>
+                        <ng-container *ngIf="isTestEnd">
+                            <ng-container *ngIf="item.QAnswer;else other_content">
+                                <div class="item-answer">
+                                    答案：
+                                    <ng-container
+                                            *ngIf="item.QType == 3">{{item.QAnswer == 1 ? 'A' : 'B'}}</ng-container>
+                                    <ng-container *ngIf="item.QType != 3">{{item.QAnswer}}</ng-container>
+                                </div>
+                                <div class="item-explain">
+                                    解析：{{item.Explain}}
+                                </div>
+                            </ng-container>
+                            <ng-template #other_content>
+                                <div class="noDone">未答题</div>
+                            </ng-template>
+                        </ng-container>
                     </div>
                 </div>
             </ion-slide>
