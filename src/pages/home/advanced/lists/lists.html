@@ -11,9 +11,9 @@
       <img class="flod-icon" [ngClass]="{ 'fold-rolate': advancedItem.isOpen }" src="assets/imgs/advanced/zedie@2x.png" alt="折叠">
     </div>
     <!-- 课程 -->
-    <div class="item-course" [ngClass]="{ 'fold': advancedItem.isOpen}" *ngIf="advancedItem.en === 'course' && page.advancedArr[0].lists.length>0">
+    <div class="item-course" [ngClass]="{ 'fold': advancedItem.isOpen}" *ngIf="advancedItem.en === 'course'">
       <!-- 课程 二级导航 -->
-      <div class="nav-type-2">
+      <div class="nav-type-2" [ngStyle]="{'padding-bottom': page.advancedArr[0].lists.length === 0 ? '10px' : 0 }">
         <div class="btn-box">
             <div (click)="changeSecNav(classNavIndex, item.isActived)"
                 *ngFor="let item of page.advancedArr[0].listType.navliArr; let classNavIndex = index" class="type-btn"
@@ -24,30 +24,32 @@
       </div>
       <!-- 课程 二级导航 end-->
       <!-- 课程列表 -->
-      <div class="course-li" *ngFor="let item of page.advancedArr[0].lists" (click)="getCourseDetailById(item.Id)">
-        <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
-        <div class="course-right">
-          <div class="title article">
-            {{ item.Title }}
-          </div>
-          <div class="status" *ngIf="item.studystate === -1">
-            <img src="assets/imgs/advanced/status-default.png"/>
-            未开始
-          </div>
-          <div class="status" *ngIf="item.studystate === 0">
-            <img src="assets/imgs/advanced/status-doing.png"/>
-            进行中
-          </div>
-          <div class="status" *ngIf="item.studystate === 1">
-            <img src="assets/imgs/advanced/status-finish.png"/>
-            已完成
+      <div *ngIf="page.advancedArr[0].lists.length>0">
+        <div class="course-li" *ngFor="let item of page.advancedArr[0].lists" (click)="getCourseDetailById(item.Id)">
+          <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
+          <div class="course-right">
+            <div class="title article">
+              {{ item.Title }}
+            </div>
+            <div class="status" *ngIf="item.studystate === -1">
+              <img src="assets/imgs/advanced/status-default.png"/>
+              未开始
+            </div>
+            <div class="status" *ngIf="item.studystate === 0">
+              <img src="assets/imgs/advanced/status-doing.png"/>
+              进行中
+            </div>
+            <div class="status" *ngIf="item.studystate === 1">
+              <img src="assets/imgs/advanced/status-finish.png"/>
+              已完成
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- 课程 end -->
     <!-- 考试列表 -->
-    <div class="item-exam" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'exam' && page.advancedArr[0].lists.length>0">
+    <div class="item-exam" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'exam' && page.advancedArr[1].lists.length>0">
       <div class="exam-li"  *ngFor="let item of page.advancedArr[1].lists" (click)="goExam(item)">
         <img src="assets/imgs/default.jpg" alt="课程图片">
         <div class="exam-right">
@@ -57,7 +59,8 @@
             <span style="color: #666;">时间：{{ item.ExamTimer }}分钟</span>
             <div class="status">
               已完成
-              <img src="assets/imgs/advanced/status-finish.png"/>
+              <img src="assets/imgs/advanced/logo-actived.png"/>
+              <!-- <img src="assets/imgs/advanced/status-finish.png"/> -->
             </div>
           </div>
         </div>
