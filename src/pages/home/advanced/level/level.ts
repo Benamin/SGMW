@@ -47,10 +47,19 @@ export class AdvancedLevelPage {
             (res) => {
                 if (res.code === 200) {
                     // console.log('Lv:', res)
-                   let nowLevel = Number(res.data.Level.split('LV')[1]);
+                //    let nowLevel = Number(res.data.Level.split('LV')[1]);
+                   let nowLevel = res.data.Hierarchy - 1;
                    this.page.levelInformation =  res.data.levelInformation;
                    this.page.nowLevel = nowLevel;
-                   let nowProgress = Number(res.data.schedule) || 0;
+                   let schedule = res.data.schedule;
+                   let nowProgress = Number(schedule) || 0;
+                   if (typeof schedule === 'string' && schedule.indexOf(" %") != -1) {
+                    nowProgress = Number(schedule.split(' ')[0]);
+                   } else {
+                    nowProgress = Number(schedule);
+                   }
+                   
+                   console.log('nowProgress', nowProgress)
                 // let nowProgress = 30; // 模拟
                    this.page.nowProgress = nowProgress
                 } else {
