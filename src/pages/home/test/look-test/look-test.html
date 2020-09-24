@@ -178,7 +178,7 @@
                         </div>
                         <ng-container *ngIf="!isTestEnd">
                             <div class="item-answer">
-                                对不起，考试尚未全部结束，待考试结束了统一开放答案
+                                考试尚未结束，答案将在{{exam.ExamInfo.ExamEnd | date:'yyyy-MM-dd HH:mm:ss'}} 考试结束后统一开放。
                             </div>
                         </ng-container>
                         <ng-container *ngIf="isTestEnd">
