@@ -88,11 +88,6 @@ export class HomePage implements OnInit {
                 private learSer: LearnService,
                 private forum_serve: ForumService) {
         this.statusBar.backgroundColorByHexString('#343435');
-        this.storage.get('user').then(value => {
-            if (value) {
-                this.mineInfo = value;
-            }
-        });
         let app_url = (window as any).localStorage.getItem("app_url");
 
         if (app_url) {
@@ -128,6 +123,11 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        this.storage.get('user').then(value => {
+            if (value) {
+                this.mineInfo = value;
+            }
+        });
         // this.getCompetitionId();
         // this.getServerCompetition();
     }

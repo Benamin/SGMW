@@ -39,6 +39,7 @@ import {BackButtonService} from "../core/backButton.service";
 import {EmitService} from "../core/emit.service";
 import {SimulationTestPage} from "../pages/home/simulation-test/simulation-test";
 import {HTTP} from "@ionic-native/http";
+import {DataFormatService} from "../core/dataFormat.service";
 
 @Component({
     templateUrl: 'app.html'
@@ -83,6 +84,7 @@ export class MyApp {
                 private nativeHttp: HTTP,
                 private Keyboard: Keyboard,
                 private jPush: JPush,
+                private dataForm: DataFormatService,
                 public eventEmitSer: EmitService,
                 private ionicApp: IonicApp,
                 private menuCtrl: MenuController,
@@ -92,19 +94,8 @@ export class MyApp {
                 public toastCtrl: ToastController,
                 private splashScreen: SplashScreen, private storage: Storage, private loginSer: LoginService) {
         (window as any).handleOpenURL = (url: string) => {
-            console.log('handleOpenURL', url);
-            if (url.includes('JumpURL')) {
-                this.storage.get('Authorization').then((value) => {
-                    if (value) {
-                        const req = <any>this.getRequest.getParamsByHybrid(url);
-                        this.storage.set('CourseId', req.CourseId);
-                    } else {
-                        this.checkAuthByHybrid(url);
-                    }
-                })
-            } else {
-                (window as any).localStorage.setItem("app_url", url);
-            }
+            // this.commonSer.alert(`handleOpenURL：${url}`);
+            (window as any).localStorage.setItem("app_url", url);
         };
 
         this.eventEmitSer.eventEmit.subscribe((value: any) => {
@@ -137,6 +128,26 @@ export class MyApp {
             //IOS兼容性方法
             this.compatibleIOS();
         });
+
+        this.platform.resume.subscribe(() => {
+            (window as any).handleOpenURL = (url: string) => {
+                // this.commonSer.alert(`resume：${url}`);
+                if (url.includes('JumpURL')) {
+                    this.storage.get('user').then((value) => {
+                        if (value && value.CardNo) {
+                            const req = <any>this.getRequest.getParamsByHybrid(url);
+                            if (req.CardNo !== value.CardNo) {
+                                this.checkAuthByHybrid(url);
+                            } else {
+                                this.storage.set('CourseId', req.CourseId);
+                            }
+                        } else {
+                            this.checkAuthByHybrid(url);
+                        }
+                    })
+                }
+            }
+        })
     }
 
     //ios13兼容
@@ -219,14 +230,16 @@ export class MyApp {
      * 原生跳转
      */
     checkAuth() {
-        //骏客app权限校验
         const req = <any>this.getRequest.getParams();
+        console.log(req);
         if (req.source != undefined && req.source) {
             const source = req.source;
             const token = req.token;
             if (source == "Junke") this.trainAuth(token);
             if (source == "xszs") this.XSZSLogin(req);
-            if (source == 'nxszs') this.NXSZSLogin(req);
+        } else if (req.Source != undefined && req.Source) {
+            const Source = req.Source;
+            if (Source == 'nxszs') this.NXSZSLogin(req);
         } else {
             this.checkLogin();
         }
@@ -279,11 +292,13 @@ export class MyApp {
             unionId: req.unionId
         }
         const header = {
-            clientId: 'elearning'
+            "clientId": 'elearning',
+            "content-type": "application/x-www-form-urlencoded",
         }
         console.log('NXSZSLogin', JSON.stringify(data));
         this.showLoading();
-        this.nativeHttp.setDataSerializer('json');
+        this.nativeHttp.setDataSerializer('urlencoded');
+        this.nativeHttp.setHeader('*', 'Content-Type', 'application/x-www-form-urlencoded');
         this.nativeHttp.post(`${NXSZS_HTTP_URL}/user/api/checkUserByAccessToken`, data, header).then(
             (response) => {
                 let res = JSON.parse(response.data);

@@ -7,7 +7,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://devapi1.chinacloudsites.cn/api"
+      "proxyUrl": "http://devapi1.chinacloudsites.cn/api"
     },
     {
       "path": "/XSZSAPI",
@@ -21,6 +21,5 @@
       "path": "/FWZSAPI",
       "proxyUrl": "https://sgmwsa.shaoxingzhuoyue.com/api"
     }
-  ],
-  "app_id": ""
+  ]
 }

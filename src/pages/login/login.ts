@@ -124,7 +124,7 @@ export class LoginPage {
         this.statusBar.backgroundColorByHexString('#1a1a1a');
         console.log(this.platform.is('mobileweb'))
         console.log(this.platform.is('core'))
-        if (this.platform.is('mobileweb') || this.platform.is('code')) {
+        if (this.platform.is('mobileweb') || this.platform.is('core')) {
             this.isMobile = false;
         }
     }
