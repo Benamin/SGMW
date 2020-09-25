@@ -251,6 +251,7 @@ export class HomeService {
     SelectExamByStu(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/exam/SelectExamByStu', data);
     }
+    
 
     //刷题考试回顾
     GetOldExamDetailByStu(data): Observable<any> {
