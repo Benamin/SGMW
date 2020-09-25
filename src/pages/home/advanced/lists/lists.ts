@@ -16,6 +16,7 @@ import {CourseDetailPage} from "../../../learning/course-detail/course-detail";
 })
 export class AdvancedListsPage {
     page = {
+        Level: '',
         defaultImg: 'assets/imgs/default.jpg',
         canClick: false,
         plid: null,
@@ -82,6 +83,7 @@ export class AdvancedListsPage {
     }
 
     ionViewDidEnter() {
+        this.page.Level = this.navParams.get('Level');
         this.page.canClick = this.navParams.get('canClick');
         this.page.plid = this.navParams.get('plid');
         // console.log('JS:OK', this.page.plid);

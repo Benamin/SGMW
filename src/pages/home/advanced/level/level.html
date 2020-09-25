@@ -34,14 +34,14 @@
   </div>
 
   <div *ngIf="page.levelInformation.length > 4" class="level-box">
-    <div class="level4" (click)="goAdvancedLists(page.levelInformation[4].ID, page.levelInformation[4].Hierarchy)">
+    <div class="level4" (click)="goAdvancedLists(page.levelInformation[4])">
       <img class="bg" src="assets/imgs/advanced/level-4-advanced.png" alt="体验专家">
       <div class="posi-box">
         <div class="content">
           <span class="level-name">{{page.levelInformation[4].Level}}</span>
           <span class="level-status">{{ page.nowLevel >= 4 ? '已完成' : page.nowLevel == 3 ? '进行中' : '' }}</span>
           <img *ngIf="page.nowLevel >= 4" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
-          <img *ngIf="page.nowLevel < 4" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
+          <img *ngIf="page.nowLevel < 4 && page.nowLevel !== 3" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@
       <!--已完成 进度条细实线 -->
       <div *ngIf="page.nowLevel > 3" class="finish_progress p_level4"></div>
 
-      <div *ngIf="page.nowLevel === 3" class="line-text-box">
+      <div *ngIf="page.nowLevel === 3" class="line-text-box" (click)="goAdvancedLists(page.levelInformation[4])">
         <div class="box-text">
           <span class="text-p">{{page.nowProgress  * 100}}%</span>
           <span class="text-l">专家学习进度</span>
@@ -66,14 +66,14 @@
   </div>
 
   <div *ngIf="page.levelInformation.length > 3" class="level-box">
-    <div class="level3" (click)="goAdvancedLists(page.levelInformation[3].ID, page.levelInformation[3].Hierarchy)">
+    <div class="level3" (click)="goAdvancedLists(page.levelInformation[3])">
       <img class="bg" src="assets/imgs/advanced/level-3-advanced.png" alt="高级">
       <div class="posi-box">
         <div class="content">
           <span class="level-name">{{page.levelInformation[3].Level}}</span>
           <span class="level-status">{{ page.nowLevel >= 3 ? '已完成' : page.nowLevel == 2 ? '进行中' : '' }}</span>
           <img *ngIf="page.nowLevel >= 3" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
-          <img *ngIf="page.nowLevel < 3" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
+          <img *ngIf="page.nowLevel < 3 && page.nowLevel !== 2" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@
       <!--已完成 进度条细实线 -->
       <div *ngIf="page.nowLevel > 2" class="finish_progress p_level3"></div>
 
-      <div *ngIf="page.nowLevel === 2" class="line-text-box">
+      <div *ngIf="page.nowLevel === 2" class="line-text-box" (click)="goAdvancedLists(page.levelInformation[3])">
         <div class="box-text">
           <span class="text-p">{{page.nowProgress * 100}}%</span>
           <span class="text-l">高级学习进度</span>
@@ -97,14 +97,14 @@
   </div>
 
   <div *ngIf="page.levelInformation.length > 2" class="level-box">
-    <div class="level2" (click)="goAdvancedLists(page.levelInformation[2].ID, page.levelInformation[2].Hierarchy)">
+    <div class="level2" (click)="goAdvancedLists(page.levelInformation[2])">
       <img class="bg" src="assets/imgs/advanced/level-2-advanced.png" alt="中级">
       <div class="posi-box">
         <div class="content">
           <span class="level-name">{{page.levelInformation[2].Level}}</span>
           <span class="level-status">{{ page.nowLevel >= 2 ? '已完成' : page.nowLevel == 1 ? '进行中' : '' }}</span>
           <img *ngIf="page.nowLevel >= 2" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
-          <img *ngIf="page.nowLevel < 2" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
+          <img *ngIf="page.nowLevel < 2 && page.nowLevel !== 1" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
         </div>
       </div>
     </div>
@@ -117,7 +117,7 @@
       <!--已完成 进度条细实线 -->
       <div *ngIf="page.nowLevel > 1" class="finish_progress p_level2"></div>
 
-      <div *ngIf="page.nowLevel === 1" class="line-text-box">
+      <div *ngIf="page.nowLevel === 1" class="line-text-box" (click)="goAdvancedLists(page.levelInformation[2])">
         <div class="box-text">
           <span class="text-p">{{page.nowProgress * 100}}%</span>
           <span class="text-l">中级学习进度</span>
@@ -128,14 +128,14 @@
   </div>
 
   <div *ngIf="page.levelInformation.length > 1" class="level-box">
-    <div class="level1" (click)="goAdvancedLists(page.levelInformation[1].ID, page.levelInformation[1].Hierarchy)">
+    <div class="level1"  (click)="goAdvancedLists(page.levelInformation[1])">
       <img class="bg" src="assets/imgs/advanced/level-1-advanced.png" alt="初级">
       <div class="posi-box">
         <div class="content">
           <span class="level-name">{{page.levelInformation[1].Level}}</span>
           <span class="level-status">{{ page.nowLevel >= 1 ? '已完成' : '进行中' }}</span>
           <img *ngIf="page.nowLevel >= 1" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
-          <img *ngIf="page.nowLevel < 1" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">
+          <!--<img *ngIf="page.nowLevel < 1 && page.nowLevel !== 0" class="level-lock" src="assets/imgs/advanced/lock-icon.png" alt="lock图标">-->
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@
       <!--已完成 进度条细实线 -->
       <div *ngIf="page.nowLevel > 0" class="finish_progress p_level1"></div>
 
-      <div *ngIf="page.nowLevel === 0" class="line-text-box">
+      <div *ngIf="page.nowLevel === 0" class="line-text-box" (click)="goAdvancedLists(page.levelInformation[1])">
         <div class="box-text">
           <span class="text-p">{{page.nowProgress  * 100}}%</span>
           <span class="text-l">初级学习进度</span>
@@ -158,7 +158,7 @@
     </div>
   </div>
 
-  <div *ngIf="page.levelInformation.length > 0" class="level0" (click)="goAdvancedLists(page.levelInformation[0].ID,page.levelInformation[0].Hierarchy)">
+  <div *ngIf="page.levelInformation.length > 0" class="level0">
     <img class="bg zero" src="assets/imgs/advanced/level-0-advanced.png" alt="新进销售顾问">
     <div class="posi-box">
       <div class="content">
