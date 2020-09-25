@@ -232,14 +232,15 @@ export class MyApp {
     checkAuth() {
         const req = <any>this.getRequest.getParams();
         console.log(req);
+        if (req.JumpURL == "course") {   //新销售助手判断
+            req.source = 'nxszs';
+        }
         if (req.source != undefined && req.source) {
             const source = req.source;
             const token = req.token;
             if (source == "Junke") this.trainAuth(token);
             if (source == "xszs") this.XSZSLogin(req);
-        } else if (req.Source != undefined && req.Source) {
-            const Source = req.Source;
-            if (Source == 'nxszs') this.NXSZSLogin(req);
+            if (source == 'nxszs') this.NXSZSLogin(req);
         } else {
             this.checkLogin();
         }
@@ -305,6 +306,7 @@ export class MyApp {
                 if (res.code == 200) {
                     console.log('NXSZSLogin', JSON.stringify(res))
                     this.storage.set('CourseId', req.CourseId);
+                    req.Name = res.data.name;
                     this.connectTokenByNXSZS(req);
                 } else {
                     this.dismissLoading();
