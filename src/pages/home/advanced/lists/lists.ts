@@ -30,17 +30,17 @@ export class AdvancedListsPage {
                         text: '全部',
                         total: 0,
                         isActived: true
-                    },{
+                    }, {
                         lable: 'doing',
                         text: '进行中',
                         total: 0,
                         isActived: false
-                    },{
+                    }, {
                         lable: 'finish',
                         text: '已完成',
                         total: 0,
                         isActived: false
-                    },{
+                    }, {
                         lable: 'not-started',
                         text: '未开始',
                         total: 0,
@@ -94,7 +94,7 @@ export class AdvancedListsPage {
         if (bool) return;
         // console.log('bool', bool)
         let navliArr = Object.assign([], this.page.advancedArr[0].listType.navliArr);
-        for (var i=0;i<navliArr.length; i++) {
+        for (var i = 0; i < navliArr.length; i++) {
             navliArr[i].isActived = false;
         }
         navliArr[classNavIndex].isActived = true;
@@ -123,7 +123,7 @@ export class AdvancedListsPage {
 
     // 用户等级信息 获取学习情况
     getAdvancedLists(learningState) {
-       
+
         let loading = this.loadCtrl.create({
             content: ''
         });
@@ -137,7 +137,7 @@ export class AdvancedListsPage {
         //     plid: 6,
         //     csStatus: 2
         // }
-        
+
         this.homeSer.getAdvancedLists(paramsObj).subscribe(
             (res) => {
                 // console.log('获取学习情况', res)
@@ -146,7 +146,7 @@ export class AdvancedListsPage {
                     this.page.advancedArr[1].lists = res.data.stuexam; // 考试
                     // this.page.advancedArr[2].lists = res.data.product; // 其他
                 }
-                
+
                 // this.page.myInfo = res.data;
                 loading.dismiss();
             }, err => {
@@ -158,7 +158,7 @@ export class AdvancedListsPage {
     // 点击课程
     //获取课程详情
     getCourseDetailById(id) {
-        if(!this.page.canClick) {
+        if (!this.page.canClick) {
             this.commonSer.alert('请先完成当前级别学习!');
             return
         }
@@ -183,18 +183,27 @@ export class AdvancedListsPage {
 
     // 点击考试列表
     goExam(item) {
-        if(!this.page.canClick) {
+        if (!this.page.canClick) {
             this.commonSer.alert('请先完成当前级别学习!');
             return
         }
-        if(item.ID) item.Fid = item.ID
-        if (item.StudyState == 3) {
-            this.navCtrl.push(LookTestPage, {item: item});
+        if (item.ID) item.Fid = item.ID;
+        let canTest = this.page.advancedArr[0].lists.every(e => e.studystate === 2)
+
+        if (!canTest) {
+            this.commonSer.alert('请先完成课程内容!');
+            return;
+        }
+
+        //1、所有课程完成 即可考试 不考虑 考试的开始时间和结束时间
+        //2、未通过可以继续考试
+        if (item.TotalScore < item.PassScore) {
+            this.navCtrl.push(DoTestPage, {item: item, sourceType: 'advance'});
         } else {
-            this.checkTesttime(item);
+            this.commonSer.alert('恭喜您！考试已通过！');
         }
     }
-    
+
     //考试有效期校验
     checkTesttime(item) {
         const loading = this.loadCtrl.create({

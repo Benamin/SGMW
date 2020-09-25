@@ -36,6 +36,9 @@ export class DoTestPage {
     totalTime;
     useTime = 0;  //用时
 
+    // advance 学习进阶
+    sourceType;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private storage: Storage,
                 private homeSer: HomeService,
@@ -56,6 +59,7 @@ export class DoTestPage {
         });
         loading.present();
         const item = this.navParams.get('item');
+        this.sourceType = this.navParams.get('sourceType');
         const data = {
             Fid: item.Fid
         };
@@ -67,12 +71,19 @@ export class DoTestPage {
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;
-                this.exam.QnAInfos.forEach(e => {
-                    if (e.StuAnswer && e.StuAnswer != "") {
-                        e.StuAnswer = e.StuAnswer.split(',').join('');
-                        this.doneTotal++;
-                    }
-                });
+
+                if (this.sourceType && this.sourceType == 'advance') {
+                    this.exam.QnAInfos.forEach(e => e.StuAnswer = '');
+                } else {
+                    this.exam.QnAInfos.forEach(e => {
+                        if (e.StuAnswer && e.StuAnswer != "") {
+                            e.StuAnswer = e.StuAnswer.split(',').join('');
+                            this.doneTotal++;
+                        }
+                    });
+                }
+
+
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
@@ -185,7 +196,7 @@ export class DoTestPage {
                         this.commonSer.toast('暂存成功');
                         this.navCtrl.pop();
                     } else {
-                        this.commonSer.toast(res.Message);
+                        this.commonSer.alert(res.message);
                     }
                 }
             )
