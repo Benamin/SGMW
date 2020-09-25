@@ -54,10 +54,10 @@
         <img src="assets/imgs/default.jpg" alt="课程图片">
         <div class="exam-right">
           <div class="title">{{ item.EName }}</div>
-          <div class="achievement" *ngIf="item.PassScore || item.PassScore === 0">{{ item.PassScore }}分通过</div>
+          <div class="achievement">本场考试：{{ item.PassScore + '分通过' }}</div>
           <div class="right_bottom">
-            <span style="color: #666;">时间：{{ item.ExamTimer }}分钟</span>
-            <div class="status">
+            <span style="color: #666;">时间：{{ item.ExamTimer === 0 ? '不限时': item.ExamTimer + '分钟' }}</span>
+            <div class="status" *ngIf="item.ExamStatus == 8">
               已完成
               <img src="assets/imgs/advanced/logo-actived.png"/>
               <!-- <img src="assets/imgs/advanced/status-finish.png"/> -->

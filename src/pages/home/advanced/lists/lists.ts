@@ -17,6 +17,7 @@ import {CourseDetailPage} from "../../../learning/course-detail/course-detail";
 export class AdvancedListsPage {
     page = {
         defaultImg: 'assets/imgs/default.jpg',
+        canClick: false,
         plid: null,
         advancedArr: [
             {
@@ -81,7 +82,7 @@ export class AdvancedListsPage {
     }
 
     ionViewDidEnter() {
-        
+        this.page.canClick = this.navParams.get('canClick');
         this.page.plid = this.navParams.get('plid');
         // console.log('JS:OK', this.page.plid);
         this.getAdvancedLists(2);
@@ -157,6 +158,10 @@ export class AdvancedListsPage {
     // 点击课程
     //获取课程详情
     getCourseDetailById(id) {
+        if(!this.page.canClick) {
+            this.commonSer.alert('请先完成当前级别学习!');
+            return
+        }
         this.learSer.GetProductById(id).subscribe(
             (res) => {
                 if (res.data) {
@@ -178,6 +183,10 @@ export class AdvancedListsPage {
 
     // 点击考试列表
     goExam(item) {
+        if(!this.page.canClick) {
+            this.commonSer.alert('请先完成当前级别学习!');
+            return
+        }
         if(item.ID) item.Fid = item.ID
         if (item.StudyState == 3) {
             this.navCtrl.push(LookTestPage, {item: item});
