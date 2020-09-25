@@ -33,9 +33,10 @@ export class AdvancedLevelPage {
     }
 
     // 前往 认证进阶 的 勋章设置
-    goAdvancedLists(plid, level) {
-        let canClick = this.page.nowLevel >= (level - 1);
-        this.navCtrl.push(AdvancedListsPage, { plid: plid, canClick: canClick });
+    goAdvancedLists(item) {
+        console.log(this.page.nowLevel , item.Hierarchy - 2)
+        let canClick = this.page.nowLevel >= (item.Hierarchy - 2);
+        this.navCtrl.push(AdvancedListsPage, { plid: item.ID, canClick: canClick, Level: item.Level });
     }
 
     // 用户等级信息
