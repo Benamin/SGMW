@@ -157,23 +157,12 @@ export class AdvancedListsPage {
         )
     }
 
-    // 点击课程
     //获取课程详情
-    getCourseDetailById(id) {
+    goCourse(e) {
         if (!this.page.canClick) {
             this.commonSer.alert('请先完成当前级别学习!');
             return
         }
-        this.learSer.GetProductById(id).subscribe(
-            (res) => {
-                if (res.data) {
-                    this.goCourse(res.data);
-                }
-            }
-        );
-    }
-
-    goCourse(e) {
         if (e.TeachTypeName == "集中培训") {
             this.navCtrl.push(FocusCoursePage, {id: e.Id});
         } else if (e.TeachTypeName == "内训") {

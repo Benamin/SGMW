@@ -29,7 +29,7 @@
             <!-- 课程列表 -->
             <div *ngIf="page.advancedArr[0].lists.length>0">
                 <div class="course-li" *ngFor="let item of page.advancedArr[0].lists"
-                     (click)="getCourseDetailById(item.Id)">
+                     (click)="goCourse(item)">
                     <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
                     <div class="course-right">
                         <div class="title article">
