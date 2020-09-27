@@ -56,7 +56,7 @@
         <div class="item-exam" [ngClass]="{ 'fold': advancedItem.isOpen }"
              *ngIf="advancedItem.en === 'exam' && page.advancedArr[1].lists.length>0">
             <div class="exam-li" *ngFor="let item of page.advancedArr[1].lists" (click)="goExam(item)">
-                <img src="assets/imgs/default.jpg" alt="课程图片">
+                <img [src]="item.PictureSrc || page.defaultImg" alt="课程图片">
                 <div class="exam-right">
                     <div class="title">{{ item.EName }}</div>
                     <div class="achievement">本场考试：{{ item.PassScore + '分通过' }}</div>
