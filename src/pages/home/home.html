@@ -38,94 +38,99 @@
         </div>
     </div>
 
-<!--    每日一学-->
+    <!--    每日一学-->
     <dayily-school (daySchool)="goTo()"></dayily-school>
 
     <div class="competition-box">
-      <div class="competition-banner" tappable (click)="goToXSCompetition()">
-        <img src="./assets/imgs/home/xsds@2x.png" alt="销售大赛">
-      </div>
-      <div class="competition-banner" tappable (click)="goToFWCompetition()">
-        <img src="./assets/imgs/home/fuwd@2x.png" alt="服务大赛">
-      </div>
+        <div class="competition-banner" tappable (click)="goAdvancedLevel()">
+            <img src="./assets/imgs/home/xslj.png" alt="学习路径">
+        </div>
+        <div class="competition-banner" tappable (click)="goToFWCompetition()">
+            <img src="./assets/imgs/home/fuwd@2x.png" alt="服务大赛">
+        </div>
     </div>
 
     <div class="category-box">
-      <ion-slides style="width: 100%;" pager>
-        <ion-slide >
-          <!--  新模块  -->
-          <div class="new-module" style="margin-top: 20px;">
-            <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goStudyPlan()">
-              <img src="./assets/imgs/home/1_1xxjh@2x.png" alt="">
-              <p>学习计划</p>
-            </div>
-            <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goConsultation()">
-              <img src="./assets/imgs/home/news@2x.png" alt="">
-              <p>资讯</p>
-            </div>
-            <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goNumberOne()">
-              <img src="./assets/imgs/home/zys@2x.png" alt="">
-              <p>“狼灭”榜</p>
-            </div>
-            <div tappable [ngClass]="wow == true?'slideInRight':''" class=" wow" data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goRanking()">
-              <img src="./assets/imgs/home/rank@2x.png" alt="">
-              <p>排行榜</p>
-            </div>
-            <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goTest()">
-              <img src="./assets/imgs/home/ks@2x.png" alt="">
-              <p>考试中心</p>
-            </div>
-            <!--<div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"-->
-            <!--data-wow-offset="30" (click)="goLive()">-->
-            <!--<img src="./assets/imgs/home/zb@2x.png" alt="">-->
-            <!--<p>直播</p>-->
-            <!--</div>-->
-          </div>
-          <div class="new-module" style="margin-top: 20px">
-            <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goLive()">
-              <img src="./assets/imgs/home/zb@2x.png" alt="">
-              <p>直播</p>
-            </div>
-            <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goQuestion()">
-              <img style="width: 33px;" src="./assets/imgs/home/home_wenjuan@2x.png" alt="">
-              <p>问卷/投票</p>
-            </div>
-            <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goInnerTrain()">
-              <img src="./assets/imgs/home/home_neixun@2x.png" alt="">
-              <p>内训</p>
-            </div>
-            <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goFocusTrain()">
-              <img style="width: 28px;" src="./assets/imgs/home/home_jzpx@2x.png" alt="">
-              <p>线下培训</p>
-            </div>
-            <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s" data-wow-delay="1s"
-                 data-wow-offset="30" (click)="goJobLevel()">
-              <img style="width: 28px;" src="./assets/imgs/home/job-level@2x.png" alt="">
-              <p>系列课程</p>
-            </div>
-          </div>
-        </ion-slide>
-        <ion-slide>
+        <ion-slides style="width: 100%;" pager>
+            <ion-slide>
+                <!--  新模块  -->
+                <div class="new-module" style="margin-top: 20px;">
+                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goStudyPlan()">
+                        <img src="./assets/imgs/home/1_1xxjh@2x.png" alt="">
+                        <p>学习计划</p>
+                    </div>
+                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goConsultation()">
+                        <img src="./assets/imgs/home/news@2x.png" alt="">
+                        <p>资讯</p>
+                    </div>
+                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goNumberOne()">
+                        <img src="./assets/imgs/home/zys@2x.png" alt="">
+                        <p>“狼灭”榜</p>
+                    </div>
+                    <div tappable [ngClass]="wow == true?'slideInRight':''" class=" wow" data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goRanking()">
+                        <img src="./assets/imgs/home/rank@2x.png" alt="">
+                        <p>排行榜</p>
+                    </div>
+                    <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goTest()">
+                        <img src="./assets/imgs/home/ks@2x.png" alt="">
+                        <p>考试中心</p>
+                    </div>
+                </div>
+                <div class="new-module" style="margin-top: 20px">
+                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goLive()">
+                        <img src="./assets/imgs/home/zb@2x.png" alt="">
+                        <p>直播</p>
+                    </div>
+                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goQuestion()">
+                        <img style="width: 33px;" src="./assets/imgs/home/home_wenjuan@2x.png" alt="">
+                        <p>问卷/投票</p>
+                    </div>
+                    <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goInnerTrain()">
+                        <img src="./assets/imgs/home/home_neixun@2x.png" alt="">
+                        <p>内训</p>
+                    </div>
+                    <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goFocusTrain()">
+                        <img style="width: 28px;" src="./assets/imgs/home/home_jzpx@2x.png" alt="">
+                        <p>线下培训</p>
+                    </div>
+                    <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow" data-wow-duration="2s"
+                         data-wow-delay="1s"
+                         data-wow-offset="30" (click)="goToXSCompetition()">
+                        <img src="./assets/imgs/home/home_jinjie@2x.png" alt="认证进阶">
+                        <p>销售大赛</p>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
 
-          <!--  新模块  -->
-          <div class="new-module" style="margin-top: 20px;height: 157px;align-items: flex-start;">
-            <div tappable class=" wow" (click)="goAdvancedLevel()">
-              <img src="./assets/imgs/home/home_jinjie@2x.png" alt="认证进阶">
-              <p>学习路径</p>
-            </div>
-          </div>
+                <!--  新模块  -->
+                <div class="new-module" style="margin-top: 20px;height: 157px;align-items: flex-start;">
+                    <div tappable class=" wow" (click)="goJobLevel()">
+                        <img style="width: 28px;" src="./assets/imgs/home/job-level@2x.png" alt="">
+                        <p>系列课程</p>
+                    </div>
+                </div>
 
-        </ion-slide>
-      </ion-slides>
+            </ion-slide>
+        </ion-slides>
     </div>
 
     <div class="product-float-tab">

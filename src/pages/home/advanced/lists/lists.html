@@ -35,6 +35,9 @@
                         <div class="title article">
                             {{ item.Title }}
                         </div>
+                        <div class="SubjectName">
+                            {{item.SubjectName}}
+                        </div>
                         <div class="status" *ngIf="item.studystate === 0">
                             <img src="assets/imgs/advanced/status-default.png"/>
                             未开始

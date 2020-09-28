@@ -2,6 +2,7 @@ page-lists {
   ul {
     margin: 0;
     padding: 0;
+
     li {
       margin: 0;
       padding: 0;
@@ -11,6 +12,7 @@ page-lists {
 
   .advanced-item {
     border-bottom: 1rem solid #F2F2F2;
+
     .advanced-title {
       position: relative;
       padding-right: 2.2rem;
@@ -24,6 +26,7 @@ page-lists {
       background-color: #FFFFFF;
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;
+
       .text::before {
         content: '';
         position: absolute;
@@ -35,15 +38,18 @@ page-lists {
         border-radius: 0.2rem;
         background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
       }
+
       img {
         width: 1.7rem;
       }
+
       .flod-icon {
         transition: 0.27s;
       }
     }
+
     .item-course {
-      max-height: 6666px; 
+      max-height: 6666px;
       transition: max-height ease-in 0.2s;
       overflow: hidden;
       background-color: #FFFFFF;
@@ -54,6 +60,7 @@ page-lists {
         margin: 0 auto;
         width: 100%;
         background-color: #FFFFFF;
+
         .btn-box {
           margin: 0 auto;
           width: 35.5rem;
@@ -67,6 +74,7 @@ page-lists {
           background-color: #F4F1F2;
           border: 0.4rem solid #F2F2F2;
           border-radius: 3rem;
+
           .type-btn {
             flex: 1;
             height: 2.9rem;
@@ -74,6 +82,7 @@ page-lists {
             border-radius: 1.45rem;
             color: #888888;
           }
+
           .type-btn.actived {
             color: #000000;
             background-color: orange;
@@ -89,6 +98,7 @@ page-lists {
         display: flex;
         align-items: center;
         background-color: #FFFFFF;
+
         img {
           margin-right: 1.5rem;
           width: 7rem;
@@ -96,6 +106,7 @@ page-lists {
           border-radius: 1rem;
           object-fit: cover;
         }
+
         .course-right {
           height: 7rem;
           min-height: 7rem;
@@ -103,6 +114,7 @@ page-lists {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+
           .title {
             font-size: 1.6rem;
             font-family: PingFangSC-Medium, PingFang SC;
@@ -113,10 +125,11 @@ page-lists {
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2; //多行在这里修改数字即可
-            overflow:hidden;
+            overflow: hidden;
             /* autoprefixer: ignore next */
             -webkit-box-orient: vertical;
           }
+
           .status {
             display: flex;
             align-items: center;
@@ -125,31 +138,36 @@ page-lists {
             font-weight: 400;
             color: #000000;
             line-height: 2.1rem;
+
             img {
               margin-right: 0.5rem;
               width: 1.5rem;
               height: 1.5rem;
             }
           }
-          
+
         }
       }
     }
+
     // 课程 end
     // 考试 start
     .item-exam {
-      max-height: 6666px; 
+      max-height: 6666px;
       transition: max-height ease-in 0.2s;
       overflow: hidden;
+
       .exam-li {
         box-sizing: border-box;
         padding: 1.5rem 2.8rem 1.5rem 2.3rem;
         display: flex;
         align-items: center;
         background-color: #FFFFFF;
+
         &:nth-child(1) {
           padding-top: 0.4rem;
         }
+
         img {
           margin-right: 1.5rem;
           width: 7rem;
@@ -157,6 +175,7 @@ page-lists {
           border-radius: 1rem;
           object-fit: cover;
         }
+
         .exam-right {
           height: 7rem;
           width: 24rem;
@@ -165,24 +184,28 @@ page-lists {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+
           .title {
             font-size: 1.6rem;
             font-family: PingFangSC-Medium, PingFang SC;
             font-weight: 500;
             color: #000000;
-            overflow:hidden;//超出的隐藏
-            text-overflow:ellipsis;//显示省略符号来代表被修剪的文本。
-            white-space:nowrap;//不换行
+            overflow: hidden; //超出的隐藏
+            text-overflow: ellipsis; //显示省略符号来代表被修剪的文本。
+            white-space: nowrap; //不换行
           }
+
           .achievement {
             font-size: 1.2rem;
             color: #50B674;
           }
+
           .right_bottom {
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 1.2rem;
+
             .status {
               display: flex;
               align-items: center;
@@ -191,6 +214,7 @@ page-lists {
               color: #000000;
               line-height: 2.1rem;
               color: #50B674;
+
               img {
                 margin-left: 0.5rem;
                 width: 1.8rem;
@@ -198,10 +222,11 @@ page-lists {
               }
             }
           }
-          
+
         }
       }
     }
+
     // 考试 end
     // 其他 start
     .item-other {
@@ -209,6 +234,7 @@ page-lists {
       transition: max-height ease-in 0.2s;
       overflow: hidden;
       background-color: #FFFFFF;
+
       .dir-title {
         box-sizing: border-box;
         padding: 0 2.2rem 0 1.4rem;
@@ -219,9 +245,11 @@ page-lists {
         font-weight: 500;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       }
+
       &:nth-child(1) {
         padding-top: 0.4rem;
       }
+
       .other-li {
         box-sizing: border-box;
         padding: 0 2.2rem 0 1.4rem;
@@ -234,25 +262,30 @@ page-lists {
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
         .title {
           width: 30.2rem;
-          overflow:hidden;//超出的隐藏
-          text-overflow:ellipsis;//显示省略符号来代表被修剪的文本。
-          white-space:nowrap;//不换行
+          overflow: hidden; //超出的隐藏
+          text-overflow: ellipsis; //显示省略符号来代表被修剪的文本。
+          white-space: nowrap; //不换行
         }
+
         .num {
           margin-left: auto;
           font-weight: 500;
         }
       }
     }
+
     // 其他 end
-    
+
   }
+
   .fold {
-    max-height: 0 !important; 
+    max-height: 0 !important;
     transition: max-height ease-out 0.35s !important;
   }
+
   .fold-rolate {
     transform: rotate(-90deg);
   }
@@ -265,5 +298,9 @@ page-lists {
     -webkit-text-align-last: left;
   }
 
-  
+  .SubjectName {
+    padding: 5px 0;
+    color: #666666;
+    font-size: 12px;
+  }
 }

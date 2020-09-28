@@ -128,26 +128,6 @@ export class MyApp {
             //IOS兼容性方法
             this.compatibleIOS();
         });
-
-        this.platform.resume.subscribe(() => {
-            (window as any).handleOpenURL = (url: string) => {
-                // this.commonSer.alert(`resume：${url}`);
-                if (url.includes('JumpURL')) {
-                    this.storage.get('user').then((value) => {
-                        if (value && value.CardNo) {
-                            const req = <any>this.getRequest.getParamsByHybrid(url);
-                            if (req.CardNo !== value.CardNo) {
-                                this.checkAuthByHybrid(url);
-                            } else {
-                                this.storage.set('CourseId', req.CourseId);
-                            }
-                        } else {
-                            this.checkAuthByHybrid(url);
-                        }
-                    })
-                }
-            }
-        })
     }
 
     //ios13兼容
