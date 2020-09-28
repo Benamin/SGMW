@@ -6,6 +6,7 @@ import {AlertController, Platform} from 'ionic-angular';
 import {CommonService} from "./common.service";
 import {LoginService} from "../pages/login/login.service";
 import {Observable} from "rxjs";
+import {FileTransfer, FileTransferObject} from "@ionic-native/file-transfer";
 
 @Injectable()
 export class AppUpdateService {
@@ -13,6 +14,7 @@ export class AppUpdateService {
     constructor(private appVersion: AppVersion,
                 private fileOpener: FileOpener,
                 private file: File,
+                public transfer: FileTransfer,
                 private platform: Platform,
                 private loginSer: LoginService,
                 private commonSer: CommonService,
@@ -27,50 +29,66 @@ export class AppUpdateService {
             enableBackdropDismiss: false,
             buttons: ['后台下载']
         });
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", apkUrl);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.responseType = "blob";
-        xhr.addEventListener("loadstart", (ev) => {
-            // 开始下载事件：下载进度条的显示
-            alert.present();
-        });
-        xhr.addEventListener("progress", (ev) => {
-            // 下载中事件：计算下载进度
-            let progress = Math.round(100.0 * ev.loaded / ev.total);
+
+        const fileTransfer: FileTransferObject = this.transfer.create();
+        const arr = apkUrl.split("/");
+        const apk = arr[arr.length - 1];
+        let saveurl = this.file.externalDataDirectory
+            ? this.file.externalDataDirectory
+            : this.file.dataDirectory;
+        const apkname = saveurl + "download/" + apk; //apk保存的目录
+        fileTransfer.download(apkUrl, apkname).then(
+            (entry) => {
+                this.fileOpener
+                    .open(entry.toURL(), 'application/vnd.android.package-archive')
+                    .then((res) => {
+                    })
+                    .catch((e) => {
+                        alert && alert.dismiss();
+                        const alertBrowser = this.alertCtrl.create({
+                            title: "前往网页下载",
+                            message: "本地升级失败",
+                            buttons: [
+                                {
+                                    text: "确定",
+                                    handler: () => {
+                                        this.commonSer.openUrlByBrowser(apkUrl);
+                                    },
+                                },
+                            ],
+                        });
+                        alertBrowser.present();
+                    });
+            },
+            (error) => {
+                alert && alert.dismiss();
+                const alertBrowser = this.alertCtrl.create({
+                    title: "前往网页下载",
+                    message: "本地升级失败",
+                    buttons: [
+                        {
+                            text: "确定",
+                            handler: () => {
+                                this.commonSer.openUrlByBrowser(apkUrl);
+                            },
+                        },
+                    ],
+                });
+                alertBrowser.present();
+            }
+        );
+
+        fileTransfer.onProgress((event) => {
+            let num = Math.ceil((event.loaded / event.total) * 100); //转化成1-100的进度
             let title = document.getElementsByClassName('alert-title')[0];
-            title && (title.innerHTML = '下载进度：' + progress + '%');
-        });
-        xhr.addEventListener("load", (ev) => {
-            alert.dismiss();
-            // 下载完成事件：处理下载文件
-            const blob = xhr.response;
-            const fileName = "temp.apk";
-            if (blob) {
-                let path = this.file.externalDataDirectory;
-                this.file.writeFile(path, fileName, blob, {
-                    replace: true
-                }).then(
-                    () => {
-                        this.fileOpener.open(
-                            path + fileName,
-                            'application/vnd.android.package-archive'
-                        ).catch((err) => {
-                            this.commonSer.alert('打开apk失败！' + err);
-                        })
-                    }).catch((err) => {
-                    this.commonSer.alert('失败！');
-                })
+            if (num === 100) {
+                title && (title.innerHTML = '下载完成');
+                alert && alert.dismiss();
+            } else {
+                title && (title.innerHTML = "下载进度：" + num + "%");
             }
         });
-        xhr.addEventListener("loadend", (ev) => {
-            // 结束下载事件
-        });
-        xhr.addEventListener("error", (ev) => {
-            this.commonSer.alert('下载apk失败！');
-        });
-        xhr.addEventListener("abort", (ev) => {
-        });
-        xhr.send();
+
+        alert.present();
     }
 }

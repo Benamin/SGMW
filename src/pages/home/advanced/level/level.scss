@@ -2,16 +2,18 @@ page-level {
   ion-content {
     background-color: #131415 !important;
   }
-  
+
   ul {
     margin: 0;
     padding: 0;
+
     li {
       margin: 0;
       padding: 0;
       list-style: none;
     }
   }
+
   .level-top {
     position: relative;
     width: 100%;
@@ -22,6 +24,7 @@ page-level {
       width: 35.5rem;
       height: 8.8rem;
     }
+
     .posi-box {
       position: absolute;
       left: 0;
@@ -35,6 +38,7 @@ page-level {
         display: flex;
         align-items: center;
         line-height: 1;
+
         &.first-level {
           margin-left: 8.8rem;
         }
@@ -43,21 +47,27 @@ page-level {
           margin-right: 0.8rem;
           font-size: 1.8rem;
         }
+
         .level-logo {
           margin-right: 0.5rem;
           width: 2.2rem;
         }
+
         .level-text-right {
           margin-left: auto;
           margin-right: 2.4rem;
-          font-size: 1.3rem;
+          font-size: 1rem;
+          display: inline-block;
+          -webkit-transform: scale(0.8);
+          transform: scale(.8);
           color: rgba(255, 255, 255, 0.6);
+          line-height: 1.2;
         }
       }
     }
-    
+
   }
-  
+
   .level0, .level1, .level2, .level3, .level4 {
     position: relative;
     width: 100%;
@@ -67,9 +77,11 @@ page-level {
       margin-left: 1.2rem;
       height: 5rem;
     }
+
     .bg.zero {
       margin-left: 1rem;
     }
+
     .posi-box {
       position: absolute;
       left: 0;
@@ -88,67 +100,81 @@ page-level {
           font-size: 1.8rem;
           color: #FFFFFF;
         }
+
         .level-status {
           // margin-left: auto;
           font-size: 1.3rem;
           color: #FAF0FF;
         }
+
         .level-logo {
-          margin-left:auto !important;
-          margin-right:1.6rem !important;
+          margin-left: auto !important;
+          margin-right: 1.6rem !important;
           width: 2.6rem;
         }
+
         .level-lock {
-          margin-left:auto !important;
-          margin-right:2.8rem !important;
+          margin-left: auto !important;
+          margin-right: 2.8rem !important;
           width: 1.24rem;
         }
       }
     }
-    
+
   }
+
   .level4 {
     margin-top: 2rem;
+
     .bg {
       width: 23.5rem;
     }
+
     .posi-box {
       width: 23.5rem;
     }
   }
+
   .level3 {
     .bg {
       width: 27.7rem;
     }
+
     .posi-box {
-      width:  27.7rem;
+      width: 27.7rem;
     }
   }
+
   .level2 {
     .bg {
       width: 31.7rem;
     }
+
     .posi-box {
-      width:  31.7rem;
+      width: 31.7rem;
     }
   }
+
   .level1 {
     .bg {
       width: 35rem;
     }
+
     .posi-box {
       width: 35rem;
     }
   }
+
   .level0 {
     .bg {
       width: 35.3rem;
     }
+
     .posi-box {
       width: 35.3rem;
     }
   }
-   
+
   .level-box {
     // overflow: hidden;
     .line-box {
@@ -160,6 +186,7 @@ page-level {
         height: 8rem;
         margin-bottom: -0.3rem;
       }
+
       .line-text-box {
         position: absolute;
         top: 0;
@@ -171,32 +198,36 @@ page-level {
         background-size: 100% 100%;
         box-sizing: border-box;
         font-weight: 500;
+
         .box-text {
           margin-top: 1.7rem;
           margin-bottom: 0.3rem;
           height: 2.5rem;
           display: flex;
           align-items: center;
+
           .text-p {
             font-size: 1.8rem;
             color: #FFC92D;
           }
+
           .text-l {
             margin-left: 1rem;
             font-size: 1.3rem;
             color: #999999;
           }
         }
+
         .gl {
           font-size: 1.3rem;
           color: #FFFFFF;
         }
       }
     }
-    
-    
+
+
   }
-  
+
 
   .default_progress, .in_progress, .finish_progress {
     position: absolute;
@@ -212,9 +243,9 @@ page-level {
     &.now-level {
       height: 8.5rem;
     }
-    
+
   }
-  
+
 
   .default_progress {
     z-index: -2;
@@ -223,14 +254,17 @@ page-level {
       background: linear-gradient(to top, #EAC23A, #9549BC 3px, transparent 3px, transparent);
       background-size: 100% 7px;
     }
+
     &.p_level3 {
       background: linear-gradient(to top, #BED4E3, #EAC23A 3px, transparent 3px, transparent);
       background-size: 100% 7px;
     }
+
     &.p_level2 {
       background: linear-gradient(to top, #DDA791, #708591 3px, transparent 3px, transparent);
       background-size: 100% 7px;
     }
+
     &.p_level1 {
       background: linear-gradient(to top, #3C3C3C, #DDA791 3px, transparent 3px, transparent);
       background-size: 100% 7px;
@@ -241,33 +275,40 @@ page-level {
     &.p_level4 {
       background: linear-gradient(to top, #EAC23A, #9549BC 90px, transparent 90px, transparent);
     }
+
     &.p_level3 {
       background: linear-gradient(to top, #BED4E3, #EAC23A 90px, transparent 90px, transparent);
     }
+
     &.p_level2 {
       background: linear-gradient(to top, #DDA791, #708591 90px, transparent 90px, transparent);
     }
+
     &.p_level1 {
       background: linear-gradient(to top, #3C3C3C, #DDA791 90px, transparent 90px, transparent);
       margin-bottom: -0.5rem;
     }
   }
-  
+
   .finish_progress {
     &.p_level4 {
       background: linear-gradient(to top, #EAC23A, #9549BC 50px, transparent 50px, transparent);
     }
+
     &.p_level3 {
       background: linear-gradient(to top, #BED4E3, #EAC23A 50px, transparent 50px, transparent);
     }
+
     &.p_level2 {
       background: linear-gradient(to top, #DDA791, #708591 50px, transparent 50px, transparent);
     }
+
     &.p_level1 {
       background: linear-gradient(to top, #3C3C3C, #DDA791 50px, transparent 50px, transparent);
       margin-bottom: -0.5rem;
     }
   }
+
   .in_progress {
     margin-left: 3.52rem;
     width: 0.3rem;

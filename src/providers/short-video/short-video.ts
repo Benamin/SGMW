@@ -188,7 +188,7 @@ export class ShortVideoProvider {
                 successCallback(backData);
             }, err => {
                 uploadLoading.dismiss();
-                this.commonSer.toast('上传错误');
+                this.commonSer.alert(`上传错误,${JSON.stringify(err)}`);
             });
         fileTransfer.onProgress((listener) => {
             let per = <any>(listener.loaded / listener.total) * 100;
