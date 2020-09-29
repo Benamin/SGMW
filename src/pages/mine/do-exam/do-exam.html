@@ -221,9 +221,9 @@
         <p>作业得分</p>
         <p *ngIf="score.score > exam.ExamInfo?.PassScore || score.score == exam.ExamInfo?.PassScore">
             恭喜您，通过本次作业，请点击确定继续学习</p>
-        <p *ngIf="score.score < exam.ExamInfo?.PassScore">对不起，您的作业作业未通过，请重新观看本课时视频</p>
+        <p *ngIf="score.score < exam.ExamInfo?.PassScore">对不起，作业未通过，请重新学习</p>
         <div class="sureBtn">确定</div>
-        <div class="lookError" *ngIf="score.score < exam.ExamInfo.PassScore">
+        <div style="background: none;margin-top: 0" class="lookError" *ngIf="score.score < exam.ExamInfo.PassScore">
             <div (click)="lookError();$event.stopPropagation()">作业回顾</div>
             <div (click)="resetExam();$event.stopPropagation()">重新作业</div>
         </div>
