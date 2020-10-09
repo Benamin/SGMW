@@ -63,6 +63,7 @@ import {JpushUtil} from "../core/jPush.util";
 import {MediaCapture} from '@ionic-native/media-capture';
 import {ShortVideoProvider} from '../providers/short-video/short-video';
 import {ChooseImageProvider} from '../providers/choose-image/choose-image';
+import {DocumentViewer} from '@ionic-native/document-viewer';
 
 @NgModule({
     declarations: [
@@ -119,6 +120,7 @@ import {ChooseImageProvider} from '../providers/choose-image/choose-image';
             FileTransfer,
             MobileAccessibility,
             ScreenOrientation,
+            DocumentViewer,
             PhotoLibrary,
             TabService,
             LoginService,

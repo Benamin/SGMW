@@ -460,9 +460,9 @@ export class FocusCoursePage {
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
         }
-        if (file.icon.includes('pdf')) {
-            this.openPDF(file);
-        }
+        // if (file.icon.includes('pdf')) {
+        //     this.openPDF(file);
+        // }
         if (file.icon.includes('iframe')) {
             const iframe = {
                 type: 'iframe',
@@ -470,7 +470,7 @@ export class FocusCoursePage {
             };
             this.appSer.setFile(iframe);
         }
-        if (!file.icon.includes('pdf') && !file.icon.includes('mp4')) {
+        if (!file.icon.includes('mp4')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
 

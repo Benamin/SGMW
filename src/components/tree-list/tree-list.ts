@@ -106,10 +106,10 @@ export class TreeListComponent {
             };
             this.appSer.setFile(iframe);  //通知主页面播放视频
         }
-        if (file.icon.includes('pdf')) {   //pdf课件
-            this.openPDF(file);
-        }
-        if (!file.icon.includes('pdf') && !file.icon.includes('mp4') && !file.icon.includes('iframe')) {
+        // if (file.icon.includes('pdf')) {   //pdf课件
+        //     this.openPDF(file);
+        // }
+        if (!file.icon.includes('mp4') && !file.icon.includes('iframe')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
     }
