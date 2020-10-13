@@ -102,3 +102,27 @@ html, body, p {
   margin-top: 20px;
   height: calc(100% - 20px);
 }
+
+.levelAction {
+  .action-sheet-container {
+    padding: 0;
+  }
+  .action-sheet-group {
+    border-radius: 0;
+  }
+  .action-sheet-group:last-child {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  button.action-sheet-button {
+    height: 55px;
+
+    .button-inner {
+      font-size: 14px;
+    }
+  }
+
+  button.action-sheet-destructive {
+    color: #FA6400 !important;
+  }
+}

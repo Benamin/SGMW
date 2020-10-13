@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, LoadingController} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
 
 import {HomeService} from "../../home.service";
 import {AdvancedListsPage} from "../lists/lists";
@@ -17,12 +17,14 @@ export class AdvancedLevelPage {
         hasArea: false,
         levelInformation: [],
         nowLevel: 0,
-        nowProgress: 0
+        nowProgress: 0,
+        isNowLevel: 'sales' // sales destructive clerk
     }
 
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
+        public actionSheetCtrl: ActionSheetController,
         private loadCtrl: LoadingController,
         private homeSer: HomeService
     ) {
@@ -74,6 +76,39 @@ export class AdvancedLevelPage {
                 loading.dismiss();
             }
         )
+    }
+
+    showActionSheet() {
+        let that = this
+        let btnArr = [
+            {
+                text: '销售顾问',
+                role: that.page.isNowLevel === 'sales' ? 'destructive' : '',
+                handler: () => {
+                    console.log('销售顾问')
+                }
+            },
+            {
+                text: '店长',
+                role: that.page.isNowLevel === 'destructive' ? 'destructive' : '',
+                handler: () => {
+                    console.log('店长')
+                }
+            },
+            {
+                text: '店员',
+                role: that.page.isNowLevel === 'clerk' ? 'destructive' : '',
+                handler: () => {
+                    console.log('店员')
+                }
+            }
+        ]
+        console.log('btnArr', btnArr)
+        const actionSheet = this.actionSheetCtrl.create({
+            cssClass: 'levelAction',
+            buttons: btnArr
+        });
+        actionSheet.present();
     }
 
 }
