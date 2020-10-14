@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Events, LoadingController, NavController, Slides} from 'ionic-angular';
+import {Events, LoadingController, NavController, Slides, ModalController } from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
@@ -45,6 +45,7 @@ import {CompetitionListsPage} from "./competition/lists/lists";
 import {CompetitionFWPage} from "./fw-competition/lists/lists";
 import {MyShortVideoBoxPage} from "../mine/my-short-video-box/my-short-video-box";
 import {GetRequestService} from "../../secret/getRequest.service";
+import {RoleModalPage} from "./role-modal/role-modal";
 
 @Component({
     selector: 'page-home',
@@ -86,7 +87,8 @@ export class HomePage implements OnInit {
                 private getRequest: GetRequestService,
                 private events: Events,
                 private learSer: LearnService,
-                private forum_serve: ForumService) {
+                private forum_serve: ForumService,
+                private modalCtrl: ModalController) {
         this.statusBar.backgroundColorByHexString('#343435');
         let app_url = (window as any).localStorage.getItem("app_url");
 
@@ -461,7 +463,13 @@ export class HomePage implements OnInit {
 
     // 前往 认证进阶 的 勋章设置
     goAdvancedLevel() {
-        this.navCtrl.push(AdvancedLevelPage);
+        let modal = this.modalCtrl.create(RoleModalPage, {});
+        modal.onDidDismiss((data) => {
+            console.log('onDidDismiss', data)
+            // this.getVideoDetail();
+        })
+        modal.present();
+        // this.navCtrl.push(AdvancedLevelPage);
     }
 
     // 获取热门帖子
