@@ -268,5 +268,18 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/EApprove/SelectCsExamDeatil', data);
     }
 
+    // 进入页面时验证用户是否存在认证流程
+    ValidationLevel(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/ValidationLevel', data);
+    }
+    // 未存在等级第一次进入时选择认证流程进行初始化
+    InitializeLevel(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/InitializeLevel', data);
+    }
+    
+    // 获取所有认证进阶流程 角色类型
+    GetRoleByPCode(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/Dictionary/GetDictionaryByPCode' + this.dataFormat.toQuery(data));
+    }
 
 }

@@ -18,7 +18,9 @@ export class AdvancedLevelPage {
         levelInformation: [],
         nowLevel: 0,
         nowProgress: 0,
-        isNowLevel: 'sales' // sales destructive clerk
+        isNowLevel: null, // sales destructive clerk
+        roleList: [],
+        leveltype: null
     }
 
     constructor(
@@ -31,6 +33,8 @@ export class AdvancedLevelPage {
     }
 
     ionViewDidEnter() {
+        this.page.roleList = this.navParams.get('roleList');
+        this.page.leveltype = this.navParams.get('leveltype');
         this.getAdvancedLevel();
     }
 
@@ -43,11 +47,12 @@ export class AdvancedLevelPage {
 
     // 用户等级信息
     getAdvancedLevel() {
+        console.log('leveltype99:', this.page.leveltype)
         let loading = this.loadCtrl.create({
             content: ''
         });
         loading.present();
-        this.homeSer.getAdvancedLevel({}).subscribe(
+        this.homeSer.getAdvancedLevel({ leveltype: this.page.leveltype }).subscribe(
             (res) => {
                 if (res.code === 200) {
                     // console.log('Lv:', res)
@@ -79,30 +84,55 @@ export class AdvancedLevelPage {
     }
 
     showActionSheet() {
-        let that = this
-        let btnArr = [
-            {
-                text: '销售顾问',
-                role: that.page.isNowLevel === 'sales' ? 'destructive' : '',
+        console.log('leveltype', this.page.leveltype, this.page.roleList)
+        let btnArr = []
+        for (let i =0; i<this.page.roleList.length; i++) {
+            let obj = {
+                text: this.page.roleList[i].label,
+                role: this.page.leveltype === this.page.roleList[i].value ? 'destructive' : '',
                 handler: () => {
-                    console.log('销售顾问')
-                }
-            },
-            {
-                text: '店长',
-                role: that.page.isNowLevel === 'destructive' ? 'destructive' : '',
-                handler: () => {
-                    console.log('店长')
-                }
-            },
-            {
-                text: '店员',
-                role: that.page.isNowLevel === 'clerk' ? 'destructive' : '',
-                handler: () => {
-                    console.log('店员')
+                    console.log('this', this, this.page, i)
+                    console.log('销售顾问', this.page.roleList[i].value)
+                    let loading = this.loadCtrl.create({
+                        content: ''
+                    });
+                    
+                    this.homeSer.InitializeLevel({ leveltype: this.page.leveltype }).subscribe(
+                        (resRole) => {
+                            if (resRole.code === 200) {
+                                this.page.leveltype = this.page.roleList[i].value
+                                loading.dismiss();
+                                this.getAdvancedLevel();
+                            }
+                        }
+                    )
                 }
             }
-        ]
+            btnArr.push(obj)
+        }
+        // let btnArr = [
+        //     {
+        //         text: '销售顾问',
+        //         role: that.page.isNowLevel === 'sales' ? 'destructive' : '',
+        //         handler: () => {
+        //             console.log('销售顾问')
+        //         }
+        //     },
+        //     {
+        //         text: '店长',
+        //         role: that.page.isNowLevel === 'destructive' ? 'destructive' : '',
+        //         handler: () => {
+        //             console.log('店长')
+        //         }
+        //     },
+        //     {
+        //         text: '店员',
+        //         role: that.page.isNowLevel === 'clerk' ? 'destructive' : '',
+        //         handler: () => {
+        //             console.log('店员')
+        //         }
+        //     }
+        // ]
         console.log('btnArr', btnArr)
         const actionSheet = this.actionSheetCtrl.create({
             cssClass: 'levelAction',

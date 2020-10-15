@@ -15,7 +15,7 @@ page-role-modal {
       left: 50%;
       transform: translateX(-50%) translateY(-55%);
       width: 25.4rem;
-      height: 27.1rem;
+      // height: 27.1rem;
       background: #fff;
       border-radius: 1.8rem;
       overflow: scroll;
@@ -50,11 +50,16 @@ page-role-modal {
           margin-right: 16px;
           width: 1.4rem;
           height: 1.4rem;
+          display: none;
+        }
+        .show {
+          display: inline-block;
         }
       }
       .sure-btn {
         margin: 0 auto;
         margin-top: 2.4rem;
+        margin-bottom: 1.4rem;
         width: 13rem;
         height: 4.2rem;
         line-height: 3.3rem;
