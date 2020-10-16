@@ -38,6 +38,7 @@ import {TreeModule} from 'ng2-tree'
 
 import {AdvancedLevelPage} from "./advanced/level/level";
 import {AdvancedListsPage} from "./advanced/lists/lists";
+import {RoleModalPage} from "./role-modal/role-modal";
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import {AdvancedListsPage} from "./advanced/lists/lists";
         EditPage,
         TotalRankingPage,
         VideoReplyPage,
+        RoleModalPage,
         ReplyInputPage,
         CompetitionVideoPage,
         FwVideoPage,
@@ -107,6 +109,7 @@ import {AdvancedListsPage} from "./advanced/lists/lists";
         EditPage,
         TotalRankingPage,
         VideoReplyPage,
+        RoleModalPage,
         ReplyInputPage,
         CompetitionVideoPage,
         FwVideoPage,

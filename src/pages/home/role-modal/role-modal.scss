@@ -1,0 +1,80 @@
+page-role-modal {
+  .main {
+    background-color: rgba(0, 0, 0, .4);
+    height: 100%;
+  }
+
+  .content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    
+    .content-body {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-55%);
+      width: 25.4rem;
+      // height: 27.1rem;
+      background: #fff;
+      border-radius: 1.8rem;
+      overflow: scroll;
+      .title {
+        margin-top: 1.9rem;
+        margin-bottom: 1.5rem;
+        height: 21px;
+        font-size: 15px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #000000;
+        text-align: center;
+        line-height: 21px;
+      }
+      .role-item {
+        margin: 0 auto;
+        margin-bottom: 1rem;
+        padding-left: 1.6rem;
+        width: 22.2rem;
+        height: 3.8rem;
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        background-color: #F7F7F7;
+        border-radius: 1rem;
+        font-size: 1.5rem;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #000000;
+        .right-icon {
+          margin-left: auto;
+          margin-right: 16px;
+          width: 1.4rem;
+          height: 1.4rem;
+          display: none;
+        }
+        .show {
+          display: inline-block;
+        }
+      }
+      .sure-btn {
+        margin: 0 auto;
+        margin-top: 2.4rem;
+        margin-bottom: 1.4rem;
+        width: 13rem;
+        height: 4.2rem;
+        line-height: 3.3rem;
+        text-align: center;
+        font-size: 1.4rem;
+        color: #000000;
+        background: url('../assets/imgs/advanced/rz_button@2x.png') no-repeat;
+        background-size: 100% 100%;
+        box-sizing: border-box;
+      }
+      ion-icon {
+        font-size: 3rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+}

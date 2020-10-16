@@ -6,6 +6,7 @@ export let env = 'dev';
 export let keyEnv = 'dev';
 // export let keyEnv = 'prod';
 
+
 // /***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';
 export const SERVER_API_URL_DEV = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
