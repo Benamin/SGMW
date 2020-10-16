@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
-
+import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
 import {AdvancedListsPage} from "../lists/lists";
 
@@ -20,11 +20,13 @@ export class AdvancedLevelPage {
         nowProgress: 0,
         isNowLevel: null, // sales destructive clerk
         roleList: [],
-        leveltype: null
+        leveltype: null,
+        levelTypeText: null
     }
 
     constructor(
         public navCtrl: NavController,
+        private commonSer: CommonService,
         public navParams: NavParams,
         public actionSheetCtrl: ActionSheetController,
         private loadCtrl: LoadingController,
@@ -34,7 +36,9 @@ export class AdvancedLevelPage {
 
     ionViewDidEnter() {
         this.page.roleList = this.navParams.get('roleList');
-        this.page.leveltype = this.navParams.get('leveltype');
+        this.page.leveltype = this.navParams.get('leveltype').value;
+        this.page.levelTypeText = this.navParams.get('leveltype').label;
+        
         this.getAdvancedLevel();
     }
 
@@ -47,7 +51,7 @@ export class AdvancedLevelPage {
 
     // 用户等级信息
     getAdvancedLevel() {
-        console.log('leveltype99:', this.page.leveltype)
+        // console.log('leveltype99:', this.page.leveltype)
         let loading = this.loadCtrl.create({
             content: ''
         });
@@ -68,11 +72,11 @@ export class AdvancedLevelPage {
                     nowProgress = Number(schedule);
                    }
                    
-                   console.log('nowProgress', nowProgress)
+                //    console.log('nowProgress', nowProgress)
                 // let nowProgress = 30; // 模拟
                    this.page.nowProgress = nowProgress
-                } else {
-                    // console.log('获取学习情况', res)
+                }  else {
+                    this.commonSer.toast(res.message);
                 }
                 
                 // this.page.myInfo = res.data;
@@ -84,23 +88,23 @@ export class AdvancedLevelPage {
     }
 
     showActionSheet() {
-        console.log('leveltype', this.page.leveltype, this.page.roleList)
+        // console.log('leveltype', this.page.leveltype, this.page.roleList)
         let btnArr = []
         for (let i =0; i<this.page.roleList.length; i++) {
             let obj = {
                 text: this.page.roleList[i].label,
                 role: this.page.leveltype === this.page.roleList[i].value ? 'destructive' : '',
                 handler: () => {
-                    console.log('this', this, this.page, i)
-                    console.log('销售顾问', this.page.roleList[i].value)
+                    // console.log('this', this, this.page, i)
                     let loading = this.loadCtrl.create({
                         content: ''
                     });
                     
-                    this.homeSer.InitializeLevel({ leveltype: this.page.leveltype }).subscribe(
+                    this.homeSer.UpdateInitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
                         (resRole) => {
                             if (resRole.code === 200) {
-                                this.page.leveltype = this.page.roleList[i].value
+                                this.page.leveltype = this.page.roleList[i].value;
+                                this.page.levelTypeText = this.page.roleList[i].label;
                                 loading.dismiss();
                                 this.getAdvancedLevel();
                             }
@@ -110,30 +114,7 @@ export class AdvancedLevelPage {
             }
             btnArr.push(obj)
         }
-        // let btnArr = [
-        //     {
-        //         text: '销售顾问',
-        //         role: that.page.isNowLevel === 'sales' ? 'destructive' : '',
-        //         handler: () => {
-        //             console.log('销售顾问')
-        //         }
-        //     },
-        //     {
-        //         text: '店长',
-        //         role: that.page.isNowLevel === 'destructive' ? 'destructive' : '',
-        //         handler: () => {
-        //             console.log('店长')
-        //         }
-        //     },
-        //     {
-        //         text: '店员',
-        //         role: that.page.isNowLevel === 'clerk' ? 'destructive' : '',
-        //         handler: () => {
-        //             console.log('店员')
-        //         }
-        //     }
-        // ]
-        console.log('btnArr', btnArr)
+        // console.log('btnArr', btnArr)
         const actionSheet = this.actionSheetCtrl.create({
             cssClass: 'levelAction',
             buttons: btnArr

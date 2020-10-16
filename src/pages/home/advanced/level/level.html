@@ -3,7 +3,7 @@
         <ion-title>岗位认证</ion-title>
         <div class="top-box">
           <span class="top-right" (click)="showActionSheet()">
-            <span>销售顾问</span>
+            <span>{{ page.levelTypeText }}</span>
               <!--<span>店长</span>-->
               <!--<span>店员</span>-->
             <img src="assets/imgs/advanced/rzjj_xz@2x.png" alt="">
@@ -14,7 +14,7 @@
 
 <ion-content *ngIf="page.levelInformation">
 
-  <div class="level-top" *ngIf="page.levelInformation.length>4">
+  <div class="level-top" *ngIf="page.levelInformation.length>1">
     <img *ngIf="page.nowLevel === 0" class="bg" src="assets/imgs/advanced/level-0.png" alt="当前阶级(新进销售顾问)">
     <img *ngIf="page.nowLevel === 1" class="bg" src="assets/imgs/advanced/level-1.png" alt="当前阶级(实习顾问)">
     <img *ngIf="page.nowLevel === 2" class="bg" src="assets/imgs/advanced/level-2.png" alt="当前阶级(销售顾问)">
@@ -22,11 +22,11 @@
     <img *ngIf="page.nowLevel === 4" class="bg" src="assets/imgs/advanced/level-4.png" alt="当前阶级(体验专家)">
     <div class="posi-box">
       <div class="content" [ngClass]="{ 'first-level': page.nowLevel === 0 }">
-        <span *ngIf="page.nowLevel === 0" class="level-text-left" style="color: rgba(255, 255, 255, 0.6);">{{page.levelInformation[0].Level}}</span>
-        <span *ngIf="page.nowLevel === 1" class="level-text-left" style="color: #FFC9B1;">{{page.levelInformation[1].Level}}</span>
-        <span *ngIf="page.nowLevel === 2" class="level-text-left" style="color: #708591;">{{page.levelInformation[2].Level}}</span>
-        <span *ngIf="page.nowLevel === 3" class="level-text-left" style="color: #EAC23A;">{{page.levelInformation[3].Level}}</span>
-        <span *ngIf="page.nowLevel === 4" class="level-text-left" style="color: #9549BC;">{{page.levelInformation[4].Level}}</span>
+        <span *ngIf="page.nowLevel === 0 && page.levelInformation[0]" class="level-text-left" style="color: rgba(255, 255, 255, 0.6);">{{page.levelInformation[0].Level}}</span>
+        <span *ngIf="page.nowLevel === 1 && page.levelInformation[1]" class="level-text-left" style="color: #FFC9B1;">{{page.levelInformation[1].Level}}</span>
+        <span *ngIf="page.nowLevel === 2 && page.levelInformation[2]" class="level-text-left" style="color: #708591;">{{page.levelInformation[2].Level}}</span>
+        <span *ngIf="page.nowLevel === 3 && page.levelInformation[3]" class="level-text-left" style="color: #EAC23A;">{{page.levelInformation[3].Level}}</span>
+        <span *ngIf="page.nowLevel === 4 && page.levelInformation[4]" class="level-text-left" style="color: #9549BC;">{{page.levelInformation[4].Level}}</span>
 
         <img *ngIf="page.nowLevel >= 1" class="level-logo" src="assets/imgs/advanced/logo-actived.png" alt="点亮图标">
         <img *ngIf="page.nowLevel < 1" class="level-logo" src="assets/imgs/advanced/logo-default.png" alt="未点亮图标">

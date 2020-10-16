@@ -469,7 +469,7 @@ export class HomePage implements OnInit {
         loading.present();
         this.homeSer.ValidationLevel({}).subscribe(
             (res) => {
-                console.log('goAdvancedLevel', res.data, res.data.status === 1);
+                // console.log('goAdvancedLevel', res.data, res.data.status === 1);
                 if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
                     this.homeSer.InitializeLevel({ leveltype: res.data.leveltype }).subscribe(
                         (resInit) => {
@@ -478,14 +478,14 @@ export class HomePage implements OnInit {
                                 this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
                                     (resRole) => {
                                         loading.dismiss();
-                                        console.log('GetRoleByPCode', resRole.data);
+                                        // console.log('GetRoleByPCode', resRole.data);
                                         if (resRole.code === 200) {
                                             let modal = this.modalCtrl.create(RoleModalPage, { roleList: resRole.data });
                                             modal.onDidDismiss((data) => {
                                                 if (data) {
-                                                    console.log('onDidDismiss', data, data.value)
+                                                    // console.log('onDidDismiss', data, data.value)
                                                     // this.getVideoDetail();
-                                                    this.navCtrl.push(AdvancedLevelPage, { leveltype: data.value, roleList: resRole.data });
+                                                    this.navCtrl.push(AdvancedLevelPage, { leveltype: data, roleList: resRole.data });
                                                 }
                                             })
                                             modal.present();
@@ -499,10 +499,13 @@ export class HomePage implements OnInit {
                 } else if (res.data.status === 0 && res.data.leveltype) {
                     this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
                         (resRole) => {
-                            console.log('GetRoleByPCode', resRole.data);
+                            // console.log('GetRoleByPCode', resRole.data);
                             if (resRole.code === 200) {
                                 loading.dismiss();
-                                this.navCtrl.push(AdvancedLevelPage, { leveltype: res.data.leveltype, roleList: resRole.data });
+                                this.navCtrl.push(AdvancedLevelPage, { leveltype: {
+                                    value: res.data.leveltype,
+                                    label: res.data.LevelName
+                                }, roleList: resRole.data });
                             }
                         }
                     )

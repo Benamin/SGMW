@@ -19,7 +19,6 @@ export class RoleModalPage {
     }
 
     ionViewDidLoad() {
-        // this.getList();
         this.roleList = this.navParams.get('roleList');
         console.log('roleList', this.roleList)
     }

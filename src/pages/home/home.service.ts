@@ -276,6 +276,11 @@ export class HomeService {
     InitializeLevel(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EApprove/InitializeLevel', data);
     }
+
+    // 更改已选定的认证流程 
+    UpdateInitializeLevel(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/UpdateInitializeLevel', data);
+    }
     
     // 获取所有认证进阶流程 角色类型
     GetRoleByPCode(data): Observable<any> {
