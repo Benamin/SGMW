@@ -69,7 +69,7 @@
                                 <input type="password" [(ngModel)]="jxs.llzs.password" autocomplete name="xszspwd" placeholder="请输入密码"/>
                             </div>
                             <div class="check input-input">
-                                <input type="text" [(ngModel)]="jxs.xszs.inputCode" name="xszsinputCode" placeholder="请输入验证码"/>
+                                <input type="text" [(ngModel)]="jxs.llzs.inputCode" name="llzsinputCode" placeholder="请输入验证码"/>
                                 <check-code class="checkCode" #checkCodeLLZS (done)="getCodeLLZS($event)"></check-code>
                                 <img tappable (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png"
                                      alt="">

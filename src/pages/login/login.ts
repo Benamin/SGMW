@@ -805,7 +805,7 @@ export class LoginPage {
     }
 
     getCodeLLZS(e) {
-        this.fwzsObj.codeRight = e;
+        this.jxs.llzs.codeRight = e;
     }
 
     // 储存用户角色
