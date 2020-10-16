@@ -7,7 +7,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
+      "proxyUrl": "http://devapi1.chinacloudsites.cn/api"
     },
     {
       "path": "/XSZSAPI",
@@ -20,6 +20,10 @@
     {
       "path": "/FWZSAPI",
       "proxyUrl": "https://sgmwsa.shaoxingzhuoyue.com/api"
+    },
+    {
+      "path": "/LLZSAPI",
+      "proxyUrl": "https://sso-test.baojunev.com"
     }
   ]
 }

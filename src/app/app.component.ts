@@ -244,7 +244,8 @@ export class MyApp {
     //骏客鉴权
     trainAuth(token) {
         const data = <any>{};
-        this.nativeHttp.post(`${JunKe_HTTP_URL}/dmscloud.interfaceServer.yunyang/external/trainSys/tranAuth`, {}, {headers: {"jwt": token}}).then(
+        const header = {"jwt": token};
+        this.nativeHttp.post(`${JunKe_HTTP_URL}/dmscloud.interfaceServer.yunyang/external/trainSys/tranAuth`, {}, header).then(
             (response) => {
                 let res = JSON.parse(response.data);
                 if (res.status) {

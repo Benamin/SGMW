@@ -1,5 +1,14 @@
 import {Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
-import {Content, IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
+import {
+    Content,
+    IonicPage,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Platform,
+    Slides
+} from 'ionic-angular';
 import {VideojsComponent} from "../../../components/videojs/videojs";
 import {defaultHeadPhoto} from "../../../app/app.constants";
 import {LearnService} from "../learn.service";
@@ -102,6 +111,7 @@ export class FocusCoursePage {
                 private datePipe: DatePipe,
                 private global: GlobalData,
                 private mineSer: MineService,
+                public platform: Platform,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
     }
@@ -460,9 +470,9 @@ export class FocusCoursePage {
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
         }
-        // if (file.icon.includes('pdf')) {
-        //     this.openPDF(file);
-        // }
+        if (file.icon.includes('pdf') && this.platform.is('android')) {
+            this.openPDF(file);
+        }
         if (file.icon.includes('iframe')) {
             const iframe = {
                 type: 'iframe',

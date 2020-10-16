@@ -111,12 +111,39 @@ export class LoginService {
             })
     }
 
-    /***新销售助手登录***/
+    /***新销售助手跳转登录***/
     NXSZSLogin(data, header): Observable<any> {
         return this.http.post(NXSZS_HTTP_URL + '/user/api/checkUserByAccessToken', this.dataForm.toFormData(data),
             {
                 headers: header
             })
+    }
+
+    //菱菱助手登录
+    //获取菱菱助手unionId
+    LLZSGetUnionId(header): Observable<any> {
+        return this.http.get(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/userinfo", {
+            headers: header
+        })
+    }
+
+    //获取菱菱助手token
+    LLZSGetToken(data): Observable<any> {
+        return this.http.post(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/token", this.dataForm.xxxFormData(data), {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+            }
+        })
+    }
+
+    //获取菱菱助手用户信息
+    LLZSGetUserInfo(params): Observable<any> {
+        return this.http.get(NXSZS_HTTP_URL + `/user/api/userInfo/${params}`);
+    }
+
+    //登录菱菱助手
+    InsertEsysUserLL(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/account/InsertEsysUserLL', data);
     }
 
     //获取用户积分和头衔列表

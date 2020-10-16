@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AppService} from "../../app/app.service";
 import {EmitService} from "../../core/emit.service";
 import {ViewFilePage} from "../../pages/learning/view-file/view-file";
-import {ActionSheetController, AlertController, ModalController, NavController} from "ionic-angular";
+import {ActionSheetController, AlertController, ModalController, NavController, Platform} from "ionic-angular";
 import {FileService} from "../../core/file.service";
 import {CommonService} from "../../core/common.service";
 import {timer} from "rxjs/observable/timer";
@@ -34,6 +34,7 @@ export class TreeListComponent {
                 private navCtrl: NavController,
                 private mineSer: MineService,
                 public alertCtrl: AlertController,
+                public platform: Platform,
                 private global: GlobalData,
                 private downloadPro: DownloadFileProvider) {
         timer(10).subscribe(
@@ -98,6 +99,7 @@ export class TreeListComponent {
                 nodeLevel: node   //课时节点
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
+            return;
         }
         if (file.icon.includes('iframe')) {  // iframe
             const iframe = {
@@ -105,10 +107,12 @@ export class TreeListComponent {
                 iframe: file
             };
             this.appSer.setFile(iframe);  //通知主页面播放视频
+            return;
         }
-        // if (file.icon.includes('pdf')) {   //pdf课件
-        //     this.openPDF(file);
-        // }
+        if (file.icon.includes('pdf') && this.platform.is('android')) {   //pdf课件
+            this.openPDF(file);
+            return;
+        }
         if (!file.icon.includes('mp4') && !file.icon.includes('iframe')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
@@ -176,9 +180,9 @@ export class TreeListComponent {
                         }
                     } else {  //作业未完成
                         if (exam.JopType == 0) {
-                            if(res.data.TotalScore == -1){   //暂存
+                            if (res.data.TotalScore == -1) {   //暂存
                                 this.navCtrl.push(DoExamPage, {item: exam, ExamStatusMine: 'ZanCun'})
-                            }else if (exam.examStatus == 4 && res.data.TotalScore > -1) {  //回顾
+                            } else if (exam.examStatus == 4 && res.data.TotalScore > -1) {  //回顾
                                 this.global.ExamFid = exam.Fid;
                                 this.appSer.setFile({type: 'ExamTip'});
                             } else {  //重新开始作业

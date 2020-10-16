@@ -12,7 +12,7 @@ import {timer} from "rxjs/observable/timer";
 import {
     FWZS_appid, FWZS_client_id, FWZS_HTTP_URL, FWZS_SecretKey,
     JunKe_client_id, JunKe_HTTP_URL, JunKe_PRIVATE_KEY, LastVersion,
-    NoUserMsg,
+    NoUserMsg, NXSZS_client_id, NXSZS_client_secret, NXSZS_clientId, NXSZS_HTTP_URL,
     sgmw_client_id,
     XSZS_appId,
     XSZS_appKey,
@@ -39,6 +39,7 @@ export class LoginPage {
     @ViewChild('checkCodeGys') checkCodeGys: CheckCodeComponent;
     @ViewChild('checkCodeYG') checkCodeYG: CheckCodeComponent;
     @ViewChild('checkCodeFWZS') checkCodeFWZS: CheckCodeComponent;
+    @ViewChild('checkCodeLLZS') checkCodeLLZS: CheckCodeComponent;
 
 
     @ViewChild(Slides) slides: Slides;
@@ -76,6 +77,12 @@ export class LoginPage {
             jxsh: '',
             codeRight: '',
             inputCode: ''
+        },
+        llzs: {
+            username: "B450006_120",
+            password: "Sgmw@5050",
+            codeRight: "",
+            inputCode: ""
         },
         xszs: {
             jxsh: '',
@@ -135,6 +142,7 @@ export class LoginPage {
         this.checkCodeGys.drawPic();
         this.checkCodeYG.drawPic();
         this.checkCodeFWZS.drawPic();
+        this.checkCodeLLZS.drawPic();
     }
 
     userRoleName = '销售助手';
@@ -148,7 +156,8 @@ export class LoginPage {
     //slide改变
     slideChange() {
         if (this.slides.realIndex == 0) this.loginObj.platform = "xszs";
-        if (this.slides.realIndex == 1) this.loginObj.platform = "junke";
+        if (this.slides.realIndex == 1) this.loginObj.platform = "llzs";
+        if (this.slides.realIndex == 2) this.loginObj.platform = "junke";
     }
 
     //员工
@@ -527,12 +536,178 @@ export class LoginPage {
 
     /***end***/
 
+    /***菱菱助手登录***/
+    llzsLogin() {
+        if (!this.checkBox) {
+            this.commonSer.toast('请阅读并同意用户协议');
+            return;
+        }
+        this.userRoleName = '菱菱助手';
+        this.setRoleNames();
+        if (!this.jxs.llzs.username || !this.jxs.llzs.password) {
+            this.commonSer.toast("请输入用户名密码");
+            return
+        }
+        if (this.jxs.llzs.codeRight != this.jxs.llzs.inputCode) {
+            this.commonSer.toast('请输入正确的验证码');
+            return;
+        }
+        this.showLoading();
+        const data = {
+            grant_type: "password",
+            username: this.jxs.llzs.username.trim(),
+            password: this.jxs.llzs.password,
+            client_id: NXSZS_clientId,
+            client_secret: NXSZS_client_secret
+        }
+
+        if (this.isMobile) {
+            const header = {
+                "content-type": "application/x-www-form-urlencoded",
+            }
+            this.nativeHttp.setDataSerializer('urlencoded');
+            this.nativeHttp.setHeader('*', 'Content-Type', 'application/x-www-form-urlencoded');
+            this.nativeHttp.post(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/token", data, header).then(
+                response => {
+                    let res = JSON.parse(response.data);
+                    if (res.access_token) {
+                        this.LLZSGetUnionId(res.access_token);
+                    } else {
+                        this.dismissLoading();
+                    }
+                }
+            ).catch(error => {
+                this.dismissLoading();
+                const message = JSON.parse(error.error);
+                this.commonSer.alert(message.error_description);
+            })
+        } else {
+            this.loginSer.LLZSGetToken(data).subscribe(
+                (res) => {
+                    if (res.access_token) {
+                        this.LLZSGetUnionId(res.access_token);
+                    }
+                },
+                (error) => {
+                    this.dismissLoading();
+                    this.commonSer.alert(`${error.error.error_description}:无效的用户信息`);
+                }
+            )
+        }
+    }
+
+    //获取菱菱助手的unionId
+    LLZSGetUnionId(token) {
+        const header = {
+            Authorization: `Bearer ${token}`
+        }
+        if (this.isMobile) {
+            this.nativeHttp.get(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/userinfo", "", header).then(
+                response => {
+                    let res = JSON.parse(response.data);
+                    if (res.unionId) {
+                        this.LLZSGetUserInfo(res.unionId);
+                    }
+                }
+            ).catch(error => {
+                this.dismissLoading();
+                const message = JSON.parse(error.error);
+                this.commonSer.alert(message.error_description);
+            })
+        } else {
+            this.loginSer.LLZSGetUnionId(header).subscribe(
+                (res) => {
+                    if (res.unionId) {
+                        this.LLZSGetUserInfo(res.unionId);
+                    }
+                }
+            ), error => {
+                this.dismissLoading();
+                this.commonSer.alert(error.error_description);
+            }
+        }
+    }
+
+    //获取菱菱助手用户信息
+    LLZSGetUserInfo(unionId) {
+        if (this.isMobile) {
+            this.nativeHttp.get(NXSZS_HTTP_URL + `/user/api/userInfo/${unionId}`, "", {}).then(
+                response => {
+                    let res = JSON.parse(response.data);
+                    if (res.data) {
+                        this.insertUserData(res.data);
+                    }
+                }
+            ).catch(error => {
+                this.dismissLoading();
+                const message = JSON.parse(error.error);
+                this.commonSer.alert(message.error_description);
+            })
+        } else {
+            this.loginSer.LLZSGetUserInfo(unionId).subscribe((res) => {
+                if (res.data) {
+                    this.insertUserData(res.data);
+                } else {
+                    this.dismissLoading();
+                    this.commonSer.alert('无该用户信息，请联系客服');
+                }
+            })
+        }
+    }
+
+    //插入菱菱助手数据
+    insertUserData(data) {
+        this.loginSer.InsertEsysUserLL(data).subscribe(
+            (res) => {
+                if (res.data) {
+                    this.connectTokenByNXSZS(data);
+                } else {
+                    this.dismissLoading();
+                }
+            }
+        ), error1 => {
+            this.dismissLoading();
+            const error = error1.error.error;
+            this.commonSer.alert(error);
+        }
+    }
+
+    //获取新销售助手用户信息
+    connectTokenByNXSZS(req) {
+        const data = {
+            grant_type: "password",
+            client_id: NXSZS_client_id,
+            Czydm: req.idCard,
+            UserName: req.name,
+        };
+        this.loginSer.connectToken(data).subscribe(
+            (res) => {
+                if (res.access_token) {
+                    this.storage.set('Authorization', res.access_token);
+                    timer(300).subscribe(e => {
+                        this.getUserInfo();
+                    })
+                } else {
+                    this.dismissLoading();
+                    this.storage.clear();
+                    this.commonSer.alert(res.error);
+                }
+            }, error1 => {
+                this.dismissLoading();
+                const error = error1.error.error;
+                this.commonSer.alert(error);
+            }
+        )
+    }
+
+    /***end***/
+
+
     //查询用户信息
     getUserInfo() {
         this.loginSer.GetUserInfoByUPN().subscribe(
             (res) => {
                 if (res.code == 200 && res.data) {
-                    this.storage.set('lastVersion', this.LastVersion);
                     // 获取用户角色 列表  存储用户角色
                     if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
                         this.userAsync(res);
@@ -601,9 +776,11 @@ export class LoginPage {
     //重新获取验证码
     flashCode() {
         if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'xszs') this.checkCodeXszs.drawPic();
+        if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'llzs') this.checkCodeLLZS.drawPic();
         if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'junke') this.checkCodeJunke.drawPic();
         if (this.loginObj.type == 'gys') this.checkCodeGys.drawPic();
         if (this.loginObj.type == 'yg') this.checkCodeYG.drawPic();
+        if (this.loginObj.type == 'fwzs') this.checkCodeFWZS.drawPic();
     }
 
     //验证码获取
@@ -624,6 +801,10 @@ export class LoginPage {
     }
 
     getCodeFwzs(e) {
+        this.fwzsObj.codeRight = e;
+    }
+
+    getCodeLLZS(e) {
         this.fwzsObj.codeRight = e;
     }
 

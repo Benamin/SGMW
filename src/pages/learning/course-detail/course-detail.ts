@@ -1,5 +1,14 @@
 import {ChangeDetectorRef, Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
-import {Content, IonicPage, LoadingController, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
+import {
+    Content,
+    IonicPage,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Platform,
+    Slides
+} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
@@ -121,6 +130,7 @@ export class CourseDetailPage {
                 private learnSer: LearnService,
                 private mineSer: MineService,
                 private storage: Storage,
+                public platform: Platform,
                 private changeDetectorRef: ChangeDetectorRef,
                 private global: GlobalData,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
@@ -448,7 +458,7 @@ export class CourseDetailPage {
             arr = this.nodeLevel4List.filter(e => e.StudyStatus == 2);
             if (arr.length && arr[arr.length - 1].files.length > 0) {
                 this.openFileByType(arr[arr.length - 1], arr[arr.length - 1].files[0])
-            }else{
+            } else {
                 this.commonSer.toast('课件已学习完毕')
             }
         } else {
@@ -474,11 +484,10 @@ export class CourseDetailPage {
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
         }
-        // if (file.icon.includes('pdf')) {   //pdf文件
-        //     this.openPDF(file);
-        //     this.dismissLoading();
-        //     return
-        // }
+        if (file.icon.includes('pdf') && this.platform.is('android')) {   //pdf文件
+            this.openPDF(file);
+            this.dismissLoading();
+        }
         if (file.icon.includes('iframe')) {  //iframe
             const iframe = {
                 type: 'iframe',

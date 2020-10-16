@@ -1,5 +1,13 @@
 import {Component, Input} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {
+    AlertController,
+    IonicPage,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Platform
+} from 'ionic-angular';
 import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
 import {CommonService} from "../../../core/common.service";
@@ -33,6 +41,7 @@ export class ChapterPage {
                 private fileSer: FileService, private learSer: LearnService,
                 private global: GlobalData,
                 private appSer: AppService,
+                public platform: Platform,
                 public alertCtrl: AlertController,
                 private downloadPro: DownloadFileProvider,
                 public mineSer: MineService,
@@ -84,9 +93,9 @@ export class ChapterPage {
                         if (exam.JopType == 0) {  //普通题目
                             //是否做过一次题目  TotalScore为-1表示 作业是保存的
                             console.log('TotalScore为-1表示 作业是保存的')
-                            if(res.data.TotalScore == -1){   //暂存
+                            if (res.data.TotalScore == -1) {   //暂存
                                 this.navCtrl.push(DoExamPage, {item: exam, ExamStatusMine: 'ZanCun'})
-                            }else if (exam.examStatus == 4 && res.data.TotalScore > -1) {  //回顾
+                            } else if (exam.examStatus == 4 && res.data.TotalScore > -1) {  //回顾
                                 this.global.ExamFid = exam.Fid;
                                 this.appSer.setFile({type: 'ExamTip'});
                             } else {  //重新开始作业
@@ -142,6 +151,7 @@ export class ChapterPage {
                 nodeLevel: node   //课时节点
             };
             this.appSer.setFile(mp4);  //通知主页面播放视频
+            return;
         }
         if (file.icon.includes('iframe')) {  // iframe
             const iframe = {
@@ -149,11 +159,13 @@ export class ChapterPage {
                 iframe: file
             };
             this.appSer.setFile(iframe);  //通知主页面播放视频
+            return;
         }
-        // if (file.icon.includes('pdf')) {   //pdf课件
-        //     this.global.CourseEnterSource = "PDF";
-        //     this.openPDF(file);
-        // }
+        if (file.icon.includes('pdf') && this.platform.is('android')) {   //pdf课件
+            this.global.CourseEnterSource = "PDF";
+            this.openPDF(file);
+            return;
+        }
         if (!file.icon.includes('mp4')) {
             this.fileSer.viewFile(file.fileUrl, file.filename);
         }
