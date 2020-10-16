@@ -79,8 +79,8 @@ export class LoginPage {
             inputCode: ''
         },
         llzs: {
-            username: "B450006_120",
-            password: "Sgmw@5050",
+            username: "",
+            password: "",
             codeRight: "",
             inputCode: ""
         },

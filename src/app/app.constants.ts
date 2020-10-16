@@ -23,6 +23,7 @@ const SERVER_HTTP_URL_PROD = 'https://elearning.sgmw.com.cn/#/courseDetail';  //
 export const SERVER_HTTP_URL = env === 'localhost' ? SERVER_HTTP_URL_DEV : SERVER_HTTP_URL_PROD;
 /*****end******/
 
+
 /***骏客***/
 //环境
 const JunKe_HTTP_URL_LOCALHOST = "/JunKeAPI";  //代理地址
@@ -61,6 +62,7 @@ export const XSZS_appKey = keyEnv === 'dev' ? XSZS_appKey_DEV : XSZS_appKey_PROD
 export const XSZS_client_id = "138B0798-8D43-4588-B291-DB8545865C8A";
 /*****end******/
 
+
 /***新销售助手***/
 //环境
 const NXSZS_HTTP_URL_LOCALHOST = "/LLZSAPI";  //代理地址
@@ -70,18 +72,19 @@ export const NXSZS_HTTP_URL = (env == 'localhost' ? NXSZS_HTTP_URL_LOCALHOST : (
 
 //client_id 登录菱菱助手接口使用
 const NXSZS_client_id_DEV = "jlxs_test";
-const NXSZS_client_id_PROD = "jlxs_test";
+const NXSZS_client_id_PROD = "jlxs";
 //登录使用的client_id
 export const NXSZS_clientId = keyEnv === 'dev' ? NXSZS_client_id_DEV : NXSZS_client_id_PROD;
 
 //client_secret 登录菱菱助手接口使用
 const NXSZS_client_secret_DEV = "0440158b-6de0-443f-a32c-cc8f1ccefd20";
-const NXSZS_client_secret_PROD = "jlxs_test";
+const NXSZS_client_secret_PROD = "a95cf710-8320-457b-a8eb-741264c592f7";
 //登录使用的client_secret
 export const NXSZS_client_secret = keyEnv === 'dev' ? NXSZS_client_secret_DEV : NXSZS_client_secret_PROD;
 
 export const NXSZS_client_id = "8ee2c202-1e5e-4c50-b620-016cb967c768";
 /*****end******/
+
 
 /***服务助手***/
 const FWZS_HTTP_URL_LOCALHOST = "FWZSAPI";
@@ -95,10 +98,10 @@ export const FWZS_SecretKey = "48c85555fbf14d489536070b32c6998f";
 
 export const FWZS_client_id = '5729E3DD-4DD9-4132-9365-016E6FE676E1';
 
-//签名
-
 /*****end******/
 
+
+/*****系统部分配置******/
 export const defaultImg = './assets/imgs/default.jpg';
 export const defaultHeadPhoto = './assets/imgs/userDefault.jpg';
 
@@ -107,7 +110,6 @@ export const LastVersion = '2.1.2';
 
 //提示信息
 export const NoUserMsg = "您的用户信息暂未同步到骏菱学社，请稍后再试。如有问题，请致电0772-2650611。";
-
 
 //分享
 const PCURLDEV = "https://devportal1.chinacloudsites.cn/#/"  //dev
