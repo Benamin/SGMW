@@ -7,11 +7,11 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://devapi1.chinacloudsites.cn/api"
+      "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
     },
     {
       "path": "/XSZSAPI",
-      "proxyUrl": "http://112.124.23.230:8010/API"
+      "proxyUrl": "https://promotion.sgmw.com.cn/API"
     },
     {
       "path": "/JunKeAPI",
@@ -23,8 +23,7 @@
     },
     {
       "path": "/LLZSAPI",
-      "proxyUrl": "https://sso-test.baojunev.com"
+      "proxyUrl": "https://sso-sales.baojunev.com"
     }
-  ],
-  "app_id": ""
+  ]
 }
