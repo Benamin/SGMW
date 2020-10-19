@@ -717,7 +717,7 @@ export class LoginPage {
                             if (res2.data) {
                                 this.storage.set('CurrentRole', {
                                     CurrentRoleID: res2.data.CurrentRoleID,
-                                    CurrentRoleName: res2.data.CurrentRoleNames
+                                    CurrentRoleName: res2.data.CurrentRoleNames ? res2.data.CurrentRoleNames : this.userRoleName
                                 });
                                 this.userAsync(res);
                                 this.updateRegID(res);
