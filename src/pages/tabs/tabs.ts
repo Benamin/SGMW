@@ -85,6 +85,7 @@ export class TabsPage {
     loading;
     disBtn = true;
 
+
     constructor(private platform: Platform, private params: NavParams,
                 private global: GlobalData,
                 private loginSer: LoginService,
@@ -98,7 +99,7 @@ export class TabsPage {
                 this.getUserInfo();
                 return
             }
-            if (value && value.MainUserID && value.MainUserID === '00000000-0000-0000-0000-000000000000') {
+            if ((value && value.MainUserID && value.MainUserID === '00000000-0000-0000-0000-000000000000')) {
                 this.getUserInfo();
             }
         });
@@ -119,7 +120,7 @@ export class TabsPage {
                     this.loginSer.GetUserByLoginId({loginUserId: res.data.LoginUserId}).subscribe(
                         (res) => {
                             this.storage.set('user', res.data);
-                            if (res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000') {
+                            if ((res.data && res.data.MainUserID && res.data.MainUserID === '00000000-0000-0000-0000-000000000000')) {
                                 this.userInfo = res.data;
                                 if (res.data.CardNo) this.CardNo = res.data.CardNo;
                                 this.inputType = 'submit';

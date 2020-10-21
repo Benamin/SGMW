@@ -96,10 +96,14 @@ export class VideoListsPage {
         };
         this.homeSer.GetShortVideoLists(data).subscribe(
             (res) => {
-                this.page.videoLists = res.data.Items;
-                this.page.TotalCount = res.data.TotalCount;
-                this.page.isLoad = true;
                 loading.dismiss();
+                if (res.data) {
+                    this.page.videoLists = res.data.Items;
+                    this.page.TotalCount = res.data.TotalCount;
+                    this.page.isLoad = true;
+                } else {
+                    this.commonSer.alert(res.message);
+                }
             }
         )
     }

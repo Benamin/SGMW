@@ -79,8 +79,8 @@ export class LoginPage {
             inputCode: ''
         },
         llzs: {
-            username: "",
-            password: "",
+            username: "B450006_120",
+            password: "Sgmw@5050",
             codeRight: "",
             inputCode: ""
         },
@@ -579,7 +579,7 @@ export class LoginPage {
             ).catch(error => {
                 this.dismissLoading();
                 const message = JSON.parse(error.error);
-                this.commonSer.alert(message.error_description);
+                this.commonSer.alert(`账号密码错误: ${message.error_description}`);
             })
         } else {
             this.loginSer.LLZSGetToken(data).subscribe(
@@ -590,7 +590,7 @@ export class LoginPage {
                 },
                 (error) => {
                     this.dismissLoading();
-                    this.commonSer.alert(`${error.error.error_description}:无效的用户信息`);
+                    this.commonSer.alert(`账号密码错误: ${error.error.error_description}`);
                 }
             )
         }
@@ -623,7 +623,7 @@ export class LoginPage {
                 }
             ), error => {
                 this.dismissLoading();
-                this.commonSer.alert(error.error_description);
+                this.commonSer.alert(`${error.error_description}`);
             }
         }
     }
@@ -635,7 +635,7 @@ export class LoginPage {
                 response => {
                     let res = JSON.parse(response.data);
                     if (res.data) {
-                        this.insertUserData(res.data);
+                        this.insertUserData(res.data, unionId);
                     }
                 }
             ).catch(error => {
@@ -646,7 +646,7 @@ export class LoginPage {
         } else {
             this.loginSer.LLZSGetUserInfo(unionId).subscribe((res) => {
                 if (res.data) {
-                    this.insertUserData(res.data);
+                    this.insertUserData(res.data, unionId);
                 } else {
                     this.dismissLoading();
                     this.commonSer.alert('无该用户信息，请联系客服');
@@ -656,14 +656,11 @@ export class LoginPage {
     }
 
     //插入菱菱助手数据
-    insertUserData(data) {
+    insertUserData(data, unionId) {
+        Object.assign(data, {UnionID: unionId, LoginName: this.jxs.llzs.username})
         this.loginSer.InsertEsysUserLL(data).subscribe(
             (res) => {
-                if (res.data) {
-                    this.connectTokenByNXSZS(data);
-                } else {
-                    this.dismissLoading();
-                }
+                this.connectTokenByNXSZS(data);
             }
         ), error1 => {
             this.dismissLoading();
@@ -678,7 +675,8 @@ export class LoginPage {
             grant_type: "password",
             client_id: NXSZS_client_id,
             Czydm: req.idCard,
-            UserName: req.name,
+            UserName: req.LoginName,
+            usertype: 'LLZS',
         };
         this.loginSer.connectToken(data).subscribe(
             (res) => {
