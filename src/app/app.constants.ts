@@ -1,6 +1,6 @@
 // export let env = 'localhost';
-export let env = 'dev';
-// export let env = 'uat';
+// export let env = 'dev';
+export let env = 'uat';
 // export let env = 'prod';
 
 export let keyEnv = 'dev';
@@ -83,7 +83,8 @@ const NXSZS_client_secret_PROD = "a95cf710-8320-457b-a8eb-741264c592f7";
 //登录使用的client_secret
 export const NXSZS_client_secret = keyEnv === 'dev' ? NXSZS_client_secret_DEV : NXSZS_client_secret_PROD;
 
-export const NXSZS_client_id = "D1EBCD6A-B8C4-4055-9FBA-D8AFEF00357F";
+export const NXSZS_client_id_login = "D1EBCD6A-B8C4-4055-9FBA-D8AFEF00357F";
+export const NXSZS_client_id_app = "8ee2c202-1e5e-4c50-b620-016cb967c768";
 /*****end******/
 
 

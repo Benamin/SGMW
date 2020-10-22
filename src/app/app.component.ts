@@ -23,8 +23,8 @@ import {
     JunKe_client_id,
     JunKe_HTTP_URL,
     LastVersion,
-    NoUserMsg,
-    NXSZS_client_id, NXSZS_HTTP_URL,
+    NoUserMsg, NXSZS_client_id_app,
+    NXSZS_HTTP_URL,
     XSZS_client_id
 } from "./app.constants";
 import {AppVersion} from "@ionic-native/app-version";
@@ -333,7 +333,7 @@ export class MyApp {
     connectTokenByNXSZS(req) {
         const data = {
             grant_type: "password",
-            client_id: NXSZS_client_id,
+            client_id: NXSZS_client_id_app,
             Czydm: req.CardNo,
             UserName: req.Name,
         };

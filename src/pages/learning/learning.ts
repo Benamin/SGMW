@@ -35,6 +35,7 @@ export class LearningPage {
     loading;
     title;
     keyWord;
+    RoleID;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private logSer: LogService,
@@ -47,6 +48,9 @@ export class LearningPage {
             this.title = this.navParams.get('title');
             this.keyWord = '';
         }
+        this.storage.get('RoleID').then(value => {
+            this.RoleID = value;
+        })
     }
 
     ionViewDidLoad() {
@@ -130,6 +134,7 @@ export class LearningPage {
             pageSize: this.page.pageSize,
             "OrderBy": "CreateTime",
             "SortDir": "DESC",
+            "RoleID": this.RoleID
         };
         this.learnSer.GetProductList(data).subscribe(
             (res) => {

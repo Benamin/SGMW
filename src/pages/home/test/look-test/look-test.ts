@@ -50,7 +50,6 @@ export class LookTestPage {
                 if (Date.now() > this.commonSer.transFormTime(this.exam.ExamInfo.ExamEnd)) {
                     this.isTestEnd = true;
                 }
-
                 loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';

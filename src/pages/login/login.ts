@@ -12,7 +12,7 @@ import {timer} from "rxjs/observable/timer";
 import {
     FWZS_appid, FWZS_client_id, FWZS_HTTP_URL, FWZS_SecretKey,
     JunKe_client_id, JunKe_HTTP_URL, JunKe_PRIVATE_KEY, LastVersion,
-    NoUserMsg, NXSZS_client_id, NXSZS_client_secret, NXSZS_clientId, NXSZS_HTTP_URL,
+    NoUserMsg, NXSZS_client_id_login, NXSZS_client_secret, NXSZS_clientId, NXSZS_HTTP_URL,
     sgmw_client_id,
     XSZS_appId,
     XSZS_appKey,
@@ -79,8 +79,8 @@ export class LoginPage {
             inputCode: ''
         },
         llzs: {
-            username: "B450006_120",
-            password: "Sgmw@5050",
+            username: "",
+            password: "",
             codeRight: "",
             inputCode: ""
         },
@@ -673,7 +673,7 @@ export class LoginPage {
     connectTokenByNXSZS(req) {
         const data = {
             grant_type: "password",
-            client_id: NXSZS_client_id,
+            client_id: NXSZS_client_id_login,
             Czydm: req.idCard,
             UserName: req.LoginName,
             usertype: 'LLZS',
