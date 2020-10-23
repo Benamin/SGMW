@@ -2,10 +2,10 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, LoadingController} from 'ionic-angular';
 
 import {HomeService} from "../../home.service";
-import {LookTestPage} from "../../test/look-test/look-test";
+// import {LookTestPage} from "../../test/look-test/look-test";
 import {CommonService} from "../../../../core/common.service";
 import {DoTestPage} from "../../test/do-test/do-test";
-import {LearnService} from "../../../learning/learn.service";
+// import {LearnService} from "../../../learning/learn.service";
 import {FocusCoursePage} from "../../../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../../../learning/inner-course/inner-course";
 import {CourseDetailPage} from "../../../learning/course-detail/course-detail";
@@ -59,8 +59,15 @@ export class AdvancedListsPage {
                 lists: []
             },
             {
-                title: "其他",
-                en: 'other',
+                title: "KPI",
+                en: 'kpi',
+                isOpen: false,
+                listType: null,
+                lists: []
+            },
+            {
+                title: "评分结果",
+                en: 'points',
                 isOpen: false,
                 listType: null,
                 lists: []
@@ -74,7 +81,7 @@ export class AdvancedListsPage {
 
     constructor(
         private commonSer: CommonService,
-        private learSer: LearnService,
+        // private learSer: LearnService,
         public navCtrl: NavController,
         public navParams: NavParams,
         private loadCtrl: LoadingController,
@@ -146,7 +153,8 @@ export class AdvancedListsPage {
                 if (res.code === 200) {
                     this.page.advancedArr[0].lists = res.data.product; // 课程
                     this.page.advancedArr[1].lists = res.data.stuexam; // 考试
-                    // this.page.advancedArr[2].lists = res.data.product; // 其他
+                    this.page.advancedArr[2].lists = res.data.UserKpis; // KPI
+                    this.page.advancedArr[3].lists = [res.data.Speaking]; // 评分结果
                 }
 
                 // this.page.myInfo = res.data;

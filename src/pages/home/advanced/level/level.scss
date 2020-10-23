@@ -1,4 +1,25 @@
 page-level {
+  //.action-sheet-ios .action-sheet-container {
+  //  padding: 0 !important;
+  //}
+  //.action-sheet-ios .action-sheet-group:last-child {
+  //  margin-bottom: 0 !important;
+  //}
+  .top-box {
+    display: flex;
+    align-items: center;
+    .top-right {
+      margin-left: auto;
+      font-size: 1.4rem;
+      color: #FFF;
+      img {
+        margin-right: 1.1rem;
+        margin-left: 0.5rem;
+        width: 1.5rem;
+      }
+    }
+  }
+
   ion-content {
     background-color: #131415 !important;
   }
