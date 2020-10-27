@@ -64,17 +64,17 @@ export class AdvancedLevelPage {
                    let nowLevel = res.data.Hierarchy - 1;
                    this.page.levelInformation =  res.data.levelInformation;
                    this.page.nowLevel = nowLevel;
-                   let schedule = res.data.schedule;
-                   let nowProgress = Number(schedule) || 0;
-                   if (typeof schedule === 'string' && schedule.indexOf(" %") != -1) {
-                    nowProgress = Number(schedule.split(' ')[0]);
-                   } else {
-                    nowProgress = Number(schedule);
-                   }
+                   // let schedule = res.data.schedule;
+                   // let nowProgress = schedule;
+                   // if (typeof schedule === 'string' && schedule.indexOf(" %") != -1) {
+                   //  nowProgress = Number(schedule.split(' ')[0]);
+                   // } else {
+                   //  nowProgress = Number(schedule);
+                   // }
                    
                 //    console.log('nowProgress', nowProgress)
                 // let nowProgress = 30; // 模拟
-                   this.page.nowProgress = nowProgress
+                   this.page.nowProgress = res.data.schedule;
                 }  else {
                     this.commonSer.toast(res.message);
                 }
