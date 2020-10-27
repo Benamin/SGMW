@@ -75,17 +75,25 @@
         </div>
         <!-- 考试列表 end -->
         <!-- 其他 -->
-        <!-- <div class="item-other" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'other'">
-          <div class="dir-title">KPI</div>
-          <div class="other-li">
-            <span class="title">参加认证当月以下KPI高于省份平均（系数取数）</span>
-            <span class="num">0</span>
+        <div class="item-other" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'kpi'">
+          <!--<div class="dir-title">KPI</div>-->
+          <div class="other-li" *ngFor="let item of page.advancedArr[2].lists">
+            <span class="title">{{ item.KpiName }}</span>
+            <span *ngIf="item.IsQualified" class="pass_text">合格</span>
+            <span *ngIf="!item.IsQualified" class="no_pass_text">不合格</span>
+            <span class="num">{{ item.KpiValue }}</span>
           </div>
-          <div class="other-li">
-            <span class="title">我的KPI系数</span>
-            <span class="num">0</span>
+        </div>
+
+        <div class="item-other" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'points'">
+          <!--<div class="dir-title">KPI</div>-->
+          <div class="other-li" *ngFor="let item of page.advancedArr[3].lists">
+            <span class="title">试乘试驾操作评分</span>
+            <span *ngIf="item.IsQualified" class="pass_text">合格</span>
+            <span *ngIf="!item.IsQualified" class="no_pass_text">不合格</span>
+            <span class="num">{{ item.Score }}</span>
           </div>
-        </div> -->
+        </div>
 
     </div>
 </ion-content>

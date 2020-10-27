@@ -234,6 +234,7 @@ page-lists {
       transition: max-height ease-in 0.2s;
       overflow: hidden;
       background-color: #FFFFFF;
+      padding-bottom: 0.7rem;
 
       .dir-title {
         box-sizing: border-box;
@@ -244,6 +245,21 @@ page-lists {
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .title {
+        max-width: 24rem;
+      }
+      .pass_text {
+        margin-right: 1rem;
+        margin-left: auto;
+        color: green;
+        font-size: 1.4rem;
+      }
+      .no_pass_text {
+        margin-right: 1rem;
+        margin-left: auto;
+        color: red;
+        font-size: 1.4rem;
       }
 
       &:nth-child(1) {
@@ -263,6 +279,9 @@ page-lists {
         justify-content: space-between;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
+        &:nth-last-child(1) {
+          border-bottom: none;
+        }
         .title {
           width: 30.2rem;
           overflow: hidden; //超出的隐藏
