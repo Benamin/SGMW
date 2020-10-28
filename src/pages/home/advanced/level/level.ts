@@ -38,7 +38,7 @@ export class AdvancedLevelPage {
         this.page.roleList = this.navParams.get('roleList');
         this.page.leveltype = this.navParams.get('leveltype').value;
         this.page.levelTypeText = this.navParams.get('leveltype').label;
-        
+
         this.getAdvancedLevel();
     }
 
@@ -60,25 +60,25 @@ export class AdvancedLevelPage {
             (res) => {
                 if (res.code === 200) {
                     // console.log('Lv:', res)
-                //    let nowLevel = Number(res.data.Level.split('LV')[1]);
-                   let nowLevel = res.data.Hierarchy - 1;
-                   this.page.levelInformation =  res.data.levelInformation;
-                   this.page.nowLevel = nowLevel;
-                   // let schedule = res.data.schedule;
-                   // let nowProgress = schedule;
-                   // if (typeof schedule === 'string' && schedule.indexOf(" %") != -1) {
-                   //  nowProgress = Number(schedule.split(' ')[0]);
-                   // } else {
-                   //  nowProgress = Number(schedule);
-                   // }
-                   
-                //    console.log('nowProgress', nowProgress)
-                // let nowProgress = 30; // 模拟
-                   this.page.nowProgress = res.data.schedule;
+                    //    let nowLevel = Number(res.data.Level.split('LV')[1]);
+                    let nowLevel = res.data.Hierarchy - 1;
+                    this.page.levelInformation =  res.data.levelInformation;
+                    this.page.nowLevel = nowLevel;
+                    // let schedule = res.data.schedule;
+                    // let nowProgress = schedule;
+                    // if (typeof schedule === 'string' && schedule.indexOf(" %") != -1) {
+                    //  nowProgress = Number(schedule.split(' ')[0]);
+                    // } else {
+                    //  nowProgress = Number(schedule);
+                    // }
+
+                    //    console.log('nowProgress', nowProgress)
+                    // let nowProgress = 30; // 模拟
+                    this.page.nowProgress = res.data.schedule;
                 }  else {
                     this.commonSer.toast(res.message);
                 }
-                
+
                 // this.page.myInfo = res.data;
                 loading.dismiss();
             }, err => {
@@ -100,28 +100,45 @@ export class AdvancedLevelPage {
                         content: ''
                     });
 
+                    // this.homeSer.UpdateInitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
+                    //     (resRole) => {
+                    //         if (resRole.code === 200) {
+                    //             this.page.leveltype = this.page.roleList[i].value;
+                    //             this.page.levelTypeText = this.page.roleList[i].label;
+                    //             loading.dismiss();
+                    //             this.getAdvancedLevel();
+                    //         }
+                    //     }
+                    // )
                     this.homeSer.ValidationLevel({}).subscribe(
                         (res) => {
                             // console.log('goAdvancedLevel', res.data, res.data.status === 1);
-                            if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
-                                this.homeSer.InitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
-                                    (resInit) => {
-                                        if (resInit.code === 200) {
+                            // if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
+                            this.homeSer.InitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
+                                (resInit) => {
+                                    if (resInit.code === 200) {
 
-                                            this.page.leveltype = this.page.roleList[i].value;
-                                            this.page.levelTypeText = this.page.roleList[i].label;
-                                            loading.dismiss();
-                                            this.getAdvancedLevel();
+                                        this.page.leveltype = this.page.roleList[i].value;
+                                        this.page.levelTypeText = this.page.roleList[i].label;
+                                        loading.dismiss();
+                                        this.getAdvancedLevel();
 
-                                        }
                                     }
-                                )
-                            } else {
-                                this.page.leveltype = this.page.roleList[i].value;
-                                this.page.levelTypeText = this.page.roleList[i].label;
-                                loading.dismiss();
-                                this.getAdvancedLevel();
-                            }
+                                }
+                            )
+                            // } else {
+                            //     this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
+                            //         (resRole) => {
+                            //             // console.log('GetRoleByPCode', resRole.data);
+                            //             if (resRole.code === 200) {
+                            //                 this.page.leveltype = this.page.roleList[i].value;
+                            //                 this.page.levelTypeText = this.page.roleList[i].label;
+                            //                 loading.dismiss();
+                            //                 this.getAdvancedLevel();
+                            //             }
+                            //         }
+                            //     )
+                            // }
                         }
                     )
                 }
