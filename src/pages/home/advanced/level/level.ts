@@ -100,13 +100,58 @@ export class AdvancedLevelPage {
                         content: ''
                     });
                     
-                    this.homeSer.UpdateInitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
-                        (resRole) => {
-                            if (resRole.code === 200) {
+                    // this.homeSer.UpdateInitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
+                    //     (resRole) => {
+                    //         if (resRole.code === 200) {
+                    //             this.page.leveltype = this.page.roleList[i].value;
+                    //             this.page.levelTypeText = this.page.roleList[i].label;
+                    //             loading.dismiss();
+                    //             this.getAdvancedLevel();
+                    //         }
+                    //     }
+                    // )
+                    this.homeSer.ValidationLevel({}).subscribe(
+                        (res) => {
+                            // console.log('goAdvancedLevel', res.data, res.data.status === 1);
+                            if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
+                                this.homeSer.InitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
+                                    (resInit) => {
+                                        if (resInit.code === 200) {
+
+                                            this.page.leveltype = this.page.roleList[i].value;
+                                            this.page.levelTypeText = this.page.roleList[i].label;
+                                            loading.dismiss();
+                                            this.getAdvancedLevel();
+
+                                        }
+                                    }
+                                )
+                            } else {
+                                this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
+                                    (resRole) => {
+                                        // console.log('GetRoleByPCode', resRole.data);
+                                        if (resRole.code === 200) {
+                                            this.page.leveltype = this.page.roleList[i].value;
+                                            this.page.levelTypeText = this.page.roleList[i].label;
+                                            loading.dismiss();
+                                            this.getAdvancedLevel();
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    )
+
+
+                    this.homeSer.InitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
+                        (resInit) => {
+                            if (resInit.code === 200) {
+
                                 this.page.leveltype = this.page.roleList[i].value;
                                 this.page.levelTypeText = this.page.roleList[i].label;
                                 loading.dismiss();
                                 this.getAdvancedLevel();
+
                             }
                         }
                     )
