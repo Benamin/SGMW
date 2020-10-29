@@ -471,31 +471,35 @@ export class HomePage implements OnInit {
             (res) => {
                 // console.log('goAdvancedLevel', res.data, res.data.status === 1);
                 if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
-                    this.homeSer.InitializeLevel({ leveltype: res.data.leveltype }).subscribe(
-                        (resInit) => {
-                            if (resInit.code === 200) {
 
-                                this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
-                                    (resRole) => {
-                                        loading.dismiss();
-                                        // console.log('GetRoleByPCode', resRole.data);
-                                        if (resRole.code === 200) {
-                                            let modal = this.modalCtrl.create(RoleModalPage, { roleList: resRole.data });
-                                            modal.onDidDismiss((data) => {
-                                                if (data) {
-                                                    // console.log('onDidDismiss', data, data.value)
-                                                    // this.getVideoDetail();
+                    this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
+                        (resRole) => {
+                            loading.dismiss();
+                            // console.log('GetRoleByPCode', resRole.data);
+                            if (resRole.code === 200) {
+                                let modal = this.modalCtrl.create(RoleModalPage, { roleList: resRole.data });
+                                modal.onDidDismiss((data) => {
+                                    if (data) {
+                                        // console.log('onDidDismiss', data, data.value)
+                                        // this.getVideoDetail();
+
+                                        this.homeSer.InitializeLevel({ leveltype: data.value }).subscribe(
+                                            (resInit) => {
+                                                if (resInit.code === 200) {
+
                                                     this.navCtrl.push(AdvancedLevelPage, { leveltype: data, roleList: resRole.data });
-                                                }
-                                            })
-                                            modal.present();
-                                        }
-                                    }
-                                )
 
+                                                }
+                                            }
+                                        )
+
+                                    }
+                                })
+                                modal.present();
                             }
                         }
                     )
+
                 } else if (res.data.status === 0 && res.data.leveltype) {
                     this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
                         (resRole) => {
