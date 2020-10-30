@@ -6,94 +6,95 @@
 
 <ion-content>
     <div class="advanced-item" *ngFor="let advancedItem of page.advancedArr; let advancedIndex = index">
-        <div class="advanced-title" (click)="changeFold(advancedIndex)">
-            <div class="text">{{ advancedItem.title }}</div>
-            <img class="flod-icon" [ngClass]="{ 'fold-rolate': advancedItem.isOpen }"
-                 src="assets/imgs/advanced/zedie@2x.png" alt="折叠">
-        </div>
-        <!-- 课程 -->
-        <div class="item-course" [ngClass]="{ 'fold': advancedItem.isOpen}" *ngIf="advancedItem.en === 'course'">
-            <!-- 课程 二级导航 -->
-            <div class="nav-type-2"
-                 [ngStyle]="{'padding-bottom': page.advancedArr[0].lists.length === 0 ? '10px' : 0 }">
-                <div class="btn-box">
-                    <div (click)="changeSecNav(classNavIndex, item.isActived)"
-                         *ngFor="let item of page.advancedArr[0].listType.navliArr; let classNavIndex = index"
-                         class="type-btn"
-                         [ngClass]="{'actived': item.isActived}">
-                        {{ item.text }}<span class="item-line"></span>
-                    </div>
-                </div>
+        <div *ngIf="advancedItem.lists && advancedItem.lists.length > 0">
+            <div class="advanced-title" (click)="changeFold(advancedIndex)">
+                <div class="text">{{ advancedItem.title }}</div>
+                <img class="flod-icon" [ngClass]="{ 'fold-rolate': advancedItem.isOpen }"
+                     src="assets/imgs/advanced/zedie@2x.png" alt="折叠">
             </div>
-            <!-- 课程 二级导航 end-->
-            <!-- 课程列表 -->
-            <div *ngIf="page.advancedArr[0].lists.length>0">
-                <div class="course-li" *ngFor="let item of page.advancedArr[0].lists"
-                     (click)="goCourse(item)">
-                    <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
-                    <div class="course-right">
-                        <div class="title article">
-                            {{ item.Title }}
-                        </div>
-                        <div class="SubjectName">
-                            {{item.SubjectName}}
-                        </div>
-                        <div class="status" *ngIf="item.studystate === 0">
-                            <img src="assets/imgs/advanced/status-default.png"/>
-                            未开始
-                        </div>
-                        <div class="status" *ngIf="item.studystate === 1">
-                            <img src="assets/imgs/advanced/status-doing.png"/>
-                            进行中
-                        </div>
-                        <div class="status" *ngIf="item.studystate === 2">
-                            <img src="assets/imgs/advanced/status-finish.png"/>
-                            已完成
+            <!-- 课程 -->
+            <div class="item-course" [ngClass]="{ 'fold': advancedItem.isOpen}" *ngIf="advancedItem.en === 'course'">
+                <!-- 课程 二级导航 -->
+                <div class="nav-type-2"
+                     [ngStyle]="{'padding-bottom': page.advancedArr[0].lists.length === 0 ? '10px' : 0 }">
+                    <div class="btn-box">
+                        <div (click)="changeSecNav(classNavIndex, item.isActived)"
+                             *ngFor="let item of page.advancedArr[0].listType.navliArr; let classNavIndex = index"
+                             class="type-btn"
+                             [ngClass]="{'actived': item.isActived}">
+                            {{ item.text }}<span class="item-line"></span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- 课程 end -->
-        <!-- 考试列表 -->
-        <div class="item-exam" [ngClass]="{ 'fold': advancedItem.isOpen }"
-             *ngIf="advancedItem.en === 'exam' && page.advancedArr[1].lists.length>0">
-            <div class="exam-li" *ngFor="let item of page.advancedArr[1].lists" (click)="goExam(item)">
-                <img [src]="item.PictureSrc || page.defaultImg" alt="课程图片">
-                <div class="exam-right">
-                    <div class="title">{{ item.EName }}</div>
-                    <div class="achievement">本场考试：{{ item.PassScore + '分通过' }}</div>
-                    <div class="right_bottom">
-                        <span style="color: #666;">时间：{{ item.ExamTimer === 0 ? '不限时' : item.ExamTimer + '分钟' }}</span>
-                        <div class="status" *ngIf="item.TotalScore > item.PassScore">
-                            <img src="assets/imgs/advanced/logo-actived.png"/>
-                            <!-- <img src="assets/imgs/advanced/status-finish.png"/> -->
+                <!-- 课程 二级导航 end-->
+                <!-- 课程列表 -->
+                <div *ngIf="page.advancedArr[0].lists.length>0">
+                    <div class="course-li" *ngFor="let item of page.advancedArr[0].lists"
+                         (click)="goCourse(item)">
+                        <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
+                        <div class="course-right">
+                            <div class="title article">
+                                {{ item.Title }}
+                            </div>
+                            <div class="SubjectName">
+                                {{item.SubjectName}}
+                            </div>
+                            <div class="status" *ngIf="item.studystate === 0">
+                                <img src="assets/imgs/advanced/status-default.png"/>
+                                未开始
+                            </div>
+                            <div class="status" *ngIf="item.studystate === 1">
+                                <img src="assets/imgs/advanced/status-doing.png"/>
+                                进行中
+                            </div>
+                            <div class="status" *ngIf="item.studystate === 2">
+                                <img src="assets/imgs/advanced/status-finish.png"/>
+                                已完成
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- 考试列表 end -->
-        <!-- 其他 -->
-        <div class="item-other" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'kpi'">
-          <!--<div class="dir-title">KPI</div>-->
-          <div class="other-li" *ngFor="let item of page.advancedArr[2].lists">
-            <span class="title">{{ item.KpiName }}</span>
-            <span *ngIf="item.IsQualified" class="pass_text">合格</span>
-            <span *ngIf="!item.IsQualified" class="no_pass_text">不合格</span>
-            <span class="num">{{ item.KpiValue }}</span>
-          </div>
-        </div>
+            <!-- 课程 end -->
+            <!-- 考试列表 -->
+            <div class="item-exam" [ngClass]="{ 'fold': advancedItem.isOpen }"
+                 *ngIf="advancedItem.en === 'exam' && page.advancedArr[1].lists.length>0">
+                <div class="exam-li" *ngFor="let item of page.advancedArr[1].lists" (click)="goExam(item)">
+                    <img [src]="item.PictureSrc || page.defaultImg" alt="课程图片">
+                    <div class="exam-right">
+                        <div class="title">{{ item.EName }}</div>
+                        <div class="achievement">本场考试：{{ item.PassScore + '分通过' }}</div>
+                        <div class="right_bottom">
+                            <span style="color: #666;">时间：{{ item.ExamTimer === 0 ? '不限时' : item.ExamTimer + '分钟' }}</span>
+                            <div class="status" *ngIf="item.TotalScore > item.PassScore">
+                                <img src="assets/imgs/advanced/logo-actived.png"/>
+                                <!-- <img src="assets/imgs/advanced/status-finish.png"/> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 考试列表 end -->
+            <!-- 其他 -->
+            <div class="item-other" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'kpi'">
+              <!--<div class="dir-title">KPI</div>-->
+              <div class="other-li" *ngFor="let item of page.advancedArr[2].lists">
+                <span class="title">{{ item.KpiName }}</span>
+                <span *ngIf="item.IsQualified" class="pass_text">合格</span>
+                <span *ngIf="!item.IsQualified" class="no_pass_text">不合格</span>
+                <span class="num">{{ item.KpiValue }}</span>
+              </div>
+            </div>
 
-        <div class="item-other" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'points'">
-          <!--<div class="dir-title">KPI</div>-->
-          <div class="other-li" *ngFor="let item of page.advancedArr[3].lists">
-            <span class="title">试乘试驾操作评分</span>
-            <span *ngIf="item.IsQualified" class="pass_text">合格</span>
-            <span *ngIf="!item.IsQualified" class="no_pass_text">不合格</span>
-            <span class="num">{{ item.Score }}</span>
-          </div>
+            <div class="item-other" [ngClass]="{ 'fold': advancedItem.isOpen }" *ngIf="advancedItem.en === 'points'">
+              <!--<div class="dir-title">KPI</div>-->
+              <div class="other-li" *ngFor="let item of page.advancedArr[3].lists">
+                <span class="title">试乘试驾操作评分</span>
+                <span *ngIf="item.IsQualified" class="pass_text">合格</span>
+                <span *ngIf="!item.IsQualified" class="no_pass_text">不合格</span>
+                <span class="num">{{ item.Score }}</span>
+              </div>
+            </div>
         </div>
-
     </div>
 </ion-content>

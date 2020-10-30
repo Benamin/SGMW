@@ -254,12 +254,15 @@ page-lists {
         margin-left: auto;
         color: green;
         font-size: 1.4rem;
+        text-align: right;
       }
       .no_pass_text {
         margin-right: 1rem;
         margin-left: auto;
         color: red;
         font-size: 1.4rem;
+        white-space: nowrap;
+        text-align: right;
       }
 
       &:nth-child(1) {
@@ -290,6 +293,9 @@ page-lists {
         }
 
         .num {
+          text-align: right;
+          width: 5.5rem;
+          min-width: 5.5rem;
           margin-left: auto;
           font-weight: 500;
         }
