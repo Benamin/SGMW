@@ -36,8 +36,8 @@ export class AdvancedLevelPage {
 
     ionViewDidEnter() {
         this.page.roleList = this.navParams.get('roleList');
-        this.page.leveltype = this.navParams.get('leveltype').value;
-        this.page.levelTypeText = this.navParams.get('leveltype').label;
+        if(!this.page.leveltype) this.page.leveltype = this.navParams.get('leveltype').value;
+        if(!this.page.levelTypeText) this.page.levelTypeText = this.navParams.get('leveltype').label;
 
         this.getAdvancedLevel();
     }
