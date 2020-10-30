@@ -80,9 +80,9 @@
               <!--<div class="dir-title">KPI</div>-->
               <div class="other-li" *ngFor="let item of page.advancedArr[2].lists">
                 <span class="title">{{ item.KpiName }}</span>
-                <span *ngIf="item.IsQualified" class="pass_text">合格</span>
-                <span *ngIf="!item.IsQualified" class="no_pass_text">不合格</span>
-                <span class="num">{{ item.KpiValue }}</span>
+                <span *ngIf="item.IsQualified && item.IsExist" class="pass_text">合格</span>
+                <span *ngIf="!item.IsQualified && item.IsExist" class="no_pass_text">不合格</span>
+                <span *ngIf="item.IsExist" class="num">{{ item.KpiValue }}</span>
               </div>
             </div>
 
