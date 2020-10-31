@@ -154,7 +154,7 @@ export class AdvancedListsPage {
                     this.page.advancedArr[0].lists = res.data.product; // 课程
                     this.page.advancedArr[1].lists = res.data.stuexam; // 考试
                     this.page.advancedArr[2].lists = res.data.UserKpis; // KPI
-                    this.page.advancedArr[3].lists = [res.data.Speaking]; // 评分结果
+                    this.page.advancedArr[3].lists = res.data.Speaking; // 评分结果
                 }
 
                 // this.page.myInfo = res.data;
