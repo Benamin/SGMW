@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.SGMW.start.h" version="2.6.02" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.SGMW.start.h" version="2.7.02" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>骏菱学社</name>
     <description>An awesome Ionic/Cordova app.</description>
     <content src="index.html" />
@@ -50,7 +50,10 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
-            <string>请允许APP访问您的相机</string>
+            <string>APP将在课程、短视频上传照片中使用您的相机权限</string>
+        </config-file>
+        <config-file parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
+            <string>APP将在课程、短视频上传照片中使用您的相册权限</string>
         </config-file>
         <config-file parent="NSAppTransportSecurity" target="*-Info.plist">
             <dict>
