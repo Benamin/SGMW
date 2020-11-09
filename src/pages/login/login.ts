@@ -79,8 +79,8 @@ export class LoginPage {
             inputCode: ''
         },
         llzs: {
-            username: "",
-            password: "",
+            username: "B45000103_刘若佩",
+            password: "Sgmw6666@",
             codeRight: "",
             inputCode: ""
         },
@@ -555,7 +555,7 @@ export class LoginPage {
         this.showLoading();
         const data = {
             grant_type: "password",
-            username: this.jxs.llzs.username.trim(),
+            username: encodeURI(this.jxs.llzs.username.trim()),
             password: this.jxs.llzs.password,
             client_id: NXSZS_clientId,
             client_secret: NXSZS_client_secret
@@ -574,6 +574,7 @@ export class LoginPage {
                         this.LLZSGetUnionId(res.access_token);
                     } else {
                         this.dismissLoading();
+                        this.commonSer.alert('无该用户信息，请联系客服');
                     }
                 }
             ).catch(error => {
@@ -586,6 +587,9 @@ export class LoginPage {
                 (res) => {
                     if (res.access_token) {
                         this.LLZSGetUnionId(res.access_token);
+                    }else{
+                        this.dismissLoading();
+                        this.commonSer.alert('无该用户信息，请联系客服');
                     }
                 },
                 (error) => {
@@ -607,6 +611,9 @@ export class LoginPage {
                     let res = JSON.parse(response.data);
                     if (res.unionId) {
                         this.LLZSGetUserInfo(res.unionId);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert('无该用户信息，请联系客服');
                     }
                 }
             ).catch(error => {
@@ -619,6 +626,9 @@ export class LoginPage {
                 (res) => {
                     if (res.unionId) {
                         this.LLZSGetUserInfo(res.unionId);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert('无该用户信息，请联系客服');
                     }
                 }
             ), error => {
@@ -636,6 +646,9 @@ export class LoginPage {
                     let res = JSON.parse(response.data);
                     if (res.data) {
                         this.insertUserData(res.data, unionId);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert('无该用户信息，请联系客服');
                     }
                 }
             ).catch(error => {
