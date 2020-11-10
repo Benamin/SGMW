@@ -47,7 +47,7 @@
                                 <img src="assets/imgs/advanced/status-doing.png"/>
                                 进行中
                             </div>
-                            <div class="status" *ngIf="item.studystate === 2">
+                            <div class="status" *ngIf="item.studystate === 2 || item.studystate === -1">
                                 <img src="assets/imgs/advanced/status-finish.png"/>
                                 已完成
                             </div>

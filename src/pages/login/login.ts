@@ -555,7 +555,7 @@ export class LoginPage {
         this.showLoading();
         const data = {
             grant_type: "password",
-            username: this.jxs.llzs.username.trim(),
+            username: encodeURI(this.jxs.llzs.username.trim()),
             password: this.jxs.llzs.password,
             client_id: NXSZS_clientId,
             client_secret: NXSZS_client_secret
