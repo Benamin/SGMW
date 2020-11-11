@@ -10,6 +10,54 @@ import {AdvancedListsPage} from "../lists/lists";
 })
 export class AdvancedLevelPage {
     page = {
+        checkType: 'exam',
+        navliArr: [
+            {
+                navBtnText: '课程',
+                navBtnEn: 'course',
+                isActived: true
+            },
+            {
+                navBtnText: '考试',
+                navBtnEn: 'exam',
+                isActived: false
+            },
+            {
+                navBtnText: 'KPI',
+                navBtnEn: 'kpi',
+                isActived: false
+            },
+            {
+                navBtnText: '评分',
+                navBtnEn: 'points',
+                isActived: false
+            }
+        ],
+        courseTypeArr: [
+            {
+                navBtnText: '待开始',
+                navBtnEn: 'wait',
+                isActived: true
+            },
+            {
+                navBtnText: '进行中',
+                navBtnEn: 'doing',
+                isActived: false
+            },
+            {
+                navBtnText: '已完成',
+                navBtnEn: 'finish',
+                isActived: false
+            },
+            {
+                navBtnText: '更多',
+                navBtnEn: 'more',
+                isActived: false
+            }
+        ],
+        nowClick: 'course',
+        nowClickSec: 'wait',
+        mineInfo: null,
         Lists: [],
         getListsApi: null, // 请求接口服务
         Param: null,
@@ -31,15 +79,32 @@ export class AdvancedLevelPage {
         public actionSheetCtrl: ActionSheetController,
         private loadCtrl: LoadingController,
         private homeSer: HomeService
-    ) {
-    }
+    ) {}
 
     ionViewDidEnter() {
+
         this.page.roleList = this.navParams.get('roleList');
         if(!this.page.leveltype) this.page.leveltype = this.navParams.get('leveltype').value;
         if(!this.page.levelTypeText) this.page.levelTypeText = this.navParams.get('leveltype').label;
 
-        this.getAdvancedLevel();
+        // this.getAdvancedLevel();
+    }
+
+    changeNav (navIndex, bool) {
+        console.log('changeNav', navIndex, bool)
+        if (bool && this.page.nowClick === this.page.navliArr[navIndex].navBtnEn) return;
+        for (var i=0; i<this.page.navliArr.length; i++) {
+            this.page.navliArr[i].isActived = false;
+        }
+        this.page.navliArr[navIndex].isActived = true;
+    }
+    changeSecNav (navSecIndex, bool) {
+        console.log('changeNav', navSecIndex, bool)
+        if (bool && this.page.nowClickSec  === this.page.courseTypeArr[navSecIndex].navBtnEn) return;
+        for (var i=0; i<this.page.courseTypeArr.length; i++) {
+            this.page.courseTypeArr[i].isActived = false;
+        }
+        this.page.courseTypeArr[navSecIndex].isActived = true;
     }
 
     // 前往 认证进阶 的 勋章设置
@@ -88,7 +153,6 @@ export class AdvancedLevelPage {
     }
 
     showActionSheet() {
-        // console.log('leveltype', this.page.leveltype, this.page.roleList)
         let btnArr = []
         for (let i =0; i<this.page.roleList.length; i++) {
             let obj = {
@@ -100,19 +164,8 @@ export class AdvancedLevelPage {
                         content: ''
                     });
 
-                    // this.homeSer.UpdateInitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
-                    //     (resRole) => {
-                    //         if (resRole.code === 200) {
-                    //             this.page.leveltype = this.page.roleList[i].value;
-                    //             this.page.levelTypeText = this.page.roleList[i].label;
-                    //             loading.dismiss();
-                    //             this.getAdvancedLevel();
-                    //         }
-                    //     }
-                    // )
                     this.homeSer.ValidationLevel({}).subscribe(
                         (res) => {
-                            // console.log('goAdvancedLevel', res.data, res.data.status === 1);
                             // if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
                             this.homeSer.InitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
                                 (resInit) => {
@@ -126,19 +179,6 @@ export class AdvancedLevelPage {
                                     }
                                 }
                             )
-                            // } else {
-                            //     this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
-                            //         (resRole) => {
-                            //             // console.log('GetRoleByPCode', resRole.data);
-                            //             if (resRole.code === 200) {
-                            //                 this.page.leveltype = this.page.roleList[i].value;
-                            //                 this.page.levelTypeText = this.page.roleList[i].label;
-                            //                 loading.dismiss();
-                            //                 this.getAdvancedLevel();
-                            //             }
-                            //         }
-                            //     )
-                            // }
                         }
                     )
                 }
