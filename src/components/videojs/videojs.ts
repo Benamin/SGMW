@@ -22,7 +22,7 @@ export class VideojsComponent implements OnDestroy {
 
     videoPoster: string;
     videoInfo;
-    video;
+    myPlayer;
     videoEle;
     isPlay = false;   //判断视频播放状态
 
@@ -44,15 +44,25 @@ export class VideojsComponent implements OnDestroy {
         // });
 
         timer(100).subscribe(() => {
-            this.video = amp(this.videoEle, {
+            this.myPlayer = amp(this.videoEle, {
                 muted: false,
-                controls: true,
+                controls: false,
                 autoplay: true,
-                // playbackRates: [0.5, 1, 1.5, 2, 3]  //倍速
+                "playbackSpeed": {
+                    "enabled": true,
+                    initialSpeed: 1.0,
+                    speedLevels: [
+                        {name: "x4.0", value: 4.0},
+                        {name: "x3.0", value: 3.0},
+                        {name: "x2.0", value: 2.0},
+                        {name: "x1.0", value: 1.0},
+                        {name: "x0.5", value: 0.5},
+                    ]
+                }
             }, (event) => {
-                this.video.addEventListener('fullscreenchange', () => {
+                this.myPlayer.addEventListener('fullscreenchange', () => {
                     if (!this.isPlay) return;
-                    if (this.video.isFullscreen()) {  //全屏
+                    if (this.myPlayer.isFullscreen()) {  //全屏
                         if (this.platform.is('ios')) {
                             this.appSer.setIOS('platformIOS');
                             this.appSer.setIOS('videoReset');
@@ -60,13 +70,12 @@ export class VideojsComponent implements OnDestroy {
                         this.screenOrientation.lock('landscape');  //横屏
                         this.statusBar.hide();
                     }
-                    if (!this.video.isFullscreen()) {
+                    if (!this.myPlayer.isFullscreen()) {
                         this.screenOrientation.lock('portrait');  //锁定竖屏
                         this.statusBar.show();
                     }
                 });
-                this.video.addEventListener('ended', () => {
-                    console.log('ended')
+                this.myPlayer.addEventListener('ended', () => {
                     this.isPlay = false;
                     this.screenOrientation.lock('portrait');  //锁定竖屏
                     if (this.platform.is('ios')) {
@@ -74,16 +83,16 @@ export class VideojsComponent implements OnDestroy {
                         document.getElementsByTagName('video')[0].webkitExitFullscreen();
                     }
                     if (this.platform.is('android')) {
-                        this.video.exitFullscreen();
+                        this.myPlayer.exitFullscreen();
                     }
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
-                this.video.addEventListener('touchstart', () => {
-                    if (this.video.paused()) {
-                        this.video.play();
+                this.myPlayer.addEventListener('touchstart', () => {
+                    if (this.myPlayer.paused()) {
+                        this.myPlayer.play();
                     } else {
-                        this.video.pause();
+                        this.myPlayer.pause();
                     }
                 })
                 this.global.videoNum++;
@@ -116,19 +125,19 @@ export class VideojsComponent implements OnDestroy {
 
     //页面离开暂停
     pageLeave() {
-        if (this.video['player_']) {
-            this.video.pause();
+        if (this.myPlayer['player_']) {
+            this.myPlayer.pause();
         }
     }
 
     destroy() {
-        if (this.video) {
+        if (this.myPlayer) {
             // this.video.dispose();
         }
     }
 
     removeDanmu() {
-        this.video.removeChild('danmu');
+        this.myPlayer.removeChild('danmu');
     }
 
     ngOnDestroy(): void {
@@ -149,7 +158,8 @@ export class VideojsComponent implements OnDestroy {
     }
 
     @Input() set GetVideo(videoInfo) {
-        if (this.video && videoInfo) {
+        if (this.myPlayer && videoInfo) {
+            console.log("videoInfo",this.myPlayer);
             this.isPlay = true;
             let type = 'application/x-mpegURL';
             if (this.platform.is('android')) {
@@ -157,7 +167,8 @@ export class VideojsComponent implements OnDestroy {
                 videoInfo.fileUrl = videoInfo.fileUrl.replace('manifest(format=m3u8-cmaf)', 'manifest(format=mpd-time-cmaf)')
                 type = "application/dash+xml"
             }
-            this.video.src({type: type, src: videoInfo.fileUrl});
+            this.myPlayer.src({type: type, src: videoInfo.fileUrl});
+            this.myPlayer.controls(videoInfo.IsPass);
             this.videoInfo = videoInfo;
             // this.video.removeChild('TitleBar');
             // this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
