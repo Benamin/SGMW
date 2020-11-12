@@ -58,7 +58,6 @@ page-level {
     }
   }
 
-
   .level-box {
     margin: 0 auto;
     padding: 1.5rem 1.4rem 1.5rem 1.5rem;
@@ -78,7 +77,7 @@ page-level {
       justify-content: space-between;
       line-height: 1;
       .rule-tip-text {
-        .rule-icon{
+        .rule-icon {
           width: 1rem;
           height: 1rem;
         }
@@ -190,10 +189,11 @@ page-level {
           text-align: center;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
           overflow: hidden;
 
           .type-btn {
+            margin-right: 1rem;
             flex: 1;
             width: 8.1rem;
             max-width: 8.1rem;
@@ -212,6 +212,198 @@ page-level {
       }
     }
     //导航 end
+
+    // 课程
+    .course-li {
+      box-sizing: border-box;
+      padding: 1.5rem 2.8rem 1.5rem 2.2rem;
+      display: flex;
+      align-items: center;
+      background-color: #FFFFFF;
+
+      img {
+        margin-right: 1.5rem;
+        width: 7rem;
+        height: 7rem;
+        border-radius: 1rem;
+        object-fit: cover;
+      }
+
+      .course-right {
+        height: 7rem;
+        min-height: 7rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .title {
+          font-size: 1.6rem;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #000000;
+          line-height: 2.2rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 1; //多行在这里修改数字即可
+          overflow: hidden;
+          /* autoprefixer: ignore next */
+          -webkit-box-orient: vertical;
+        }
+
+        .status {
+          display: flex;
+          align-items: center;
+          font-size: 1.5rem;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #000000;
+          line-height: 2.1rem;
+
+          img {
+            margin-right: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+
+      }
+    }
+    // 课程 end
+    // 考试 start
+    .item-exam {
+      max-height: 6666px;
+      transition: max-height ease-in 0.2s;
+      overflow: hidden;
+
+      .exam-li {
+        box-sizing: border-box;
+        padding: 1.5rem 2.8rem 1.5rem 2.3rem;
+        display: flex;
+        align-items: center;
+        background-color: #FFFFFF;
+
+        &:nth-child(1) {
+          padding-top: 0.4rem;
+        }
+
+        img {
+          margin-right: 1.5rem;
+          width: 7rem;
+          height: 7rem;
+          border-radius: 1rem;
+          object-fit: cover;
+        }
+
+        .exam-right {
+          height: 7rem;
+          width: 24rem;
+          min-height: 7rem;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .title {
+            font-size: 1.6rem;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: #000000;
+            overflow: hidden; //超出的隐藏
+            text-overflow: ellipsis; //显示省略符号来代表被修剪的文本。
+            white-space: nowrap; //不换行
+          }
+
+          .achievement {
+            font-size: 1.2rem;
+            color: #50B674;
+          }
+
+          .right_bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.2rem;
+
+            .status {
+              display: flex;
+              align-items: center;
+              font-family: PingFangSC-Regular, PingFang SC;
+              font-weight: 400;
+              color: #000000;
+              line-height: 2.1rem;
+              color: #50B674;
+
+              img {
+                margin-left: 0.5rem;
+                width: 1.8rem;
+                height: auto;
+              }
+            }
+          }
+
+        }
+      }
+    }
+    // 考试 end
+    //  KPI
+    .kpi-title {
+      margin-bottom: 1rem;
+      text-indent: 1rem;
+      font-size: 1.6rem;
+      line-height: 2.2rem;
+    }
+    .kpi-item {
+      margin: 0 auto;
+      margin-bottom: 1rem;
+      padding: 1.8rem 1.4rem 1.6rem 1.5rem;
+      width: 35.5rem;
+      height: 10.2rem;
+      background: #FFFFFF;
+      box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      .kpi-item-title {
+        line-height: 2.2rem;
+        margin-bottom: 0.8rem;
+      }
+      .progress-box {
+        position: relative;
+        width: 100%;
+        height: 1rem;
+        .progress-bar-bg {
+          width: 100%;
+          height: 1rem;
+          background: #E6E6E6;
+          border-radius: 0.5rem;
+          opacity: 0.58;
+        }
+        .progress-bar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 12rem;
+          height: 10px;
+          background: linear-gradient(261deg, #FFC92D 0%, #FFF7CB 100%);
+          border-radius: 5px;
+          opacity: 1;
+        }
+      }
+      .kpi-item-text {
+        margin-top: 1rem;
+        line-height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.4rem;
+        .progress-now {color: #F7AB1A;}
+        .progress-target {}
+        .finish {
+          color: #50B674;
+        }
+      }
+    }
+    //  KPI end
   }
 
 }

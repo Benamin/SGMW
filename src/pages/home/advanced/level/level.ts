@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ActionSheetController, ModalController } from 'ionic-angular';
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
 import {AdvancedListsPage} from "../lists/lists";
+import {RuleModalPage} from "../rule-modal/rule-modal";
 
 @Component({
     selector: 'page-level',
@@ -10,6 +11,7 @@ import {AdvancedListsPage} from "../lists/lists";
 })
 export class AdvancedLevelPage {
     page = {
+        defaultImg: 'assets/imgs/default.jpg',
         checkType: 'exam',
         navliArr: [
             {
@@ -78,7 +80,8 @@ export class AdvancedLevelPage {
         public navParams: NavParams,
         public actionSheetCtrl: ActionSheetController,
         private loadCtrl: LoadingController,
-        private homeSer: HomeService
+        private homeSer: HomeService,
+        private modalCtrl: ModalController
     ) {}
 
     ionViewDidEnter() {
@@ -86,8 +89,20 @@ export class AdvancedLevelPage {
         this.page.roleList = this.navParams.get('roleList');
         if(!this.page.leveltype) this.page.leveltype = this.navParams.get('leveltype').value;
         if(!this.page.levelTypeText) this.page.levelTypeText = this.navParams.get('leveltype').label;
-
         // this.getAdvancedLevel();
+    }
+
+    showRuleModal () {
+        let modalData = {
+            leveltype: '实习顾问',
+            title: '实习顾问是按照上汽通实习顾问是按照上汽通',
+            content: '经销商销售人员需在入职后完成x门课程才可升级为实习顾问，实习顾问完成x门课程后升级为销售顾问经销商销售人员需在入职后完成x门课程才可升级为实习顾问，实习顾问完成x门课程后升级为销售顾问经销商销售人员需在入职后完成x门课程才可升级为实习顾问，实习顾问完成x门课程后升级为销售顾问经销商销售人员需在入职后完成x门课程才可升级为实习顾问，实习顾经销商销售人员需在入职后完成x门课程才可升级为实习顾问，实习顾问完成x门课程后升级为销售顾问经销商销售人员需在入职后完成x门课程才可升级为实习顾问，实习顾问完成x门课程后升级为销售顾问经销商销售人员需在入职后完成x门课程才可升级为实习顾问，实习顾问完成x门课程后升级为销售顾问经销商销售人员需在入职后完成x门课程才可升级为实习顾问，实习顾'
+        }
+        let modal = this.modalCtrl.create(RuleModalPage, { ruleData: modalData });
+        modal.onDidDismiss((data) => {
+            if (data) { console.log('关闭modal：', data) }
+        })
+        modal.present();
     }
 
     changeNav (navIndex, bool) {

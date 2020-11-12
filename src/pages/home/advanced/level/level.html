@@ -1,20 +1,22 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>岗位认证</ion-title>
-        <div class="top-box">
+  <ion-navbar>
+    <ion-title>岗位认证</ion-title>
+    <div class="top-box">
           <span class="top-right" (click)="showActionSheet()">
             <span>岗位切换</span>
             <img src="assets/imgs/advanced/rzjj_xz@2x.png" alt="">
           </span>
-        </div>
-    </ion-navbar>
+    </div>
+  </ion-navbar>
 </ion-header>
 
 <ion-content>
 
   <div class="user-box">
     <div class="img-head">
-      <img src="https://sgmw-sales-assistant.obs.cn-south-1.myhuaweicloud.com:443/people-management_c89a6d71-7d19-4c57-b531-59fa3381686f.jpg" alt="头像">
+      <img
+        src="https://sgmw-sales-assistant.obs.cn-south-1.myhuaweicloud.com:443/people-management_c89a6d71-7d19-4c57-b531-59fa3381686f.jpg"
+        alt="头像">
     </div>
     <span class="name-text">888</span>
     <span class="now-level">{{ page.levelTypeText }}</span>
@@ -23,7 +25,7 @@
   <div class="level-box">
     <div class="rule-tip">
       <span>销售顾问岗位分级</span>
-      <span class="rule-tip-text">
+      <span class="rule-tip-text" (click)="showRuleModal()">
         <img class="rule-icon" src="assets/imgs/advanced/rule-icon.png" alt="">
         销售顾问岗位分级
       </span>
@@ -47,7 +49,8 @@
       <div class="nav-box">
         <div class="btn-box">
 
-          <div (click)="changeNav(navIndex, item.isActived)" *ngFor="let item of page.navliArr; let navIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
+          <div (click)="changeNav(navIndex, item.isActived)" *ngFor="let item of page.navliArr; let navIndex = index"
+               class="type-btn" [ngClass]="{'actived': item.isActived}">
             {{ item.navBtnText }}
             <span class="item-line"></span>
           </div>
@@ -56,18 +59,118 @@
       </div>
     </div>
 
-    <div class="sec-nav-type">
-      <div class="nav-box">
-        <div class="btn-box">
+    <!-- 课程列表 -->
+    <div *ngIf="page.navliArr[0].isActived === true">
+      <div class="sec-nav-type">
+        <div class="nav-box">
+          <div class="btn-box">
 
-          <div (click)="changeSecNav(navSecIndex, item.isActived)" *ngFor="let item of page.courseTypeArr; let navSecIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
-            {{ item.navBtnText }}
-            <span class="item-line"></span>
+            <div (click)="changeSecNav(navSecIndex, item.isActived)"
+                 *ngFor="let item of page.courseTypeArr; let navSecIndex = index" class="type-btn"
+                 [ngClass]="{'actived': item.isActived}">
+              {{ item.navBtnText }}
+              <span class="item-line"></span>
+            </div>
+
           </div>
+        </div>
+      </div>
 
+      <div class="course-li">
+        <img [src]="page.defaultImg" alt="课程图片">
+        <div class="course-right">
+          <div class="title article">
+            课程列表Title课程列表Title课程列表Title课程列表Title
+          </div>
+          <!--<div class="SubjectName">-->
+          <!--SubjectName-->
+          <!--</div>-->
+          <div class="status">
+            <img src="assets/imgs/advanced/status-default.png"/>
+            未开始
+          </div>
+          <!--<div class="status">-->
+          <!--<img src="assets/imgs/advanced/status-doing.png"/>-->
+          <!--进行中-->
+          <!--</div>-->
+          <!--<div class="status">-->
+          <!--<img src="assets/imgs/advanced/status-finish.png"/>-->
+          <!--已完成-->
+          <!--</div>-->
         </div>
       </div>
     </div>
+    <!-- 课程列表 end -->
+    <!-- 考试列表 -->
+    <div *ngIf="page.navliArr[1].isActived === true">
+      <div class="sec-nav-type">
+        <div class="nav-box">
+          <div class="btn-box">
+            <div *ngFor="let item of page.courseTypeArr; let navSecIndex = index">
+              <div *ngIf="index !== 3" (click)="changeSecNav(navSecIndex, item.isActived)"
+                   class="type-btn"
+                   [ngClass]="{'actived': item.isActived}">
+                {{ item.navBtnText }}
+                <span class="item-line"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-exam">
+        <div class="exam-li">
+          <img [src]="page.defaultImg" alt="课程图片">
+          <div class="exam-right">
+            <div class="title">考试列表</div>
+            <div class="achievement">本场考试：85分通过</div>
+            <div class="right_bottom">
+              <span style="color: #666;">时间：不限时</span>
+              <div class="status">
+                已通过
+                <!--<img src="assets/imgs/advanced/logo-actived.png"/>-->
+                <img src="assets/imgs/advanced/status-finish.png"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 考试列表 end -->
+
+    <!-- KPI -->
+    <div *ngIf="page.navliArr[2].isActived === true">
+      <div class="kpi-title">岗位业绩指标</div>
+      <div class="kpi-item">
+        <div class="kpi-item-title">XX率</div>
+        <div class="progress-box">
+          <div class="progress-bar-bg"></div>
+          <div class="progress-bar"></div>
+        </div>
+        <div class="kpi-item-text">
+          <span class="progress-now finish">当前25%</span>
+          <span class="progress-target">目标20%</span>
+        </div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-item-title">XX率</div>
+        <div class="progress-box">
+          <div class="progress-bar-bg"></div>
+          <div class="progress-bar"></div>
+        </div>
+        <div class="kpi-item-text">
+          <span class="progress-now">当前7%</span>
+          <span class="progress-target">目标20%</span>
+        </div>
+      </div>
+    </div>
+    <!-- KPI end -->
+
+    <!-- 评分 -->
+    <div *ngIf="page.navliArr[3].isActived === true">
+      <div>评分</div>
+    </div>
+    <!-- 评分 end -->
 
   </div>
 
