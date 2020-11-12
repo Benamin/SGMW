@@ -1,0 +1,15 @@
+<div class="main">
+    <div class="content" tappable (click)="close()">
+        <div class="content-body" tappable (click)="stop($event)">
+          <div class="scroll-box">
+            <div class="content-box">
+              <ion-icon name="close-outline" class="close-btn" (click)="close()"></ion-icon>
+              <div class="title" *ngIf="ruleData">{{ ruleData.leveltype }}</div>
+              <div class="desc" *ngIf="ruleData">{{ ruleData.title }}</div>
+              <div class="content" *ngIf="ruleData">{{ ruleData.content }}</div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,77 @@
+page-rule-modal {
+  .main {
+    background-color: rgba(0, 0, 0, .4);
+    height: 100%;
+  }
+
+  .content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    
+    .content-body {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-55%);
+      padding: 1.6rem 0 2.1rem 0;
+      width: 27.6rem;
+      //height: 35.1rem;
+      background: #fff;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-sizing: border-box;
+      font-family: PingFangSC-Medium, PingFang SC;;
+      .close-btn {
+        position: absolute;
+        top: 1.2rem;
+        right: 1rem;
+        color: #666666;
+        font-size: 23px;
+      }
+      .scroll-box {
+        margin: 0 auto;
+        //width: 24rem;
+        height: 31.4rem;
+        overflow: scroll;
+        .content-box {
+          box-sizing: border-box;
+          padding: 0 1.8rem;
+          overflow-y: scroll;
+        }
+      }
+      .title {
+        //margin-top: 1.9rem;
+        margin-bottom: 0.2rem;
+        height: 21px;
+        font-size: 15px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #000000;
+        text-align: center;
+        line-height: 21px;
+      }
+      .desc {
+        margin-top: 1.5rem;
+        text-align: justify;
+        text-justify: distribute-all-lines;
+        text-align-last: left;
+        -moz-text-align-last: left;
+        -webkit-text-align-last: left;
+      }
+      .content {
+        margin-top: 1.5rem;
+        text-align: justify;
+        text-justify: distribute-all-lines;
+        text-align-last: left;
+        -moz-text-align-last: left;
+        -webkit-text-align-last: left;
+      }
+      ion-icon {
+        font-size: 3rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+}
