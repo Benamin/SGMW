@@ -3,8 +3,8 @@ export let env = 'localhost';
 // export let env = 'uat';
 // export let env = 'prod';
 
-// export let keyEnv = 'dev';
-export let keyEnv = 'prod';
+let keyEnv = 'dev';
+// let keyEnv = 'prod';
 
 
 // /***培训平台***/
