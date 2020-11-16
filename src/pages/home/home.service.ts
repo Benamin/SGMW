@@ -287,4 +287,27 @@ export class HomeService {
         return this.http.get(SERVER_API_URL + '/Dictionary/GetDictionaryByPCode' + this.dataFormat.toQuery(data));
     }
 
+    // 初始化课程考试
+    // InitExamCourse(data): Observable<any> {
+    //     return this.http.post(SERVER_API_URL + '/EApprove/InitExamCourse', data);
+    // }
+
+    // 根据条件查询课程
+    QueryCourse(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/QueryCourse', data);
+    }
+    // 根据条件查询考试
+    QueryExam(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/QueryExam', data);
+    }
+    // 查询实操评分
+    QuerySpeakScore(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/QuerySpeakScore', data);
+    }
+
+    // 查询kpi信息
+    QueryKpiInformation(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/QueryKpiInformation', data);
+    }
+
 }
