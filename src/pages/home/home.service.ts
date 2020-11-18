@@ -309,5 +309,8 @@ export class HomeService {
     QueryKpiInformation(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EApprove/QueryKpiInformation', data);
     }
+    LevelRemake(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/LevelRemake', data);
+    }
 
 }

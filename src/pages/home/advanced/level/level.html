@@ -14,32 +14,32 @@
 
   <div class="user-box">
     <div class="img-head">
-      <img
-        src="https://sgmw-sales-assistant.obs.cn-south-1.myhuaweicloud.com:443/people-management_c89a6d71-7d19-4c57-b531-59fa3381686f.jpg"
-        alt="头像">
+      <img src="{{page.mineInfo?.HeadPhoto}}" alt="头像">
     </div>
-    <span class="name-text">888</span>
+    <span class="name-text">{{page.mineInfo?.UserName}}</span>
     <span class="now-level">{{ page.levelTypeText }}</span>
   </div>
 
   <div class="level-box">
     <div class="rule-tip">
-      <span>销售顾问岗位分级</span>
-      <span class="rule-tip-text" (click)="showRuleModal()">
+      <span>{{ page.levelTypeText }}岗位分级</span>
+      <span class="rule-tip-text" (click)="getModalData()">
         <img class="rule-icon" src="assets/imgs/advanced/rule-icon.png" alt="">
-        销售顾问岗位分级
+        岗位分级说明
       </span>
     </div>
     <div class="progress-box">
       <div class="progress-bar-bg"></div>
-      <div class="progress-bar"></div>
+      <div class="progress-bar"  [ngStyle]="{'width': (page.nowLevel + 1/page.levelInformation.length*100) + '%' }"></div>
     </div>
 
     <ul class="level-type-box">
-      <li>新入职</li>
-      <li class="actived">实习顾问</li>
-      <li>销售顾问</li>
-      <li>体验专家</li>
+      <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="goAdvancedLists(page.levelInformation[levelTypeIndex])" [ngClass]="{'actived': page.nowLevel === item.Hierarchy - 1 }">
+        {{item.Level}}
+      </li>
+      <!--<li class="actived">实习顾问</li>-->
+      <!--<li>销售顾问</li>-->
+      <!--<li>体验专家</li>-->
     </ul>
   </div>
 
@@ -75,30 +75,34 @@
           </div>
         </div>
       </div>
-
-      <div class="course-li">
-        <img [src]="page.defaultImg" alt="课程图片">
-        <div class="course-right">
-          <div class="title article">
-            课程列表Title课程列表Title课程列表Title课程列表Title
+      <div *ngFor="let item of page.navliArr[0].lists; let courseIndex = index">
+        <div class="course-li" (click)="goCourse(item)">
+          <img [src]="page.defaultImg" alt="课程图片">
+          <div class="course-right">
+            <div class="title article">
+              {{ item.Title }}
+            </div>
+            <!--<div class="SubjectName">-->
+            <!--SubjectName-->
+            <!--</div>-->
+            <div class="status" *ngIf="item.studystate === 0">
+              <img src="assets/imgs/advanced/status-default.png"/>
+              未开始
+            </div>
+            <div class="status" *ngIf="item.studystate === 1">
+              <img src="assets/imgs/advanced/status-doing.png"/>
+              进行中
+            </div>
+            <div class="status" *ngIf="item.studystate === 2 || item.studystate === -1">
+              <img src="assets/imgs/advanced/status-finish.png"/>
+              已完成
+            </div>
           </div>
-          <!--<div class="SubjectName">-->
-          <!--SubjectName-->
-          <!--</div>-->
-          <div class="status">
-            <img src="assets/imgs/advanced/status-default.png"/>
-            未开始
-          </div>
-          <!--<div class="status">-->
-          <!--<img src="assets/imgs/advanced/status-doing.png"/>-->
-          <!--进行中-->
-          <!--</div>-->
-          <!--<div class="status">-->
-          <!--<img src="assets/imgs/advanced/status-finish.png"/>-->
-          <!--已完成-->
-          <!--</div>-->
         </div>
       </div>
+
+      <div *ngIf="page.navliArr[0].lists.length === 0 && page.isLoaded" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
+
     </div>
     <!-- 课程列表 end -->
     <!-- 考试列表 -->
@@ -118,79 +122,74 @@
         </div>
       </div>
 
-      <div class="item-exam">
-        <div class="exam-li">
-          <img [src]="page.defaultImg" alt="课程图片">
-          <div class="exam-right">
-            <div class="title">考试列表</div>
-            <div class="achievement">本场考试：85分通过</div>
-            <div class="right_bottom">
-              <span style="color: #666;">时间：不限时</span>
-              <div class="status">
-                已通过
-                <!--<img src="assets/imgs/advanced/logo-actived.png"/>-->
-                <img src="assets/imgs/advanced/status-finish.png"/>
+      <div *ngFor="let item of page.navliArr[1].lists; let examIndex = index">
+        <div class="item-exam" (click)="goExam(item)">
+          <div class="exam-li">
+            <img [src]="item.PictureSrc || page.defaultImg" alt="课程图片">
+            <div class="exam-right">
+              <div class="title">{{ item.EName }}</div>
+              <div class="achievement">本场考试：{{ item.PassScore + '分通过' }}</div>
+              <div class="right_bottom">
+                <span style="color: #666;">时间：{{ item.ExamTimer === 0 ? '不限时' : item.ExamTimer + '分钟' }}</span>
+                <div class="status" *ngIf="item.TotalScore > item.PassScore">
+                  <img src="assets/imgs/advanced/logo-actived.png"/>
+                  <!-- <img src="assets/imgs/advanced/status-finish.png"/> -->
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div *ngIf="page.navliArr[1].lists.length === 0 && page.isLoaded" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
+
     </div>
     <!-- 考试列表 end -->
 
     <!-- KPI -->
     <div *ngIf="page.navliArr[2].isActived === true">
-      <div class="kpi-title">岗位业绩指标</div>
-      <div class="kpi-item">
-        <div class="kpi-item-title">XX率</div>
-        <div class="progress-box">
-          <div class="progress-bar-bg"></div>
-          <div class="progress-bar"></div>
-        </div>
-        <div class="kpi-item-text">
-          <span class="progress-now finish">当前25%</span>
-          <span class="progress-target">目标20%</span>
-        </div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-item-title">XX率</div>
-        <div class="progress-box">
-          <div class="progress-bar-bg"></div>
-          <div class="progress-bar"></div>
-        </div>
-        <div class="kpi-item-text">
-          <span class="progress-now">当前7%</span>
-          <span class="progress-target">目标20%</span>
+      <div class="kpi-title" *ngIf="page.navliArr[2].lists.length > 0">岗位业绩指标</div>
+
+      <div *ngFor="let item of page.navliArr[2].lists; let kpiIndex = index">
+        <div class="kpi-item">
+          <div class="kpi-item-title">{{ item.KpiName }}</div>
+          <div class="progress-box">
+            <div class="progress-bar-bg"></div>
+            <div class="progress-bar" [ngStyle]="{'width': (item.KpiValue/item.QualifiedKpiValue*100) + '%' }"></div>
+          </div>
+          <div class="kpi-item-text">
+            <span class="progress-now" [ngClass]="{'finish': item.KpiValue >= item.QualifiedKpiValue }">当前{{( item.KpiValue * 100).toFixed(0) }}%</span>
+            <span class="progress-target">目标{{( item.QualifiedKpiValue * 100).toFixed(0) }}%</span>
+          </div>
         </div>
       </div>
+
+      <div *ngIf="page.navliArr[2].lists.length === 0 && page.isLoaded" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
+
     </div>
     <!-- KPI end -->
 
     <!-- 评分 -->
     <div *ngIf="page.navliArr[3].isActived === true">
-      <div class="kpi-title">岗位业绩指标</div>
-      <div class="kpi-item">
-        <div class="kpi-item-title">XX率</div>
-        <div class="progress-box">
-          <div class="progress-bar-bg"></div>
-          <div class="progress-bar"></div>
+      <!--<div class="kpi-title">试乘试驾操作评分</div>-->
+
+      <div *ngFor="let item of page.navliArr[3].lists; let kpiIndex = index">
+
+        <div class="kpi-item" *ngIf="item.IsExist">
+          <div class="kpi-item-title">试乘试驾操作评分</div>
+          <div class="progress-box">
+            <div class="progress-bar-bg"></div>
+            <div class="progress-bar" [ngStyle]="{'width': (item.Score/item.QualifiedScore*100) + '%' }"></div>
+          </div>
+          <div class="kpi-item-text">
+            <span class="progress-now" [ngClass]="{'finish': item.IsQualified }">当前{{ item.Score }}分</span>
+            <span class="progress-target">目标{{ item.QualifiedScore }}分</span>
+          </div>
         </div>
-        <div class="kpi-item-text">
-          <span class="progress-now finish">当前25%</span>
-          <span class="progress-target">目标20%</span>
-        </div>
+
       </div>
-      <div class="kpi-item">
-        <div class="kpi-item-title">XX率</div>
-        <div class="progress-box">
-          <div class="progress-bar-bg"></div>
-          <div class="progress-bar"></div>
-        </div>
-        <div class="kpi-item-text">
-          <span class="progress-now">当前7%</span>
-          <span class="progress-target">目标20%</span>
-        </div>
-      </div>
+
+      <div *ngIf="page.navliArr[3].lists.length === 0 && page.isLoaded" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
+
     </div>
     <!-- 评分 end -->
 
