@@ -54,6 +54,7 @@ export class MinePage {
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
+            console.log(value);
             this.mineInfo = value;
 
         });
