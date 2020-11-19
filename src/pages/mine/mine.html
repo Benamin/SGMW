@@ -30,6 +30,20 @@
                     </p>
                 </div>
             </div>
+            <div class="user-type">
+                <div>
+                    <span>登录方式:</span>
+                    <span *ngIf="mineInfo?.UserType == 'ISV'">供应商</span>
+                    <span *ngIf="mineInfo?.UserType == 'llzs'">菱菱助手</span>
+                    <span *ngIf="mineInfo?.UserType == 'sgmw'">菱菱助手</span>
+                    <span *ngIf="mineInfo?.UserType == 'service'">服务助手</span>
+                    <span *ngIf="mineInfo?.UserType == 'jk'">骏客</span>
+                </div>
+                <div>
+                    <span>经销商号:</span>
+                    <span>{{mineInfo?.AgentNumber}}</span>
+                </div>
+            </div>
             <div class="info-item item-type">
                 <div tappable (click)="goToCourse()">
                     <p>{{number?.CourseCount || '0'}}</p>

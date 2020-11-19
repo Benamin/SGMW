@@ -136,6 +136,22 @@ export class LoginService {
         })
     }
 
+    //获取手机验证码
+    LLZSGeTCode(phone, header): Observable<any> {
+        return this.http.get(NXSZS_HTTP_URL + `/user/api/smsCode/${phone}`, {
+            headers: header
+        })
+    }
+
+    //菱菱助手手机登录
+    LLZSLoginByPhone(data): Observable<any> {
+        return this.http.post(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/token", this.dataForm.xxxFormData(data), {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+            }
+        })
+    }
+
     //获取菱菱助手用户信息
     LLZSGetUserInfo(params): Observable<any> {
         return this.http.get(NXSZS_HTTP_URL + `/user/api/userInfo/${params}`);
