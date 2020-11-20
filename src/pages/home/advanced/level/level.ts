@@ -139,8 +139,8 @@ export class AdvancedLevelPage {
         let typeTitle = '';
         let levelInformation = this.page.levelInformation;
         for (let i=0; i<levelInformation.length; i++) {
-            if (this.page.nowLevel === levelInformation[i].Hierarchy - 1) {
-                typeTitle = levelInformation[i].Level
+            if (levelInformation[i].actived === true) {
+                typeTitle = levelInformation[i].Level;
             }
         }
         let modalData = {
