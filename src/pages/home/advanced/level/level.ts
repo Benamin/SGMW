@@ -158,9 +158,17 @@ export class AdvancedLevelPage {
     // 前往 认证进阶 的 勋章设置
     goAdvancedLists(item) {
         console.log(this.page.nowLevel , item.Hierarchy - 1)
+        let levelInformation = this.page.levelInformation;
+        for (let i=0; i<levelInformation.length; i++) {
+            if (item.Hierarchy === levelInformation[i].Hierarchy) {
+                levelInformation[i].actived = true;
+            } else {
+                levelInformation[i].actived = false;
+            }
+        }
         this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
         this.page.plid = item.ID;
-        this.page.nowLevel = item.Hierarchy - 1;
+        // this.page.nowLevel = item.Hierarchy - 1;
         this.page.isLoaded = false;
         this.initLists();
         this.setParams();
@@ -180,6 +188,13 @@ export class AdvancedLevelPage {
 
                     let nowLevel = res.data.Hierarchy - 1;
                     let levelInformation = res.data.levelInformation;
+                    for (let i=0; i<levelInformation.length; i++) {
+                        if (this.page.nowLevel === levelInformation[i].Hierarchy - 1) {
+                            levelInformation[i].actived = true;
+                        } else {
+                            levelInformation[i].actived = false;
+                        }
+                    }
                     this.page.levelInformation = levelInformation;
                     this.page.nowLevel = nowLevel;
 
