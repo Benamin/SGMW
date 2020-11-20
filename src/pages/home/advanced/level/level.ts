@@ -156,8 +156,9 @@ export class AdvancedLevelPage {
     }
 
     // 前往 认证进阶 的 勋章设置
-    goAdvancedLists(item) {
-        console.log(this.page.nowLevel , item.Hierarchy - 1)
+    goAdvancedLists(levelTypeIndex) {
+
+        let item = this.page.levelInformation[levelTypeIndex]
         let levelInformation = this.page.levelInformation;
         for (let i=0; i<levelInformation.length; i++) {
             if (item.Hierarchy === levelInformation[i].Hierarchy) {
@@ -166,8 +167,9 @@ export class AdvancedLevelPage {
                 levelInformation[i].actived = false;
             }
         }
+        console.log(99999, this.page.nowLevel , item.Hierarchy-2)
         this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
-        this.page.plid = item.ID;
+        this.page.plid = this.page.levelInformation[levelTypeIndex+1].ID;
         // this.page.nowLevel = item.Hierarchy - 1;
         this.page.isLoaded = false;
         this.initLists();
@@ -203,11 +205,14 @@ export class AdvancedLevelPage {
                     if (levelInformation.length > 0) {
                         for (var i=0; i<levelInformation.length; i++) {
                             if (res.data.Hierarchy === levelInformation[i].Hierarchy) {
-                                this.page.plid = levelInformation[i].ID
+                                this.page.plid = levelInformation[i+1].ID
                                 this.setParams();
                             }
                         }
                     }
+
+                    let item = this.page.levelInformation[0]
+                    this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
                 }  else {
                     this.commonSer.toast(res.message);
                 }
@@ -368,6 +373,7 @@ export class AdvancedLevelPage {
                     let loading = this.loadCtrl.create({
                         content: ''
                     });
+                    loading.present();
 
                     this.homeSer.ValidationLevel({}).subscribe(
                         (res) => {
@@ -422,7 +428,7 @@ export class AdvancedLevelPage {
         }
         if (item.ID) item.Fid = item.ID;
         let canTest = this.page.navliArr[0].lists.every(e => e.studystate === 2)
-
+console.log('canTest', canTest)
         if (!canTest) {
             this.commonSer.alert('请先完成课程内容!');
             return;
