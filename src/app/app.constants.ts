@@ -80,13 +80,13 @@ export const NXSZS_clientId = keyEnv === 'dev' ? NXSZS_client_id_DEV : NXSZS_cli
 
 //client_id 手机验证码登录菱菱助手接口使用
 const NXSZS_client_id_phone_DEV = "jlxs_phone_test";
-const NXSZS_client_id_phone_PROD = "jlxs";
+const NXSZS_client_id_phone_PROD = "jlxs_phone";
 //手机验证码登录使用的client_id
 export const NXSZS_clientId_phone = keyEnv === 'dev' ? NXSZS_client_id_phone_DEV : NXSZS_client_id_phone_PROD;
 
 //client_secret 账号密码登录菱菱助手接口使用
 const NXSZS_client_secret_DEV = "0440158b-6de0-443f-a32c-cc8f1ccefd20";
-const NXSZS_client_secret_PROD = "a95cf710-8320-457b-a8eb-741264c592f7";
+const NXSZS_client_secret_PROD = "e622f989-0eca-4d05-ac46-819c2224c335";
 //登录使用的client_secret
 export const NXSZS_client_secret = keyEnv === 'dev' ? NXSZS_client_secret_DEV : NXSZS_client_secret_PROD;
 

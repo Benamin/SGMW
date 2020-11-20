@@ -26,6 +26,10 @@ export class VideojsComponent implements OnDestroy {
     videoEle;
     isPlay = false;   //判断视频播放状态
 
+    videoPlayTime = 1;  //播放进度百分比
+    videoDuration = 1;  //视频总时长
+    IsPass = false;  //本视频是否观看完毕
+
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
                 private commonSer: CommonService,
@@ -46,8 +50,9 @@ export class VideojsComponent implements OnDestroy {
         timer(100).subscribe(() => {
             this.myPlayer = amp(this.videoEle, {
                 muted: false,
-                controls: false,
+                controls: true,
                 autoplay: true,
+                "language": "zh-hans",
                 "playbackSpeed": {
                     "enabled": true,
                     initialSpeed: 1.0,
@@ -88,13 +93,35 @@ export class VideojsComponent implements OnDestroy {
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
-                this.myPlayer.addEventListener('touchstart', () => {
+                // this.myPlayer.addEventListener('touchstart', () => {
+                //     if (this.myPlayer.paused()) {
+                //         this.myPlayer.play();
+                //     } else {
+                //         this.myPlayer.pause();
+                //     }
+                // });
+                //获取视频总时长
+                this.myPlayer.addEventListener("loadeddata", () => {
+                    this.videoDuration = this.myPlayer.duration();
+                })
+                //视频暂停时
+                this.myPlayer.addEventListener("touchstart", () => {
                     if (this.myPlayer.paused()) {
                         this.myPlayer.play();
                     } else {
                         this.myPlayer.pause();
                     }
-                })
+                });
+                //播放时间变化
+                this.myPlayer.addEventListener("timeupdate", () => {
+                    let currentTime = this.myPlayer.currentTime().toFixed(2);
+                    if (currentTime > 0) {
+                        this.videoPlayTime = <any>((currentTime / this.videoDuration) * 100).toFixed(2);
+                    }
+                });
+                //视频播放
+                // this.myPlayer.addEventListener("play", () => {
+                // })
                 this.global.videoNum++;
             });
         });
@@ -159,7 +186,7 @@ export class VideojsComponent implements OnDestroy {
 
     @Input() set GetVideo(videoInfo) {
         if (this.myPlayer && videoInfo) {
-            console.log("videoInfo",this.myPlayer);
+            console.log("videoInfo", this.myPlayer);
             this.isPlay = true;
             let type = 'application/x-mpegURL';
             if (this.platform.is('android')) {
@@ -168,7 +195,7 @@ export class VideojsComponent implements OnDestroy {
                 type = "application/dash+xml"
             }
             this.myPlayer.src({type: type, src: videoInfo.fileUrl});
-            this.myPlayer.controls(videoInfo.IsPass);
+            this.IsPass = videoInfo.IsPass;
             this.videoInfo = videoInfo;
             // this.video.removeChild('TitleBar');
             // this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});

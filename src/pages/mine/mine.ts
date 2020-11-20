@@ -41,7 +41,8 @@ export class MinePage {
         UpdateText: '',
     };
 
-    RoleName;
+    RoleName;  //角色名称
+    LoginType: '-';
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private logoutSer: LogoutService,
                 private mineSer: MineService, private events: Events, private appVersion: AppVersion,
@@ -58,6 +59,10 @@ export class MinePage {
             this.mineInfo = value;
 
         });
+        this.storage.get('LoginType').then(value => {
+            this.LoginType = value || "-";
+        });
+
         this.storage.get('CurrentRole').then(val => {
             this.CurrentRole = val;
             this.RoleName = val.CurrentRoleName;

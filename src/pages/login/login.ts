@@ -206,6 +206,7 @@ export class LoginPage {
         }
 
         this.showLoading();
+        this.storage.set("LoginType", "员工")
         this.loginSer.connectToken(this.ygObj).subscribe(
             (res) => {
                 if (res.access_token) {
@@ -245,6 +246,7 @@ export class LoginPage {
             return;
         }
         this.showLoading();
+        this.storage.set("LoginType", "供应商")
         this.loginSer.connectToken(this.gysObj).subscribe(
             (res) => {
                 if (res.access_token) {
@@ -280,6 +282,7 @@ export class LoginPage {
         }
 
         this.showLoading();
+        this.storage.set("LoginType", "菱菱助手")
         const timestamp = this.datePipe.transform(new Date(), 'yyyyMMddHHmmss');
         const nonce = this.randomWord.uuid();
         const sign = XSZS_appId + XSZS_appKey + timestamp + nonce;
@@ -376,6 +379,7 @@ export class LoginPage {
         }
 
         this.showLoading();
+        this.storage.set("LoginType", "骏客")
         encrypt.setPublicKey(JunKe_PRIVATE_KEY);
         const password = encrypt.encrypt(this.jxs.junke.password);
         const data = {
@@ -470,6 +474,7 @@ export class LoginPage {
         }
 
         this.showLoading();
+        this.storage.set("LoginType", "服务助手")
         const d = Date.now();
         const timeStamp = Math.round(d / 1000) + '';
         const nonce = this.randomWord.uuidNum();
@@ -583,7 +588,7 @@ export class LoginPage {
                         this.countTime();
                         this.commonSer.toast("验证码发送成功");
                         this.llzsPhone.smsUUID = res.data.smsUUID;
-                    }else{
+                    } else {
                         this.disableBtn = true;
                     }
                     if (res.code == 500) this.commonSer.alert("网络错误!")
@@ -604,7 +609,7 @@ export class LoginPage {
                         this.countTime();
                         this.commonSer.toast("验证码发送成功");
                         this.llzsPhone.smsUUID = res.data.smsUUID;
-                    }else{
+                    } else {
                         this.disableBtn = true;
                     }
                     if (res.code == 500) this.commonSer.alert("网络错误!")
@@ -639,6 +644,7 @@ export class LoginPage {
             client_secret: NXSZS_client_secret_phone
         }
         this.showLoading();
+        this.storage.set("LoginType", "菱菱助手")
         if (this.isMobile) {
             const header = {
                 "content-type": "application/x-www-form-urlencoded",
@@ -694,6 +700,7 @@ export class LoginPage {
             return;
         }
         this.showLoading();
+        this.storage.set("LoginType", "菱菱助手")
         const data = {
             grant_type: "password",
             username: encodeURI(this.jxs.llzs.username.trim()),
