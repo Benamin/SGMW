@@ -3,8 +3,8 @@ export let env = 'dev';
 // export let env = 'uat';
 // export let env = 'prod';
 
-let keyEnv = 'dev';
-// let keyEnv = 'prod';
+export let keyEnv = 'dev';
+// export let keyEnv = 'prod';
 
 
 // /***培训平台***/
@@ -71,17 +71,30 @@ const NXSZS_HTTP_URL_DEV = "https://sso-test.baojunev.com";   //测试
 const NXSZS_HTTP_URL_PROD = "https://sso-sales.sgmwsales.com";   //生产
 export const NXSZS_HTTP_URL = (env == 'localhost' ? NXSZS_HTTP_URL_LOCALHOST : (env == 'dev' || env == 'uat') ? NXSZS_HTTP_URL_DEV : NXSZS_HTTP_URL_PROD);
 
-//client_id 登录菱菱助手接口使用
+//client_id 账号密码登录菱菱助手接口使用
 const NXSZS_client_id_DEV = "jlxs_test";
 const NXSZS_client_id_PROD = "jlxs";
-//登录使用的client_id
+//账号密码登录登录使用的client_id
 export const NXSZS_clientId = keyEnv === 'dev' ? NXSZS_client_id_DEV : NXSZS_client_id_PROD;
 
-//client_secret 登录菱菱助手接口使用
+
+//client_id 手机验证码登录菱菱助手接口使用
+const NXSZS_client_id_phone_DEV = "jlxs_phone_test";
+const NXSZS_client_id_phone_PROD = "jlxs";
+//手机验证码登录使用的client_id
+export const NXSZS_clientId_phone = keyEnv === 'dev' ? NXSZS_client_id_phone_DEV : NXSZS_client_id_phone_PROD;
+
+//client_secret 账号密码登录菱菱助手接口使用
 const NXSZS_client_secret_DEV = "0440158b-6de0-443f-a32c-cc8f1ccefd20";
 const NXSZS_client_secret_PROD = "a95cf710-8320-457b-a8eb-741264c592f7";
 //登录使用的client_secret
 export const NXSZS_client_secret = keyEnv === 'dev' ? NXSZS_client_secret_DEV : NXSZS_client_secret_PROD;
+
+//client_secret 手机验证码登录菱菱助手接口使用
+const NXSZS_client_secret_phone_DEV = "f495f7ee-ef97-45d5-8819-5452ec0f171d";
+const NXSZS_client_secret_phone_PROD = "a95cf710-8320-457b-a8eb-741264c592f7";
+//手机验证码登录使用的client_secret
+export const NXSZS_client_secret_phone = keyEnv === 'dev' ? NXSZS_client_secret_phone_DEV : NXSZS_client_secret_phone_PROD;
 
 export const NXSZS_client_id_login = "D1EBCD6A-B8C4-4055-9FBA-D8AFEF00357F";
 export const NXSZS_client_id_app = "8ee2c202-1e5e-4c50-b620-016cb967c768";

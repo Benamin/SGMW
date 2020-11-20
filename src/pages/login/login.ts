@@ -583,6 +583,8 @@ export class LoginPage {
                         this.countTime();
                         this.commonSer.toast("验证码发送成功");
                         this.llzsPhone.smsUUID = res.data.smsUUID;
+                    }else{
+                        this.disableBtn = true;
                     }
                     if (res.code == 500) this.commonSer.alert("网络错误!")
                     if (res.code == 905) this.commonSer.alert("该手机账号不存在！")
@@ -591,6 +593,7 @@ export class LoginPage {
                 }
             ).catch(error => {
                 this.dismissLoading();
+                this.disableBtn = true;
                 const message = JSON.parse(error.error);
                 this.commonSer.alert(message.error_description);
             })
@@ -601,6 +604,8 @@ export class LoginPage {
                         this.countTime();
                         this.commonSer.toast("验证码发送成功");
                         this.llzsPhone.smsUUID = res.data.smsUUID;
+                    }else{
+                        this.disableBtn = true;
                     }
                     if (res.code == 500) this.commonSer.alert("网络错误!")
                     if (res.code == 905) this.commonSer.alert("该手机账号不存在！")
