@@ -30,7 +30,7 @@
     </div>
     <div class="progress-box">
       <div class="progress-bar-bg"></div>
-      <div class="progress-bar"  [ngStyle]="{'width': (page.nowLevel + 1/page.levelInformation.length*100) + '%' }"></div>
+      <div class="progress-bar"  [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1)*100) + '%' }"></div>
     </div>
 
     <ul class="level-type-box">

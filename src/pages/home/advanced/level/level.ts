@@ -136,8 +136,15 @@ export class AdvancedLevelPage {
     }
 
     showRuleModal (Remake) {
+        let typeTitle = '';
+        let levelInformation = this.page.levelInformation;
+        for (let i=0; i<levelInformation.length; i++) {
+            if (this.page.nowLevel === levelInformation[i].Hierarchy - 1) {
+                typeTitle = levelInformation[i].Level
+            }
+        }
         let modalData = {
-            leveltype: this.page.levelTypeText ,
+            leveltype: typeTitle,
             title: '',
             content: Remake
         }
