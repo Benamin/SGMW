@@ -34,7 +34,8 @@
     </div>
 
     <ul class="level-type-box">
-      <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="goAdvancedLists(levelTypeIndex)" [ngClass]="{'actived': item.actived }">
+      <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="switchLevel(levelTypeIndex)" [ngClass]="{'actived': item.actived}">
+        <!--, 'isNowProcess': page.nowLevel === item.Hierarchy - 1-->
         {{item.Level}}
       </li>
       <!--<li class="actived">实习顾问</li>-->
@@ -65,11 +66,21 @@
         <div class="nav-box">
           <div class="btn-box">
 
-            <div (click)="changeSecNav(navSecIndex, item.isActived)"
-                 *ngFor="let item of page.courseTypeArr; let navSecIndex = index" class="type-btn"
-                 [ngClass]="{'actived': item.isActived}">
-              {{ item.navBtnText }}
-              <span class="item-line"></span>
+            <div *ngFor="let item of page.courseTypeArr; let navSecIndex = index">
+              <div *ngIf="navSecIndex !== 3"
+                   (click)="changeSecNav(navSecIndex, item.isActived)"
+                   class="type-btn"
+                   [ngClass]="{'actived': item.isActived}">
+                {{ item.navBtnText }}
+                <span class="item-line"></span>
+              </div>
+              <div *ngIf="navSecIndex === 3"
+                   (click)="goAdvancedLists()"
+                   class="type-btn"
+                   [ngClass]="{'actived': item.isActived}">
+                {{ item.navBtnText }}
+                <span class="item-line"></span>
+              </div>
             </div>
 
           </div>
@@ -111,12 +122,14 @@
         <div class="nav-box">
           <div class="btn-box">
             <div *ngFor="let item of page.courseTypeArr; let navSecIndex = index">
-              <div *ngIf="index !== 3" (click)="changeSecNav(navSecIndex, item.isActived)"
+
+              <div *ngIf="navSecIndex !== 3" (click)="changeSecNav(navSecIndex, item.isActived)"
                    class="type-btn"
                    [ngClass]="{'actived': item.isActived}">
                 {{ item.navBtnText }}
                 <span class="item-line"></span>
               </div>
+
             </div>
           </div>
         </div>

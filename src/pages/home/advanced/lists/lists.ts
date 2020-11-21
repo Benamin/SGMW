@@ -28,7 +28,7 @@ export class AdvancedListsPage {
                 listType: {
                     navliArr: [{
                         lable: 'all',
-                        text: '全部',
+                        text: '全部', // 2 0 1 -1
                         total: 0,
                         isActived: true
                     }, {

@@ -47,6 +47,7 @@
     "cordova-plugin-advanced-http": "3.0.1",
     "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-appavailability": "^0.4.2",
+    "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-customurlscheme": "^4.4.0",
     "cordova-plugin-device": "~2.0.2",
     "cordova-plugin-document-viewer": "^0.9.13",
@@ -113,10 +114,13 @@
         "ANDROID_HOST": " ",
         "ANDROID_PATHPREFIX": "/"
       },
-      "cordova-plugin-camera": {},
+      "cordova-plugin-camera": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
       "cordova-sqlite-storage": {},
       "jpush-phonegap-plugin": {
-        "APP_KEY": "235665a384e33f0f3b98fba3"
+        "APP_KEY": "235665a384e33f0f3b98fba3",
+        "CHANNEL": "developer-default"
       },
       "cordova-plugin-statusbar": {},
       "cordova-plugin-file-opener2": {
