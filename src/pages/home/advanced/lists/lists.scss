@@ -1,4 +1,8 @@
 page-lists {
+  .scroll-content {
+    //min-height: 100%;
+    background-color: #FFFFFF;
+  }
   ul {
     margin: 0;
     padding: 0;
@@ -11,7 +15,7 @@ page-lists {
   }
 
   .advanced-item {
-    border-bottom: 1rem solid #F2F2F2;
+    //border-bottom: 1rem solid #F2F2F2;
 
     .advanced-title {
       position: relative;

@@ -84,7 +84,8 @@ export class AdvancedLevelPage {
         levelTypeText: null,
         plid: null,
         isLoaded: false,
-        canClick: false
+        canClick: false,
+        nowLevelIndex: 0
     }
 
     constructor(
@@ -211,8 +212,8 @@ export class AdvancedLevelPage {
                         }
                     }
 
-                    let item = this.page.levelInformation[0]
-                    this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
+                    let item = this.page.levelInformation[this.page.nowLevelIndex];
+                    this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 2);
                 }  else {
                     this.commonSer.toast(res.message);
                 }
@@ -235,8 +236,10 @@ export class AdvancedLevelPage {
         switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
             case 'course':
                 // 课程
+                getParams = Object.assign({}, getParams, { Conditions: 'NotAll' });
                 getListsApi = (data) => {
-                    return this.homeSer.QueryCourse(data)
+
+                    return this.homeSer.QueryCourse(data);
                 };
                 break
             case 'exam':
@@ -348,6 +351,7 @@ export class AdvancedLevelPage {
     }
     // 二级导航（课程/考试状态）切换
     changeSecNav (navSecIndex, bool) {
+        this.page.nowLevelIndex = navSecIndex;
         this.page.isLoaded = false;
         this.initLists();
         console.log('changeNav', navSecIndex, bool)
@@ -363,16 +367,17 @@ export class AdvancedLevelPage {
     }
 
     // 前往 更多课程
-    goAdvancedLists(item) {
-        let item = null
+    goAdvancedLists() {
+        let item = null;
         let levelInformation = this.page.levelInformation
         for (let i=0; i<levelInformation.length; i++) {
-            if (this.page.nowLevel === levelInformation[i].Hierarchy - 1) {
-                item = levelInformation[i]
+            if (levelInformation[i].actived === true) {
+                item = levelInformation[i + 1]; // 获取当前亮的按钮 下一级的 level
             }
         }
+        debugger
 
-        console.log(this.page.nowLevel , item.Hierarchy - 2)
+        console.log('nowLevel' , item)
         if (item) {
             let canClick = this.page.nowLevel >= (item.Hierarchy - 2);
             this.navCtrl.push(AdvancedListsPage, { plid: item.ID, canClick: canClick, Level: item.Level });
@@ -445,11 +450,11 @@ export class AdvancedLevelPage {
             return
         }
         if (item.ID) item.Fid = item.ID;
-        let canTest = true;
-        let lists = this.page.navliArr[0].lists;
-        for (let i=0; i<lists.length; i++) {
-            if (lists[i].studystate !== 2) canTest = false;
-        }
+        let canTest = item.IsExam === true; // bool true可以考试  false 不可以考试
+        // let lists = this.page.navliArr[0].lists;
+        // for (let i=0; i<lists.length; i++) {
+        //     if (lists[i].studystate !== 2) canTest = false;
+        // }
         console.log('canTest', canTest)
         if (!canTest) {
             this.commonSer.alert('请先完成课程内容!');

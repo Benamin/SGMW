@@ -88,14 +88,14 @@
       </div>
       <div *ngFor="let item of page.navliArr[0].lists; let courseIndex = index">
         <div class="course-li" (click)="goCourse(item)">
-          <img [src]="page.defaultImg" alt="课程图片">
+          <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
           <div class="course-right">
             <div class="title article">
               {{ item.Title }}
             </div>
-            <!--<div class="SubjectName">-->
-            <!--SubjectName-->
-            <!--</div>-->
+            <div class="SubjectName">
+              {{item.SubjectName}}
+            </div>
             <div class="status" *ngIf="item.studystate === 0">
               <img src="assets/imgs/advanced/status-default.png"/>
               未开始

@@ -51,32 +51,33 @@ export class AdvancedListsPage {
                 },
                 lists: []
             },
-            {
-                title: "考试",
-                en: 'exam',
-                isOpen: false,
-                listType: null,
-                lists: []
-            },
-            {
-                title: "KPI",
-                en: 'kpi',
-                isOpen: false,
-                listType: null,
-                lists: []
-            },
-            {
-                title: "评分结果",
-                en: 'points',
-                isOpen: false,
-                listType: null,
-                lists: []
-            },
+            // {
+            //     title: "考试",
+            //     en: 'exam',
+            //     isOpen: false,
+            //     listType: null,
+            //     lists: []
+            // },
+            // {
+            //     title: "KPI",
+            //     en: 'kpi',
+            //     isOpen: false,
+            //     listType: null,
+            //     lists: []
+            // },
+            // {
+            //     title: "评分结果",
+            //     en: 'points',
+            //     isOpen: false,
+            //     listType: null,
+            //     lists: []
+            // },
         ],
         getListsApi: null, // 请求接口服务
         Param: null,
         getParams: null,
-        hasArea: false
+        hasArea: false,
+        isLoaded: false
     }
 
     constructor(
@@ -140,24 +141,26 @@ export class AdvancedListsPage {
         // learningState 课程状态 -1 未开始 0进行中 1已完成 2 所有
         let paramsObj = {
             plid: this.page.plid,
-            csStatus: learningState
+            csStatus: learningState,
+            Conditions: 'All'
         }
         // let paramsObj = { // 测试使用
         //     plid: 6,
         //     csStatus: 2
         // }
-
-        this.homeSer.getAdvancedLists(paramsObj).subscribe(
+        this.page.isLoaded = false;
+        this.homeSer.QueryCourse(paramsObj).subscribe(
             (res) => {
                 // console.log('获取学习情况', res)
                 if (res.code === 200) {
-                    this.page.advancedArr[0].lists = res.data.product; // 课程
-                    this.page.advancedArr[1].lists = res.data.stuexam; // 考试
-                    this.page.advancedArr[2].lists = res.data.UserKpis; // KPI
-                    this.page.advancedArr[3].lists = res.data.Speaking; // 评分结果
+                    this.page.advancedArr[0].lists = res.data; // 课程
+                    // this.page.advancedArr[1].lists = res.data.stuexam; // 考试
+                    // this.page.advancedArr[2].lists = res.data.UserKpis; // KPI
+                    // this.page.advancedArr[3].lists = res.data.Speaking; // 评分结果
                 }
 
                 // this.page.myInfo = res.data;
+                this.page.isLoaded = true;
                 loading.dismiss();
             }, err => {
                 loading.dismiss();
