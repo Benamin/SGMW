@@ -54,7 +54,7 @@ export class VideojsComponent implements OnDestroy {
                 autoplay: true,
                 "language": "zh-hans",
                 "playbackSpeed": {
-                    "enabled": true,
+                    "enabled": false,
                     initialSpeed: 1.0,
                     speedLevels: [
                         {name: "x4.0", value: 4.0},
@@ -195,11 +195,18 @@ export class VideojsComponent implements OnDestroy {
                 type = "application/dash+xml"
             }
             this.myPlayer.src({type: type, src: videoInfo.fileUrl});
+            // this.myPlayer.PlaybackSpeedOptions.enabled(false);
+            // this.myPlayer.oprions.PlaybackSpeedOptions.enabled(false);
             this.IsPass = videoInfo.IsPass;
             this.videoInfo = videoInfo;
             // this.video.removeChild('TitleBar');
             // this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
         }
+    }
+
+    //提醒
+    handleToast() {
+        this.commonSer.toast('视频学习完毕可快进 未学习完只能后退')
     }
 
 }
