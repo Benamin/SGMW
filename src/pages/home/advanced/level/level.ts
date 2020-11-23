@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, LoadingController, ActionSheetController, ModalController } from 'ionic-angular';
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
-// import {AdvancedListsPage} from "../lists/lists";
+import {AdvancedListsPage} from "../lists/lists";
 import {RuleModalPage} from "../rule-modal/rule-modal";
 import {FocusCoursePage} from "../../../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../../../learning/inner-course/inner-course";
@@ -156,7 +156,7 @@ export class AdvancedLevelPage {
     }
 
     // 前往 认证进阶 的 勋章设置
-    goAdvancedLists(levelTypeIndex) {
+    switchLevel(levelTypeIndex) {
 
         let item = this.page.levelInformation[levelTypeIndex]
         let levelInformation = this.page.levelInformation;
@@ -355,10 +355,28 @@ export class AdvancedLevelPage {
         for (var i=0; i<this.page.courseTypeArr.length; i++) {
             this.page.courseTypeArr[i].isActived = false;
         }
+
         this.page.courseTypeArr[navSecIndex].isActived = true;
         this.page.nowClickSec = this.page.courseTypeArr[navSecIndex].navBtnEn
         console.log('nowClickSec888', this.page.nowClickSec)
         this.setParams();
+    }
+
+    // 前往 更多课程
+    goAdvancedLists(item) {
+        let item = null
+        let levelInformation = this.page.levelInformation
+        for (let i=0; i<levelInformation.length; i++) {
+            if (this.page.nowLevel === levelInformation[i].Hierarchy - 1) {
+                item = levelInformation[i]
+            }
+        }
+
+        console.log(this.page.nowLevel , item.Hierarchy - 2)
+        if (item) {
+            let canClick = this.page.nowLevel >= (item.Hierarchy - 2);
+            this.navCtrl.push(AdvancedListsPage, { plid: item.ID, canClick: canClick, Level: item.Level });
+        }
     }
 
     // 切换角色
@@ -427,8 +445,12 @@ export class AdvancedLevelPage {
             return
         }
         if (item.ID) item.Fid = item.ID;
-        let canTest = this.page.navliArr[0].lists.every(e => e.studystate === 2)
-console.log('canTest', canTest)
+        let canTest = true;
+        let lists = this.page.navliArr[0].lists;
+        for (let i=0; i<lists.length; i++) {
+            if (lists[i].studystate !== 2) canTest = false;
+        }
+        console.log('canTest', canTest)
         if (!canTest) {
             this.commonSer.alert('请先完成课程内容!');
             return;
