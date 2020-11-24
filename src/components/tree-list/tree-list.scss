@@ -44,6 +44,12 @@ tree-list {
     background: rgba(255, 201, 45, .3);
     border-radius: 0.17rem;
     position: relative;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    width: 75%;
   }
 
   .exam::before {
