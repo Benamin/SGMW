@@ -85,7 +85,8 @@ export class AdvancedLevelPage {
         plid: null,
         isLoaded: false,
         canClick: false,
-        nowLevelIndex: 0
+        nowLevelIndex: null,
+        firstTime: true
     }
 
     constructor(
@@ -117,7 +118,18 @@ export class AdvancedLevelPage {
             content: ''
         });
         loading.present();
-        this.homeSer.LevelRemake({ PlId: this.page.plid }).subscribe(
+        let nowPlId = null;
+        if (this.page.plid === 'theLast') {
+            nowPlId = this.page.levelInformation[this.page.levelInformation.length - 1].ID;
+        } else {
+            let levelInformation = this.page.levelInformation;
+            for (let i=0; i<levelInformation.length; i++) {
+                if (levelInformation[i].actived === true) {
+                    nowPlId = this.page.levelInformation[i].ID;
+                }
+            }
+        }
+        this.homeSer.LevelRemake({ PlId: nowPlId }).subscribe(
             (res) => {
                 if (res.code === 200) {
 
@@ -128,7 +140,6 @@ export class AdvancedLevelPage {
                     this.commonSer.toast(res.message);
                 }
 
-                // this.page.myInfo = res.data;
                 loading.dismiss();
             }, err => {
                 loading.dismiss();
@@ -158,19 +169,27 @@ export class AdvancedLevelPage {
 
     // 前往 认证进阶 的 勋章设置
     switchLevel(levelTypeIndex) {
-
-        let item = this.page.levelInformation[levelTypeIndex]
+        this.page.nowLevelIndex = levelTypeIndex;
         let levelInformation = this.page.levelInformation;
+        let item = levelInformation[levelTypeIndex];
+
         for (let i=0; i<levelInformation.length; i++) {
             if (item.Hierarchy === levelInformation[i].Hierarchy) {
                 levelInformation[i].actived = true;
             } else {
-                levelInformation[i].actived = false;
+                if(levelInformation[i]) levelInformation[i].actived = false;
             }
         }
-        console.log(99999, this.page.nowLevel , item.Hierarchy-2)
+
+        if (levelTypeIndex === levelInformation.length - 1) {
+            this.page.plid = 'theLast';
+            return
+        }
+
         this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
-        this.page.plid = this.page.levelInformation[levelTypeIndex+1].ID;
+        // console.log(99999, this.page.canClick);
+        // id取下一个的ID
+        this.page.plid = this.page.levelInformation[levelTypeIndex + 1].ID;
         // this.page.nowLevel = item.Hierarchy - 1;
         this.page.isLoaded = false;
         this.initLists();
@@ -187,39 +206,65 @@ export class AdvancedLevelPage {
         loading.present();
         this.homeSer.getAdvancedLevel({ leveltype: this.page.leveltype }).subscribe(
             (res) => {
+                loading.dismiss();
                 if (res.code === 200) {
 
-                    let nowLevel = res.data.Hierarchy - 1;
                     let levelInformation = res.data.levelInformation;
+                    this.page.nowProgress = res.data.schedule;
+                    let nowLevel = res.data.Hierarchy - 1;
+                    this.page.nowLevel = nowLevel;
+
+                    let oldlevelInformation = this.page.levelInformation
+                    if (!this.page.firstTime) {
+                        let item = null;
+                        for (let i=0; i<oldlevelInformation.length; i++) {
+                            if (oldlevelInformation[i].actived === true) {
+                                item = oldlevelInformation[i];
+                            }
+                        }
+                        this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
+                        this.setParams();
+                        return
+                    }
+                    this.page.firstTime = false;
+
                     for (let i=0; i<levelInformation.length; i++) {
-                        if (this.page.nowLevel === levelInformation[i].Hierarchy - 1) {
+                        if (nowLevel === levelInformation[i].Hierarchy - 1) {
                             levelInformation[i].actived = true;
                         } else {
-                            levelInformation[i].actived = false;
+                            if(levelInformation[i]) levelInformation[i].actived = false;
                         }
                     }
                     this.page.levelInformation = levelInformation;
-                    this.page.nowLevel = nowLevel;
+
 
                     // console.log('nowProgress', nowProgress)
-                    this.page.nowProgress = res.data.schedule;
+
                     if (levelInformation.length > 0) {
-                        for (var i=0; i<levelInformation.length; i++) {
-                            if (res.data.Hierarchy === levelInformation[i].Hierarchy) {
-                                this.page.plid = levelInformation[i+1].ID
+                        // for (var i=0; i<levelInformation.length; i++) {
+                            if (res.data.Hierarchy === levelInformation[0].Hierarchy) {
+                                this.page.plid = levelInformation[1].ID;
+                                // let item = this.page.levelInformation[1];
                                 this.setParams();
+                                this.page.canClick = true;
+                            } else {
+                                for (var i=0; i<levelInformation.length; i++) {
+                                    if (res.data.Hierarchy === levelInformation[i].Hierarchy) {
+                                        this.page.plid = levelInformation[i + 1].ID;
+                                        // let item = this.page.levelInformation[i];
+                                        this.setParams();
+                                        // this.page.nowLevelIndex
+                                        this.page.canClick = true;
+                                    }
+                                }
                             }
-                        }
+                        //
                     }
 
-                    let item = this.page.levelInformation[this.page.nowLevelIndex];
-                    this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 2);
+
                 }  else {
                     this.commonSer.toast(res.message);
                 }
-
-                // this.page.myInfo = res.data;
-                loading.dismiss();
             }, err => {
                 loading.dismiss();
             }
@@ -351,7 +396,6 @@ export class AdvancedLevelPage {
     }
     // 二级导航（课程/考试状态）切换
     changeSecNav (navSecIndex, bool) {
-        this.page.nowLevelIndex = navSecIndex;
         this.page.isLoaded = false;
         this.initLists();
         console.log('changeNav', navSecIndex, bool)
@@ -375,12 +419,11 @@ export class AdvancedLevelPage {
                 item = levelInformation[i + 1]; // 获取当前亮的按钮 下一级的 level
             }
         }
-        debugger
 
-        console.log('nowLevel' , item)
+        console.log('nowLevel' , item, '888***canClick', this.page.canClick)
+        this.page.plid = item.ID;
         if (item) {
-            let canClick = this.page.nowLevel >= (item.Hierarchy - 2);
-            this.navCtrl.push(AdvancedListsPage, { plid: item.ID, canClick: canClick, Level: item.Level });
+            this.navCtrl.push(AdvancedListsPage, { plid: item.ID, canClick: this.page.canClick, Level: item.Level });
         }
     }
 
@@ -408,6 +451,7 @@ export class AdvancedLevelPage {
                                         this.page.leveltype = this.page.roleList[i].value;
                                         this.page.levelTypeText = this.page.roleList[i].label;
                                         loading.dismiss();
+                                        this.page.firstTime = true;
                                         this.getAdvancedLevel();
 
                                     }
