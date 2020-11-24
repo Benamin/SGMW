@@ -144,7 +144,7 @@
               <div class="achievement">本场考试：{{ item.PassScore + '分通过' }}</div>
               <div class="right_bottom">
                 <span style="color: #666;">时间：{{ item.ExamTimer === 0 ? '不限时' : item.ExamTimer + '分钟' }}</span>
-                <div class="status" *ngIf="item.TotalScore > item.PassScore">
+                <div class="status" *ngIf="item.TotalScore >= item.PassScore">
                   <img src="assets/imgs/advanced/logo-actived.png"/>
                   <!-- <img src="assets/imgs/advanced/status-finish.png"/> -->
                 </div>
@@ -198,6 +198,8 @@
             <span class="progress-target">目标{{ item.QualifiedScore }}分</span>
           </div>
         </div>
+
+        <div *ngIf="page.navliArr[3].lists.length === 1 && !item.IsExist" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
 
       </div>
 
