@@ -3,5 +3,4 @@
            width="100%" height="180" controls preload="auto"
            [poster]="videoPoster || ''">
     </video>
-    <div *ngIf="!IsPass" id="progressBar" (click)="handleToast()" [style.width]="(100 - videoPlayTime)+'%'"></div>
 </div>

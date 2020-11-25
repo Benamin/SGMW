@@ -230,6 +230,20 @@ export class MinePage {
         });
     }
 
+    checkVersion1() {
+        const data = {
+            code: "android"
+        };
+        this.loginSer.GetAppVersionByCode(data).subscribe(
+            (res) => {
+                const onlineVersion = res.data.AppVersion.split('.').join('');
+                this.appVersionInfo.UpdateTips = true;
+                this.appVersionInfo.AppUrl = res.data.AppUrl;
+                this.appVersionInfo.UpdateText = res.data.UpdateText;
+            }
+        )
+    }
+
     RoleNames = [];
     RoleID = '';
 
