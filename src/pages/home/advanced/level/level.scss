@@ -103,7 +103,26 @@ page-level {
         height: 10px;
         background: linear-gradient(261deg, #FFC92D 0%, #FFF7CB 100%);
         border-radius: 5px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         opacity: 1;
+        z-index: 2;
+        .process-text {
+          margin: 0 0.5rem;
+          display: block;
+          min-width: 3rem;
+          font-size: 0.8rem;
+          color: green;
+          text-align: right;
+        }
+        .process-line {
+          //position: absolute;
+          //top: -50rem;
+          height: 1.6rem;
+          width: 0.1rem;
+          background-color: #FFFFFF;
+        }
       }
     }
     .level-type-box {

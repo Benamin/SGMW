@@ -214,6 +214,11 @@ export class AdvancedLevelPage {
                     let nowLevel = res.data.Hierarchy - 1;
                     this.page.nowLevel = nowLevel;
 
+                    // 测试
+                    // this.page.nowProgress = 1;
+                    // let nowLevel = 2
+                    // this.page.nowLevel = nowLevel;
+
                     let oldlevelInformation = this.page.levelInformation
                     if (!this.page.firstTime) {
                         let item = null;
@@ -250,6 +255,11 @@ export class AdvancedLevelPage {
                             } else {
                                 for (var i=0; i<levelInformation.length; i++) {
                                     if (res.data.Hierarchy === levelInformation[i].Hierarchy) {
+                                        // 当前已经满等级
+                                        if (!levelInformation[i + 1]) {
+                                            this.page.isLoaded = true;
+                                            return
+                                        }
                                         this.page.plid = levelInformation[i + 1].ID;
                                         // let item = this.page.levelInformation[i];
                                         this.setParams();
