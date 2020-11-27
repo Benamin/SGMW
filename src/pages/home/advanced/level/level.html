@@ -30,15 +30,24 @@
     </div>
     <div class="progress-box">
       <div class="progress-bar-bg"></div>
-      <div class="progress-bar" [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1) * 100) + ((1/(page.levelInformation.length - 1) * (page.nowProgress * 100))) + '%' }"></div>
-      <!-- 当前进度 等于 当前等级/总等级的数量*100 + '%' 再加上当前进度乘以 (1/(总等级的数量)*100) + '%' -->
-      <div class="progress-bar" style="z-index: 3;background: transparent;" [ngStyle]="{'width': ((page.nowLevel + 1)/(page.levelInformation.length-1) * 100) + '%' }">
-
-        <span class="process-text" *ngIf="page.isLoaded">
+      <div class="progress-bar" [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1) * 100) + ((1/(page.levelInformation.length - 1) * (page.nowProgress * 100))) + '%' }">
+        <!-- 小于50%就在进度右边 大于50% 就在进度左边 -->
+        <span class="process-text" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) >= 50">
           {{ (page.nowProgress * 100).toFixed(0) }}%
         </span>
-        <span *ngIf="page.nowLevel < page.levelInformation.length - 2" class="process-line"></span>
+        <span class="process-text out-box" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) < 50">
+          {{ (page.nowProgress * 100).toFixed(0) }}%
+        </span>
       </div>
+      <!-- 当前进度 等于 当前等级/总等级的数量*100 + '%' 再加上当前进度乘以 (1/(总等级的数量)*100) + '%' -->
+      <!--<div class="progress-bar" style="z-index: 3;background: transparent;" [ngStyle]="{'width': ((page.nowLevel + 1)/(page.levelInformation.length-1) * 100) + '%' }">-->
+
+        <!--<span class="process-text" *ngIf="page.isLoaded">-->
+          <!--{{ (page.nowProgress * 100).toFixed(0) }}%-->
+        <!--</span>-->
+        <!--&lt;!&ndash;分隔符&ndash;&gt;-->
+        <!--&lt;!&ndash;<span *ngIf="page.nowLevel < page.levelInformation.length - 2" class="process-line"></span>&ndash;&gt;-->
+      <!--</div>-->
       <!--<div class="progress-bar"  [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1)*100) + '%' }"></div>-->
     </div>
 
