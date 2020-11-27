@@ -215,7 +215,7 @@ export class AdvancedLevelPage {
                     this.page.nowLevel = nowLevel;
 
                     // 测试
-                    this.page.nowProgress = 0.8;
+                    // this.page.nowProgress = 0.8;
                     // let nowLevel = 2
                     // this.page.nowLevel = nowLevel;
 
