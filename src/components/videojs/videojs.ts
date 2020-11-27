@@ -54,7 +54,7 @@ export class VideojsComponent implements OnDestroy {
                 autoplay: true,
                 "language": "zh-hans",
                 "playbackSpeed": {
-                    "enabled": false,
+                    "enabled": true,
                     initialSpeed: 1.0,
                     speedLevels: [
                         {name: "x4.0", value: 4.0},
