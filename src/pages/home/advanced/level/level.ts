@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';//引入
 import {NavController, NavParams, LoadingController, ActionSheetController, ModalController } from 'ionic-angular';
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
@@ -97,7 +98,8 @@ export class AdvancedLevelPage {
         private loadCtrl: LoadingController,
         private homeSer: HomeService,
         private modalCtrl: ModalController,
-        private storage: Storage
+        private storage: Storage,
+        public sanitizer: DomSanitizer
     ) {
         //获取个人信息
         this.storage.get('user').then(value => {
@@ -210,6 +212,8 @@ export class AdvancedLevelPage {
                 if (res.code === 200) {
 
                     let levelInformation = res.data.levelInformation;
+
+
                     this.page.nowProgress = res.data.schedule;
                     let nowLevel = res.data.Hierarchy - 1;
                     this.page.nowLevel = nowLevel;
@@ -219,8 +223,10 @@ export class AdvancedLevelPage {
                     // let nowLevel = 2
                     // this.page.nowLevel = nowLevel;
 
-                    let oldlevelInformation = this.page.levelInformation
+
                     if (!this.page.firstTime) {
+                        let oldlevelInformation = this.page.levelInformation
+                        oldlevelInformation = this.tranLevelText (oldlevelInformation);
                         let item = null;
                         for (let i=0; i<oldlevelInformation.length; i++) {
                             if (oldlevelInformation[i].actived === true) {
@@ -240,6 +246,7 @@ export class AdvancedLevelPage {
                             if(levelInformation[i]) levelInformation[i].actived = false;
                         }
                     }
+                    levelInformation = this.tranLevelText (levelInformation);
                     this.page.levelInformation = levelInformation;
 
 
@@ -279,6 +286,24 @@ export class AdvancedLevelPage {
                 loading.dismiss();
             }
         )
+    }
+
+    assembleHTML(strHTML:any){
+        return this.sanitizer.bypassSecurityTrustHtml(strHTML);
+    }
+
+    tranLevelText (levelInformation) {
+        // 等级 字数 超出四个 换行
+        for (let i=0;i<levelInformation.length;i++) {
+            levelInformation[i].Level = '啦啦啦店长哦哦'
+            // console.log(66666, levelInformation[i].Level.substring(2))
+            let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length/2);
+            levelInformation[i].Level = `
+                      <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
+                      <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
+            console.log('Level', 8888888, levelInformation[i].Level)
+        }
+        return levelInformation;
     }
 
     setParams () {

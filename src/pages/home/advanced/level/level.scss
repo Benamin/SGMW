@@ -133,11 +133,11 @@ page-level {
     }
     .level-scroll-box {
       width: 100%;
-      overflow-x: scroll;
-      &::-webkit-scrollbar{width:0px;height:0px;}
-      &::-webkit-scrollbar {
-        display: none;    //个人建议使用这个
-      }
+      //overflow-x: scroll;
+      //&::-webkit-scrollbar{width:0px;height:0px;}
+      //&::-webkit-scrollbar {
+      //  display: none;    //个人建议使用这个
+      //}
       .level-type-box {
         margin-top: 1.7rem;
         height: 2rem;
@@ -147,8 +147,10 @@ page-level {
         color: #FFF;
         min-width: 100%;
         li {
-          white-space:nowrap;
-          margin-right: 1em;
+          //white-space:nowrap;
+          //margin-right: 1em;
+          line-height: 1.5;
+          //white-space: pre-line;
         }
         li:nth-last-child(1) {
           margin-right: 0;

@@ -54,8 +54,8 @@
     <div class="level-scroll-box">
       <ul class="level-type-box">
         <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="switchLevel(levelTypeIndex)" [ngClass]="{'actived': item.actived}">
-          <!--, 'isNowProcess': page.nowLevel === item.Hierarchy - 1-->
-          {{item.Level}}
+           <div [innerHTML]="assembleHTML(item.Level)"></div>
+           <!--{{ item.Level }}-->
         </li>
         <!--<li class="actived">实习顾问</li>-->
         <!--<li>销售顾问</li>-->
