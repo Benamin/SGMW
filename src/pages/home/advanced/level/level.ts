@@ -295,13 +295,13 @@ export class AdvancedLevelPage {
     tranLevelText (levelInformation) {
         // 等级 字数 超出四个 换行
         for (let i=0;i<levelInformation.length;i++) {
-            levelInformation[i].Level = '啦啦啦店长哦哦'
+            // levelInformation[i].Level = '啦啦啦店长哦哦'; // 测试
             // console.log(66666, levelInformation[i].Level.substring(2))
             let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length/2);
             levelInformation[i].Level = `
                       <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
                       <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
-            console.log('Level', 8888888, levelInformation[i].Level)
+            // console.log('Level', 8888888, levelInformation[i].Level)
         }
         return levelInformation;
     }
