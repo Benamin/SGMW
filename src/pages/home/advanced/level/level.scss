@@ -131,23 +131,37 @@ page-level {
         }
       }
     }
-    .level-type-box {
-      margin-top: 1.7rem;
-      height: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #FFF;
-      li {
-
+    .level-scroll-box {
+      width: 100%;
+      overflow-x: scroll;
+      &::-webkit-scrollbar{width:0px;height:0px;}
+      &::-webkit-scrollbar {
+        display: none;    //个人建议使用这个
       }
-      li.isNowProcess {
-        color: green;
-      }
-      li.actived {
-        color: #FFCA31;
+      .level-type-box {
+        margin-top: 1.7rem;
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #FFF;
+        min-width: 100%;
+        li {
+          white-space:nowrap;
+          margin-right: 1em;
+        }
+        li:nth-last-child(1) {
+          margin-right: 0;
+        }
+        li.isNowProcess {
+          color: green;
+        }
+        li.actived {
+          color: #FFCA31;
+        }
       }
     }
+
 
   }
   .lists-box {
