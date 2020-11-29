@@ -295,13 +295,15 @@ export class AdvancedLevelPage {
     tranLevelText (levelInformation) {
         // 等级 字数 超出四个 换行
         for (let i=0;i<levelInformation.length;i++) {
-            // levelInformation[i].Level = '啦啦啦店长哦哦'; // 测试
+            // levelInformation[i].Level = '啦啦店'; // 测试
             // console.log(66666, levelInformation[i].Level.substring(2))
             if (levelInformation[i].Level.length>=4) {
                 let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length/2);
                 levelInformation[i].LevelText = `
                       <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
                       <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
+            } else {
+                levelInformation[i].LevelText = levelInformation[i].Level;
             }
             // console.log('Level', 8888888, levelInformation[i].Level)
         }
@@ -433,10 +435,10 @@ export class AdvancedLevelPage {
     }
     // 二级导航（课程/考试状态）切换
     changeSecNav (navSecIndex, bool) {
+        if (bool) return;
         this.page.isLoaded = false;
         this.initLists();
         console.log('changeNav', navSecIndex, bool)
-        if (bool && this.page.nowClickSec === this.page.courseTypeArr[navSecIndex].navBtnEn) return;
         for (var i=0; i<this.page.courseTypeArr.length; i++) {
             this.page.courseTypeArr[i].isActived = false;
         }
