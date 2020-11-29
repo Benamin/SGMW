@@ -299,7 +299,7 @@ export class AdvancedLevelPage {
             // console.log(66666, levelInformation[i].Level.substring(2))
             if (levelInformation[i].Level.length>=4) {
                 let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length/2);
-                levelInformation[i].Level = `
+                levelInformation[i].LevelText = `
                       <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
                       <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
             }
