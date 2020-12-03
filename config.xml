@@ -62,7 +62,7 @@
             </dict>
         </config-file>
         <config-file overwrite="true" parent="NSMicrophoneUsageDescription" platform="ios" target="*-Info.plist">
-            <string>Microphone access needed</string>
+            <string>APP将在短视频上传照片中使用您的麦克风权限</string>
         </config-file>
         <preference name="StatusBarOverlaysWebView" value="false" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
