@@ -821,7 +821,12 @@ export class LoginPage {
         Object.assign(data, {UnionID: unionId, LoginName: this.jxs.llzs.username})
         this.loginSer.InsertEsysUserLL(data).subscribe(
             (res) => {
-                this.connectTokenByNXSZS(data);
+                if (res.code == 200) {
+                    this.connectTokenByNXSZS(data);
+                } else {
+                    this.dismissLoading();
+                    this.commonSer.alert(res.message);
+                }
             }
         ), error1 => {
             this.dismissLoading();

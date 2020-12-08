@@ -28,7 +28,7 @@ export class LookQuestion {
 
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         const loading = this.loadCtrl.create({
             content: ''
         });

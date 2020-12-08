@@ -33,6 +33,9 @@ export class SimulationLookTestPage {
         this.navbar.backButtonClick = () => {
             this.navCtrl.remove(2, 3)
         };
+    }
+
+    ionViewDidEnter() {
         const loading = this.loadCtrl.create({
             content: ''
         });

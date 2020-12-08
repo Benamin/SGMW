@@ -46,7 +46,7 @@ export class VideoBoxPage {
         this.TopicId = this.navParams.get('TopicId');
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.initSwiperBool = false;
         this.getList();
     }
