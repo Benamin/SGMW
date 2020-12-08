@@ -167,7 +167,6 @@ export class CourseDetailPage {
                     this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
                 });
                 this.initSwiper();
-
             }
         );
     }

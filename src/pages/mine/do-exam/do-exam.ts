@@ -55,6 +55,10 @@ export class DoExamPage {
         };
     }
 
+    ionViewWillLeave(){
+        this.eventEmitSer.eventEmit.emit('false');
+    }
+
     ionViewDidEnter() {
         const loading = this.loadCtrl.create({
             content: '作业加载中...'
