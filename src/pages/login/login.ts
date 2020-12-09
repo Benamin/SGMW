@@ -818,7 +818,10 @@ export class LoginPage {
 
     //插入菱菱助手数据
     insertUserData(data, unionId) {
-        Object.assign(data, {UnionID: unionId, LoginName: this.jxs.llzs.username})
+        Object.assign(data, {
+            UnionID: unionId,
+            LoginName: this.llzsLoginType === 'userName' ? this.jxs.llzs.username : this.llzsPhone.phone
+        })
         this.loginSer.InsertEsysUserLL(data).subscribe(
             (res) => {
                 if (res.code == 200) {
