@@ -17,7 +17,7 @@ import {
     JunKe_client_id,
     JunKe_HTTP_URL,
     JunKe_PRIVATE_KEY,
-    LastVersion,
+    LastVersion, LLZSNoUserMsg,
     NoUserMsg,
     NXSZS_client_id_login,
     NXSZS_client_secret,
@@ -658,7 +658,7 @@ export class LoginPage {
                         this.LLZSGetUnionId(res.access_token);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert('无该用户信息，请联系客服');
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ).catch(error => {
@@ -673,7 +673,7 @@ export class LoginPage {
                         this.LLZSGetUnionId(res.access_token);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert('无该用户信息，请联系客服');
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }, (error) => {
                     this.dismissLoading();
@@ -722,7 +722,7 @@ export class LoginPage {
                         this.LLZSGetUnionId(res.access_token);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert('无该用户信息，请联系客服');
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ).catch(error => {
@@ -737,7 +737,7 @@ export class LoginPage {
                         this.LLZSGetUnionId(res.access_token);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert('无该用户信息，请联系客服');
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 },
                 (error) => {
@@ -761,7 +761,7 @@ export class LoginPage {
                         this.LLZSGetUserInfo(res.unionId);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert('无该用户信息，请联系客服');
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ).catch(error => {
@@ -776,7 +776,7 @@ export class LoginPage {
                         this.LLZSGetUserInfo(res.unionId);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert('无该用户信息，请联系客服');
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ), error => {
@@ -796,7 +796,7 @@ export class LoginPage {
                         this.insertUserData(res.data, unionId);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert('无该用户信息，请联系客服');
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ).catch(error => {
@@ -810,7 +810,7 @@ export class LoginPage {
                     this.insertUserData(res.data, unionId);
                 } else {
                     this.dismissLoading();
-                    this.commonSer.alert('无该用户信息，请联系客服');
+                    this.commonSer.alert(LLZSNoUserMsg);
                 }
             })
         }

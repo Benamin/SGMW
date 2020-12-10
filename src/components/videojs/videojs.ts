@@ -57,10 +57,10 @@ export class VideojsComponent implements OnDestroy {
                     "enabled": true,
                     initialSpeed: 1.0,
                     speedLevels: [
-                        {name: "x4.0", value: 4.0},
-                        {name: "x3.0", value: 3.0},
-                        {name: "x2.0", value: 2.0},
-                        {name: "x1.0", value: 1.0},
+                        {name: "x2.0", value: 2},
+                        {name: "x1.75", value: 1.75},
+                        {name: "x1.5", value: 1.5},
+                        {name: "x1.25", value: 1.25},
                         {name: "x0.5", value: 0.5},
                     ]
                 }
