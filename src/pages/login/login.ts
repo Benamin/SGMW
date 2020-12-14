@@ -48,7 +48,7 @@ declare let JSEncrypt: any;
 })
 export class LoginPage {
     @ViewChild('checkCodeJunke') checkCodeJunke: CheckCodeComponent;
-    @ViewChild('checkCodeXszs') checkCodeXszs: CheckCodeComponent;
+    // @ViewChild('checkCodeXszs') checkCodeXszs: CheckCodeComponent;
     @ViewChild('checkCodeGys') checkCodeGys: CheckCodeComponent;
     @ViewChild('checkCodeYG') checkCodeYG: CheckCodeComponent;
     @ViewChild('checkCodeFWZS') checkCodeFWZS: CheckCodeComponent;
@@ -110,7 +110,7 @@ export class LoginPage {
 
     loginObj = {
         type: "jxs",
-        platform: 'xszs',
+        platform: 'llzs',
     };
 
     //服务助手
@@ -131,7 +131,7 @@ export class LoginPage {
     LastVersion = LastVersion;  //是否最新版
 
     isMobile = true;
-    llzsLoginType = 'phone';
+    llzsLoginType = 'userName';
     llzsPhone = {
         phone: "",
         code: "",
@@ -164,7 +164,7 @@ export class LoginPage {
     }
 
     ionViewDidLoad() {
-        this.checkCodeXszs.drawPic();
+        // this.checkCodeXszs.drawPic();
         this.checkCodeJunke.drawPic();
         this.checkCodeGys.drawPic();
         this.checkCodeYG.drawPic();
@@ -183,9 +183,9 @@ export class LoginPage {
 
     //slide改变
     slideChange() {
-        if (this.slides.realIndex == 0) this.loginObj.platform = "xszs";
-        if (this.slides.realIndex == 1) this.loginObj.platform = "llzs";
-        if (this.slides.realIndex == 2) this.loginObj.platform = "junke";
+        // if (this.slides.realIndex == 0) this.loginObj.platform = "xszs";
+        if (this.slides.realIndex == 0) this.loginObj.platform = "llzs";
+        if (this.slides.realIndex == 1) this.loginObj.platform = "junke";
     }
 
     //员工
@@ -942,7 +942,7 @@ export class LoginPage {
 
     //重新获取验证码
     flashCode() {
-        if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'xszs') this.checkCodeXszs.drawPic();
+        // if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'xszs') this.checkCodeXszs.drawPic();
         if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'llzs' && this.llzsLoginType === "phone") this.checkCodeLLZSByPhone.drawPic();
         if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'llzs' && this.llzsLoginType === "userName") this.checkCodeLLZS.drawPic();
         if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'junke') this.checkCodeJunke.drawPic();

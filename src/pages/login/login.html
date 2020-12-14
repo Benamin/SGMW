@@ -22,9 +22,9 @@
             </div>
             <div [hidden]="loginObj.type != 'jxs'">
                 <div class="loginPlatform">
-                    <div tappable [ngClass]="loginObj.platform == 'xszs'?'plat':''" (click)="changeSlide(0,'xszs')">
-                        销售助手
-                    </div>
+<!--                    <div tappable [ngClass]="loginObj.platform == 'xszs'?'plat':''" (click)="changeSlide(0,'xszs')">-->
+<!--                        销售助手-->
+<!--                    </div>-->
                     <div tappable [ngClass]="loginObj.platform == 'llzs'?'plat':''" (click)="changeSlide(1,'llzs')">
                         菱菱助手
                     </div>
@@ -34,34 +34,34 @@
                 </div>
                 <ion-slides (ionSlideDidChange)="slideChange()">
                     <!--销售助手-->
-                    <ion-slide>
-                        <form class="login-input">
-                            <div class="input-input">
-                                <input type="text" [(ngModel)]="jxs.xszs.jxsh" name="xszsjxsh" placeholder="请输入经销商号"/>
-                            </div>
-                            <div class="input-input">
-                                <input type="text" [(ngModel)]="jxs.xszs.czymc" name="xszsczymc" placeholder="请输入操作员名"/>
-                            </div>
-                            <div class="input-input">
-                                <input type="password" [(ngModel)]="jxs.xszs.pwd" autocomplete name="xszspwd"
-                                       placeholder="请输入密码"/>
-                            </div>
-                            <div class="check input-input">
-                                <input type="text" [(ngModel)]="jxs.xszs.inputCode" name="xszsinputCode"
-                                       placeholder="请输入验证码"/>
-                                <check-code class="checkCode" #checkCodeXszs (done)="getCodeXszs($event)"></check-code>
-                                <img tappable (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png"
-                                     alt="">
-                            </div>
-                        </form>
-                        <div class="tips">
-                            <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span
-                                (click)="openModal()">《隐私协议》</span>
-                        </div>
-                        <div class="login-button" tappable (click)="loginXszsJsx()">
-                            登录
-                        </div>
-                    </ion-slide>
+<!--                    <ion-slide>-->
+<!--                        <form class="login-input">-->
+<!--                            <div class="input-input">-->
+<!--                                <input type="text" [(ngModel)]="jxs.xszs.jxsh" name="xszsjxsh" placeholder="请输入经销商号"/>-->
+<!--                            </div>-->
+<!--                            <div class="input-input">-->
+<!--                                <input type="text" [(ngModel)]="jxs.xszs.czymc" name="xszsczymc" placeholder="请输入操作员名"/>-->
+<!--                            </div>-->
+<!--                            <div class="input-input">-->
+<!--                                <input type="password" [(ngModel)]="jxs.xszs.pwd" autocomplete name="xszspwd"-->
+<!--                                       placeholder="请输入密码"/>-->
+<!--                            </div>-->
+<!--                            <div class="check input-input">-->
+<!--                                <input type="text" [(ngModel)]="jxs.xszs.inputCode" name="xszsinputCode"-->
+<!--                                       placeholder="请输入验证码"/>-->
+<!--                                <check-code class="checkCode" #checkCodeXszs (done)="getCodeXszs($event)"></check-code>-->
+<!--                                <img tappable (click)="flashCode()" class="flash" src="./assets/imgs/login/flash.png"-->
+<!--                                     alt="">-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                        <div class="tips">-->
+<!--                            <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span-->
+<!--                                (click)="openModal()">《隐私协议》</span>-->
+<!--                        </div>-->
+<!--                        <div class="login-button" tappable (click)="loginXszsJsx()">-->
+<!--                            登录-->
+<!--                        </div>-->
+<!--                    </ion-slide>-->
                     <!--菱菱助手-->
                     <ion-slide>
                         <div class="llzsLogin">

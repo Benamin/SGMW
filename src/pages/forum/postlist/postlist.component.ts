@@ -71,7 +71,7 @@ export class PostlistComponent implements OnInit {
         this.no_list = false;
         this.forum_post_search();
     }
-
+l
 
     // 我收藏的帖子
     myfavorites() {
