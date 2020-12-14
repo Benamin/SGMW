@@ -3,10 +3,12 @@ page-level {
   .top-box {
     display: flex;
     align-items: center;
+
     .top-right {
       margin-left: auto;
       font-size: 1.4rem;
       color: #FFF;
+
       img {
         margin-right: 1.1rem;
         margin-left: 0.5rem;
@@ -37,21 +39,25 @@ page-level {
     height: 7rem;
     font-size: 1.6rem;
     color: #000;
+
     .img-head {
       margin-left: 1rem;
       width: 4rem;
       height: 4rem;
       border-radius: 50%;
       overflow: hidden;
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
     }
+
     .name-text {
       margin-left: 1rem;
     }
+
     .now-level {
       margin-left: auto;
       margin-right: 1.3rem;
@@ -76,6 +82,7 @@ page-level {
       align-items: center;
       justify-content: space-between;
       line-height: 1;
+
       .rule-tip-text {
         .rule-icon {
           width: 1rem;
@@ -83,12 +90,14 @@ page-level {
         }
       }
     }
+
     .progress-box {
       position: relative;
       width: 100%;
       height: 1rem;
       border-radius: 0.5rem;
       overflow: hidden;
+
       .progress-bar-bg {
         width: 100%;
         height: 1rem;
@@ -96,6 +105,7 @@ page-level {
         border-radius: 0.5rem;
         opacity: 0.58;
       }
+
       .progress-bar {
         position: absolute;
         top: 0;
@@ -110,6 +120,7 @@ page-level {
         align-items: center;
         opacity: 1;
         z-index: 2;
+
         .process-text {
           margin: 0 0.5rem;
           display: block;
@@ -119,9 +130,11 @@ page-level {
           color: #FFFFFF;
           text-align: right;
         }
+
         .out-box {
           margin-right: -2rem;
         }
+
         .process-line {
           //position: absolute;
           //top: -50rem;
@@ -131,6 +144,7 @@ page-level {
         }
       }
     }
+
     .level-scroll-box {
       width: 100%;
       //overflow-x: scroll;
@@ -146,18 +160,22 @@ page-level {
         justify-content: space-between;
         color: #FFF;
         min-width: 100%;
+
         li {
           //white-space:nowrap;
           //margin-right: 1em;
           line-height: 1.5;
           //white-space: pre-line;
         }
+
         li:nth-last-child(1) {
           margin-right: 0;
         }
+
         li.isNowProcess {
           color: green;
         }
+
         li.actived {
           color: #FFCA31;
         }
@@ -166,6 +184,7 @@ page-level {
 
 
   }
+
   .lists-box {
 
     //导航 start
@@ -180,11 +199,13 @@ page-level {
       justify-content: center;
       padding-bottom: 0;
       border-bottom: 0;
+
       .nav-box {
         padding: 0.4rem 0.5rem;
         height: 3.7rem;
         border-radius: 1.7rem;
         background-color: #F5F5F5;
+
         .btn-box {
           width: 34.8rem;
           height: 2.9rem;
@@ -202,6 +223,7 @@ page-level {
             border-radius: 1.45rem;
             color: #888888;
           }
+
           .type-btn.actived {
             color: #000000;
             background-color: orange;
@@ -222,6 +244,7 @@ page-level {
       justify-content: center;
       padding-bottom: 0;
       border-bottom: 0;
+
       .nav-box {
         //padding: 0.4rem 0.5rem;
         //height: 3.7rem;
@@ -248,6 +271,7 @@ page-level {
             color: #888888;
             background-color: #EEEEEE;
           }
+
           .type-btn.actived {
             //color: #000000;
             background-color: #B1DEF9;
@@ -256,6 +280,7 @@ page-level {
         }
       }
     }
+
     //导航 end
 
     // 课程
@@ -268,13 +293,14 @@ page-level {
 
       img {
         margin-right: 1.5rem;
-        width: 7rem;
+        width: 35%;
         height: 7rem;
         border-radius: 1rem;
         object-fit: cover;
       }
 
       .course-right {
+        width: 65%;
         height: 7rem;
         min-height: 7rem;
         flex: 1;
@@ -315,6 +341,7 @@ page-level {
 
       }
     }
+
     // 课程 end
     // 考试 start
     .item-exam {
@@ -391,6 +418,7 @@ page-level {
         }
       }
     }
+
     // 考试 end
     //  KPI
     .kpi-title {
@@ -399,6 +427,7 @@ page-level {
       font-size: 1.6rem;
       line-height: 2.2rem;
     }
+
     .kpi-item {
       margin: 0 auto;
       margin-bottom: 1rem;
@@ -408,16 +437,19 @@ page-level {
       background: #FFFFFF;
       box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
+
       .kpi-item-title {
         line-height: 2.2rem;
         margin-bottom: 0.8rem;
       }
+
       .progress-box {
         position: relative;
         width: 100%;
         height: 1rem;
         border-radius: 0.5rem;
         overflow: hidden;
+
         .progress-bar-bg {
           width: 100%;
           height: 1rem;
@@ -425,6 +457,7 @@ page-level {
           border-radius: 0.5rem;
           opacity: 0.58;
         }
+
         .progress-bar {
           position: absolute;
           top: 0;
@@ -437,6 +470,7 @@ page-level {
           opacity: 1;
         }
       }
+
       .kpi-item-text {
         margin-top: 1rem;
         line-height: 2rem;
@@ -444,13 +478,20 @@ page-level {
         align-items: center;
         justify-content: space-between;
         font-size: 1.4rem;
-        .progress-now {color: #F7AB1A;}
-        .progress-target {}
+
+        .progress-now {
+          color: #F7AB1A;
+        }
+
+        .progress-target {
+        }
+
         .finish {
           color: #50B674;
         }
       }
     }
+
     //  KPI end
   }
 

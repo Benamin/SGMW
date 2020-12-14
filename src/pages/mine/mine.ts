@@ -43,6 +43,7 @@ export class MinePage {
 
     RoleName;  //角色名称
     LoginType: '-';
+    isLabel;  //岗位认证等级
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private logoutSer: LogoutService,
                 private mineSer: MineService, private events: Events, private appVersion: AppVersion,
@@ -93,6 +94,14 @@ export class MinePage {
                 if (res.data) {
                     const videoNum = res.data.TotalCount;
                     Object.assign(this.number, {videoNum: videoNum});
+                }
+            }
+        )
+
+        this.mineSer.GetApproveMessage().subscribe(
+            (res) => {
+                if (res.data) {
+                    this.isLabel = res.data.Lable;
                 }
             }
         )

@@ -1,57 +1,64 @@
 <ion-header class="forum-header">
-  <ion-navbar>
-    <ion-title></ion-title>
+    <ion-navbar>
+        <ion-title></ion-title>
 
-  </ion-navbar>
-  <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
+    </ion-navbar>
+    <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
 <ion-content>
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-  <div class="con-div">
-    <div class="list">
-      <div class="img-div">
-        <img [src]="lidata.CoverImage || ''" alt="">
-      </div>
-      <div class="text">
-        <div class="top-text-name">
-          <span class="text-l nowrap-1">{{lidata.Name}}</span>
-          <span class="text-r">[{{lidata.PostCount}}条帖子]</span>
+    <div class="con-div">
+        <div class="list">
+            <div class="img-div">
+                <img [src]="lidata.CoverImage || ''" alt="">
+            </div>
+            <div class="text">
+                <div class="top-text-name">
+                    <span class="text-l nowrap-1">{{lidata.Name}}</span>
+                    <span class="text-r">[{{lidata.PostCount}}条帖子]</span>
+                </div>
+                <p class="nowrap-2">
+                    {{lidata.Description}}
+                </p>
+            </div>
         </div>
-        <p class="nowrap-2" >
-          {{lidata.Description}}
-        </p>
-      </div>
-    </div>
-    <div class="hear-top" *ngIf="IsTopOpt" (click)="goPostsContent(IsTopOpt)">
-      <span style="margin-right: 15px;">顶</span>
-      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{IsTopOpt.Title}}</span>
-    </div>
-  </div>
-  <div class="content-div" [ngStyle]="{'margin-top': IsTopOpt?'30px':'10px'}">
-    <div class="div-nav">
-      <div [ngClass]="{'act': pageDate.OrderBy=='CreateTime'}" tappable (click)="avtNav('CreateTime')">最新</div>
-      <div [ngClass]="{'act': pageDate.OrderBy=='LikeCount'}" tappable (click)="avtNav('LikeCount')">最热</div>
-    </div>
-    <div>
-      <ng-container *ngFor="let item of forumLIst">
-        <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable (click)="goPostsContent(item)">
-          <app-forum-list-time [item]='item'></app-forum-list-time>
+        <div class="hear-top" *ngIf="IsTopOpt" (click)="goPostsContent(IsTopOpt)">
+            <span style="margin-right: 15px;">顶</span>
+            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{IsTopOpt.Title}}</span>
         </div>
-      </ng-container>
-      <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="no_list ">
-        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-        <p text-center style="color: #666666;font-size: 16px">
-            暂无数据
-        </p>
-      </ion-list>
-      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
     </div>
-  </div>
+    <div class="content-div" [ngStyle]="{'margin-top': IsTopOpt?'30px':'10px'}">
+        <div class="div-nav">
+            <div [ngClass]="{'act': pageDate.Type =='New'}" tappable (click)="avtNav('New')">最新</div>
+            <div [ngClass]="{'act': pageDate.Type =='Hot'}" tappable (click)="avtNav('Hot')">最热</div>
+            <div class="OrderBy">
+                <span (click)="changeOrder('CreateTime')"
+                      [ngClass]="{'check':pageDate.OrderBy == 'CreateTime'}">发帖时间</span>
+                <span (click)="changeOrder('PostTimeFormatted')"
+                      [ngClass]="{'check':pageDate.OrderBy == 'PostTimeFormatted'}">回复时间</span>
+            </div>
+        </div>
+        <div>
+            <ng-container *ngFor="let item of forumLIst">
+                <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable
+                     (click)="goPostsContent(item)">
+                    <app-forum-list-time [item]='item'></app-forum-list-time>
+                </div>
+            </ng-container>
+            <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="no_list ">
+                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                <p text-center style="color: #666666;font-size: 16px">
+                    暂无数据
+                </p>
+            </ion-list>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </div>
+    </div>
 </ion-content>
 <div class="new-add" tappable (click)="PostAddComponent(lidata)">
 </div>

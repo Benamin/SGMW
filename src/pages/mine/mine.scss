@@ -113,8 +113,7 @@ page-mine {
   //列表区域
   .mine-list {
     margin: 65px 20px;
-    margin-top: 60px;
-
+    margin-top: 75px;
     background-color: #fff;
     border-radius: 6px;
   }
@@ -158,12 +157,21 @@ page-mine {
   }
 
   .mask1 {
-    display: inline-block;
     position: relative;
-    width: 4rem;
-    height: 4rem;
+    width: 7rem;
+    height: 7rem;
     overflow: hidden;
     border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 7rem;
+      height: 7rem;
+    }
   }
 
   .img3 {
@@ -181,6 +189,18 @@ page-mine {
 
     > div {
       width: 50%;
+    }
+  }
+
+  .isLabel {
+    font-size: 12px;
+    height: 20px;
+    margin-top: 5px;
+
+    span {
+      border-radius: 17px;
+      border: 1px solid #FAD872;
+      padding: 2px 10px;
     }
   }
 }
