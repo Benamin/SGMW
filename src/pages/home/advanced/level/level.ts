@@ -40,7 +40,7 @@ export class AdvancedLevelPage {
                 lists: []
             },
             {
-                navBtnText: '评分',
+                navBtnText: '线下认证',
                 navBtnEn: 'points',
                 isActived: false,
                 lists: []
@@ -170,7 +170,8 @@ export class AdvancedLevelPage {
     }
 
     // 前往 认证进阶 的 勋章设置
-    switchLevel(levelTypeIndex) {
+    switchLevel(levelTypeIndex, bigThanMyLevel) {
+        if (bigThanMyLevel) return; // 大于当前等级不能点击
         this.page.nowLevelIndex = levelTypeIndex;
         let levelInformation = this.page.levelInformation;
         let item = levelInformation[levelTypeIndex];
