@@ -28,8 +28,8 @@ export class PostlistComponent implements OnInit {
         title: "",
         total: 111,
         OrderBy:"CreateTime",  // CreateTime 发帖时间    PostTimeFormatted 回复时间
-        OrderByDirection: 'desc',
-        Type:"New",   // New 最新   //Hot 最热
+        OrderByDirection: 'DESC',
+        Type:"New",   // New 最新  CreateTime 发帖时间    PostTimeFormatted 回复时间 //Hot 最热 replycount  viewcount
     }
     forumLIst = [];
     isdoInfinite = true;
@@ -96,6 +96,9 @@ l
         this.forumLIst = [];
         this.pageDate.PageIndex = 1;
         this.pageDate.Type = type;
+
+        if(type === "New") this.pageDate.OrderBy = "CreateTime";
+        if(type === "Hot") this.pageDate.OrderBy = "ViewCount";
 
         this.forum_post_search();
     }

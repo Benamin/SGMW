@@ -22,7 +22,7 @@ export class ForumPage implements OnInit {
         OrderBy: "CreateTime",  //CreateTime 发帖时间  ViewCount 浏览量  ReplyCount 回复量  PostTimeFormatted 回复时间
         creater: "",
         name: "",
-        Type: "New",  // New 最新   //Hot 最热
+        Type: "New",  // New 最新 CreateTime 发帖时间 PostTimeFormatted 回复时间  //Hot 最热 ViewCount 浏览量  ReplyCount 回复量
         pageIndex: 1,
         pageSize: 10,
         total: 0,
@@ -113,6 +113,9 @@ export class ForumPage implements OnInit {
 
     //修改排序方式 Type
     avtNav(text) {
+        if(text === "New") this.pageDate.OrderBy = "CreateTime";
+        if(text === "Hot") this.pageDate.OrderBy = "ViewCount";
+        this.forumLIst = [];
         this.pageDate.Type = text;
         this.initData();
     }

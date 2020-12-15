@@ -34,11 +34,17 @@
         <div class="div-nav">
             <div [ngClass]="{'act': pageDate.Type =='New'}" tappable (click)="avtNav('New')">最新</div>
             <div [ngClass]="{'act': pageDate.Type =='Hot'}" tappable (click)="avtNav('Hot')">最热</div>
-            <div class="OrderBy">
+            <div class="OrderBy" *ngIf="pageDate.Type =='New'">
                 <span (click)="changeOrder('CreateTime')"
                       [ngClass]="{'check':pageDate.OrderBy == 'CreateTime'}">发帖时间</span>
                 <span (click)="changeOrder('PostTimeFormatted')"
                       [ngClass]="{'check':pageDate.OrderBy == 'PostTimeFormatted'}">回复时间</span>
+            </div>
+            <div class="OrderBy" *ngIf="pageDate.Type =='Hot'">
+                <span (click)="changeOrder('ViewCount')"
+                      [ngClass]="{'check':pageDate.OrderBy == 'ViewCount'}">浏览量</span>
+                <span (click)="changeOrder('ReplyCount')"
+                      [ngClass]="{'check':pageDate.OrderBy == 'replycount'}">回复量</span>
             </div>
         </div>
         <div>
