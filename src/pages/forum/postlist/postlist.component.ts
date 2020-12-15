@@ -28,8 +28,8 @@ export class PostlistComponent implements OnInit {
         title: "",
         total: 111,
         OrderBy:"CreateTime",  // CreateTime 发帖时间    PostTimeFormatted 回复时间
-        OrderByDirection: 'DESC',
-        Type:"New",   // New 最新  CreateTime 发帖时间    PostTimeFormatted 回复时间 //Hot 最热 replycount  viewcount
+        OrderByDirection: 'Desc',
+        Type:"New",   // New 最新  CreateTime 发帖时间    PostTimeFormatted 回复时间 //Hot 最热 ReplyCount  ViewCount
     }
     forumLIst = [];
     isdoInfinite = true;
