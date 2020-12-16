@@ -28,7 +28,10 @@
                             <span>{{badge.BadgeName}}</span>
                         </span>
                     </p>
-                    <p class="isLabel"><span>岗位认证等级: {{isLabel || "-"}}</span></p>
+                    <p class="isLabel" (click)="showAlert()"><span>岗位认证等级: {{isLabel || "-"}}
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                    </span>
+                    </p>
                 </div>
             </div>
             <div class="user-type">

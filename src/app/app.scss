@@ -107,13 +107,16 @@ html, body, p {
   .action-sheet-container {
     padding: 0;
   }
+
   .action-sheet-group {
     border-radius: 0;
   }
+
   .action-sheet-group:last-child {
     margin-top: 0;
     margin-bottom: 0;
   }
+
   button.action-sheet-button {
     height: 55px;
 
@@ -125,4 +128,8 @@ html, body, p {
   button.action-sheet-destructive {
     color: #FA6400 !important;
   }
+}
+
+.mineAlert .alert-message{
+  text-align: left !important;
 }
