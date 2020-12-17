@@ -363,14 +363,14 @@ export class LoginPage {
 
     /***end***/
 
-    /***骏客***/
-    //骏客---经销商登录
+    /***新宝骏助手***/
+    //新宝骏助手---经销商登录
     loginJunkeJsx() {
         if (!this.checkBox) {
             this.commonSer.toast('请阅读并同意用户协议');
             return;
         }
-        this.userRoleName = '骏客';
+        this.userRoleName = '新宝骏助手';
         this.setRoleNames();
         let encrypt = new JSEncrypt();
         if (this.jxs.junke.codeRight != this.jxs.junke.inputCode) {
@@ -379,7 +379,7 @@ export class LoginPage {
         }
 
         this.showLoading();
-        this.storage.set("LoginType", "骏客")
+        this.storage.set("LoginType", "新宝骏助手")
         encrypt.setPublicKey(JunKe_PRIVATE_KEY);
         const password = encrypt.encrypt(this.jxs.junke.password);
         const data = {

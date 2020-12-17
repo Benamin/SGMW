@@ -10,13 +10,7 @@ import {
 } from 'ionic-angular';
 import {HomeService} from "../../home/home.service";
 import {CommonService} from "../../../core/common.service";
-import {timer} from "rxjs/observable/timer";
-import {StatusBar} from "@ionic-native/status-bar";
 import {GlobalData} from "../../../core/GlobleData";
-import {AppService} from "../../../app/app.service";
-import {LearnService} from "../learn.service";
-import {VideoJsProvider} from "../../../providers/video-js/video-js";
-import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {defaultImg} from "../../../app/app.constants";
 import {FloatVideoBoxComponent} from "../../../components/float-video-box/float-video-box";
 

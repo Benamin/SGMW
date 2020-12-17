@@ -25,11 +25,11 @@
 <!--                    <div tappable [ngClass]="loginObj.platform == 'xszs'?'plat':''" (click)="changeSlide(0,'xszs')">-->
 <!--                        销售助手-->
 <!--                    </div>-->
-                    <div tappable [ngClass]="loginObj.platform == 'llzs'?'plat':''" (click)="changeSlide(1,'llzs')">
+                    <div tappable [ngClass]="loginObj.platform == 'llzs'?'plat':''" (click)="changeSlide(0,'llzs')">
                         菱菱助手
                     </div>
-                    <div tappable [ngClass]="loginObj.platform == 'junke'?'plat':''" (click)="changeSlide(2,'junke')">
-                        骏客
+                    <div tappable [ngClass]="loginObj.platform == 'junke'?'plat':''" (click)="changeSlide(1,'junke')">
+                        新宝骏助手
                     </div>
                 </div>
                 <ion-slides (ionSlideDidChange)="slideChange()">
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                     </ion-slide>
-                    <!--骏客-->
+                    <!--新宝骏助手-->
                     <ion-slide>
                         <form class="login-input">
                             <div class="input-input">

@@ -133,3 +133,4 @@ html, body, p {
 .mineAlert .alert-message{
   text-align: left !important;
 }
+.amp-default-skin .vjs-loading-spinner::before{content:url("assets/icons/buffering-rainbow.gif")}

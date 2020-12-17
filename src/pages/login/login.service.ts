@@ -22,8 +22,8 @@ export class LoginService {
         return this.http.get(SERVER_API_URL + '/ENews/GetAppPic');
     }
 
-    /**骏客登录**/
-    //骏客app鉴权接口
+    /**新宝骏助手登录**/
+    //新宝骏助手app鉴权接口
     JunkeTrainAuth(data): Observable<any> {
         return this.http.post(JunKe_HTTP_URL + '/dmscloud.interfaceServer.yunyang/external/trainSys/tranAuth', {},
             {
@@ -31,17 +31,17 @@ export class LoginService {
             });
     }
 
-    //调用骏客接口登录
+    //调用新宝骏助手接口登录
     JunkeAppAuthCas(data): Observable<any> {
         return this.http.post(JunKe_HTTP_URL + '/dmscloud.interfaceServer.yunyang/external/trainSys/login/appAuthCas', data);
     }
 
-    //骏客app跳转登录 ---弃用
+    //新宝骏助手app跳转登录 ---弃用
     //JunkeLogin(data): Observable<any> {
     //    return this.http.post(SERVER_API_URL + '/eaccount/getUserInfoJK', data);
     //}
 
-    //用户名密码登录骏客用户--弃用
+    //用户名密码登录新宝骏助手用户--弃用
     //sgmwLoginJK(data): Observable<any> {
     //    return this.http.post(SERVER_API_URL + '/eaccount/sgmwLoginJK', data);
     //}

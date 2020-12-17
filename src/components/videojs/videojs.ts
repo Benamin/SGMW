@@ -4,13 +4,11 @@ import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {StatusBar} from "@ionic-native/status-bar";
 import {GlobalData} from "../../core/GlobleData";
-import {VideoJsProvider} from "../../providers/video-js/video-js";
 import {LearnService} from "../../pages/learning/learn.service";
 import {AppService} from "../../app/app.service";
 import {CommonService} from "../../core/common.service";
 import {Platform} from "ionic-angular";
 
-declare let videojs: any;
 declare let amp: any;
 
 @Component({
@@ -37,7 +35,6 @@ export class VideojsComponent implements OnDestroy {
                 private appSer: AppService,
                 private platform: Platform,
                 private learnSer: LearnService,
-                private vjsProvider: VideoJsProvider,
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.global.videoNum;
         this.videoEle = `video${videoNum}`;

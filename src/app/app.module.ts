@@ -53,7 +53,6 @@ import {RandomWordService} from "../secret/randomWord.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {GlobalData} from "../core/GlobleData";
-import {VideoJsProvider} from '../providers/video-js/video-js';
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {DownloadFileProvider} from '../providers/download-file/download-file';
 import {LogService} from "../service/log.service";
@@ -148,7 +147,6 @@ import {DocumentViewer} from '@ionic-native/document-viewer';
             {
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,
             },
-            VideoJsProvider,
             DownloadFileProvider,
             ShortVideoProvider,
             ChooseImageProvider
