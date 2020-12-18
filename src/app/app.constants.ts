@@ -1,10 +1,10 @@
 // export let env = 'localhost';
 // export let env = 'dev';
-export let env = 'uat';
-// export let env = 'prod';
+// export let env = 'uat';
+export let env = 'prod';
 
-export let keyEnv = 'dev';
-// export let keyEnv = 'prod';
+// export let keyEnv = 'dev';
+export let keyEnv = 'prod';
 
 
 // /***培训平台***/
@@ -25,7 +25,7 @@ export const SERVER_HTTP_URL = env === 'localhost' ? SERVER_HTTP_URL_DEV : SERVE
 /*****end******/
 
 
-/***骏客***/
+/***新宝骏助手***/
 //环境
 const JunKe_HTTP_URL_LOCALHOST = "/JunKeAPI";  //代理地址
 const JunKe_HTTP_URL_DEV = "https://nbjtest.sgmw.com.cn";   //测试

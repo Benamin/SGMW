@@ -90,25 +90,18 @@ export class VideojsComponent implements OnDestroy {
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
-                // this.myPlayer.addEventListener('touchstart', () => {
+                //获取视频总时长
+                this.myPlayer.addEventListener("loadeddata", () => {
+                    this.videoDuration = this.myPlayer.duration();
+                })
+                //视频暂停时
+                // this.myPlayer.addEventListener("touchstart", () => {
                 //     if (this.myPlayer.paused()) {
                 //         this.myPlayer.play();
                 //     } else {
                 //         this.myPlayer.pause();
                 //     }
                 // });
-                //获取视频总时长
-                this.myPlayer.addEventListener("loadeddata", () => {
-                    this.videoDuration = this.myPlayer.duration();
-                })
-                //视频暂停时
-                this.myPlayer.addEventListener("touchstart", () => {
-                    if (this.myPlayer.paused()) {
-                        this.myPlayer.play();
-                    } else {
-                        this.myPlayer.pause();
-                    }
-                });
                 //播放时间变化
                 this.myPlayer.addEventListener("timeupdate", () => {
                     let currentTime = this.myPlayer.currentTime().toFixed(2);
@@ -192,12 +185,13 @@ export class VideojsComponent implements OnDestroy {
                 type = "application/dash+xml"
             }
             this.myPlayer.src({type: type, src: videoInfo.fileUrl});
-            this.myPlayer.disableProgress({
-                autoDisable: !videoInfo.IsPass
-            })
+            let control = <any>document.querySelector(".vjs-progress-control")
+            if (videoInfo.IsPass) {
+                control.style.pointerEvents = "auto";  //启用
+            } else {
+                control.style.pointerEvents = "none";
+            }
             this.videoInfo = videoInfo;
-            // this.video.removeChild('TitleBar');
-            // this.video.addChild('TitleBar', {text: `${videoInfo.DisplayName}`});
         }
     }
 

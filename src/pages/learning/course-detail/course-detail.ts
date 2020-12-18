@@ -272,7 +272,6 @@ export class CourseDetailPage {
                 })
             }
             if (value.type == 'mp4') {  //video
-
                 this.courseFileType = 'video';
                 this.videoInfo.video = value.video;
                 this.videoInfo.poster = value.video;
