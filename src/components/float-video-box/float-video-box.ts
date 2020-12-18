@@ -9,7 +9,7 @@ import {CommonService} from "../../core/common.service";
 import {GlobalData} from "../../core/GlobleData";
 
 
-declare let amp: any;
+declare let videojs: any;
 
 @Component({
     selector: 'float-video-box',

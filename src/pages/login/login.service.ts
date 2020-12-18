@@ -131,7 +131,7 @@ export class LoginService {
     LLZSGetToken(data): Observable<any> {
         return this.http.post(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/token", this.dataForm.xxxFormData(data), {
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                "content-type": "application/x-www-form-urlencoded",
             }
         })
     }

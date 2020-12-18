@@ -14,8 +14,6 @@ import {GlobalData} from "../../../core/GlobleData";
 import {defaultImg} from "../../../app/app.constants";
 import {FloatVideoBoxComponent} from "../../../components/float-video-box/float-video-box";
 
-declare let videojs: any;
-
 @Component({
     selector: 'page-look-talk-video-exam',
     templateUrl: 'look-talk-video-exam.html',

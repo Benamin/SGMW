@@ -11,8 +11,6 @@ import {StatusBar} from "@ionic-native/status-bar";
 import {FloatVideoBoxComponent} from "../../../../components/float-video-box/float-video-box";
 import {GlobalData} from "../../../../core/GlobleData";
 
-declare let videojs: any;
-
 @Component({
     selector: 'page-talk-reply',
     templateUrl: 'talk-reply.html',
