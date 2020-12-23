@@ -186,7 +186,7 @@ export class MyApp {
     getLoad() {
         this.loginSer.GetAppPic().subscribe(
             (res) => {
-                if (res.data.NewsItems.length > 0) {
+                if (res.data.NewsItems && res.data.NewsItems.length > 0) {
                     this.load.imgUrl = res.data.NewsItems[0].SourceUrl;
                     this.load.httpUrl = res.data.NewsItems[0].SubTitle;
                     timer(3000).subscribe(() => {
@@ -241,7 +241,7 @@ export class MyApp {
         }
     }
 
-    //骏客鉴权
+    //新宝骏助手鉴权
     trainAuth(token) {
         const data = <any>{};
         const header = {"jwt": token};
@@ -302,7 +302,7 @@ export class MyApp {
         })
     }
 
-    //获取骏客用户信息
+    //获取新宝骏助手用户信息
     connectTokenByJunKe(res) {
         const data = {
             grant_type: "password",

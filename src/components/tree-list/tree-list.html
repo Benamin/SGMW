@@ -15,16 +15,16 @@
     ></tree-list>
     <!--    课件     -->
     <div *ngFor="let itemFile of itemNode.files">
-        <p [ngStyle]="{'padding-left':(itemFile.NodeLevel*5)+'px'}" tappable (click)="handle(itemNode,itemFile,$event)">
+        <p  [ngStyle]="{'padding-left':(itemFile.NodeLevel*5)+'px'}" tappable (click)="handle(itemNode,itemFile,$event)">
             <img *ngIf="itemFile.icon != 'mp4'" src="./assets/imgs/learn/file.png">
             <img *ngIf="itemFile.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
-            {{itemFile.DisplayName | stringSlice:10:10}}
+            <span class="itemNode">{{itemFile.DisplayName}}</span>
             <span class="tree-file-icon">{{itemFile.icon}}</span>
+            <img class="tree-done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png"
+                 alt="">
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                  tappable (click)="downLoad(itemFile,$event)"
                  class="tree-download-file" src="./assets/imgs/course/xiazai.png">
-            <img class="tree-done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png"
-                 alt="">
         </p>
     </div>
     <!--   作业      -->
@@ -63,7 +63,7 @@
                 <p tappable
                    (click)="handleExam(itemExam,itemExam,$event)">
                 <span [ngStyle]="{'margin-left':(itemExam.NodeLevel*5)+'px'}" class="exam">
-                    {{itemExam.label | stringSlice:10:10}}
+                    {{itemExam.label}}
                 </span>
                     <span class="old-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
                 || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">

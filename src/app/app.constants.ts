@@ -1,10 +1,11 @@
-export let env = 'localhost';
+// export let env = 'localhost';
 // export let env = 'dev';
 // export let env = 'uat';
-// export let env = 'prod';
+export let env = 'prod';
 
 // let keyEnv = 'dev';
 let keyEnv = 'prod';
+
 
 
 // /***培训平台***/
@@ -25,7 +26,7 @@ export const SERVER_HTTP_URL = env === 'localhost' ? SERVER_HTTP_URL_DEV : SERVE
 /*****end******/
 
 
-/***骏客***/
+/***新宝骏助手***/
 //环境
 const JunKe_HTTP_URL_LOCALHOST = "/JunKeAPI";  //代理地址
 const JunKe_HTTP_URL_DEV = "https://nbjtest.sgmw.com.cn";   //测试
@@ -71,17 +72,30 @@ const NXSZS_HTTP_URL_DEV = "https://sso-test.baojunev.com";   //测试
 const NXSZS_HTTP_URL_PROD = "https://sso-sales.sgmwsales.com";   //生产
 export const NXSZS_HTTP_URL = (env == 'localhost' ? NXSZS_HTTP_URL_LOCALHOST : (env == 'dev' || env == 'uat') ? NXSZS_HTTP_URL_DEV : NXSZS_HTTP_URL_PROD);
 
-//client_id 登录菱菱助手接口使用
+//client_id 账号密码登录菱菱助手接口使用
 const NXSZS_client_id_DEV = "jlxs_test";
 const NXSZS_client_id_PROD = "jlxs";
-//登录使用的client_id
+//账号密码登录登录使用的client_id
 export const NXSZS_clientId = keyEnv === 'dev' ? NXSZS_client_id_DEV : NXSZS_client_id_PROD;
 
-//client_secret 登录菱菱助手接口使用
+
+//client_id 手机验证码登录菱菱助手接口使用
+const NXSZS_client_id_phone_DEV = "jlxs_phone_test";
+const NXSZS_client_id_phone_PROD = "jlxs_phone";
+//手机验证码登录使用的client_id
+export const NXSZS_clientId_phone = keyEnv === 'dev' ? NXSZS_client_id_phone_DEV : NXSZS_client_id_phone_PROD;
+
+//client_secret 账号密码登录菱菱助手接口使用
 const NXSZS_client_secret_DEV = "0440158b-6de0-443f-a32c-cc8f1ccefd20";
 const NXSZS_client_secret_PROD = "a95cf710-8320-457b-a8eb-741264c592f7";
 //登录使用的client_secret
 export const NXSZS_client_secret = keyEnv === 'dev' ? NXSZS_client_secret_DEV : NXSZS_client_secret_PROD;
+
+//client_secret 手机验证码登录菱菱助手接口使用
+const NXSZS_client_secret_phone_DEV = "f495f7ee-ef97-45d5-8819-5452ec0f171d";
+const NXSZS_client_secret_phone_PROD = "e622f989-0eca-4d05-ac46-819c2224c335";
+//手机验证码登录使用的client_secret
+export const NXSZS_client_secret_phone = keyEnv === 'dev' ? NXSZS_client_secret_phone_DEV : NXSZS_client_secret_phone_PROD;
 
 export const NXSZS_client_id_login = "D1EBCD6A-B8C4-4055-9FBA-D8AFEF00357F";
 export const NXSZS_client_id_app = "8ee2c202-1e5e-4c50-b620-016cb967c768";
@@ -112,6 +126,7 @@ export const LastVersion = '2.1.2';
 
 //提示信息
 export const NoUserMsg = "您的用户信息暂未同步到骏菱学社，请稍后再试。如有问题，请致电0772-2650611。";
+export const LLZSNoUserMsg = "无该用户信息，请至菱菱助手查看备案信息。";
 
 //分享
 const PCURLDEV = "https://devportal1.chinacloudsites.cn/#/"  //dev

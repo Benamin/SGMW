@@ -28,6 +28,23 @@
                             <span>{{badge.BadgeName}}</span>
                         </span>
                     </p>
+                    <p class="isLabel" (click)="showAlert()"><span>岗位认证等级: {{isLabel || "-"}}
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                    </span>
+                    </p>
+                </div>
+            </div>
+            <div class="user-type">
+                <div>
+                    <span>登录方式:</span>
+                    <span>{{LoginType || "-"}}</span>
+                </div>
+                <div>
+                    <span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>
+                    <ng-template #other_content>
+                        <span>经销商号:</span>
+                    </ng-template>
+                    <span>{{mineInfo?.AgentNumber || "-"}}</span>
                 </div>
             </div>
             <div class="info-item item-type">
@@ -118,15 +135,6 @@
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>
         </div>
-        <!-- <div class="item" tappable (click)="goToFile()">
-            <div class="left">
-                <img src="./assets/imgs/mine/notifation.png">
-            </div>
-            <div class="middle">下载管理</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div> -->
         <div class="item" tappable (click)="openUrl()">
             <div class="left">
                 <img src="./assets/imgs/mine/yjfk.png">
@@ -141,7 +149,7 @@
                 <img src="./assets/imgs/mine/gyyy.png">
             </div>
             <div class="middle">关于应用
-                <span float-end>正式版1.5.0</span></div>
+                <span float-end>正式版2.9.0</span></div>
             <div class="right">
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>

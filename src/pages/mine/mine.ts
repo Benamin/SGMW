@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {AlertController, App, Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {MyCoursePage} from "./my-course/my-course";
 import {MycollectionPage} from "./mycollection/mycollection";
 import {NotificationPage} from "./notification/notification";
@@ -41,12 +41,14 @@ export class MinePage {
         UpdateText: '',
     };
 
-    RoleName;
+    RoleName;  //角色名称
+    LoginType: '-';
+    isLabel;  //岗位认证等级
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private logoutSer: LogoutService,
                 private mineSer: MineService, private events: Events, private appVersion: AppVersion,
                 private loginSer: LoginService, private inAppBrowser: InAppBrowser,
-                private platform: Platform,
+                private platform: Platform, private alertCtrl: AlertController,
                 private logSer: LogService,
                 private forumServe: ForumService,
                 private homeSer: HomeService,
@@ -54,9 +56,14 @@ export class MinePage {
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
+            console.log(value);
             this.mineInfo = value;
 
         });
+        this.storage.get('LoginType').then(value => {
+            this.LoginType = value || "-";
+        });
+
         this.storage.get('CurrentRole').then(val => {
             this.CurrentRole = val;
             this.RoleName = val.CurrentRoleName;
@@ -87,6 +94,14 @@ export class MinePage {
                 if (res.data) {
                     const videoNum = res.data.TotalCount;
                     Object.assign(this.number, {videoNum: videoNum});
+                }
+            }
+        )
+
+        this.mineSer.GetApproveMessage().subscribe(
+            (res) => {
+                if (res.data) {
+                    this.isLabel = res.data.Lable;
                 }
             }
         )
@@ -224,6 +239,20 @@ export class MinePage {
         });
     }
 
+    checkVersion1() {
+        const data = {
+            code: "android"
+        };
+        this.loginSer.GetAppVersionByCode(data).subscribe(
+            (res) => {
+                const onlineVersion = res.data.AppVersion.split('.').join('');
+                this.appVersionInfo.UpdateTips = true;
+                this.appVersionInfo.AppUrl = res.data.AppUrl;
+                this.appVersionInfo.UpdateText = res.data.UpdateText;
+            }
+        )
+    }
+
     RoleNames = [];
     RoleID = '';
 
@@ -236,6 +265,21 @@ export class MinePage {
         })
         this.storage.set('RoleName', this.RoleName);
         this.events.publish('RoleID');  //广播切换角色事件
+    }
+
+    showAlert() {
+        const msg = `
+            根据菱菱助手备案的岗位，匹配骏菱学社中相应的岗位认证路径并显示最高级别的岗位名称。例如，在菱菱助手中备案为销售顾问，则显示销售顾问、资深销售顾问等；备案岗位为店长，则显示店长、资深店长等。<br> 
+            如果没有岗位认证等级的显示，则可能是以下情况：<br>
+            1、菱菱助手中备案岗位字段为空，请查看菱菱助手中的备案岗位；<br>
+            2、备案岗位在骏菱学社无对应的认证路径`;
+        const alert = this.alertCtrl.create({
+            title: `岗位认证等级显示规则`,
+            message: msg,
+            cssClass: 'mineAlert',
+            buttons: ['确定']
+        })
+        alert.present();
     }
 
 }

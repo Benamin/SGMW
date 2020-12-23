@@ -30,7 +30,7 @@ export class LookTestPage {
 
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         const loading = this.loadCtrl.create({
             content: ''
         });

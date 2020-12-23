@@ -22,8 +22,8 @@ export class LoginService {
         return this.http.get(SERVER_API_URL + '/ENews/GetAppPic');
     }
 
-    /**骏客登录**/
-    //骏客app鉴权接口
+    /**新宝骏助手登录**/
+    //新宝骏助手app鉴权接口
     JunkeTrainAuth(data): Observable<any> {
         return this.http.post(JunKe_HTTP_URL + '/dmscloud.interfaceServer.yunyang/external/trainSys/tranAuth', {},
             {
@@ -31,17 +31,17 @@ export class LoginService {
             });
     }
 
-    //调用骏客接口登录
+    //调用新宝骏助手接口登录
     JunkeAppAuthCas(data): Observable<any> {
         return this.http.post(JunKe_HTTP_URL + '/dmscloud.interfaceServer.yunyang/external/trainSys/login/appAuthCas', data);
     }
 
-    //骏客app跳转登录 ---弃用
+    //新宝骏助手app跳转登录 ---弃用
     //JunkeLogin(data): Observable<any> {
     //    return this.http.post(SERVER_API_URL + '/eaccount/getUserInfoJK', data);
     //}
 
-    //用户名密码登录骏客用户--弃用
+    //用户名密码登录新宝骏助手用户--弃用
     //sgmwLoginJK(data): Observable<any> {
     //    return this.http.post(SERVER_API_URL + '/eaccount/sgmwLoginJK', data);
     //}
@@ -129,6 +129,22 @@ export class LoginService {
 
     //获取菱菱助手token
     LLZSGetToken(data): Observable<any> {
+        return this.http.post(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/token", this.dataForm.xxxFormData(data), {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+            }
+        })
+    }
+
+    //获取手机验证码
+    LLZSGeTCode(phone, header): Observable<any> {
+        return this.http.get(NXSZS_HTTP_URL + `/user/api/smsCode/${phone}`, {
+            headers: header
+        })
+    }
+
+    //菱菱助手手机登录
+    LLZSLoginByPhone(data): Observable<any> {
         return this.http.post(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/token", this.dataForm.xxxFormData(data), {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"

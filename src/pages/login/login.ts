@@ -10,13 +10,26 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {StatusBar} from "@ionic-native/status-bar";
 import {timer} from "rxjs/observable/timer";
 import {
-    FWZS_appid, FWZS_client_id, FWZS_HTTP_URL, FWZS_SecretKey,
-    JunKe_client_id, JunKe_HTTP_URL, JunKe_PRIVATE_KEY, LastVersion,
-    NoUserMsg, NXSZS_client_id_login, NXSZS_client_secret, NXSZS_clientId, NXSZS_HTTP_URL,
+    FWZS_appid,
+    FWZS_client_id,
+    FWZS_HTTP_URL,
+    FWZS_SecretKey,
+    JunKe_client_id,
+    JunKe_HTTP_URL,
+    JunKe_PRIVATE_KEY,
+    LastVersion, LLZSNoUserMsg,
+    NoUserMsg,
+    NXSZS_client_id_login,
+    NXSZS_client_secret,
+    NXSZS_client_secret_phone,
+    NXSZS_clientId,
+    NXSZS_clientId_phone,
+    NXSZS_HTTP_URL,
     sgmw_client_id,
     XSZS_appId,
     XSZS_appKey,
-    XSZS_client_id, XSZS_HTTP_URL
+    XSZS_client_id,
+    XSZS_HTTP_URL
 } from "../../app/app.constants";
 import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../../secret/randomWord.service";
@@ -35,11 +48,12 @@ declare let JSEncrypt: any;
 })
 export class LoginPage {
     @ViewChild('checkCodeJunke') checkCodeJunke: CheckCodeComponent;
-    @ViewChild('checkCodeXszs') checkCodeXszs: CheckCodeComponent;
+    // @ViewChild('checkCodeXszs') checkCodeXszs: CheckCodeComponent;
     @ViewChild('checkCodeGys') checkCodeGys: CheckCodeComponent;
     @ViewChild('checkCodeYG') checkCodeYG: CheckCodeComponent;
     @ViewChild('checkCodeFWZS') checkCodeFWZS: CheckCodeComponent;
     @ViewChild('checkCodeLLZS') checkCodeLLZS: CheckCodeComponent;
+    @ViewChild('checkCodeLLZSByPhone') checkCodeLLZSByPhone: CheckCodeComponent;
 
 
     @ViewChild(Slides) slides: Slides;
@@ -96,7 +110,7 @@ export class LoginPage {
 
     loginObj = {
         type: "jxs",
-        platform: 'xszs',
+        platform: 'llzs',
     };
 
     //服务助手
@@ -117,6 +131,19 @@ export class LoginPage {
     LastVersion = LastVersion;  //是否最新版
 
     isMobile = true;
+    llzsLoginType = 'userName';
+    llzsPhone = {
+        phone: "",
+        code: "",
+        smsUUID: "",
+        codeRight: '',
+        inputCode: "",
+    }
+
+    //发送短信倒计时
+    clock;
+    timeText = "发送验证码";
+    disableBtn = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
@@ -137,12 +164,13 @@ export class LoginPage {
     }
 
     ionViewDidLoad() {
-        this.checkCodeXszs.drawPic();
+        // this.checkCodeXszs.drawPic();
         this.checkCodeJunke.drawPic();
         this.checkCodeGys.drawPic();
         this.checkCodeYG.drawPic();
         this.checkCodeFWZS.drawPic();
         this.checkCodeLLZS.drawPic();
+        this.checkCodeLLZSByPhone.drawPic();
     }
 
     userRoleName = '销售助手';
@@ -155,9 +183,9 @@ export class LoginPage {
 
     //slide改变
     slideChange() {
-        if (this.slides.realIndex == 0) this.loginObj.platform = "xszs";
-        if (this.slides.realIndex == 1) this.loginObj.platform = "llzs";
-        if (this.slides.realIndex == 2) this.loginObj.platform = "junke";
+        // if (this.slides.realIndex == 0) this.loginObj.platform = "xszs";
+        if (this.slides.realIndex == 0) this.loginObj.platform = "llzs";
+        if (this.slides.realIndex == 1) this.loginObj.platform = "junke";
     }
 
     //员工
@@ -178,6 +206,7 @@ export class LoginPage {
         }
 
         this.showLoading();
+        this.storage.set("LoginType", "员工")
         this.loginSer.connectToken(this.ygObj).subscribe(
             (res) => {
                 if (res.access_token) {
@@ -217,6 +246,7 @@ export class LoginPage {
             return;
         }
         this.showLoading();
+        this.storage.set("LoginType", "供应商")
         this.loginSer.connectToken(this.gysObj).subscribe(
             (res) => {
                 if (res.access_token) {
@@ -252,6 +282,7 @@ export class LoginPage {
         }
 
         this.showLoading();
+        this.storage.set("LoginType", "菱菱助手")
         const timestamp = this.datePipe.transform(new Date(), 'yyyyMMddHHmmss');
         const nonce = this.randomWord.uuid();
         const sign = XSZS_appId + XSZS_appKey + timestamp + nonce;
@@ -332,14 +363,14 @@ export class LoginPage {
 
     /***end***/
 
-    /***骏客***/
-    //骏客---经销商登录
+    /***新宝骏助手***/
+    //新宝骏助手---经销商登录
     loginJunkeJsx() {
         if (!this.checkBox) {
             this.commonSer.toast('请阅读并同意用户协议');
             return;
         }
-        this.userRoleName = '骏客';
+        this.userRoleName = '新宝骏助手';
         this.setRoleNames();
         let encrypt = new JSEncrypt();
         if (this.jxs.junke.codeRight != this.jxs.junke.inputCode) {
@@ -348,6 +379,7 @@ export class LoginPage {
         }
 
         this.showLoading();
+        this.storage.set("LoginType", "新宝骏助手")
         encrypt.setPublicKey(JunKe_PRIVATE_KEY);
         const password = encrypt.encrypt(this.jxs.junke.password);
         const data = {
@@ -442,6 +474,7 @@ export class LoginPage {
         }
 
         this.showLoading();
+        this.storage.set("LoginType", "服务助手")
         const d = Date.now();
         const timeStamp = Math.round(d / 1000) + '';
         const nonce = this.randomWord.uuidNum();
@@ -537,6 +570,120 @@ export class LoginPage {
     /***end***/
 
     /***菱菱助手登录***/
+    //获取验证码
+    sendCode() {
+        const header = {
+            client_id: NXSZS_clientId_phone
+        };
+        if (!this.llzsPhone.phone) {
+            this.commonSer.toast("请输入手机号码")
+            return
+        }
+        this.disableBtn = true;
+        if (this.isMobile) {
+            this.nativeHttp.get(NXSZS_HTTP_URL + `/user/api/smsCode/${this.llzsPhone.phone}`, "", header).then(
+                response => {
+                    let res = JSON.parse(response.data);
+                    if (res.code == 200) {
+                        this.countTime();
+                        this.commonSer.toast("验证码发送成功");
+                        this.llzsPhone.smsUUID = res.data.smsUUID;
+                    } else {
+                        this.disableBtn = true;
+                    }
+                    if (res.code == 500) this.commonSer.alert("网络错误!")
+                    if (res.code == 905) this.commonSer.alert("该手机账号不存在！")
+                    if (res.code == 906) this.commonSer.alert("发送失败！")
+                    if (res.code == 907) this.commonSer.alert("请不要频繁发送验证码！")
+                }
+            ).catch(error => {
+                this.dismissLoading();
+                this.disableBtn = true;
+                const message = JSON.parse(error.error);
+                this.commonSer.alert(message.error_description);
+            })
+        } else {
+            this.loginSer.LLZSGeTCode(this.llzsPhone.phone, header).subscribe(
+                (res) => {
+                    if (res.code == 200) {
+                        this.countTime();
+                        this.commonSer.toast("验证码发送成功");
+                        this.llzsPhone.smsUUID = res.data.smsUUID;
+                    } else {
+                        this.disableBtn = true;
+                    }
+                    if (res.code == 500) this.commonSer.alert("网络错误!")
+                    if (res.code == 905) this.commonSer.alert("该手机账号不存在！")
+                    if (res.code == 906) this.commonSer.alert("发送失败！")
+                    if (res.code == 907) this.commonSer.alert("请不要频繁发送验证码！")
+                }
+            )
+        }
+    }
+
+    //手机验证码登录
+    llzsLoginByPhone() {
+        if (!this.checkBox) {
+            this.commonSer.toast('请阅读并同意用户协议');
+            return;
+        }
+        if (!this.llzsPhone.phone || !this.llzsPhone.code) {
+            this.commonSer.alert("请输入手机号码和短信验证码");
+            return
+        }
+        if (this.llzsPhone.codeRight !== this.llzsPhone.inputCode) {
+            this.commonSer.toast('请输入正确的验证码');
+            return;
+        }
+        const data = {
+            grant_type: "password",
+            smsUUID: this.llzsPhone.smsUUID,
+            phone: this.llzsPhone.phone,
+            smsCode: this.llzsPhone.code,
+            client_id: NXSZS_clientId_phone,
+            client_secret: NXSZS_client_secret_phone
+        }
+        this.showLoading();
+        this.storage.set("LoginType", "菱菱助手")
+        if (this.isMobile) {
+            const header = {
+                "content-type": "application/x-www-form-urlencoded",
+            }
+            this.nativeHttp.setDataSerializer('urlencoded');
+            this.nativeHttp.setHeader('*', 'Content-Type', 'application/x-www-form-urlencoded');
+            this.nativeHttp.post(NXSZS_HTTP_URL + "/auth/realms/sgmw/protocol/openid-connect/token", data, header).then(
+                response => {
+                    let res = JSON.parse(response.data);
+                    if (res.access_token) {
+                        this.LLZSGetUnionId(res.access_token);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert(LLZSNoUserMsg);
+                    }
+                }
+            ).catch(error => {
+                this.dismissLoading();
+                const message = JSON.parse(error.error);
+                this.commonSer.alert(`账号密码错误: ${message.error_description}`);
+            })
+        } else {
+            this.loginSer.LLZSLoginByPhone(data).subscribe(
+                (res) => {
+                    if (res.access_token) {
+                        this.LLZSGetUnionId(res.access_token);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert(LLZSNoUserMsg);
+                    }
+                }, (error) => {
+                    this.dismissLoading();
+                    this.commonSer.alert(`错误: ${error.error.error_description}`);
+                }
+            )
+        }
+    }
+
+    //账号登录
     llzsLogin() {
         if (!this.checkBox) {
             this.commonSer.toast('请阅读并同意用户协议');
@@ -553,6 +700,7 @@ export class LoginPage {
             return;
         }
         this.showLoading();
+        this.storage.set("LoginType", "菱菱助手")
         const data = {
             grant_type: "password",
             username: encodeURI(this.jxs.llzs.username.trim()),
@@ -574,6 +722,7 @@ export class LoginPage {
                         this.LLZSGetUnionId(res.access_token);
                     } else {
                         this.dismissLoading();
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ).catch(error => {
@@ -586,6 +735,9 @@ export class LoginPage {
                 (res) => {
                     if (res.access_token) {
                         this.LLZSGetUnionId(res.access_token);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 },
                 (error) => {
@@ -607,6 +759,9 @@ export class LoginPage {
                     let res = JSON.parse(response.data);
                     if (res.unionId) {
                         this.LLZSGetUserInfo(res.unionId);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ).catch(error => {
@@ -619,6 +774,9 @@ export class LoginPage {
                 (res) => {
                     if (res.unionId) {
                         this.LLZSGetUserInfo(res.unionId);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ), error => {
@@ -636,6 +794,9 @@ export class LoginPage {
                     let res = JSON.parse(response.data);
                     if (res.data) {
                         this.insertUserData(res.data, unionId);
+                    } else {
+                        this.dismissLoading();
+                        this.commonSer.alert(LLZSNoUserMsg);
                     }
                 }
             ).catch(error => {
@@ -649,7 +810,7 @@ export class LoginPage {
                     this.insertUserData(res.data, unionId);
                 } else {
                     this.dismissLoading();
-                    this.commonSer.alert('无该用户信息，请联系客服');
+                    this.commonSer.alert(LLZSNoUserMsg);
                 }
             })
         }
@@ -657,10 +818,18 @@ export class LoginPage {
 
     //插入菱菱助手数据
     insertUserData(data, unionId) {
-        Object.assign(data, {UnionID: unionId, LoginName: this.jxs.llzs.username})
+        Object.assign(data, {
+            UnionID: unionId,
+            LoginName: this.llzsLoginType === 'userName' ? this.jxs.llzs.username : this.llzsPhone.phone
+        })
         this.loginSer.InsertEsysUserLL(data).subscribe(
             (res) => {
-                this.connectTokenByNXSZS(data);
+                if (res.code == 200) {
+                    this.connectTokenByNXSZS(data);
+                } else {
+                    this.dismissLoading();
+                    this.commonSer.alert(res.message);
+                }
             }
         ), error1 => {
             this.dismissLoading();
@@ -773,8 +942,9 @@ export class LoginPage {
 
     //重新获取验证码
     flashCode() {
-        if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'xszs') this.checkCodeXszs.drawPic();
-        if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'llzs') this.checkCodeLLZS.drawPic();
+        // if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'xszs') this.checkCodeXszs.drawPic();
+        if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'llzs' && this.llzsLoginType === "phone") this.checkCodeLLZSByPhone.drawPic();
+        if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'llzs' && this.llzsLoginType === "userName") this.checkCodeLLZS.drawPic();
         if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'junke') this.checkCodeJunke.drawPic();
         if (this.loginObj.type == 'gys') this.checkCodeGys.drawPic();
         if (this.loginObj.type == 'yg') this.checkCodeYG.drawPic();
@@ -806,6 +976,10 @@ export class LoginPage {
         this.jxs.llzs.codeRight = e;
     }
 
+    getCodeLLZSByPhone(e) {
+        this.llzsPhone.codeRight = e;
+    }
+
     // 储存用户角色
     setRoleNames() {
         this.storage.set('RoleName', this.userRoleName);
@@ -828,10 +1002,25 @@ export class LoginPage {
         }
     }
 
+    //隐藏loading
     dismissLoading() {
         if (this.loading) {
             this.loading.dismiss();
             this.loading = null;
         }
+    }
+
+    //倒计时
+    countTime() {
+        let totalTime = 60;
+        this.clock = window.setInterval(() => {
+            totalTime--;
+            this.timeText = `${totalTime}s后重新发送`;
+            if (totalTime < 1) {
+                this.disableBtn = false;
+                window.clearInterval(this.clock);
+                this.timeText = "重新发送";
+            }
+        }, 1000);
     }
 }

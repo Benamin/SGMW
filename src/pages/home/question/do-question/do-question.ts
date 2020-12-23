@@ -61,6 +61,10 @@ export class DoQuestionPage {
         };
     }
 
+    ionViewWillLeave(){
+        this.eventEmitSer.eventEmit.emit('false');
+    }
+
     ionViewDidEnter() {
         const loading = this.loadCtrl.create({
             content: '加载中...'

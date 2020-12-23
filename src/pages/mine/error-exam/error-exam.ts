@@ -44,7 +44,9 @@ export class ErrorExamPage {
                 this.navCtrl.remove(index, 2);
             }
         };
+    }
 
+    ionViewDidEnter() {
         const loading = this.loadCtrl.create({
             content: ''
         });

@@ -8,6 +8,7 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {CommonService} from "../../core/common.service";
 import {GlobalData} from "../../core/GlobleData";
 
+
 declare let videojs: any;
 
 @Component({

@@ -31,7 +31,7 @@ export class LookExamPage {
     }
 
     //初始化
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.global.CourseEnterSource = "LookExam";
         const loading = this.loadCtrl.create({
             content: ''

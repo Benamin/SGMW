@@ -26,10 +26,10 @@ export class PostlistComponent implements OnInit {
         pageSize: 5,
         status: 2,
         title: "",
-        // topicPlateId: "8dd8410d-5828-6352-3b79-0405039d37dc",
         total: 111,
-        OrderBy: 'CreateTime',
-        OrderByDirection: 'desc'
+        OrderBy:"CreateTime",  // CreateTime 发帖时间    PostTimeFormatted 回复时间
+        OrderByDirection: 'Desc',
+        Type:"New",   // New 最新  CreateTime 发帖时间    PostTimeFormatted 回复时间 //Hot 最热 ReplyCount  ViewCount
     }
     forumLIst = [];
     isdoInfinite = true;
@@ -52,6 +52,13 @@ export class PostlistComponent implements OnInit {
         })
     }
 
+    //修改排序方式 OrderBy
+    changeOrder(order) {
+        this.forumLIst = [];
+        this.pageDate.OrderBy = order;
+        this.initList();
+    }
+
     initList() {
         this.lidata = this.navParams.get('data');
         if (this.lidata['navli'] && this.lidata['navli'] == '话题') {
@@ -64,7 +71,7 @@ export class PostlistComponent implements OnInit {
         this.no_list = false;
         this.forum_post_search();
     }
-
+l
 
     // 我收藏的帖子
     myfavorites() {
@@ -85,17 +92,13 @@ export class PostlistComponent implements OnInit {
 
     avtNav(type) {
         this.no_list = false;
-        // if (type == 'LikeCount') {
-
-        //     this.pageDate.OrderBy = 'LikeCount';
-        //     this.pageDate.OrderByDirection = 'DESC';
-        // } else {
-        //     this.pageDate.OrderByDirection = '';
-        // }
         this.isdoInfinite = true;
         this.forumLIst = [];
         this.pageDate.PageIndex = 1;
-        this.pageDate.OrderBy = type;
+        this.pageDate.Type = type;
+
+        if(type === "New") this.pageDate.OrderBy = "CreateTime";
+        if(type === "Hot") this.pageDate.OrderBy = "ViewCount";
 
         this.forum_post_search();
     }

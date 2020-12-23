@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';//引入
 import {NavController, NavParams, LoadingController, ActionSheetController, ModalController } from 'ionic-angular';
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
@@ -39,7 +40,7 @@ export class AdvancedLevelPage {
                 lists: []
             },
             {
-                navBtnText: '评分',
+                navBtnText: '线下认证',
                 navBtnEn: 'points',
                 isActived: false,
                 lists: []
@@ -97,7 +98,8 @@ export class AdvancedLevelPage {
         private loadCtrl: LoadingController,
         private homeSer: HomeService,
         private modalCtrl: ModalController,
-        private storage: Storage
+        private storage: Storage,
+        public sanitizer: DomSanitizer
     ) {
         //获取个人信息
         this.storage.get('user').then(value => {
@@ -168,7 +170,8 @@ export class AdvancedLevelPage {
     }
 
     // 前往 认证进阶 的 勋章设置
-    switchLevel(levelTypeIndex) {
+    switchLevel(levelTypeIndex, bigThanMyLevel) {
+        if (bigThanMyLevel) return; // 大于当前等级不能点击
         this.page.nowLevelIndex = levelTypeIndex;
         let levelInformation = this.page.levelInformation;
         let item = levelInformation[levelTypeIndex];
@@ -210,6 +213,8 @@ export class AdvancedLevelPage {
                 if (res.code === 200) {
 
                     let levelInformation = res.data.levelInformation;
+
+
                     this.page.nowProgress = res.data.schedule;
                     let nowLevel = res.data.Hierarchy - 1;
                     this.page.nowLevel = nowLevel;
@@ -219,8 +224,10 @@ export class AdvancedLevelPage {
                     // let nowLevel = 2
                     // this.page.nowLevel = nowLevel;
 
-                    let oldlevelInformation = this.page.levelInformation
+
                     if (!this.page.firstTime) {
+                        let oldlevelInformation = this.page.levelInformation
+                        oldlevelInformation = this.tranLevelText (oldlevelInformation);
                         let item = null;
                         for (let i=0; i<oldlevelInformation.length; i++) {
                             if (oldlevelInformation[i].actived === true) {
@@ -240,6 +247,7 @@ export class AdvancedLevelPage {
                             if(levelInformation[i]) levelInformation[i].actived = false;
                         }
                     }
+                    levelInformation = this.tranLevelText (levelInformation);
                     this.page.levelInformation = levelInformation;
 
 
@@ -279,6 +287,28 @@ export class AdvancedLevelPage {
                 loading.dismiss();
             }
         )
+    }
+
+    assembleHTML(strHTML:any){
+        return this.sanitizer.bypassSecurityTrustHtml(strHTML);
+    }
+
+    tranLevelText (levelInformation) {
+        // 等级 字数 超出四个 换行
+        for (let i=0;i<levelInformation.length;i++) {
+            // levelInformation[i].Level = '啦啦店'; // 测试
+            // console.log(66666, levelInformation[i].Level.substring(2))
+            if (levelInformation[i].Level.length>=4) {
+                let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length/2);
+                levelInformation[i].LevelText = `
+                      <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
+                      <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
+            } else {
+                levelInformation[i].LevelText = levelInformation[i].Level;
+            }
+            // console.log('Level', 8888888, levelInformation[i].Level)
+        }
+        return levelInformation;
     }
 
     setParams () {
@@ -406,10 +436,10 @@ export class AdvancedLevelPage {
     }
     // 二级导航（课程/考试状态）切换
     changeSecNav (navSecIndex, bool) {
+        if (bool) return;
         this.page.isLoaded = false;
         this.initLists();
         console.log('changeNav', navSecIndex, bool)
-        if (bool && this.page.nowClickSec === this.page.courseTypeArr[navSecIndex].navBtnEn) return;
         for (var i=0; i<this.page.courseTypeArr.length; i++) {
             this.page.courseTypeArr[i].isActived = false;
         }

@@ -45,7 +45,7 @@ export class CompetitionVideoPage {
         this.index = this.navParams.get('index');
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.initSwiperBool = false;
         this.getList();
     }

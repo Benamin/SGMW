@@ -53,6 +53,10 @@ export class DoTestPage {
         };
     }
 
+    ionViewWillLeave() {
+        this.eventEmitSer.eventEmit.emit('false');
+    }
+
     ionViewDidEnter() {
         const loading = this.loadCtrl.create({
             content: '考试加载中...'
@@ -65,9 +69,11 @@ export class DoTestPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
-                if (res.Result == 1) {
-                    this.commonSer.toast(res.Message);
+                if (res.Result !== 0) {
+                    if(res.message) this.commonSer.alert(res.message);
+                    if(res.Message) this.commonSer.alert(res.Message);
                 }
+                loading.dismiss();
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;
@@ -84,7 +90,6 @@ export class DoTestPage {
                 }
 
 
-                loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
                 });

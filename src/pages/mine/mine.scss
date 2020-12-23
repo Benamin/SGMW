@@ -24,13 +24,14 @@ page-mine {
     height: 90%;
     background-color: #fff;
     border-radius: 6px;
-    padding: 15px 20px;
+    padding: 15px 0;
   }
 
   .info-item {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 20px;
 
     > div {
       width: 25%;
@@ -112,8 +113,7 @@ page-mine {
   //列表区域
   .mine-list {
     margin: 65px 20px;
-    margin-top: 60px;
-
+    margin-top: 75px;
     background-color: #fff;
     border-radius: 6px;
   }
@@ -157,16 +157,58 @@ page-mine {
   }
 
   .mask1 {
-    display: inline-block;
     position: relative;
-    width: 4rem;
-    height: 4rem;
+    width: 7rem;
+    height: 7rem;
     overflow: hidden;
     border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 7rem;
+      height: 7rem;
+    }
   }
 
   .img3 {
     width: 100%;
     height: 100%;
+  }
+
+  .user-type {
+    display: flex;
+    align-items: center;
+    padding: 6px 25px;
+    margin: 6px 0;
+    font-size: 13px;
+    background: linear-gradient(44deg, #FFF7CB 0%, #FFC92D 100%);
+
+    > div {
+      width: 50%;
+    }
+  }
+
+  .isLabel {
+    font-size: 12px;
+    height: 20px;
+    margin-top: 5px;
+
+    > span {
+      border-radius: 17px;
+      border: 1px solid #FAD872;
+      padding: 3px 10px;
+
+      ion-icon {
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #777;
+        vertical-align: bottom;
+      }
+    }
   }
 }

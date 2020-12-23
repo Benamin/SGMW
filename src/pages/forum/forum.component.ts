@@ -19,9 +19,10 @@ export class ForumPage implements OnInit {
     isdoInfinite = true;
     no_list = false;
     pageDate = {
-        OrderBy: "ViewCount",
+        OrderBy: "CreateTime",  //CreateTime 发帖时间  ViewCount 浏览量  ReplyCount 回复量  PostTimeFormatted 回复时间
         creater: "",
         name: "",
+        Type: "New",  // New 最新 CreateTime 发帖时间 PostTimeFormatted 回复时间  //Hot 最热 ViewCount 浏览量  ReplyCount 回复量
         pageIndex: 1,
         pageSize: 10,
         total: 0,
@@ -104,15 +105,25 @@ export class ForumPage implements OnInit {
             this.forum_topicplate_search();
             this.getHistory();
         } else if (this.navli == '热帖') {
-            this.getLIistData();
+            this.getListData();
         } else if (this.navli == '话题') {
             this.topicplateSearchtopictag();
         }
     }
 
+    //修改排序方式 Type
     avtNav(text) {
+        if(text === "New") this.pageDate.OrderBy = "CreateTime";
+        if(text === "Hot") this.pageDate.OrderBy = "ViewCount";
         this.forumLIst = [];
-        this.pageDate.OrderBy = text;
+        this.pageDate.Type = text;
+        this.initData();
+    }
+
+    //修改排序方式 OrderBy
+    changeOrder(order) {
+        this.forumLIst = [];
+        this.pageDate.OrderBy = order;
         this.initData();
     }
 
@@ -121,16 +132,13 @@ export class ForumPage implements OnInit {
         if (this.navli == '板块') {
             this.forum_topicplate_search();
         }
-        ;
         if (this.navli == '热帖') {
-            this.getLIistData();
+            this.getListData();
         }
-        ;
 
         if (this.navli == '话题') {
             this.topicplateSearchtopictag();
         }
-        ;
 
         setTimeout(() => {
             e.complete();
@@ -138,7 +146,6 @@ export class ForumPage implements OnInit {
     }
 
     topicplateSearchtopictag() {
-        // this.pageDate.pageIndex=1;
         let data = {
             "PageIndex": this.pageDate.pageIndex,
             "PageSize": 10
@@ -206,7 +213,6 @@ export class ForumPage implements OnInit {
         if (this.navli == '热帖') {
             return this.switchInformation('热帖')
         }
-        ;
 
         this.pageDate.pageIndex = 1;
         this.isdoInfinite = true;
@@ -227,7 +233,7 @@ export class ForumPage implements OnInit {
         this.initData();
     }
 
-    getLIistData() {
+    getListData() {
         let loading = this.loadCtrl.create({
             content: '加载中...'
         });
@@ -239,17 +245,13 @@ export class ForumPage implements OnInit {
             "IsPlate": 0,
             "OrderBy": this.pageDate.OrderBy,
             "OrderByDirection": "DESC",
+            "Type": this.pageDate.Type,
             "PageIndex": this.pageDate.pageIndex,
             "PageSize": 10
         };
-
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
-            // this.serve.forum_post_search(data).subscribe((res: any) => {
-
             loading.dismiss();
             if (res.data) {
-                // let arr = res.data.Items;
-                // let arr = res.data.ProductList;
                 let arr = res.data.Posts.Items;
                 if (arr.length != 0) {
                     this.forumLIst = this.forumLIst.concat(arr);
