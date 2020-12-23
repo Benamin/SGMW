@@ -413,7 +413,7 @@ page-level {
           position: absolute;
           top: 0;
           left: 0;
-          width: 12rem;
+          width: 0;
           max-width: 100%;
           height: 10px;
           background: linear-gradient(261deg, #FFC92D 0%, #FFF7CB 100%);
@@ -428,7 +428,7 @@ page-level {
         align-items: center;
         justify-content: space-between;
         font-size: 1.4rem;
-        .progress-now {color: #F7AB1A;}
+        .progress-now { color: #F7AB1A;}
         .progress-target {}
         .finish {
           color: #50B674;
