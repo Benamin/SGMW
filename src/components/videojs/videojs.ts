@@ -8,6 +8,7 @@ import {LearnService} from "../../pages/learning/learn.service";
 import {AppService} from "../../app/app.service";
 import {CommonService} from "../../core/common.service";
 import {Platform} from "ionic-angular";
+import {Storage} from "@ionic/storage";
 
 declare let amp: any;
 
@@ -34,15 +35,11 @@ export class VideojsComponent implements OnDestroy {
                 private global: GlobalData,
                 private appSer: AppService,
                 private platform: Platform,
+                private storage: Storage,
                 private learnSer: LearnService,
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.global.videoNum;
         this.videoEle = `video${videoNum}`;
-        // videojs.addLanguage('zh-CN', {
-        //     "A network error caused the media download to fail part-way.": "网络错误导致视频下载中途失败。",
-        //     "The media could not be loaded, either because the server or network failed or because the format is not supported.": "视频播放未能正常加载，请检查网络环境或者内存空间。",
-        //     "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
-        // });
 
         timer(100).subscribe(() => {
             this.myPlayer = amp(this.videoEle, {
@@ -144,12 +141,35 @@ export class VideojsComponent implements OnDestroy {
     pageLeave() {
         if (this.myPlayer['player_']) {
             this.myPlayer.pause();
-            console.log('视频播放时间', this.myPlayer.currentTime());
+            this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
         }
     }
 
-    //页面离开，切换视频
+    //存储视频播放进度
+    saveVideoProcess(currentTime, ID) {
+        const currentTime2 = <any>Number(currentTime).toFixed(1);
+        if (currentTime2 < 1) {
+            return
+        }
+        this.storage.get("currentTime").then((value: any) => {
+            if (value && value.length > 0) {
+                if (value.toString().includes(ID)) {
+                    value.forEach((e, index) => {
+                        if (e && e.includes(ID)) {
+                            value[index] = `${ID}:${currentTime2}`;
+                        }
+                    });
+                } else {
+                    value.splice(9, 1);
+                    value.unshift(`${ID}:${currentTime2}`);
+                }
+                this.storage.set('currentTime', value);
+            }
+        })
+    }
 
+
+    //页面离开，切换视频
     destroy() {
         if (this.myPlayer) {
             // this.video.dispose();
@@ -182,7 +202,14 @@ export class VideojsComponent implements OnDestroy {
 
     @Input() set GetVideo(videoInfo) {
         if (this.myPlayer && videoInfo) {
+
+            //存储视频播放进度
+            if (this.myPlayer.currentTime()) {
+                this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
+            }
+
             this.isPlay = true;
+
             let type = 'application/x-mpegURL';
             if (this.platform.is('android')) {
                 videoInfo.fileUrl = videoInfo.fileUrl.replace('manifest(format=m3u8-aapl)', 'manifest(format=mpd-time-csf)')
@@ -190,6 +217,8 @@ export class VideojsComponent implements OnDestroy {
                 type = "application/dash+xml"
             }
             this.myPlayer.src({type: type, src: videoInfo.fileUrl});
+
+            //禁止or启用拖动进度条
             let control = <any>document.querySelector(".vjs-progress-control")
             if (videoInfo.IsPass) {
                 control.style.pointerEvents = "auto";  //启用
@@ -197,11 +226,30 @@ export class VideojsComponent implements OnDestroy {
                 control.style.pointerEvents = "none";
             }
             this.videoInfo = videoInfo;
-            this.myPlayer.titleOverlay({
-                "name": videoInfo.DisplayName,
-                "horizontalPosition": "left",
-                "verticalPosition": "center"
+
+            //继续播放component
+            this.storage.get('currentTime').then((value: any) => {
+                if (value && value.length > 0) {
+                    value.forEach(e => {
+                        if (e && e.includes(this.videoInfo.ID)) {
+                            const time = e.split(':')[1];
+                            if (Number(time) > 0) {
+                                this.myPlayer.continuePlay({
+                                    time: this.commonSer.toTime(time),
+                                    num: time
+                                });
+                            }
+                        }
+                    })
+                }
             })
+
+            // //标题component
+            // this.myPlayer.titleOverlay({
+            //     "name": videoInfo.DisplayName,
+            //     "horizontalPosition": "left",
+            //     "verticalPosition": "center"
+            // })
         }
     }
 

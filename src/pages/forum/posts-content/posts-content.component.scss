@@ -3,6 +3,10 @@ page-posts-content {
     color: #fff;
   }
 
+  br {
+    display: none;
+  }
+
   div[src] {
     text-align: center;
     font-size: 12px;

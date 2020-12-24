@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Events, LoadingController, NavController, Slides, ModalController } from 'ionic-angular';
+import {Events, LoadingController, NavController, Slides, ModalController} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
@@ -115,11 +115,14 @@ export class HomePage implements OnInit {
     ngOnInit() {
         this.GetTodayRemind();
         this.storage.get('sgmwType').then((value) => {
-            if (value && value == 3) {
+            if (value && value.sgmwType == 3) {
                 this.navCtrl.push(StudyPlanPage);
             }
-            if (value && value == 4) {
+            if (value && value.sgmwType == 4) {
                 this.navCtrl.push(TestCenterPage);
+            }
+            if (value && value.sgmwType == 22) {
+                this.navCtrl.push(PostsContentComponent, {data: {Id: value.Id, TopicPlateId: "", Name: ""}});
             }
         })
     }
@@ -472,22 +475,25 @@ export class HomePage implements OnInit {
                 // console.log('goAdvancedLevel', res.data, res.data.status === 1);
                 if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
 
-                    this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
+                    this.homeSer.GetRoleByPCode({code: 'Certification'}).subscribe(
                         (resRole) => {
                             loading.dismiss();
                             // console.log('GetRoleByPCode', resRole.data);
                             if (resRole.code === 200) {
-                                let modal = this.modalCtrl.create(RoleModalPage, { roleList: resRole.data });
+                                let modal = this.modalCtrl.create(RoleModalPage, {roleList: resRole.data});
                                 modal.onDidDismiss((data) => {
                                     if (data) {
                                         // console.log('onDidDismiss', data, data.value)
                                         // this.getVideoDetail();
 
-                                        this.homeSer.InitializeLevel({ leveltype: data.value }).subscribe(
+                                        this.homeSer.InitializeLevel({leveltype: data.value}).subscribe(
                                             (resInit) => {
                                                 if (resInit.code === 200) {
 
-                                                    this.navCtrl.push(AdvancedLevelPage, { leveltype: data, roleList: resRole.data });
+                                                    this.navCtrl.push(AdvancedLevelPage, {
+                                                        leveltype: data,
+                                                        roleList: resRole.data
+                                                    });
 
                                                 }
                                             }
@@ -501,22 +507,24 @@ export class HomePage implements OnInit {
                     )
 
                 } else if (res.data.status === 0 && res.data.leveltype) {
-                    this.homeSer.GetRoleByPCode({ code: 'Certification' }).subscribe(
+                    this.homeSer.GetRoleByPCode({code: 'Certification'}).subscribe(
                         (resRole) => {
                             // console.log('GetRoleByPCode', resRole.data);
                             if (resRole.code === 200) {
                                 loading.dismiss();
-                                this.navCtrl.push(AdvancedLevelPage, { leveltype: {
-                                    value: res.data.leveltype,
-                                    label: res.data.LevelName
-                                }, roleList: resRole.data });
+                                this.navCtrl.push(AdvancedLevelPage, {
+                                    leveltype: {
+                                        value: res.data.leveltype,
+                                        label: res.data.LevelName
+                                    }, roleList: resRole.data
+                                });
                             }
                         }
                     )
                 }
             }
         )
-        
+
         // this.navCtrl.push(AdvancedLevelPage);
     }
 

@@ -7,7 +7,7 @@ import {ViewReplyComponent} from '../view-reply/view-reply.component';
 import {ReportPage} from "../report/report";
 import {Storage} from "@ionic/storage";
 import {DatePipe} from "@angular/common";
-import {PCURL} from "../../../app/app.constants";
+import {defaultHeadPhoto, PCURL} from "../../../app/app.constants";
 
 declare var Wechat;
 declare let Swiper: any;
@@ -25,6 +25,8 @@ interface IInput {
 })
 export class PostsContentComponent implements OnInit {
     @ViewChild('panel') panel: ElementRef;
+
+    defaultHeadPhoto = defaultHeadPhoto;
     lidata = {Id: '', TopicPlateId: "", Name: ""};
     inputText = "";
     textareaBlur = false;
@@ -83,6 +85,7 @@ export class PostsContentComponent implements OnInit {
     }
 
     ionViewDidEnter() {
+        this.storage.set('sgmwType', null);
         this.lidata = this.navParams.get('data');
         this.forum_post_publish();
         let nowDate = Date.now();

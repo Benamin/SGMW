@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{lidata.Name}}</ion-title>
+        <ion-title>{{lidata?.Name}}</ion-title>
         <ion-buttons *ngIf="isShow" end (click)="handleReport()">
             <button class="icon-more">
                 <ion-icon name="more"></ion-icon>
@@ -13,7 +13,7 @@
     <div class="cons">
         <h3>{{dataCon.Title}}</h3>
         <div class="post-introduction-top">
-            <img src="{{dataCon.PosterHeadPhoto}}" alt="">
+            <img src="{{dataCon.PosterHeadPhoto || defaultHeadPhoto}}" alt="">
             <div class="name nowrap-1">{{dataCon.PosterUserName}}</div>
             <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
         </div>
@@ -98,7 +98,7 @@
                 <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png"
                      (click)=" cancelfavorites(dataCon);" alt="">
                 <span>
-          {{dataCon.FavoritesCount}}
+          {{dataCon.FavoritesCount || 0}}
         </span>
             </div>
             <div class="reply-more">

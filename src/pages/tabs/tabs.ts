@@ -21,6 +21,7 @@ import {VideoListsPage} from "../home/short-video/video-lists/video-lists";
 import {CourseTypePage} from "../learning/course-type/course-type";
 import {ExamTipPage} from "../learning/exam-tip/exam-tip";
 import {TalkExamPage} from "../learning/talk-exam/talk-exam";
+import {PostsContentComponent} from "../forum/posts-content/posts-content.component";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -103,6 +104,15 @@ export class TabsPage {
                 this.getUserInfo();
             }
         });
+
+        //继续播放时间
+        this.storage.get("currentTime").then((value: any) => {
+            if (!value) {
+                const arr = new Array(10);
+                this.storage.set('currentTime', arr);
+            }
+        })
+
         this.tabSer.tabChange.subscribe((value) => {
             this.tabParams = value;
             this.myTabs.select(value.index)
@@ -142,12 +152,15 @@ export class TabsPage {
             this.nav.setRoot(LoginPage);
         });
         this.events.subscribe('jPush', (type) => {
+            console.log(type);
             if (!this.global.JpushType) return;
             this.global.JpushType = null;
-            if (type == 3) {
+            if (type.sgmwType == 3) {  //学习中心
                 this.nav.push(StudyPlanPage)
-            } else if (type == 4) {
+            } else if (type.sgmwType == 4) {  //考试中心
                 this.nav.push(TestCenterPage)
+            } else if (type.sgmwType == 22) {
+                this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
             }
         })
     }
