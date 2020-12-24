@@ -34,10 +34,11 @@
     <link href="build/main.css" rel="stylesheet"/>
     <link href="assets/css/animate.css" rel="stylesheet"/>
     <link href="assets/css/forum.css" rel="stylesheet"/>
+    <link href="assets/css/amp.css" rel="stylesheet"/>
     <link href="assets/videojs/video-js.min.css" rel="stylesheet"/>
     <link href="assets/css/swiper.min.css" rel="stylesheet"/>
     <link href="assets/AzureMediaPlayer/azuremediaplayer.min.css" rel="stylesheet">
-    <script src= "assets/AzureMediaPlayer/azuremediaplayer.min.js"></script>
+    <script src="assets/AzureMediaPlayer/azuremediaplayer.min.js"></script>
 
 
 </head>
@@ -57,25 +58,27 @@
 <script src="assets/js/wow.min.js"></script>
 <script src="assets/js/md5.js"></script>
 <script src="assets/js/disableProcess.js"></script>
+<script src="assets/AzureMediaPlayer/plugin/amp_title_overlay/amp_title_overlay.js"></script>
+<script src="assets/AzureMediaPlayer/plugin/amp_continue_play/amp_continue_play.js"></script>
 <script src="assets/js/jsencrypt.js"></script>
 <script src="assets/videojs/video.min.js"></script>
 
 <script>
     new WOW().init();
 
-  // (function (doc, win) {
-  //   var docEl = doc.documentElement,
-  //     resizeEvt =
-  //       "orientationchange" in window ? "orientationchange" : "resize",
-  //     recalc = function () {
-  //       var clientWidth = docEl.clientWidth;
-  //       if (!clientWidth) return;
-  //       docEl.style.fontSize = clientWidth / 37.5 + "px";
-  //     };
-  //   if (!doc.addEventListener) return;
-  //   win.addEventListener(resizeEvt, recalc, false);
-  //   doc.addEventListener("DOMContentLoaded", recalc, false);
-  // })(document, window);
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt =
+                "orientationchange" in window ? "orientationchange" : "resize",
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = clientWidth / 37.5 + "px";
+            };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener("DOMContentLoaded", recalc, false);
+    })(document, window);
 </script>
 </body>
 </html>

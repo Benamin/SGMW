@@ -149,8 +149,7 @@ import {DocumentViewer} from '@ionic-native/document-viewer';
             },
             DownloadFileProvider,
             ShortVideoProvider,
-            ChooseImageProvider
-        ],
+            ChooseImageProvider],
 
 })
 

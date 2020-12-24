@@ -144,8 +144,11 @@ export class VideojsComponent implements OnDestroy {
     pageLeave() {
         if (this.myPlayer['player_']) {
             this.myPlayer.pause();
+            console.log('视频播放时间', this.myPlayer.currentTime());
         }
     }
+
+    //页面离开，切换视频
 
     destroy() {
         if (this.myPlayer) {
@@ -166,7 +169,6 @@ export class VideojsComponent implements OnDestroy {
     }
 
     @Input() set poster(poster) {
-        console.log(poster);
         this.videoPoster = poster;
     }
 
@@ -174,9 +176,12 @@ export class VideojsComponent implements OnDestroy {
         return this.videoInfo;
     }
 
+    //跳转视频播放进度
+    jumpVideoProcess() {
+    }
+
     @Input() set GetVideo(videoInfo) {
         if (this.myPlayer && videoInfo) {
-            console.log("videoInfo", this.myPlayer);
             this.isPlay = true;
             let type = 'application/x-mpegURL';
             if (this.platform.is('android')) {
@@ -192,6 +197,11 @@ export class VideojsComponent implements OnDestroy {
                 control.style.pointerEvents = "none";
             }
             this.videoInfo = videoInfo;
+            this.myPlayer.titleOverlay({
+                "name": videoInfo.DisplayName,
+                "horizontalPosition": "left",
+                "verticalPosition": "center"
+            })
         }
     }
 
