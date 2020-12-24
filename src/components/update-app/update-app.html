@@ -2,8 +2,9 @@
     <div class="bg-content">
         <div class="update-content">
             <div class="update-text" [innerHTML]="UpdateText | lineFeed"></div>
-            <div tappable (click)="updateApp()" class="update-button">
-                马上更新
+            <div tappable class="update-button">
+                <span (click)="updateAppByWeb()">去官网更新</span>
+                <span (click)="updateApp()">马上更新</span>
             </div>
         </div>
         <span tappable (click)="close()" class="icon-close">

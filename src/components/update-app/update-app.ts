@@ -35,4 +35,9 @@ export class UpdateAppComponent {
         const IOSUrl = 'https://apps.apple.com/us/app/骏菱学社/id1478072690?l=zh&ls=1';
         this.inAppBrowser.create(IOSUrl, '_system');
     }
+
+    //去官网更新
+    updateAppByWeb() {
+        this.inAppBrowser.create("http://elearning.sgmw.com.cn/#/app", '_system');
+    }
 }
