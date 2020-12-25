@@ -24,7 +24,7 @@ export class JpushUtil {
     initPush() {
         /**设备成功注册后，返回registrationId*/
         document.addEventListener('jpush.receiveRegistrationId', (event: any) => {
-            // this.commonSer.alert(`receiveRegistrationId:${this.globalData.RegiID}`)
+            // this.commonSer.alert(`receiveRegistrationId:+ ${JSON.stringify(event)}`)
         }, false);
         /**接收通知触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {
@@ -36,8 +36,8 @@ export class JpushUtil {
         }, false);
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
-            console.log(event);
-            const sgmwType = event.extras.sgmwType;   //2系统通知  3 培训通知  4  考试通知
+            // this.commonSer.alert("jpush.openNotification: " + JSON.stringify(event));
+            const sgmwType = event.extras.sgmwType;   //2系统通知  3 培训通知  4  考试通知 22 论坛回复通知
             const data = {
                 sgmwType: event.extras.sgmwType,
                 Id: event.extras.PostId || ''
@@ -48,7 +48,7 @@ export class JpushUtil {
         }, false);
         /**接收本地消息 */
         document.addEventListener('jpush.', (event: any) => {
-            // this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
+            this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
         }, false);
     }
 

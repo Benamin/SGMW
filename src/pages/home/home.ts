@@ -483,9 +483,6 @@ export class HomePage implements OnInit {
                                 let modal = this.modalCtrl.create(RoleModalPage, {roleList: resRole.data});
                                 modal.onDidDismiss((data) => {
                                     if (data) {
-                                        // console.log('onDidDismiss', data, data.value)
-                                        // this.getVideoDetail();
-
                                         this.homeSer.InitializeLevel({leveltype: data.value}).subscribe(
                                             (resInit) => {
                                                 if (resInit.code === 200) {

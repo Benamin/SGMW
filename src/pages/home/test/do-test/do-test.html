@@ -27,49 +27,56 @@
                                 <ng-container *ngIf="item.QType == 1">
                                     <p *ngIf="item.ChoiceA">
                                         <label>
-                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="A" [name]="item.QnAID">
+                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="A"
+                                                   [name]="item.QnAID">
                                             <span class="selectIndex">A</span>&nbsp;&nbsp;
                                             {{item.ChoiceA}}
                                         </label>
                                     </p>
                                     <p *ngIf="item.ChoiceB">
                                         <label>
-                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="B" [name]="item.QnAID">
+                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="B"
+                                                   [name]="item.QnAID">
                                             <span class="selectIndex">B</span>&nbsp;&nbsp;
                                             {{item.ChoiceB}}
                                         </label>
                                     </p>
                                     <p *ngIf="item.ChoiceC">
                                         <label>
-                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="C" [name]="item.QnAID">
+                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="C"
+                                                   [name]="item.QnAID">
                                             <span class="selectIndex">C</span>&nbsp;&nbsp;
                                             {{item.ChoiceC}}
                                         </label>
                                     </p>
                                     <p *ngIf="item.ChoiceD">
                                         <label>
-                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="D" [name]="item.QnAID">
+                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="D"
+                                                   [name]="item.QnAID">
                                             <span class="selectIndex">D</span>&nbsp;&nbsp;
                                             {{item.ChoiceD}}
                                         </label>
                                     </p>
                                     <p *ngIf="item.ChoiceE">
                                         <label>
-                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="E" [name]="item.QnAID">
+                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="E"
+                                                   [name]="item.QnAID">
                                             <span class="selectIndex">E</span>&nbsp;&nbsp;
                                             {{item.ChoiceE}}
                                         </label>
                                     </p>
                                     <p *ngIf="item.ChoiceF">
                                         <label>
-                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="F" [name]="item.QnAID">
+                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="F"
+                                                   [name]="item.QnAID">
                                             <span class="selectIndex">F</span>&nbsp;&nbsp;
                                             {{item.ChoiceF}}
                                         </label>
                                     </p>
                                     <p *ngIf="item.ChoiceG">
                                         <label>
-                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="G" [name]="item.QnAID">
+                                            <input [(ngModel)]="item.StuAnswer" type="radio" value="G"
+                                                   [name]="item.QnAID">
                                             <span class="selectIndex">G</span>&nbsp;&nbsp;
                                             {{item.ChoiceG}}
                                         </label>
@@ -79,7 +86,8 @@
                                 <ng-container *ngIf="item.QType == 2">
                                     <p *ngIf="item.ChoiceA">
                                         <label>
-                                            <input type="checkbox" [checked]="item.StuAnswer.includes('A')" (change)="mutiSelect(i,'A')"
+                                            <input type="checkbox" [checked]="item.StuAnswer.includes('A')"
+                                                   (change)="mutiSelect(i,'A')"
                                                    value="A" [name]="item.QnAID">
                                             <span class="input-duox selectIndex">A</span>&nbsp;&nbsp;
                                             {{item.ChoiceA}}
@@ -87,7 +95,8 @@
                                     </p>
                                     <p *ngIf="item.ChoiceB">
                                         <label>
-                                            <input type="checkbox" [checked]="item.StuAnswer.includes('B')" (change)="mutiSelect(i,'B')"
+                                            <input type="checkbox" [checked]="item.StuAnswer.includes('B')"
+                                                   (change)="mutiSelect(i,'B')"
                                                    value="B" [name]="item.QnAID">
                                             <span class="input-duox selectIndex">B</span>&nbsp;&nbsp;
                                             {{item.ChoiceB}}
@@ -95,7 +104,8 @@
                                     </p>
                                     <p *ngIf="item.ChoiceC">
                                         <label>
-                                            <input type="checkbox" [checked]="item.StuAnswer.includes('C')" (change)="mutiSelect(i,'C')"
+                                            <input type="checkbox" [checked]="item.StuAnswer.includes('C')"
+                                                   (change)="mutiSelect(i,'C')"
                                                    value="C" [name]="item.QnAID">
                                             <span class="input-duox selectIndex">C</span>&nbsp;&nbsp;
                                             {{item.ChoiceC}}
@@ -103,7 +113,8 @@
                                     </p>
                                     <p *ngIf="item.ChoiceD">
                                         <label>
-                                            <input type="checkbox" [checked]="item.StuAnswer.includes('D')" (change)="mutiSelect(i,'D')"
+                                            <input type="checkbox" [checked]="item.StuAnswer.includes('D')"
+                                                   (change)="mutiSelect(i,'D')"
                                                    value="D" [name]="item.QnAID">
                                             <span class="input-duox selectIndex">D</span>&nbsp;&nbsp;
                                             {{item.ChoiceD}}
@@ -111,7 +122,8 @@
                                     </p>
                                     <p *ngIf="item.ChoiceE">
                                         <label>
-                                            <input type="checkbox" [checked]="item.StuAnswer.includes('E')" (change)="mutiSelect(i,'E')"
+                                            <input type="checkbox" [checked]="item.StuAnswer.includes('E')"
+                                                   (change)="mutiSelect(i,'E')"
                                                    value="E" [name]="item.QnAID">
                                             <span class="input-duox selectIndex">E</span>&nbsp;&nbsp;
                                             {{item.ChoiceE}}
@@ -119,7 +131,8 @@
                                     </p>
                                     <p *ngIf="item.ChoiceF">
                                         <label>
-                                            <input type="checkbox" [checked]="item.StuAnswer.includes('F')" (change)="mutiSelect(i,'F')"
+                                            <input type="checkbox" [checked]="item.StuAnswer.includes('F')"
+                                                   (change)="mutiSelect(i,'F')"
                                                    value="F" [name]="item.QnAID">
                                             <span class="input-duox selectIndex">F</span>&nbsp;&nbsp;
                                             {{item.ChoiceF}}
@@ -127,7 +140,8 @@
                                     </p>
                                     <p *ngIf="item.ChoiceG">
                                         <label>
-                                            <input type="checkbox" [checked]="item.StuAnswer.includes('G')" (change)="mutiSelect(i,'G')"
+                                            <input type="checkbox" [checked]="item.StuAnswer.includes('G')"
+                                                   (change)="mutiSelect(i,'G')"
                                                    value="G" [name]="item.QnAID">
                                             <span class="input-duox selectIndex">G</span>&nbsp;&nbsp;
                                             {{item.ChoiceG}}
@@ -136,7 +150,8 @@
                                 </ng-container>
                                 <!--填空-->
                                 <ng-container *ngIf="item.QType == 4">
-                                    <textarea placeholder="请输入内容..." [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
+                                    <textarea placeholder="请输入内容..." [(ngModel)]="item.StuAnswer"
+                                              class="content-textarea"></textarea>
                                 </ng-container>
                                 <!--判断题-->
                                 <ng-container *ngIf="item.QType == 3">
@@ -159,7 +174,8 @@
                                 </ng-container>
                                 <!--问答-->
                                 <ng-container *ngIf="item.questionType == 5">
-                                    <textarea placeholder="请输入内容..." [(ngModel)]="item.StuAnswer" class="content-textarea"></textarea>
+                                    <textarea placeholder="请输入内容..." [(ngModel)]="item.StuAnswer"
+                                              class="content-textarea"></textarea>
                                 </ng-container>
                             </div>
                         </div>
@@ -209,8 +225,18 @@
     <div class="content">
         <img src="./assets/imgs/mine/exam-submit.png" alt="">
         <p>试卷提交成功</p>
-        <p class="number">{{score.score}}</p>
-        <p>试卷得分</p>
+        <ng-container *ngIf="sourceType === 'advance';else other_content">
+            <p class="advance-tips"
+               *ngIf="score.score > exam.ExamInfo?.PassScore || score.score == exam.ExamInfo?.PassScore">
+                恭喜您通过当前阶段的认证考试，请等待下一阶段认证的开启</p>
+            <p class="advance-tips" *ngIf="score.score < exam.ExamInfo?.PassScore">
+                未达到分数要求({{exam.ExamInfo?.PassScore}}分),请重新答题
+            </p>
+        </ng-container>
+        <ng-container #other_content>
+            <p class="number">{{score.score}}</p>
+            <p>试卷得分</p>
+        </ng-container>
         <div>完成</div>
     </div>
 </div>
@@ -219,7 +245,8 @@
         <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
         <p>温馨提示</p>
         <p class="number  test">
-            <ng-container *ngIf="exam.ExamInfo?.PaperTimer > 0">试卷时长{{exam.ExamInfo?.PaperTimer}}分钟，请在规定时间内完成，时间到达后将自动提交，考试过程中不可退出
+            <ng-container *ngIf="exam.ExamInfo?.PaperTimer > 0">试卷时长{{exam.ExamInfo?.PaperTimer}}
+                分钟，请在规定时间内完成，时间到达后将自动提交，考试过程中不可退出
             </ng-container>
         </p>
         <div>我知道了</div>

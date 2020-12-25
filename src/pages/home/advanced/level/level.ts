@@ -446,7 +446,6 @@ export class AdvancedLevelPage {
 
         this.page.courseTypeArr[navSecIndex].isActived = true;
         this.page.nowClickSec = this.page.courseTypeArr[navSecIndex].navBtnEn
-        console.log('nowClickSec888', this.page.nowClickSec)
         this.setParams();
     }
 
@@ -535,11 +534,6 @@ export class AdvancedLevelPage {
         }
         if (item.ID) item.Fid = item.ID;
         let canTest = item.IsExam === true; // bool true可以考试  false 不可以考试
-        // let lists = this.page.navliArr[0].lists;
-        // for (let i=0; i<lists.length; i++) {
-        //     if (lists[i].studystate !== 2) canTest = false;
-        // }
-        console.log('canTest', canTest)
         if (!canTest) {
             this.commonSer.alert('请先完成课程内容!');
             return;

@@ -39,16 +39,6 @@
           {{ (page.nowProgress * 100).toFixed(0) }}%
         </span>
       </div>
-      <!-- 当前进度 等于 当前等级/总等级的数量*100 + '%' 再加上当前进度乘以 (1/(总等级的数量)*100) + '%' -->
-      <!--<div class="progress-bar" style="z-index: 3;background: transparent;" [ngStyle]="{'width': ((page.nowLevel + 1)/(page.levelInformation.length-1) * 100) + '%' }">-->
-
-        <!--<span class="process-text" *ngIf="page.isLoaded">-->
-          <!--{{ (page.nowProgress * 100).toFixed(0) }}%-->
-        <!--</span>-->
-        <!--&lt;!&ndash;分隔符&ndash;&gt;-->
-        <!--&lt;!&ndash;<span *ngIf="page.nowLevel < page.levelInformation.length - 2" class="process-line"></span>&ndash;&gt;-->
-      <!--</div>-->
-      <!--<div class="progress-bar"  [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1)*100) + '%' }"></div>-->
     </div>
 
     <div class="level-scroll-box">
@@ -56,9 +46,6 @@
         <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="switchLevel(levelTypeIndex, item.Hierarchy > page.nowLevel + 1)" [ngClass]="{'actived': item.actived, 'disabled': item.Hierarchy > page.nowLevel + 1}">
            <div [innerHTML]="assembleHTML(item.LevelText)"></div>
         </li>
-        <!--<li class="actived">实习顾问</li>-->
-        <!--<li>销售顾问</li>-->
-        <!--<li>体验专家</li>-->
       </ul>
     </div>
   </div>

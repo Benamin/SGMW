@@ -78,7 +78,7 @@ export class DoTestPage {
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;
 
-                if (this.sourceType && this.sourceType == 'advance') {
+                if (this.sourceType && this.sourceType == 'advance') {  //学习进阶置空
                     this.exam.QnAInfos.forEach(e => e.StuAnswer = '');
                 } else {
                     this.exam.QnAInfos.forEach(e => {

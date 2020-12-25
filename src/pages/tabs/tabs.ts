@@ -152,14 +152,13 @@ export class TabsPage {
             this.nav.setRoot(LoginPage);
         });
         this.events.subscribe('jPush', (type) => {
-            console.log(type);
             if (!this.global.JpushType) return;
             this.global.JpushType = null;
             if (type.sgmwType == 3) {  //学习中心
                 this.nav.push(StudyPlanPage)
             } else if (type.sgmwType == 4) {  //考试中心
                 this.nav.push(TestCenterPage)
-            } else if (type.sgmwType == 22) {
+            } else if (type.sgmwType == 22) {  //论坛帖子
                 this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
             }
         })

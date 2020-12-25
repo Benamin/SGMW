@@ -108,10 +108,10 @@ export class MyApp {
 
             console.log(this.platform.platforms());
 
+            this.jPushUtil.initPush();
             //jpush推送
             this.jPush.init();
-            this.jPush.setDebugMode(true);
-            this.jPushUtil.initPush();
+            this.jPush.setDebugMode(false);
             this.jPush.resetBadge();
 
             //注册android的物理返回键事件
