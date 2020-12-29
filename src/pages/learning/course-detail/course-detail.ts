@@ -124,6 +124,8 @@ export class CourseDetailPage {
 
     mySwiper;
 
+    isLevel = false;  //岗位认证课程进入
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
@@ -136,6 +138,8 @@ export class CourseDetailPage {
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
         this.StructureType = this.navParams.get('StructureType') || 1;
+        this.isLevel = this.navParams.get('isLevel') || false;
+        console.log('this.isLevel',this.isLevel)
         if (this.StructureType == 1) {
             this.navbarList = this.oldNavbarList;
         } else {

@@ -905,7 +905,6 @@ export class LoginPage {
     updateRegID(res) {
         this.jPush.getRegistrationID().then((regiID) => {
             if (regiID) {
-                this.commonSer.alert(regiID);
                 this.RegiID = regiID;
                 this.uploadRegID(res);
             } else {

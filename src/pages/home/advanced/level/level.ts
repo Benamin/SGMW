@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';//引入
-import {NavController, NavParams, LoadingController, ActionSheetController, ModalController } from 'ionic-angular';
+import {DomSanitizer} from '@angular/platform-browser';//引入
+import {NavController, NavParams, LoadingController, ActionSheetController, ModalController} from 'ionic-angular';
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
 import {AdvancedListsPage} from "../lists/lists";
@@ -110,8 +110,8 @@ export class AdvancedLevelPage {
 
     ionViewDidEnter() {
         this.page.roleList = this.navParams.get('roleList');
-        if(!this.page.leveltype) this.page.leveltype = this.navParams.get('leveltype').value;
-        if(!this.page.levelTypeText) this.page.levelTypeText = this.navParams.get('leveltype').label;
+        if (!this.page.leveltype) this.page.leveltype = this.navParams.get('leveltype').value;
+        if (!this.page.levelTypeText) this.page.levelTypeText = this.navParams.get('leveltype').label;
         this.getAdvancedLevel();
     }
 
@@ -125,20 +125,20 @@ export class AdvancedLevelPage {
             nowPlId = this.page.levelInformation[this.page.levelInformation.length - 1].ID;
         } else {
             let levelInformation = this.page.levelInformation;
-            for (let i=0; i<levelInformation.length; i++) {
+            for (let i = 0; i < levelInformation.length; i++) {
                 if (levelInformation[i].actived === true) {
                     nowPlId = this.page.levelInformation[i].ID;
                 }
             }
         }
-        this.homeSer.LevelRemake({ PlId: nowPlId }).subscribe(
+        this.homeSer.LevelRemake({PlId: nowPlId}).subscribe(
             (res) => {
                 if (res.code === 200) {
 
                     console.log('888', res.data.Remake)
                     this.showRuleModal(res.data.Remake);
 
-                }  else {
+                } else {
                     this.commonSer.toast(res.message);
                 }
 
@@ -149,10 +149,10 @@ export class AdvancedLevelPage {
         )
     }
 
-    showRuleModal (Remake) {
+    showRuleModal(Remake) {
         let typeTitle = '';
         let levelInformation = this.page.levelInformation;
-        for (let i=0; i<levelInformation.length; i++) {
+        for (let i = 0; i < levelInformation.length; i++) {
             if (levelInformation[i].actived === true) {
                 typeTitle = levelInformation[i].Level;
             }
@@ -162,9 +162,11 @@ export class AdvancedLevelPage {
             title: '',
             content: Remake
         }
-        let modal = this.modalCtrl.create(RuleModalPage, { ruleData: modalData });
+        let modal = this.modalCtrl.create(RuleModalPage, {ruleData: modalData});
         modal.onDidDismiss((data) => {
-            if (data) { console.log('关闭modal：', data) }
+            if (data) {
+                console.log('关闭modal：', data)
+            }
         })
         modal.present();
     }
@@ -176,11 +178,11 @@ export class AdvancedLevelPage {
         let levelInformation = this.page.levelInformation;
         let item = levelInformation[levelTypeIndex];
 
-        for (let i=0; i<levelInformation.length; i++) {
+        for (let i = 0; i < levelInformation.length; i++) {
             if (item.Hierarchy === levelInformation[i].Hierarchy) {
                 levelInformation[i].actived = true;
             } else {
-                if(levelInformation[i]) levelInformation[i].actived = false;
+                if (levelInformation[i]) levelInformation[i].actived = false;
             }
         }
 
@@ -207,7 +209,7 @@ export class AdvancedLevelPage {
             content: ''
         });
         loading.present();
-        this.homeSer.getAdvancedLevel({ leveltype: this.page.leveltype }).subscribe(
+        this.homeSer.getAdvancedLevel({leveltype: this.page.leveltype}).subscribe(
             (res) => {
                 loading.dismiss();
                 if (res.code === 200) {
@@ -227,9 +229,9 @@ export class AdvancedLevelPage {
 
                     if (!this.page.firstTime) {
                         let oldlevelInformation = this.page.levelInformation
-                        oldlevelInformation = this.tranLevelText (oldlevelInformation);
+                        oldlevelInformation = this.tranLevelText(oldlevelInformation);
                         let item = null;
-                        for (let i=0; i<oldlevelInformation.length; i++) {
+                        for (let i = 0; i < oldlevelInformation.length; i++) {
                             if (oldlevelInformation[i].actived === true) {
                                 item = oldlevelInformation[i];
                             }
@@ -240,14 +242,14 @@ export class AdvancedLevelPage {
                     }
                     this.page.firstTime = false;
 
-                    for (let i=0; i<levelInformation.length; i++) {
+                    for (let i = 0; i < levelInformation.length; i++) {
                         if (nowLevel === levelInformation[i].Hierarchy - 1) {
                             levelInformation[i].actived = true;
                         } else {
-                            if(levelInformation[i]) levelInformation[i].actived = false;
+                            if (levelInformation[i]) levelInformation[i].actived = false;
                         }
                     }
-                    levelInformation = this.tranLevelText (levelInformation);
+                    levelInformation = this.tranLevelText(levelInformation);
                     this.page.levelInformation = levelInformation;
 
 
@@ -255,32 +257,32 @@ export class AdvancedLevelPage {
 
                     if (levelInformation.length > 0) {
                         // for (var i=0; i<levelInformation.length; i++) {
-                            if (res.data.Hierarchy === levelInformation[0].Hierarchy) {
-                                this.page.plid = levelInformation[1].ID;
-                                // let item = this.page.levelInformation[1];
-                                this.setParams();
-                                this.page.canClick = true;
-                            } else {
-                                for (var i=0; i<levelInformation.length; i++) {
-                                    if (res.data.Hierarchy === levelInformation[i].Hierarchy) {
-                                        // 当前已经满等级
-                                        if (!levelInformation[i + 1]) {
-                                            this.page.isLoaded = true;
-                                            return
-                                        }
-                                        this.page.plid = levelInformation[i + 1].ID;
-                                        // let item = this.page.levelInformation[i];
-                                        this.setParams();
-                                        // this.page.nowLevelIndex
-                                        this.page.canClick = true;
+                        if (res.data.Hierarchy === levelInformation[0].Hierarchy) {
+                            this.page.plid = levelInformation[1].ID;
+                            // let item = this.page.levelInformation[1];
+                            this.setParams();
+                            this.page.canClick = true;
+                        } else {
+                            for (var i = 0; i < levelInformation.length; i++) {
+                                if (res.data.Hierarchy === levelInformation[i].Hierarchy) {
+                                    // 当前已经满等级
+                                    if (!levelInformation[i + 1]) {
+                                        this.page.isLoaded = true;
+                                        return
                                     }
+                                    this.page.plid = levelInformation[i + 1].ID;
+                                    // let item = this.page.levelInformation[i];
+                                    this.setParams();
+                                    // this.page.nowLevelIndex
+                                    this.page.canClick = true;
                                 }
                             }
+                        }
                         //
                     }
 
 
-                }  else {
+                } else {
                     this.commonSer.toast(res.message);
                 }
             }, err => {
@@ -289,17 +291,17 @@ export class AdvancedLevelPage {
         )
     }
 
-    assembleHTML(strHTML:any){
+    assembleHTML(strHTML: any) {
         return this.sanitizer.bypassSecurityTrustHtml(strHTML);
     }
 
-    tranLevelText (levelInformation) {
+    tranLevelText(levelInformation) {
         // 等级 字数 超出四个 换行
-        for (let i=0;i<levelInformation.length;i++) {
+        for (let i = 0; i < levelInformation.length; i++) {
             // levelInformation[i].Level = '啦啦店'; // 测试
             // console.log(66666, levelInformation[i].Level.substring(2))
-            if (levelInformation[i].Level.length>=4) {
-                let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length/2);
+            if (levelInformation[i].Level.length >= 4) {
+                let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length / 2);
                 levelInformation[i].LevelText = `
                       <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
                       <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
@@ -311,7 +313,7 @@ export class AdvancedLevelPage {
         return levelInformation;
     }
 
-    setParams () {
+    setParams() {
         let getListsApi = null;
         let getParams = {
             csStatus: 0,          //-1 未开始 0进行中 1已完成 2全部
@@ -321,9 +323,8 @@ export class AdvancedLevelPage {
         switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
             case 'course':
                 // 课程
-                getParams = Object.assign({}, getParams, { Conditions: 'NotAll' });
+                getParams = Object.assign({}, getParams, {Conditions: 'NotAll'});
                 getListsApi = (data) => {
-
                     return this.homeSer.QueryCourse(data);
                 };
                 break
@@ -350,19 +351,19 @@ export class AdvancedLevelPage {
             switch (this.page.nowClickSec) { // 课程/考试  对应的列表 状态
                 case 'wait':
                     // 未开始
-                    getParams = Object.assign({}, getParams, { csStatus: -1 })
+                    getParams = Object.assign({}, getParams, {csStatus: -1})
                     break
                 case 'doing':
                     // 0进行中
-                    getParams = Object.assign({}, getParams, { csStatus: 0 })
+                    getParams = Object.assign({}, getParams, {csStatus: 0})
                     break
                 case 'finish':
                     // 1已完成
-                    getParams = Object.assign({}, getParams, { csStatus: 1 })
+                    getParams = Object.assign({}, getParams, {csStatus: 1})
                     break
                 case 'more':
                     // 2全部
-                    getParams = Object.assign({}, getParams, { csStatus: 2 })
+                    getParams = Object.assign({}, getParams, {csStatus: 2})
                     break
             }
         }
@@ -414,19 +415,21 @@ export class AdvancedLevelPage {
         )
 
     }
+
     initLists() {
-        for (var i=0;i<this.page.navliArr.length; i++) {
+        for (var i = 0; i < this.page.navliArr.length; i++) {
             this.page.navliArr[i].lists = [];
         }
 
     }
+
     // 一级导航（当前列表类型）切换
-    changeNav (navIndex, bool) {
+    changeNav(navIndex, bool) {
         this.page.isLoaded = false;
         this.initLists();
         console.log('changeNav', navIndex, bool)
         if (bool && this.page.nowClick === this.page.navliArr[navIndex].navBtnEn) return;
-        for (var i=0; i<this.page.navliArr.length; i++) {
+        for (var i = 0; i < this.page.navliArr.length; i++) {
             this.page.navliArr[i].isActived = false;
         }
         this.page.navliArr[navIndex].isActived = true;
@@ -434,13 +437,14 @@ export class AdvancedLevelPage {
         console.log('nowClick777', this.page.nowClick)
         this.setParams();
     }
+
     // 二级导航（课程/考试状态）切换
-    changeSecNav (navSecIndex, bool) {
+    changeSecNav(navSecIndex, bool) {
         if (bool) return;
         this.page.isLoaded = false;
         this.initLists();
         console.log('changeNav', navSecIndex, bool)
-        for (var i=0; i<this.page.courseTypeArr.length; i++) {
+        for (var i = 0; i < this.page.courseTypeArr.length; i++) {
             this.page.courseTypeArr[i].isActived = false;
         }
 
@@ -453,23 +457,23 @@ export class AdvancedLevelPage {
     goAdvancedLists() {
         let item = null;
         let levelInformation = this.page.levelInformation
-        for (let i=0; i<levelInformation.length; i++) {
+        for (let i = 0; i < levelInformation.length; i++) {
             if (levelInformation[i].actived === true) {
                 item = levelInformation[i + 1]; // 获取当前亮的按钮 下一级的 level
             }
         }
 
-        console.log('nowLevel' , item, '888***canClick', this.page.canClick)
+        console.log('nowLevel', item, '888***canClick', this.page.canClick)
         this.page.plid = item.ID;
         if (item) {
-            this.navCtrl.push(AdvancedListsPage, { plid: item.ID, canClick: this.page.canClick, Level: item.Level });
+            this.navCtrl.push(AdvancedListsPage, {plid: item.ID, canClick: this.page.canClick, Level: item.Level});
         }
     }
 
     // 切换角色
     showActionSheet() {
         let btnArr = []
-        for (let i =0; i<this.page.roleList.length; i++) {
+        for (let i = 0; i < this.page.roleList.length; i++) {
             let obj = {
                 text: this.page.roleList[i].label,
                 role: this.page.leveltype === this.page.roleList[i].value ? 'destructive' : '',
@@ -483,7 +487,7 @@ export class AdvancedLevelPage {
                     this.homeSer.ValidationLevel({}).subscribe(
                         (res) => {
                             // if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
-                            this.homeSer.InitializeLevel({ leveltype: this.page.roleList[i].value }).subscribe(
+                            this.homeSer.InitializeLevel({leveltype: this.page.roleList[i].value}).subscribe(
                                 (resInit) => {
                                     if (resInit.code === 200) {
 
@@ -522,7 +526,7 @@ export class AdvancedLevelPage {
         } else if (e.TeachTypeName == "内训") {
             this.navCtrl.push(InnerCoursePage, {id: e.Id});
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType});
+            this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType, isLevel: true});
         }
     }
 

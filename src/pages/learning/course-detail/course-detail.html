@@ -15,7 +15,7 @@
                     <div class="course-name">
                         {{product.detail?.Title}}
                     </div>
-                    <div class="course-button" *ngIf="product.detail?.IsAuth">
+                    <div class="course-button" *ngIf="product.detail?.IsAuth || isLevel">
                         <div [ngClass]="{'disableBtn':disableBtn.signBtnDisable}" tappable
                              *ngIf="!product.detail?.IsBuy" (click)="sign()">
                             立即报名

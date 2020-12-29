@@ -141,7 +141,9 @@ export class VideojsComponent implements OnDestroy {
     pageLeave() {
         if (this.myPlayer['player_']) {
             this.myPlayer.pause();
-            this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
+            if (this.videoInfo) {
+                this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
+            }
         }
     }
 
