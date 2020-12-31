@@ -13,7 +13,7 @@ import {LogService} from "../../service/log.service";
     selector: 'page-forum',
     templateUrl: './forum.component.html'
 })
-export class ForumPage implements OnInit {
+export class ForumPage {
 
     forumLIst = [];
     isdoInfinite = true;
@@ -38,23 +38,18 @@ export class ForumPage implements OnInit {
                 private storage: Storage, private loadCtrl: LoadingController) {
     }
 
-    ngOnInit() {
-    }
-
     ionViewDidEnter() {
-        this.storage.get('Blacklist').then(value => {
-            if (value) {
-                this.Blacklist = value;
-            }
-        })
-    }
-
-    ionViewDidLoad() {
         this.logSer.visitLog('lt');
         this.forumLIst = [];
         this.conversationData = [];
         this.pageDate.pageIndex = 1;
         this.initData();
+
+        this.storage.get('Blacklist').then(value => {
+            if (value) {
+                this.Blacklist = value;
+            }
+        })
     }
 
     // 前往 评论列表
@@ -113,8 +108,8 @@ export class ForumPage implements OnInit {
 
     //修改排序方式 Type
     avtNav(text) {
-        if(text === "New") this.pageDate.OrderBy = "CreateTime";
-        if(text === "Hot") this.pageDate.OrderBy = "ViewCount";
+        if (text === "New") this.pageDate.OrderBy = "CreateTime";
+        if (text === "Hot") this.pageDate.OrderBy = "ViewCount";
         this.forumLIst = [];
         this.pageDate.Type = text;
         this.initData();
