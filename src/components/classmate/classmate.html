@@ -1,0 +1,34 @@
+<!-- Generated template for the ClassmateComponent component -->
+<div class="classmate">
+    <div class="userTotal">
+        <div>
+            <span><img src="./assets/imgs/home/studyTask/txzs.png"></span>
+            <div>
+                <p>同学总数</p>
+                <p>{{AnswerUserTotal}}</p>
+            </div>
+        </div>
+        <div>
+            <span><img src="./assets/imgs/home/studyTask/yxrs.png"></span>
+            <div>
+                <p>已学人数</p>
+                <p>{{ThenUserTotal}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="userList">
+        <div class="userItem" *ngFor="let item of List">
+            <span>
+                <img src="{{item.HeadPhoto || defaultHeadPhoto}}">
+            </span>
+            <div>
+                <p>{{item.UserName}}</p>
+                <p>{{item.Shop}}</p>
+            </div>
+        </div>
+    </div>
+    <ion-list text-center style="margin-top: 2rem"
+              *ngIf="List && List.length == 0">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" >
+    </ion-list>
+</div>
