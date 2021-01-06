@@ -42,11 +42,11 @@
     <dayily-school (daySchool)="goTo()"></dayily-school>
 
     <div class="competition-box">
+        <div class="competition-banner" tappable (click)="goStudyTask()">
+            <img src="./assets/imgs/home/xxrw.png" alt="学习任务">
+        </div>
         <div class="competition-banner" tappable (click)="goAdvancedLevel()">
             <img src="./assets/imgs/home/gwrz.png" alt="岗位认证">
-        </div>
-        <div class="competition-banner" tappable (click)="goToFWCompetition()">
-            <img src="./assets/imgs/home/fuwd@2x.png" alt="服务大赛">
         </div>
     </div>
 
@@ -120,15 +120,17 @@
                 </div>
             </ion-slide>
             <ion-slide>
-
                 <!--  新模块  -->
                 <div class="new-module" style="margin-top: 20px;height: 157px;align-items: flex-start;">
+                    <div tappable class="wow" (click)="goToFWCompetition()">
+                        <img style="width: 28px;" src="./assets/imgs/home/fwds.png" alt="">
+                        <p>服务大赛</p>
+                    </div>
                     <div tappable class=" wow" (click)="goJobLevel()">
                         <img style="width: 28px;" src="./assets/imgs/home/job-level@2x.png" alt="">
                         <p>系列课程</p>
                     </div>
                 </div>
-
             </ion-slide>
         </ion-slides>
     </div>

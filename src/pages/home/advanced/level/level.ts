@@ -526,7 +526,7 @@ export class AdvancedLevelPage {
         } else if (e.TeachTypeName == "内训") {
             this.navCtrl.push(InnerCoursePage, {id: e.Id});
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType, isLevel: true});
+            this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType, enterResource: "level"});
         }
     }
 

@@ -23,6 +23,7 @@ import {UserAgreementComponent} from './user-agreement/user-agreement';
 import {FloatVideoBoxComponent} from './float-video-box/float-video-box';
 import {DayilySchoolComponent} from './dayily-school/dayily-school';
 import {SubjectTreeComponent} from './subject-tree/subject-tree';
+import {ClassmateComponent} from './classmate/classmate';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {SubjectTreeComponent} from './subject-tree/subject-tree';
         FloatVideoBoxComponent,
         DayilySchoolComponent,
         SubjectTreeComponent,
+        ClassmateComponent,
     ],
     imports: [
         IonicPageModule,
@@ -79,6 +81,7 @@ import {SubjectTreeComponent} from './subject-tree/subject-tree';
         FloatVideoBoxComponent,
         DayilySchoolComponent,
         SubjectTreeComponent,
+        ClassmateComponent,
 
     ],
     providers: [
@@ -106,6 +109,7 @@ import {SubjectTreeComponent} from './subject-tree/subject-tree';
         FloatVideoBoxComponent,
         DayilySchoolComponent,
         SubjectTreeComponent,
+        ClassmateComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

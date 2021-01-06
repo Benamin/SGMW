@@ -31,6 +31,7 @@ import {LookTalkVideoExamPage} from "../look-talk-video-exam/look-talk-video-exa
 import {ExamTipPage} from "../exam-tip/exam-tip";
 import {ErrorExamPage} from "../../mine/error-exam/error-exam";
 import {Storage} from "@ionic/storage";
+import {HomeService} from "../../home/home.service";
 
 declare let Swiper: any;
 
@@ -41,6 +42,7 @@ declare let Swiper: any;
 export class CourseDetailPage {
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('TalkContent') TalkContent: ElementRef;
+    @ViewChild('ClassmateContent') ClassmateContent: ElementRef;
     @ViewChild('CourseIntroduction') CourseIntroduction: ElementRef;
     @ViewChild('ionSlidesDIV') ionSlidesDIV: ElementRef;
     @ViewChild('videojsCom') videojsCom: VideojsComponent;
@@ -92,6 +94,7 @@ export class CourseDetailPage {
 
     loading;
     bar = {
+        code: '',
         type: 1,
         show: false,
     };
@@ -124,7 +127,18 @@ export class CourseDetailPage {
 
     mySwiper;
 
-    isLevel = false;  //岗位认证课程进入
+    enterResource = "";  //岗位认证课程进入
+    classmate = {
+        PageIndex: 1,
+        PageSize: 10,
+        obj: {
+            List: [],
+            AnswerUserTotal: 0,
+            ThenUserTotal: 0,
+            isLoad: false
+        }
+    };  //我的同学列表
+    TaskId;  //学习任务ID；
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -132,19 +146,29 @@ export class CourseDetailPage {
                 private learnSer: LearnService,
                 private mineSer: MineService,
                 private storage: Storage,
+                private homeSer: HomeService,
                 public platform: Platform,
                 private changeDetectorRef: ChangeDetectorRef,
                 private global: GlobalData,
                 private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
+        this.TaskId = this.navParams.get('TaskId');
         this.StructureType = this.navParams.get('StructureType') || 1;
-        this.isLevel = this.navParams.get('isLevel') || false;
-        console.log('this.isLevel',this.isLevel)
+        this.enterResource = this.navParams.get('enterResource') || "";
+        console.log('this.enterResource', this.enterResource)
         if (this.StructureType == 1) {
             this.navbarList = this.oldNavbarList;
+            if (this.enterResource == "studyTask") {  //学习任务进入
+                this.navbarList.push({type: 6, name: '我的同学', code: 'classmate'},);
+            }
         } else {
             this.navbarList = this.newNavbarList;
+            if (this.enterResource == "studyTask") {  //学习任务进入
+                this.navbarList.push({type: 5, name: '我的同学', code: 'classmate'},);
+            }
         }
+
+
     }
 
     //仅进入初始化加载一次
@@ -157,6 +181,7 @@ export class CourseDetailPage {
         this.getRelationProduct();  //
         this.showFooter = true;
         this.showLoading();
+
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
@@ -165,6 +190,8 @@ export class CourseDetailPage {
 
                 this.getChapter();  //章节信息
                 this.getTeacher();   //讲师信息
+
+                this.GetClassmate();  //我的同学
                 //接受文件通知
                 this.getFileInfo();
                 setTimeout(() => {
@@ -298,6 +325,25 @@ export class CourseDetailPage {
                 this.relationList = res.data.ProductList;
             }
         );
+    }
+
+    //我的同学
+    GetClassmate() {
+        const data = {
+            "PageIndex": this.classmate.PageIndex,
+            "PageSize": this.classmate.PageSize,
+            "PRID": this.product.detail.PrId,
+            'TaskId': this.TaskId
+        }
+        this.homeSer.StudyPlanList(data).subscribe(
+            res => {
+                if (res.data) {
+                    this.classmate.obj.List = res.data.UserDetails;
+                    this.classmate.obj.AnswerUserTotal = res.data.AnswerUserTotal;
+                    this.classmate.obj.ThenUserTotal = res.data.ThenUserTotal;
+                }
+            }
+        )
     }
 
     /**
@@ -821,6 +867,7 @@ export class CourseDetailPage {
     changeType(item) {
         if (this.isLoad) {
             this.bar.type = item.type;
+            this.bar.code = item.code;
             this.mySwiper.slideTo(item.type - 1, 100);
         } else {
             this.commonSer.toast('数据加载中...')
@@ -900,25 +947,76 @@ export class CourseDetailPage {
         );
     }
 
+    //加载更多 ----我的同学
+    doInfiniteClassmate() {
+        if (this.classmate.obj.List.length + 1 > this.classmate.obj.AnswerUserTotal) {
+            this.commonSer.toast('没有更多同学了');
+            this.classmate.obj.isLoad = false;
+            return
+        }
+        this.classmate.PageIndex++;
+        const data = {
+            "PageIndex": this.classmate.PageIndex,
+            "PageSize": this.classmate.PageSize,
+            "PRID": this.product.detail.PrId,
+            'TaskId': this.TaskId
+        }
+        this.homeSer.StudyPlanList(data).subscribe(
+            res => {
+                if (res.data) {
+                    this.zone.run(() => {
+                        this.classmate.obj.List = [...this.classmate.obj.List, ...res.data.UserDetails]
+                    });
+                    console.log(this.classmate.obj.List);
+                    this.classmate.obj.AnswerUserTotal = res.data.AnswerUserTotal;
+                    this.classmate.obj.ThenUserTotal = res.data.ThenUserTotal;
+                    this.classmate.obj.isLoad = false;
+                }
+            }
+        )
+    }
+
     //监听讨论列表滚动
     listenerScroll() {
         const documentHeight = document.body.clientHeight;   //窗口高度
         // 256为banner区域高度  44 为ion-heider的高度
-        const talkHeight = documentHeight - 256 - 50 - 44;   //中间讨论区域可视高度
+        const viewHeight = documentHeight - 256 - 50 - 44;   //中间讨论区域可视高度
         this.content.ionScroll.subscribe(($event: any) => {
-            const TalkContentHeight = this.TalkContent.nativeElement.clientHeight - 40;  //讨论列表高度
-            if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
-                this.comment.talkLoad = false;
-                return
-            }
+            if (this.bar.code == "talk") {
+                const TalkContentHeight = this.TalkContent.nativeElement.clientHeight - 40;  //讨论列表高度
+                if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
+                    this.comment.talkLoad = false;
+                    return
+                }
 
-            if (this.comment.talkLoad) return
-            //给予50px高度的差异值
-            if ((TalkContentHeight - 50 < $event.scrollTop + talkHeight && $event.scrollTop + talkHeight < TalkContentHeight)
-                || ($event.scrollTop + talkHeight == TalkContentHeight)) {
-                console.log('加载更多');
-                this.doInfinite();
-                this.comment.talkLoad = true;
+                if (this.comment.talkLoad) return
+                //给予50px高度的差异值
+                if ((TalkContentHeight - 50 < $event.scrollTop + viewHeight && $event.scrollTop + viewHeight < TalkContentHeight)
+                    || ($event.scrollTop + viewHeight == TalkContentHeight)) {
+                    console.log('加载更多');
+                    this.doInfinite();
+                    this.comment.talkLoad = true;
+                }
+            }
+            if (this.bar.code == 'classmate') {
+                const ClassmateContentHeight = this.ClassmateContent.nativeElement.clientHeight - 40;  //讨论列表高度
+                console.log("ClassmateContentHeight",ClassmateContentHeight);
+                console.log("$event.scrollTop + viewHeight",$event.scrollTop + viewHeight);
+                if (this.classmate.obj.List.length + 1 > this.classmate.obj.AnswerUserTotal) {
+                    console.log("1");
+                    this.classmate.obj.isLoad = false;
+                    return
+                }
+                console.log("2");
+                if (this.classmate.obj.isLoad) return
+                console.log("3");
+                //给予50px高度的差异值
+                if ((ClassmateContentHeight - 50 < $event.scrollTop + viewHeight && $event.scrollTop + viewHeight < ClassmateContentHeight)
+                    || ($event.scrollTop + viewHeight == ClassmateContentHeight)) {
+                    console.log("4");
+                    this.classmate.obj.isLoad = true;
+                    this.doInfiniteClassmate();
+                }
             }
         });
     }

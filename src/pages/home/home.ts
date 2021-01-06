@@ -46,6 +46,7 @@ import {CompetitionFWPage} from "./fw-competition/lists/lists";
 import {MyShortVideoBoxPage} from "../mine/my-short-video-box/my-short-video-box";
 import {GetRequestService} from "../../secret/getRequest.service";
 import {RoleModalPage} from "./role-modal/role-modal";
+import {StudyTaskPage} from "./study-task/study-task";
 
 @Component({
     selector: 'page-home',
@@ -523,6 +524,11 @@ export class HomePage implements OnInit {
         )
 
         // this.navCtrl.push(AdvancedLevelPage);
+    }
+
+    //前往学习任务
+    goStudyTask() {
+        this.navCtrl.push(StudyTaskPage);
     }
 
     // 获取热门帖子

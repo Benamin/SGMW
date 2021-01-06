@@ -1,10 +1,10 @@
 // export let env = 'localhost';
-// export let env = 'dev';
+export let env = 'dev';
 // export let env = 'uat';
-export let env = 'prod';
+// export let env = 'prod';
 
-// let keyEnv = 'dev';
-let keyEnv = 'prod';
+let keyEnv = 'dev';
+// let keyEnv = 'prod';
 
 
 
@@ -118,8 +118,8 @@ export const FWZS_client_id = '5729E3DD-4DD9-4132-9365-016E6FE676E1';
 
 
 /*****系统部分配置******/
-export const defaultImg = './assets/imgs/default.jpg';
-export const defaultHeadPhoto = './assets/imgs/userDefault.jpg';
+export const defaultImg = './assets/imgs/default.jpg';  //默认课程图片
+export const defaultHeadPhoto = './assets/imgs/userDefault.jpg';  //默认用户头像
 
 export const pageSize = 10;
 export const LastVersion = '2.1.2';

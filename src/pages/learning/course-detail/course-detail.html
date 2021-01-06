@@ -15,7 +15,7 @@
                     <div class="course-name">
                         {{product.detail?.Title}}
                     </div>
-                    <div class="course-button" *ngIf="product.detail?.IsAuth || isLevel">
+                    <div class="course-button" *ngIf="product.detail?.IsAuth || enterResource == 'level'">
                         <div [ngClass]="{'disableBtn':disableBtn.signBtnDisable}" tappable
                              *ngIf="!product.detail?.IsBuy" (click)="sign()">
                             立即报名
@@ -156,6 +156,18 @@
                     <div class="item" style="margin-bottom: 5rem">
                         <p>相关推荐</p>
                         <course-list [list]="relationList" (done)="goCourse($event)"></course-list>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--我的同学-->
+                    <div #ClassmateContent class="item" style="margin-bottom: .5rem">
+                        <classmate [List]="classmate.obj.List"
+                                   [ThenUserTotal]=classmate.obj.ThenUserTotal
+                                   [AnswerUserTotal]=classmate.obj.AnswerUserTotal></classmate>
+                        <div *ngIf="classmate.obj.isLoad" class="loading-classmate-spinner">
+                            <ion-spinner icon="spiral"></ion-spinner>
+                            正在加载
+                        </div>
                     </div>
                 </div>
             </div>

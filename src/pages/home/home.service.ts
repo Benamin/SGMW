@@ -251,7 +251,7 @@ export class HomeService {
     SelectExamByStu(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/exam/SelectExamByStu', data);
     }
-    
+
 
     //刷题考试回顾
     GetOldExamDetailByStu(data): Observable<any> {
@@ -277,11 +277,11 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/EApprove/InitializeLevel', data);
     }
 
-    // 更改已选定的认证流程 
+    // 更改已选定的认证流程
     UpdateInitializeLevel(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EApprove/UpdateInitializeLevel', data);
     }
-    
+
     // 获取所有认证进阶流程 角色类型
     GetRoleByPCode(data): Observable<any> {
         return this.http.get(SERVER_API_URL + '/Dictionary/GetDictionaryByPCode' + this.dataFormat.toQuery(data));
@@ -309,8 +309,24 @@ export class HomeService {
     QueryKpiInformation(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EApprove/QueryKpiInformation', data);
     }
+
     LevelRemake(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EApprove/LevelRemake', data);
     }
 
+    /**学习任务**/
+    //可选任务时间列表
+    TaskPlanTime(): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppStudyTask/TaskPlanTime', null);
+    }
+
+    //根据月份查询学习任务
+    StudyTaskList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppStudyTask/StudyTaskList', data);
+    }
+
+    //根据课程查询我的同学
+    StudyPlanList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppStudyTask/StudyPlanList', data);
+    }
 }
