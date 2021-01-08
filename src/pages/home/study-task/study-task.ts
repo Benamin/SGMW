@@ -115,10 +115,20 @@ export class StudyTaskPage {
         this.myDate = e;
         this.dateText = `${year}年${month}月`
         this.getStudyTask();
+
     }
 
     //千万课程
     getItem(item) {
+        const date = new Date();
+        const nowMonth = date.getMonth() + 1;
+        const month = new Date(this.myDate).getMonth() + 1;
+        if (nowMonth !== month) {
+            this.commonSer.alert('只能学习当月课程');
+            return;
+        }
+
+
         if (item.StudyStatus == 3) {
             this.commonSer.alert('课程未上架')
             return

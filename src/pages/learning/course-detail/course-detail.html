@@ -69,8 +69,8 @@
         </div>
         <div class="process">
             <div class="out-process">
-                <span>学习进度:{{product.detail?.overpercentage || '0'}}%</span>
-                <div class="inner-process" [style.width]="product.detail?.overpercentage + '%'">
+                <span id="textProcess"></span>
+                <div id="innerProcess" class="inner-process" [style.width]="overpercentage + '%'">
                 </div>
             </div>
         </div>
@@ -121,7 +121,8 @@
                     <!--      讨论      -->
                     <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
                         <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论</p>
-                        <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
+                        <page-comment-list
+                                [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
                         <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
                             <ion-spinner icon="spiral"></ion-spinner>
                             正在加载

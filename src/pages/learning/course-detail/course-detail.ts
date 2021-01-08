@@ -140,6 +140,7 @@ export class CourseDetailPage {
     };  //我的同学列表
     TaskId;  //学习任务ID；
 
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
@@ -155,7 +156,6 @@ export class CourseDetailPage {
         this.TaskId = this.navParams.get('TaskId');
         this.StructureType = this.navParams.get('StructureType') || 1;
         this.enterResource = this.navParams.get('enterResource') || "";
-        console.log('this.enterResource', this.enterResource)
         if (this.StructureType == 1) {
             this.navbarList = this.oldNavbarList;
             if (this.enterResource == "studyTask") {  //学习任务进入
@@ -185,6 +185,12 @@ export class CourseDetailPage {
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
+
+                //进度更新
+                const overpercentage = res.data.overpercentage;
+                document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
+                document.getElementById('innerProcess').style.width = `${overpercentage}%`;
+
                 this.global.PostsCertID = res.data.PostCertificationID;
                 this.SortType = res.data.SortType;
 
@@ -284,13 +290,17 @@ export class CourseDetailPage {
             if (value.type == 'videoPlayEnd') {
                 if (!this.global.subscribeDone) {
                     this.global.subscribeDone = true;
-                    this.getCourseDetail('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                    setTimeout(() => {
+                        this.getCourseDetail('video');   //视频播放完，更新视频学习进度 并前往判断是否应该打开作业
+                    }, 500)
                 }
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
                 if (!this.global.subscribeDone) {
                     this.global.subscribeDone = true;
-                    this.getCourseDetail('Document');
+                    setTimeout(() => {
+                        this.getCourseDetail('Document');
+                    }, 500)
                 }
             }
             if (value.type == 'iframe') {  //iframe
@@ -602,7 +612,9 @@ export class CourseDetailPage {
         this.learSer.BuyProduct(data).subscribe(
             (res) => {
                 this.disableBtn.signBtnDisable = false;
-                this.getCourseDetail();
+                setTimeout(() => {
+                    this.getCourseDetail();
+                }, 100)
                 this.initStudy();
                 this.studyNow();
             }
@@ -630,13 +642,18 @@ export class CourseDetailPage {
             (res) => {
                 this.dismissLoading();
                 this.global.PostsCertID = res.data.PostCertificationID;
+
+                //页面不更新进度 强制更新
+                this.product.detail = res.data;
+                const overpercentage = res.data.overpercentage;
+                document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
+                document.getElementById('innerProcess').style.width = `${overpercentage}%`;
+
                 if (type == "video" || type == "Document") {
                     this.getChapter(type);   //查询课程目录
                 }
-                //页面不更新进度 强制更新
-                this.zone.run(() => {
-                    this.product.detail = res.data;
-                })
+
+
                 this.dismissLoading();
             }
         );
@@ -1000,8 +1017,8 @@ export class CourseDetailPage {
             }
             if (this.bar.code == 'classmate') {
                 const ClassmateContentHeight = this.ClassmateContent.nativeElement.clientHeight - 40;  //讨论列表高度
-                console.log("ClassmateContentHeight",ClassmateContentHeight);
-                console.log("$event.scrollTop + viewHeight",$event.scrollTop + viewHeight);
+                console.log("ClassmateContentHeight", ClassmateContentHeight);
+                console.log("$event.scrollTop + viewHeight", $event.scrollTop + viewHeight);
                 if (this.classmate.obj.List.length + 1 > this.classmate.obj.AnswerUserTotal) {
                     console.log("1");
                     this.classmate.obj.isLoad = false;
