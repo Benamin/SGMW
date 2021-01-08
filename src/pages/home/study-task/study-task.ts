@@ -4,6 +4,7 @@ import {HomeService} from "../home.service";
 import {Storage} from "@ionic/storage";
 import {defaultImg} from "../../../app/app.constants";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
+import {CommonService} from "../../../core/common.service";
 
 @Component({
     selector: 'page-study-task',
@@ -21,11 +22,18 @@ export class StudyTaskPage {
     isLoad = false;
     myDate;
     dateText;
+    page = {
+        PageIndex: 1,
+        PageSize: 10,
+        TotalCount: 0
+    }
 
     width = 0;
 
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private storage: Storage,
+                private commonSer: CommonService,
                 private loadCtrl: LoadingController,
                 private homeSer: HomeService) {
         const date = new Date();
@@ -33,7 +41,7 @@ export class StudyTaskPage {
         this.dateText = `${date.getFullYear()}年${date.getMonth() + 1}月`
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.storage.get('user').then(value => {
             if (value) {
                 this.mineInfo = value;
@@ -48,16 +56,13 @@ export class StudyTaskPage {
 
     getStudyTask() {
         this.isLoad = true;
-        const load = this.loadCtrl.create(
-            {
-                content: "加载中..."
-            }
-        );
+        const load = this.loadCtrl.create({content: "加载中..."});
         load.present();
-        console.log(`this.mydate:${this.myDate}`);
         const year = new Date(this.myDate).getFullYear();
         const month = new Date(this.myDate).getMonth() + 1;
         const data = {
+            "PageIndex": this.page.PageIndex,
+            "PageSize": this.page.PageSize,
             "Year": year,
             "Month": month
         }
@@ -67,12 +72,38 @@ export class StudyTaskPage {
                 this.isLoad = false;
                 if (res.data) {
                     this.obj = res.data;
+                    this.page.TotalCount = res.data.TotalCount;
                     if (this.obj.NowCredit > 0 && this.obj.AllCredit > 0) {
                         this.width = (this.obj.NowCredit / this.obj.AllCredit) * 100;
                     } else {
                         this.width = 0;
                     }
                 }
+            }
+        )
+    }
+
+    doInfinite(e) {
+        if (this.obj.ProductDetails.length == this.page.TotalCount || this.obj.ProductDetails.length > this.page.TotalCount) {
+            e.complete();
+            return;
+        }
+        this.isLoad = true;
+        const year = new Date(this.myDate).getFullYear();
+        const month = new Date(this.myDate).getMonth() + 1;
+        this.page.PageIndex++;
+        const data = {
+            "PageIndex": this.page.PageIndex,
+            "PageSize": this.page.PageSize,
+            "Year": year,
+            "Month": month
+        };
+        this.homeSer.StudyTaskList(data).subscribe(
+            (res) => {
+                this.obj.ProductDetails = this.obj.ProductDetails.concat(res.data.ProductDetails);
+                this.page.TotalCount = res.data.TotalCount;
+                this.isLoad = true;
+                e.complete();
             }
         )
     }
@@ -88,6 +119,10 @@ export class StudyTaskPage {
 
     //千万课程
     getItem(item) {
+        if (item.StudyStatus == 3) {
+            this.commonSer.alert('课程未上架')
+            return
+        }
         this.navCtrl.push(CourseDetailPage, {
             id: item.Pid,
             TaskId: item.TaskId,

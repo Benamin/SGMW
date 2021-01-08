@@ -18,7 +18,7 @@
 <ion-content>
     <div class="bg-black">
         <div class="score-line">
-            <p>学分获取情况</p>
+            <p>当月学分获取情况</p>
             <div class="process">
                 <div class="out-process">
                     <div class="inner-process" [style.width]="width + '%'">
@@ -48,7 +48,7 @@
     </div>
     <div class="course-list">
         <ng-container *ngFor="let item of obj.ProductDetails">
-            <div class="course-item" tappable (click)="getItem(item)">
+            <div class="course-item" [ngClass]="{'cover':item.StudyStatus == 3}" tappable (click)="getItem(item)">
                 <div class="item-img">
                     <img [src]="item?.ImageUrl || defaultImg">
                 </div>
@@ -72,4 +72,11 @@
             暂无学习任务
         </p>
     </ion-list>
+    <ion-infinite-scroll *ngIf="this.page.TotalCount > this.obj.ProductDetails.length"
+                         (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <p class="list-footer-page"
+       *ngIf="this.page.TotalCount == this.obj.ProductDetails.length && this.page.TotalCount > 5">
+        没有更多了~~~</p>
 </ion-content>
