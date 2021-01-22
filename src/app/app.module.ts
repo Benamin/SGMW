@@ -63,6 +63,8 @@ import {MediaCapture} from '@ionic-native/media-capture';
 import {ShortVideoProvider} from '../providers/short-video/short-video';
 import {ChooseImageProvider} from '../providers/choose-image/choose-image';
 import {DocumentViewer} from '@ionic-native/document-viewer';
+import {IntegralPageModule} from "../pages/integral/integral.module";
+import {IntegralService} from "../pages/integral/integral.service";
 
 @NgModule({
     declarations: [
@@ -77,6 +79,7 @@ import {DocumentViewer} from '@ionic-native/document-viewer';
         LearningPageModule,
         CoursePageModule,
         HomeModule,
+        IntegralPageModule,
         IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
                 tabsHideOnSubPages: 'true',
@@ -127,6 +130,7 @@ import {DocumentViewer} from '@ionic-native/document-viewer';
             CommonService,
             LearnService,
             MineService,
+            IntegralService,
             HTTP,
             AppService,
             DataFormatService,

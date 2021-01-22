@@ -22,6 +22,7 @@ import {CourseTypePage} from "../learning/course-type/course-type";
 import {ExamTipPage} from "../learning/exam-tip/exam-tip";
 import {TalkExamPage} from "../learning/talk-exam/talk-exam";
 import {PostsContentComponent} from "../forum/posts-content/posts-content.component";
+import {IntegralPage} from "../integral/integral";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -66,11 +67,18 @@ export class TabsPage {
             index: 4
         },
         {
+            root: IntegralPage,
+            tabTitle: '积分',
+            tabIconOn: 'custom-video-on',
+            tabIconOff: 'custom-video-off',
+            index: 5
+        },
+        {
             root: MinePage,
             tabTitle: '个人中心',
             tabIconOn: 'custom-mine-on',
             tabIconOff: 'custom-mine-off',
-            index: 5
+            index: 6
         },
     ];
 

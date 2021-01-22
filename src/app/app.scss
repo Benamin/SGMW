@@ -130,11 +130,39 @@ html, body, p {
   }
 }
 
-.mineAlert .alert-message{
+.mineAlert .alert-message {
   text-align: left !important;
 }
-.amp-default-skin .vjs-loading-spinner::before{content:url("assets/icons/buffering-rainbow.gif")}
 
-.amp-logo{
+.amp-default-skin .vjs-loading-spinner::before {
+  content: url("assets/icons/buffering-rainbow.gif")
+}
+
+.amp-logo {
   display: none !important;
+}
+
+.total-integral {
+  display: flex;
+  line-height: 3rem;
+  background-image: url('../assets/imgs/integral/jifen_banner.png');
+  background-size: cover;
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  font-size: 1.8rem;
+
+  .left {
+    span:first-child {
+      color: #ffffff;
+    }
+
+    span:last-child {
+      color: #FFC92D;
+    }
+  }
+
+  .right {
+    margin-left: auto;
+    color: #ffffff;
+  }
 }

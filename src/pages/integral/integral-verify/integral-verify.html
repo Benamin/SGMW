@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>积分审核</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新"
+                               refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="item" *ngFor="let item of list">
+        <div class="left">
+            <p>{{item.Title}}</p>
+            <p>获取积分：{{item.RewardCredit}}</p>
+            <p>审核时间：{{item.RewardTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+        </div>
+        <div class="right">
+            {{item.IsEssencePost ? '审核通过' : '审核中'}}
+        </div>
+    </div>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="list.length == 0 && page.isLoading">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无审核记录
+        </p>
+    </ion-list>
+    <ion-infinite-scroll *ngIf="this.page.TotalCount > this.list.length" (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <p class="list-footer-page"
+       *ngIf="page.isLoading && this.page.TotalCount == this.list.length && this.page.TotalCount > 5">
+        没有更多了~~~</p>
+</ion-content>

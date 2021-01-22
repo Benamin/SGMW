@@ -19,12 +19,11 @@
         placeholder="请输入标题">
     </div>
     <div style="height: 10px;width: 100%; background: #f2f2f2;">
-
     </div>
     <div class="textarea-div" [ngStyle]="{'height':focusAmeR?textareaHeight:'calc(100% - 130px)'}">
       <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true"
         (keydown)="selectionStart($event)" (blur)="blurSelectionStart($event);focusAmeR=false;" (focus)="htmlTextDle();focusAmeR=true;">
-        <span style="color: rgb(134, 134, 134)" class="placeholder-text">请输入正文</span> 
+        <span style="color: rgb(134, 134, 134)" class="placeholder-text">请输入正文</span>
       </div>
     </div>
   </div>
@@ -41,7 +40,7 @@
         <img src="{{item.src}}" alt="">
         <p>{{item.alt}}</p>
       </div>
-    
+
     </div>
     <input type="file" id="pic_selector" (change)="uploadFile($event)" accept="image/*" multiple />
     <div class="bun-buttom">
@@ -81,6 +80,14 @@
         </span>
         <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
       </div>
+      <div class="plate-li">
+        <span class="plate-li-name">
+          申请精华帖
+        </span>
+        <span class="plate-li-name" >
+          <ion-checkbox class="checkbox-btn" [(ngModel)]="ApplyEssence"></ion-checkbox>
+        </span>
+      </div>
     </div>
   </div>
 </ion-footer>
@@ -111,6 +118,8 @@
     </div>
   </div>
 </div>
+
+<!--弹窗-->
 <div class="choice-plate" *ngIf="choicePlateShow" >
   <div class="choice-plate-box" >
     <div class="choice-plate-top">
@@ -129,7 +138,6 @@
     bottom: 0;">
       <div class="but-list" (click)="SelectionChoicePlate(plateType)" style="border-bottom: 1px solid #f3f3f3;">确定</div>
       <div class="but-list" (click)="choicePlateShow=false">取消</div>
-  
     </div>
   </div>
 

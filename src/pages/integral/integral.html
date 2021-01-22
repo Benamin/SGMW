@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>积分</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="total-integral" (click)="GoList()">
+        <div class="left">
+            <span>总积分</span>
+            <span>{{obj?.TotalCredit}}</span>
+        </div>
+        <div class="right">
+            <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+    </div>
+    <div class="task-type">
+        <div class="daily" [ngClass]="{'checked':type == 'daily'}" (click)="type = 'daily'">日常任务</div>
+        <div class="advance" [ngClass]="{'checked':type == 'advance'}" (click)="type = 'advance'">进阶任务</div>
+    </div>
+    <div *ngIf="type === 'daily'" class="daily-task">
+        <p>今日获取123分</p>
+        <div class="daily-item">
+            <div class="left">
+                <p>每日登录</p>
+                <p>1分/每日登录</p>
+                <p>已获得{{obj?.DailyCheck === true ? '1' : '0'}}分/每日上线1分</p>
+            </div>
+            <div class="right" (click)="DailyCheck()">
+                <span>签到</span>
+            </div>
+        </div>
+        <div class="daily-item">
+            <div class="left">
+                <p>每日学习</p>
+                <p>每日完成1门课程</p>
+                <p>课程已获{{obj?.GetNowDay}}分/每日上限8分</p>
+            </div>
+            <div class="right" (click)="gotoListAll()">
+                <span>去学习</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="type === 'advance'" class="advance-task">
+        <div class="top">
+            <div class="left">
+                <p>论坛精华帖</p>
+                <p>要求:字数 > 200字，且带有图片</p>
+                <p>10～20分/帖子</p>
+            </div>
+            <div class="right" (click)="PostAddComponent()">
+                <span>去申请</span>
+            </div>
+        </div>
+        <div class="bottom" (click)="GoToVerity()">
+            <div class="left">提交优秀案例，审核通过后给予积分</div>
+            <div class="right">查看审核进度
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
+        </div>
+    </div>
+</ion-content>

@@ -3,8 +3,8 @@ export let env = 'localhost';
 // export let env = 'uat';
 // export let env = 'prod';
 
-let keyEnv = 'dev';
-// let keyEnv = 'prod';
+// let keyEnv = 'dev';
+let keyEnv = 'prod';
 
 
 
@@ -118,7 +118,7 @@ export const FWZS_client_id = '5729E3DD-4DD9-4132-9365-016E6FE676E1';
 
 
 /*****系统部分配置******/
-export const defaultImg = './assets/imgs/default.jpg';  //默认课程图片
+export const defaultImg = './assets/imgs/default.png';  //默认课程图片
 export const defaultHeadPhoto = './assets/imgs/userDefault.jpg';  //默认用户头像
 
 export const pageSize = 10;

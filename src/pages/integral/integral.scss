@@ -1,0 +1,107 @@
+page-integral {
+
+  .task-type {
+    display: flex;
+    width: 100%;
+    height: 3.3rem;
+    line-height: 3.3rem;
+    background: rgba(153, 153, 153, .2);
+    border-radius: 19px;
+    margin-bottom: 10px;
+
+    > div {
+      width: 50%;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .checked {
+      background: linear-gradient(242deg, #FFF7CB 0%, #FFC92D 100%);
+    }
+  }
+
+  .daily-task {
+    > p {
+      margin-bottom: 10px;
+    }
+
+    .daily-item {
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 3px;
+      box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
+      opacity: 0.99;
+      display: flex;
+
+      .left {
+        width: 70%;
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30%;
+
+        span {
+          background: linear-gradient(216deg, #FFF7CB 0%, #FFC92D 100%);
+          box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
+          border-radius: 18px;
+          opacity: 0.99;
+          width: 10rem;
+          height: 3rem;
+          text-align: center;
+          line-height: 3rem;
+        }
+      }
+    }
+
+    .daily-item + .daily-item {
+      margin-top: 10px;
+    }
+  }
+
+  .advance-task {
+    background-color: #fafafa;
+    padding: 10px;
+    border-radius: 8px;
+
+    .top {
+      display: flex;
+      margin-bottom: 1rem;
+
+      .right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 12rem;
+
+        span {
+          text-align: center;
+          width: 10rem;
+          height: 3rem;
+          line-height: 3rem;
+          background: linear-gradient(216deg, #FFF7CB 0%, #FFC92D 100%);
+          box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
+          border-radius: 18px;
+          opacity: 0.99;
+        }
+      }
+    }
+
+    .bottom {
+      font-size: 1rem;
+      padding-top: 1rem;
+      display: flex;
+      border-top: 1px solid #dddddd;
+
+      .left {
+        width: 70%;
+      }
+
+      .right {
+        width: 30%;
+      }
+    }
+  }
+}
