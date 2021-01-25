@@ -1,0 +1,19 @@
+<div class="icon-plus share-modal" (click)="closeModal()">
+  <div class="isShare">
+    <p>选择要分享到的平台</p>
+    <div class="platforms">
+      <div (click)="shareWX('wx')" class="platform">
+        <p>
+          <img src="./assets/imgs/wx.png">
+        </p>
+        <p>微信</p>
+      </div>
+      <div (click)="shareWX('pyq')" class="platform">
+        <p>
+          <img src="./assets/imgs/wxpyq.png">
+        </p>
+        <p>微信朋友圈</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,11 +7,13 @@ ion-icon {
     width: $sz;
     height: $sz;
   }
+
   // custom icons
   &[class*="home-on"] {
     background: url(../assets/imgs/tabs/tab1_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
+
   &[class*="home-off"] {
     background: url(../assets/imgs/tabs/tab1_off.png) no-repeat 50% 50%;
     background-size: contain;
@@ -21,6 +23,7 @@ ion-icon {
     background: url(../assets/imgs/tabs/tab2_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
+
   &[class*="discover-off"] {
     background: url(../assets/imgs/tabs/tab2_off.png) no-repeat 50% 50%;
     background-size: contain;
@@ -30,14 +33,17 @@ ion-icon {
     background: url(../assets/imgs/tabs/tab3_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
+
   &[class*="serve-off"] {
     background: url(../assets/imgs/tabs/tab3_off.png) no-repeat 50% 50%;
     background-size: contain;
   }
+
   &[class*="mine-on"] {
     background: url(../assets/imgs/tabs/tab4_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
+
   &[class*="mine-off"] {
     background: url(../assets/imgs/tabs/tab4_off.png) no-repeat 50% 50%;
     background-size: contain;
@@ -47,6 +53,7 @@ ion-icon {
     background: url(../assets/imgs/tabs/tab5_off.png) no-repeat 50% 50%;
     background-size: contain;
   }
+
   &[class*="forum-on"] {
     background: url(../assets/imgs/tabs/tab5_on.png) no-repeat 50% 50%;
     background-size: contain;
@@ -56,8 +63,19 @@ ion-icon {
     background: url(../assets/imgs/tabs/shiping_w@2x.png) no-repeat 50% 50%;
     background-size: contain;
   }
+
   &[class*="video-on"] {
     background: url(../assets/imgs/tabs/shiping@2x.png) no-repeat 50% 50%;
+    background-size: contain;
+  }
+
+  &[class*="integral-off"] {
+    background: url(../assets/imgs/tabs/tab6_off.png) no-repeat 50% 50%;
+    background-size: contain;
+  }
+
+  &[class*="integral-on"] {
+    background: url(../assets/imgs/tabs/tab6_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
@@ -70,6 +88,4 @@ ion-icon {
   }
 
 
-
-  
 }

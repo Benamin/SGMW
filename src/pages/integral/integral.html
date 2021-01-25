@@ -8,7 +8,7 @@
     <div class="total-integral" (click)="GoList()">
         <div class="left">
             <span>总积分</span>
-            <span>{{obj?.TotalCredit}}</span>
+            <span>{{obj?.TotalCredit || '0'}}</span>
         </div>
         <div class="right">
             <ion-icon name="arrow-forward"></ion-icon>
@@ -19,25 +19,36 @@
         <div class="advance" [ngClass]="{'checked':type == 'advance'}" (click)="type = 'advance'">进阶任务</div>
     </div>
     <div *ngIf="type === 'daily'" class="daily-task">
-        <p>今日获取123分</p>
+        <p>今日获取{{dayObj?.message || 0}}分</p>
         <div class="daily-item">
             <div class="left">
                 <p>每日登录</p>
                 <p>1分/每日登录</p>
                 <p>已获得{{obj?.DailyCheck === true ? '1' : '0'}}分/每日上线1分</p>
             </div>
-            <div class="right" (click)="DailyCheck()">
-                <span>签到</span>
+            <div class="right">
+                <span class="check-done" *ngIf="obj?.DailyCheck">已签到
+                    <img src="./assets/imgs/course/yiwancheng.png">
+                </span>
+                <span (click)="DailyCheck()" *ngIf="!obj?.DailyCheck">签到</span>
+            </div>
+            <div class="bottom-process">
+                <div [ngStyle]="{'width':obj?.DailyCheck?'100%':'0%'}" class="inner"></div>
             </div>
         </div>
         <div class="daily-item">
             <div class="left">
                 <p>每日学习</p>
                 <p>每日完成1门课程</p>
-                <p>课程已获{{obj?.GetNowDay}}分/每日上限8分</p>
+                <p>课程已获{{obj?.GetNowDay || 0}}分/每日上限{{obj?.NowDayUpperLimit || 0}}分</p>
             </div>
             <div class="right" (click)="gotoListAll()">
                 <span>去学习</span>
+            </div>
+            <div class="bottom-process">
+                <div *ngIf="obj?.GetNowDay > 0"
+                     [ngStyle]="{'width': ((obj?.GetNowDay / obj?.NowDayUpperLimit) *100) + '%' }" class="inner"></div>
+                <div *ngIf="obj?.GetNowDay == 0" style="width: 0%" class="inner"></div>
             </div>
         </div>
     </div>

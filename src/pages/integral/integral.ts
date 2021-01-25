@@ -5,6 +5,7 @@ import {PostAddComponent} from "../forum/post-add/post-add.component";
 import {IntegralListPage} from "./integral-list/integral-list";
 import {LearningPage} from "../learning/learning";
 import {IntegralVerifyPage} from "./integral-verify/integral-verify";
+import {CommonService} from "../../core/common.service";
 
 
 @IonicPage()
@@ -16,12 +17,19 @@ export class IntegralPage {
 
     type = "daily"; //daily 日常  advance 进阶
     obj = {};
+    isDailyCheck = false;
+    dayObj = {};
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                public inteSer: IntegralService) {
+                public inteSer: IntegralService, private commonSer: CommonService) {
     }
 
     ionViewDidLoad() {
+        this.init();
+    }
+
+    //积分信息
+    init() {
         this.inteSer.GetNowDayStatusIntegralDetail().subscribe(
             res => {
                 if (res.data) {
@@ -29,13 +37,26 @@ export class IntegralPage {
                 }
             }
         )
+        this.inteSer.NowDateGetIntegral().subscribe(
+            res => {
+                this.dayObj = res;
+            }
+        )
     }
 
     //每日签到
     DailyCheck() {
+        if (this.isDailyCheck) return
+        this.isDailyCheck = true;
         this.inteSer.DailyCheck().subscribe(
             res => {
-
+                this.init();
+                this.isDailyCheck = false;
+                if (res.data) {
+                    this.commonSer.alert('签到成功');
+                } else {
+                    this.commonSer.alert(res.message);
+                }
             }
         )
     }

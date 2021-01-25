@@ -1,6 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {PCURL} from "../../app/app.constants";
 import {CommonService} from "../../core/common.service";
+import {ModalController} from "ionic-angular";
+import {ShareWxComponent} from "../share-wx/share-wx";
 
 declare var Wechat;
 
@@ -15,7 +17,7 @@ export class ForumListTimeComponent implements OnInit {
     @Input() item;
     @Input() itemIndex;
 
-    constructor(public commonSer: CommonService) {
+    constructor(public commonSer: CommonService, private modalCtrl: ModalController) {
     }
 
     ngOnInit() {
@@ -40,6 +42,13 @@ export class ForumListTimeComponent implements OnInit {
             webpageUrl: `${pcUrl}bbsdetails/${data.Id}`
         }
 
-        this.commonSer.weChatShare(obj)
+        let modal = this.modalCtrl.create(ShareWxComponent);
+        modal.onDidDismiss(res => {
+            // if (res) {
+                console.log(res);
+            // }
+        })
+        modal.present();
+        // this.commonSer.weChatShare(obj)
     }
 }

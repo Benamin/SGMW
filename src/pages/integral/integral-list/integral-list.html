@@ -16,7 +16,8 @@
             <p>{{item.OprateTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
         </div>
         <div class="right">
-            +{{item.Credit}}
+            <ng-container *ngIf="!item.Credit.includes('-')">+</ng-container>
+            {{item.Credit}}
         </div>
     </div>
     <ion-list text-center style="margin-top: 10rem" *ngIf="list.length == 0 && page.isLoading">

@@ -69,8 +69,8 @@ export class TabsPage {
         {
             root: IntegralPage,
             tabTitle: '积分',
-            tabIconOn: 'custom-video-on',
-            tabIconOff: 'custom-video-off',
+            tabIconOn: 'custom-integral-on',
+            tabIconOff: 'custom-integral-off',
             index: 5
         },
         {

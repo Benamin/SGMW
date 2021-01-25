@@ -24,6 +24,7 @@ import {FloatVideoBoxComponent} from './float-video-box/float-video-box';
 import {DayilySchoolComponent} from './dayily-school/dayily-school';
 import {SubjectTreeComponent} from './subject-tree/subject-tree';
 import {ClassmateComponent} from './classmate/classmate';
+import {ShareWxComponent} from './share-wx/share-wx';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {ClassmateComponent} from './classmate/classmate';
         DayilySchoolComponent,
         SubjectTreeComponent,
         ClassmateComponent,
+        ShareWxComponent,
     ],
     imports: [
         IonicPageModule,
@@ -82,6 +84,7 @@ import {ClassmateComponent} from './classmate/classmate';
         DayilySchoolComponent,
         SubjectTreeComponent,
         ClassmateComponent,
+        ShareWxComponent,
 
     ],
     providers: [
@@ -110,6 +113,7 @@ import {ClassmateComponent} from './classmate/classmate';
         DayilySchoolComponent,
         SubjectTreeComponent,
         ClassmateComponent,
+        ShareWxComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

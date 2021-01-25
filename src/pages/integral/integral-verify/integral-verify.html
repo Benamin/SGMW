@@ -13,8 +13,13 @@
     <div class="item" *ngFor="let item of list">
         <div class="left">
             <p>{{item.Title}}</p>
-            <p>获取积分：{{item.RewardCredit}}</p>
-            <p>审核时间：{{item.RewardTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+            <ng-container *ngIf="!item.IsEssencePost">
+                <p>提交时间：{{item.PostTimeFormatted | date:'yyyy-MM-dd HH:mm'}}</p>
+            </ng-container>
+            <ng-container *ngIf="item.IsEssencePost">
+                <p>获取积分：{{item.RewardCredit}}</p>
+                <p>审核时间：{{item.RewardTime | date:'yyyy-MM-dd HH:mm'}}</p>
+            </ng-container>
         </div>
         <div class="right">
             {{item.IsEssencePost ? '审核通过' : '审核中'}}

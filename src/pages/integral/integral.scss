@@ -27,14 +27,31 @@ page-integral {
 
     .daily-item {
       background-color: #fff;
-      padding: 10px;
-      border-radius: 3px;
+      padding: 15px;
+      border-radius: 5px;
       box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
       opacity: 0.99;
       display: flex;
+      position: relative;
+      padding-bottom: 25px;
 
       .left {
         width: 70%;
+
+        p:first-child {
+          font-weight: bolder;
+          margin-bottom: 5px;
+          font-size: 1.6rem;
+        }
+
+        p:nth-child(2) {
+          margin-bottom: 5px;
+        }
+
+        p:last-child {
+          color: #666666;
+          letter-spacing: 1px;
+        }
       }
 
       .right {
@@ -52,6 +69,38 @@ page-integral {
           height: 3rem;
           text-align: center;
           line-height: 3rem;
+          font-weight: bolder;
+        }
+
+        span.check-done {
+          background: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: none;
+          color: #25be48;
+
+          img {
+            width: 1.5rem;
+            margin-left: 5px;
+          }
+        }
+      }
+
+      .bottom-process {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 10px;
+        width: 100%;
+        background-color: #CCCCCC;
+
+        .inner {
+          height: 10px;
+          background: linear-gradient(261deg, #FFC92D 0%, #FFF7CB 100%);
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+          transition: width 300ms;
         }
       }
     }
@@ -69,6 +118,15 @@ page-integral {
     .top {
       display: flex;
       margin-bottom: 1rem;
+
+      .left {
+        width: 70%;
+
+        p:first-child {
+          font-weight: bolder;
+          margin-bottom: .5rem;
+        }
+      }
 
       .right {
         display: flex;
