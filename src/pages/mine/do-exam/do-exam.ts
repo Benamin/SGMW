@@ -35,6 +35,7 @@ export class DoExamPage {
     ExamStatusMine;  //来源 course 课程
 
     Fid;
+    SubmitNumber = 0; //作业提交次数
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private storage: Storage,
@@ -55,7 +56,7 @@ export class DoExamPage {
         };
     }
 
-    ionViewWillLeave(){
+    ionViewWillLeave() {
         this.eventEmitSer.eventEmit.emit('false');
     }
 
@@ -76,6 +77,7 @@ export class DoExamPage {
                 }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
+                this.SubmitNumber = res.data.SubmitNumber;
                 this.exam.QnAInfos.forEach(e => {
                     if (e.StuAnswer && e.StuAnswer != "") {
                         e.StuAnswer = e.StuAnswer.split(',').join('');

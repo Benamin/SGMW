@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, NavController, Slides} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, Slides} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {ForumService} from './forum.service';
 import {SearchPage} from "../home/search/search";
@@ -8,6 +8,8 @@ import {PostsContentComponent} from './posts-content/posts-content.component';
 import {ViewReplyComponent} from './view-reply/view-reply.component';
 import {PostAddComponent} from './post-add/post-add.component';
 import {LogService} from "../../service/log.service";
+import {ShareWxComponent} from "../../components/share-wx/share-wx";
+
 
 @Component({
     selector: 'page-forum',
@@ -32,9 +34,10 @@ export class ForumPage {
     conversationData = [];
 
     Blacklist = [];
+    loading;
 
     constructor(public navCtrl: NavController, private serve: ForumService,
-                public logSer: LogService,
+                public logSer: LogService, public modalCtrl: ModalController,
                 private storage: Storage, private loadCtrl: LoadingController) {
     }
 
@@ -154,14 +157,8 @@ export class ForumPage {
     }
 
     forum_topicplate_search() {
-        let loading = this.loadCtrl.create({
-            content: '加载中...'
-        });
         if (this.pageDate.pageIndex == 1) {
-            loading.present();
-            setTimeout(() => {
-                loading.present();
-            }, 7000);
+            this.showLoading();
         }
         this.serve.newsearchforumtopicplate(this.pageDate).subscribe((res: any) => {
             if (!res.data) {
@@ -174,7 +171,7 @@ export class ForumPage {
 
             this.forumLIst = this.forumLIst.concat(arr);
             this.no_list = this.forumLIst.length == 0 ? true : false;
-            loading.dismiss();
+            this.dismissLoading();
         })
     }
 
@@ -229,10 +226,7 @@ export class ForumPage {
     }
 
     getListData() {
-        let loading = this.loadCtrl.create({
-            content: '加载中...'
-        });
-        loading.present();
+        this.showLoading();
         let data = {
             "Title": "",
             "Status": 2,
@@ -245,7 +239,7 @@ export class ForumPage {
             "PageSize": 10
         };
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
-            loading.dismiss();
+            this.dismissLoading()
             if (res.data) {
                 let arr = res.data.Posts.Items;
                 if (arr.length != 0) {
@@ -259,4 +253,24 @@ export class ForumPage {
         });
     }
 
+    wxShare(item) {
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: item});
+        modal.present();
+    }
+
+    showLoading() {
+        if (!this.loading) {
+            this.loading = this.loadCtrl.create({
+                content: '加载中...'
+            });
+            this.loading.present();
+        }
+    }
+
+    dismissLoading() {
+        if (this.loading) {
+            this.loading.dismiss();
+            this.loading = null;
+        }
+    }
 }

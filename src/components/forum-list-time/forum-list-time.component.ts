@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {PCURL} from "../../app/app.constants";
 import {CommonService} from "../../core/common.service";
 import {ModalController} from "ionic-angular";
@@ -16,6 +16,7 @@ export class ForumListTimeComponent implements OnInit {
 
     @Input() item;
     @Input() itemIndex;
+    @Output() share = new EventEmitter();
 
     constructor(public commonSer: CommonService, private modalCtrl: ModalController) {
     }
@@ -42,13 +43,8 @@ export class ForumListTimeComponent implements OnInit {
             webpageUrl: `${pcUrl}bbsdetails/${data.Id}`
         }
 
-        let modal = this.modalCtrl.create(ShareWxComponent);
-        modal.onDidDismiss(res => {
-            // if (res) {
-                console.log(res);
-            // }
-        })
-        modal.present();
+        this.share.emit(obj);
+
         // this.commonSer.weChatShare(obj)
     }
 }

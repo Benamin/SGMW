@@ -314,4 +314,14 @@ page-do-exam {
       padding: 5px 0;
     }
   }
+
+  .item-answer {
+    font-weight: bold;
+    font-size: 1.6rem;
+  }
+
+
+  .item-answer, .item-explain {
+    padding: 1rem 3rem;
+  }
 }

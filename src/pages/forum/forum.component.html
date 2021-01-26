@@ -41,7 +41,7 @@
         </div>
         <ng-container *ngFor="let item of forumLIst">
             <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable (click)="goPostsContent(item)">
-                <app-forum-list-time [item]='item'></app-forum-list-time>
+                <app-forum-list-time (share)="wxShare(item)" [item]='item'></app-forum-list-time>
             </div>
         </ng-container>
         <!-- <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
