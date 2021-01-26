@@ -30,7 +30,7 @@ export class ShareWxComponent {
      */
     shareWX(type) {
         let img = this.data.Images;
-        let description = this.data.ContentWithoutHtml;
+        let description = this.data.ContentWithoutHtml || "";
         let thumb = '';
 
         if (description.length > 100) {
@@ -47,6 +47,7 @@ export class ShareWxComponent {
             thumb: thumb,
             webpageUrl: `${pcUrl}bbsdetails/${this.data.Id}`
         }
+        console.log(obj);
         Wechat.share({
             message: {
                 title: obj.Title, // 标题

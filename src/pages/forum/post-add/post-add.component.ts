@@ -8,6 +8,7 @@ import {
 import {ForumService} from "../forum.service";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
+import {CommonService} from "../../../core/common.service";
 
 declare let ImagePicker;
 
@@ -36,6 +37,7 @@ export class PostAddComponent implements OnInit {
     ApplyEssence = false;  //true为申请精华贴
 
     constructor(
+        private commonSer: CommonService,
         private navCtrl: NavController,
         private serve: ForumService,
         public navParams: NavParams,
@@ -459,9 +461,9 @@ export class PostAddComponent implements OnInit {
         }
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
         let textInnerHTML: any = textareaImg.innerHTML;
-        let textInnerText: any = textareaImg.innerText;
         let textInnerTEXT: any = textareaImg.innerText;
-        if (!this.Title || textInnerText == '请输入正文') {
+        console.log(textInnerTEXT);
+        if (!this.Title || textInnerTEXT == '请输入正文' || textInnerTEXT.length < 1) {
             this.serve.presentToast('请填写帖子或者内容');
             return;
         }
@@ -528,15 +530,16 @@ export class PostAddComponent implements OnInit {
                     this.editImgOkText = '保存成功';
                 }
                 this.editImgOk = true;
-                this.loading.dismiss();
 
                 setTimeout(() => {
                     this.editImgOk = false;
                     this.backPop();
                 }, 2000);
             } else {
+                this.commonSer.alert(res.message);
                 this.sevrData_click = false;
             }
+            this.loading.dismiss();
         });
     }
 
@@ -567,12 +570,12 @@ export class PostAddComponent implements OnInit {
                     this.editImgOkText = '保存成功';
                 }
                 this.editImgOk = true;
-                this.loading.dismiss();
                 setTimeout(() => {
                     this.editImgOk = false;
                     this.backPop();
                 }, 2000);
             } else {
+                this.commonSer.alert(res.message);
                 this.sevrData_click = false;
             }
             this.loading.dismiss();

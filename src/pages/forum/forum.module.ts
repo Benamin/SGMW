@@ -15,6 +15,7 @@ import {PipesModule} from "../../pipes/pipes.module";
 
 
 @NgModule({
+    declarations: [ForumPage, PostlistComponent, PostsContentComponent, ViewReplyComponent, PostAddComponent, ReportPage],
     imports: [
         IonicPageModule.forChild(ForumPage),
         CommonModule,
@@ -30,7 +31,6 @@ import {PipesModule} from "../../pipes/pipes.module";
         ReportPage,
     ],
     providers: [ForumService],
-    declarations: [ForumPage, PostlistComponent, PostsContentComponent, ViewReplyComponent, PostAddComponent, ReportPage]
 })
 export class ForumModule {
 }

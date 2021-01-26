@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {NavParams, NavController, LoadingController, ActionSheetController} from "ionic-angular";
+import {NavParams, NavController, LoadingController, ActionSheetController, ModalController} from "ionic-angular";
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {ForumService} from '../forum.service';
 import {CommonService} from "../../../core/common.service";
@@ -8,6 +8,7 @@ import {ReportPage} from "../report/report";
 import {Storage} from "@ionic/storage";
 import {DatePipe} from "@angular/common";
 import {defaultHeadPhoto, PCURL} from "../../../app/app.constants";
+import {ShareWxComponent} from "../../../components/share-wx/share-wx";
 
 declare var Wechat;
 declare let Swiper: any;
@@ -66,6 +67,7 @@ export class PostsContentComponent implements OnInit {
                 private actionSheetCtrl: ActionSheetController,
                 private storage: Storage,
                 private datePipe: DatePipe,
+                private modalCtrl: ModalController,
                 private photoLibrary: PhotoLibrary,
                 public commonSer: CommonService) {
     }
@@ -403,26 +405,9 @@ export class PostsContentComponent implements OnInit {
 
     // 微信分享
     wxShare(data) {
-        let img = this.greetDiv.nativeElement.querySelector('img');
-        let description = this.greetDiv.nativeElement.innerText.replace(/\&nbsp;/g, '');
-        let thumb = '';
-
-        if (description.length > 100) {
-            description = description.slice(0, 100);
-        }
-        if (img) {
-            thumb = img.src;
-        }
-
-        const pcUrl = PCURL;
-        const obj = {
-            Title: data.Title,
-            description: description,
-            thumb: thumb,
-            webpageUrl: `${pcUrl}bbsdetails/${data.Id}`
-        }
-
-        this.commonSer.weChatShare(obj)
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: data});
+        modal.present();
+        // this.commonSer.weChatShare(obj)
     }
 
     //我要投诉
