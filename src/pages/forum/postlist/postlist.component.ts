@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, NavController, Slides} from 'ionic-angular';
+import {LoadingController, ModalController, NavController, Slides} from 'ionic-angular';
 import {NavParams} from "ionic-angular";
 import {ForumService} from '../forum.service';
 import {PostsContentComponent} from '../posts-content/posts-content.component';
 import {PostAddComponent} from '../post-add/post-add.component';
 import {SearchPage} from "../../home/search/search";
 import {Storage} from "@ionic/storage";
+import {ShareWxComponent} from "../../../components/share-wx/share-wx";
 
 @Component({
     selector: 'page-postlist',
@@ -27,9 +28,9 @@ export class PostlistComponent implements OnInit {
         status: 2,
         title: "",
         total: 111,
-        OrderBy:"CreateTime",  // CreateTime 发帖时间    PostTimeFormatted 回复时间
+        OrderBy: "CreateTime",  // CreateTime 发帖时间    PostTimeFormatted 回复时间
         OrderByDirection: 'Desc',
-        Type:"New",   // New 最新  CreateTime 发帖时间    PostTimeFormatted 回复时间 //Hot 最热 ReplyCount  ViewCount
+        Type: "New",   // New 最新  CreateTime 发帖时间    PostTimeFormatted 回复时间 //Hot 最热 ReplyCount  ViewCount
     }
     forumLIst = [];
     isdoInfinite = true;
@@ -41,6 +42,7 @@ export class PostlistComponent implements OnInit {
                 public navParams: NavParams,
                 public navCtrl: NavController,
                 private storage: Storage,
+                private modalCtrl: ModalController,
                 private loadCtrl: LoadingController) {
     }
 
@@ -71,7 +73,8 @@ export class PostlistComponent implements OnInit {
         this.no_list = false;
         this.forum_post_search();
     }
-l
+
+    l
 
     // 我收藏的帖子
     myfavorites() {
@@ -97,8 +100,8 @@ l
         this.pageDate.PageIndex = 1;
         this.pageDate.Type = type;
 
-        if(type === "New") this.pageDate.OrderBy = "CreateTime";
-        if(type === "Hot") this.pageDate.OrderBy = "ViewCount";
+        if (type === "New") this.pageDate.OrderBy = "CreateTime";
+        if (type === "Hot") this.pageDate.OrderBy = "ViewCount";
 
         this.forum_post_search();
     }
@@ -166,5 +169,10 @@ l
 
     goToSearch() {
         this.navCtrl.push(SearchPage, {type: '论坛'});
+    }
+
+    wxShare(item) {
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: item});
+        modal.present();
     }
 }

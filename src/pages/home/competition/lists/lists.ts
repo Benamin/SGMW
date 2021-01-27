@@ -1,5 +1,12 @@
 import {Component, NgZone} from '@angular/core';
-import {NavController, NavParams, LoadingController, Platform, ActionSheetController} from 'ionic-angular';
+import {
+    NavController,
+    NavParams,
+    LoadingController,
+    Platform,
+    ActionSheetController,
+    ModalController
+} from 'ionic-angular';
 import {DomSanitizer} from '@angular/platform-browser';
 import {timer} from "rxjs/observable/timer";
 import {ListsRankingPage} from "../lists-ranking/lists-ranking";
@@ -21,6 +28,7 @@ import {ShortVideoProvider} from "../../../../providers/short-video/short-video"
 import {CompetitionVideoPage} from "../competition-video/competition-video";
 import {MyShortVideoBoxPage} from "../../../mine/my-short-video-box/my-short-video-box";
 import {GlobalData} from "../../../../core/GlobleData";
+import {ShareWxComponent} from "../../../../components/share-wx/share-wx";
 
 
 /**
@@ -124,6 +132,7 @@ export class CompetitionListsPage {
     constructor(private commonSer: CommonService, public navCtrl: NavController,
                 private loadingCtrl: LoadingController,
                 private globalData:GlobalData,
+                private modalCtrl:ModalController,
                 private shortVideoPro: ShortVideoProvider,
                 public navParams: NavParams, private loadCtrl: LoadingController, private homeSer: HomeService, private sanitizer: DomSanitizer) {
     }
@@ -509,6 +518,11 @@ export class CompetitionListsPage {
         minute = minute > 9 ? minute : '0' + minute;
         second = second > 9 ? second : '0' + second;
         item.duration = minute + ':' + second
+    }
+
+    wxShare(item) {
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: item});
+        modal.present();
     }
 
 }

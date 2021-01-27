@@ -167,47 +167,7 @@
     <!-- 帖子列表 -->
     <ul class="topic-lists" *ngIf="page.checkType === 'topic'">
         <li *ngFor="let item of page.competitionLists, let itemIndex = index" (click)="goPostsContent(item.Id)">
-            <app-forum-list-time class="topic-discript" [item]='item' [itemIndex]='itemIndex'></app-forum-list-time>
-            <!--<div class="topic-user">-->
-            <!--<img class="avatar" src="{{ item.PosterUserHeadPhoto || userDefaultImg }}" alt="帖子列表默认头像">-->
-            <!--<div class="user-box">-->
-            <!--<div class="name-time">-->
-            <!--<span class="name">{{ item.PosterUserName }}</span>-->
-            <!--<span class="time">{{ item.PostRelativeTime }}</span>-->
-            <!--</div>-->
-            <!--<div class="company" *ngIf="item.AgentName">{{ item.AgentName }}</div>-->
-            <!--</div>-->
-            <!--<div class="num-box">-->
-            <!--<span class="number-my">本人排名：第{{ page.myInfo.RowNumber }}名</span>-->
-            <!--<img src="./assets/imgs/consultation/share@3x.png" alt="转发按钮">-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;<div class="topic-discript pmain_text" [innerHTML]="assembleHTML(item.Content)"></div>&ndash;&gt;-->
-            <!--<div class="topic-pic-box" *ngIf="item.Images && item.Images.length > 0">-->
-            <!--<div class="topic-one-pic" *ngIf="item.Images && item.Images.length === 1">-->
-            <!--<img src="{{ item.Images[0].Src || './assets/imgs/competition/banner.png' }}" alt="单张图">-->
-            <!--</div>-->
-            <!--<div class="topic-multiple-pic" *ngIf="item.Images.length > 1">-->
-            <!--<img *ngFor="let imgItem of item.Images" src="{{imgItem.Src || './assets/imgs/competition/banner.png'}}" alt="多张图">-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="topic-info">-->
-            <!--<span class="topic-type" *ngIf="item.TopicPlateName">{{ item.TopicPlateName }}</span>-->
-            <!--<span class="num-info-box">-->
-            <!--<span class="read-num">-->
-            <!--<img src="./assets/imgs/competition/see@2x.png" alt="阅读量">-->
-            <!--{{ item.ViewCount }}-->
-            <!--</span>-->
-            <!--<span class="comment-num">-->
-            <!--<img src="./assets/imgs/competition/pinglun@2x.png" alt="评论量">-->
-            <!--{{ item.ReplyCount }}-->
-            <!--</span>-->
-            <!--<span class="like-num">-->
-            <!--<img src="./assets/imgs/competition/dianzan@2x.png" alt="点赞量">-->
-            <!--{{ item.LikeCount }}-->
-            <!--</span>-->
-            <!--</span>-->
-            <!--</div>-->
+            <app-forum-list-time (share)="wxShare(item)" class="topic-discript" [item]='item' [itemIndex]='itemIndex'></app-forum-list-time>
         </li>
     </ul>
     <!-- 帖子列表 -->

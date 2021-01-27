@@ -47,6 +47,7 @@ import {MyShortVideoBoxPage} from "../mine/my-short-video-box/my-short-video-box
 import {GetRequestService} from "../../secret/getRequest.service";
 import {RoleModalPage} from "./role-modal/role-modal";
 import {StudyTaskPage} from "./study-task/study-task";
+import {ShareWxComponent} from "../../components/share-wx/share-wx";
 
 @Component({
     selector: 'page-home',
@@ -734,5 +735,10 @@ export class HomePage implements OnInit {
                 }
             }
         )
+    }
+
+    wxShare(item) {
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: item});
+        modal.present();
     }
 }

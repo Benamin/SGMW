@@ -24,12 +24,13 @@ export class IntegralPage {
                 public inteSer: IntegralService, private commonSer: CommonService) {
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.init();
     }
 
     //积分信息
     init() {
+        //总积分
         this.inteSer.GetNowDayStatusIntegralDetail().subscribe(
             res => {
                 if (res.data) {
@@ -37,6 +38,7 @@ export class IntegralPage {
                 }
             }
         )
+        //今日积分
         this.inteSer.NowDateGetIntegral().subscribe(
             res => {
                 this.dayObj = res;
@@ -76,7 +78,7 @@ export class IntegralPage {
         this.navCtrl.push(LearningPage, {keyWord: ''});
     }
 
-    //
+    //审核列表
     GoToVerity() {
         this.navCtrl.push(IntegralVerifyPage);
     }

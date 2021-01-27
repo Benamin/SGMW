@@ -158,8 +158,8 @@ page-mine {
 
   .mask1 {
     position: relative;
-    width: 7rem;
-    height: 7rem;
+    width: 5rem;
+    height: 5rem;
     overflow: hidden;
     border-radius: 50%;
     background: #FFFFFF;
@@ -167,10 +167,11 @@ page-mine {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto;
 
     img {
-      width: 7rem;
-      height: 7rem;
+      width: 5rem;
+      height: 5rem;
     }
   }
 
