@@ -1,14 +1,12 @@
 import {Component} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {HomeService} from "../home.service";
-import {JobLevelInfoPage} from "../information-zone/information-zone";
-
 
 @Component({
-    selector: 'page-information-zone',
-    templateUrl: 'information-zone.html',
+    selector: 'page-personal-center',
+    templateUrl: 'personal-center.html',
 })
-export class InformationZonePage {
+export class PersonalCenterPage {
     page = {
 
     };
@@ -26,6 +24,11 @@ export class InformationZonePage {
     }
 
     getList() {
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.dismiss();
+        console.log('888', this.homeSer)
         // let loading = this.loadCtrl.create({
         //     content: ''
         // });

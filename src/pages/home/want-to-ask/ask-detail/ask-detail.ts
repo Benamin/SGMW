@@ -1,14 +1,12 @@
 import {Component} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
-import {HomeService} from "../home.service";
-import {JobLevelInfoPage} from "../information-zone/information-zone";
-
+import {HomeService} from "../../home.service";
 
 @Component({
-    selector: 'page-information-zone',
-    templateUrl: 'information-zone.html',
+    selector: 'page-ask-detail',
+    templateUrl: 'ask-detail.html',
 })
-export class InformationZonePage {
+export class WantToAskDetailPage {
     page = {
 
     };
@@ -26,9 +24,11 @@ export class InformationZonePage {
     }
 
     getList() {
-        // let loading = this.loadCtrl.create({
-        //     content: ''
-        // });
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.dismiss();
+        console.log('888', this.homeSer)
         // loading.present();
         // const data = {
         //     Search: this.page.Search,
