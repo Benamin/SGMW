@@ -4,6 +4,38 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-  资料专区111
+  <div class="searchbar" ion-fixed>
+    <form class="input">
+			<div class="input-box">
+				<img (click)="doSearch()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
+				<ion-input [(ngModel)]="page.Title"
+									 placeholder="请输入资料关键词"
+									 [ngModelOptions]="{standalone: true}"
+									 (keypress)="search($event)"
+									 (ionFocus)="showKey()"
+									 autocomplete='off'
+				></ion-input>
+			</div>
+    </form>
+
+    <!--<div class="filter" (click)="doSearch()">-->
+      <!--<span>搜索</span>-->
+    <!--</div>-->
+  </div>
+  <ul class="file-lists">
+		<li>
+			<div class="flex-box">
+				<span class="suffix blue-bg">Docx</span>
+				<span class="file-type">话术资料</span>
+				<span class="download-btn">下载</span>
+			</div>
+			<div class="title">五菱学社最长最长最长最长最长的标题就是这题就是这题就是这</div>
+			<div class="flex-box">
+				<img src="{{ page?.headPhoto || userDefaultImg }}" class="avatar" alt="头像">
+				<span class="author">秋国艳</span>
+				<span class="upload-time">上传时间：2021年02月01日</span>
+			</div>
+		</li>
+	</ul>
 
 </ion-content>

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
+import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 
 @Component({
@@ -7,20 +8,38 @@ import {HomeService} from "../home.service";
     templateUrl: 'information-zone.html',
 })
 export class InformationZonePage {
+		userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
-
+        Title: '',
     };
 
-    constructor(public navCtrl: NavController, private homeSer: HomeService,
+    constructor(public navCtrl: NavController, private keyboard: Keyboard, private homeSer: HomeService,
                 private loadCtrl: LoadingController, ) {
 
     }
 
     // ionViewDidEnter() {
-    //     this.getList();
+    //   this.getList();
     // }
     ionViewDidLoad() {
         this.getList();
+    }
+
+    showKey() { this.keyboard.show(); }
+    //按键
+    search(event) {
+        if (event && event.keyCode == 13) {
+            this.page.page = 1;
+            this.getList();
+            //搜索日志
+            if (this.page.Title) {
+                console.log(this.page.Title)
+                // this.logSer.keyWordLog(this.page.Title);
+            }
+        }
+    }
+    doSearch() {
+        console.log('当前搜索', this.page.Title);
     }
 
     getList() {
