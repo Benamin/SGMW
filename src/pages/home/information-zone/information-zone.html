@@ -23,17 +23,18 @@
     <!--</div>-->
   </div>
   <ul class="file-lists">
-		<li>
+		<li *ngFor="let item of page.resourceLists" (click)="changeCheckType(item.lable)">
 			<div class="flex-box">
-				<span class="suffix blue-bg">Docx</span>
-				<span class="file-type">话术资料</span>
-				<span class="download-btn">下载</span>
+				<span class="suffix" [ngClass]="setSuffixClass(item.suffix)">{{ item.suffix }}</span>
+				<span class="file-type">{{ item.fileType }}</span>
+				<span class="download-btn" *ngIf="item.status === 0">下载</span>
+				<span class="download-btn success-btn" *ngIf="item.status === 1">预览</span>
 			</div>
-			<div class="title">五菱学社最长最长最长最长最长的标题就是这题就是这题就是这</div>
+			<div class="title">{{ item.title }}</div>
 			<div class="flex-box">
-				<img src="{{ page?.headPhoto || userDefaultImg }}" class="avatar" alt="头像">
-				<span class="author">秋国艳</span>
-				<span class="upload-time">上传时间：2021年02月01日</span>
+				<img src="{{ item?.avatar || userDefaultImg }}" class="avatar" alt="头像">
+				<span class="author">{{ item.author }}</span>
+				<span class="upload-time">上传时间：{{ item.uploadTime }}</span>
 			</div>
 		</li>
 	</ul>

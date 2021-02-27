@@ -56,8 +56,20 @@ page-information-zone {
 					padding: 3px 5px;
 					border-radius: 3px;
 				}
-				.blue-bg {
+				.docx-bg {
 					background-color: #2D7CE8;
+				}
+				.pdf-bg {
+					background-color: #E47E7B;
+				}
+				.xls-bg {
+					background-color: #12AB70;
+				}
+				.ppt-bg {
+					background-color: #EC5C52;
+				}
+				.zip-bg {
+					background-color: #4D087C;
 				}
 				.file-type {
 					margin-left: 5px;
@@ -73,6 +85,10 @@ page-information-zone {
 					background: linear-gradient(242deg, #FFF7CB 0%, #FFC92D 100%);
 					border-radius: 13px;
 				}
+				.success-btn {
+					color: #FFFFFF;
+					background: #50B674;
+				}
 				.avatar {
 					width: 20px;
 					height: 20px;
@@ -86,6 +102,7 @@ page-information-zone {
 					margin-left: auto;
 					margin-right: 12px;
 					font-size: 13px;
+					color: #666666;
 				}
 			}
 			.title {

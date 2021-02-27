@@ -1,9 +1,107 @@
-<ion-header>
+<<!-- ion-header>
     <ion-navbar>
-        <ion-title>资料专区</ion-title>
+        <ion-title> </ion-title>
     </ion-navbar>
-</ion-header>
+</ion-header> -->
 <ion-content>
-  资料专区111
+	<div class="fixed-box">
+		<div class="black-bg">
+			<div class="person-info">
+				<div class="info-box">
+					<div class="avatar-box">
+						<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="个人头像"/>
+					</div>
+					<div class="info-detail">
+						<div class="name">张三 <span class="tag">学员</span></div>
+						<div class="dealer-number">经销商号：1231424</div>
+						<div class="phone">手机号：13982727783</div>
+					</div>
+				</div>
+				<div class="follow-btn">关注</div>
+			</div>
+		</div>
 
+		<ion-item-divider sticky>
+		<div class="navbar-box">
+			<div class="navbar" [ngClass]="{'do-fixed': page.fixedShow }">
+				<div class="nav-item actived">
+					发帖<span class="line"></span>
+				</div>
+				<div class="nav-item">
+					回帖<span class="line"></span>
+				</div>
+				<div class="nav-item">
+					评价<span class="line"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ion-item-divider>
+	
+	<ul class="post-lists">
+		<li class="post">
+			<div class="user-info">
+				<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="头像"/>
+				<div class="info-box">
+					<div class="name">
+						秋国燕 <span class="timer">1小时前</span>
+					</div>
+					<div class="product">上海宝骏</div>
+				</div>
+				<img class="share-btn" src="./assets/imgs/forum/other/share.png" alt="分享"/>
+			</div>
+			<div class="title">用车分享：大宝第十次的维修保养知识</div>
+			<div class="pics">
+				<img src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="封面图">
+			</div>
+			<div class="tags-box">
+				<span>#凯捷沟通技能大赛#</span>
+				<span>#销售大赛#</span>
+			</div>
+			<div class="li-bottom">
+				<img class="look-num" src="./assets/imgs/forum/other/eye.png" alt="浏览量"/><span>134</span>
+				<img class="comment-num" src="./assets/imgs/forum/list/luntan_coment@2x.png" alt="评论量"/><span>134</span>
+				<img class="like-num" src="./assets/imgs/forum/other/p771_comment_like@2x.png" alt="点赞量"/><span>134</span>
+			</div>
+		</li>
+		<li class="reply">
+			<div class="user-info">
+				<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="头像"/>秋国艳
+			</div>
+			<div class="reply-desc">回复：这个课程很有帮助</div>
+			<div class="prev-box">凯捷销售技巧竞赛</div>
+		</li>
+		<li class="reply">
+			<div class="user-info">
+				<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="头像"/>秋国艳
+			</div>
+			<div class="reply-desc">回复：这个课程很有帮助</div>
+			<div class="prev-box-pic">
+				<img class="cover-pic" src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="封面图">
+				凯捷销售技巧竞赛
+			</div>
+		</li>
+		<li class="comment">
+			<div class="user-info">
+				<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="头像"/>
+				<div class="info-box">
+					<div class="name">
+						秋国燕 <span class="tag">六年级</span>
+					</div>
+					<div class="timer">2021-01-23</div>
+				</div>
+				<div class="starts-box">
+					<img class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>
+					<img class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>
+					<img class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>
+				</div>
+			</div>
+			<div class="comment-desc">这个课程很有帮助</div>
+			<div class="prev-box-pic">
+				<img class="cover-pic" src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="封面图">
+				五菱征途学习课程
+			</div>
+		</li>
+	</ul>
+	
 </ion-content>

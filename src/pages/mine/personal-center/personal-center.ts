@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {Component, ViewChild, NgZone} from '@angular/core';
+import {LoadingController, NavController, Content} from 'ionic-angular';
 import {MineService} from "../mine.service";
 
 @Component({
@@ -7,12 +7,13 @@ import {MineService} from "../mine.service";
     templateUrl: 'personal-center.html',
 })
 export class PersonalCenterPage {
+		@ViewChild(Content) content: Content;
+		userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
-
+			fixedShow: false
     };
 
-    constructor(public navCtrl: NavController, private mineSer: MineService,
-                private loadCtrl: LoadingController, ) {
+    constructor(public navCtrl: NavController, private mineSer: MineService, private loadCtrl: LoadingController,public zone: NgZone) {
 
     }
 
@@ -21,7 +22,21 @@ export class PersonalCenterPage {
     // }
     ionViewDidLoad() {
         this.getList();
+				this.scrollListener(); //调用监听方法
     }
+		scrollListener() {
+		  this.content.ionScroll.subscribe(($event: any) => {
+		    this.zone.run(()=>{
+		      if($event.scrollTop > 300) {
+		        this.page.fixedShow = true;
+						console.log(8888, this.page.fixedShow )
+		      }else {
+		        this.page.fixedShow = false;
+		      }
+		    });
+		  });
+		}
+
 
     getList() {
         let loading = this.loadCtrl.create({
