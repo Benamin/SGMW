@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
-import {HomeService} from "../home.service";
+import {MineService} from "../mine.service";
 
 @Component({
     selector: 'page-personal-center',
@@ -11,7 +11,7 @@ export class PersonalCenterPage {
 
     };
 
-    constructor(public navCtrl: NavController, private homeSer: HomeService,
+    constructor(public navCtrl: NavController, private mineSer: MineService,
                 private loadCtrl: LoadingController, ) {
 
     }
@@ -28,7 +28,7 @@ export class PersonalCenterPage {
             content: ''
         });
         loading.dismiss();
-        console.log('888', this.homeSer)
+        console.log('888', this.mineSer)
         // let loading = this.loadCtrl.create({
         //     content: ''
         // });
