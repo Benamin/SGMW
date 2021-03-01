@@ -10,7 +10,20 @@ export class PersonalCenterPage {
 		@ViewChild(Content) content: Content;
 		userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
-			fixedShow: false
+			fixedShow: false,
+			navliArr: [{
+			    lable: 'post',
+			    text: '发帖'
+			}, {
+			    lable: 'reply',
+			    text: '回帖'
+			}, {
+			    lable: 'comment',
+			    text: '评价'
+			}],
+			checkType: 'post',
+			getParams: null,
+			commentLists: [1, 2, 3, 4, 5]
     };
 
     constructor(public navCtrl: NavController, private mineSer: MineService, private loadCtrl: LoadingController,public zone: NgZone) {
@@ -21,23 +34,43 @@ export class PersonalCenterPage {
     //     this.getList();
     // }
     ionViewDidLoad() {
-        this.getList();
-				this.scrollListener(); //调用监听方法
+			this.page.getParams = {
+			    Page: 1,
+			    PageSize: 10,
+			    TotalCount: null,
+			    isLoad: false
+			};
+			
+			this.getList();
+			this.scrollListener(); //调用监听方法
     }
 		scrollListener() {
+			const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 		  this.content.ionScroll.subscribe(($event: any) => {
 		    this.zone.run(()=>{
-		      if($event.scrollTop > 300) {
-		        this.page.fixedShow = true;
-						console.log(8888, this.page.fixedShow )
+		      if($event.scrollTop > 237 * (windowWidth/375)) {
+		        if (!this.page.fixedShow) this.page.fixedShow = true;
+						// console.log(8888, this.page.fixedShow )
 		      }else {
-		        this.page.fixedShow = false;
+		        if (this.page.fixedShow) this.page.fixedShow = false;
+						// console.log(999, this.page.fixedShow )
 		      }
 		    });
 		  });
 		}
 
-
+		// 一级导航切换 （注：考试不会有）
+		changeCheckType(checkType) {
+			if (this.page.checkType === checkType) return;
+			this.page.commentLists = [];
+			this.page.checkType = checkType;
+			// if (checkType === 'recommend') this.page.Type = 1;
+			// if (checkType === 'all') this.page.Type = 2;
+			// if (checkType === 'mine') this.page.Type = 3;
+			this.page.getParams.Page = 1;
+			this.page.getParams.PageIndex = 1;
+			this.getList();
+		}
     getList() {
         let loading = this.loadCtrl.create({
             content: ''

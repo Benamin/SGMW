@@ -44,6 +44,9 @@ import {StudyTaskPage} from "./study-task/study-task";
 
 import {InformationZonePage} from "./information-zone/information-zone";
 import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
+import {askSearchModalPage} from "./want-to-ask/ask-search-modal/ask-search-modal";
+import {AddAskPage} from "./want-to-ask/add-ask/add-ask";
+import {WantToAskDetailPage} from "./want-to-ask/ask-detail/ask-detail";
 
 @NgModule({
     declarations: [
@@ -85,6 +88,9 @@ import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
         StudyTaskPage,
         InformationZonePage,
         WantToAskListsPage,
+				askSearchModalPage,
+				AddAskPage,
+				WantToAskDetailPage,
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -130,6 +136,9 @@ import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
         StudyTaskPage,
         InformationZonePage,
         WantToAskListsPage,
+				askSearchModalPage,
+				AddAskPage,
+				WantToAskDetailPage,
     ]
 })
 export class HomeModule {

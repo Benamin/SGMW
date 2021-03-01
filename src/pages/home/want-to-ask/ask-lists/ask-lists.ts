@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {LoadingController, NavController, ModalController} from 'ionic-angular';
 import {HomeService} from "../../home.service";
+import {WantToAskDetailPage} from "../ask-detail/ask-detail";
+import {AddAskPage} from "../add-ask/add-ask";
+import {askSearchModalPage} from "../ask-search-modal/ask-search-modal";
 
 @Component({
     selector: 'page-ask-lists',
@@ -8,11 +11,20 @@ import {HomeService} from "../../home.service";
 })
 export class WantToAskListsPage {
     page = {
-
+			askLists: [
+				{ title: '五菱征途个课程播放出现闪退，应该要怎么处理么？五菱征途个课程播放出现闪退，应该要怎么处理么，应该要怎么处理么？', 
+					askedNum: 88,
+					isAsked: false
+				},
+				{ title: '五菱征途个课程播放出现闪退，应该要怎么处理么？五菱征途个课程播放出现闪退，应该要怎么处理么，应该要怎么处理么？',
+					askedNum: 88,
+					isAsked: true
+				}
+			]
     };
 
     constructor(public navCtrl: NavController, private homeSer: HomeService,
-                private loadCtrl: LoadingController, ) {
+                private loadCtrl: LoadingController, private modalCtrl: ModalController) {
 
     }
 
@@ -22,6 +34,29 @@ export class WantToAskListsPage {
     ionViewDidLoad() {
         this.getList();
     }
+		
+		showSearch() {
+			let modal = this.modalCtrl.create(askSearchModalPage, {roleList: []});
+			modal.onDidDismiss((data) => {
+			    if (data) {
+			//         this.homeSer.InitializeLevel({leveltype: data.value}).subscribe(
+			//             (resInit) => {
+			//                 if (resInit.code === 200) {
+			
+			//                     this.navCtrl.push(AdvancedLevelPage, {
+			//                         leveltype: data,
+			//                         roleList: resRole.data
+			//                     });
+			
+			//                 }
+			//             }
+			//         )
+						console.log('999--onDidDismiss', data)
+			
+			    }
+			})
+			modal.present();
+		}
 
     getList() {
         let loading = this.loadCtrl.create({
@@ -50,6 +85,21 @@ export class WantToAskListsPage {
         //     }
         // )
     }
+		
+		changeSecNav(aIndex) {
+			this.page.askLists[aIndex].isAsked = true;
+			this.page.askLists[aIndex].askedNum++;
+		}
+		 
+		goAskedDetail(item) {
+			this.navCtrl.push(WantToAskDetailPage, {item: item});
+		}
+		
+		goAddAskPage(item) {
+			this.navCtrl.push(AddAskPage, {item: item});
+		}
+		
+		// this.navCtrl.push(LookTestPage, {item: item});
 
 
 }
