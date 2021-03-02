@@ -12,7 +12,8 @@ export class askSearchModalPage {
     nowItemObj = null;
     roleList = [];
 		page = {
-			title: ''
+			title: '',
+			page: 1
 		}
     // defaultHeadPhoto = defaultHeadPhoto;
 
@@ -20,8 +21,7 @@ export class askSearchModalPage {
                 public navParams: NavParams,
                 private viewCtrl: ViewController,
                 public toastCtrl: ToastController,
-								private keyboard: Keyboard) {
-    }
+								private keyboard: Keyboard) {}
 
     ionViewDidLoad() {
         this.roleList = this.navParams.get('roleList');
@@ -35,14 +35,14 @@ export class askSearchModalPage {
 		        this.page.page = 1;
 		        this.getList();
 		        //搜索日志
-		        if (this.page.Title) {
-		            console.log(this.page.Title)
-		            // this.logSer.keyWordLog(this.page.Title);
+		        if (this.page.title) {
+		            console.log(this.page.title)
+		            // this.logSer.keyWordLog(this.page.title);
 		        }
 		    }
 		}
 		doSearch() {
-		    console.log('当前搜索', this.page.Title);
+		    console.log('当前搜索', this.page.title);
 		}
 
     getList() {
@@ -53,19 +53,19 @@ export class askSearchModalPage {
         this.nowItemObj = item;
     }
 
-    doSearch() {
-        if (this.nowItemObj) {
-            this.viewCtrl.dismiss(this.nowItemObj);
-        } else {
-            let toast = this.toastCtrl.create({
-                message: '请选择类型',
-                position: 'middle',
-                duration: 1000
-            });
-            toast.present();
-        }
+    // doSearch() {
+    //     if (this.nowItemObj) {
+    //         this.viewCtrl.dismiss(this.nowItemObj);
+    //     } else {
+    //         let toast = this.toastCtrl.create({
+    //             message: '请选择类型',
+    //             position: 'middle',
+    //             duration: 1000
+    //         });
+    //         toast.present();
+    //     }
         
-    }
+    // }
 
     close() {
         this.viewCtrl.dismiss();

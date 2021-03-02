@@ -22,6 +22,15 @@ export class AddAskPage {
     ionViewDidLoad() {
         this.getList();
     }
+		
+		goNavBack() {
+			console.log(888)
+			this.navCtrl.pop();
+		}
+		submitAdd() {
+			console.log('提交成功后返回')
+			this.navCtrl.pop();
+		}
 
     getList() {
         let loading = this.loadCtrl.create({

@@ -7,6 +7,7 @@ import {HomeService} from "../../home.service";
     templateUrl: 'ask-detail.html',
 })
 export class WantToAskDetailPage {
+		userDefaultImg = './assets/imgs/userDefault.jpg'
     page = {
 
     };

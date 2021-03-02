@@ -1,3 +1,55 @@
 page-ask-detail {
-
+	.bg-box {
+		box-sizing: border-box;
+		min-height: 100vh;
+		background-color: #FFFFFF;
+		padding: 0 1.5rem;
+	}
+	
+	.title {
+		box-sizing: border-box;
+		padding: 1.8rem 0 0.7rem 0;
+		font-size: 2rem;
+		font-family: PingFangSC-Medium, PingFang SC;
+		font-weight: 500;
+		color: #000000;
+	}   
+	.author {
+		margin-top: 0.7rem;
+		display: flex;
+		align-items: center;
+		.avatar {
+			margin-right: 1rem;
+			width: 2.8rem;
+			height: 2.8rem;
+			border-radius: 50%;
+		}
+		.name {
+			margin-right: 1rem;
+			font-size: 1.3rem;
+		}
+		.total-num {
+			line-height: 1;
+			border-left: 1px solid #999999;;
+			padding-left: 1rem;
+			color: #999999;
+		}
+	}
+	.desc {
+		margin-top: 2.1rem;
+		font-size: 1.4rem;
+		color: #666666;
+	}
+	.ask-pics-box {
+		.title {
+			font-size: 1.4rem;
+			font-weight: bold;
+		}
+		.pics-text{
+			margin-top: 1.3rem;
+			color: 1.4rem;
+			color: #1F8BDB;
+			text-decoration: underline;
+		}
+	} 
 }
