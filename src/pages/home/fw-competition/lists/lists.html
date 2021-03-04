@@ -105,7 +105,7 @@
         <div *ngIf="page.isSearch">
           <li *ngFor="let item of page.competitionLists, let cIndex = index">
             <span class="ranking-num">{{ item.Ranking }}</span>
-            <img class="avatar" src="{{ item.headPhoto || userDefaultImg }}">
+            <img (click)="$event.stopPropagation();goToPersonalCenter(item)" class="avatar" src="{{ item.headPhoto || userDefaultImg }}">
             <div class="userinfo">
               <div class="username">{{item.Ename}} <span class="serve-num">{{ item.ServerCode }}</span></div>
               <div class="company">{{ item.Province }} {{ item.Area }} {{ item.CompanyName }}</div>

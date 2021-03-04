@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
+import {FileService} from "../../../core/file.service";
+import {timer} from "rxjs/observable/timer";
 
 @Component({
     selector: 'page-information-zone',
@@ -12,11 +14,13 @@ export class InformationZonePage {
     page = {
         Title: '',
 				page: 1, 
+				PageSize: 5,
+				TotalCount: 0,
+				isLoad: false,
 				resourceLists: []
     };
 
-    constructor(public navCtrl: NavController, private keyboard: Keyboard, private homeSer: HomeService,
-                private loadCtrl: LoadingController, ) {
+    constructor(public navCtrl: NavController, private keyboard: Keyboard, private homeSer: HomeService,private loadCtrl: LoadingController, private fileSer: FileService,) {
 
     }
 
@@ -24,58 +28,7 @@ export class InformationZonePage {
     //   this.getList();
     // }
     ionViewDidLoad() {
-			this.page.resourceLists = [
-					{
-						"id": 1,
-						"status": 0, // 0 下载 1预览
-						"suffix": 'Docx',
-						"fileType": '话术资料',
-						"title": '五菱学社最长最长最长最长最长的标题就是这题就是这题就是这',
-						"avatar": '',
-						"author": '秋国艳',
-						"uploadTime": '2021年02月01日'
-					},
-					{
-						id: 2,
-						status: 0,
-						suffix: 'PDF',
-						fileType: '话术资料',
-						title: '五菱第三课课程学习笔记',
-						avatar: '',
-						author: '秋国艳',
-						uploadTime: '2021年02月01日'
-					},
-					{
-						id: 3,
-						status: 1,
-						suffix: 'Xls',
-						fileType: '其他资料',
-						title: '五菱学社最长最长最长最长最长的标题就是这题就是这题就是这',
-						avatar: '',
-						author: '秋国艳',
-						uploadTime: '2021年02月01日'
-					},
-					{
-						id: 4,
-						status: 0,
-						suffix: 'PPT',
-						fileType: '话术资料',
-						title: '五菱第三课课程学习笔记',
-						avatar: '',
-						author: '秋国艳',
-						uploadTime: '2021年02月01日'
-					},
-					{
-						id: 5,
-						status: 1,
-						suffix: 'ZIP',
-						fileType: '图像及视频资料',
-						title: '五菱第三课课程学习笔记',
-						avatar: '',
-						author: '秋国艳',
-						uploadTime: '2021年02月01日'
-					},
-				];
+			this.page.resourceLists = [];
         this.getList();
     }
 
@@ -83,70 +36,109 @@ export class InformationZonePage {
     //按键
     search(event) {
         if (event && event.keyCode == 13) {
-            this.page.page = 1;
-            this.getList();
-            //搜索日志
-            if (this.page.Title) {
-                console.log(this.page.Title)
-                // this.logSer.keyWordLog(this.page.Title);
-            }
+          this.doSearch();
         }
     }
     doSearch() {
-        console.log('当前搜索', this.page.Title);
+			this.page.page = 1;
+			this.getList();
+        // console.log('当前搜索', this.page.Title);
     }
 		
-		setSuffixClass(suffix) {
+		setSuffixClass(fileName) {
+			let suffix = fileName.substr(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase();; // 后缀名
+			// let suffixArr = ['Docx', 'PDF', 'Xls', 'PPT', 'ZIP']
 			let suffixClass:Object = { 'no': 'true' }
-			switch(suffix) {
-				case 'Docx': 
-					suffixClass = { 'docx-bg': 'true' }
-					break
-				case 'PDF':
-					suffixClass = { 'pdf-bg': 'true' }
-					break
-				case 'Xls':
-					suffixClass = { 'xls-bg': 'true' }
-					break
-				case 'PPT':
-					suffixClass = { 'ppt-bg': 'true' }
-					break
-				case 'ZIP':
-					suffixClass = { 'zip-bg': 'true' }
-					break
+			let suffixText = '';
+				// Word文档的扩展名有两个,分别是:doc和docx
+			if (suffix === 'doc' || suffix === 'doc') {
+				suffixClass = { 'docx-bg': 'true' };
+				suffixText = 'Docx';
+			} else if (suffix === 'pdf') { // pdf
+				suffixClass = { 'pdf-bg': 'true' };
+				suffixText = 'PDF';
+			} else if (suffix === 'xlsx' || suffix === 'xls' || suffix === 'csv') { // excel有很多版本的文件格式，另存为那里可以看到如图各类格式: xlsx/xls/csv
+				suffixClass = { 'xls-bg': 'true' };
+				suffixText = 'Xls';
+			} else if (suffix === 'pptx') { // pptx
+				suffixClass = { 'ppt-bg': 'true' };
+				suffixText = 'PPT';
+			} else if (suffix === 'zip') { // pptx
+				suffixClass = { 'zip-bg': 'true' };
+				suffixText = 'ZIP';
 			}
-			return suffixClass
+			let suffixObj = {
+				suffixClass: suffixClass,
+				suffixText: suffixText
+			} 
+			return suffixObj
 		}
 		
-		
-		
-
     getList() {
         let loading = this.loadCtrl.create({
             content: ''
         });
         loading.present();
-				loading.dismiss();
+				// loading.dismiss();
 				console.log(this.homeSer);
-        // const data = {
-        //     Search: this.page.Search,
-        //     Page: 1,
-        //     PageSize: this.page.PageSize,
-        //     Type: this.page.Type
-        // };
-        // this.homeSer.GetJobLevelList(data).subscribe(
-        //     (res) => {
-        //         // for (var i=0;i<res.data.Items.length; i++) {
-        //         //     res.data.Items[i].OverPercentage = 34;
-        //         // } // 测试数据
-        //         this.page.PositionName = res.data.PositionName
-        //         this.page.jobLevelList = (res.data.Items);
-        //         this.page.TotalCount = res.data.TotalCount;
-        //         this.page.isLoad = true;
-        //         loading.dismiss();
-        //         // console.log('GetJobLevelList', res);
-        //     }
-        // )
+        const data = {
+            DisplayName: this.page.Title,
+            Page: 1,
+            PageSize: this.page.PageSize
+        };
+        this.homeSer.GetQueryMaterialFile(data).subscribe(
+            (res) => {
+							this.page.resourceLists = this.DataAssign(res.data);
+							console.log('9999999', this.page.resourceLists);
+							this.page.isLoad = true;
+							loading.dismiss();
+            }
+        )
+    }
+		
+		DataAssign(Data) {
+			let Lists = Data.MaterialFileItems
+			// 处理返回的 数据
+			for (var i=0; i<Lists.length; i++) {
+				Lists[i].suffixObj = this.setSuffixClass(Lists[i].Name);
+			}
+			this.page.TotalCount = Data.TotalCount;
+			return Lists;
+		}
+		
+		//下拉刷新
+		doRefresh(e) {
+		    this.page.page = 1;
+		    this.getList();
+		    timer(1000).subscribe(() => {
+		        e.complete();
+		    });
+		}
+		
+		//加载更多
+		doInfinite(e) {
+		    if (this.page.resourceLists.length == this.page.TotalCount) {
+		        e.complete();
+		        return;
+		    }
+		    this.page.page++;
+				const paramsObj = {
+				    DisplayName: this.page.Title,
+				    Page: this.page.page,
+				    PageSize: this.page.PageSize
+				};
+		    this.homeSer.GetQueryMaterialFile(paramsObj).subscribe(
+		        (res) => {
+		            this.page.resourceLists = this.page.resourceLists.concat(this.DataAssign(res.data));
+		            e.complete();
+		        }
+		    )
+		}
+
+		//下载文件
+    downLoad(fileUrl, fileName, e) {
+        e.stopPropagation();
+        this.fileSer.downloadFile(fileUrl, fileName);
     }
 
 

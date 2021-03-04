@@ -17,12 +17,16 @@ export class ForumListTimeComponent implements OnInit {
     @Input() item;
     @Input() itemIndex;
     @Output() share = new EventEmitter();
+		@Output() avatarClick = new EventEmitter();
 
     constructor(public commonSer: CommonService, private modalCtrl: ModalController) {
     }
 
     ngOnInit() {
     }
+		
+		goToPersonalCenter(item) {			console.log('888-item', item.Poster)        // this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});
+				this.avatarClick.emit(item);    }
 
     // 微信分享
     wxShare(data) {

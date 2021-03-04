@@ -329,4 +329,15 @@ export class HomeService {
     StudyPlanList(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/AppStudyTask/StudyPlanList', data);
     }
+		
+		// 
+		// 查询 “资料专区” 列表
+		GetQueryMaterialFile(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/EMaterialFile/QueryMaterialFile', data);
+		}
+		
+		// 查询个人基本信息
+		GetPosterInformation(data): Observable<any> {
+		    return this.http.get(SERVER_API_URL + '/EQuestionManagement/PosterInformation' + this.dataFormat.toQuery(data));
+		}
 }

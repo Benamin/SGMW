@@ -29,7 +29,7 @@ import {CompetitionVideoPage} from "../competition-video/competition-video";
 import {MyShortVideoBoxPage} from "../../../mine/my-short-video-box/my-short-video-box";
 import {GlobalData} from "../../../../core/GlobleData";
 import {ShareWxComponent} from "../../../../components/share-wx/share-wx";
-
+import {PersonalCenterPage} from "../../personal-center/personal-center";
 
 /**
  * 销售大赛 列表
@@ -289,8 +289,9 @@ export class CompetitionListsPage {
     }
 
     // 前往帖子详情
-    goPostsContent(Id) {
-        let data = {Id: Id}
+    goPostsContent(item) {
+			console.log('888-item', item.Poster)
+        let data = {Id: item.Id}
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
 
@@ -525,4 +526,5 @@ export class CompetitionListsPage {
         modal.present();
     }
 
+		goToPersonalCenter(item) {			console.log('666-item', item.Poster)      this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});    }
 }

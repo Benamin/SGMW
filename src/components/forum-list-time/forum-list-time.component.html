@@ -1,5 +1,5 @@
   <div class="post-introduction-top">
-    <img [src]="item.PosterUserHeadPhoto || ''" alt="">
+    <img (click)="$event.stopPropagation();goToPersonalCenter(item)" [src]="item.PosterUserHeadPhoto || ''" alt="">
     <div class="name nowrap-1">{{item.PosterUserName}}</div>
     <div class="oldDate">{{item.PostRelativeTime}}</div>
   </div>

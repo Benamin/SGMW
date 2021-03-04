@@ -9,6 +9,7 @@ import {ViewReplyComponent} from './view-reply/view-reply.component';
 import {PostAddComponent} from './post-add/post-add.component';
 import {LogService} from "../../service/log.service";
 import {ShareWxComponent} from "../../components/share-wx/share-wx";
+import {PersonalCenterPage} from "../home/personal-center/personal-center";
 
 
 @Component({
@@ -273,4 +274,9 @@ export class ForumPage {
             this.loading = null;
         }
     }
+		
+		goToPersonalCenter(item) {
+			console.log('666-item', item.Poster)
+		  this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});
+		}
 }

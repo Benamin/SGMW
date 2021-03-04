@@ -47,6 +47,7 @@ import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
 import {askSearchModalPage} from "./want-to-ask/ask-search-modal/ask-search-modal";
 import {AddAskPage} from "./want-to-ask/add-ask/add-ask";
 import {WantToAskDetailPage} from "./want-to-ask/ask-detail/ask-detail";
+import {PersonalCenterPage} from "./personal-center/personal-center";
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import {WantToAskDetailPage} from "./want-to-ask/ask-detail/ask-detail";
 				askSearchModalPage,
 				AddAskPage,
 				WantToAskDetailPage,
+				PersonalCenterPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -139,6 +141,7 @@ import {WantToAskDetailPage} from "./want-to-ask/ask-detail/ask-detail";
 				askSearchModalPage,
 				AddAskPage,
 				WantToAskDetailPage,
+				PersonalCenterPage
     ]
 })
 export class HomeModule {

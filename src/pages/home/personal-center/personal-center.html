@@ -9,15 +9,16 @@
 		<div class="person-info">
 			<div class="info-box">
 				<div class="avatar-box">
-					<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="个人头像"/>
+					<img class="avatar" src="{{ page.personalInfo?.headPhoto || userDefaultImg }}" alt="个人头像"/>
 				</div>
 				<div class="info-detail">
-					<div class="name">张三 <span class="tag">学员</span></div>
+					<div class="name">{{ page.personalInfo?.userName }} <span class="tag">学员</span></div>
 					<div class="dealer-number">经销商号：1231424</div>
-					<div class="phone">手机号：13982727783</div>
+					<div class="phone">手机号：{{ page.personalInfo?.Phone }}</div>
 				</div>
 			</div>
-			<div class="follow-btn">关注</div>
+			<div class="follow-btn" *ngIf="page.personalInfo?.isNoFocus.isNoFocus === false">关注</div>
+			<div class="follow-btn actived" *ngIf="page.personalInfo?.isNoFocus.isNoFocus === true">已关注</div>
 		</div>
 	</div>
 

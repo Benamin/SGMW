@@ -4,6 +4,12 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content pullingText="下拉刷新"
+	                           refreshingSpinner="bubbles">
+	    </ion-refresher-content>
+	</ion-refresher>
+	
   <div class="searchbar" ion-fixed>
     <form class="input">
 			<div class="input-box">
@@ -25,18 +31,24 @@
   <ul class="file-lists">
 		<li *ngFor="let item of page.resourceLists" (click)="changeCheckType(item.lable)">
 			<div class="flex-box">
-				<span class="suffix" [ngClass]="setSuffixClass(item.suffix)">{{ item.suffix }}</span>
-				<span class="file-type">{{ item.fileType }}</span>
-				<span class="download-btn" *ngIf="item.status === 0">下载</span>
-				<span class="download-btn success-btn" *ngIf="item.status === 1">预览</span>
+				<span class="suffix" [ngClass]="item.suffixObj.suffixClass">{{ item.suffixObj.suffixText }}</span>
+				<span class="file-type">{{ item.FileType }}</span>
+				<span class="download-btn" (click)="downLoad(item.FileAddress, item.Name, $event)">下载</span>
+				<!-- <span class="download-btn" *ngIf="item.status === 0">下载</span>
+				<span class="download-btn success-btn" *ngIf="item.status === 1">预览</span> -->
 			</div>
-			<div class="title">{{ item.title }}</div>
+			<div class="title">{{ item.DIsplayName }}</div>
 			<div class="flex-box">
-				<img src="{{ item?.avatar || userDefaultImg }}" class="avatar" alt="头像">
-				<span class="author">{{ item.author }}</span>
-				<span class="upload-time">上传时间：{{ item.uploadTime }}</span>
+				<img src="{{ item?.CreateHeadPhoto || userDefaultImg }}" class="avatar" alt="头像">
+				<span class="author">{{ item.Creater }}</span>
+				<span class="upload-time">上传时间：{{ item.CreateTime | date:'yyyy-MM-dd HH:mm' }}</span>
 			</div>
 		</li>
 	</ul>
 
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+			<ion-infinite-scroll-content
+							loadingSpinner="bubbles"
+							loadingText="加载中"></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 </ion-content>

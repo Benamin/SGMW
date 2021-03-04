@@ -7,6 +7,7 @@ import {EditPage} from "../../competition/edit/edit";
 import {CompetitionVideoPage} from "../../competition/competition-video/competition-video";
 import {GlobalData} from "../../../../core/GlobleData";
 import {FwVideoPage} from "../fw-video/fw-video";
+import {PersonalCenterPage} from "../../personal-center/personal-center";
 
 /**
  * 服务大赛 排行榜 列表
@@ -473,4 +474,9 @@ export class CompetitionFWPage {
         second = second > 9 ? second : '0' + second;
         item.duration = minute + ':' + second
     }
+		
+		// goToPersonalCenter(item) {
+		// 	console.log('888-item', item.ID)
+		//     this.navCtrl.push(PersonalCenterPage, {Poster: item.ID});
+		// }
 }

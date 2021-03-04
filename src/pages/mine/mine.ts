@@ -23,7 +23,6 @@ import {ForumService} from "../forum/forum.service";
 import {LogService} from "../../service/log.service";
 import {IntegralComponent} from "./Integral/Integral.component";
 import {MyShortVideoPage} from "./my-short-video/my-short-video";
-import {PersonalCenterPage} from "./personal-center/personal-center";
 
 import {HomeService} from "../home/home.service";
 
@@ -178,11 +177,6 @@ export class MinePage {
         this.navCtrl.push(MyFilePage);
     }
 		
-		// 个人中心
-		goToPersonalCenter() {
-        this.navCtrl.push(PersonalCenterPage);
-    }
-
     //意见反馈
     openUrl() {
         this.inAppBrowser.create('https://jinshuju.net/f/WVrljv', '_system');
