@@ -45,3 +45,7 @@ build/
 /src/pages/home/personal-center/evaluate
 /src/pages/home/personal-center/posted
 /src/pages/home/personal-center/reply
+/src/pages/home/want-to-ask/ask-search-modal/role-modal.html
+/src/pages/home/want-to-ask/ask-search-modal/role-modal.scss
+/src/pages/home/want-to-ask/ask-search-modal/role-modal.ts
+/src/pages/mine/personal-center

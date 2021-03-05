@@ -4,6 +4,11 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content pullingText="下拉刷新"
+	                           refreshingSpinner="bubbles">
+	    </ion-refresher-content>
+	</ion-refresher>
 	
 	<div class="black-bg">
 		<div class="person-info">
@@ -12,13 +17,13 @@
 					<img class="avatar" src="{{ page.personalInfo?.headPhoto || userDefaultImg }}" alt="个人头像"/>
 				</div>
 				<div class="info-detail">
-					<div class="name">{{ page.personalInfo?.userName }} <span class="tag">学员</span></div>
-					<div class="dealer-number">经销商号：1231424</div>
-					<div class="phone">手机号：{{ page.personalInfo?.Phone }}</div>
+					<div class="name">{{ page.personalInfo?.userName }} <span *ngIf="page.personalInfo?.dealerName" class="tag">{{ page.personalInfo?.dealerName }}</span></div>
+					<div class="dealer-number" *ngIf="page.personalInfo?.dealerCode">经销商号：{{ page.personalInfo?.dealerCode }}</div>
+					<div class="phone" *ngIf="page.personalInfo?.Phone">手机号：{{ page.personalInfo?.Phone }}</div>
 				</div>
 			</div>
-			<div class="follow-btn" *ngIf="page.personalInfo?.isNoFocus.isNoFocus === false">关注</div>
-			<div class="follow-btn actived" *ngIf="page.personalInfo?.isNoFocus.isNoFocus === true">已关注</div>
+			<div (click)="doFollower(true)" class="follow-btn" *ngIf="page.personalInfo?.isNoFocus === false">关注</div>
+			<div (click)="doFollower(false)" class="follow-btn actived" *ngIf="page.personalInfo?.isNoFocus === true">已关注</div>
 		</div>
 	</div>
 
@@ -41,71 +46,76 @@
 	</div>
 	
 	<ul class="post-lists">
-		<li *ngIf="page.checkType === 'post'">
-			<div class="post" *ngFor="let item of page.commentLists">
+		<div *ngIf="page.checkType === 'post'">
+			<li *ngFor="let item of page.navliArr[0].listArr">
 				<div class="user-info">
-					<img class="avatar" src="{{ item.avatar || userDefaultImg }}" alt="头像"/>
+					<img class="avatar" src="{{ item.PosterUserHeadPhoto || userDefaultImg }}" alt="头像"/>
 					<div class="info-box">
 						<div class="name">
-							秋国燕 <span class="timer">1小时前</span>
+							{{ item.PosterUserName }} <span class="timer">{{ item.PostRelativeTime }}</span>
 						</div>
-						<div class="product">上海宝骏</div>
+						<div class="product">{{ item.System }}</div>
 					</div>
-					<img class="share-btn" src="./assets/imgs/forum/other/share.png" alt="分享"/>
+					<img (click)="wxShare(item);$event.stopPropagation()" class="share-btn" src="./assets/imgs/forum/other/share.png" alt="分享"/>
 				</div>
-				<div class="title">用车分享：大宝第十次的维修保养知识</div>
-				<div class="pics">
-					<img src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="封面图">
+				<div class="title">{{ item.Title }}</div>
+				<div class="pics" *ngIf="item.Images && item.Images.length === 1">
+					<img *ngIf="item.Images && item.Images.length == 1" src="{{ item.Images[0].Src }}" alt="封面图">
+				</div>
+				<div class="pics multiple" *ngIf="item.Images && item.Images.length > 1"> 
+					<img *ngFor="let picItem of item.Images" src="{{ picItem.Src }}" alt="封面图">
 				</div>
 				<div class="tags-box">
-					<span>#凯捷沟通技能大赛#</span>
-					<span>#销售大赛#</span>
+					<span *ngFor="let tItem of TopicTagPlateItem">#{{ tItem.TopicName }}#</span>
 				</div>
 				<div class="li-bottom">
-					<img class="look-num" src="./assets/imgs/forum/other/eye.png" alt="浏览量"/><span>134</span>
-					<img class="comment-num" src="./assets/imgs/forum/list/luntan_coment@2x.png" alt="评论量"/><span>134</span>
-					<img class="like-num" src="./assets/imgs/forum/other/p771_comment_like@2x.png" alt="点赞量"/><span>134</span>
+					<img class="look-num" src="./assets/imgs/forum/other/eye.png" alt="浏览量"/><span>{{ item.ViewCount }}</span>
+					<img class="comment-num" src="./assets/imgs/forum/list/luntan_coment@2x.png" alt="评论量"/><span>{{ item.ReplyCount }}</span>
+					<img class="like-num" src="./assets/imgs/forum/other/p771_comment_like@2x.png" alt="点赞量"/><span>{{ item.LikeCount }}</span>
 				</div>
-			</div>
-		</li>
-		<li class="reply" *ngIf="page.checkType === 'reply'" >
-			<div class="user-info">
-				<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="头像"/>秋国艳
-			</div>
-			<div class="reply-desc">回复：这个课程很有帮助</div>
-			<div class="prev-box">凯捷销售技巧竞赛</div>
-		</li>
-		<li class="reply" *ngIf="page.checkType === 'reply'">
-			<div class="user-info">
-				<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="头像"/>秋国艳
-			</div>
-			<div class="reply-desc">回复：这个课程很有帮助</div>
-			<div class="prev-box-pic">
-				<img class="cover-pic" src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="封面图">
-				凯捷销售技巧竞赛
-			</div>
-		</li>
-		<li class="comment" *ngIf="page.checkType === 'comment'">
-			<div class="user-info">
-				<img class="avatar" src="{{ page.avatar || userDefaultImg }}" alt="头像"/>
-				<div class="info-box">
-					<div class="name">
-						秋国燕 <span class="tag">六年级</span>
+			</li>
+		</div>
+		<div *ngIf="page.checkType === 'reply'">
+			<li class="reply" *ngFor="let item of page.navliArr[1].listArr">
+				<div class="user-info">
+					<img class="avatar" src="{{ item.headPhoto || userDefaultImg }}" alt="头像"/>{{ item.userName }}
+				</div>
+				<div class="reply-desc">回复：{{ item.replyConten }}</div>
+				<!-- <div class="prev-box-pic">
+					<img class="cover-pic" src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="封面图">
+					{{ item.replyConten }}
+				</div> -->
+				<div class="prev-box">{{ item.postTitle }}</div>
+			</li>
+		</div>
+		<div *ngIf="page.checkType === 'comment'">
+			<li class="comment" *ngFor="let item of page.navliArr[2].listArr">
+				<div class="user-info">
+					<img class="avatar" src="{{ item.headPhoto || userDefaultImg }}" alt="头像"/>
+					<div class="info-box">
+						<div class="name">
+							{{ item.userName }} <span class="tag">{{ item.couserName }}</span>
+						</div>
+						<div class="timer">{{ item.createtime | date:'yyyy-MM-dd HH:mm' }}</div>
 					</div>
-					<div class="timer">2021-01-23</div>
+					<div class="starts-box">
+						<img *ngFor="let startItem of range(item.score)" class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>
+					</div>
 				</div>
-				<div class="starts-box">
-					<img class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>
-					<img class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>
-					<img class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>
+				<div class="comment-desc">{{ item.replyContent }}</div>
+				<div class="prev-box-pic">
+					<img class="cover-pic" src="{{ item.coverImage }}" alt="封面图">
+					{{ item.pName }}
 				</div>
-			</div>
-			<div class="comment-desc">这个课程很有帮助</div>
-			<div class="prev-box-pic">
-				<img class="cover-pic" src="./assets/imgs/consultation/InformationDetails@2x.jpg" alt="封面图">
-				五菱征途学习课程
-			</div>
-		</li>
+			</li>
+		</div>
+		
 	</ul>
+	
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+			<ion-infinite-scroll-content
+							loadingSpinner="bubbles"
+							loadingText="加载中"></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 	
 </ion-content>

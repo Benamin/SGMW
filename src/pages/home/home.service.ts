@@ -340,4 +340,25 @@ export class HomeService {
 		GetPosterInformation(data): Observable<any> {
 		    return this.http.get(SERVER_API_URL + '/EQuestionManagement/PosterInformation' + this.dataFormat.toQuery(data));
 		}
+		
+		// 关注作者用户
+		setFollower(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/Follower', data);
+		}
+		
+		// 查询 人员发帖列表
+		GetSearchNewRetFollower(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/SearchNewRetFollower', data);
+		}
+		
+		// 查询 人员的回帖列表
+		GetPostReply(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/PostReply', data);
+		}
+		
+		// 查询 关注人的课程评价列表
+		GetCourseReply(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/CourseReply', data);
+		}
+		
 }
