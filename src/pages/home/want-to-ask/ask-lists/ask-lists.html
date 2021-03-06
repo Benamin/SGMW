@@ -22,9 +22,9 @@
   
 	<ul class="ask-lists">
 		<li *ngFor="let item of page.askLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">
-			<div class="title">{{ item.title }}</div>
+			<div class="title">{{ item.QuestionDesc }}</div>
 			<div class="item-bottom">
-				<span class="ask-count">其他 <span style="color: #7DBCEB;">{{ item.askedNum }}</span>人也想知道</span>
+				<span class="ask-count">其他 <span style="color: #7DBCEB;">{{ item.FocusNum }}</span>人也想知道</span>
 				<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="!item.isAsked" class="add-ask-btn">我也想问</span>
 				<span *ngIf="item.isAsked" class="edit-ask-btn">已问</span>
 			</div>

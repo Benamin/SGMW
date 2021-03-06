@@ -361,4 +361,20 @@ export class HomeService {
 		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/CourseReply', data);
 		}
 		
+		// 查询 查询问题列表（猜你想问）
+		GetQueryQuestionItems(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/QueryQuestionItems', data);
+		}
+		
+		// 获取 问题类型（猜你想问）
+		GetAskType(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/Dictionary/GetDictionaryByPCode', data);
+		}
+		
+		// 提交问题（猜你想问）
+		PutQuestion(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/PutQuestion', data);
+		}
+		
+		
 }

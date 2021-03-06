@@ -4,18 +4,19 @@
     </ion-navbar>
 </ion-header>
 <ion-content >
-  <div class="bg-box">
-		<div class="title">五菱征途个课程播放出现闪退，应该要怎么处理么？</div>
+  <div class="bg-box" *ngIf="page.askItem">
+		<div class="title">{{ page.askItem.QuestionType }}</div>
 		<div class="author">
-			<img class="avatar" src="{{ null || userDefaultImg }}" alt="头像"/>
-			<span class="name">秋国艳</span>
-			<span class="total-num">其他88人也想知道</span>
+			<img class="avatar" src="{{ page.askItem.ImgAddress || userDefaultImg }}" alt="头像"/>
+			<span class="name">{{ page.askItem.UserName }}</span>
+			<span class="total-num">其他{{ page.askItem.FocusNum }}人也想知道</span>
 		</div>
-		<div class="desc">五菱征途个课程播放出现闪退，应该要怎么处理么？你们是如果处理这个问题的呢？</div>
+		<div class="desc">{{ page.askItem.QuestionDesc }}</div>
 		
 		<div class="ask-pics-box">
 			<div class="title">问题截图</div>
-			<div class="pics-text">查看图片</div>
+			<!-- ImageList -->
+			<div class="pics-text" >查看图片</div>
 			
 			<div class="pics-text">查看图片</div>
 		</div>

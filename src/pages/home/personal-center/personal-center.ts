@@ -2,7 +2,12 @@ import {Component, ViewChild, NgZone} from '@angular/core';
 import { LoadingController, NavController, Content, NavParams, ModalController } from 'ionic-angular';
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../home.service";
+import {LearnService} from "../../learning/learn.service";
 import {ShareWxComponent} from "../../../components/share-wx/share-wx";
+
+import {FocusCoursePage} from "../../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../../learning/inner-course/inner-course";
+import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 
 @Component({
     selector: 'page-personal-center',
@@ -40,7 +45,7 @@ export class PersonalCenterPage {
 			
     };
 
-    constructor(public navCtrl: NavController, private homeSer: HomeService, private loadCtrl: LoadingController,public zone: NgZone,public navParams:NavParams, private modalCtrl: ModalController,) {
+    constructor(public navCtrl: NavController, private homeSer: HomeService, private loadCtrl: LoadingController,public zone: NgZone,public navParams:NavParams, private modalCtrl: ModalController, private learSer: LearnService,) {
 
     }
 
@@ -72,9 +77,8 @@ export class PersonalCenterPage {
 		// 一级导航切换 （注：考试不会有）
 		changeCheckType(checkType) {
 			if (this.page.checkType === checkType) return;
-			this.page.commentLists = [];
+			// this.page.commentLists = [];
 			this.page.checkType = checkType;
-			this.page.Page = 1;
 			this.page.PageIndex = 1;
 			this.page.isLoad = false;
 			if (checkType === 'post') this.GetSearchNewRetFollower();
@@ -119,7 +123,7 @@ export class PersonalCenterPage {
 			)
 		}
 		
-    GetSearchNewRetFollower(isLoadMore) {
+    GetSearchNewRetFollower(doLoadMore = null) {
 			if (!this.page.posterId) return
 			let loading = this.loadCtrl.create({
 					content: ''
@@ -133,8 +137,9 @@ export class PersonalCenterPage {
 			this.homeSer.GetSearchNewRetFollower(data).subscribe(
 					(res) => {
 						this.page.navliArr[0].TotalCount = res.data.Posts.TotalItems;
-						if (isLoadMore) {
+						if (doLoadMore) {
 							this.page.navliArr[0].listArr = this.page.navliArr[0].listArr.concat(res.data.Posts.Items);
+							doLoadMore.complete();
 						} else {
 							this.page.navliArr[0].listArr = res.data.Posts.Items;
 						}
@@ -142,11 +147,12 @@ export class PersonalCenterPage {
 						console.log('人员发帖列表', this.page.navliArr[0].listArr)
 						this.page.isLoad = true;
 						loading.dismiss();
+						
 					}
 			)
     }
 		
-		GetPostReply(isLoadMore) {
+		GetPostReply(doLoadMore = null) {
 			if (!this.page.posterId) return
 			let loading = this.loadCtrl.create({
 					content: ''
@@ -160,8 +166,9 @@ export class PersonalCenterPage {
 			this.homeSer.GetPostReply(data).subscribe(
 					(res) => {
 						this.page.navliArr[1].TotalCount = res.data.Total;
-						if (isLoadMore) {
+						if (doLoadMore) {
 							this.page.navliArr[1].listArr = this.page.navliArr[1].listArr.concat(res.data.response);
+							doLoadMore.complete();
 						} else {
 							this.page.navliArr[1].listArr = res.data.response;
 						}
@@ -172,7 +179,7 @@ export class PersonalCenterPage {
 			)
 		}
 		
-		GetCourseReply(isLoadMore) {
+		GetCourseReply(doLoadMore = null) {
 			if (!this.page.posterId) return
 			let loading = this.loadCtrl.create({
 					content: ''
@@ -186,8 +193,10 @@ export class PersonalCenterPage {
 			this.homeSer.GetCourseReply(data).subscribe(
 					(res) => {
 						this.page.navliArr[2].TotalCount = res.data.Total;
-						if (isLoadMore) {
+						// this.page.navliArr[2].listArr = res.data;
+						if (doLoadMore) {
 							this.page.navliArr[2].listArr = this.page.navliArr[2].listArr.concat(res.data.response);
+							doLoadMore.complete();
 						} else {
 							this.page.navliArr[2].listArr = res.data.response;
 						}
@@ -226,10 +235,10 @@ export class PersonalCenterPage {
 				    e.complete();
 				    return;
 				}
-		    this.page.page++;
-				if (this.page.checkType === 'post') this.GetSearchNewRetFollower(true);
-				if (this.page.checkType === 'reply') this.GetPostReply(true);
-				if (this.page.checkType === 'comment') this.GetCourseReply(true);
+		    this.page.PageIndex++;
+				if (this.page.checkType === 'post') this.GetSearchNewRetFollower(e);
+				if (this.page.checkType === 'reply') this.GetPostReply(e);
+				if (this.page.checkType === 'comment') this.GetCourseReply(e);
 		}
 		
 		// 将对象数字转换为数组
@@ -246,5 +255,31 @@ export class PersonalCenterPage {
 		wxShare(item) {
 				let modal = this.modalCtrl.create(ShareWxComponent, {data: item});
 				modal.present();
+		}
+		
+		//获取课程详情
+		getCourseDetailById(pId) {
+			let loading = this.loadCtrl.create({
+					content: ''
+			});
+			loading.present();
+			this.learSer.GetProductById(pId).subscribe(
+					(res) => {
+							if (res.data) {
+								loading.dismiss();
+								this.goCourse(res.data);
+							}
+					}
+			);
+		}
+		
+		goCourse(e) {
+		    if (e.TeachTypeName == "集中培训") {
+		        this.navCtrl.push(FocusCoursePage, {id: e.Id});
+		    } else if (e.TeachTypeName == "内训") {
+		        this.navCtrl.push(InnerCoursePage, {id: e.Id});
+		    } else {
+		        this.navCtrl.push(CourseDetailPage, {id: e.Id, StructureType: e.StructureType});
+		    }
 		}
 }

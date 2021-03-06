@@ -11,15 +11,20 @@ import {askSearchModalPage} from "../ask-search-modal/ask-search-modal";
 })
 export class WantToAskListsPage {
     page = {
+			searchKeyWord: '',
+			PageIndex: 1, // 第一页 开始
+			PageSize: 8, // 一页8条
+			TotalCount: 0,
+			searchLists: [],
 			askLists: [
-				{ title: '五菱征途个课程播放出现闪退，应该要怎么处理么？五菱征途个课程播放出现闪退，应该要怎么处理么，应该要怎么处理么？', 
-					askedNum: 88,
-					isAsked: false
-				},
-				{ title: '五菱征途个课程播放出现闪退，应该要怎么处理么？五菱征途个课程播放出现闪退，应该要怎么处理么，应该要怎么处理么？',
-					askedNum: 88,
-					isAsked: true
-				}
+				// { title: '五菱征途个课程播放出现闪退，应该要怎么处理么？五菱征途个课程播放出现闪退，应该要怎么处理么，应该要怎么处理么？', 
+				// 	askedNum: 88,
+				// 	isAsked: false
+				// },
+				// { title: '五菱征途个课程播放出现闪退，应该要怎么处理么？五菱征途个课程播放出现闪退，应该要怎么处理么，应该要怎么处理么？',
+				// 	askedNum: 88,
+				// 	isAsked: true
+				// }
 			]
     };
 
@@ -64,26 +69,29 @@ export class WantToAskListsPage {
         });
         loading.dismiss();
         console.log('888', this.homeSer)
-        // loading.present();
-        // const data = {
-        //     Search: this.page.Search,
-        //     Page: 1,
-        //     PageSize: this.page.PageSize,
-        //     Type: this.page.Type
-        // };
-        // this.homeSer.GetJobLevelList(data).subscribe(
-        //     (res) => {
-        //         // for (var i=0;i<res.data.Items.length; i++) {
-        //         //     res.data.Items[i].OverPercentage = 34;
-        //         // } // 测试数据
-        //         this.page.PositionName = res.data.PositionName
-        //         this.page.jobLevelList = (res.data.Items);
-        //         this.page.TotalCount = res.data.TotalCount;
-        //         this.page.isLoad = true;
-        //         loading.dismiss();
-        //         // console.log('GetJobLevelList', res);
-        //     }
-        // )
+        loading.present();
+        const data = {
+            PageIndex: this.page.PageIndex,
+            PageSize: this.page.PageSize,
+						IsNowMonth: true, // 是否只查当月的 pc为false
+						IsNoDerive: 0, // 0, 1查询 2导出
+						QuestionDesc: this.page.searchKeyWord, // 问题描述
+        };
+        this.homeSer.GetQueryQuestionItems(data).subscribe(
+            (res) => {
+							console.log('GetQueryQuestionItems', res)
+                // for (var i=0;i<res.data.Items.length; i++) {
+                //     res.data.Items[i].OverPercentage = 34;
+                // } // 测试数据
+                // this.page.PositionName = res.data.PositionName
+                // this.page.jobLevelList = (res.data.Items);
+								this.page.askLists = res.data.QuestionItems;
+                this.page.TotalCount = res.data.TotalCount;
+                // this.page.isLoad = true;
+                loading.dismiss();
+                // console.log('GetJobLevelList', res);
+            }
+        )
     }
 		
 		changeSecNav(aIndex) {

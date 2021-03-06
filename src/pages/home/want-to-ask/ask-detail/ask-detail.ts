@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {LoadingController, NavController, NavParams} from 'ionic-angular';
 import {HomeService} from "../../home.service";
 
 @Component({
@@ -9,11 +9,11 @@ import {HomeService} from "../../home.service";
 export class WantToAskDetailPage {
 		userDefaultImg = './assets/imgs/userDefault.jpg'
     page = {
-
+			askItem: null
     };
 
     constructor(public navCtrl: NavController, private homeSer: HomeService,
-                private loadCtrl: LoadingController, ) {
+                private loadCtrl: LoadingController, public navParams:NavParams,) {
 
     }
 
@@ -21,6 +21,8 @@ export class WantToAskDetailPage {
     //     this.getList();
     // }
     ionViewDidLoad() {
+			this.page.askItem = this.navParams.get("item")
+			console.log('666--item', this.navParams.get("item"))
         this.getList();
     }
 

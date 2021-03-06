@@ -103,7 +103,7 @@
 					</div>
 				</div>
 				<div class="comment-desc">{{ item.replyContent }}</div>
-				<div class="prev-box-pic">
+				<div class="prev-box-pic" (click)="getCourseDetailById(item.pId)">
 					<img class="cover-pic" src="{{ item.coverImage }}" alt="封面图">
 					{{ item.pName }}
 				</div>
