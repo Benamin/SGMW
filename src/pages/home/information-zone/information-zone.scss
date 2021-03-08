@@ -1,0 +1,120 @@
+page-information-zone {
+  .searchbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #F2F2F2;
+
+    > .input {
+      width: 100%;
+      padding: 16px 10px;
+			.input-box {
+				padding: 7px 0;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				border-radius: 15px;
+				background-color: #fff;
+				
+				.search-icon {
+					margin: 0 8px 0 10px;
+					width: 16px;
+					height: 16px;
+				}
+				
+				ion-input {
+				  .text-input-ios {
+						margin: 0;
+				    height: 15px;
+				    background: rgba(255, 255, 255, 1);
+				    // margin: 8px;
+				    // padding-left: 15px;
+				    width: calc(100% - 23px);
+				  }
+				}
+			}
+    }
+  }
+	
+	.file-lists {
+		margin: 0;
+		padding: 0;
+		margin-top: 62px;
+		margin-bottom: 10px;
+		list-style: none;
+		li {
+			margin-bottom: 1px;
+			padding: 15px;
+			background-color: #FFFFFF;
+			
+			.flex-box {
+				display: flex;
+				align-items: center;
+				.suffix {
+					font-size: 10px;
+					color: #FFF;
+					padding: 3px 5px;
+					border-radius: 3px;
+				}
+				.docx-bg {
+					background-color: #2D7CE8;
+				}
+				.pdf-bg {
+					background-color: #E47E7B;
+				}
+				.xls-bg {
+					background-color: #12AB70;
+				}
+				.ppt-bg {
+					background-color: #EC5C52;
+				}
+				.zip-bg {
+					background-color: #4D087C;
+				}
+				.file-type {
+					margin-left: 5px;
+					font-size: 14px;
+					color: #666666;
+				}
+				.download-btn {
+					margin-left: auto;
+					width: 80px;
+					height: 25px;
+					line-height: 26px;
+					text-align: center;
+					background: linear-gradient(242deg, #FFF7CB 0%, #FFC92D 100%);
+					border-radius: 13px;
+				}
+				.success-btn {
+					color: #FFFFFF;
+					background: #50B674;
+				}
+				.avatar {
+					width: 20px;
+					height: 20px;
+					border-radius: 50%;
+					object-fit: cover;
+				}
+				.author {
+					margin-left: 10px;
+				}
+				.upload-time {
+					margin-left: auto;
+					margin-right: 12px;
+					font-size: 13px;
+					color: #666666;
+				}
+			}
+			.title {
+				margin: 15px 0;
+				height: 22px;
+				font-size: 16px;
+				font-weight: bold;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+	}
+}

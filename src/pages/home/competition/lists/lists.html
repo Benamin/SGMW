@@ -166,8 +166,8 @@
 
     <!-- 帖子列表 -->
     <ul class="topic-lists" *ngIf="page.checkType === 'topic'">
-        <li *ngFor="let item of page.competitionLists, let itemIndex = index" (click)="goPostsContent(item.Id)">
-            <app-forum-list-time (share)="wxShare(item)" class="topic-discript" [item]='item' [itemIndex]='itemIndex'></app-forum-list-time>
+        <li *ngFor="let item of page.competitionLists, let itemIndex = index" (click)="goPostsContent(item)">
+            <app-forum-list-time (share)="wxShare(item)" (avatarClick)="goToPersonalCenter(item)" class="topic-discript" [item]='item' [itemIndex]='itemIndex'></app-forum-list-time>
         </li>
     </ul>
     <!-- 帖子列表 -->

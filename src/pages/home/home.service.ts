@@ -330,6 +330,57 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/AppStudyTask/StudyPlanList', data);
     }
 
+    //
+    // 查询 “资料专区” 列表
+    GetQueryMaterialFile(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EMaterialFile/QueryMaterialFile', data);
+    }
+
+    // 查询个人基本信息
+    GetPosterInformation(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/EQuestionManagement/PosterInformation' + this.dataFormat.toQuery(data));
+    }
+
+    // 关注作者用户
+    setFollower(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/Follower', data);
+    }
+
+    // 查询 人员发帖列表
+    GetSearchNewRetFollower(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/SearchNewRetFollower', data);
+    }
+
+    // 查询 人员的回帖列表
+    GetPostReply(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/PostReply', data);
+    }
+
+    // 查询 关注人的课程评价列表
+    GetCourseReply(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/CourseReply', data);
+    }
+
+    // 查询 查询问题列表（猜你想问）
+    GetQueryQuestionItems(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/QueryQuestionItems', data);
+    }
+
+    // 获取 问题类型（猜你想问）
+    GetAskType(data): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/Dictionary/GetDictionaryByPCode' + this.dataFormat.toQuery(data));
+    }
+
+    // 提交问题（猜你想问）
+    PutQuestion(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/PutQuestion', data);
+    }
+
+    // 添加或取消 “我也想问“ 成功后 数量+1（猜你想问）
+    AddOrCancelFocus(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/AddOrCancelFocus', data);
+    }
+
     /**主题活动**/
     //主页主题活动显示信息
     SelectThemeActivityInformation(): Observable<any> {

@@ -171,13 +171,18 @@ export class JobLevelInfoPage {
 
     //获取课程详情
     getCourseDetailById(id) {
-        this.learSer.GetProductById(id).subscribe(
-            (res) => {
-                if (res.data) {
-                    this.goCourse(res.data);
-                }
-            }
-        );
+			let loading = this.loadCtrl.create({
+					content: ''
+			});
+			loading.present();
+			this.learSer.GetProductById(id).subscribe(
+					(res) => {
+							if (res.data) {
+								loading.dismiss();
+								 this.goCourse(res.data);
+							}
+					}
+			);
     }
 
     goCourse(e) {

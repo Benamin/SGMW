@@ -95,9 +95,9 @@
                     </div>
                     <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s"
                          data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goQuestion()">
-                        <img style="width: 33px;" src="./assets/imgs/home/home_wenjuan@2x.png" alt="">
-                        <p>问卷/投票</p>
+                         data-wow-offset="30" (click)="goInformationZone()">
+                        <img style="width: 33px;" src="./assets/imgs/home/home_zlzq@2x.png" alt="">
+                        <p>资料专区</p>
                     </div>
                     <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"
                          data-wow-delay="1s"
@@ -113,15 +113,19 @@
                     </div>
                     <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow" data-wow-duration="2s"
                          data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goToXSCompetition()">
-                        <img src="./assets/imgs/home/home_jinjie@2x.png" alt="认证进阶">
-                        <p>销售大赛</p>
+                         data-wow-offset="30" (click)="goWantToAsk()">
+                        <img src="./assets/imgs/home/home_cnxw@2x.png" alt="猜你想问">
+                        <p>猜你想问</p>
                     </div>
                 </div>
             </ion-slide>
             <ion-slide>
                 <!--  新模块  -->
                 <div class="new-module" style="margin-top: 20px;height: 157px;align-items: flex-start;">
+                  <div tappable class=" wow" (click)="goToXSCompetition()">
+                    <img style="width: 28px;" src="./assets/imgs/home/home_jinjie@2x.png" alt="认证进阶">
+                    <p>销售大赛</p>
+                  </div>
                     <div tappable class="wow" (click)="goToFWCompetition()">
                         <img style="width: 28px;" src="./assets/imgs/home/fwds.png" alt="">
                         <p>服务大赛</p>
@@ -129,6 +133,11 @@
                     <div tappable class=" wow" (click)="goJobLevel()">
                         <img style="width: 28px;" src="./assets/imgs/home/job-level@2x.png" alt="">
                         <p>系列课程</p>
+                    </div>
+
+                    <div tappable class=" wow" (click)="goQuestion()">
+                      <img style="width: 28px;" src="./assets/imgs/home/home_wenjuan@2x.png" alt="">
+                      <p>问卷/投票</p>
                     </div>
                 </div>
             </ion-slide>

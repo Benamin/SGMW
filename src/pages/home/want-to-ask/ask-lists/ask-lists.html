@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>猜你想问</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content pullingText="下拉刷新"
+	                           refreshingSpinner="bubbles">
+	    </ion-refresher-content>
+	</ion-refresher>
+	
+	<div class="searchbar" ion-fixed>
+	  <form class="input">
+			<div class="input-box">
+				<img (click)="doSearch()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
+				<!-- <span>请输入问题关键词</span> -->
+				<ion-input [(ngModel)]="page.Title"
+									 placeholder="请输入问题关键词"
+									 [ngModelOptions]="{standalone: true}"
+									 (keypress)="search($event)"
+									 (ionFocus)="showKey()"
+									 autocomplete='off'
+				></ion-input>
+			</div>
+	  </form>
+	</div>
+  
+	<ul class="ask-lists">
+		<li *ngFor="let item of page.askLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">
+			<div class="title">{{ item.Title }}</div>
+			<div class="item-bottom">
+				<span class="ask-count">其他 <span style="color: #7DBCEB;">{{ item.FocusNum }}</span>人也想知道</span>
+				<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="!item.IsNoFocus" class="add-ask-btn">我也想问</span>
+				<span *ngIf="item.IsNoFocus" class="edit-ask-btn">已问</span>
+			</div>
+		</li>
+	</ul>
+
+	<ion-footer>
+		<div (click)="goAddAskPage()" class="other-want-ask">其他想问</div>
+	</ion-footer>
+</ion-content>

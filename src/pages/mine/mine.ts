@@ -23,6 +23,7 @@ import {ForumService} from "../forum/forum.service";
 import {LogService} from "../../service/log.service";
 import {IntegralComponent} from "./Integral/Integral.component";
 import {MyShortVideoPage} from "./my-short-video/my-short-video";
+
 import {HomeService} from "../home/home.service";
 
 @Component({
@@ -175,7 +176,7 @@ export class MinePage {
     goToFile() {
         this.navCtrl.push(MyFilePage);
     }
-
+		
     //意见反馈
     openUrl() {
         this.inAppBrowser.create('https://jinshuju.net/f/WVrljv', '_system');

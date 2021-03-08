@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>资料专区</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content pullingText="下拉刷新"
+	                           refreshingSpinner="bubbles">
+	    </ion-refresher-content>
+	</ion-refresher>
+	
+  <div class="searchbar" ion-fixed>
+    <form class="input">
+			<div class="input-box">
+				<img (click)="doSearch()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
+				<ion-input [(ngModel)]="page.Title"
+									 placeholder="请输入资料关键词"
+									 [ngModelOptions]="{standalone: true}"
+									 (keypress)="search($event)"
+									 (ionFocus)="showKey()"
+									 autocomplete='off'
+				></ion-input>
+			</div>
+    </form>
+
+    <!--<div class="filter" (click)="doSearch()">-->
+      <!--<span>搜索</span>-->
+    <!--</div>-->
+  </div>
+  <ul class="file-lists">
+		<li *ngFor="let item of page.resourceLists" (click)="changeCheckType(item.lable)">
+			<div class="flex-box">
+				<span class="suffix" [ngClass]="item.suffixObj.suffixClass">{{ item.suffixObj.suffixText }}</span>
+				<span class="file-type">{{ item.FileType }}</span>
+				<span class="download-btn" (click)="downLoad(item.FileAddress, item.Name, $event)">下载</span>
+				<!-- <span class="download-btn" *ngIf="item.status === 0">下载</span>
+				<span class="download-btn success-btn" *ngIf="item.status === 1">预览</span> -->
+			</div>
+			<div class="title">{{ item.DIsplayName }}</div>
+			<div class="flex-box">
+				<img src="{{ item?.CreateHeadPhoto || userDefaultImg }}" class="avatar" alt="头像">
+				<span class="author">{{ item.Creater }}</span>
+				<span class="upload-time">上传时间：{{ item.CreateTime | date:'yyyy-MM-dd HH:mm' }}</span>
+			</div>
+		</li>
+	</ul>
+
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+			<ion-infinite-scroll-content
+							loadingSpinner="bubbles"
+							loadingText="加载中"></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+</ion-content>

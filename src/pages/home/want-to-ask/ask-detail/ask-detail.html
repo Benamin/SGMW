@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>猜你想问</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content >
+  <div class="bg-box" *ngIf="page.askItem">
+		<div class="title">{{ page.askItem.Title }}</div>
+		<div class="author">
+			<img class="avatar" src="{{ page.askItem.headPhoto || userDefaultImg }}" alt="头像"/>
+			<span class="name">{{ page.askItem.UserName }}</span>
+			<span class="total-num">其他{{ page.askItem.FocusNum }}人也想知道</span>
+		</div>
+		<div class="desc">{{ page.askItem.QuestionDesc }}</div>
+		
+		<div class="ask-pics-box">
+			<div class="title">问题截图</div>
+			<!-- ImageList -->
+			<div *ngFor="let imgItem of page.askItem.ImageList; let imgIndex = index">
+				<a class="pics-text" class="pics-text" href="{{ imgItem }}" target="_blank">查看图片</a>
+			</div>
+			
+			<!-- <a class="pics-text">查看图片</a> -->
+		</div>
+	</div>
+</ion-content>

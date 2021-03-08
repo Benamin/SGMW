@@ -33,6 +33,9 @@ import {StudyPlanPage} from "./study-plan/study-plan";
 import {JobLevelPage} from "./job-level/job-level";
 import {AdvancedLevelPage} from "./advanced/level/level";
 
+import {InformationZonePage} from "./information-zone/information-zone";
+import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
+
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
@@ -462,9 +465,20 @@ export class HomePage implements OnInit {
         this.navCtrl.push(StudyPlanPage);
     }
 
-    // 前往学习计划
+    // 前往 系列课程
     goJobLevel() {
         this.navCtrl.push(JobLevelPage);
+    }
+
+    // 前往 资料专区
+    goInformationZone() {
+        console.log('资料专区')
+        this.navCtrl.push(InformationZonePage);
+    }
+    // 前往 猜你想问
+    goWantToAsk() {
+        console.log('猜你想问')
+        this.navCtrl.push(WantToAskListsPage);
     }
 
     // 前往帖子详情

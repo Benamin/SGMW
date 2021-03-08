@@ -1,0 +1,45 @@
+<!-- <ion-header>
+    <ion-toolbar>
+			<ion-buttons left tappable (click)="goNavBack()">
+					<span class="cancel-btn">取消</span>
+			</ion-buttons>
+	 
+			<ion-title>我想提问</ion-title>
+	 
+			<ion-buttons right tappable (click)="submitAdd()">
+				<span class="sub-btn">提交</span>
+			</ion-buttons>
+		</ion-toolbar>
+</ion-header> -->
+<ion-content>
+	<div class="header-box" ion-fixed>
+		<span class="cancel-btn" (click)="$event.stopPropagation();goNavBack()">取消</span>
+		<span class="title">我想提问</span>
+		<span class="sub-btn" (click)="$event.stopPropagation();submitAdd()">提交</span>
+	</div>
+	<div class="title-box">
+		<ion-input type="text" placeholder="请输入标题" [(ngModel)]="page.Title" [ngModelOptions]="{standalone: true}"></ion-input>
+	</div>
+	<div class="ask-type-box">
+		<div class="ask-type-text">问题反馈类型</div>
+		<div class="ask-type-items">
+			<div class="type-item" [ngClass]="{'actived': page.nowSelectAskType?.value === item.value}" *ngFor="let item of page.askTypeArr; let aTIndex = index" (click)="changeAskType(aTIndex)">{{ item.label }}</div>
+		</div>
+	</div>
+	
+	<div class="ask-content">
+		<textarea [(ngModel)]="page.questionDesc" class="content-area" placeholder="请输入问题内容…"></textarea>
+		<div class="ask-pics-lists">
+			<div class="ask-pics-box" *ngFor="let imgItem of page.imgArr; let imgIndex = index">
+				<div class="mask"></div>
+				<img (click)="$event.stopPropagation();deleteImg(imgIndex)" class="close-icon" src="./assets/imgs/competition/p71_cancel@2x.png">
+				<img class="cover-pic" [src]="imgItem || ''" alt="封面图">
+			</div>
+			<div class="ask-pics-box">
+				<img (click)="takePic()" class="cover-pic" src="./assets/imgs/competition/p71_add@2x.png" alt="上传按钮">
+			</div>
+		</div>
+		<div class="ask-pics-desc">最多4张图</div>
+	</div>
+
+</ion-content>

@@ -42,6 +42,12 @@ import {RoleModalPage} from "./role-modal/role-modal";
 import {RuleModalPage} from "./advanced/rule-modal/rule-modal";
 import {StudyTaskPage} from "./study-task/study-task";
 import {ThemeActivityPage} from "../learning/theme-activity/theme-activity";
+import {InformationZonePage} from "./information-zone/information-zone";
+import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
+import {askSearchModalPage} from "./want-to-ask/ask-search-modal/ask-search-modal";
+import {AddAskPage} from "./want-to-ask/add-ask/add-ask";
+import {WantToAskDetailPage} from "./want-to-ask/ask-detail/ask-detail";
+import {PersonalCenterPage} from "./personal-center/personal-center";
 
 
 @NgModule({
@@ -83,6 +89,12 @@ import {ThemeActivityPage} from "../learning/theme-activity/theme-activity";
         AdvancedListsPage,
         StudyTaskPage,
         ThemeActivityPage,
+        InformationZonePage,
+        WantToAskListsPage,
+        askSearchModalPage,
+        AddAskPage,
+        WantToAskDetailPage,
+        PersonalCenterPage
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
@@ -127,6 +139,12 @@ import {ThemeActivityPage} from "../learning/theme-activity/theme-activity";
         AdvancedListsPage,
         StudyTaskPage,
         ThemeActivityPage,
+        InformationZonePage,
+        WantToAskListsPage,
+        askSearchModalPage,
+        AddAskPage,
+        WantToAskDetailPage,
+        PersonalCenterPage
     ]
 })
 export class HomeModule {

@@ -7,6 +7,7 @@ import {PostAddComponent} from '../post-add/post-add.component';
 import {SearchPage} from "../../home/search/search";
 import {Storage} from "@ionic/storage";
 import {ShareWxComponent} from "../../../components/share-wx/share-wx";
+import {PersonalCenterPage} from "../../home/personal-center/personal-center";
 
 @Component({
     selector: 'page-postlist',
@@ -175,4 +176,9 @@ export class PostlistComponent implements OnInit {
         let modal = this.modalCtrl.create(ShareWxComponent, {data: item});
         modal.present();
     }
+		
+		goToPersonalCenter(item) {
+			console.log('666-item', item.Poster)
+		  this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});
+		}
 }
