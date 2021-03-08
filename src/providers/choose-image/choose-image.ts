@@ -23,7 +23,7 @@ export class ChooseImageProvider {
     }
 
 
-    //选择图片
+    //选择图片--弹窗
     takePic(successCallback) {
         const actionSheet = this.actionSheetCtrl.create({
             cssClass: 'cameraAction',
@@ -54,7 +54,7 @@ export class ChooseImageProvider {
         actionSheet.present();
     }
 
-    //选择图片
+    //选择图片--打开相机
     selectPicture(srcType, successCallback) {
         const options: CameraOptions = {
             quality: 10,  //1 拍照  2 相册

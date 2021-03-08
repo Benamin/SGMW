@@ -10,6 +10,7 @@ import {
 import {HTTP} from "@ionic-native/http";
 import {DataFormatService} from "../../core/dataFormat.service";
 import {ToastController} from 'ionic-angular';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class ForumService {
@@ -169,6 +170,21 @@ export class ForumService {
     // 我是否关注收/收藏/点赞帖子
     GetForumPostOtherStatus(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/GetForumPostOtherStatus?postId=' + postId, {postId: postId});
+    }
+
+    //查询所有话题
+    searchtopictag(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/forum/topicplate/searchtopictag', data);
+    }
+
+    //查询最近使用的话题
+    LatelyTopic(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/LatelyTopic', data);
+    }
+
+    //新增话题
+    addtopictag(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/forum/topicplate/addtopictag', data);
     }
 
     // 上传图片

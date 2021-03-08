@@ -365,8 +365,23 @@ page-post-add {
     float: right;
   }
 
-  .checkbox-ios .checkbox-checked{
+  .checkbox-ios .checkbox-checked {
     border-color: #FFC92D;
     background-color: #FFC92D;
+  }
+
+  .topicList {
+    span{
+      border-radius: 1.4rem;
+      opacity: 0.8;
+      border: 1px solid #979797;
+      background: #EDEDED;
+      font-size: 1rem;
+      padding: .4rem 1rem;
+      margin-right: 1rem;
+    }
+    span:last-child {
+      background-color: #ffffff;
+    }
   }
 }

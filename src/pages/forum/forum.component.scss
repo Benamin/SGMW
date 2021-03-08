@@ -419,4 +419,62 @@ page-forum {
       border-radius: 14px;
     }
   }
+
+  .sale {
+    padding: 1rem 2rem;
+    overflow: hidden;
+
+    .sale-box {
+      display: flex;
+    }
+
+    .scroll-tab {
+      overflow-y: hidden;
+      overflow-x: scroll;
+      width: 100%;
+      height: 3rem;
+      line-height: 0rem;
+    }
+
+    .sale-content {
+      white-space: nowrap;
+    }
+
+    .sale-item {
+      width: 30%;
+      text-align: center;
+      height: 3rem;
+      line-height: 1rem;
+      display: inline-block;
+      position: relative;
+      margin-right: 1.5rem;
+      background: #FFFFFF;
+      border-radius: 14px;
+      font-size: 1.3rem;
+
+
+      .sale-desc {
+        position: absolute;
+        bottom: 10px;
+        left: 14px;
+        color: #000;
+
+        p {
+          padding: 5px;
+        }
+
+        p:first-child {
+          color: #ffffff;
+          font-weight: bold;
+          font-size: 16px;
+        }
+
+        p:last-child {
+          background-image: linear-gradient(to right, #fce6ad, #fff4d9);
+          border-radius: 6px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }

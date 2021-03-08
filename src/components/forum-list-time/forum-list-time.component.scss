@@ -1,14 +1,18 @@
 .info-box {
   display: flex;
   align-items: center;
+
   .company {
     margin-top: 0.5rem;
     margin-left: 3.8rem;
     font-size: 1.1rem;
     color: #888888;
   }
+
   .box-ranking {
-    margin-left: auto;font-size: 1.2rem;color: #888888;
+    margin-left: auto;
+    font-size: 1.2rem;
+    color: #888888;
   }
 }
 
@@ -25,6 +29,11 @@
   .name {
     margin: 0 10px;
     font-size: 13px;
+
+    p:last-child {
+      color: #E2AC12;
+      font-size: 1rem;
+    }
   }
 
   .oldDate {
@@ -115,14 +124,17 @@
     flex: 1;
     font-size: 12px;
   }
+
   .eye {
     margin-right: 10px;
     align-items: center;
     display: flex;
+
     img {
       width: 22px !important;
     }
   }
+
   .luntan_coment {
     display: flex;
     align-items: center;
@@ -141,5 +153,27 @@
     -ms-flex-align: center;
     align-items: center;
     margin-left: 10px;
+  }
+}
+
+.topicList {
+  margin: 1rem 0;
+
+  .topicSpan {
+    background: #D8D8D8;
+    border-radius: 9px;
+    opacity: 0.5;
+    font-size: 1rem;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #000000;
+    padding: 0 .5rem;
+    height: 2rem;
+    line-height: 2rem;
+    display: inline-block;
+  }
+
+  .topicSpan + .topicSpan {
+    margin-left: 1rem;
   }
 }

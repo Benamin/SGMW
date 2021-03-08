@@ -1,7 +1,7 @@
 import {Component, Type} from '@angular/core';
 import {NavParams, ViewController} from "ionic-angular";
 import {CommonService} from "../../core/common.service";
-import {PCURL} from "../../app/app.constants";
+import {defaultLogo, PCURL} from "../../app/app.constants";
 
 declare var Wechat;
 
@@ -12,6 +12,7 @@ declare var Wechat;
 export class ShareWxComponent {
 
     data;
+    defaultLogo = defaultLogo;
 
     constructor(private viewCtrl: ViewController,
                 private params: NavParams,
@@ -31,13 +32,13 @@ export class ShareWxComponent {
     shareWX(type) {
         let img = this.data.Images;
         let description = this.data.ContentWithoutHtml || "";
-        let thumb = '';
+        let thumb = this.defaultLogo;
 
         if (description.length > 100) {
             description = description.slice(0, 100);
         }
         if (img && img.length > 0) {
-            thumb = img[0].Src || '';
+            thumb = img[0].Src || this.defaultLogo;
         }
 
         const pcUrl = PCURL;

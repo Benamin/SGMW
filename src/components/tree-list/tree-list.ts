@@ -14,6 +14,7 @@ import {MineService} from "../../pages/mine/mine.service";
 import {GlobalData} from "../../core/GlobleData";
 import {LookTalkVideoExamPage} from "../../pages/learning/look-talk-video-exam/look-talk-video-exam";
 import {ExamTipPage} from "../../pages/learning/exam-tip/exam-tip";
+import {defaultHeadPhoto} from "../../app/app.constants";
 
 @Component({
     selector: 'tree-list',
@@ -28,6 +29,7 @@ export class TreeListComponent {
 
     nowTime;
     isOpen = false;
+    defaultPhoto = defaultHeadPhoto;   //默认头像；
 
     constructor(private appSer: AppService, private eventSer: EmitService, private modalCtrl: ModalController,
                 private fileSer: FileService, private commonSer: CommonService, private learSer: LearnService,

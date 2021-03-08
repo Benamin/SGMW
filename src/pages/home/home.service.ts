@@ -329,4 +329,15 @@ export class HomeService {
     StudyPlanList(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/AppStudyTask/StudyPlanList', data);
     }
+
+    /**主题活动**/
+    //主页主题活动显示信息
+    SelectThemeActivityInformation(): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EThemeActivity/SelectThemeActivityInformation', null);
+    }
+
+    //
+    AppSelectThemeActivity(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EThemeActivity/AppSelectThemeActivity', data);
+    }
 }

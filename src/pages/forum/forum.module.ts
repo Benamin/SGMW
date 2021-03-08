@@ -12,10 +12,19 @@ import {PostAddComponent} from './post-add/post-add.component';
 import {ComponentsModule} from "../../components/components.module";
 import {ReportPage} from "./report/report";
 import {PipesModule} from "../../pipes/pipes.module";
+import {ChooseTopicPage} from "./choose-topic/choose-topic";
 
 
 @NgModule({
-    declarations: [ForumPage, PostlistComponent, PostsContentComponent, ViewReplyComponent, PostAddComponent, ReportPage],
+    declarations: [
+        ForumPage,
+        PostlistComponent,
+        PostsContentComponent,
+        ViewReplyComponent,
+        PostAddComponent,
+        ReportPage,
+        ChooseTopicPage,
+    ],
     imports: [
         IonicPageModule.forChild(ForumPage),
         CommonModule,
@@ -29,6 +38,7 @@ import {PipesModule} from "../../pipes/pipes.module";
         ViewReplyComponent,
         PostAddComponent,
         ReportPage,
+        ChooseTopicPage
     ],
     providers: [ForumService],
 })

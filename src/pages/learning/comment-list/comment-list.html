@@ -6,11 +6,16 @@
                 <img [src]="item.HeadPhoto || ''">
             </div>
             <div style="text-align: left">
-                <p class="badge">
+                <div class="badge">
                     <!--                    名称-->
-                    <span>
-                            {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
-                        </span>
+                    <div class="userName">
+                        <p style="margin: 0;">
+                          {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
+                        </p>
+                        <p style="color: #ffc92d;font-size: 1rem" *ngIf="item.System">
+                            {{item.System | stringSlice:4:4}}
+                        </p>
+                    </div>
                     <!--                    段位-->
                     <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
                             {{item?.TitleInfo?.ForumTitle}}
@@ -22,7 +27,7 @@
                                 <span>{{badge.BadgeName | stringSlice:4:3}}</span>
                             </span>
                     </ng-container>
-                </p>
+                </div>
                 <p>
                     <!--                    评价时间-->
                     <span>{{item.CreateTime | date:'yyyy-MM-dd'}}</span>

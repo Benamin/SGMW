@@ -21,6 +21,7 @@ import {DownloadFileProvider} from "../../../providers/download-file/download-fi
 import {AppService} from "../../../app/app.service";
 import {ViewFilePage} from "../view-file/view-file";
 import {ErrorExamPage} from "../../mine/error-exam/error-exam";
+import {defaultHeadPhoto} from "../../../app/app.constants";
 
 @Component({
     selector: 'page-chapter',
@@ -34,6 +35,7 @@ export class ChapterPage {
 
     nowTime;
     isOpen = false;
+    defaultPhoto = defaultHeadPhoto;   //默认头像；
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public loadCtrl: LoadingController,

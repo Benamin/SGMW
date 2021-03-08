@@ -1,6 +1,9 @@
   <div class="post-introduction-top">
-    <img [src]="item.PosterUserHeadPhoto || ''" alt="">
-    <div class="name nowrap-1">{{item.PosterUserName}}</div>
+    <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto" alt="">
+    <div class="name nowrap-1">
+      <p>{{item.PosterUserName}}</p>
+      <p *ngIf="item.System">{{item.System}}</p>
+    </div>
     <div class="oldDate">{{item.PostRelativeTime}}</div>
   </div>
   <div class="info-box">
@@ -35,6 +38,11 @@
         </div>
       </div>
     </div>
+    <div class="topicList">
+      <span class="topicSpan" *ngFor="let topic of item.TopicTagPlateItem">
+        #{{topic.TopicName}}#
+      </span>
+    </div>
   </div>
   <div class="post-introduction-buttom">
     <span class="nowrap-1">
@@ -48,7 +56,7 @@
       <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
       {{item.ReplyCount}}
     </span>
-    <span class="p771_comment_like">
+    <span (click)="handleLike(item)" class="p771_comment_like">
       <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
       {{item.LikeCount}}
     </span>

@@ -1,8 +1,9 @@
 import {Component, ElementRef} from '@angular/core';
-import {NavParams, NavController, LoadingController} from "ionic-angular";
+import {NavParams, NavController, LoadingController, ModalController} from "ionic-angular";
 import {ConsultationService} from '../consultation.service';
 import {PCURL} from "../../../app/app.constants";
 import {CommonService} from "../../../core/common.service";
+import {ShareWxComponent} from "../../../components/share-wx/share-wx";
 
 @Component({
     selector: 'page-componentsdetails',
@@ -20,6 +21,7 @@ export class Componentsdetails {
                 private navCtrl: NavController,
                 private loadCtrl: LoadingController,
                 private el: ElementRef,
+                private modalCtrl: ModalController,
                 public commonSer: CommonService
     ) {
     }
@@ -76,18 +78,7 @@ export class Componentsdetails {
 
     //微信分享
     wxShare(item) {
-        let description = item.Text.replace(/\&nbsp;/g, '');
-
-        if (description.length > 100) {
-            description = description.slice(0, 100);
-        }
-
-        const obj = {
-            Title: item.Title,
-            description: this.navli,
-            thumb: item.SourceURL,
-            webpageUrl: `${PCURL}noticedetails/${item.Id}`
-        }
-        this.commonSer.weChatShare(obj);
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: item});
+        modal.present();
     }
 }

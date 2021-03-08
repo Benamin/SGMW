@@ -35,13 +35,14 @@ export class ForumPage {
 
     Blacklist = [];
     loading;
+    topList = [];
 
     constructor(public navCtrl: NavController, private serve: ForumService,
                 public logSer: LogService, public modalCtrl: ModalController,
                 private storage: Storage, private loadCtrl: LoadingController) {
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.logSer.visitLog('lt');
         this.forumLIst = [];
         this.conversationData = [];
@@ -107,6 +108,16 @@ export class ForumPage {
         } else if (this.navli == '话题') {
             this.topicplateSearchtopictag();
         }
+
+        const data = {
+            PageIndex: 1,
+            PageSize: 100,
+        }
+        this.serve.searchtopictag(data).subscribe((res) => {
+            if (res.code == 200) {
+                this.topList = res.data.Items;
+            }
+        })
     }
 
     //修改排序方式 Type
@@ -272,5 +283,9 @@ export class ForumPage {
             this.loading.dismiss();
             this.loading = null;
         }
+    }
+
+    selectTopic(e) {
+        console.log(e);
     }
 }

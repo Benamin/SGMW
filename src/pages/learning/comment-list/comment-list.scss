@@ -125,4 +125,9 @@ page-comment-list {
   .video-share {
     width: 100%;
   }
+  .userName{
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+  }
 }
