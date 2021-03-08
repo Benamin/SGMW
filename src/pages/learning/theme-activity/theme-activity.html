@@ -1,0 +1,39 @@
+<!--
+  主题活动
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>主题活动</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="banner">
+        <img [src]="theme.coverUrl">
+        <p>{{theme.name}}</p>
+    </div>
+    <div class="learn-list">
+        <ng-container *ngFor="let item of List">
+            <div class="course-item" tappable (click)="goCourse(item)">
+                <div class="item-img">
+                    <img [src]="item?.ImageUrl || defaultImg">
+                </div>
+                <div class="item-desc">
+                    <p>{{item?.Title}}</p>
+                    <div class="status" *ngIf="item.studystate === 0">
+                        <img src="assets/imgs/advanced/status-default.png"/>
+                        未开始
+                    </div>
+                    <div class="status" *ngIf="item.studystate === 1">
+                        <img src="assets/imgs/advanced/status-doing.png"/>
+                        进行中
+                    </div>
+                    <div class="status" *ngIf="item.studystate === 2 || item.studystate === -1">
+                        <img src="assets/imgs/advanced/status-finish.png"/>
+                        已完成
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ion-content>

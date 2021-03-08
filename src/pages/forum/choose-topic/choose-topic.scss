@@ -1,0 +1,120 @@
+page-choose-topic {
+  ion-content {
+    background-color: #ffffff !important;
+  }
+
+  .backPop {
+    color: #fff;
+    margin-left: 10px;
+  }
+
+  .release {
+    position: absolute;
+    right: 15px;
+    background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+    background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+    padding: 4px 13px;
+    font-size: 14px;
+    transform: translate(0px, -4px);
+    border-radius: 9px;
+  }
+
+  .search {
+    padding: 2rem;
+    position: relative;
+
+    .search-icon {
+      position: absolute;
+      top: 40%;
+      left: 3rem;
+      z-index: 1;
+      color: #666666;
+    }
+
+    ion-input {
+      height: 3rem;
+      line-height: 1.3rem;
+      background: #F2F2F2;
+      border-radius: 15px;
+      padding-left: 3rem;
+    }
+  }
+
+  .lately-span {
+    > span {
+      height: 25px;
+      background: #EDEDED;
+      border-radius: 13px;
+      opacity: 0.6;
+      padding: .5rem 1.3rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      font-size: 1rem;
+      margin-right: 1rem;
+    }
+
+    > span + > span {
+      margin-left: 1rem;
+    }
+  }
+
+  .usered {
+    padding: 2rem;
+
+    > p {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .space {
+    height: 2rem;
+    background-color: #f0f0f0;
+  }
+
+  .topic-type {
+    .title {
+      display: flex;
+      padding: 1rem;
+      border-bottom: 1px solid #dddddd;
+
+      div {
+        height: 2rem;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 2rem;
+        width: 25%;
+        text-align: center;
+        color: #666666;
+      }
+    }
+  }
+
+  .topic-list {
+    .topic {
+      border-bottom: 1px solid #dddddd;
+      padding: 1rem;
+
+      > p:first-child {
+        height: 20px;
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: #000000;
+        line-height: 20px;
+
+        span {
+          margin-right: .3rem;
+          font-size: 1rem;
+          font-family: PingFangSC-Semibold, PingFang SC;
+          font-weight: 600;
+          color: #FFCA30;
+        }
+      }
+
+      > p:last-child {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #000000;
+      }
+    }
+  }
+}
