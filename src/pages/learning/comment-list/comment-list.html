@@ -2,10 +2,10 @@
 <div class="comment-list">
     <div class="comment-item" *ngFor="let item of List;" (click)="goDetail(item)">
         <div class="first">
-            <div class="headPhoto">
+            <div class="headPhoto" (click)="toPersonInfo(item)">
                 <img [src]="item.HeadPhoto || ''">
             </div>
-            <div style="text-align: left">
+            <div (click)="toPersonInfo(item)" style="text-align: left">
                 <div class="badge">
                     <!--                    名称-->
                     <div class="userName">

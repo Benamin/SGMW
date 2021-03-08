@@ -1,4 +1,4 @@
-  <div class="post-introduction-top">
+  <div class="post-introduction-top" (click)="toPersonInfo(item)">
     <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto" alt="">
     <div class="name nowrap-1">
       <p>{{item.PosterUserName}}</p>

@@ -1,9 +1,10 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {defaultHeadPhoto, PCURL} from "../../app/app.constants";
 import {CommonService} from "../../core/common.service";
-import {ModalController} from "ionic-angular";
+import {ModalController, NavController} from "ionic-angular";
 import {ShareWxComponent} from "../share-wx/share-wx";
 import {ForumService} from "../../pages/forum/forum.service";
+import {PersonalCenterPage} from "../../pages/home/personal-center/personal-center";
 
 declare var Wechat;
 
@@ -21,7 +22,7 @@ export class ForumListTimeComponent implements OnInit {
 
     defaultHeadPhoto = defaultHeadPhoto;
 
-    constructor(public commonSer: CommonService, private modalCtrl: ModalController,
+    constructor(public commonSer: CommonService, public navCtrl: NavController, private modalCtrl: ModalController,
                 private serve: ForumService,) {
     }
 
@@ -29,10 +30,10 @@ export class ForumListTimeComponent implements OnInit {
     }
 
     //点赞
-    handleLike(item){
-        if(item.is_like){
+    handleLike(item) {
+        if (item.is_like) {
 
-        }else{
+        } else {
             this.serve.forum_post_like(item.Id).subscribe((res: any) => {
                 item['is_like'] = true;
             });
@@ -61,5 +62,10 @@ export class ForumListTimeComponent implements OnInit {
         this.share.emit(obj);
 
         // this.commonSer.weChatShare(obj)
+    }
+
+    //他人详情
+    toPersonInfo(item) {
+        this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
     }
 }
