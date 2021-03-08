@@ -368,7 +368,7 @@ export class HomeService {
 		
 		// 获取 问题类型（猜你想问）
 		GetAskType(data): Observable<any> {
-		    return this.http.post(SERVER_API_URL + '/Dictionary/GetDictionaryByPCode', data);
+		    return this.http.get(SERVER_API_URL + '/Dictionary/GetDictionaryByPCode' + this.dataFormat.toQuery(data));
 		}
 		
 		// 提交问题（猜你想问）
@@ -376,5 +376,9 @@ export class HomeService {
 		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/PutQuestion', data);
 		}
 		
+		// 添加或取消 “我也想问“ 成功后 数量+1（猜你想问）
+		AddOrCancelFocus(data): Observable<any> {
+		    return this.http.post(SERVER_API_URL + '/EQuestionManagement/AddOrCancelFocus', data);
+		}
 		
 }

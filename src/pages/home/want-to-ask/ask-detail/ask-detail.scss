@@ -45,8 +45,12 @@ page-ask-detail {
 			font-size: 1.4rem;
 			font-weight: bold;
 		}
+		div {
+			overflow: hidden;
+		}
 		.pics-text{
 			margin-top: 1.3rem;
+			display: inline-block;
 			color: 1.4rem;
 			color: #1F8BDB;
 			text-decoration: underline;
