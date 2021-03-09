@@ -1,8 +1,7 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {defaultHeadPhoto, PCURL} from "../../app/app.constants";
 import {CommonService} from "../../core/common.service";
 import {ModalController, NavController} from "ionic-angular";
-import {ShareWxComponent} from "../share-wx/share-wx";
 import {ForumService} from "../../pages/forum/forum.service";
 import {PersonalCenterPage} from "../../pages/home/personal-center/personal-center";
 
@@ -30,12 +29,17 @@ export class ForumListTimeComponent implements OnInit {
     }
 
     //点赞
-    handleLike(item) {
-        if (item.is_like) {
-
+    handleLike(item, e) {
+        e.stopPropagation();
+        if (item.IsGiveLike) {
+            this.serve.forum_post_cancellike(item.Id).subscribe((res: any) => {
+                item['IsGiveLike'] = false;
+                if (item.LikeCount > 0) item.LikeCount--;
+            });
         } else {
             this.serve.forum_post_like(item.Id).subscribe((res: any) => {
-                item['is_like'] = true;
+                item['IsGiveLike'] = true;
+                item.LikeCount++;
             });
         }
     }

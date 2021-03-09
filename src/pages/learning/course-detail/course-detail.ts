@@ -1,17 +1,7 @@
 import {ChangeDetectorRef, Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
-import {
-    Content,
-    IonicPage,
-    LoadingController,
-    ModalController,
-    NavController,
-    NavParams,
-    Platform,
-    Slides
-} from 'ionic-angular';
+import {Content, LoadingController, ModalController, NavController, NavParams, Platform, Slides} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
-import {timer} from "rxjs/observable/timer";
 import {LearnService} from "../learn.service";
 import {AppService} from "../../../app/app.service";
 import {CommonService} from "../../../core/common.service";
@@ -19,7 +9,7 @@ import {FileService} from "../../../core/file.service";
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {ViewFilePage} from "../view-file/view-file";
 import {EmitService} from "../../../core/emit.service";
-import {defaultHeadPhoto, defaultImg} from "../../../app/app.constants";
+import {defaultHeadPhoto} from "../../../app/app.constants";
 import {VideojsComponent} from "../../../components/videojs/videojs";
 import {LookExamPage} from "../../mine/look-exam/look-exam";
 import {DoExamPage} from "../../mine/do-exam/do-exam";
@@ -182,56 +172,21 @@ export class CourseDetailPage {
         this.showFooter = true;
         this.showLoading();
 
-        this.learSer.GetProductById(this.global.pId).subscribe(
-            (res) => {
-                this.product.detail = res.data;
-
-                //进度更新
-                const overpercentage = res.data.overpercentage;
-                document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
-                document.getElementById('innerProcess').style.width = `${overpercentage}%`;
-
-                this.global.PostsCertID = res.data.PostCertificationID;
-                this.SortType = res.data.SortType;
-
-                this.getChapter();  //章节信息
-                this.getTeacher();   //讲师信息
-
-                this.GetClassmate();  //我的同学
-                //接受文件通知
-                this.getFileInfo();
-                setTimeout(() => {
-                    this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
-                });
-                this.initSwiper();
+        this.storage.get("courseData").then((value: any) => {
+            if (value && value.length > 0) {
+                const index = value.findIndex(e => e.Id === this.global.pId);
+                console.log(index);
+                if (index > -1) {
+                    const data = value[index];
+                    this.initOtherInfo(data.detail);
+                    this.initChapterInfo(data.chapter);
+                } else { //没有 重新查询
+                    this.initData();
+                }
+            } else {  //没有 重新查询
+                this.initData();
             }
-        );
-    }
-
-    //初始化swiper
-    initSwiper() {
-        let that = this;
-        that.mySwiper = new Swiper('.swiper-course-container', {
-            speed: 300,// slide滑动动画时间
-            observer: true,
-            noSwiping: true,
-            observeParents: true,
-            on: {
-                touchEnd: function (event) {
-                    //你的事件
-                    if (that.isLoad) {
-                        that.bar.type = this.activeIndex + 1;
-                    }
-                },
-                slidePrevTransitionStart: function () {  //上滑
-
-                },
-                slideNextTransitionStart: function () {  //下滑
-
-                },
-
-            },
-        });
+        })
     }
 
     //每次进入均加载
@@ -279,6 +234,139 @@ export class CourseDetailPage {
         if (courseArr.length == 1 && this.videojsCom && doExamArr.length == 0 && lookExamArr.length == 0) {
             this.videojsCom.destroy();
         }
+    }
+
+    //初始化查询课程信息
+    initData() {
+        this.learSer.GetProductById(this.global.pId).subscribe(
+            (res) => {
+                this.initOtherInfo(res.data);
+                this.getChapter();
+            }
+        );
+    }
+
+    //初始化其他信息
+    initOtherInfo(data) {
+        this.product.detail = data;
+
+        //进度更新
+        const overpercentage = data.overpercentage;
+        document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
+        document.getElementById('innerProcess').style.width = `${overpercentage}%`;
+
+        this.global.PostsCertID = data.PostCertificationID;
+        this.SortType = data.SortType;
+
+        this.getTeacher();   //讲师信息
+        this.GetClassmate();  //我的同学
+        //接受文件通知
+        this.getFileInfo();
+        setTimeout(() => {
+            this.marginTop = this.CourseIntroduction.nativeElement.clientHeight;
+        });
+        this.initSwiper();
+    }
+
+    /**
+     * 打开课件后更新章节进度
+     * @param type = video 视频播放完成后查询作业是否解锁，若解锁直接打开作业
+     * document = 文档打开后查询进度
+     */
+    getChapter(type?: any) {
+        this.showLoading();
+        this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
+            (res) => {
+                //本地存储课程的信息--课程速度加速
+                this.saveCourseInfo(this.product.detail, res.data);
+                this.initChapterInfo(res.data, type);
+            }
+        );
+    }
+
+    /**
+     * 初始化章节信息
+     * @param data 章节数据
+     * @param type 文件类型
+     */
+    initChapterInfo(data, type?: any) {
+        this.product.chapter = data;
+        this.product.chapter.Course.children.forEach(e => e.show = true);
+        this.files = [];  //重置课件数组
+        this.tagsNodeList = [];  //重置作业节点数组
+        this.nodeLevel4List = [];  //重置课时节点数组
+        this.f(this.product.chapter.Course.children);
+        this.fNode(this.product.chapter.Course.children);
+        if (type && type == 'video') {   //只有视频播放结束之后才校验是否打开作业
+            this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
+            this.checkTag();   //校验作业
+        }
+        this.files.forEach(e => {
+            if (e.PlanStartTime) {
+                e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
+            }
+        });
+        this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
+        this.dismissLoading();
+        this.isLoad = true;
+    }
+
+    /**
+     * 存储课程信息
+     * @param detail=课程信息 chapter=章节信息  this.global.pId=当前课程ID
+     */
+    saveCourseInfo(detail, chapter) {
+        const info = {
+            "Id": this.global.pId,
+            "detail": detail,
+            "chapter": chapter
+        }
+        this.storage.get("courseData").then((value: any) => {
+            console.log(value);
+            if (value && value.length > 0) {
+                const index = value.findIndex(e => e.Id === this.global.pId);
+                if (index > -1) {  //已存在当前课程
+                    value[index] = info;
+                } else if (index === -1 && value.length < 5) {  //不存在课程 且当前课程存储长度有空余
+                    value.push(info);
+                } else {  //不存在课程 且当前课程存储长度无空余
+                    value.splice(4, 1);
+                    value.unshift(info);
+                }
+                this.storage.set('courseData', value);
+            } else {
+                const arr = [];
+                arr.push(info);
+                console.log('courseData', arr);
+                this.storage.set('courseData', arr);
+            }
+        })
+    }
+
+    //初始化swiper
+    initSwiper() {
+        let that = this;
+        that.mySwiper = new Swiper('.swiper-course-container', {
+            speed: 300,// slide滑动动画时间
+            observer: true,
+            noSwiping: true,
+            observeParents: true,
+            on: {
+                touchEnd: function (event) {
+                    //你的事件
+                    if (that.isLoad) {
+                        that.bar.type = this.activeIndex + 1;
+                    }
+                },
+                slidePrevTransitionStart: function () {  //上滑
+
+                },
+                slideNextTransitionStart: function () {  //下滑
+
+                },
+
+            },
+        });
     }
 
     //接受文件打开事件通知
@@ -354,45 +442,6 @@ export class CourseDetailPage {
                 }
             }
         )
-    }
-
-    /**
-     * 打开课件后更新章节进度
-     * @param type = video 视频播放完成后查询作业是否解锁，若解锁直接打开作业
-     * document = 文档打开后查询进度
-     */
-    getChapter(type?: any) {
-        this.showLoading();
-        this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
-            (res) => {
-                this.product.chapter = res.data;
-                this.product.chapter.Course.children.forEach(e => e.show = true);
-                this.files = [];  //重置课件数组
-                this.tagsNodeList = [];  //重置作业节点数组
-                this.nodeLevel4List = [];  //重置课时节点数组
-                this.f(this.product.chapter.Course.children);
-                this.fNode(this.product.chapter.Course.children);
-                if (type && type == 'video') {   //只有视频播放结束之后才校验是否打开作业
-                    this.fTags(this.product.chapter.Course.children);  //取出包含作业的节点
-                    this.checkTag();   //校验作业
-                }
-                // if (this.CourseEnterSource == 'DoExam') {  //做完作业返回
-                //     if (this.product.detail.overpercentage == 100) {
-                //         this.commonSer.toast('恭喜您完成课程学习!');
-                //     } else {
-                //         this.studyContinue();
-                //     }
-                // }
-                this.files.forEach(e => {
-                    if (e.PlanStartTime) {
-                        e.PlanStartTime_time = this.commonSer.transFormTime(e.PlanStartTime);
-                    }
-                });
-                this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
-                this.dismissLoading();
-                this.isLoad = true;
-            }
-        );
     }
 
     /**

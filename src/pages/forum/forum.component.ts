@@ -248,7 +248,8 @@ export class ForumPage {
             "OrderByDirection": "DESC",
             "Type": this.pageDate.Type,
             "PageIndex": this.pageDate.pageIndex,
-            "PageSize": 10
+            "PageSize": 10,
+            "TopicTagPlateId":this.checkTopic
         };
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             this.dismissLoading()
@@ -287,7 +288,7 @@ export class ForumPage {
     }
 
     selectTopic(e) {
-        console.log(e);
         this.checkTopic = e.Id;
+        this.getListData()
     }
 }

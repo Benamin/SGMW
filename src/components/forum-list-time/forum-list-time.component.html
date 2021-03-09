@@ -1,5 +1,5 @@
   <div class="post-introduction-top" (click)="toPersonInfo(item)">
-    <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto" alt="">
+    <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto" >
     <div class="name nowrap-1">
       <p>{{item.PosterUserName}}</p>
       <p *ngIf="item.System">{{item.System}}</p>
@@ -49,19 +49,20 @@
       <!-- {{item.TopicPlateName}} -->
     </span>
     <span  class="eye">
-      <img src="./assets/imgs/forum/other/eye.png" alt="">
+      <img src="./assets/imgs/forum/other/eye.png" >
       {{item.ViewCount}}
     </span>
     <span class="luntan_coment">
-      <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+      <img src="./assets/imgs/forum/list/luntan_coment@3x.png" >
       {{item.ReplyCount}}
     </span>
-    <span (click)="handleLike(item)" class="p771_comment_like">
-      <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+    <span (click)="handleLike(item,$event)" class="p771_comment_like">
+      <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like@3x.png" >
+      <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" >
       {{item.LikeCount}}
     </span>
     <span class="share" (click)="wxShare(item);$event.stopPropagation()">
-        <img src="./assets/imgs/forum/other/share.png" alt="">
+        <img src="./assets/imgs/forum/other/share.png" >
         分享
       </span>
   </div>
