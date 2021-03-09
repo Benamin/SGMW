@@ -5,6 +5,9 @@
       <p *ngIf="item.System">{{item.System}}</p>
     </div>
     <div class="oldDate">{{item.PostRelativeTime}}</div>
+    <span class="share" (click)="wxShare(item);$event.stopPropagation()">
+        <img src="./assets/imgs/forum/other/share.png" >
+      </span>
   </div>
   <div class="info-box">
     <div class="company" *ngIf="item.AgentName">{{ item.AgentName }}</div>
@@ -61,8 +64,4 @@
       <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" >
       {{item.LikeCount}}
     </span>
-    <span class="share" (click)="wxShare(item);$event.stopPropagation()">
-        <img src="./assets/imgs/forum/other/share.png" >
-        分享
-      </span>
   </div>

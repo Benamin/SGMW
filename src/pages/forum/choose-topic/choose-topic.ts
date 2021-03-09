@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {ForumService} from "../forum.service";
+import {Keyboard} from "@ionic-native/keyboard";
 
 @Component({
     selector: 'page-choose-topic',
@@ -13,9 +14,12 @@ export class ChooseTopicPage {
     topicList = [];
     topicType = 1;  //1 官方话题 2 热门话题
 
+    searchList = [];  //查询结果
+    isSearch = false;
+
     constructor(public navCtrl: NavController,
                 public forumSer: ForumService,
-                public serve: ForumService,
+                public serve: ForumService, public keyboard: Keyboard,
                 public navParams: NavParams) {
     }
 
@@ -29,6 +33,7 @@ export class ChooseTopicPage {
         })
 
         const data2 = {
+            "Name": this.name,
             PageIndex: 1,
             PageSize: 1000,
         }
@@ -40,12 +45,24 @@ export class ChooseTopicPage {
     }
 
 
-    search(e) {
-
+    search(event) {
+        if (event && event.keyCode == 13) {
+            const data2 = {
+                "Name": this.name,
+                PageIndex: 1,
+                PageSize: 1000,
+            }
+            this.serve.searchtopictag(data2).subscribe((res) => {
+                if (res.code == 200) {
+                    this.searchList = res.data.Items;
+                    this.isSearch = true;
+                }
+            })
+        }
     }
 
     showKey() {
-
+        this.keyboard.show();
     }
 
     sevrData() {
@@ -84,6 +101,12 @@ export class ChooseTopicPage {
 
     backPop() {
         this.navCtrl.pop();
+    }
+
+    cancelSearch() {
+        this.name = "";
+        this.searchList = [];
+        this.isSearch = false;
     }
 
 }

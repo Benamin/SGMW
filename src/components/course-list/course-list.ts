@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {defaultImg, PCURL} from "../../app/app.constants";
+import {defaultImg} from "../../app/app.constants";
 import {CommonService} from "../../core/common.service";
+import {ShareWxComponent} from "../share-wx/share-wx";
+import {ModalController} from "ionic-angular";
 
 declare var Wechat;
 
@@ -14,7 +16,8 @@ export class CourseListComponent {
     defaultImg = defaultImg;
 
 
-    constructor(private commonSer: CommonService) {
+    constructor(private commonSer: CommonService,
+                private modalCtrl: ModalController) {
     }
 
     getItem(item) {
@@ -36,7 +39,8 @@ export class CourseListComponent {
             thumb: thumb,
             webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=learning&Id=${data.Id}`
         }
-        this.commonSer.weChatShare(obj);
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
+        modal.present();
     }
 
 }

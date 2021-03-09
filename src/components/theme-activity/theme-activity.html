@@ -1,4 +1,4 @@
-<div class="dayily-school">
+<div *ngIf="obj?.name;else other_content" class="dayily-school">
   <img class="bgImage" src="{{obj?.converUrl || defaultImg}}">
   <div class="container" (click)="toTheme()">
     <div class="left">
@@ -13,3 +13,8 @@
     </div>
   </div>
 </div>
+<ng-template #other_content>
+  <div style="height: 4rem">
+
+  </div>
+</ng-template>

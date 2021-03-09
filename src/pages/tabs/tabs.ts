@@ -23,6 +23,7 @@ import {ExamTipPage} from "../learning/exam-tip/exam-tip";
 import {TalkExamPage} from "../learning/talk-exam/talk-exam";
 import {PostsContentComponent} from "../forum/posts-content/posts-content.component";
 import {IntegralPage} from "../integral/integral";
+import {ChooseTopicPage} from "../forum/choose-topic/choose-topic";
 
 @Component({
     templateUrl: 'tabs.html'

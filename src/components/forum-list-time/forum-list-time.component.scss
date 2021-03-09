@@ -19,11 +19,23 @@
 .post-introduction-top {
   display: flex;
   align-items: center;
+  position: relative;
 
-  img {
+  > img {
     width: 28px;
-    height: 28px;
+    height: 27px;
     border-radius: 50%;
+  }
+
+  .share {
+    position: absolute;
+    top: 0;
+    right: 2rem;
+
+    > img {
+      width: 22px;
+      height: 22px;
+    }
   }
 
   .name {

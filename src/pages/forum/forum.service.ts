@@ -187,6 +187,11 @@ export class ForumService {
         return this.http.post(SERVER_API_URL + '/forum/topicplate/addtopictag', data);
     }
 
+    //查询关注的人的贴子
+    SearchNewRetFollower(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/SearchNewRetFollower', data);
+    }
+
     // 上传图片
     Upload_UploadFiles(formData) {
         return new Promise((resolve, reject) => {
