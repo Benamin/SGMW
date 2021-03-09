@@ -81,8 +81,9 @@ page-ask-lists {
 					margin-left: auto;
 					width: 8rem;
 					height: 2.5rem;
-					line-height: 2.5rem;
-					text-align: center;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 					color: #FFFFFF;
 					background: #50B674;
 					border-radius: 1.3rem;
