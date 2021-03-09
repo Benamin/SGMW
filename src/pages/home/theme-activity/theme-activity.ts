@@ -3,9 +3,9 @@ import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angu
 import {HomeService} from "../../home/home.service";
 import {CommonService} from "../../../core/common.service";
 import {defaultImg} from "../../../app/app.constants";
-import {FocusCoursePage} from "../focus-course/focus-course";
-import {InnerCoursePage} from "../inner-course/inner-course";
-import {CourseDetailPage} from "../course-detail/course-detail";
+import {FocusCoursePage} from "../../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../../learning/inner-course/inner-course";
+import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 
 @Component({
     selector: 'page-theme-activity',
