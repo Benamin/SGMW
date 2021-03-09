@@ -51,7 +51,7 @@ import {GetRequestService} from "../../secret/getRequest.service";
 import {RoleModalPage} from "./role-modal/role-modal";
 import {StudyTaskPage} from "./study-task/study-task";
 import {ShareWxComponent} from "../../components/share-wx/share-wx";
-import {ThemeActivityPage} from "../learning/theme-activity/theme-activity";
+import {ThemeActivityPage} from "./theme-activity/theme-activity";
 
 @Component({
     selector: 'page-home',

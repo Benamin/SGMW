@@ -20,7 +20,6 @@ import {TalkExamPage} from "./talk-exam/talk-exam";
 import {VideoExamPage} from "./video-exam/video-exam";
 import {LookTalkVideoExamPage} from "./look-talk-video-exam/look-talk-video-exam";
 import {TalkReplyPage} from "./talk/talk-reply/talk-reply";
-import {ThemeActivityPage} from "./theme-activity/theme-activity";
 
 @NgModule({
     declarations: [
