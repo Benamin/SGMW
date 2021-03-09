@@ -68,10 +68,7 @@ export class ForumListTimeComponent implements OnInit {
     //他人详情
     toPersonInfo(item) {
 			this.storage.get('user').then(value => {
-					console.log('itemPoster--', item.Poster, 'MainUserID--',value.MainUserID);
-					if (item.Poster === value.MainUserID) {
-						return
-					} else {
+					if (item.Poster !== value.MainUserID) {
 						this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
 					}
 			});

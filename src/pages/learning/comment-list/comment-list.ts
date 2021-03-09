@@ -140,10 +140,7 @@ export class CommentListPage {
     //他人详情
     toPersonInfo(item){
 			this.storage.get('user').then(value => {
-					console.log('itemPoster--', item.UserID, 'MainUserID--',value.MainUserID);
-					if (item.UserID === value.MainUserID) {
-						return
-					} else {
+					if (item.UserID !== value.MainUserID) {
 						this.navCtrl.push(PersonalCenterPage, {Poster: item.UserID})
 					}
 			});
