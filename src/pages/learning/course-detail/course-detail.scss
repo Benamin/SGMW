@@ -104,6 +104,12 @@ page-course-detail {
       font-weight: 500;
       position: relative;
       margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+
+      > ion-icon {
+        margin-left: .5rem;
+      }
     }
 
     > p:first-child::before {

@@ -108,7 +108,7 @@
                 <div class="swiper-slide swiper-no-swiping">
                     <!--      章节      -->
                     <div id="chapter" class="item" style="min-height: 350px">
-                        <p>章节</p>
+                        <p (click)="showTips()">章节 <ion-icon name="information-circle-outline"></ion-icon></p>
                         <page-chapter
                                 [chapter]="product.chapter?.Course?.children"
                                 [IsBuy]="product.detail?.IsBuy"

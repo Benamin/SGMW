@@ -1,5 +1,14 @@
 import {ChangeDetectorRef, Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
-import {Content, LoadingController, ModalController, NavController, NavParams, Platform, Slides} from 'ionic-angular';
+import {
+    AlertController,
+    Content,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Platform,
+    Slides
+} from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {LearnService} from "../learn.service";
@@ -134,14 +143,11 @@ export class CourseDetailPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
-                private learnSer: LearnService,
-                private mineSer: MineService,
-                private storage: Storage,
-                private homeSer: HomeService,
-                public platform: Platform,
-                private changeDetectorRef: ChangeDetectorRef,
-                private global: GlobalData,
-                private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
+                private learnSer: LearnService,public alertCtrl:AlertController,
+                private mineSer: MineService,private storage: Storage,
+                private homeSer: HomeService,public platform: Platform,private changeDetectorRef: ChangeDetectorRef,
+                private global: GlobalData,private fileSer: FileService, private inAppBrowser: InAppBrowser,
+                private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
         this.TaskId = this.navParams.get('TaskId');
         this.StructureType = this.navParams.get('StructureType') || 1;
@@ -1107,5 +1113,16 @@ export class CourseDetailPage {
             this.loading.dismiss();
             this.loading = null;
         }
+    }
+
+    showTips(){
+        const msg = `下载的课程课件存储在根目录的sgmw文件夹目录下`;
+        const alert = this.alertCtrl.create({
+            title: `提示`,
+            message: msg,
+            cssClass: 'mineAlert',
+            buttons: ['确定']
+        })
+        alert.present();
     }
 }
