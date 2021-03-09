@@ -22,18 +22,10 @@
             板块
         </div>
     </div>
-    <div class="sale">
-        <div class="sale-box">
-            <div class="scroll-tab">
-                <div class="sale-content">
-                    <div class="sale-item" *ngFor="let topic of topList;let i = index;" tappable
-                         (click)="selectTopic(topic)">
-                        <div class="sale-desc">
-                            #{{topic.Name}}
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="navul-navbar">
+        <div *ngFor="let item of topList" class="navli" [ngClass]="{'check': checkTopic == item.Id}" tappable
+             (click)="selectTopic(item)">
+            <span>#</span><span>{{item.Name}}</span>
         </div>
     </div>
     <div *ngIf="navli=='热帖'">

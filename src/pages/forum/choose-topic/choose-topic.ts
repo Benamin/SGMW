@@ -59,7 +59,7 @@ export class ChooseTopicPage {
                 if (res) {
                     this.navCtrl.getPrevious().data.topic = {
                         Name: this.name,
-                        id: res.data,
+                        Id: res.data,
                         Selection:true
                     };
                     this.navCtrl.pop();

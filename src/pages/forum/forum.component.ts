@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, Slides} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {LoadingController, ModalController, NavController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {ForumService} from './forum.service';
 import {SearchPage} from "../home/search/search";
@@ -36,6 +36,7 @@ export class ForumPage {
     Blacklist = [];
     loading;
     topList = [];
+    checkTopic = "";
 
     constructor(public navCtrl: NavController, private serve: ForumService,
                 public logSer: LogService, public modalCtrl: ModalController,
@@ -287,5 +288,6 @@ export class ForumPage {
 
     selectTopic(e) {
         console.log(e);
+        this.checkTopic = e.Id;
     }
 }
