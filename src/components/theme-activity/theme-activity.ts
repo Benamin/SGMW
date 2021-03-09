@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {HomeService} from "../../pages/home/home.service";
 import {NavController} from "ionic-angular";
-import {ThemeActivityPage} from "../../pages/learning/theme-activity/theme-activity";
+import {ThemeActivityPage} from "../../pages/home/theme-activity/theme-activity";
 
 @Component({
     selector: 'theme-activity',
