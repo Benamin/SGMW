@@ -1,8 +1,10 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {PCURL} from "../../app/app.constants";
+import {defaultHeadPhoto, PCURL} from "../../app/app.constants";
 import {CommonService} from "../../core/common.service";
-import {ModalController} from "ionic-angular";
+import {ModalController, NavController} from "ionic-angular";
 import {ShareWxComponent} from "../share-wx/share-wx";
+import {ForumService} from "../../pages/forum/forum.service";
+import {PersonalCenterPage} from "../../pages/home/personal-center/personal-center";
 
 declare var Wechat;
 
@@ -17,16 +19,26 @@ export class ForumListTimeComponent implements OnInit {
     @Input() item;
     @Input() itemIndex;
     @Output() share = new EventEmitter();
-		@Output() avatarClick = new EventEmitter();
 
-    constructor(public commonSer: CommonService, private modalCtrl: ModalController) {
+    defaultHeadPhoto = defaultHeadPhoto;
+
+    constructor(public commonSer: CommonService, public navCtrl: NavController, private modalCtrl: ModalController,
+                private serve: ForumService,) {
     }
 
     ngOnInit() {
     }
-		
-		goToPersonalCenter(item) {			console.log('888-item', item.Poster)        // this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});
-				this.avatarClick.emit(item);    }
+
+    //点赞
+    handleLike(item) {
+        if (item.is_like) {
+
+        } else {
+            this.serve.forum_post_like(item.Id).subscribe((res: any) => {
+                item['is_like'] = true;
+            });
+        }
+    }
 
     // 微信分享
     wxShare(data) {
@@ -50,5 +62,10 @@ export class ForumListTimeComponent implements OnInit {
         this.share.emit(obj);
 
         // this.commonSer.weChatShare(obj)
+    }
+
+    //他人详情
+    toPersonInfo(item) {
+        this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
     }
 }

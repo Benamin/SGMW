@@ -51,6 +51,7 @@ import {GetRequestService} from "../../secret/getRequest.service";
 import {RoleModalPage} from "./role-modal/role-modal";
 import {StudyTaskPage} from "./study-task/study-task";
 import {ShareWxComponent} from "../../components/share-wx/share-wx";
+import {ThemeActivityPage} from "../learning/theme-activity/theme-activity";
 
 @Component({
     selector: 'page-home',
@@ -397,8 +398,13 @@ export class HomePage implements OnInit {
 
     //获取课程详情
     getCourseDetailById(id) {
+        let loading = this.loadCtrl.create({
+            content: '前往课程中...'
+        });
+        loading.present();
         this.learSer.GetProductById(id).subscribe(
             (res) => {
+                loading.dismissAll();
                 if (res.data) {
                     this.goCourse(res.data);
                 }
@@ -736,7 +742,7 @@ export class HomePage implements OnInit {
     }
 
     //前往每日一学
-    goTo() {
+    goToDayily() {
         const load = this.loadCtrl.create();
         load.present();
         this.homeSer.GetMeiryx({}).subscribe(
@@ -749,6 +755,11 @@ export class HomePage implements OnInit {
                 }
             }
         )
+    }
+
+    //前往主题活动
+    toThemeActivity(){
+        this.navCtrl.push(ThemeActivityPage);
     }
 
     wxShare(item) {

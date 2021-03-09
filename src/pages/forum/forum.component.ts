@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, Slides} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {LoadingController, ModalController, NavController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {ForumService} from './forum.service';
 import {SearchPage} from "../home/search/search";
@@ -9,7 +9,6 @@ import {ViewReplyComponent} from './view-reply/view-reply.component';
 import {PostAddComponent} from './post-add/post-add.component';
 import {LogService} from "../../service/log.service";
 import {ShareWxComponent} from "../../components/share-wx/share-wx";
-import {PersonalCenterPage} from "../home/personal-center/personal-center";
 
 
 @Component({
@@ -36,13 +35,15 @@ export class ForumPage {
 
     Blacklist = [];
     loading;
+    topList = [];
+    checkTopic = "";
 
     constructor(public navCtrl: NavController, private serve: ForumService,
                 public logSer: LogService, public modalCtrl: ModalController,
                 private storage: Storage, private loadCtrl: LoadingController) {
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.logSer.visitLog('lt');
         this.forumLIst = [];
         this.conversationData = [];
@@ -108,6 +109,16 @@ export class ForumPage {
         } else if (this.navli == '话题') {
             this.topicplateSearchtopictag();
         }
+
+        const data = {
+            PageIndex: 1,
+            PageSize: 100,
+        }
+        this.serve.searchtopictag(data).subscribe((res) => {
+            if (res.code == 200) {
+                this.topList = res.data.Items;
+            }
+        })
     }
 
     //修改排序方式 Type
@@ -274,9 +285,9 @@ export class ForumPage {
             this.loading = null;
         }
     }
-		
-		goToPersonalCenter(item) {
-			console.log('666-item', item.Poster)
-		  this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});
-		}
+
+    selectTopic(e) {
+        console.log(e);
+        this.checkTopic = e.Id;
+    }
 }

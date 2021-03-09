@@ -22,6 +22,12 @@
             板块
         </div>
     </div>
+    <div class="navul-navbar">
+        <div *ngFor="let item of topList" class="navli" [ngClass]="{'check': checkTopic == item.Id}" tappable
+             (click)="selectTopic(item)">
+            <span>#</span><span>{{item.Name}}</span>
+        </div>
+    </div>
     <div *ngIf="navli=='热帖'">
         <div class="div-nav">
             <div [ngClass]="{'act': pageDate.Type =='New'}" tappable (click)="avtNav('New')">最新</div>

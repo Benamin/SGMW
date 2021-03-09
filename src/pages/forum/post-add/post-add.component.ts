@@ -9,6 +9,7 @@ import {ForumService} from "../forum.service";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import {CommonService} from "../../../core/common.service";
+import {ChooseTopicPage} from "../choose-topic/choose-topic";
 
 declare let ImagePicker;
 
@@ -33,6 +34,8 @@ export class PostAddComponent implements OnInit {
     paddingBottom = '0px';
     choicePlateShow = false;
     textareaHeight = 'calc(100% - 10px)';
+
+    topicList = [];  //话题列表
 
     ApplyEssence = false;  //true为申请精华贴
 
@@ -86,6 +89,14 @@ export class PostAddComponent implements OnInit {
         }
     }
 
+    ionViewDidEnter() {
+        const data = this.navParams.get('topic');
+        console.log(data);
+        if (data) {
+            this.conversationDataSelection.push(data);
+        }
+    }
+
     focusAmeR = false;
 
     backPop() {
@@ -117,6 +128,10 @@ export class PostAddComponent implements OnInit {
         })
     }
 
+    /**
+     * conversationData=话题  ForumHistory==板块
+     * @param type
+     */
     choicePlate(type) {
         this.plateType = type;
 
@@ -479,12 +494,16 @@ export class PostAddComponent implements OnInit {
         }
 
         let TopicPlateIds = [];
-        let TopicTagPlateIds = []
+        let TopicTagPlateIds = [];
+
+        //板块
         this.ForumHistorySelection.forEach(e => {
             if (e.Selection) {
                 TopicPlateIds.push(e.Id);
             }
         });
+
+        //话题
         this.conversationDataSelection.forEach(e => {
             if (e.Selection) {
                 TopicTagPlateIds.push(e.Id);
@@ -604,6 +623,15 @@ export class PostAddComponent implements OnInit {
         let DivDom: any = textareaImg.querySelector(`div[src='${item.src}']`);
         ImgDom.parentNode.removeChild(ImgDom);
         DivDom.parentNode.removeChild(DivDom);
+    }
+
+    deleteItem(index) {
+        this.conversationDataSelection.splice(index, 1);
+    }
+
+    //添加话题
+    addTopic() {
+        this.navCtrl.push(ChooseTopicPage);
     }
 
 }

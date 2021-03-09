@@ -5,7 +5,7 @@
                 <p class="title-tips">动动手指做个评价吧！</p>
                 <ion-row class="row-comment">
                     <ion-col col-4>
-                        课程内容评分
+                        课程内容评价
                     </ion-col>
                     <ion-col col-8 text-center class="img-star">
                         <ng-container *ngFor="let star of starList1;let i = index;">
@@ -15,7 +15,7 @@
                 </ion-row>
                 <ion-row class="row-comment">
                     <ion-col col-4>
-                        视频质量评分
+                        授课方式评价
                     </ion-col>
                     <ion-col col-8 text-center class="img-star">
                         <ng-container *ngFor="let star of starList2;let i = index;">
@@ -25,11 +25,21 @@
                 </ion-row>
                 <ion-row class="row-comment">
                     <ion-col col-4>
-                        视频配音评分
+                        讲师评价
                     </ion-col>
                     <ion-col col-8 text-center class="img-star">
                         <ng-container *ngFor="let star of starList3;let i = index;">
                             <span tappable (click)="checkStar3(i)" [ngClass]="star" class="icon iconfont"></span>
+                        </ng-container>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="row-comment">
+                    <ion-col col-4>
+                        学习体验评价
+                    </ion-col>
+                    <ion-col col-8 text-center class="img-star">
+                        <ng-container *ngFor="let star of starList4;let i = index;">
+                            <span tappable (click)="checkStar4(i)" [ngClass]="star" class="icon iconfont"></span>
                         </ng-container>
                     </ion-col>
                 </ion-row>

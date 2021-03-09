@@ -5,6 +5,7 @@ import {TalkReplyPage} from "../talk/talk-reply/talk-reply";
 import {LearnService} from "../learn.service";
 import {CommonService} from "../../../core/common.service";
 import {GlobalData} from "../../../core/GlobleData";
+import {PersonalCenterPage} from "../../home/personal-center/personal-center";
 
 @Component({
     selector: 'page-comment-list',
@@ -132,6 +133,11 @@ export class CommentListPage {
         if (this.TopicType == 'talk') {
             this.navCtrl.push(TalkReplyPage, {item: item});
         }
+    }
+
+    //他人详情
+    toPersonInfo(item){
+        this.navCtrl.push(PersonalCenterPage,{Poster:item.UserID})
     }
 
 

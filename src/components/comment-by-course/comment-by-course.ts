@@ -21,9 +21,11 @@ export class CommentByCourseComponent {
     starList1 = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
     starList2 = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
     starList3 = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
+    starList4 = ["icon-star", "icon-star", "icon-star", "icon-star", "icon-star"];
     score1;
     score2;
     score3;
+    score4;
 
     defalutPhoto = defaultHeadPhoto;   //默认头像；
     btnDisable = true;
@@ -85,6 +87,19 @@ export class CommentByCourseComponent {
         this.starList3 = arr;
     }
 
+    checkStar4(score) {
+        this.score4 = score + 1;
+        let arr = new Array(5);
+        for (let i = 0; i < arr.length; i++) {
+            if (i < score + 1) {
+                arr[i] = "icon-star-fill";
+            } else {
+                arr[i] = "icon-star";
+            }
+        }
+        this.starList4 = arr;
+    }
+
     close() {
         this.viewCtrl.dismiss();
     }
@@ -101,11 +116,11 @@ export class CommentByCourseComponent {
             this.commonSer.toast('请输入评价!');
             return
         }
-        if (!this.score1 || !this.score2 || !this.score2) {
+        if (!this.score1 || !this.score2 || !this.score2 || !this.score4) {
             this.commonSer.toast('请先打分!');
             return
         }
-        if ((this.score1 == 1 || this.score2 == 1 || this.score3 == 1) && this.replyContent.length < 10) {  //讲师评价出现一星的情况
+        if ((this.score1 == 1 || this.score2 == 1 || this.score3 == 1 || this.score4 == 1) && this.replyContent.length < 10) {  //讲师评价出现一星的情况
             this.commonSer.toast("请至少输入10字以上的内容方可提交");
             return;
         }
@@ -116,6 +131,7 @@ export class CommentByCourseComponent {
             Score1: this.score1,
             Score2: this.score2,
             Score3: this.score3,
+            Score4: this.score4,
             Contents: this.replyContent,
             TopicType: this.TopicType
         };

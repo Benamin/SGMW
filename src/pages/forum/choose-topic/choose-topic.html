@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+    <span class="backPop" (click)="backPop()">
+      取消
+    </span>
+        <ion-title>
+            选择话题
+        </ion-title>
+        <span class="release" (click)="sevrData()">
+            确定
+        </span>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="search">
+        <ion-icon class="search-icon" name="search"></ion-icon>
+        <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
+                   [(ngModel)]="name" [ngModelOptions]="{standalone: true}"></ion-input>
+    </div>
+    <div class="usered">
+        <p>最近使用</p>
+        <div class="lately-span">
+            <span (click)="selectTopic(item)" *ngFor="let item of latelyList"><span>#</span>{{item.TopicName}}</span>
+        </div>
+    </div>
+    <div class="space"></div>
+    <div class="topic-type">
+        <div class="title">
+            <div (click)="topicType = 1">官方话题</div>
+            <div (click)="topicType = 2">热门话题</div>
+        </div>
+        <div class="topic-list">
+            <ng-container *ngFor="let topic of topicList">
+                <div *ngIf="topic.TopicType == topicType" (click)="selectTopic(topic)" class="topic -item">
+                    <p><span>#</span>{{topic.Name}} </p>
+                    <p>{{topic.PostCount}}条帖子</p>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+</ion-content>

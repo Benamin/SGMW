@@ -25,6 +25,7 @@ import {DayilySchoolComponent} from './dayily-school/dayily-school';
 import {SubjectTreeComponent} from './subject-tree/subject-tree';
 import {ClassmateComponent} from './classmate/classmate';
 import {ShareWxComponent} from './share-wx/share-wx';
+import { ThemeActivityComponent } from './theme-activity/theme-activity';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {ShareWxComponent} from './share-wx/share-wx';
         SubjectTreeComponent,
         ClassmateComponent,
         ShareWxComponent,
+    ThemeActivityComponent,
     ],
     imports: [
         IonicPageModule,
@@ -85,6 +87,7 @@ import {ShareWxComponent} from './share-wx/share-wx';
         SubjectTreeComponent,
         ClassmateComponent,
         ShareWxComponent,
+    ThemeActivityComponent,
 
     ],
     providers: [
