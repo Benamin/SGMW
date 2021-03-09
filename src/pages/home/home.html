@@ -38,8 +38,8 @@
         </div>
     </div>
 
-    <!--    每日一学-->
-    <theme-activity></theme-activity>
+    <!-- 主题活动-->
+    <theme-activity #ThemeActivity></theme-activity>
 
     <div class="competition-box">
         <div class="competition-banner" tappable (click)="goStudyTask()">
@@ -86,7 +86,7 @@
                         <p>考试中心</p>
                     </div>
                 </div>
-                <div class="new-module" style="margin-top: 20px">
+                <div class="new-module" style="margin-top: 20px;margin-bottom: 1.5rem">
                     <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s"
                          data-wow-delay="1s"
                          data-wow-offset="30" (click)="goLive()">
@@ -141,7 +141,7 @@
                     </div>
                 </div>
                 <!--  新模块  -->
-                <div class="new-module" style="margin-top: 20px;">
+                <div class="new-module" style="margin-top: 20px;margin-bottom: 1.5rem">
                     <div tappable class="wow" (click)="goToDayily()">
                         <img style="width: 28px;" src="./assets/imgs/home/mryx.png" alt="每日一学">
                         <p>每日一学</p>

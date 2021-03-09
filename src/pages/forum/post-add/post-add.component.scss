@@ -374,14 +374,30 @@ page-post-add {
     span{
       border-radius: 1.4rem;
       opacity: 0.8;
-      border: 1px solid #979797;
       background: #EDEDED;
       font-size: 1rem;
       padding: .4rem 1rem;
       margin-right: 1rem;
+
+      span {
+        color: #FFCA30;
+      }
     }
     span:last-child {
       background-color: #ffffff;
+      padding: 0;
+      width: 6rem;
+      line-height: 2.5rem;
+      height: 2.5rem;
+      display: inline-block;
+      text-align: center;
+      border: 1px solid #979797;
+
+      ion-icon {
+        color: #FFCA30;
+        font-weight: bolder;
+        margin-right: .5rem;
+      }
     }
   }
 }

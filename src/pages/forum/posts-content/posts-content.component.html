@@ -14,7 +14,10 @@
         <h3>{{dataCon.Title}}</h3>
         <div class="post-introduction-top">
             <img src="{{dataCon.PosterHeadPhoto || defaultHeadPhoto}}" alt="">
-            <div class="name nowrap-1">{{dataCon.PosterUserName}}</div>
+            <div (click)="toPerson(dataCon)" class="name nowrap-1">
+                <p>{{dataCon?.PosterUserName}}</p>
+                <p *ngIf="dataCon.System">{{dataCon?.System}}</p>
+            </div>
             <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
         </div>
         <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content | lineFeed'>
@@ -40,8 +43,9 @@
                 <img class="heard-img" src="{{item?.PosterHeadPhoto}}" alt="">
                 <div class="text">
                     <h4>
-            <span class="PosterUserName">
+            <span (click)="toPerson(item)" class="PosterUserName">
               {{item?.PosterUserName}}
+                <span *ngIf="item?.System" class="System">{{item?.System}}</span>
             </span>
                         <span *ngIf="item?.PosterUserForumTitle?.ForumTitle"
                               class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>

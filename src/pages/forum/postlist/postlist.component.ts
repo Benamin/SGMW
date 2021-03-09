@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, ModalController, NavController, Slides} from 'ionic-angular';
-import {NavParams} from "ionic-angular";
+import {LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import {ForumService} from '../forum.service';
 import {PostsContentComponent} from '../posts-content/posts-content.component';
 import {PostAddComponent} from '../post-add/post-add.component';
@@ -176,7 +175,7 @@ export class PostlistComponent implements OnInit {
         let modal = this.modalCtrl.create(ShareWxComponent, {data: item});
         modal.present();
     }
-		
+
 		goToPersonalCenter(item) {
 			console.log('666-item', item.Poster)
 		  this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});

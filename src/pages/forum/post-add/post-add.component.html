@@ -57,7 +57,7 @@
     </div>
     <div class="topicList">
       <span *ngFor="let item of conversationDataSelection;let i = index" (click)="deleteItem(i)">
-        {{item.Name}}
+        <span>#</span>{{item.Name}}
         <ion-icon ios="ios-close" md="md-close"></ion-icon>
       </span>
       <span (click)="addTopic()">

@@ -10,8 +10,9 @@
         <img class="heard-img" src="{{data?.PosterHeadPhoto}}" alt="">
         <div class="text">
           <h4>
-              <span class="PosterUserName">
+              <span (click)="toPerson(data)" class="PosterUserName">
                   {{data?.PosterUserName}}
+                <span *ngIf="data?.System" class="System">{{data?.System}}</span>
               </span>
             <span *ngIf="data?.PosterUserForumTitle?.ForumTitle" class="ForumTitle">{{data?.PosterUserForumTitle?.ForumTitle}}</span>
             <span class="PosterBadges" *ngFor="let data of data?.PosterBadges" >
@@ -19,7 +20,7 @@
               <span class="PosterBadges-BadgeName">
                   {{data?.BadgeName}}
               </span>
-            </span>  
+            </span>
           </h4>
           <p>{{data?._ReplyTimeFormatted}}</p>
         </div>
@@ -42,8 +43,9 @@
         <div class="text">
           <h4>
             <!-- <span *ngIf="item.PosterUserName==lidata.PosterUserName" class="label">楼主</span> -->
-            <span class="PosterUserName">
+            <span (click)="toPerson(item)" class="PosterUserName">
                 {{item?.PosterUserName}}
+              <span *ngIf="item?.System" class="System">{{item?.System}}</span>
             </span>
           <span *ngIf="item?.PosterUserForumTitle?.ForumTitle" class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
           <span class="PosterBadges" *ngFor="let n of item?.PosterBadges" >
@@ -51,8 +53,8 @@
             <span class="PosterBadges-BadgeName">
                 {{n.BadgeName}}
             </span>
-          </span>  
-          
+          </span>
+
           </h4>
           <p>{{item?._ReplyTimeFormatted}}</p>
         </div>

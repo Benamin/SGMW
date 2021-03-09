@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Events, LoadingController, NavController, Slides, ModalController} from 'ionic-angular';
+import {Events, LoadingController, ModalController, NavController, Slides} from 'ionic-angular';
 import {HomeService} from "./home.service";
 import {LearnService} from "../learning/learn.service";
 import {CommonService} from "../../core/common.service";
@@ -52,6 +52,7 @@ import {RoleModalPage} from "./role-modal/role-modal";
 import {StudyTaskPage} from "./study-task/study-task";
 import {ShareWxComponent} from "../../components/share-wx/share-wx";
 import {ThemeActivityPage} from "./theme-activity/theme-activity";
+import {ThemeActivityComponent} from "../../components/theme-activity/theme-activity";
 
 @Component({
     selector: 'page-home',
@@ -60,6 +61,7 @@ import {ThemeActivityPage} from "./theme-activity/theme-activity";
 export class HomePage implements OnInit {
     @ViewChild('angular') angular: ElementRef;
     @ViewChild('imgWidth') imgWidth: ElementRef;
+    @ViewChild('ThemeActivity') ThemeActivity: ThemeActivityComponent;
     @ViewChild(Slides) slides: Slides;
 
     type = 'teacher';
@@ -139,6 +141,7 @@ export class HomePage implements OnInit {
                 this.mineInfo = value;
             }
         });
+        this.ThemeActivity.getData();
         // this.getCompetitionId();
         // this.getServerCompetition();
     }

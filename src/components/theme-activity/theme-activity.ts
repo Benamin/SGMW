@@ -16,6 +16,10 @@ export class ThemeActivityComponent {
 
     constructor(public homeSer: HomeService, public navCtrl: NavController,
                 private commonSer: CommonService) {
+    }
+
+    getData() {
+        console.log('theme-activity');
         this.homeSer.SelectThemeActivityInformation().subscribe(
             (res) => {
                 this.obj = res.data;

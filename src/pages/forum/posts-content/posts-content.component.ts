@@ -9,6 +9,7 @@ import {Storage} from "@ionic/storage";
 import {DatePipe} from "@angular/common";
 import {defaultHeadPhoto} from "../../../app/app.constants";
 import {ShareWxComponent} from "../../../components/share-wx/share-wx";
+import {PersonalCenterPage} from "../../home/personal-center/personal-center";
 
 declare var Wechat;
 declare let Swiper: any;
@@ -105,6 +106,7 @@ export class PostsContentComponent implements OnInit {
                     const data = value[index];
                     if ((Date.now() - data.time) < (1 * 24 * 60 * 60 * 1000)) {  //超过一天 重新加载
                         this.initPostInfo(data.detail);
+                        this.silentSearch();
                     } else {
                         this.forum_post_publish();
                     }
@@ -132,6 +134,18 @@ export class PostsContentComponent implements OnInit {
     }
 
     loading;
+
+    silentSearch() {
+        this.serve.forum_post_get({postId: this.lidata.Id}).subscribe((res: any) => {
+            this.dismissLoading();
+            if (res.code != 200) {
+                this.serve.presentToast(res.message);
+            } else {
+                this.savePostInfo(res.data);
+            }
+            this.initPostInfo(res.data);
+        });
+    }
 
     //查询帖子数据
     async forum_post_publish() {
@@ -197,9 +211,9 @@ export class PostsContentComponent implements OnInit {
             this.dataCon['is_like'] = resp.data.is_like;
             this.dataCon['is_guanzhu'] = resp.data.is_guanzhu;
             this.dataCon['is_collect'] = resp.data.is_collect;
-            this.loading.dismiss();
+            this.dismissLoading();
         }, err => {
-            this.loading.dismiss();
+            this.dismissLoading();
         });
     }
 
@@ -544,6 +558,14 @@ export class PostsContentComponent implements OnInit {
             this.loading.dismiss();
             this.loading = null;
         }
+    }
+
+    toPerson(item) {
+        this.storage.get('user').then(value => {
+            if (item.Poster !== value.MainUserID) {
+                this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
+            }
+        });
     }
 
 }

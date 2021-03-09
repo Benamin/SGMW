@@ -45,6 +45,7 @@ page-choose-topic {
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #333333;
     }
   }
 
@@ -53,12 +54,18 @@ page-choose-topic {
       height: 25px;
       background: #EDEDED;
       border-radius: 13px;
-      opacity: 0.6;
-      padding: .5rem 1.3rem;
+      padding: .3rem 1.3rem;
       margin-bottom: 1rem;
       display: inline-block;
-      font-size: 1rem;
+      font-size: 1.2rem;
       margin-right: 1rem;
+      color: #000000;
+
+      span {
+        color: #FFCA30;
+        margin-right: .5rem;
+        font-weight: bolder;
+      }
     }
 
     > span + > span {
@@ -108,8 +115,16 @@ page-choose-topic {
         font-weight: 400;
         color: #000000;
         line-height: 20px;
+        display: flex;
+        align-items: center;
 
-        span {
+        img {
+          width: 1.2rem;
+          height: 1.2rem;
+          margin-left: .5rem;
+        }
+
+        span:nth-child(2) {
           margin-right: .3rem;
           font-size: 1rem;
           font-family: PingFangSC-Semibold, PingFang SC;

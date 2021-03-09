@@ -12,7 +12,7 @@
 <ion-content>
     <div class="search">
         <ion-icon class="search-icon" name="search"></ion-icon>
-        <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
+        <ion-input type="search" placeholder="请输入想要的话题" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
                    [(ngModel)]="name" [ngModelOptions]="{standalone: true}"></ion-input>
         <span  (click)="cancelSearch()">取消</span>
     </div>
@@ -21,12 +21,17 @@
             <div class="topic-list">
                 <ng-container *ngFor="let topic of searchList">
                     <div *ngIf="topic.TopicType == topicType" (click)="selectTopic(topic)" class="topic-item">
-                        <p><span>#</span>{{topic.Name}} </p>
+                        <p>
+                            <span>#</span>
+                            <span>{{topic.Name}}</span>
+                            <img *ngIf="topic.TopicType == 1" src="./assets/imgs/forum/gf.png" alt="">
+                            <img *ngIf="topic.TopicType == 2" src="./assets/imgs/forum/huo.png" alt="">
+                        </p>
                         <p>{{topic.PostCount}}条帖子</p>
                     </div>
                 </ng-container>
                 <div  (click)="sevrData()" class="topic-item">
-                    <p><span>#</span>{{name}} </p>
+                    <p><span>#</span>{{name}}</p>
                     <p style="color: #FFCA30">[新话题]</p>
                 </div>
             </div>

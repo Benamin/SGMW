@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {LoadingController, NavController, NavParams} from 'ionic-angular';
 import {ForumService} from "../forum.service";
 import {Keyboard} from "@ionic-native/keyboard";
 
@@ -18,7 +18,7 @@ export class ChooseTopicPage {
     isSearch = false;
 
     constructor(public navCtrl: NavController,
-                public forumSer: ForumService,
+                public forumSer: ForumService, public loadCtrl: LoadingController,
                 public serve: ForumService, public keyboard: Keyboard,
                 public navParams: NavParams) {
     }
@@ -47,12 +47,15 @@ export class ChooseTopicPage {
 
     search(event) {
         if (event && event.keyCode == 13) {
+            const load = this.loadCtrl.create();
+            load.present();
             const data2 = {
                 "Name": this.name,
                 PageIndex: 1,
                 PageSize: 1000,
             }
             this.serve.searchtopictag(data2).subscribe((res) => {
+                load.dismissAll();
                 if (res.code == 200) {
                     this.searchList = res.data.Items;
                     this.isSearch = true;
@@ -100,6 +103,7 @@ export class ChooseTopicPage {
     }
 
     backPop() {
+        this.navCtrl.getPrevious().data.topic = null;
         this.navCtrl.pop();
     }
 
