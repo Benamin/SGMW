@@ -32,12 +32,12 @@
 			<div class="item-bottom">
 				<span class="ask-count">其他 <span style="color: #7DBCEB;">{{ item.FocusNum }}</span>人也想知道</span>
 				<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="!item.IsNoFocus" class="add-ask-btn">我也想问</span>
-				<span *ngIf="item.IsNoFocus" class="edit-ask-btn">已问</span>
+				<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="item.IsNoFocus" class="edit-ask-btn">已问</span>
 			</div>
 		</li>
 	</ul>
-
-	<ion-footer>
-		<div (click)="goAddAskPage()" class="other-want-ask">其他想问</div>
-	</ion-footer>
 </ion-content>
+
+<ion-footer>
+	<div (click)="goAddAskPage()" class="other-want-ask">其他想问</div>
+</ion-footer>

@@ -143,8 +143,8 @@ export class WantToAskListsPage {
 			console.log(888)
 			this.homeSer.AddOrCancelFocus(data).subscribe(
 			    (res) => {
-							this.page.askLists[aIndex].IsNoFocus = true;
-							this.page.askLists[aIndex].FocusNum++;
+					this.page.askLists[aIndex].IsNoFocus = !this.page.askLists[aIndex].IsNoFocus;
+                    this.page.askLists[aIndex].IsNoFocus ? this.page.askLists[aIndex].FocusNum++ : this.page.askLists[aIndex].FocusNum--;
 			        loading.dismiss();
 			    }
 			)
