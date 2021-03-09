@@ -117,4 +117,27 @@ page-choose-topic {
       }
     }
   }
+
+  .act {
+    color: rgba(0, 0, 0, 1);
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .act::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 35px;
+    height: 4px;
+    margin-left: -10px;
+    left: 40%;
+    bottom: -1rem;
+    transition: all 0.2s;
+    background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+    background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+    background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+    background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+    border-radius: 2px;
+  }
 }

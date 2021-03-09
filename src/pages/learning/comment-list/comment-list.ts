@@ -6,6 +6,7 @@ import {LearnService} from "../learn.service";
 import {CommonService} from "../../../core/common.service";
 import {GlobalData} from "../../../core/GlobleData";
 import {PersonalCenterPage} from "../../home/personal-center/personal-center";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'page-comment-list',
@@ -22,6 +23,7 @@ export class CommentListPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public commonSer: CommonService,
                 public global: GlobalData,
+								private storage: Storage,
                 private learnSer: LearnService) {
     }
 
@@ -137,7 +139,11 @@ export class CommentListPage {
 
     //他人详情
     toPersonInfo(item){
-        this.navCtrl.push(PersonalCenterPage,{Poster:item.UserID})
+			this.storage.get('user').then(value => {
+					if (item.UserID !== value.MainUserID) {
+						this.navCtrl.push(PersonalCenterPage, {Poster: item.UserID})
+					}
+			});
     }
 
 

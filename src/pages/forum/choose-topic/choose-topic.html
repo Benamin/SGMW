@@ -28,8 +28,8 @@
     <div class="space"></div>
     <div class="topic-type">
         <div class="title">
-            <div (click)="topicType = 1">官方话题</div>
-            <div (click)="topicType = 2">热门话题</div>
+            <div [ngClass]="{'act': topicType == 1}" (click)="topicType = 1">官方话题</div>
+            <div [ngClass]="{'act': topicType == 2}" (click)="topicType = 2">热门话题</div>
         </div>
         <div class="topic-list">
             <ng-container *ngFor="let topic of topicList">

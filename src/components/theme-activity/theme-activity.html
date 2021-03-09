@@ -1,5 +1,5 @@
-<div *ngIf="obj?.name" class="dayily-school">
-  <img class="bgImage" src="{{obj?.converUrl}}">
+<div class="dayily-school">
+  <img class="bgImage" src="{{obj?.converUrl || defaultImg}}">
   <div class="container" (click)="toTheme()">
     <div class="left">
       <div class="day">{{obj?.day}}</div>

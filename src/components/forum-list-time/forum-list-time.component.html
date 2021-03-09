@@ -1,4 +1,4 @@
-  <div class="post-introduction-top" (click)="toPersonInfo(item)">
+  <div class="post-introduction-top" (click)="$event.stopPropagation();toPersonInfo(item)">
     <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto" >
     <div class="name nowrap-1">
       <p>{{item.PosterUserName}}</p>

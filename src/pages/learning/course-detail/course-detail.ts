@@ -178,8 +178,12 @@ export class CourseDetailPage {
                 console.log(index);
                 if (index > -1) {
                     const data = value[index];
-                    this.initOtherInfo(data.detail);
-                    this.initChapterInfo(data.chapter);
+                    if ((Date.now() - data.time) < (1 * 24 * 60 * 60 * 1000)) {  //超过一天 重新加载
+                        this.initOtherInfo(data.detail);
+                        this.initChapterInfo(data.chapter);
+                    } else {
+                        this.initData();
+                    }
                 } else { //没有 重新查询
                     this.initData();
                 }
@@ -319,7 +323,8 @@ export class CourseDetailPage {
         const info = {
             "Id": this.global.pId,
             "detail": detail,
-            "chapter": chapter
+            "chapter": chapter,
+            "time": Date.now()
         }
         this.storage.get("courseData").then((value: any) => {
             console.log(value);

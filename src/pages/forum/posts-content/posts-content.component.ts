@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {NavParams, NavController, LoadingController, ActionSheetController, ModalController} from "ionic-angular";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActionSheetController, LoadingController, ModalController, NavController, NavParams} from "ionic-angular";
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {ForumService} from '../forum.service';
 import {CommonService} from "../../../core/common.service";
@@ -7,7 +7,7 @@ import {ViewReplyComponent} from '../view-reply/view-reply.component';
 import {ReportPage} from "../report/report";
 import {Storage} from "@ionic/storage";
 import {DatePipe} from "@angular/common";
-import {defaultHeadPhoto, PCURL} from "../../../app/app.constants";
+import {defaultHeadPhoto} from "../../../app/app.constants";
 import {ShareWxComponent} from "../../../components/share-wx/share-wx";
 
 declare var Wechat;
@@ -89,13 +89,33 @@ export class PostsContentComponent implements OnInit {
     ionViewDidEnter() {
         this.storage.set('sgmwType', null);
         this.lidata = this.navParams.get('data');
-        this.forum_post_publish();
         let nowDate = Date.now();
         if (new Date('2020-11-02 00:00').getTime() < nowDate && nowDate < new Date('2020-11-04 23:59').getTime()) {
             this.isShow = true;
         } else {
             this.isShow = false;
         }
+
+
+        this.storage.get("PostData").then((value: any) => {
+            if (value && value.length > 0) {
+                const index = value.findIndex(e => e.Id === this.lidata.Id);
+                console.log(index);
+                if (index > -1) {
+                    const data = value[index];
+                    if ((Date.now() - data.time) < (1 * 24 * 60 * 60 * 1000)) {  //超过一天 重新加载
+                        this.initPostInfo(data.detail);
+                    } else {
+                        this.forum_post_publish();
+                    }
+                } else { //没有 重新查询
+                    this.forum_post_publish();
+                }
+            } else {  //没有 重新查询
+                this.forum_post_publish();
+            }
+        })
+
     }
 
     textareaclick() {
@@ -113,74 +133,106 @@ export class PostsContentComponent implements OnInit {
 
     loading;
 
+    //查询帖子数据
     async forum_post_publish() {
-        this.loading = this.loadCtrl.create({
-            content: ''
-        });
-        this.loading.present();
+        this.showLoading();
         this.serve.forum_post_get({postId: this.lidata.Id}).subscribe((res: any) => {
-
+            this.dismissLoading();
             if (res.code != 200) {
                 this.serve.presentToast(res.message);
-                return this.loading.dismiss();
+            } else {
+                this.savePostInfo(res.data);
             }
-            let element = res.data;
-            element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
-
-            if (res.data.Replys && res.code == 200) {
-                res.data.Replys.forEach(element => {
-
-                    if (element.PosterBadges && element.PosterBadges > 1) {
-                        if (element['PosterUserName'].length > 5) {
-                            element['PosterUserName'] = element.PosterUserName.slice(0, 6) + '...';
-                        }
-                        if (!element['PosterUserForumTitle']) {
-                            element['PosterUserForumTitle'] = {
-                                ForumTitle: '',
-                            };
-                        }
-                        if (element['PosterUserForumTitle'].ForumTitle.length > 5) {
-                            element['PosterUserForumTitle'].ForumTitle = element['PosterUserForumTitle'].ForumTitle.slice(0, 6) + '...';
-                        }
-                    }
-
-                    if (element.PosterBadges) {
-                        element.PosterBadges.forEach(e => {
-                            if (element.PosterBadges.length > 1) {
-                                if (e['BadgeName'].length > 4) {
-                                    e['BadgeName'] = e['BadgeName'].slice(0, 4) + '...';
-                                }
-                            }
-                        });
-                    }
-
-                    element['_ReplyTimeFormatted'] = element.ReplyTimeFormatted.slice(0, -3);
-                });
-                res.data.Replys.reverse();
-            }
-            this.dataCon = res.data;
-
-            this.dataCon['is_like'] = false;
-            this.dataCon['is_guanzhu'] = false;
-            this.dataCon['is_collect'] = false;
-            setTimeout(() => {
-                this.openImg();
-            }, 200);
-            this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((res: any) => {
-                this.dataCon['is_like'] = res.data.is_like;
-                this.dataCon['is_guanzhu'] = res.data.is_guanzhu;
-                this.dataCon['is_collect'] = res.data.is_collect;
-                this.loading.dismiss();
-            }, err => {
-                this.loading.dismiss();
-            });
-
-            // const p= Promise.all([this.is_like(this.dataCon),this.is_guanzhu(this.dataCon),this.is_collect(this.dataCon)]);
-            // p.then(res => {
-            //   this.loading.dismiss();
-            // });
-
+            this.initPostInfo(res.data);
         });
+    }
+
+    //初始化页面信息
+    initPostInfo(data) {
+        let element = data;
+        //过滤时间
+        element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
+
+        if (data.Replys) {
+            data.Replys.forEach(element => {
+                if (element.PosterBadges && element.PosterBadges > 1) {
+                    if (element['PosterUserName'].length > 5) {
+                        element['PosterUserName'] = element.PosterUserName.slice(0, 6) + '...';
+                    }
+                    if (!element['PosterUserForumTitle']) {
+                        element['PosterUserForumTitle'] = {
+                            ForumTitle: '',
+                        };
+                    }
+                    if (element['PosterUserForumTitle'].ForumTitle.length > 5) {
+                        element['PosterUserForumTitle'].ForumTitle = element['PosterUserForumTitle'].ForumTitle.slice(0, 6) + '...';
+                    }
+                }
+
+                if (element.PosterBadges) {
+                    element.PosterBadges.forEach(e => {
+                        if (element.PosterBadges.length > 1) {
+                            if (e['BadgeName'].length > 4) {
+                                e['BadgeName'] = e['BadgeName'].slice(0, 4) + '...';
+                            }
+                        }
+                    });
+                }
+
+                element['_ReplyTimeFormatted'] = element.ReplyTimeFormatted.slice(0, -3);
+            });
+            data.Replys.reverse();
+        }
+        this.dataCon = data;
+
+        this.dataCon['is_like'] = false;
+        this.dataCon['is_guanzhu'] = false;
+        this.dataCon['is_collect'] = false;
+        setTimeout(() => {
+            this.openImg();
+        }, 200);
+
+        //查询我是否关注收/收藏/点赞帖子
+        this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((resp: any) => {
+            this.dataCon['is_like'] = resp.data.is_like;
+            this.dataCon['is_guanzhu'] = resp.data.is_guanzhu;
+            this.dataCon['is_collect'] = resp.data.is_collect;
+            this.loading.dismiss();
+        }, err => {
+            this.loading.dismiss();
+        });
+    }
+
+    /**
+     * 存储帖子信息
+     * @param detail=帖子信息  this.lidata.Id=当前帖子ID
+     */
+    savePostInfo(detail) {
+        const info = {
+            "Id": this.lidata.Id,
+            "detail": detail,
+            "time": Date.now()
+        }
+        this.storage.get("PostData").then((value: any) => {
+            console.log(value);
+            if (value && value.length > 0) {
+                const index = value.findIndex(e => e.Id === this.lidata.Id);
+                if (index > -1) {  //已存在当前帖子
+                    value[index] = info;
+                } else if (index === -1 && value.length < 5) {  //不存在帖子 且当前帖子存储长度有空余
+                    value.push(info);
+                } else {  //不存在帖子 且当前帖子存储长度无空余
+                    value.splice(4, 1);
+                    value.unshift(info);
+                }
+                this.storage.set('PostData', value);
+            } else {
+                const arr = [];
+                arr.push(info);
+                console.log('PostData', arr);
+                this.storage.set('PostData', arr);
+            }
+        })
     }
 
     showImgSrc = '';
@@ -211,10 +263,7 @@ export class PostsContentComponent implements OnInit {
 
 
     reasizeData() {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+        this.showLoading()
         this.serve.forum_post_get({postId: this.lidata.Id}).subscribe((res: any) => {
             this.dataCon['ReplyCount'] = res.data.ReplyCount;
             this.dataCon['Replys'] = this.dataCon['Replys'] ? this.dataCon['Replys'] : [];
@@ -240,9 +289,9 @@ export class PostsContentComponent implements OnInit {
                 this.dataCon['is_like'] = res.data.is_like;
                 this.dataCon['is_guanzhu'] = res.data.is_guanzhu;
                 this.dataCon['is_collect'] = res.data.is_collect;
-                loading.dismiss();
+                this.dismissLoading()
             }, err => {
-                loading.dismiss();
+                this.dismissLoading();
             });
 
 
@@ -290,14 +339,11 @@ export class PostsContentComponent implements OnInit {
 
     // 关注
     follow(data) {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+        this.showLoading();
         this.serve.follow(data.Id).subscribe((res: any) => {
             data['is_guanzhu'] = true;
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) + 1 + '';
-            loading.dismiss();
+            this.dismissLoading();
         });
     }
 
@@ -306,72 +352,56 @@ export class PostsContentComponent implements OnInit {
         if (parseInt(this.dataCon['FollowCount']) == 0) {
             return;
         }
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+        this.showLoading();
         this.serve.cancelfollow(data.Id).subscribe((res: any) => {
             data['is_guanzhu'] = false;
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) - 1 + '';
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) < 0 ? '0' : this.dataCon['FollowCount'];
-            loading.dismiss();
+            this.dismissLoading();
             // this.reasizeData();
         });
     }
 
     // 收藏
     favorites(data) {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+        this.showLoading();
         this.serve.favorites(data.Id).subscribe((res: any) => {
             data['is_collect'] = true;
             this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount']) + 1 + '';
-            loading.dismiss();
+            this.dismissLoading();
             // this.reasizeData();
         });
     }
 
     // 取消收藏
     cancelfavorites(data) {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+        this.showLoading()
         this.serve.cancelfavorites(data.Id).subscribe((res: any) => {
             data['is_collect'] = false;
             this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount']) - 1 + '';
-            loading.dismiss();
+            this.dismissLoading();
             // this.reasizeData();
         });
     }
 
     // 点赞
     forum_post_like(data) {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+        this.showLoading()
         this.serve.forum_post_like(data.Id).subscribe((res: any) => {
             data['is_like'] = true;
             this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount']) + 1 + '';
-            loading.dismiss();
             // this.reasizeData();
+            this.dismissLoading();
         });
     }
 
     // 取消点赞
     forum_post_cancellike(data) {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+        this.showLoading();
         this.serve.forum_post_cancellike(data.Id).subscribe((res: any) => {
             data['is_like'] = false;
             this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount']) - 1 + '';
-            loading.dismiss();
-            // this.reasizeData();
+            this.dismissLoading();
         });
     }
 
@@ -387,10 +417,7 @@ export class PostsContentComponent implements OnInit {
             "PostId": this.dataCon.Id,//帖子编号
             "Content": this.inputText,//回帖内容
         }
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+        this.showLoading();
         this.reply_add_click = true
         this.serve.reply_add(data).subscribe((res: any) => {
             this.inputText = "";
@@ -399,7 +426,7 @@ export class PostsContentComponent implements OnInit {
                 this.reply_add_click = false;
                 this.reasizeData();
             }
-            loading.dismiss();
+            this.dismissLoading();
         });
     }
 
@@ -500,6 +527,23 @@ export class PostsContentComponent implements OnInit {
                 }
             }
         })
+    }
+
+
+    showLoading() {
+        if (!this.loading) {
+            this.loading = this.loadCtrl.create({
+                content: ''
+            });
+            this.loading.present();
+        }
+    }
+
+    dismissLoading() {
+        if (this.loading) {
+            this.loading.dismiss();
+            this.loading = null;
+        }
     }
 
 }
