@@ -2,23 +2,7 @@
     <div class="content" tappable (click)="close()">
 			<div class="content-body" (click)="$event.stopPropagation();">
 				
-				<form class="search-header" action="#">
-					<div class="input-box">
-						<img (click)="doSearch()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
-						<ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (focus)="showKey()" autocomplete='off' [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
-					</div>
-					<span class="clear" tappable (click)="close()">取消</span>
-				</form>
-				<ul class="search-lists">
-					<li>
-						<div class="title">升级后app变得更好用了吗？升级后app变得更好用了吗？升级后app变得更好用了吗？</div>
-						<div class="desc">其他88人也想知道</div>
-					</li>
-					<li>
-						<div class="title">升级后app变得更好用了吗？升级后app变得更好用了吗？升级后app变得更好用了吗？</div>
-						<div class="desc">其他88人也想知道</div>
-					</li>
-				</ul>
+				<img src="{{ nowPic }}" alt="">
 				
 			</div>
     </div>
