@@ -17,7 +17,7 @@
 			<div class="title">问题截图</div>
 			<!-- ImageList -->
 			<div *ngFor="let imgItem of page.askItem.ImageList; let imgIndex = index">
-				<a class="pics-text" class="pics-text" href="{{ imgItem }}" target="_blank">查看图片</a>
+				<span (click)="$event.stopPropagation();showPic(imgItem)" class="pics-text">查看图片</span>
 			</div>
 			
 			<!-- <a class="pics-text">查看图片</a> -->

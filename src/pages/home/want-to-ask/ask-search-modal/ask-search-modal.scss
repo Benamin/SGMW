@@ -25,80 +25,8 @@ page-ask-search-modal {
       background-color: #f2f2f2;
       overflow: scroll;
 			
-			.search-header{
-				margin: 1.6rem 0;
-			  display: flex;
-			  flex-direction: row;
-			  align-items: center;
-			  justify-content: center;
-			  box-sizing: border-box;
-			  width: 100%;
-			  margin-left: 5px;
-			  position: relative;
-				.input-box {
-						// padding: 7px 0;
-						width: 100%;
-						display: flex;
-						align-items: center;
-						border-radius: 15px;
-						background-color: #fff;
-					}
-			}
-			ion-input, ion-textarea{
-			  color: #333;
-			  background-color: #fff;
-			  border-radius: 10rem;
-			  // padding-left: 3.5rem;
-			  // margin-left: 2rem;
-			}
-		
-			.search-icon {
-				margin: 0 8px 0 10px;
-				width: 1.6rem;
-				height: 1.6rem;
-			}
-			.clear{
-			  color: #333333;
-			  width: 5rem;
-			  height: 2rem;
-			  line-height: 2rem;
-			  border-radius: 15px;
-			  text-align: center;
-			  margin-right: 10px;
-			}
-			input[type=search]::-webkit-search-cancel-button{
-			  -webkit-appearance: none;
-			}
-			
-			.search-lists {
-				padding: 0 1rem;
-				li {
-					padding: 1.3rem 1.4rem 1.5rem 1.4rem;
-					list-style: none;
-					background: #FFFFFF;
-					border-radius: 1rem;
-					margin-bottom: 1rem;
-					.title {
-						box-sizing: border-box;
-						margin-bottom: 2.5rem;
-						width: 100%;
-						font-size: 16px;
-						font-family: PingFangSC-Medium, PingFang SC;
-						font-weight: 500;
-						color: #000000;
-						line-height: 22px;
-						overflow: hidden;
-						white-space: nowrap;
-						text-overflow: ellipsis;
-					}
-					.desc {
-						font-size: 14px;
-						font-family: PingFangSC-Regular, PingFang SC;
-						font-weight: 400;
-						color: #000000;
-						line-height: 20px;
-					}
-				}
+			img {
+				width: 100%;
 			}
     }
   }
