@@ -1,5 +1,5 @@
-  <div class="post-introduction-top" (click)="toPersonInfo(item)">
-    <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto" alt="">
+  <div class="post-introduction-top">
+    <img (click)="toPersonInfo(item)" [src]="item.PosterUserHeadPhoto || defaultHeadPhoto" alt="">
     <div class="name nowrap-1">
       <p>{{item.PosterUserName}}</p>
       <p *ngIf="item.System">{{item.System}}</p>

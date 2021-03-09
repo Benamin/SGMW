@@ -17,9 +17,9 @@
         </div>
     </div>
     <div class="userList">
-        <div class="userItem" *ngFor="let item of List" (click)="toPersonInfo(item)">
+        <div class="userItem" *ngFor="let item of List">
             <span>
-                <img src="{{item.HeadPhoto || defaultHeadPhoto}}">
+                <img (click)="toPersonInfo(item)" src="{{item.HeadPhoto || defaultHeadPhoto}}">
             </span>
             <div>
                 <p>{{item.UserName}}</p>
