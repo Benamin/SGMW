@@ -10,6 +10,8 @@ import {AppService} from "../../../../app/app.service";
 import {StatusBar} from "@ionic-native/status-bar";
 import {FloatVideoBoxComponent} from "../../../../components/float-video-box/float-video-box";
 import {GlobalData} from "../../../../core/GlobleData";
+import {PersonalCenterPage} from "../../../home/personal-center/personal-center";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'page-talk-reply',
@@ -25,7 +27,7 @@ export class TalkReplyPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public learnSer: LearnService,
-                public global: GlobalData,
+                public global: GlobalData, public storage: Storage,
                 public commonSer: CommonService,
                 public modalCtrl: ModalController) {
         this.item = this.navParams.get('item');
@@ -90,5 +92,17 @@ export class TalkReplyPage {
         }
         let modal = this.modalCtrl.create(FloatVideoBoxComponent, {src: item.StuAnswer});
         modal.present();
+    }
+
+    //他人详情
+    toPersonInfo(item) {
+        if (!item.UserID) {
+            item.UserID = item.Poster;
+        }
+        this.storage.get('user').then(value => {
+            if (item.UserID !== value.MainUserID) {
+                this.navCtrl.push(PersonalCenterPage, {Poster: item.UserID})
+            }
+        });
     }
 }

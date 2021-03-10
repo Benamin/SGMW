@@ -13,8 +13,9 @@
                 <img class="heard-img" [src]="item?.HeadPhoto || ''" alt="">
                 <div class="text">
                     <h4>
-              <span class="PosterUserName">
+              <span (click)="$event.stopPropagation();toPersonInfo(item)" class="PosterUserName">
                   {{item?.UserName}}
+                  <span *ngIf="item?.System" class="System">{{item?.System}}</span>
               </span>
                         <span *ngIf="item?.TitleInfo?.ForumTitle"
                               class="ForumTitle">{{item?.TitleInfo?.ForumTitle}}</span>
@@ -64,8 +65,9 @@
                 <img class="heard-img" [src]="replay?.PosterHeadPhoto || ''" alt="">
                 <div class="text">
                     <h4>
-                        <span class="PosterUserName">
+                        <span  (click)="$event.stopPropagation();toPersonInfo(item)" class="PosterUserName">
                             {{replay.PosterUserName.length > 3 && replay?.PosterBadges.length > 1 ? (replay?.PosterUserName | stringSlice:3:3) : replay.PosterUserName}}
+                            <span *ngIf="replay?.System" class="System">{{replay?.System}}</span>
                         </span>
                         <span *ngIf="replay?.PosterUserForumTitle?.ForumTitle"
                               class="ForumTitle">{{replay?.PosterUserForumTitle?.ForumTitle}}</span>

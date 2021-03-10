@@ -5,7 +5,7 @@
             <div class="headPhoto" (click)="$event.stopPropagation();toPersonInfo(item)">
                 <img [src]="item.HeadPhoto || ''">
             </div>
-            <div (click)="toPersonInfo(item)" style="text-align: left">
+            <div (click)="$event.stopPropagation();toPersonInfo(item)" style="text-align: left">
                 <div class="badge">
                     <!--                    名称-->
                     <div class="userName">
