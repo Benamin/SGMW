@@ -23,7 +23,7 @@
             <img class="search-icon" src="./assets/imgs/train/search@2x.png">
             <form class="input">
                 <ion-input [(ngModel)]="page.Search" placeholder="搜索课程" type="search" (keypress)="search($event)"
-                           (focus)="showKey()" autocomplete='off' [ngModelOptions]="{standalone: true}"></ion-input>
+                           (ionFocus)="showKey()" autocomplete='off' [ngModelOptions]="{standalone: true}"></ion-input>
             </form>
         </div>
         <div class="search-btn">

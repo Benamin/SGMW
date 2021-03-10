@@ -371,7 +371,7 @@ page-post-add {
   }
 
   .topicList {
-    span{
+    > span {
       border-radius: 1.4rem;
       opacity: 0.8;
       background: #EDEDED;
@@ -381,6 +381,7 @@ page-post-add {
 
       span {
         color: #FFCA30;
+        margin-right: .2rem;
       }
     }
     span:last-child {

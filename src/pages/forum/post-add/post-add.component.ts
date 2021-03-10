@@ -70,6 +70,7 @@ export class PostAddComponent implements OnInit {
 
     ngOnInit() {
         let data = this.navParams.get('data');
+        console.log(data);
 
         if (data.Status) {
             this.lidata.Id = data.TopicPlateId;
@@ -537,7 +538,7 @@ export class PostAddComponent implements OnInit {
             "Content": textInnerHTML,//帖子内容
             "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
             "TopicPlateIds": TopicPlateIds,
-            "TopicTagPlateIds": TopicTagPlateIds,
+            "TopicTagPlateIds": TopicTagPlateIds,  //话题编号
             "ApplyEssence": this.ApplyEssence  ////true为申请精华贴
         }
 

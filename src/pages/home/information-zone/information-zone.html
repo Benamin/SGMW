@@ -9,26 +9,23 @@
 	                           refreshingSpinner="bubbles">
 	    </ion-refresher-content>
 	</ion-refresher>
-	
-  <div class="searchbar" ion-fixed>
-    <form class="input">
-			<div class="input-box">
-				<img (click)="doSearch()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
-				<ion-input [(ngModel)]="page.Title"
-									 placeholder="请输入资料关键词"
-									 [ngModelOptions]="{standalone: true}"
-									 (keypress)="search($event)"
-									 (ionFocus)="showKey()"
-									 autocomplete='off'
-				></ion-input>
-			</div>
-    </form>
 
-    <!--<div class="filter" (click)="doSearch()">-->
-      <!--<span>搜索</span>-->
-    <!--</div>-->
+  <div class="searchbar" ion-fixed>
+	  <form class="input">
+		  <div class="input-box">
+			  <img (click)="doSearch()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
+			  <ion-input [(ngModel)]="page.Title"
+						 placeholder="请输入资料关键词"
+						 [ngModelOptions]="{standalone: true}"
+						 (keypress)="search($event)"
+						 (ionFocus)="showKey()"
+						 autocomplete='off'
+			  ></ion-input>
+		  </div>
+	  </form>
   </div>
-  <ul class="file-lists">
+	<p class="downloadTips">Tips：下载的课程课件存储在根目录的sgmw文件夹目录下</p>
+	<ul class="file-lists">
 		<li *ngFor="let item of page.resourceLists" (click)="changeCheckType(item.lable)">
 			<div class="flex-box">
 				<span class="suffix" [ngClass]="item.suffixObj.suffixClass">{{ item.suffixObj.suffixText }}</span>

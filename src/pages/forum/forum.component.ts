@@ -23,7 +23,6 @@ export class ForumPage {
     no_list = false;
     pageDate = {   //帖子信息
         OrderBy: "CreateTime",  //CreateTime 发帖时间  ViewCount 浏览量  ReplyCount 回复量  PostTimeFormatted 回复时间
-        creater: "",
         name: "",
         Type: "New",  // New 最新 CreateTime 发帖时间 PostTimeFormatted 回复时间  //Hot 最热 ViewCount 浏览量  ReplyCount 回复量
         pageIndex: 1,
@@ -33,7 +32,6 @@ export class ForumPage {
 
     plateData = {  //板块信息
         OrderBy: "CreateTime",  //CreateTime 发帖时间  ViewCount 浏览量  ReplyCount 回复量  PostTimeFormatted 回复时间
-        creater: "",
         name: "",
         Type: "New",  // New 最新 CreateTime 发帖时间 PostTimeFormatted 回复时间  //Hot 最热 ViewCount 浏览量  ReplyCount 回复量
         pageIndex: 1,
@@ -44,11 +42,11 @@ export class ForumPage {
     followList = [];
     followerData = {
         OrderBy: "CreateTime",  //CreateTime 发帖时间  ViewCount 浏览量  ReplyCount 回复量  PostTimeFormatted 回复时间
-        creater: "",
         name: "",
         Type: "New",  // New 最新 CreateTime 发帖时间 PostTimeFormatted 回复时间  //Hot 最热 ViewCount 浏览量  ReplyCount 回复量
         pageIndex: 1,
         pageSize: 10,
+        total: 0,
     }
 
     ForumHistory = [];
@@ -157,18 +155,45 @@ export class ForumPage {
         this.initData();
     }
 
-    //上拉加载更多
-    doInfinite(e) {
+    //下拉刷新
+    doRefresh(e) {
+        setTimeout(() => {
+            e.complete();
+            this.isdoInfinite = true;
+        }, 1000);
         if (this.navli == '板块') {
-            this.plateData.pageIndex++;
+            this.plateData.pageIndex = 1;
+            this.plateList = [];
             this.forum_topicplate_search();
         }
         if (this.navli == '推荐') {
-            this.pageDate.pageIndex++;
+            this.pageDate.pageIndex = 1;
+            this.forumList = [];
             this.getListData();
         }
 
         if (this.navli == '关注') {
+            this.followerData.pageIndex = 1;
+            this.followList = [];
+            this.SearchNewRetFollower();
+        }
+
+        this.isdoInfinite = true;
+    }
+
+    //上拉加载更多
+    doInfinite(e) {
+        console.log("doInfinite");
+        if (this.navli == '板块' && this.plateData.total < this.plateData.total) {
+            this.plateData.pageIndex++;
+            this.forum_topicplate_search();
+        }
+        if (this.navli == '推荐' && this.forumList.length < this.pageDate.total) {
+            this.pageDate.pageIndex++;
+            this.getListData();
+        }
+
+        if (this.navli == '关注' && this.followList.length < this.followerData.total) {
             this.followerData.pageIndex++;
             this.SearchNewRetFollower();
         }
@@ -214,9 +239,10 @@ export class ForumPage {
                 if (arr.length != 0) {
                     this.forumList = this.forumList.concat(arr);
                 }
+                this.pageDate.total = res.data.Posts.TotalItems;
                 this.no_list = this.forumList.length > 0 ? false : true;
                 if (arr == 0) {
-                    this.isdoInfinite = false;
+                    // this.isdoInfinite = false;
                 }
             }
         });
@@ -233,9 +259,9 @@ export class ForumPage {
             }
             let arr = res.data.Items;
             if (arr.length == 0) {
-                this.isdoInfinite = false;
+                // this.isdoInfinite = false;
             }
-
+            this.plateData.total = res.data.TotalItems;
             this.plateList = this.plateList.concat(arr);
             this.no_list = this.plateList.length == 0 ? true : false;
             this.dismissLoading();
@@ -271,38 +297,13 @@ export class ForumPage {
                 if (arr.length != 0) {
                     this.followList = this.followList.concat(arr);
                 }
+                this.followerData.total = res.data.Posts.TotalItems;
                 this.no_list = this.followList.length > 0 ? false : true;
                 if (arr == 0) {
-                    this.isdoInfinite = false;
+                    // this.isdoInfinite = false;
                 }
             }
         })
-    }
-
-    //下拉刷新
-    doRefresh(e) {
-        setTimeout(() => {
-            e.complete();
-            this.isdoInfinite = true;
-        }, 1000);
-        if (this.navli == '板块') {
-            this.plateData.pageIndex = 1;
-            this.plateList = [];
-            this.forum_topicplate_search();
-        }
-        if (this.navli == '推荐') {
-            this.pageDate.pageIndex = 1;
-            this.forumList = [];
-            this.getListData();
-        }
-
-        if (this.navli == '关注') {
-            this.followerData.pageIndex = 1;
-            this.followList = [];
-            this.SearchNewRetFollower();
-        }
-
-        this.isdoInfinite = true;
     }
 
     //搜索

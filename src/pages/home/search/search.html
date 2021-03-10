@@ -2,7 +2,7 @@
   <ion-navbar>
     <form class="search-header" action="#">
       <ion-icon class="search-icon" name="search"></ion-icon>
-      <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (focus)="showKey()" autocomplete='off'
+      <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off'
         [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
       <span class="clear" tappable (click)="clear()">取消</span>
     </form>

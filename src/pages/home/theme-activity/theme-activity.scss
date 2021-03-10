@@ -41,6 +41,8 @@ page-theme-activity {
       .item-desc {
         width: 60%;
         padding-left: 5px;
+        display: flex;
+        flex-flow: row wrap;
 
         > p {
           font-size: 1.5rem;
@@ -55,7 +57,7 @@ page-theme-activity {
           align-self: flex-start;
         }
 
-        .desc {
+        .status {
           align-self: flex-end;
           width: 100%;
           color: #999999;
@@ -64,7 +66,8 @@ page-theme-activity {
 
           img {
             margin-right: 2px;
-            width: 18px;
+            width: 1.5rem;
+            height: 1.5rem;
           }
 
           > span {
