@@ -63,7 +63,8 @@ export class PostlistComponent implements OnInit {
 
     initList() {
         this.lidata = this.navParams.get('data');
-        if (this.lidata['navli'] && this.lidata['navli'] == '话题') {
+        console.log(this.lidata);
+        if (this.lidata['navli'] && this.lidata['navli'] == '推荐') {
             this.pageDate.TopicTagPlateId = this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
         } else {
             this.pageDate.topicPlateId = this.lidata.Id;  // 测试时使用初始化 ID 默认使用默认板块
@@ -176,8 +177,8 @@ export class PostlistComponent implements OnInit {
         modal.present();
     }
 
-		goToPersonalCenter(item) {
-			console.log('666-item', item.Poster)
-		  this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});
-		}
+    goToPersonalCenter(item) {
+        console.log('666-item', item.Poster)
+        this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});
+    }
 }

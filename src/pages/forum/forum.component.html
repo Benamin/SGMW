@@ -11,8 +11,7 @@
     </ion-refresher>
 
     <div class="navul">
-        <div class="navli" [ngClass]="{'act': navli=='热帖'}" tappable (click)="switchInformation('热帖')">
-            <!-- 热帖 -->
+        <div class="navli" [ngClass]="{'act': navli=='推荐'}" tappable (click)="switchInformation('推荐')">
             推荐
         </div>
         <div class="navli" [ngClass]="{'act': navli=='板块'}" tappable (click)="switchInformation('板块')">
@@ -22,13 +21,13 @@
             关注
         </div>
     </div>
-    <div *ngIf=" navli=='热帖'" class="navul-navbar">
+    <div *ngIf=" navli=='推荐'" class="navul-navbar">
         <div *ngFor="let item of topList" class="navli" [ngClass]="{'check': checkTopic == item.Id}" tappable
              (click)="goPostlist(item)">
             <span>#</span><span>{{item.Name}}</span>
         </div>
     </div>
-    <div *ngIf="navli=='热帖'">
+    <div *ngIf="navli=='推荐'">
         <div class="div-nav">
             <div [ngClass]="{'act': pageDate.Type =='New'}" tappable (click)="avtNav('New')">最新</div>
             <div [ngClass]="{'act': pageDate.Type =='Hot'}" tappable (click)="avtNav('Hot')">最热</div>

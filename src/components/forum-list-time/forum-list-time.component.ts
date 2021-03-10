@@ -21,26 +21,32 @@ export class ForumListTimeComponent implements OnInit {
     @Output() share = new EventEmitter();
 
     defaultHeadPhoto = defaultHeadPhoto;
+    isClick = false;
 
     constructor(public commonSer: CommonService, public navCtrl: NavController, private modalCtrl: ModalController, private storage: Storage, private serve: ForumService,) {
     }
 
     ngOnInit() {
-			
+
     }
 
     //点赞
     handleLike(item, e) {
         e.stopPropagation();
+        if(this.isClick) return;
+
+        this.isClick = true;
         if (item.IsGiveLike) {
             this.serve.forum_post_cancellike(item.Id).subscribe((res: any) => {
                 item['IsGiveLike'] = false;
                 if (item.LikeCount > 0) item.LikeCount--;
+                this.isClick = false;
             });
         } else {
             this.serve.forum_post_like(item.Id).subscribe((res: any) => {
                 item['IsGiveLike'] = true;
                 item.LikeCount++;
+                this.isClick = false;
             });
         }
     }

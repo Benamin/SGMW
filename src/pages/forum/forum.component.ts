@@ -52,7 +52,7 @@ export class ForumPage {
     }
 
     ForumHistory = [];
-    navli: '热帖' | '板块' | '关注' = '热帖';
+    navli: '推荐' | '板块' | '关注' = '推荐';
 
     Blacklist = [];
     loading;
@@ -123,7 +123,7 @@ export class ForumPage {
         if (this.navli == '板块') {
             this.forum_topicplate_search();
             this.getHistory();
-        } else if (this.navli == '热帖') {
+        } else if (this.navli == '推荐') {
             this.getListData();
         } else if (this.navli == '关注') {
             this.SearchNewRetFollower();
@@ -163,7 +163,7 @@ export class ForumPage {
             this.plateData.pageIndex++;
             this.forum_topicplate_search();
         }
-        if (this.navli == '热帖') {
+        if (this.navli == '推荐') {
             this.pageDate.pageIndex++;
             this.getListData();
         }
@@ -185,7 +185,7 @@ export class ForumPage {
         this.navli = text;
         if (this.navli == '板块' && this.plateList.length == 0) {
             this.forum_topicplate_search();
-        } else if (this.navli == '热帖' && this.forumList.length == 0) {
+        } else if (this.navli == '推荐' && this.forumList.length == 0) {
             this.getListData();
         } else if (this.navli == '关注' && this.followList.length == 0) {
             this.SearchNewRetFollower();
@@ -285,17 +285,24 @@ export class ForumPage {
             e.complete();
             this.isdoInfinite = true;
         }, 1000);
-        if (this.navli == '热帖') {
+        if (this.navli == '板块') {
+            this.plateData.pageIndex = 1;
+            this.plateList = [];
+            this.forum_topicplate_search();
+        }
+        if (this.navli == '推荐') {
             this.pageDate.pageIndex = 1;
+            this.forumList = [];
             this.getListData();
         }
 
-        this.pageDate.pageIndex = 1;
-        this.isdoInfinite = true;
-        this.forumList = [];
-        this.getHistory();
-        this.forum_topicplate_search();
+        if (this.navli == '关注') {
+            this.followerData.pageIndex = 1;
+            this.followList = [];
+            this.SearchNewRetFollower();
+        }
 
+        this.isdoInfinite = true;
     }
 
     //搜索
