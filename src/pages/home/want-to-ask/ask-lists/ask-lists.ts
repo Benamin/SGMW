@@ -90,21 +90,20 @@ export class WantToAskListsPage {
 		}
 
     getList(doLoadMore = null) {
-		let loading = this.loadCtrl.create({
-			content: ''
-		});
-		loading.present();
-		const data = {
-			PageIndex: this.page.PageIndex,
-			PageSize: this.page.PageSize,
-			IsNowMonth: true, // 是否只查当月的 pc为false
-			IsNoDerive: 1, // 0, 1查询 2导出
-			Title: this.page.Title, // 问题描述
-			StartTime: null,
-			EndTime: null
-		};
-		this.homeSer.GetQueryQuestionItems(data).subscribe(
-			(res) => {
+			let loading = this.loadCtrl.create({
+				content: ''
+			});
+			loading.present();
+			const data = {
+				PageIndex: this.page.PageIndex,
+				PageSize: this.page.PageSize,
+				IsNowMonth: true, // 是否只查当月的 pc为false
+				IsNoDerive: 1, // 0, 1查询 2导出
+				Title: this.page.Title, // 问题描述
+				StartTime: null,
+				EndTime: null
+			};
+			this.homeSer.GetQueryQuestionItems(data).subscribe((res) => {
 				if (doLoadMore) {
 					this.page.askLists = this.page.askLists.concat(res.data.QuestionItems);
 					doLoadMore.complete();
@@ -112,11 +111,11 @@ export class WantToAskListsPage {
 					this.page.askLists = res.data.QuestionItems;
 				}
 				this.page.TotalCount = res.data.TotalCount;
-				// this.page.isLoad = true;
+				this.page.isLoad = true;
                 loading.dismiss();
                 // console.log('GetJobLevelList', res);
             }
-        )
+       )
     }
 
 		changeSecNav(aIndex) {
