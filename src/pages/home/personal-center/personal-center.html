@@ -118,4 +118,10 @@
 							loadingText="加载中"></ion-infinite-scroll-content>
 	</ion-infinite-scroll>
 
+	<ion-list *ngIf="page.isLoad && (page.checkType === 'post' && page.navliArr[0].listArr.length === 0 || page.checkType === 'reply' && page.navliArr[1].listArr.length === 0 || page.checkType === 'comment' && page.navliArr[2].listArr.length === 0)" text-center>
+			<img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+			<p text-center style="color: #666666;font-size: 16px">
+					暂无数据
+			</p>
+	</ion-list>
 </ion-content>

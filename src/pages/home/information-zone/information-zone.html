@@ -48,4 +48,11 @@
 							loadingSpinner="bubbles"
 							loadingText="加载中"></ion-infinite-scroll-content>
 	</ion-infinite-scroll>
+	
+	<ion-list *ngIf="page.isLoad && page.resourceLists.length === 0" text-center>
+			<img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+			<p text-center style="color: #666666;font-size: 16px">
+					暂无数据
+			</p>
+	</ion-list>
 </ion-content>
