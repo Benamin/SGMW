@@ -362,7 +362,7 @@ export class HomePage implements OnInit {
         }
     }
 
-    //前往课程
+    //banner图跳转
     goCourseBanner(e) {
         if (e.URLType == 0) {
             return;
