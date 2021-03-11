@@ -38,7 +38,7 @@
     <div class="podium-pg">
       <div class="phb_2">
           <div class="name-div">
-              <img class="user-head" src="{{phb_2?.HeadPhoto}}" alt="">
+              <img class="user-head" src="{{phb_2?.HeadPhoto || defaultHeadPhoto}}" alt="">
               <div class="name type-name nowrap-1">{{phb_2?.AgentName}}</div>
               <div class="name  nowrap-1">{{phb_2?.UserName}}</div>
               <div class="user-label nowrap-1" *ngIf="phb_2?.ForumTitle">
@@ -50,7 +50,7 @@
               <div class="user-label nowrap-1" *ngIf="phb_2?.TotalCount">
                   {{phb_2?.TotalCount}}
               </div>
-            
+
               <span class="user-grade stars" *ngIf="phb_2?.ScoreAvg">
                 <span class="img-star">
                     <span class="icon iconfont " *ngFor="let s of phb_2.star" [ngClass]="{'icon-star-fill':s,'icon-star':!s}" ></span>
@@ -64,7 +64,7 @@
       </div>
       <div class="phb_1">
         <div class="name-div">
-          <img class="user-head" src="{{phb_1?.HeadPhoto}}" alt="">
+          <img class="user-head" src="{{phb_1?.HeadPhoto || defaultHeadPhoto}}" alt="">
           <div class="name type-name nowrap-1">{{phb_1?.AgentName}}</div>
           <div class="name nowrap-1">{{phb_1?.UserName}}</div>
           <div class="user-label nowrap-1" *ngIf="phb_1?.ForumTitle" >
@@ -89,9 +89,9 @@
       </div>
       <div class="phb_3">
           <div class="name-div">
-              <img class="user-head" src="{{phb_3?.HeadPhoto}}" alt="">
+              <img class="user-head" src="{{phb_3?.HeadPhoto || defaultHeadPhoto}}" alt="">
               <div class="name type-name nowrap-1">{{phb_3?.AgentName}}</div>
-              <div class="name nowrap-1">{{phb_3?.UserName}}</div>    
+              <div class="name nowrap-1">{{phb_3?.UserName}}</div>
               <div class="user-label nowrap-1" *ngIf="phb_3?.ForumTitle" >
                 {{phb_3?.ForumTitle}}
               </div>
@@ -121,9 +121,9 @@
         <span class="index">
           {{i+4}}
         </span>
-        <img class="user-heard-img" src="{{item?.HeadPhoto}}" alt="">
+        <img class="user-heard-img" src="{{item?.HeadPhoto || defaultHeadPhoto}}" alt="">
         <!-- <span class="user-name nowrap-1">
-          <span *ngIf="item.AgentName" >{{item.AgentName}} — </span> 
+          <span *ngIf="item.AgentName" >{{item.AgentName}} — </span>
            {{item?.UserName}}
         </span> -->
 
@@ -134,7 +134,7 @@
           <span class="user-name " *ngIf="navli!='StudentModel'" >
                 {{item?.UserName}}
           </span>
-          
+
 
 
 
@@ -165,15 +165,15 @@
         <span class="index nowrap-1">
           {{MyRankingData.RankNum}}
         </span>
-        <img class="user-heard-img" src="{{MyRankingData?.HeadPhoto}}" alt="">
-        <span class="user-name StudentModel nowrap-1" *ngIf="navli=='StudentModel'"> 
+        <img class="user-heard-img" src="{{MyRankingData?.HeadPhoto || defaultHeadPhoto}}" alt="">
+        <span class="user-name StudentModel nowrap-1" *ngIf="navli=='StudentModel'">
           <span class="myUserName nowrap-1">{{MyRankingData?.UserName}}</span>
           <span class="myAgentName nowrap-1" *ngIf="MyRankingData.AgentName" >{{MyRankingData.AgentName}}</span>
         </span>
         <span class="user-name " *ngIf="navli!='StudentModel'" >
               {{MyRankingData?.UserName}}
         </span>
-        
+
         <span class="user-grade" *ngIf="MyRankingData.ForumTitle" >
             {{MyRankingData?.ForumTitle}}
         </span>

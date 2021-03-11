@@ -12,7 +12,7 @@ import {timer} from "rxjs/observable/timer";
     templateUrl: 'ask-lists.html',
 })
 export class WantToAskListsPage {
-    page = {
+    page =<any> {
 		Title: '',
 		PageIndex: 1, // 第一页 开始
 		PageSize: 8, // 一页8条

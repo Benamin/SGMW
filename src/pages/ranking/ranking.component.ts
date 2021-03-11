@@ -4,12 +4,15 @@ import {RankingService} from './ranking.serve';
 import {Storage} from "@ionic/storage";
 import {LoadingController} from "ionic-angular";
 import {LogService} from "../../service/log.service";
+import {defaultHeadPhoto} from "../../app/app.constants";
 
 @Component({
     selector: 'page-app-ranking',
     templateUrl: './ranking.component.html'
 })
 export class RankingComponent implements OnInit {
+
+    defaultHeadPhoto = defaultHeadPhoto;
     navli: 'TeacherViewModel' | 'StudentModel' | 'examination' = 'TeacherViewModel';
 
     listType = {

@@ -296,14 +296,15 @@ page-level {
 
       img {
         margin-right: 1.5rem;
-        width: 35%;
+        width: 12.6rem;
         height: 7rem;
         border-radius: 1rem;
         object-fit: cover;
       }
 
       .course-right {
-        width: 65%;
+        width: calc(100% - 12.6rem - 1.5rem);
+
         height: 7rem;
         min-height: 7rem;
         flex: 1;
@@ -365,7 +366,7 @@ page-level {
 
         img {
           margin-right: 1.5rem;
-          width: 7rem;
+          width: 9rem;
           height: 7rem;
           border-radius: 1rem;
           object-fit: cover;
@@ -373,7 +374,7 @@ page-level {
 
         .exam-right {
           height: 7rem;
-          width: 24rem;
+          width: calc(100% - 9rem - 1.5rem);
           min-height: 7rem;
           flex: 1;
           display: flex;
