@@ -311,6 +311,8 @@ export class ForumPage {
                 if (arr == 0) {
                     // this.isdoInfinite = false;
                 }
+            } else if (this.followList.length == 0) {
+                this.no_list = true;
             }
         })
     }

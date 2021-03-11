@@ -1,14 +1,5 @@
 import {Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core';
-import {
-    Content,
-    IonicPage,
-    LoadingController,
-    ModalController,
-    NavController,
-    NavParams,
-    Platform,
-    Slides
-} from 'ionic-angular';
+import {Content, LoadingController, ModalController, NavController, NavParams, Platform, Slides} from 'ionic-angular';
 import {VideojsComponent} from "../../../components/videojs/videojs";
 import {defaultHeadPhoto} from "../../../app/app.constants";
 import {LearnService} from "../learn.service";
@@ -107,12 +98,9 @@ export class FocusCoursePage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
-                private learnSer: LearnService,
-                private datePipe: DatePipe,
-                private global: GlobalData,
-                private mineSer: MineService,
-                public platform: Platform,
-                private fileSer: FileService, private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
+                private learnSer: LearnService, private datePipe: DatePipe, private global: GlobalData,
+                private mineSer: MineService, public platform: Platform, private fileSer: FileService,
+                private inAppBrowser: InAppBrowser, private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
     }
 
@@ -122,7 +110,7 @@ export class FocusCoursePage {
         this.slides.onlyExternal = true;
     }
 
-    async ionViewDidEnter() {
+    ionViewDidEnter() {
         this.showFooter = true;
         this.enterSource = this.navParams.get('courseEnterSource');
         this.loading = this.loadCtrl.create({
@@ -131,7 +119,7 @@ export class FocusCoursePage {
             enableBackdropDismiss: true,
         });
         this.loading.present();
-        await this.learSer.GetProductById(this.global.pId).subscribe(
+        this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.product.detail = res.data;
                 this.product.detail.StartTime = this.commonSer.transFormTime(this.product.detail.StartTime);
@@ -158,10 +146,6 @@ export class FocusCoursePage {
             }
             if (value.type == 'updateDocumentProcess') {  //文档课件打开后，更新章节信息
                 this.getChapter('document');
-            }
-            if (value.type == 'iframe') {  //iframe
-                this.courseFileType = 'iframe';
-                this.iframObj = value.iframe;
             }
             if (value.type == 'mp4') {  //video
                 this.courseFileType = 'video';

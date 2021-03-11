@@ -25,6 +25,7 @@ import {IntegralComponent} from "./Integral/Integral.component";
 import {MyShortVideoPage} from "./my-short-video/my-short-video";
 
 import {HomeService} from "../home/home.service";
+import {IntegralPage} from "../integral/integral";
 
 @Component({
     selector: 'page-mine',
@@ -176,7 +177,7 @@ export class MinePage {
     goToFile() {
         this.navCtrl.push(MyFilePage);
     }
-		
+
     //意见反馈
     openUrl() {
         this.inAppBrowser.create('https://jinshuju.net/f/WVrljv', '_system');
@@ -195,6 +196,11 @@ export class MinePage {
     // 我的关注
     goMyFollowsComponent() {
         this.navCtrl.push(MyFollowsComponent);
+    }
+
+    //我的积分
+    goMyIntegral() {
+        this.navCtrl.push(IntegralPage);
     }
 
     // 我的点赞

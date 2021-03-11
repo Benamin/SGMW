@@ -37,8 +37,6 @@ import {InformationZonePage} from "./information-zone/information-zone";
 import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
 
 import {InnerTrainPage} from "./inner-train/inner-train";
-import {FocusCoursePage} from "../learning/focus-course/focus-course";
-import {InnerCoursePage} from "../learning/inner-course/inner-course";
 import {ForumService} from '../forum/forum.service';
 import {PostsContentComponent} from '../forum/posts-content/posts-content.component';
 import {GlobalData} from "../../core/GlobleData";
@@ -53,6 +51,8 @@ import {StudyTaskPage} from "./study-task/study-task";
 import {ShareWxComponent} from "../../components/share-wx/share-wx";
 import {ThemeActivityPage} from "./theme-activity/theme-activity";
 import {ThemeActivityComponent} from "../../components/theme-activity/theme-activity";
+import {FocusCoursePage} from "../learning/focus-course/focus-course";
+import {InnerCoursePage} from "../learning/inner-course/inner-course";
 
 @Component({
     selector: 'page-home',
@@ -374,7 +374,7 @@ export class HomePage implements OnInit {
             const arr = e.HttpURL.split('/');
             const ID = arr[arr.length - 1];
             if (e.HttpURL.includes('/#/courseDetail')) {  //课程
-                this.getCourseDetailById(ID);
+                this.getCourseDetailById(e.HttpURL);
                 return;
             }
             if (e.HttpURL.includes('#/notice/detail/')) {   //资讯
@@ -399,20 +399,29 @@ export class HomePage implements OnInit {
         }
     }
 
-    //获取课程详情
-    getCourseDetailById(id) {
-        let loading = this.loadCtrl.create({
-            content: '前往课程中...'
-        });
-        loading.present();
-        this.learSer.GetProductById(id).subscribe(
-            (res) => {
-                loading.dismissAll();
-                if (res.data) {
-                    this.goCourse(res.data);
-                }
+    /**
+     * 前往课程
+     * @param HttpURL=课程URL
+     * type jzpx 集中培训课程  type=nx 内训课程
+     * StructureType 1=老结构课程  2=新结构课程
+     */
+    getCourseDetailById(HttpURL) {
+        // const HttpURL = "http://elearning.sgmw.com.cn/#/courseDetail/69591334-70ab-475a-9e4a-017820b694ac?type=jzpx&StructureType=2";
+        const arr = HttpURL.split('/');
+        const ID = arr[arr.length - 1];
+        const theRequest = <any>{};
+        HttpURL.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => theRequest[k] = v);
+        console.log(theRequest)
+        if (theRequest && theRequest.type) {
+            if (theRequest.type == 'jzpx') {
+                this.navCtrl.push(FocusCoursePage, {id: ID});
             }
-        );
+            if (theRequest.type == 'nx') {
+                this.navCtrl.push(InnerCoursePage, {id: ID});
+            }
+        } else {
+            this.navCtrl.push(CourseDetailPage, {id: ID, StructureType: theRequest.StructureType});
+        }
     }
 
     goToNavli() {
@@ -475,12 +484,11 @@ export class HomePage implements OnInit {
 
     // 前往 资料专区
     goInformationZone() {
-        console.log('资料专区')
         this.navCtrl.push(InformationZonePage);
     }
+
     // 前往 猜你想问
     goWantToAsk() {
-        console.log('猜你想问')
         this.navCtrl.push(WantToAskListsPage);
     }
 
@@ -761,7 +769,7 @@ export class HomePage implements OnInit {
     }
 
     //前往主题活动
-    toThemeActivity(){
+    toThemeActivity() {
         this.navCtrl.push(ThemeActivityPage);
     }
 

@@ -69,8 +69,6 @@
                 <videojs [hidden]="!courseFileType || courseFileType == 'iframe' " #videojsCom
                          [GetVideo]="videoInfo.video"
                          [poster]="videoInfo.poster"></videojs>
-                <iframe-file [hidden]="!courseFileType || courseFileType == 'video' " #iframeFile
-                             [iframe]="iframObj"></iframe-file>
             </div>
         </div>
         <div style="padding-top: 35px;background-color: #fff;">

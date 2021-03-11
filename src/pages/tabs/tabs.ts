@@ -67,19 +67,19 @@ export class TabsPage {
             tabIconOff: 'custom-video-off',
             index: 4
         },
-        {
-            root: IntegralPage,
-            tabTitle: '积分',
-            tabIconOn: 'custom-integral-on',
-            tabIconOff: 'custom-integral-off',
-            index: 5
-        },
+        // {
+        //     root: IntegralPage,
+        //     tabTitle: '积分',
+        //     tabIconOn: 'custom-integral-on',
+        //     tabIconOff: 'custom-integral-off',
+        //     index: 5
+        // },
         {
             root: MinePage,
             tabTitle: '个人中心',
             tabIconOn: 'custom-mine-on',
             tabIconOff: 'custom-mine-off',
-            index: 6
+            index: 5
         },
     ];
 

@@ -1,4 +1,8 @@
 page-posts-content {
+  h1, h2, h3, h4, h5 {
+    font-weight: bolder;
+  }
+
   .swiper-pagination {
     color: #fff;
   }
@@ -63,17 +67,6 @@ page-posts-content {
   .inner-html {
     margin-top: 20px;
     line-height: 22px;
-
-    div {
-      margin-top: 20px;
-      line-height: 22px;
-    }
-
-    p {
-      margin-top: 20px;
-      line-height: 3rem;
-    }
-
     img {
       // margin: 10px 0;
       margin-top: 20px;
