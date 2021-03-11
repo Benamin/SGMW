@@ -20,17 +20,17 @@
         <div class="searchList">
             <div class="topic-list">
                 <ng-container *ngFor="let topic of searchList">
-                    <div *ngIf="topic.TopicType == topicType" (click)="selectTopic(topic)" class="topic-item">
+                    <div (click)="selectTopic(topic)" class="topic-item">
                         <p>
                             <span>#</span>
                             <span>{{topic.Name}}</span>
-                            <img *ngIf="topic.TopicType == 1" src="./assets/imgs/forum/gf.png" alt="">
+                            <img *ngIf="topic.TopicCreateType == 1" src="./assets/imgs/forum/gf.png" alt="">
                             <img *ngIf="topic.TopicType == 2" src="./assets/imgs/forum/huo.png" alt="">
                         </p>
                         <p>{{topic.PostCount}}条帖子</p>
                     </div>
                 </ng-container>
-                <div  (click)="sevrData()" class="topic-item">
+                <div *ngIf="!isIncludes" (click)="sevrData()" class="topic-item">
                     <p><span>#</span>{{name}}</p>
                     <p style="color: #FFCA30">[新话题]</p>
                 </div>
@@ -52,7 +52,14 @@
             </div>
             <div class="topic-list">
                 <ng-container *ngFor="let topic of topicList">
-                    <div *ngIf="topic.TopicType == topicType" (click)="selectTopic(topic)" class="topic-item">
+                    <!--                    热门话题-->
+                    <div *ngIf="topic.TopicType == 2 && topicType == 2" (click)="selectTopic(topic)" class="topic-item">
+                        <p><span style="color: #FFCA30;margin-right: .5rem">#</span>{{topic.Name}} </p>
+                        <p>{{topic.PostCount}}条帖子</p>
+                    </div>
+                    <!--                    官方话题-->
+                    <div *ngIf="topic.TopicCreateType == 1 && topicType == 1" (click)="selectTopic(topic)"
+                         class="topic-item">
                         <p><span style="color: #FFCA30;margin-right: .5rem">#</span>{{topic.Name}} </p>
                         <p>{{topic.PostCount}}条帖子</p>
                     </div>

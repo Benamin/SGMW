@@ -19,7 +19,7 @@ export class PostlistComponent implements OnInit {
         this.initList();
     }
 
-    lidata = {Id: ""};
+    lidata = {Id: "", PostCount: null};
     IsTopOpt = null;
     pageDate: any = {
         creater: "",
@@ -127,6 +127,9 @@ export class PostlistComponent implements OnInit {
                 return
             }
             let arr = res.data.Posts.Items;
+            if (!this.lidata.PostCount) {
+                this.lidata.PostCount = res.data.Posts.TotalItems;
+            }
             // let arr=res.data.Posts.Items;
 
             if (!this.IsTopOpt) {

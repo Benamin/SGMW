@@ -136,16 +136,18 @@ export class PersonalCenterPage {
 		};
 		this.homeSer.GetSearchNewRetFollower(data).subscribe(
 			(res) => {
-				this.page.navliArr[0].TotalCount = res.data.Posts.TotalItems;
-				if (doLoadMore) {
-					this.page.navliArr[0].listArr = this.page.navliArr[0].listArr.concat(res.data.Posts.Items);
-					doLoadMore.complete();
-				} else {
-					this.page.navliArr[0].listArr = res.data.Posts.Items;
-				}
+				if (res.data) {
+					this.page.navliArr[0].TotalCount = res.data.Posts.TotalItems;
+					if (doLoadMore) {
+						this.page.navliArr[0].listArr = this.page.navliArr[0].listArr.concat(res.data.Posts.Items);
+						doLoadMore.complete();
+					} else {
+						this.page.navliArr[0].listArr = res.data.Posts.Items;
+					}
 
-				console.log('人员发帖列表', this.page.navliArr[0].listArr)
-				this.page.isLoad = true;
+					console.log('人员发帖列表', this.page.navliArr[0].listArr)
+					this.page.isLoad = true;
+				}
 				loading.dismiss();
 
 			}

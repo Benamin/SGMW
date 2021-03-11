@@ -19,6 +19,7 @@ export class ForumListTimeComponent implements OnInit {
     @Input() item;
     @Input() itemIndex;
     @Output() share = new EventEmitter();
+    @Output() toPostList = new EventEmitter();
 
     defaultHeadPhoto = defaultHeadPhoto;
     isClick = false;
@@ -82,5 +83,10 @@ export class ForumListTimeComponent implements OnInit {
 						this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
 					}
 			});
+    }
+
+    //话题列表
+    goToPostList(item){
+        this.toPostList.emit(item);
     }
 }

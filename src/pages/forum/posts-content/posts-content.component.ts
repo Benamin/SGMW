@@ -197,6 +197,10 @@ export class PostsContentComponent implements OnInit {
             });
             data.Replys.reverse();
         }
+
+        //pt字体单位导致的 文字放大
+        data.Content = data.Content.replace(/pt/g,'px');
+
         this.dataCon = data;
 
         this.dataCon['is_like'] = false;

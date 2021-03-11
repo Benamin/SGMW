@@ -12,10 +12,11 @@ export class ChooseTopicPage {
     name;
     latelyList = [];
     topicList = [];
-    topicType = 1;  //1 官方话题 2 热门话题
+    topicType = 1;  // 2=热门话题  TopicType=2为热门话题 TopicCreateType=1为官方话题
 
     searchList = [];  //查询结果
     isSearch = false;
+    isIncludes = false;
 
     constructor(public navCtrl: NavController,
                 public forumSer: ForumService, public loadCtrl: LoadingController,
@@ -58,6 +59,7 @@ export class ChooseTopicPage {
                 load.dismissAll();
                 if (res.code == 200) {
                     this.searchList = res.data.Items;
+                    this.isIncludes = res.data.Items.some(e => e.Name == this.name);
                     this.isSearch = true;
                 }
             })

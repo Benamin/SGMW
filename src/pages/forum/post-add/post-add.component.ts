@@ -1,10 +1,5 @@
-import {Component, OnInit, NgZone} from '@angular/core';
-import {
-    NavController,
-    NavParams,
-    LoadingController,
-    ToastController,
-} from "ionic-angular";
+import {Component, NgZone, OnInit} from '@angular/core';
+import {LoadingController, NavController, NavParams, ToastController,} from "ionic-angular";
 import {ForumService} from "../forum.service";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -94,7 +89,10 @@ export class PostAddComponent implements OnInit {
         const data = this.navParams.get('topic');
         console.log(data);
         if (data) {
-            this.conversationDataSelection.push(data);
+            const isIncludes = this.conversationDataSelection.some(e => e.Id == data.Id);
+            if(!isIncludes){  //如果已有则不添加
+                this.conversationDataSelection.push(data);
+            }
         }
     }
 
@@ -513,9 +511,10 @@ export class PostAddComponent implements OnInit {
         if (TopicPlateIds.length == 0) {
             return this.serve.presentToast('请选择帖子板块');
         }
-        if (TopicTagPlateIds.length == 0) {
-            return this.serve.presentToast('请选择帖子话题');
-        }
+        //话题非必选
+        // if (TopicTagPlateIds.length == 0) {
+        //     return this.serve.presentToast('请选择帖子话题');
+        // }
 
         this.loading = this.loadCtrl.create({
             content: '发布中...'

@@ -115,6 +115,15 @@ export class ForumPage {
         this.navCtrl.push(PostlistComponent, {data: data});
     }
 
+    toPostList(item) {
+        const data = {
+            Id: item.TopicId,
+            Name: item.TopicName,
+            navli: this.navli
+        }
+        this.navCtrl.push(PostlistComponent, {data: data});
+    }
+
     initData() {
         this.isdoInfinite = true;
         this.pageDate.pageIndex = 1;

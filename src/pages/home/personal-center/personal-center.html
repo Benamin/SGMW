@@ -9,7 +9,7 @@
 	                           refreshingSpinner="bubbles">
 	    </ion-refresher-content>
 	</ion-refresher>
-	
+
 	<div class="black-bg">
 		<div class="person-info">
 			<div class="info-box">
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="posi-box">
 		<div class="navbar-box" *ngIf="!page.fixedShow">
 			<div class="navbar">
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<ul class="post-lists">
 		<div *ngIf="page.checkType === 'post'">
 			<li *ngFor="let item of page.navliArr[0].listArr">
@@ -62,11 +62,11 @@
 				<div class="pics" *ngIf="item.Images && item.Images.length === 1">
 					<img *ngIf="item.Images && item.Images.length == 1" src="{{ item.Images[0].Src }}" alt="封面图">
 				</div>
-				<div class="pics multiple" *ngIf="item.Images && item.Images.length > 1"> 
+				<div class="pics multiple" *ngIf="item.Images && item.Images.length > 1">
 					<img *ngFor="let picItem of item.Images" src="{{ picItem.Src }}" alt="封面图">
 				</div>
 				<div class="tags-box">
-					<span *ngFor="let tItem of TopicTagPlateItem">#{{ tItem.TopicName }}#</span>
+					<span *ngFor="let tItem of item.TopicTagPlateItem">#{{ tItem.TopicName }}#</span>
 				</div>
 				<div class="li-bottom">
 					<img class="look-num" src="./assets/imgs/forum/other/eye.png" alt="浏览量"/><span>{{ item.ViewCount }}</span>
@@ -109,13 +109,13 @@
 				</div>
 			</li>
 		</div>
-		
+
 	</ul>
-	
+
 	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
 			<ion-infinite-scroll-content
 							loadingSpinner="bubbles"
 							loadingText="加载中"></ion-infinite-scroll-content>
 	</ion-infinite-scroll>
-	
+
 </ion-content>
