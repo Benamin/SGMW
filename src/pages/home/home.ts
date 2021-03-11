@@ -407,7 +407,8 @@ export class HomePage implements OnInit {
      */
     getCourseDetailById(HttpURL) {
         // const HttpURL = "http://elearning.sgmw.com.cn/#/courseDetail/69591334-70ab-475a-9e4a-017820b694ac?type=jzpx&StructureType=2";
-        const arr = HttpURL.split('/');
+        const url = HttpURL.split('?');
+        const arr = url[0].split('/');
         const ID = arr[arr.length - 1];
         const theRequest = <any>{};
         HttpURL.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => theRequest[k] = v);
