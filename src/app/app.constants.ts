@@ -3,8 +3,8 @@
 export let env = 'uat';
 // export let env = 'prod';
 
-// let keyEnv = 'dev';
-let keyEnv = 'prod';
+let keyEnv = 'dev';
+// let keyEnv = 'prod';
 
 
 

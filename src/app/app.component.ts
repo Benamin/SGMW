@@ -140,22 +140,21 @@ export class MyApp {
                 if (value == 'platformIOS') {
                     this.isIOS = true;
                 }
+                if (this.isIOS13OR14()) {  //ios 13、14
+                    this.isIphoneIOS13 = true;
+                }
                 if (value == 'videoReset') {
                     this.isIphone11IOS13 = false;
                     this.isIphone11IOS13 = false;
                     this.isIphoneIOS13 = false;
                     return;
                 }
-                if (value == 'innerCourse' && this.isIOS13() && this.isIphoneXR()) {  //iphone 11
+                if (value == 'innerCourse' && this.isIphoneXR()) {  //iphone 11
                     this.isIphone11IOS13 = true;
                     return;
                 }
-                if (value == 'innerCourse' && this.isIOS13() && this.isIphoneX()) { //iphone X
+                if (value == 'innerCourse' && this.isIphoneX()) { //iphone X
                     this.isIphone11IOS13 = true;
-                    return;
-                }
-                if (value == 'innerCourse' && this.isIOS13()) {  //ios 13
-                    this.isIphoneIOS13 = true;
                     return;
                 }
             }
@@ -170,11 +169,12 @@ export class MyApp {
         return /iphone/gi.test(navigator.userAgent) && (screen.height == 812 && screen.width == 375)
     }
 
-    isIOS13() {
+    //判断是否ios13、14
+    isIOS13OR14() {
         const str = navigator.userAgent.toLowerCase();
         const ver = str.match(/cpu iphone os (.*?) like mac os/);
         const v = ver[1].replace(/_/g, ".");
-        if (v.includes('13')) {
+        if (v.includes('13') || v.includes('14')) {
             return true
         } else {
             return false;

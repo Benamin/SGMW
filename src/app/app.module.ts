@@ -52,6 +52,7 @@ import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 import {GlobalData} from "../core/GlobleData";
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {DownloadFileProvider} from '../providers/download-file/download-file';
@@ -147,6 +148,7 @@ import {IntegralService} from "../pages/integral/integral.service";
             JPush,
             JpushUtil,
             MediaCapture,
+            AndroidPermissions,
             {provide: ErrorHandler, useClass: IonicErrorHandler},
             {
                 provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true,

@@ -3,9 +3,9 @@
 			<ion-buttons left tappable (click)="goNavBack()">
 					<span class="cancel-btn">取消</span>
 			</ion-buttons>
-	 
+
 			<ion-title>我想提问</ion-title>
-	 
+
 			<ion-buttons right tappable (click)="submitAdd()">
 				<span class="sub-btn">提交</span>
 			</ion-buttons>
@@ -21,12 +21,12 @@
 		<ion-input type="text" placeholder="请输入标题" [(ngModel)]="page.Title" [ngModelOptions]="{standalone: true}"></ion-input>
 	</div>
 	<div class="ask-type-box">
-		<div class="ask-type-text">问题反馈类型</div>
+		<div class="ask-type-text">问题类型</div>
 		<div class="ask-type-items">
 			<div class="type-item" [ngClass]="{'actived': page.nowSelectAskType?.value === item.value}" *ngFor="let item of page.askTypeArr; let aTIndex = index" (click)="changeAskType(aTIndex)">{{ item.label }}</div>
 		</div>
 	</div>
-	
+
 	<div class="ask-content">
 		<textarea [(ngModel)]="page.questionDesc" class="content-area" placeholder="请输入问题内容…"></textarea>
 		<div class="ask-pics-lists">
