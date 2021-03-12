@@ -464,8 +464,8 @@ export class FocusCoursePage {
             };
             this.appSer.setFile(iframe);
         }
-        if (!file.icon.includes('mp4')) {
-            this.fileSer.viewFile(file.fileUrl, file.filename);
+        if (!file.icon.includes('mp4')) {  //预览文件
+            this.fileSer.ViewFile(file.fileUrl, file.filename);
         }
 
         loading.dismiss();

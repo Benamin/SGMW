@@ -169,7 +169,7 @@ export class ChapterPage {
             return;
         }
         if (!file.icon.includes('mp4')) {
-            this.fileSer.viewFile(file.fileUrl, file.filename);
+            this.fileSer.downloadFile(file.fileUrl, file.filename);
         }
     }
 

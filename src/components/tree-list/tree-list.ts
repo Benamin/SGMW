@@ -116,7 +116,7 @@ export class TreeListComponent {
             return;
         }
         if (!file.icon.includes('mp4') && !file.icon.includes('iframe')) {
-            this.fileSer.viewFile(file.fileUrl, file.filename);
+            this.fileSer.downloadFile(file.fileUrl, file.filename);
         }
     }
 

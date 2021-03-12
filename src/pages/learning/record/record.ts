@@ -24,7 +24,7 @@ export class RecordPage {
     ionViewDidLoad() {
     }
 
-    //office、pdf、图片、视频
+    //预览文档
     openFile(file) {
         file.AttachmentExt = file.AttachmentExt.toLowerCase();
         if (file.AttachmentExt.includes('mp4')) {
@@ -34,7 +34,7 @@ export class RecordPage {
         if (file.AttachmentExt.includes('png') || file.AttachmentExt.includes('jpg') || file.AttachmentExt.includes('jpeg')) {
             this.image.emit(file.AttachmentUrl);
         } else {
-            this.fileSer.viewFile(file.AttachmentUrl, file.AttachmentName);
+            this.fileSer.ViewFile(file.AttachmentUrl, file.AttachmentName);
         }
     }
 

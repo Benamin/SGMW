@@ -614,8 +614,8 @@ export class CourseDetailPage {
             this.appSer.setFile(iframe);
             return;
         }
-        if (!file.icon.includes('mp4') && !file.icon.includes('iframe')) {
-            this.fileSer.viewFile(file.fileUrl, file.filename);
+        if (!file.icon.includes('mp4') && !file.icon.includes('iframe')) {  //预览文件
+            this.fileSer.ViewFile(file.fileUrl, file.filename);
         }
 
         this.dismissLoading();
@@ -1116,7 +1116,7 @@ export class CourseDetailPage {
     }
 
     showTips(){
-        const msg = `下载的课程课件存储在根目录的sgmw文件夹目录下`;
+        const msg = `下载的课件:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下`;
         const alert = this.alertCtrl.create({
             title: `提示`,
             message: msg,

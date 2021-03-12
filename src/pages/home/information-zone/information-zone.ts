@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, ActionSheetController} from 'ionic-angular';
+import {ActionSheetController, LoadingController, NavController} from 'ionic-angular';
 import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 import {FileService} from "../../../core/file.service";
@@ -13,7 +13,7 @@ export class InformationZonePage {
 		userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
         Title: '',
-				page: 1, 
+				page: 1,
 				PageSize: 5,
 				TotalCount: 0,
 				isLoad: false,
@@ -52,7 +52,7 @@ export class InformationZonePage {
 			this.page.page = 1;
 			this.getList();
     }
-		
+
 		setSuffixClass(fileName) {
 			let suffix = fileName.substr(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase();; // 后缀名
 			// let suffixArr = ['Docx', 'PDF', 'Xls', 'PPT', 'ZIP']
@@ -78,10 +78,10 @@ export class InformationZonePage {
 			let suffixObj = {
 				suffixClass: suffixClass,
 				suffixText: suffixText
-			} 
+			}
 			return suffixObj
 		}
-		
+
     getList() {
         let loading = this.loadCtrl.create({
             content: ''
@@ -101,7 +101,7 @@ export class InformationZonePage {
             }
         )
     }
-		
+
 		DataAssign(Data) {
 			let Lists = Data.MaterialFileItems
 			// 处理返回的 数据
@@ -111,7 +111,7 @@ export class InformationZonePage {
 			this.page.TotalCount = Data.TotalCount;
 			return Lists;
 		}
-		
+
 		//下拉刷新
 		doRefresh(e) {
 		    this.page.page = 1;
@@ -120,26 +120,26 @@ export class InformationZonePage {
 		        e.complete();
 		    });
 		}
-		
+
 		//加载更多
 		doInfinite(e) {
 			console.log(9966, this.page.resourceLists.length, this.page.TotalCount)
-		    if (this.page.resourceLists.length == this.page.TotalCount) {
-		        e.complete();
-		        return;
-		    }
-		    this.page.page++;
-				const paramsObj = {
-				    DisplayName: this.page.Title,
-				    Page: this.page.page,
-				    PageSize: this.page.PageSize
-				};
-				if (this.page.FileType.value) paramsObj = Object.assign({}, paramsObj, { FileType: this.page.FileType.value });
-		    this.homeSer.GetQueryMaterialFile(paramsObj).subscribe(
-		        (res) => {
-		            this.page.resourceLists = this.page.resourceLists.concat(this.DataAssign(res.data));
-		            e.complete();
-		        }
+			if (this.page.resourceLists.length == this.page.TotalCount) {
+				e.complete();
+				return;
+			}
+			this.page.page++;
+			let paramsObj = {
+				DisplayName: this.page.Title,
+				Page: this.page.page,
+				PageSize: this.page.PageSize
+			};
+			if (this.page.FileType.value) paramsObj = Object.assign({}, paramsObj, {FileType: this.page.FileType.value});
+			this.homeSer.GetQueryMaterialFile(paramsObj).subscribe(
+				(res) => {
+					this.page.resourceLists = this.page.resourceLists.concat(this.DataAssign(res.data));
+					e.complete();
+				}
 		    )
 		}
 

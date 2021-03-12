@@ -30,7 +30,7 @@
 		  </div>
 	  </form>
   </div>
-	<p class="downloadTips">Tips：下载的课程课件存储在根目录的sgmw文件夹目录下</p>
+	<p class="downloadTips">Tips：下载的资料:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下</p>
 	<ul class="file-lists">
 		<li *ngFor="let item of page.resourceLists">
 			<div class="flex-box">
@@ -54,7 +54,7 @@
 							loadingSpinner="bubbles"
 							loadingText="加载中"></ion-infinite-scroll-content>
 	</ion-infinite-scroll>
-	
+
 	<ion-list *ngIf="page.isLoad && page.resourceLists.length === 0" text-center>
 			<img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
 			<p text-center style="color: #666666;font-size: 16px">
