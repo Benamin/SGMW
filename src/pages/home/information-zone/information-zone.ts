@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {LoadingController, NavController, ActionSheetController} from 'ionic-angular';
 import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 import {FileService} from "../../../core/file.service";
@@ -17,10 +17,19 @@ export class InformationZonePage {
 				PageSize: 5,
 				TotalCount: 0,
 				isLoad: false,
-				resourceLists: []
+				resourceLists: [],
+				FileType: { label: '全部类型', value: null },
+				typeArr: [
+					{ label: '全部类型', value: null },
+					{ label: 'Docx', value: 'doc' },
+					{ label: 'PDF', value: 'pdf' },
+					{ label: 'Xls', value: 'xlsx' },
+					{ label: 'PPT', value: 'pptx' },
+					{ label: 'ZIP', value: 'zip' }
+				]
     };
 
-    constructor(public navCtrl: NavController, private keyboard: Keyboard, private homeSer: HomeService,private loadCtrl: LoadingController, private fileSer: FileService,) {
+    constructor(public navCtrl: NavController, private keyboard: Keyboard, private homeSer: HomeService,private loadCtrl: LoadingController, private fileSer: FileService, public actionSheetCtrl: ActionSheetController,) {
 
     }
 
@@ -42,7 +51,6 @@ export class InformationZonePage {
     doSearch() {
 			this.page.page = 1;
 			this.getList();
-        // console.log('当前搜索', this.page.Title);
     }
 		
 		setSuffixClass(fileName) {
@@ -79,17 +87,15 @@ export class InformationZonePage {
             content: ''
         });
         loading.present();
-				// loading.dismiss();
-				console.log(this.homeSer);
-        const data = {
-            DisplayName: this.page.Title,
-            Page: 1,
-            PageSize: this.page.PageSize
+        let dataObj = {
+					DisplayName: this.page.Title,
+					Page: 1,
+					PageSize: this.page.PageSize
         };
-        this.homeSer.GetQueryMaterialFile(data).subscribe(
+				if (this.page.FileType.value) dataObj = Object.assign({}, dataObj, { FileType: this.page.FileType.value });
+        this.homeSer.GetQueryMaterialFile(dataObj).subscribe(
             (res) => {
 							this.page.resourceLists = this.DataAssign(res.data);
-							console.log('9999999', this.page.resourceLists);
 							this.page.isLoad = true;
 							loading.dismiss();
             }
@@ -117,6 +123,7 @@ export class InformationZonePage {
 		
 		//加载更多
 		doInfinite(e) {
+			console.log(9966, this.page.resourceLists.length, this.page.TotalCount)
 		    if (this.page.resourceLists.length == this.page.TotalCount) {
 		        e.complete();
 		        return;
@@ -127,6 +134,7 @@ export class InformationZonePage {
 				    Page: this.page.page,
 				    PageSize: this.page.PageSize
 				};
+				if (this.page.FileType.value) paramsObj = Object.assign({}, paramsObj, { FileType: this.page.FileType.value });
 		    this.homeSer.GetQueryMaterialFile(paramsObj).subscribe(
 		        (res) => {
 		            this.page.resourceLists = this.page.resourceLists.concat(this.DataAssign(res.data));
@@ -141,5 +149,27 @@ export class InformationZonePage {
         this.fileSer.downloadFile(fileUrl, fileName);
     }
 
+		// 切换角色
+		showActionSheet() {
+			let typeArr = this.page.typeArr;
+		  let btnArr = []
+			for (let i = 0; i < typeArr.length; i++) {
+					let obj = {
+							text: typeArr[i].label,
+							role: this.page.FileType.value === typeArr[i].value ? 'destructive' : '',
+							handler: () => {
+								this.page.FileType = typeArr[i];
+								this.getList();
+							}
+					}
+					btnArr.push(obj)
+			}
+			// console.log('btnArr', btnArr)
+			const actionSheet = this.actionSheetCtrl.create({
+					cssClass: 'infoAction',
+					buttons: btnArr
+			});
+			actionSheet.present();
+		}
 
 }

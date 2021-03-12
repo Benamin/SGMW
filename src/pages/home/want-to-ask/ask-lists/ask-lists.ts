@@ -18,7 +18,8 @@ export class WantToAskListsPage {
 		PageSize: 8, // 一页8条
 		TotalCount: 0,
 		searchLists: [],
-		askLists: []
+		askLists: [],
+		isLoad: false
 	};
 		// private modalCtrl: ModalController,
     constructor(public navCtrl: NavController, private homeSer: HomeService,

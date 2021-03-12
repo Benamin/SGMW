@@ -1,6 +1,12 @@
 <ion-header>
     <ion-navbar>
         <ion-title>资料专区</ion-title>
+				<div class="top-box">
+				      <span class="top-right" (click)="showActionSheet()">
+				        <span>{{ page.FileType.label }}</span>
+				        <img src="assets/imgs/train/shaixuan@2x.png" alt="">
+				      </span>
+				</div>
     </ion-navbar>
 </ion-header>
 <ion-content>
@@ -26,7 +32,7 @@
   </div>
 	<p class="downloadTips">Tips：下载的课程课件存储在根目录的sgmw文件夹目录下</p>
 	<ul class="file-lists">
-		<li *ngFor="let item of page.resourceLists" (click)="changeCheckType(item.lable)">
+		<li *ngFor="let item of page.resourceLists">
 			<div class="flex-box">
 				<span class="suffix" [ngClass]="item.suffixObj.suffixClass">{{ item.suffixObj.suffixText }}</span>
 				<span class="file-type">{{ item.FileType }}</span>
