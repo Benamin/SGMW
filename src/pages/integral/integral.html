@@ -14,26 +14,44 @@
             <ion-icon name="arrow-forward"></ion-icon>
         </div>
     </div>
-    <div class="task-type">
-        <div class="daily" [ngClass]="{'checked':type == 'daily'}" (click)="type = 'daily'">日常任务</div>
-        <div class="advance" [ngClass]="{'checked':type == 'advance'}" (click)="type = 'advance'">进阶任务</div>
-    </div>
-    <div *ngIf="type === 'daily'" class="daily-task">
+    <!--    <div class="task-type">-->
+    <!--        <div class="daily" [ngClass]="{'checked':type == 'daily'}" (click)="type = 'daily'">日常任务</div>-->
+    <!--        <div class="advance" [ngClass]="{'checked':type == 'advance'}" (click)="type = 'advance'">进阶任务</div>-->
+    <!--    </div>-->
+    <div class="daily-task">
         <p>今日获取{{dayObj?.message || 0}}分</p>
-        <div class="daily-item">
-            <div class="left">
-                <p>每日登录</p>
-                <p>1分/每日登录</p>
-                <p>已获得{{obj?.DailyCheck === true ? '1' : '0'}}分/每日上线1分</p>
+        <!--        <div class="daily-item">-->
+        <!--            <div class="left">-->
+        <!--                <p>每日登录</p>-->
+        <!--                <p>1分/每日登录</p>-->
+        <!--                <p>已获得{{obj?.DailyCheck === true ? '1' : '0'}}分/每日上线1分</p>-->
+        <!--            </div>-->
+        <!--            <div class="right">-->
+        <!--                <span class="check-done" *ngIf="obj?.DailyCheck">已签到-->
+        <!--                    <img src="./assets/imgs/course/yiwancheng.png">-->
+        <!--                </span>-->
+        <!--                <span (click)="DailyCheck()" *ngIf="!obj?.DailyCheck">签到</span>-->
+        <!--            </div>-->
+        <!--            <div class="bottom-process">-->
+        <!--                <div [ngStyle]="{'width':obj?.DailyCheck?'100%':'0%'}" class="inner"></div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div class="advance-task">
+            <div class="top">
+                <div class="left">
+                    <p>论坛精华帖</p>
+                    <p>要求:字数 > 200字，且带有图片</p>
+                    <p>10～20分/帖子</p>
+                </div>
+                <div class="right" (click)="PostAddComponent()">
+                    <span>去申请</span>
+                </div>
             </div>
-            <div class="right">
-                <span class="check-done" *ngIf="obj?.DailyCheck">已签到
-                    <img src="./assets/imgs/course/yiwancheng.png">
-                </span>
-                <span (click)="DailyCheck()" *ngIf="!obj?.DailyCheck">签到</span>
-            </div>
-            <div class="bottom-process">
-                <div [ngStyle]="{'width':obj?.DailyCheck?'100%':'0%'}" class="inner"></div>
+            <div class="bottom" (click)="GoToVerity()">
+                <div class="left">提交优秀案例，审核通过后给予积分</div>
+                <div class="right">查看审核进度
+                    <ion-icon name="arrow-forward"></ion-icon>
+                </div>
             </div>
         </div>
         <div class="daily-item">
@@ -49,24 +67,6 @@
                 <div *ngIf="obj?.GetNowDay > 0"
                      [ngStyle]="{'width': ((obj?.GetNowDay / obj?.NowDayUpperLimit) *100) + '%' }" class="inner"></div>
                 <div *ngIf="obj?.GetNowDay == 0" style="width: 0%" class="inner"></div>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="type === 'advance'" class="advance-task">
-        <div class="top">
-            <div class="left">
-                <p>论坛精华帖</p>
-                <p>要求:字数 > 200字，且带有图片</p>
-                <p>10～20分/帖子</p>
-            </div>
-            <div class="right" (click)="PostAddComponent()">
-                <span>去申请</span>
-            </div>
-        </div>
-        <div class="bottom" (click)="GoToVerity()">
-            <div class="left">提交优秀案例，审核通过后给予积分</div>
-            <div class="right">查看审核进度
-                <ion-icon name="arrow-forward"></ion-icon>
             </div>
         </div>
     </div>

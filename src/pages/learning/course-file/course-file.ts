@@ -36,7 +36,7 @@ export class CourseFilePage {
             this.preImgSrc = (file.AttachmentUrl);
 
         } else {
-            this.fileSer.viewFile(file.AttachmentUrl, file.AttachmentName);
+            this.fileSer.ViewFile(file.AttachmentUrl, file.AttachmentName);
         }
     }
 
