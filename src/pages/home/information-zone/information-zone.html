@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-title>资料专区</ion-title>
-				<div class="top-box">
+				<div class="top-box" *ngIf="page.FileType">
 				      <span class="top-right" (click)="showActionSheet()">
 				        <span>{{ page.FileType.label }}</span>
 				        <img src="assets/imgs/train/shaixuan@2x.png" alt="">

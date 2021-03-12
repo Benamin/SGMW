@@ -18,14 +18,14 @@ export class InformationZonePage {
 				TotalCount: 0,
 				isLoad: false,
 				resourceLists: [],
-				FileType: { label: '全部类型', value: null },
+				FileType: null,
 				typeArr: [
-					{ label: '全部类型', value: null },
-					{ label: 'Docx', value: 'doc' },
-					{ label: 'PDF', value: 'pdf' },
-					{ label: 'Xls', value: 'xlsx' },
-					{ label: 'PPT', value: 'pptx' },
-					{ label: 'ZIP', value: 'zip' }
+					// { label: '全部类型', value: null },
+					// { label: 'Docx', value: 'doc' },
+					// { label: 'PDF', value: 'pdf' },
+					// { label: 'Xls', value: 'xlsx' },
+					// { label: 'PPT', value: 'pptx' },
+					// { label: 'ZIP', value: 'zip' }
 				]
     };
 
@@ -38,8 +38,10 @@ export class InformationZonePage {
     // }
     ionViewDidLoad() {
 			this.page.resourceLists = [];
-        this.getList();
+			this.GetAskType();
+      this.getList();
     }
+				// 获取问题类型		GetAskType() {			let loading = this.loadCtrl.create({					content: ''			});					loading.present();			const data = {					code: 'MaterialFileType' // 问题类型 传QuestionType  资料分类传 MaterialFileType 			};			this.homeSer.GetAskType(data).subscribe(					(res) => { 							this.page.typeArr = res.data;							if (res.data.length > 0) {								this.page.FileType = res.data[0];							}							loading.dismiss();					}			)		}
 
     showKey() { this.keyboard.show(); }
     //按键
@@ -92,7 +94,7 @@ export class InformationZonePage {
 					Page: 1,
 					PageSize: this.page.PageSize
         };
-				if (this.page.FileType.value) dataObj = Object.assign({}, dataObj, { FileType: this.page.FileType.value });
+				if (this.page.FileType) dataObj = Object.assign({}, dataObj, { FileTypeId: this.page.FileType.value });
         this.homeSer.GetQueryMaterialFile(dataObj).subscribe(
             (res) => {
 							this.page.resourceLists = this.DataAssign(res.data);
@@ -123,7 +125,7 @@ export class InformationZonePage {
 
 		//加载更多
 		doInfinite(e) {
-			console.log(9966, this.page.resourceLists.length, this.page.TotalCount)
+			// console.log(9966, this.page.resourceLists.length, this.page.TotalCount)
 			if (this.page.resourceLists.length == this.page.TotalCount) {
 				e.complete();
 				return;
@@ -134,7 +136,7 @@ export class InformationZonePage {
 				Page: this.page.page,
 				PageSize: this.page.PageSize
 			};
-			if (this.page.FileType.value) paramsObj = Object.assign({}, paramsObj, {FileType: this.page.FileType.value});
+			if (this.page.FileType.value) paramsObj = Object.assign({}, paramsObj, {FileTypeId: this.page.FileType.value});
 			this.homeSer.GetQueryMaterialFile(paramsObj).subscribe(
 				(res) => {
 					this.page.resourceLists = this.page.resourceLists.concat(this.DataAssign(res.data));
