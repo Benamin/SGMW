@@ -1,4 +1,24 @@
 page-information-zone {
+	.top-box {
+	  display: flex;
+	  align-items: center;
+	
+	  .top-right {
+	    margin-left: auto;
+	    font-size: 1.4rem;
+	    color: #FFF;
+			display: flex;
+			align-items: center;
+	
+	    img {
+	      margin-right: 1.1rem;
+				margin-left: 0.3rem;
+				margin-top: 0.2rem;
+				width: 1.3rem;
+	    }
+	  }
+	}
+	
   .searchbar {
     display: flex;
     align-items: center;
