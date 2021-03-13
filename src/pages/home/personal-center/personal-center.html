@@ -17,7 +17,9 @@
 					<img class="avatar" src="{{ page.personalInfo?.headPhoto || userDefaultImg }}" alt="个人头像"/>
 				</div>
 				<div class="info-detail">
-					<div class="name">{{ page.personalInfo?.userName }} <span *ngIf="page.personalInfo?.dealerName" class="tag">{{ page.personalInfo?.dealerName }}</span></div>
+					<div class="name">
+						<span>{{ page.personalInfo?.userName }}</span>
+						<span *ngIf="page.personalInfo?.dealerName" class="tag">{{ page.personalInfo?.dealerName }}</span></div>
 					<div class="dealer-number" *ngIf="page.personalInfo?.dealerCode">经销商号：{{ page.personalInfo?.dealerCode }}</div>
 					<div class="phone" *ngIf="page.personalInfo?.Phone">手机号：{{ page.personalInfo?.Phone }}</div>
 				</div>

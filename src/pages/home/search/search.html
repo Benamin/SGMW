@@ -38,9 +38,12 @@
       </div>
     </div>
     <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of postList">
-      <div class="post-introduction-top">
-        <img src="{{item.PosterUserHeadPhoto}}" alt="">
-        <div class="name">{{item.PosterUserName}}</div>
+      <div (click)="$event.stopPropagation();toPersonInfo(item)" class="post-introduction-top">
+        <img src="{{item.PosterUserHeadPhoto || defaultHeadPhoto}}" alt="">
+        <div class="name">
+          {{item.PosterUserName}}
+          <span *ngIf="item?.System" class="System">{{item?.System}}</span>
+        </div>
         <div class="oldDate">{{item.PostRelativeTime}}</div>
       </div>
       <div class="post-introduction-con">
@@ -73,8 +76,9 @@
           <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
           {{item.ReplyCount}}
         </span>
-        <span>
-          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+        <span tappable (click)="handleLike(item,$event)">
+          <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like@3x.png" >
+          <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" >
           {{item.LikeCount}}
         </span>
       </div>

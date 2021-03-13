@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {LoadingController, NavController, NavParams} from 'ionic-angular';
 import {LearnService} from "../../learning/learn.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {ForumService} from '../../forum/forum.service';
@@ -9,6 +9,9 @@ import {PostsContentComponent} from '../../forum/posts-content/posts-content.com
 import {FocusCoursePage} from "../../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 import {LogService} from "../../../service/log.service";
+import {PersonalCenterPage} from "../personal-center/personal-center";
+import {Storage} from "@ionic/storage";
+import {defaultHeadPhoto} from "../../../app/app.constants";
 
 
 @Component({
@@ -38,10 +41,11 @@ export class SearchPage {
     show;
     showTips = true;
     topicplate = [];
+    defaultHeadPhoto = defaultHeadPhoto;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
-                private keyboard: Keyboard,
+                private keyboard: Keyboard, public storage: Storage,
                 private learnSer: LearnService,
                 private loadCtrl: LoadingController,
                 private forumService: ForumService,
@@ -264,5 +268,35 @@ export class SearchPage {
     // 前往帖子详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
+    }
+
+    //点赞
+    handleLike(item, e) {
+        e.stopPropagation();
+        if (item.isClick) return;
+
+        item.isClick = true;
+        if (item.IsGiveLike) {
+            this.forumService.forum_post_cancellike(item.Id).subscribe((res: any) => {
+                item['IsGiveLike'] = false;
+                if (item.LikeCount > 0) item.LikeCount--;
+                item.isClick = false;
+            });
+        } else {
+            this.forumService.forum_post_like(item.Id).subscribe((res: any) => {
+                item['IsGiveLike'] = true;
+                item.LikeCount++;
+                item.isClick = false;
+            });
+        }
+    }
+
+    //他人详情
+    toPersonInfo(item) {
+        this.storage.get('user').then(value => {
+            if (item.Poster !== value.MainUserID) {
+                this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
+            }
+        });
     }
 }

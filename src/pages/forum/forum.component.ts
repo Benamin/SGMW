@@ -118,6 +118,7 @@ export class ForumPage {
     toPostList(item) {
         const data = {
             Id: item.TopicId,
+            CoverImage: item.TopicImageUrl,
             Name: item.TopicName,
             navli: this.navli
         }

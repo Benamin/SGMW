@@ -59,7 +59,7 @@
       <img src="./assets/imgs/forum/list/luntan_coment@3x.png" >
       {{item.ReplyCount}}
     </span>
-    <span (click)="handleLike(item,$event)" class="p771_comment_like">
+    <span tappable (click)="handleLike(item,$event)" class="p771_comment_like">
       <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like@3x.png" >
       <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" >
       {{item.LikeCount}}
