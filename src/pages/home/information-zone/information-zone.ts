@@ -41,7 +41,14 @@ export class InformationZonePage {
 			this.GetAskType();
       this.getList();
     }
-				// 获取问题类型		GetAskType() {			let loading = this.loadCtrl.create({					content: ''			});					loading.present();			const data = {					code: 'MaterialFileType' // 问题类型 传QuestionType  资料分类传 MaterialFileType 			};			this.homeSer.GetAskType(data).subscribe(					(res) => { 							this.page.typeArr = res.data;							if (res.data.length > 0) {								this.page.FileType = res.data[0];							}							loading.dismiss();					}			)		}
+				// 获取问题类型		GetAskType() {			let loading = this.loadCtrl.create({					content: ''			});					loading.present();			const data = {					code: 'MaterialFileType' // 问题类型 传QuestionType  资料分类传 MaterialFileType 			};			this.homeSer.GetAskType(data).subscribe(					(res) => { 
+						let allType =  { label: '全部类型', value: null };
+						let typeArr = [allType];
+						if (res.data && res.data.length>0) {
+							for (let i=0; i<res.data.length; i++) {
+								typeArr.push(res.data[i])
+							}
+						}						this.page.typeArr = typeArr;						this.page.FileType = this.page.typeArr[0];						loading.dismiss();					}			)		}
 
     showKey() { this.keyboard.show(); }
     //按键
@@ -94,7 +101,7 @@ export class InformationZonePage {
 					Page: 1,
 					PageSize: this.page.PageSize
         };
-				if (this.page.FileType) dataObj = Object.assign({}, dataObj, { FileTypeId: this.page.FileType.value });
+				if (this.page.FileType && this.page.FileType.value !== null) dataObj = Object.assign({}, dataObj, { FileTypeId: this.page.FileType.value });
         this.homeSer.GetQueryMaterialFile(dataObj).subscribe(
             (res) => {
 							this.page.resourceLists = this.DataAssign(res.data);
@@ -136,7 +143,7 @@ export class InformationZonePage {
 				Page: this.page.page,
 				PageSize: this.page.PageSize
 			};
-			if (this.page.FileType.value) paramsObj = Object.assign({}, paramsObj, {FileTypeId: this.page.FileType.value});
+			if (this.page.FileType && this.page.FileType.value !== null) paramsObj = Object.assign({}, paramsObj, {FileTypeId: this.page.FileType.value});
 			this.homeSer.GetQueryMaterialFile(paramsObj).subscribe(
 				(res) => {
 					this.page.resourceLists = this.page.resourceLists.concat(this.DataAssign(res.data));
