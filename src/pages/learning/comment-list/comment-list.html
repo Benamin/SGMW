@@ -13,7 +13,7 @@
                           {{(item.UserName.length > 4 && item?.Badges.length > 1) ? item.UserName.slice(0, 3) + "..." : item.UserName}}
                         </p>
                         <p style="color: #ffc92d;font-size: 1rem" *ngIf="item.System">
-                            {{item.System | stringSlice:4:4}}
+                            {{item.System | stringSlice:10:10}}
                         </p>
                     </div>
                     <!--                    段位-->
