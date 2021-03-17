@@ -173,8 +173,13 @@
           <div class="kpi-item-title">{{ item.KpiName }}</div>
           <div class="progress-box">
             <div class="progress-bar-bg"></div>
-            <div *ngIf="item.QualifiedKpiValue !== 0" class="progress-bar" [ngStyle]="{'width': (item.KpiValue/item.QualifiedKpiValue*100) + '%' }"></div>
-            <div *ngIf="item.QualifiedKpiValue === 0" class="progress-bar" style="width: 100%;"></div>
+						<!-- KpiValue若有 QualifiedKpiValue 为0的情况  如 1/0 ==Infinity -->
+						<div *ngIf="item.KpiValue !== 0 && item.QualifiedKpiValue === 0; else elseBlock" class="progress-bar" style="width: 100%;"></div>
+						<!-- *ngIf="item.QualifiedKpiValue !== 0" -->
+						<ng-template #elseBlock>
+							<div class="progress-bar" [ngStyle]="{'width': item.KpiValue === 0 && item.QualifiedKpiValue === 0 ? 0 : (item.KpiValue/item.QualifiedKpiValue*100) + '%' }"></div>
+						</ng-template>
+           
           </div>
           <div class="kpi-item-text">
             <span class="progress-now" [ngClass]="{'finish': item.KpiValue >= item.QualifiedKpiValue }">当前{{( item.KpiValue * 100).toFixed(0) }}%</span>
