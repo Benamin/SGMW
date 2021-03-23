@@ -16,10 +16,6 @@
                             {{item.System | stringSlice:10:10}}
                         </p>
                     </div>
-                    <!--                    段位-->
-                    <span *ngIf="item?.TitleInfo?.ForumTitle" class="forumTitle">
-                            {{item?.TitleInfo?.ForumTitle}}
-                        </span>
                     <!--                    勋章-->
                     <ng-container *ngFor="let badge of item?.Badges;let i = index;">
                             <span class="badgeSpan" *ngIf="i < 2">

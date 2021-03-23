@@ -14,7 +14,6 @@
                   {{data?.PosterUserName}}
                 <span *ngIf="data?.System" class="System">{{data?.System}}</span>
               </span>
-            <span *ngIf="data?.PosterUserForumTitle?.ForumTitle" class="ForumTitle">{{data?.PosterUserForumTitle?.ForumTitle}}</span>
             <span class="PosterBadges" *ngFor="let data of data?.PosterBadges" >
               <img src="{{data?.BadgeIcon}}" alt="">
               <span class="PosterBadges-BadgeName">
@@ -47,7 +46,6 @@
                 {{item?.PosterUserName}}
               <span *ngIf="item?.System" class="System">{{item?.System}}</span>
             </span>
-          <span *ngIf="item?.PosterUserForumTitle?.ForumTitle" class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
           <span class="PosterBadges" *ngFor="let n of item?.PosterBadges" >
             <img src="{{n.BadgeIcon}}" alt="">
             <span class="PosterBadges-BadgeName">

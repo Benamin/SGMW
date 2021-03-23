@@ -13,7 +13,6 @@ export class CommentComponent {
     @ViewChild('textAreaElement') textAreaElement: ElementRef;
 
     teacher;
-    teacherList;
 
     replyContent: string;
     placeholder: string;
@@ -29,7 +28,6 @@ export class CommentComponent {
                 private modalCtrl: ModalController) {
         this.placeholder = this.navParams.get('placeholder');
         this.type = this.navParams.get('type');
-        if (this.navParams.get('teacherList')) this.teacherList = this.navParams.get('teacherList');
 
         setTimeout(() => {
             this.textAreaElement.nativeElement.focus();
@@ -60,19 +58,6 @@ export class CommentComponent {
 
     stop(e) {
         e.stopPropagation();
-    }
-
-    //选择讲师
-    selectTeacher() {
-        let modal = this.modalCtrl.create(SelectTeacherComponent, {
-            teacherList: this.teacherList
-        });
-        modal.onDidDismiss(res => {
-            if (res) {
-                this.teacher = res;
-            }
-        });
-        modal.present();
     }
 
     submit() {

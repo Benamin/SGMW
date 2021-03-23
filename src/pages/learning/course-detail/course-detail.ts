@@ -10,7 +10,6 @@ import {
     Slides
 } from 'ionic-angular';
 import {TeacherPage} from "../teacher/teacher";
-import {CourseCommentPage} from "../course-comment/course-comment";
 import {LearnService} from "../learn.service";
 import {AppService} from "../../../app/app.service";
 import {CommonService} from "../../../core/common.service";
@@ -69,14 +68,12 @@ export class CourseDetailPage {
         {type: 1, name: '简介', code: 'desc'},
         {type: 2, name: '章节', code: 'chapter'},
         {type: 3, name: '讨论', code: 'talk'},
-        {type: 4, name: '评价', code: 'comment'},
-        {type: 5, name: '相关', code: 'relation'},
+        {type: 4, name: '相关', code: 'relation'},
     ];
     newNavbarList = [
         {type: 1, name: '章节', code: 'chapter'},
         {type: 2, name: '讨论', code: 'talk'},
-        {type: 3, name: '评价', code: 'comment'},
-        {type: 4, name: '相关', code: 'relation'},
+        {type: 3, name: '相关', code: 'relation'},
     ];
     navbarList;
 
@@ -809,38 +806,20 @@ export class CourseDetailPage {
 
     //讲师评价下-讲师列表
     getTeacher() {
-        const data = {
-            id: this.global.pId
-        }
-        this.learnSer.GetTeacherListByPID(data).subscribe(
-            (res) => {
-                if (res.data) {
-                    this.teacherList = res.data;
-                    this.getCommentList();
-                    this.getTalkList();
-                }
-            }
-        )
+        this.getCommentList();
+        this.getTalkList();
     }
 
 
-    //课程评价
+    //课程的平均评价
     getCommentList() {
         const data2 = {
-            pageSize: 100,
-            page: 1,
-            TopicType: 'course',   //teacher  course
             topicID: this.product.detail.PrId
         }
-        this.learnSer.GetComment(data2).subscribe(  //课程评价
+        this.learnSer.GetQCommentNum(data2).subscribe(  //课程评价
             (res) => {
                 if (res.data) {
-                    res.data.CommentItems.forEach(e => {
-                        if ((e.Score + '').includes('.9')) {
-                            e.Score = Math.ceil(e.Score);
-                        }
-                    })
-                    this.comment.course = res.data.CommentItems;
+
                 }
             }
         );
@@ -878,28 +857,6 @@ export class CourseDetailPage {
         )
     }
 
-    //教师评价
-    goTeacherComment() {
-        this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请理性发言，文明用语...',
-            TopicID: this.product.detail.PrId,
-            TopicType: 'teacher',
-            PId: this.global.pId,
-            title: '讲师评价'
-        });
-    }
-
-    //前往课程评价
-    goCourseComment() {
-        this.navCtrl.push(CourseCommentPage, {
-            placeholder: '请理性发言，文明用语...',
-            TopicID: this.product.detail.PrId,
-            TopicType: 'course',
-            title: this.product.detail.TeachTypeName == "直播" ? '直播评价' : '课程评价',
-            text: this.product.detail.TeachTypeName == "直播" ? "直播" : "课程"
-        });
-    }
-
     //打开课程评论弹窗
     openComment() {
         let modal = this.modalCtrl.create(CommentByCourseComponent, {
@@ -920,7 +877,6 @@ export class CourseDetailPage {
         let modal = this.modalCtrl.create(CommentComponent, {
             placeholder: '请输入讨论内容',
             type: 'talk',
-            teacherList: this.teacherList
         });
         modal.onDidDismiss(res => {
             if (res) {

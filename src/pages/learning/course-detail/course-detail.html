@@ -137,22 +137,6 @@
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping">
-                    <!--      评价      -->
-                    <div class="item" style="min-height: 350px">
-                        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
-                        </p>
-                        <page-comment-list [cList]="comment.course" [TopicType]="'course'"></page-comment-list>
-                        <div class="no-comment" *ngIf="comment.course.length == 0">
-                            <ion-list text-center style="margin-top: 40px">
-                                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                                <p style="color: #666666;font-size: 13px">
-                                    暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价，快去发一条吧～
-                                </p>
-                            </ion-list>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide swiper-no-swiping">
                     <!--            相关-->
                     <div class="item" style="margin-bottom: 5rem">
                         <p>相关推荐</p>

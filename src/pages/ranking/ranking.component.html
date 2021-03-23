@@ -41,9 +41,6 @@
               <img class="user-head" src="{{phb_2?.HeadPhoto || defaultHeadPhoto}}" alt="">
               <div class="name type-name nowrap-1">{{phb_2?.AgentName}}</div>
               <div class="name  nowrap-1">{{phb_2?.UserName}}</div>
-              <div class="user-label nowrap-1" *ngIf="phb_2?.ForumTitle">
-                {{phb_2?.ForumTitle}}
-              </div>
               <div class="user-label nowrap-1" *ngIf="phb_2?.FinishCount">
                 {{phb_2?.FinishCount}}
               </div>
@@ -67,9 +64,6 @@
           <img class="user-head" src="{{phb_1?.HeadPhoto || defaultHeadPhoto}}" alt="">
           <div class="name type-name nowrap-1">{{phb_1?.AgentName}}</div>
           <div class="name nowrap-1">{{phb_1?.UserName}}</div>
-          <div class="user-label nowrap-1" *ngIf="phb_1?.ForumTitle" >
-            {{phb_1?.ForumTitle}}
-          </div>
           <div class="user-label nowrap-1" *ngIf="phb_1?.FinishCount">
             {{phb_1?.FinishCount}}
           </div>
@@ -92,9 +86,6 @@
               <img class="user-head" src="{{phb_3?.HeadPhoto || defaultHeadPhoto}}" alt="">
               <div class="name type-name nowrap-1">{{phb_3?.AgentName}}</div>
               <div class="name nowrap-1">{{phb_3?.UserName}}</div>
-              <div class="user-label nowrap-1" *ngIf="phb_3?.ForumTitle" >
-                {{phb_3?.ForumTitle}}
-              </div>
               <div class="user-label nowrap-1" *ngIf="phb_3?.FinishCount">
                 {{phb_3?.FinishCount}}
               </div>
@@ -134,13 +125,6 @@
           <span class="user-name " *ngIf="navli!='StudentModel'" >
                 {{item?.UserName}}
           </span>
-
-
-
-
-        <span class="user-grade" *ngIf="item.ForumTitle" >
-            {{item?.ForumTitle}}
-        </span>
         <span class="user-grade" *ngIf="item.FinishCount" >
           {{item?.FinishCount}}
         </span>
@@ -172,10 +156,6 @@
         </span>
         <span class="user-name " *ngIf="navli!='StudentModel'" >
               {{MyRankingData?.UserName}}
-        </span>
-
-        <span class="user-grade" *ngIf="MyRankingData.ForumTitle" >
-            {{MyRankingData?.ForumTitle}}
         </span>
         <span class="user-grade" *ngIf="MyRankingData.FinishCount" >
           {{MyRankingData?.FinishCount}}

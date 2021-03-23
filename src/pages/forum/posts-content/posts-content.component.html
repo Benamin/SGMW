@@ -47,8 +47,6 @@
               {{item?.PosterUserName}}
                 <span *ngIf="item?.System" class="System">{{item?.System}}</span>
             </span>
-                        <span *ngIf="item?.PosterUserForumTitle?.ForumTitle"
-                              class="ForumTitle">{{item?.PosterUserForumTitle?.ForumTitle}}</span>
                         <span class="PosterBadges" *ngFor="let data of item?.PosterBadges">
               <img src="{{data.BadgeIcon}}" alt="">
               <span class="PosterBadges-BadgeName nowrap-1">
