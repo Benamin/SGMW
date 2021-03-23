@@ -23,24 +23,19 @@
 			<!-- <a class="pics-text">查看图片</a> -->
 		</div>
 		
-		<div class="reply-box" *ngIf="page.askItem.ImageList.length > 0">
+		<div class="reply-box" *ngIf="page.askItem.QuestionReplyItems">
 			<div class="reply-title">
 				<img class="avatar" src="./assets/imgs/home/gf@2x.png" alt="头像"/>
 				官方回复
 			</div>
-			<div class="desc">
-				已修复哦，如果还是不行请杀死app后，重新安装打开登陆，试试看，谢谢！
+			<div class="desc">{{ page.askItem.QuestionReplyItems.ReplyContent }}</div>
+			<div *ngIf="page.askItem.QuestionReplyItems.ImgAddress.length > 0">
+				<div class="reply-title">回复截图</div>
+				<div *ngFor="let replyImgItem of page.askItem.QuestionReplyItems.ImgAddress; let replyImgIndex = index">
+					<span (click)="$event.stopPropagation();showPic(replyImgItem)" class="pics-text">查看图片</span>
+				</div>
 			</div>
-			<div class="reply-title">回复截图</div>
-			<div>
-				<span class="pics-text">查看图片</span>
-			</div>
-			<div>
-				<span class="pics-text">查看图片</span>
-			</div>
-		<!-- 	<div *ngFor="let replyImgItem of page.askItem.ImageList; let replyImgIndex = index">
-				<span (click)="$event.stopPropagation();showPic(replyImgItem)" class="pics-text">查看图片</span>
-			</div> -->
+		
 		</div>
 		
 		
