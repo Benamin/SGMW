@@ -49,3 +49,5 @@ build/
 /src/pages/home/want-to-ask/ask-search-modal/role-modal.scss
 /src/pages/home/want-to-ask/ask-search-modal/role-modal.ts
 /src/pages/mine/personal-center
+
+.history/
