@@ -24,7 +24,12 @@
       <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of collectionList">
         <div class="post-introduction-top">
           <img src="{{item.PosterUserHeadPhoto}}" alt="">
-          <div class="name">{{item.PosterUserName}}</div>
+          <div class="name">
+            <p>{{item.PosterUserName}}</p>
+            <p style="color: #ffc92d;font-size: 1rem" *ngIf="item.System">
+              {{item.System | stringSlice:10:10}}
+            </p>
+          </div>
           <div class="oldDate">{{item.PostRelativeTime}}</div>
         </div>
         <div class="post-introduction-con" >
@@ -63,7 +68,7 @@
         </div>
       </div>
     </div>
-  <ion-list text-center style="margin-top: 10rem" *ngIf="collectionList.length == 0">
+  <ion-list text-center style="margin-top: 10rem" *ngIf="collectionList.length == 0 && isLoad">
     <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
     <p text-center style="color: #666666;font-size: 16px">
       暂无数据

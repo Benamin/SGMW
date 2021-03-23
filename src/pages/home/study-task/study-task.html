@@ -37,8 +37,8 @@
             <span class="ionDateTime">
                 <ion-datetime displayFormat="YYYY年MM月"
                               doneText="确定"
-                              min="2021"
-                              max="2022"
+                              [min]="obj.minYear"
+                              [max]="obj.maxYear"
                               cancelText="取消"
                               (ngModelChange)="changeDate($event)"
                               pickerFormat="YYYY年MM月" [(ngModel)]="myDate"></ion-datetime>

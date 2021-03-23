@@ -42,13 +42,6 @@
                              src="./assets/imgs/course/hua_y@2x.png" alt="">
                         点赞·{{product.detail?.ZanCount || "0"}}
                     </span>
-                        <span tappable (click)="handleHate()">  <!--扔鸡蛋-->
-                        <img *ngIf="!product.detail?.IsHate"
-                             src="./assets/imgs/course/jd@2x.png" alt="">
-                        <img *ngIf="product.detail?.IsHate"
-                             src="./assets/imgs/course/jd_y@2x.png" alt="">
-                            扔蛋·{{product.detail?.HateCount || "0"}}
-                    </span>
                         <span tappable (click)="handleCollection()">  <!--收藏-->
                         <img *ngIf="!product.detail?.IsCollection"
                              src="./assets/imgs/course/sc@2x.png" alt="">

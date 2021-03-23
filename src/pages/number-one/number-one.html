@@ -107,7 +107,7 @@
                         查看详情
                     </span>
                 </div>
-                <div class="volume-number">
+                <div (click)="$event.stopPropagation();wxShare(item)" class="volume-number">
                     <img style="width: 16px;" src="./assets/imgs/consultation/share@3x.png" alt="">
                 </div>
             </div>
