@@ -79,19 +79,33 @@
         </span>
       </div>
     </div>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && topicplate.length == 0 && postList.length == 0">
+    <!-- <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && topicplate.length == 0 && postList.length == 0">
       <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
       <p text-center style="color: #666666;font-size: 16px">
-        暂无数据1111
+        暂无数据
+      </p>
+    </ion-list> -->
+    <ion-list text-center style="margin-top: 10rem" *ngIf="emptyShow">
+      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+      <p text-center style="color: #666666;font-size: 16px">
+        暂无数据
       </p>
     </ion-list>
   </div>
+
   <div *ngIf="navli=='课程'">
     <course-list [list]="productList" (done)="goCourse($event)"></course-list>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && (productList.length == 0)">
+    <!-- <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && (productList.length == 0)">
       <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
       <p text-center style="color: #666666;font-size: 16px">
-        暂无数据2222
+        暂无数据
+      </p>
+    </ion-list> -->
+
+    <ion-list text-center style="margin-top: 10rem" *ngIf="emptyShow">
+      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+      <p text-center style="color: #666666;font-size: 16px">
+        暂无数据
       </p>
     </ion-list>
   </div>
