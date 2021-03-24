@@ -18,20 +18,34 @@ export class NotificationPage {
         pageSize: 10,
         TotalCount: null,
         isLoad:false,
-        Type: 1
+        BigType: 0,
+				IsHaveNextPage: false
     };
-
-    navliArr=[{
+		
+		navliArr=[{
+        lable: 'all',
+        text: '全部'
+    }, {
         lable: 'system',
-        text: '系统消息'
+        text: '系统通知'
     }, {
-        lable: 'training',
-        text: '培训通知'
+        lable: 'interaction',
+        text: '互动通知'
     }, {
-        lable: 'test',
-        text: '考试通知'
+        lable: 'learning',
+        text: '学习通知'
     }];
-    checkType = "system";
+    // navliArr=[{
+    //     lable: 'system',
+    //     text: '系统消息'
+    // }, {
+    //     lable: 'training',
+    //     text: '培训通知'
+    // }, {
+    //     lable: 'test',
+    //     text: '考试通知'
+    // }];
+    checkType = "all";
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private loadCtrl:LoadingController) {
@@ -49,14 +63,15 @@ export class NotificationPage {
         const data = {
             page: 1,
             pageSize: this.page.pageSize,
-            Type: this.page.Type
+            BigType: this.page.BigType
         };
         this.mineSer.GetUserNewsList(data).subscribe(
             (res) => {
-                this.notificationList = res.data.NewsList;
-                this.page.TotalCount = res.data.TotalCount;
-                this.page.isLoad = true;
-                loading.dismiss();
+							this.page.IsHaveNextPage = res.data.IsHaveNextPage;
+							this.notificationList = res.data.NewsList;
+							this.page.TotalCount = res.data.TotalCount;
+							this.page.isLoad = true;
+							loading.dismiss();
             }
         )
     }
@@ -64,15 +79,16 @@ export class NotificationPage {
     changeCheckType(checkType) {
         if (this.checkType === checkType) return;
         this.checkType = checkType;
-        if (checkType === 'system') this.page.Type = 1;
-        if (checkType === 'training') this.page.Type = 3;
-        if (checkType === 'test') this.page.Type = 4;
+        if (checkType === 'all') this.page.BigType = 0;
+        if (checkType === 'system') this.page.BigType = 1;
+        if (checkType === 'interaction') this.page.BigType = 2;
+				if (checkType === 'learning') this.page.BigType = 3;
         this.page.page = 1;
         this.getList();
     }
 
     goDetail(item) {
-        if (this.checkType === 'training') { // 3-培训消息、4考试消息、除3-4以外都是系统消息
+        if (item.Type === 3) { // 系统消息分三种 Type=1系统后台消息  Type=3-培训消息、Type=4考试消息
             this.getDetail(item);
         } else { //  || this.checkType === 'test'
             this.navCtrl.push(NotificationDetailPage, {id: item.Id});
@@ -94,7 +110,7 @@ export class NotificationPage {
 
     //加载更多
     doInfinite(e) {
-        if (this.notificationList.length == this.page.TotalCount || this.notificationList.length > this.page.TotalCount) {
+        if (!this.page.IsHaveNextPage) {
             e.complete();
             return;
         }
@@ -102,13 +118,14 @@ export class NotificationPage {
         const data = {
             page: this.page.page,
             pageSize: this.page.pageSize,
-            Type: this.page.Type
+            BigType: this.page.BigType
         };
         this.mineSer.GetUserNewsList(data).subscribe(
             (res) => {
-                this.notificationList = this.notificationList.concat(res.data.NewsList);
-                this.page.TotalCount = res.data.TotalCount;
-                e.complete();
+							this.page.IsHaveNextPage = res.data.IsHaveNextPage;
+							this.notificationList = this.notificationList.concat(res.data.NewsList);
+							this.page.TotalCount = res.data.TotalCount;
+							e.complete();
             }
         )
     }
