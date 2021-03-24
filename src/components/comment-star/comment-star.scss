@@ -1,0 +1,25 @@
+comment-star {
+    .img-star {
+        margin-left: auto;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .comment-star{
+        display: flex;
+        .left{
+          width: 50%;
+        }
+        .right{
+          width: 50%;
+        }
+      }
+      .commentBtn{
+        width: 8rem;
+        height: 3rem;
+        background: linear-gradient(241deg, #FFF7CB 0%, #FFC92D 100%);
+        border-radius: 1.4rem;
+      }
+}

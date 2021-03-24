@@ -30,6 +30,7 @@ import {ExamTipPage} from "../exam-tip/exam-tip";
 import {ErrorExamPage} from "../../mine/error-exam/error-exam";
 import {Storage} from "@ionic/storage";
 import {HomeService} from "../../home/home.service";
+import { CommentStarComponent } from '../../../components/comment-star/comment-star';
 
 declare let Swiper: any;
 
@@ -44,6 +45,7 @@ export class CourseDetailPage {
     @ViewChild('CourseIntroduction') CourseIntroduction: ElementRef;
     @ViewChild('ionSlidesDIV') ionSlidesDIV: ElementRef;
     @ViewChild('videojsCom') videojsCom: VideojsComponent;
+    @ViewChild('commentStar') commentStar:CommentStarComponent;
     @ViewChild(Slides) slides: Slides;
     @ViewChild('video')
     public video: ElementRef;
@@ -206,7 +208,7 @@ export class CourseDetailPage {
                 this.getTalkList();   //获取课程讨论
                 break;
             case 'CourseComment':   //课程评价详情返回
-                this.getCommentList();  //获取课程评价
+                this.commentStar.getCommentList(this.product.detail.PrId);  //获取课程评价
                 break;
             case 'RelationCourse':          // 相关课程返回
                 break;
@@ -804,25 +806,10 @@ export class CourseDetailPage {
     }
 
 
-    //讲师评价下-讲师列表
+    //获取评价列表、讲师列表
     getTeacher() {
-        this.getCommentList();
+        this.commentStar.getCommentList(this.product.detail.PrId); 
         this.getTalkList();
-    }
-
-
-    //课程的平均评价
-    getCommentList() {
-        const data2 = {
-            topicID: this.product.detail.PrId
-        }
-        this.learnSer.GetQCommentNum(data2).subscribe(  //课程评价
-            (res) => {
-                if (res.data) {
-
-                }
-            }
-        );
     }
 
     //课程讨论
@@ -866,7 +853,7 @@ export class CourseDetailPage {
         });
         modal.onDidDismiss(res => {
             if (res) {
-                this.getCommentList();
+                this.commentStar.getCommentList(this.product.detail.PrId); 
             }
         });
         modal.present();

@@ -114,6 +114,7 @@
                     <!--      讨论      -->
                     <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
                         <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论</p>
+                        <comment-star #commentStar></comment-star>
                         <page-comment-list
                                 [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
                         <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
