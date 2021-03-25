@@ -17,8 +17,6 @@
                   {{item?.UserName}}
                   <span *ngIf="item?.System" class="System">{{item?.System}}</span>
               </span>
-                        <span *ngIf="item?.TitleInfo?.ForumTitle"
-                              class="ForumTitle">{{item?.TitleInfo?.ForumTitle}}</span>
                         <span class="PosterBadges" *ngFor="let data of item?.Badges">
               <img [src]="data?.BadgeIcon || ''" alt="">
               <span class="PosterBadges-BadgeName">
@@ -69,8 +67,6 @@
                             {{replay.PosterUserName.length > 3 && replay?.PosterBadges.length > 1 ? (replay?.PosterUserName | stringSlice:3:3) : replay.PosterUserName}}
                             <span *ngIf="replay?.System" class="System">{{replay?.System}}</span>
                         </span>
-                        <span *ngIf="replay?.PosterUserForumTitle?.ForumTitle"
-                              class="ForumTitle">{{replay?.PosterUserForumTitle?.ForumTitle}}</span>
                         <span class="PosterBadges" *ngFor="let n of replay?.PosterBadges">
                             <img [src]="n.BadgeIcon || ''" alt="">
                             <span class="PosterBadges-BadgeName">

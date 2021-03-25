@@ -1,20 +1,6 @@
 <div class="main">
     <div class="content" tappable (click)="close()">
         <div class="comment" tappable (click)="stop($event)">
-            <div *ngIf="type == 'teacher'" class="select">
-                <div tappable  class="selecTeacher" (click)="selectTeacher()">
-                    <span  *ngIf="!teacher">
-                        选择讲师
-                        <ion-icon name="arrow-forward"></ion-icon>
-                    </span>
-                    <span *ngIf="teacher">
-                         <img [src]="teacher.HeadPhoto || defalutPhoto">
-                        {{teacher.UserName}}
-                        <ion-icon name="arrow-forward"></ion-icon>
-                    </span>
-
-                </div>
-            </div>
             <div class="padding-10">
                 <textarea #textAreaElement [(ngModel)]="replyContent" class="content-textarea"
                           placeholder="{{placeholder}}"></textarea>

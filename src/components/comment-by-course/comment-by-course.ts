@@ -112,18 +112,18 @@ export class CommentByCourseComponent {
         if (!this.btnDisable) {
             return;
         }
-        if (!this.replyContent || this.replyContent.trim() == "") {
-            this.commonSer.toast('请输入评价!');
-            return
-        }
+        // if (!this.replyContent || this.replyContent.trim() == "") {
+        //     this.commonSer.toast('请输入评价!');
+        //     return
+        // }
         if (!this.score1 || !this.score2 || !this.score2 || !this.score4) {
             this.commonSer.toast('请先打分!');
             return
         }
-        if ((this.score1 == 1 || this.score2 == 1 || this.score3 == 1 || this.score4 == 1) && this.replyContent.length < 10) {  //讲师评价出现一星的情况
-            this.commonSer.toast("请至少输入10字以上的内容方可提交");
-            return;
-        }
+        // if ((this.score1 == 1 || this.score2 == 1 || this.score3 == 1 || this.score4 == 1) && this.replyContent.length < 10) {  //讲师评价出现一星的情况
+        //     this.commonSer.toast("请至少输入10字以上的内容方可提交");
+        //     return;
+        // }
         this.btnDisable = false;
         const data = {
             TopicID: this.topicID,

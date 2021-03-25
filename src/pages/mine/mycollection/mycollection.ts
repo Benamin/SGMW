@@ -22,6 +22,7 @@ export class MycollectionPage {
         pageSize: 10,
         TotalCount: null
     };
+    isLoad = false;
     myfavoritespage = { "PageIndex": 1, "PageSize": 10 };
     isdoInfinite=true;
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
@@ -56,7 +57,9 @@ export class MycollectionPage {
           });
           loading.present();
         }
+        this.isLoad = false;
         this.forumServe.myfavorites(this.myfavoritespage).subscribe((res:any) => {
+            this.isLoad = true;
             if (this.myfavoritespage.PageIndex == 1) {
                 loading.dismiss();
             }
@@ -81,8 +84,10 @@ export class MycollectionPage {
             page: this.page.page,
             pageSize: this.page.pageSize
         };
+        this.isLoad = false;
         this.mineSer.GetMyCollectionProductList(data).subscribe(
             (res) => {
+                this.isLoad = true;
                 this.collectionList = res.data.ProductList;
                 this.page.TotalCount = res.data.TotalCount;
                 loading.dismiss();

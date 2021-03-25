@@ -173,14 +173,6 @@ export class PostsContentComponent implements OnInit {
                     if (element['PosterUserName'].length > 5) {
                         element['PosterUserName'] = element.PosterUserName.slice(0, 6) + '...';
                     }
-                    if (!element['PosterUserForumTitle']) {
-                        element['PosterUserForumTitle'] = {
-                            ForumTitle: '',
-                        };
-                    }
-                    if (element['PosterUserForumTitle'].ForumTitle.length > 5) {
-                        element['PosterUserForumTitle'].ForumTitle = element['PosterUserForumTitle'].ForumTitle.slice(0, 6) + '...';
-                    }
                 }
 
                 if (element.PosterBadges) {

@@ -42,13 +42,6 @@
                              src="./assets/imgs/course/hua_y@2x.png" alt="">
                         点赞·{{product.detail?.ZanCount || "0"}}
                     </span>
-                        <span tappable (click)="handleHate()">  <!--扔鸡蛋-->
-                        <img *ngIf="!product.detail?.IsHate"
-                             src="./assets/imgs/course/jd@2x.png" alt="">
-                        <img *ngIf="product.detail?.IsHate"
-                             src="./assets/imgs/course/jd_y@2x.png" alt="">
-                            扔蛋·{{product.detail?.HateCount || "0"}}
-                    </span>
                         <span tappable (click)="handleCollection()">  <!--收藏-->
                         <img *ngIf="!product.detail?.IsCollection"
                              src="./assets/imgs/course/sc@2x.png" alt="">
@@ -137,22 +130,6 @@
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping">
-                    <!--      评价      -->
-                    <div class="item" style="min-height: 350px">
-                        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
-                        </p>
-                        <page-comment-list [cList]="comment.course" [TopicType]="'course'"></page-comment-list>
-                        <div class="no-comment" *ngIf="comment.course.length == 0">
-                            <ion-list text-center style="margin-top: 40px">
-                                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                                <p style="color: #666666;font-size: 13px">
-                                    暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价，快去发一条吧～
-                                </p>
-                            </ion-list>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide swiper-no-swiping">
                     <!--            相关-->
                     <div class="item" style="margin-bottom: 5rem">
                         <p>相关推荐</p>
@@ -175,7 +152,7 @@
         </div>
     </div>
 
-    <div *ngIf="StructureType == 1 && bar.type == 3" (click)="openTalk()" class="comment-fixed" ion-fixed>
+    <div *ngIf="StructureType == 1 && bar.type == 3" (click)="openComment()" class="comment-fixed" ion-fixed>
         <div>
             去讨论
         </div>
@@ -185,7 +162,7 @@
             去评价
         </div>
     </div>
-    <div *ngIf="StructureType == 2 && bar.type == 2" (click)="openTalk()" class="comment-fixed" ion-fixed>
+    <div *ngIf="StructureType == 2 && bar.type == 2" (click)="openComment()" class="comment-fixed" ion-fixed>
         <div>
             去讨论
         </div>

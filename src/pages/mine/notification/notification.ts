@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {LoadingController, NavController, NavParams} from 'ionic-angular';
 import {MineService} from "../mine.service";
-import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {NotificationDetailPage} from "../notification-detail/notification-detail";
 import {StudyPlanPage} from "../../home/study-plan/study-plan";
 import {timer} from "rxjs/observable/timer";
@@ -22,18 +21,18 @@ export class NotificationPage {
 	IsHaveNextPage: false
     };
 		
-		navliArr=[{
+    navliArr=[{
         lable: 'all',
         text: '全部'
     }, {
         lable: 'system',
-        text: '系统通知'
+        text: '系统消息'   //培训和考试通知
     }, {
-        lable: 'interaction',
+        lable: 'communication',
         text: '互动通知'
     }, {
-        lable: 'learning',
-        text: '学习通知'
+        lable: 'study',
+        text: '学习通知'   //课程学习和主题活动
     }];
     
     checkType = "all";
