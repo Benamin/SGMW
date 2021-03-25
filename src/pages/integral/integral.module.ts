@@ -3,6 +3,7 @@ import {IonicPageModule} from 'ionic-angular';
 import {IntegralPage} from './integral';
 import {IntegralListPage} from "./integral-list/integral-list";
 import {IntegralVerifyPage} from "./integral-verify/integral-verify";
+import {PipesModule} from "../../pipes/pipes.module";
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import {IntegralVerifyPage} from "./integral-verify/integral-verify";
     ],
     imports: [
         IonicPageModule.forChild(IntegralPage),
+        PipesModule,
     ],
     entryComponents: [
         IntegralListPage,

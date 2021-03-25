@@ -12,6 +12,8 @@ export class UpdateAppComponent {
     @Input() UpdateText;
     @Input() AppUrl;
 
+    AppDownLoadUrl = "";
+
     constructor(private appUpdate: AppUpdateService,
                 private inAppBrowser: InAppBrowser,
                 private platform: Platform) {
@@ -38,6 +40,6 @@ export class UpdateAppComponent {
 
     //去官网更新
     updateAppByWeb() {
-        this.inAppBrowser.create("http://elearning.sgmw.com.cn/#/app", '_system');
+        this.inAppBrowser.create(this.AppDownLoadUrl, '_system');
     }
 }

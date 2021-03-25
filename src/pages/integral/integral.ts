@@ -6,6 +6,8 @@ import {IntegralListPage} from "./integral-list/integral-list";
 import {LearningPage} from "../learning/learning";
 import {IntegralVerifyPage} from "./integral-verify/integral-verify";
 import {CommonService} from "../../core/common.service";
+import {XGShareText, XGShareUrl} from "../../app/constants";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 
 @IonicPage()
@@ -19,8 +21,12 @@ export class IntegralPage {
     obj = {};
     isDailyCheck = false;
     dayObj = {};
+    xgShareText = XGShareText;
+    XgShareUrl = XGShareUrl;
+    showCover = false;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController,
+    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
+                private inAppBrowser: InAppBrowser,
                 public inteSer: IntegralService, private commonSer: CommonService) {
     }
 
@@ -82,16 +88,14 @@ export class IntegralPage {
     GoToVerity() {
         this.navCtrl.push(IntegralVerifyPage);
     }
+
     //去分享
     showAlert() {
-        const msg = `进行一次销售冠军分享可获得100积分，请将分享内容发送至xxx xxxx xxxxxxx。<br>`;
-        const alert = this.alertCtrl.create({
-            title: `销冠分享`,
-            message: msg,
-            cssClass: 'mineAlert',
-            buttons: ['确定']
-        })
-        alert.present();
+        this.showCover = true;
+    }
+
+    goTo() {
+        this.inAppBrowser.create(this.XgShareUrl, '_system');
     }
 
 }

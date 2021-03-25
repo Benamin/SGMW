@@ -1,0 +1,1 @@
+export const XGShareText = "进行一次销售冠军分享且被平台采用即可获得100积分,分享内容要求不得少于300字,请扫描下方二维码填写分享内容";export const XGShareUrl = "https://jinshuju.net/f/wkuDzy";

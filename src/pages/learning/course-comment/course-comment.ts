@@ -148,7 +148,7 @@ export class CourseCommentPage {
             Contents: res.replyContent,
             TopicType: this.TopicType
         };
-        this.learnSer.SaveComment(data).subscribe(
+        this.learnSer.SaveAppComment(data).subscribe(
             (res) => {
                 if (res.data) {
                     this.commonSer.toast('评价成功');

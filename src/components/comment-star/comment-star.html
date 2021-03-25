@@ -1,5 +1,8 @@
+<p>评价
+    <span *ngIf="isLoad && noData" (click)="openComment()" class="commentBtn1">去评价</span>
+</p>
 <!-- 课程评价的星星 -->
-<div class="comment-star">
+<div *ngIf="isLoad && !noData" class="comment-star">
   <div class="left">
       <p>{{item.Score}}分</p>
       <p>
@@ -45,4 +48,9 @@
         <span>{{item.Score4}}</span>
       </p>
   </div>
+</div>
+<div *ngIf="isLoad && noData">
+    <div text-center style="margin-top: 2rem">
+        <img style="width: 35%;" src="./assets/imgs/no-data.png" >
+    </div>
 </div>

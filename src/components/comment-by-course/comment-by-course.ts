@@ -134,13 +134,13 @@ export class CommentByCourseComponent {
             Contents: this.replyContent,
             TopicType: this.TopicType
         };
-        this.learnSer.SaveComment(data).subscribe(
+        this.learnSer.SaveAppComment(data).subscribe(
             (res) => {
                 this.btnDisable = true;
                 if (res.data) {
                     this.submitTalk();
                 } else {
-                    this.commonSer.toast(`每人只能评价一次`);
+                    this.commonSer.toast(res.message);
                 }
 
             }

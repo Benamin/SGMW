@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-    <div #FixedTop ion-fixed class="fixed-top">
+    <div ion-fixed class="fixed-top">
         <div #banner class="banner">
             <div class="background-image">
                 <img [src]="product.detail?.ImageUrl || ''" alt="">
@@ -113,7 +113,6 @@
                 <div class="swiper-slide swiper-no-swiping">
                     <!--      讨论      -->
                     <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
-                        <p>评价</p>
                         <comment-star (flashData)="GetCommentData()" #commentStar></comment-star>
                         <p style="margin-top: 1rem"
                            class="first-child">{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论</p>

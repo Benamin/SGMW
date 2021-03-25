@@ -1,29 +1,56 @@
 comment-star {
-    .img-star {
-        margin-left: auto;
+  > p:first-child,
+  > p.first-child {
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 
-        img {
-          width: 20px;
-          height: 20px;
-        }
+    > ion-icon {
+      margin-left: .5rem;
+    }
+  }
+
+  > p:first-child::before,
+  > p.first-child::before {
+    content: '';
+    width: 4px;
+    height: 100%;
+    position: absolute;
+    left: -15px;
+    top: 0;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom, #fee6a3, #feca46);
+  }
+
+  .img-star {
+    margin-left: auto;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .comment-star {
+    display: flex;
+
+    .left {
+      width: 60%;
+      text-align: center;
+
+      p + p {
+        margin-top: 1.2rem;
       }
-      .comment-star{
-        display: flex;
 
-        .left {
-          width: 60%;
-          text-align: center;
-
-          p + p {
-            margin-top: 1.2rem;
-          }
-
-          P:first-child {
-            font-size: 2.4rem;
-            font-weight: bolder;
-            text-align: center;
-          }
-        }
+      P:first-child {
+        font-size: 2.4rem;
+        font-weight: bolder;
+        text-align: center;
+      }
+    }
 
         .right {
           width: 40%;
@@ -49,5 +76,17 @@ comment-star {
     border-radius: 1.4rem;
     text-align: center;
     margin: 0 auto;
+  }
+
+  .commentBtn1 {
+    width: 6rem;
+    height: 2rem;
+    line-height: 2.2rem;
+    background: linear-gradient(241deg, #FFF7CB 0%, #FFC92D 100%);
+    border-radius: 1.4rem;
+    font-size: 1rem;
+    text-align: center;
+    margin-left: auto;
+    color: #333333;
   }
 }

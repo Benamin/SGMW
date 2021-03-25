@@ -14,28 +14,8 @@
             <ion-icon name="arrow-forward"></ion-icon>
         </div>
     </div>
-    <!--    <div class="task-type">-->
-    <!--        <div class="daily" [ngClass]="{'checked':type == 'daily'}" (click)="type = 'daily'">日常任务</div>-->
-    <!--        <div class="advance" [ngClass]="{'checked':type == 'advance'}" (click)="type = 'advance'">进阶任务</div>-->
-    <!--    </div>-->
     <div class="daily-task">
         <p>今日获取{{dayObj?.message || 0}}分</p>
-        <!--        <div class="daily-item">-->
-        <!--            <div class="left">-->
-        <!--                <p>每日登录</p>-->
-        <!--                <p>1分/每日登录</p>-->
-        <!--                <p>已获得{{obj?.DailyCheck === true ? '1' : '0'}}分/每日上线1分</p>-->
-        <!--            </div>-->
-        <!--            <div class="right">-->
-        <!--                <span class="check-done" *ngIf="obj?.DailyCheck">已签到-->
-        <!--                    <img src="./assets/imgs/course/yiwancheng.png">-->
-        <!--                </span>-->
-        <!--                <span (click)="DailyCheck()" *ngIf="!obj?.DailyCheck">签到</span>-->
-        <!--            </div>-->
-        <!--            <div class="bottom-process">-->
-        <!--                <div [ngStyle]="{'width':obj?.DailyCheck?'100%':'0%'}" class="inner"></div>-->
-        <!--            </div>-->
-        <!--        </div>-->
         <div class="advance-task">
             <div class="top">
                 <div class="left">
@@ -84,3 +64,20 @@
         </div>
     </div>
 </ion-content>
+<div *ngIf="showCover" class="cover">
+    <div class="bg-content">
+        <div class="update-content">
+            <p class="title">销冠分享</p>
+            <div class="update-text" [innerHTML]="xgShareText | lineFeed"></div>
+            <div class="img">
+                <img src="./assets/imgs/mine/XGCode.jpg" alt="">
+            </div>
+            <div tappable class="update-button">
+                <span (click)="goTo()">前往填写</span>
+            </div>
+        </div>
+        <span tappable (click)="showCover = false" class="icon-close">
+            <ion-icon name="close"></ion-icon>
+        </span>
+    </div>
+</div>

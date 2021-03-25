@@ -12,6 +12,8 @@ export class CommentStarComponent {
     @Output() flashData = new EventEmitter<any>();
     item = <any>{};
     PrId;
+    noData = false;
+    isLoad = false;
 
     constructor(private learnSer: LearnService, private modalCtrl: ModalController) {
 
@@ -21,11 +23,14 @@ export class CommentStarComponent {
     getCommentList(PrId) {
         this.PrId = PrId;
         const data2 = {
-            topicID: PrId
+            CsId: PrId
         }
         this.learnSer.GetQCommentNum(data2).subscribe(  //课程评价
             (res) => {
-                if (res.data) {
+                this.isLoad = true;
+                if (res.code === 500) {
+                    this.noData = true;
+                } else {
                     this.item = res.data;
                 }
             }
