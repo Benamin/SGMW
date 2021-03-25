@@ -73,4 +73,69 @@ page-notification {
       line-height: 1.5rem;
     }
   }
+	.interaction {
+		position: relative;
+		box-sizing: border-box;
+		background-color: #fff;
+		border-radius: 1rem;
+		padding: 1.2rem 1.7rem 1.2rem 1.5rem;
+		display: flex;
+		.tips {
+		  position: absolute;
+		  top: 10px;
+		  width: 5px;
+		  height: 5px;
+		  background-color: red;
+		  right: 10px;
+		  border-radius: 50%;
+		}
+		.avatar {
+			margin-right: 0.7rem;
+			width: 3rem;
+			height: 3rem;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+		.right-box {
+			flex: 1;
+			.username {
+				margin-bottom: 0.5rem;
+				line-height: 2rem;
+				font-size: 1.4rem;
+				font-family: PingFangSC-Medium, PingFang SC;
+				font-weight: 500;
+				color: #000000;
+			}
+			.desc {
+				margin-bottom: 0.5rem;
+				width: 28.8rem;
+				font-size: 1.2rem;
+				font-family: PingFangSC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #000000;
+				line-height: 1.8rem;
+				letter-spacing: 0.2px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			.bottom-info {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				font-size: 1.2rem;
+				font-family: PingFangSC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #666666;
+				line-height: 1.8rem;
+				.title {
+					width: 16rem;
+					text-align: right;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+	}      
 }
