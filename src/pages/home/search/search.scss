@@ -66,22 +66,27 @@ page-search {
   .navul{
     background: white;
     display: flex;
-    .navli{
-      flex:1;
+    width: 100%;
+
+    .navli {
+      flex: 1;
       text-align: center;
       position: relative;
       padding: 10px;
-      color: rgba(0,0,0,0.6);
+      color: rgba(0, 0, 0, 0.6);
       transition: all 0.2s;
     }
-    .navli::before{
+
+    .navli::before {
       background: linear-gradient(-90deg, #fff, #fff);
     }
-    .act{
-      color: rgba(0,0,0,1);
+
+    .act {
+      color: rgba(0, 0, 0, 1);
       transition: all 0.2s;
     }
-    .act::before{
+
+    .act::before {
       content: " ";
       display: block;
       position: absolute;
@@ -250,33 +255,39 @@ page-search {
         }
 
 
-        .text-r{
-            color: #868686;
-            margin-left:10px;
-            font-size: 12px;
-                position: absolute;
+      .text-r {
+        color: #868686;
+        margin-left: 10px;
+        font-size: 12px;
+        position: absolute;
 
         right: 0;
         top: 3px;
-        }
-        p{
-            margin-top: 15px;
-            line-height: 17px;
-            color: #868686;
-            font-size: 12px;
-            display: -webkit-box;
-            word-break: break-all;
-            text-overflow: ellipsis;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-        }
+      }
+
+      p {
+        margin-top: 15px;
+        line-height: 17px;
+        color: #868686;
+        font-size: 12px;
+        display: -webkit-box;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
     }
+   }
   }
-  }
+
   .System {
     color: #E2AC12;
     font-size: 1rem;
     display: block;
+  }
+
+  course-list .learn-list .course-item {
+    padding: 5px 15px;
   }
 }

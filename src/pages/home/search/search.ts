@@ -45,7 +45,8 @@ export class SearchPage {
 
 
     // 默认不为空
-    emptyShow = false
+    emptyShow_Course = false;
+    emptyShow_Forum = false;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -110,7 +111,8 @@ export class SearchPage {
             }, 1200);
 
             this.showTips = true
-            this.emptyShow = false
+            this.emptyShow_Forum = false
+            this.emptyShow_Course = false
 
             this.GetProductList(event);
             this.forum_post_search();
@@ -152,8 +154,6 @@ export class SearchPage {
         this.showTips = false;
         this.forumService.forum_post_search_old(this.pageDate).subscribe((res: any) => {
             let arr = res.data.Items;
-            // let arr=res.data.UnTopPosts.Items;
-            // let arr=res.data.Posts.Items;
             arr.forEach(element => {
                 element.PostRelativeTime = this.forumService.PostRelativeTimeForm(element.PostRelativeTime);
             });
@@ -179,7 +179,9 @@ export class SearchPage {
         this.forumService.forum_topicplate_search(topicplateDate).subscribe((res: any) => {
             this.topicplate = res.data.Items;
             if(this.topicplate.length == 0){
-                this.emptyShow = true
+                this.emptyShow_Forum = true
+            }else{
+                this.emptyShow_Forum = false
             }
         });
     }
@@ -254,8 +256,9 @@ export class SearchPage {
                     this.productList = res.data.ProductList;
                     this.page.TotalCount = res.data.TotalCount
                     if(this.productList.length == 0){
-                        this.emptyShow = true
-                        console.log(this.emptyShow)
+                        this.emptyShow_Course = true
+                    }else{
+                        this.emptyShow_Course = false
                     }
                 }
             );
