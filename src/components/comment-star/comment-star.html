@@ -25,24 +25,24 @@
         </ng-container>
           </span>
       </p>
-      <p class="commentBtn">去评价</p>
+      <p (click)="openComment()" class="commentBtn">去评价</p>
   </div>
   <div class="right">
       <p>
-        <span>课程内容</span>
-        <span>{{item.Score1}}</span>
+        <span>课程内容:</span>
+        <span>{{item?.Score1}}</span>
       </p>
       <p>
-        <span>授课方式</span>
+        <span>授课方式:</span>
         <span>{{item.Score2}}</span>
       </p>
       <p>
-        <span>讲师评价</span>
-        <span>{{item.Score2}}</span>
+        <span>讲师评价:</span>
+        <span>{{item.Score3}}</span>
       </p>
       <p>
-        <span>学习体验</span>
-        <span>{{item.Score2}}</span>
+        <span>学习体验:</span>
+        <span>{{item.Score4}}</span>
       </p>
   </div>
 </div>
