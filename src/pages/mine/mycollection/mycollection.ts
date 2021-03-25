@@ -31,7 +31,7 @@ export class MycollectionPage {
         private forumServe: ForumService) {
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.logSer.visitLog('wdsc');
         this.collectionList=[];
         this.isdoInfinite=true;
@@ -50,19 +50,9 @@ export class MycollectionPage {
 
 
     getforum() {
-        let loading = null;
-        if(this.myfavoritespage.PageIndex==1){
-          loading = this.loadCtrl.create({
-            content:''
-          });
-          loading.present();
-        }
         this.isLoad = false;
         this.forumServe.myfavorites(this.myfavoritespage).subscribe((res:any) => {
             this.isLoad = true;
-            if (this.myfavoritespage.PageIndex == 1) {
-                loading.dismiss();
-            }
             let arr = res.data.Items;
             arr.forEach(element => {
                 element.PostRelativeTime = this.forumServe.PostRelativeTimeForm(element.PostRelativeTime);
@@ -76,10 +66,7 @@ export class MycollectionPage {
 
 
     getList() {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+
         const data = {
             page: this.page.page,
             pageSize: this.page.pageSize
@@ -90,7 +77,6 @@ export class MycollectionPage {
                 this.isLoad = true;
                 this.collectionList = res.data.ProductList;
                 this.page.TotalCount = res.data.TotalCount;
-                loading.dismiss();
             }
         )
     }
