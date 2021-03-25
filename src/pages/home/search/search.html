@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="navul" *ngIf="navulShow">
+  <div ion-fixed class="navul" *ngIf="navulShow">
     <div class="navli" [ngClass]="{'act': navli=='课程'}" tappable (click)="switchIn('课程')">
       课程
     </div>
@@ -18,7 +18,7 @@
       论坛
     </div>
   </div>
-  <div *ngIf="navli=='论坛'">
+  <div style="margin-top: 4rem" *ngIf="navli=='论坛'">
     <div style="background: #fff; ">
       <div class="topicplate-div" *ngFor="let item of topicplate" tappable (click)="goPostlist(item)">
         <div class="list">
@@ -83,16 +83,16 @@
         </span>
       </div>
     </div>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && topicplate.length == 0 && postList.length == 0">
+    <ion-list text-center style="margin-top: 10rem" *ngIf="emptyShow_Forum">
       <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
       <p text-center style="color: #666666;font-size: 16px">
         暂无数据
       </p>
     </ion-list>
   </div>
-  <div *ngIf="navli=='课程'">
+  <div style="margin-top: 4rem" *ngIf="navli=='课程'">
     <course-list [list]="productList" (done)="goCourse($event)"></course-list>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="!showTips && productList.length == 0">
+    <ion-list text-center style="margin-top: 10rem" *ngIf="emptyShow_Course">
       <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
       <p text-center style="color: #666666;font-size: 16px">
         暂无数据

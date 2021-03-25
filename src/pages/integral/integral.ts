@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {IntegralService} from "./integral.service";
 import {PostAddComponent} from "../forum/post-add/post-add.component";
 import {IntegralListPage} from "./integral-list/integral-list";
@@ -20,7 +20,7 @@ export class IntegralPage {
     isDailyCheck = false;
     dayObj = {};
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,
+    constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController,
                 public inteSer: IntegralService, private commonSer: CommonService) {
     }
 
@@ -81,6 +81,17 @@ export class IntegralPage {
     //审核列表
     GoToVerity() {
         this.navCtrl.push(IntegralVerifyPage);
+    }
+    //去分享
+    showAlert() {
+        const msg = `进行一次销售冠军分享可获得100积分，请将分享内容发送至xxx xxxx xxxxxxx。<br>`;
+        const alert = this.alertCtrl.create({
+            title: `销冠分享`,
+            message: msg,
+            cssClass: 'mineAlert',
+            buttons: ['确定']
+        })
+        alert.present();
     }
 
 }

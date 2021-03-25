@@ -267,7 +267,7 @@ export class CourseDetailPage {
         this.global.PostsCertID = data.PostCertificationID;
         this.SortType = data.SortType;
 
-        this.getTeacher();   //讲师信息
+        this.GetCommentData();   //讲师信息
         this.GetClassmate();  //我的同学
         //接受文件通知
         this.getFileInfo();
@@ -807,8 +807,8 @@ export class CourseDetailPage {
 
 
     //获取评价列表、讲师列表
-    getTeacher() {
-        this.commentStar.getCommentList(this.product.detail.PrId); 
+    GetCommentData() {
+        this.commentStar.getCommentList(this.product.detail.PrId);
         this.getTalkList();
     }
 
@@ -853,7 +853,8 @@ export class CourseDetailPage {
         });
         modal.onDidDismiss(res => {
             if (res) {
-                this.commentStar.getCommentList(this.product.detail.PrId); 
+                this.commentStar.getCommentList(this.product.detail.PrId);
+                this.getTalkList();
             }
         });
         modal.present();

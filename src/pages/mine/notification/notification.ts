@@ -71,8 +71,8 @@ export class NotificationPage {
         this.checkType = checkType;
         if (checkType === 'all') this.page.BigType = 0;
         if (checkType === 'system') this.page.BigType = 1;
-        if (checkType === 'interaction') this.page.BigType = 2;
-				if (checkType === 'learning') this.page.BigType = 3;
+        if (checkType === 'communication') this.page.BigType = 2;
+				if (checkType === 'study') this.page.BigType = 3;
         this.page.page = 1;
         this.getList();
     }
