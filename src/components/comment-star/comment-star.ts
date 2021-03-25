@@ -28,10 +28,11 @@ export class CommentStarComponent {
         this.learnSer.GetQCommentNum(data2).subscribe(  //课程评价
             (res) => {
                 this.isLoad = true;
-                if (res.code === 500) {
-                    this.noData = true;
-                } else {
+                if (res.data) {
+                    this.noData = false;
                     this.item = res.data;
+                } else {
+                    this.noData = true;
                 }
             }
         );
