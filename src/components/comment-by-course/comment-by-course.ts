@@ -3,7 +3,6 @@ import {defaultHeadPhoto} from "../../app/app.constants";
 import {ModalController, NavController, NavParams, ViewController} from "ionic-angular";
 import {Keyboard} from "@ionic-native/keyboard";
 import {CommonService} from "../../core/common.service";
-import {SelectTeacherComponent} from "../select-teacher/select-teacher";
 import {LearnService} from "../../pages/learning/learn.service";
 
 @Component({
@@ -139,12 +138,26 @@ export class CommentByCourseComponent {
             (res) => {
                 this.btnDisable = true;
                 if (res.data) {
-                    this.commonSer.toast('评价成功');
-                    this.viewCtrl.dismiss(data);
+                    this.submitTalk();
                 } else {
                     this.commonSer.toast(`每人只能评价一次`);
                 }
 
+            }
+        )
+    }
+
+    //提交讨论
+    submitTalk() {
+        const data = {
+            TopicID: this.topicID,
+            Contents: this.replyContent,
+            TopicType: 'talk'
+        };
+        this.learnSer.Savetalk(data).subscribe(
+            (res) => {
+                this.viewCtrl.dismiss(data);
+                this.commonSer.toast('评价成功');
             }
         )
     }

@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, LoadingController} from "ionic-angular";
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import {NumberOneDetailsComponent} from "./numberOneDetails/numberOneDetails.component";
 import {numberOneService} from './numberOne.service';
 import {Componentsdetails} from '../consultation/componentsdetails/componentsdetails.component';
 import {LogService} from "../../service/log.service";
+import { ShareWxComponent } from '../../components/share-wx/share-wx';
 
 @Component({
     selector: 'page-number-one',
@@ -51,7 +52,7 @@ export class NumberOne {
 
     constructor(private navCtrl: NavController,
                 private serve: numberOneService,
-                private logSer:LogService,
+                private logSer:LogService,private modalCtrl:ModalController,
                 private loadCtrl: LoadingController) {
         this.GetDictionaryByPCode();
         this.logSer.visitLog('zhuangyuanshuo');
@@ -178,5 +179,24 @@ export class NumberOne {
         setTimeout(() => {
             e.complete();
         }, 1000);
+    }
+
+    // 微信分享
+    wxShare(data) {
+        let description = data.Description;
+        let thumb = data.ImageUrl;
+
+        if (description.length > 100) {
+            description = description.slice(0, 100);
+        }
+
+        const obj = {
+            Title: data.Title,
+            description: description,
+            thumb: thumb,
+            webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=learning&Id=${data.Id}`
+        }
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
+        modal.present();
     }
 }

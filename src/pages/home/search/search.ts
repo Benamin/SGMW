@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {LearnService} from "../../learning/learn.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {ForumService} from '../../forum/forum.service';
@@ -43,9 +43,15 @@ export class SearchPage {
     topicplate = [];
     defaultHeadPhoto = defaultHeadPhoto;
 
+
+    // 默认不为空
+    emptyShow_Course = false;
+    emptyShow_Forum = false;
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
-                private keyboard: Keyboard, public storage: Storage,
+                private keyboard: Keyboard,
+                public storage: Storage,
                 private learnSer: LearnService,
                 private loadCtrl: LoadingController,
                 private forumService: ForumService,
@@ -104,6 +110,10 @@ export class SearchPage {
                 this.navulShow = true;
             }, 1200);
 
+            this.showTips = true
+            this.emptyShow_Forum = false
+            this.emptyShow_Course = false
+
             this.GetProductList(event);
             this.forum_post_search();
             this.forum_topicplate_search();
@@ -144,8 +154,6 @@ export class SearchPage {
         this.showTips = false;
         this.forumService.forum_post_search_old(this.pageDate).subscribe((res: any) => {
             let arr = res.data.Items;
-            // let arr=res.data.UnTopPosts.Items;
-            // let arr=res.data.Posts.Items;
             arr.forEach(element => {
                 element.PostRelativeTime = this.forumService.PostRelativeTimeForm(element.PostRelativeTime);
             });
@@ -170,6 +178,11 @@ export class SearchPage {
         this.showTips = false;
         this.forumService.forum_topicplate_search(topicplateDate).subscribe((res: any) => {
             this.topicplate = res.data.Items;
+            if(this.topicplate.length == 0){
+                this.emptyShow_Forum = true
+            }else{
+                this.emptyShow_Forum = false
+            }
         });
     }
 
@@ -242,6 +255,11 @@ export class SearchPage {
                     this.keyboard.hide();
                     this.productList = res.data.ProductList;
                     this.page.TotalCount = res.data.TotalCount
+                    if(this.productList.length == 0){
+                        this.emptyShow_Course = true
+                    }else{
+                        this.emptyShow_Course = false
+                    }
                 }
             );
         }

@@ -99,7 +99,8 @@ page-course-detail {
     position: relative;
     width: 100%;
 
-    > p:first-child {
+    > p:first-child,
+    > p.first-child {
       font-size: 14px;
       font-weight: 500;
       position: relative;
@@ -112,7 +113,8 @@ page-course-detail {
       }
     }
 
-    > p:first-child::before {
+    > p:first-child::before,
+    > p.first-child::before {
       content: '';
       width: 4px;
       height: 100%;

@@ -1,0 +1,48 @@
+<!-- 课程评价的星星 -->
+<div class="comment-star">
+  <div class="left">
+      <p>{{item.Score}}分</p>
+      <p>
+        <span class="img-star">
+          <ng-container *ngFor="let st of starList;let i = index">
+            <img *ngIf="item.Score > i +1 || item.Score == i +1"
+                 src="./assets/imgs/learn/stars_5.png">
+            <ng-container
+                    *ngIf="((item.Score+'').split('.')[0] == i +1 && item.Score != i +1) ||
+                    ((item.Score+'').includes('0.') && i == 0)">
+                 <img *ngIf="(item.Score+'').includes('.1') || (item.Score+'').includes('.2')"
+                      src="./assets/imgs/learn/stars_1.png">
+                <img *ngIf="(item.Score+'').includes('.3') || (item.Score+'').includes('.4')"
+                     src="./assets/imgs/learn/stars_2.png">
+                <img *ngIf="(item.Score+'').includes('.5') || (item.Score+'').includes('.6')"
+                     src="./assets/imgs/learn/stars_3.png">
+                <img *ngIf="(item.Score+'').includes('.7') || (item.Score+'').includes('.8')"
+                     src="./assets/imgs/learn/stars_4.png">
+            </ng-container>
+            <ng-container *ngIf="item.Score < i || item.Score == i">
+                <img src="./assets/imgs/learn/stars_outline.jpg">
+            </ng-container>
+        </ng-container>
+          </span>
+      </p>
+      <p (click)="openComment()" class="commentBtn">去评价</p>
+  </div>
+  <div class="right">
+      <p>
+        <span>课程内容:</span>
+        <span>{{item?.Score1}}</span>
+      </p>
+      <p>
+        <span>授课方式:</span>
+        <span>{{item.Score2}}</span>
+      </p>
+      <p>
+        <span>讲师评价:</span>
+        <span>{{item.Score3}}</span>
+      </p>
+      <p>
+        <span>学习体验:</span>
+        <span>{{item.Score4}}</span>
+      </p>
+  </div>
+</div>
