@@ -19,7 +19,7 @@ export class NotificationPage {
         TotalCount: null,
         isLoad:false,
         BigType: 0,
-				IsHaveNextPage: false
+	IsHaveNextPage: false
     };
 		
 		navliArr=[{
@@ -35,16 +35,7 @@ export class NotificationPage {
         lable: 'learning',
         text: '学习通知'
     }];
-    // navliArr=[{
-    //     lable: 'system',
-    //     text: '系统消息'
-    // }, {
-    //     lable: 'training',
-    //     text: '培训通知'
-    // }, {
-    //     lable: 'test',
-    //     text: '考试通知'
-    // }];
+    
     checkType = "all";
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
@@ -90,7 +81,7 @@ export class NotificationPage {
     goDetail(item) {
         if (item.Type === 3) { // 系统消息分三种 Type=1系统后台消息  Type=3-培训消息、Type=4考试消息
             this.getDetail(item);
-        } else { //  || this.checkType === 'test'
+        } else {
             this.navCtrl.push(NotificationDetailPage, {id: item.Id});
         }
     }

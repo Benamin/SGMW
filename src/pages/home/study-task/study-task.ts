@@ -17,6 +17,8 @@ export class StudyTaskPage {
     obj = {
         NowCredit: 0,
         AllCredit: 0,
+        minYear: "2021",
+        maxYear:"2022",
         ProductDetails: []
     };
     isLoad = false;
@@ -37,6 +39,9 @@ export class StudyTaskPage {
                 private loadCtrl: LoadingController,
                 private homeSer: HomeService) {
         const date = new Date();
+        this.obj.minYear = date.getFullYear() +"";
+        this.obj.maxYear = date.getFullYear() +1 +"";
+        console.log(this.obj)
         this.myDate = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
         this.dateText = `${date.getFullYear()}年${date.getMonth() + 1}月`
     }
@@ -47,10 +52,6 @@ export class StudyTaskPage {
                 this.mineInfo = value;
             }
         });
-        this.homeSer.TaskPlanTime().subscribe(
-            (res) => {
-            }
-        )
         this.getStudyTask();
     }
 
