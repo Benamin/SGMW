@@ -18,7 +18,7 @@
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-	
+	<div style="height: 3.5rem;"></div>
 	<div *ngFor="let item of notificationList">
 		<div class="main" tappable (click)="goDetail(item)">
 		    <p>{{item.CrateTime}}</p>
