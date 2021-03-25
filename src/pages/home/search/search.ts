@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {LearnService} from "../../learning/learn.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {ForumService} from '../../forum/forum.service';
@@ -43,9 +43,14 @@ export class SearchPage {
     topicplate = [];
     defaultHeadPhoto = defaultHeadPhoto;
 
+
+    // 默认不为空
+    emptyShow = false
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
-                private keyboard: Keyboard, public storage: Storage,
+                private keyboard: Keyboard,
+                public storage: Storage,
                 private learnSer: LearnService,
                 private loadCtrl: LoadingController,
                 private forumService: ForumService,
@@ -103,6 +108,9 @@ export class SearchPage {
                 this.loading.dismiss();
                 this.navulShow = true;
             }, 1200);
+
+            this.showTips = true
+            this.emptyShow = false
 
             this.GetProductList(event);
             this.forum_post_search();
@@ -170,6 +178,9 @@ export class SearchPage {
         this.showTips = false;
         this.forumService.forum_topicplate_search(topicplateDate).subscribe((res: any) => {
             this.topicplate = res.data.Items;
+            if(this.topicplate.length == 0){
+                this.emptyShow = true
+            }
         });
     }
 
@@ -242,6 +253,10 @@ export class SearchPage {
                     this.keyboard.hide();
                     this.productList = res.data.ProductList;
                     this.page.TotalCount = res.data.TotalCount
+                    if(this.productList.length == 0){
+                        this.emptyShow = true
+                        console.log(this.emptyShow)
+                    }
                 }
             );
         }

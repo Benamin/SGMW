@@ -69,5 +69,18 @@
                 <div *ngIf="obj?.GetNowDay == 0" style="width: 0%" class="inner"></div>
             </div>
         </div>
+        <div class="daily-item" style="height:100px">
+            <div class="left">
+                <p>销冠分享</p>
+            </div>
+            <div class="right" (click)="showAlert()">
+                <span>去分享</span>
+            </div>
+            <div class="bottom-process">
+                <div *ngIf="obj?.GetNowDay > 0"
+                     [ngStyle]="{'width': ((obj?.GetNowDay / obj?.NowDayUpperLimit) *100) + '%' }" class="inner"></div>
+                <div *ngIf="obj?.GetNowDay == 0" style="width: 0%" class="inner"></div>
+            </div>
+        </div>
     </div>
 </ion-content>
