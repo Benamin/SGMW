@@ -17,7 +17,8 @@ import {
     JunKe_client_id,
     JunKe_HTTP_URL,
     JunKe_PRIVATE_KEY,
-    LastVersion, LLZSNoUserMsg,
+    LastVersion,
+    LLZSNoUserMsg,
     NoUserMsg,
     NXSZS_client_id_login,
     NXSZS_client_secret,
@@ -401,6 +402,10 @@ export class LoginPage {
                         this.commonSer.alert(res.msg);
                     }
                 },
+                (error) => {
+                    this.dismissLoading();
+                    this.commonSer.alert(`${error.error.error_description}`);
+                }
             ).catch(error => {
                 console.log(error);
                 this.dismissLoading();
@@ -502,7 +507,6 @@ export class LoginPage {
             this.nativeHttp.post(`${FWZS_HTTP_URL}/login/userlogin`, content, header).then(
                 (response) => {
                     let res = JSON.parse(response.data);
-                    console.log(res);
                     if (res.code == "1") {
                         this.connectTokenByFWZS(content);
                     } else {
@@ -510,6 +514,10 @@ export class LoginPage {
                         this.storage.clear();
                         this.commonSer.alert(res.message);
                     }
+                },
+                (error) => {
+                    this.dismissLoading();
+                    this.commonSer.alert(`${error.error.error_description}`);
                 }
             ).catch(error => {
                 console.log(error);
@@ -723,11 +731,14 @@ export class LoginPage {
                         this.dismissLoading();
                         this.commonSer.alert(LLZSNoUserMsg);
                     }
+                }, (error) => {
+                    this.dismissLoading();
+                    this.commonSer.alert(`${error.error.error_description}`);
                 }
             ).catch(error => {
                 this.dismissLoading();
                 const message = JSON.parse(error.error);
-                this.commonSer.alert(`账号密码错误: ${message.error_description}`);
+                this.commonSer.alert(`${message.error_description}`);
             })
         } else {
             this.loginSer.LLZSGetToken(data).subscribe(
@@ -741,7 +752,7 @@ export class LoginPage {
                 },
                 (error) => {
                     this.dismissLoading();
-                    this.commonSer.alert(`账号密码错误: ${error.error.error_description}`);
+                    this.commonSer.alert(`${error.error.error_description}`);
                 }
             )
         }
