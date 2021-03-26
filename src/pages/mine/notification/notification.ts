@@ -9,6 +9,8 @@ import {FocusCoursePage} from "../../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../../learning/inner-course/inner-course";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
+import {ThemeActivityPage} from "../../home/theme-activity/theme-activity";
+import {HomeService} from "../../home/home.service";
 
 @Component({
     selector: 'page-notification',
@@ -42,7 +44,7 @@ export class NotificationPage {
     
     checkType = "all";
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer:CommonService,
+    constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer:CommonService, public homeSer: HomeService,
                 private loadCtrl:LoadingController) {
     }
 
@@ -85,17 +87,46 @@ export class NotificationPage {
     goDetail(item) {
         if (item.Type === 3) { // 系统消息分三种 Type=1系统后台消息  Type=3-培训消息、Type=4考试消息
             this.getDetail(item);
-        } else if(item.Type === 5 || item.Type === 6) {
+        } else if(item.Type === 5) {
             // type=5  课程学习通知  csid=课程id courseName=课程名称
-            // type=6 主题活动通知 taid   ActivityName=主题活动名称
             this.goCourse(item);
-        } else if(item.Type === 22) {
+        } else if(item.Type === 6) {
+            // type=6 主题活动通知 taid   ActivityName=主题活动名称
+            this.getData();
+        }else if(item.Type === 22) {
             // 互动通知  type=22等于回复  UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
             item.Id = item.TaId
             this.goPostsContent(item);
         } else { // 考试通知 type=4 系统通知  type=2
             this.navCtrl.push(NotificationDetailPage, {id: item.Id});
         }
+    }
+
+    getData() {
+        let loading = this.loadCtrl.create({
+            content:''
+        });
+        loading.present();
+        console.log('theme-activity');
+        this.homeSer.SelectThemeActivityInformation().subscribe(
+            (res) => {
+                this.toTheme(res.data);
+                loading.dismiss();
+            }
+        );
+    }
+
+    // 前往主题活动
+    toTheme(obj) {
+        if (!obj.name) {
+            this.commonSer.toast('暂无主题活动');
+            return
+        }
+        this.navCtrl.push(ThemeActivityPage, {
+            theme: {
+                Id: obj.Id, coverUrl: obj.converUrl, name: obj.name
+            }
+        });
     }
 
     //前往课程
