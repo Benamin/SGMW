@@ -520,7 +520,6 @@ export class HomePage implements OnInit {
                                         this.homeSer.InitializeLevel({leveltype: data.value}).subscribe(
                                             (resInit) => {
                                                 if (resInit.code === 200) {
-
                                                     this.navCtrl.push(AdvancedLevelPage, {
                                                         leveltype: data,
                                                         roleList: resRole.data
@@ -555,8 +554,6 @@ export class HomePage implements OnInit {
                 }
             }
         )
-
-        // this.navCtrl.push(AdvancedLevelPage);
     }
 
     //前往学习任务

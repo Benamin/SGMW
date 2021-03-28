@@ -33,6 +33,7 @@ export class PostAddComponent implements OnInit {
     topicList = [];  //话题列表
 
     ApplyEssence = false;  //true为申请精华贴
+    textareaLength = 100;
 
     constructor(
         private commonSer: CommonService,
@@ -90,7 +91,7 @@ export class PostAddComponent implements OnInit {
         console.log(data);
         if (data) {
             const isIncludes = this.conversationDataSelection.some(e => e.Id == data.Id);
-            if(!isIncludes){  //如果已有则不添加
+            if (!isIncludes) {  //如果已有则不添加
                 this.conversationDataSelection.push(data);
             }
         }
@@ -190,6 +191,11 @@ export class PostAddComponent implements OnInit {
         TopicItem: [],
         TopicTagItem: [],
     };
+
+    inputChange() {
+        let textareaImg = document.querySelector("#textareaImg");
+        this.textareaLength = 100 - textareaImg.innerHTML.length > 0 ? 100 - textareaImg.innerHTML.length : 0;
+    }
 
     // 获取帖子信息
     getData() {

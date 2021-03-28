@@ -39,11 +39,16 @@ page-post-add {
 
     .textarea-div {
       padding: 15px 20px;
-      // padding-top:10px;
-
+      position: relative;
       background: #fff;
       height: calc(100% - 130px);
       overflow: auto;
+
+      .inputTips {
+        position: absolute;
+        bottom: 5rem;
+        right: 2rem;
+      }
 
       div {
         div {
