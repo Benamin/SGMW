@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {LoadingController, NavController, NavParams} from 'ionic-angular';
 import {HomeService} from "../../home/home.service";
 import {CommonService} from "../../../core/common.service";
 import {defaultImg} from "../../../app/app.constants";
@@ -15,23 +15,24 @@ export class ThemeActivityPage {
 
     List;
     defaultImg = defaultImg;
-    theme = {
-        Id:"",
-        coverUrl:"",
-        name:""
-    };
+    theme = <any>{};
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public commonSer:CommonService,
                 public homeSer: HomeService,public loadCtr:LoadingController) {
     }
 
     ionViewDidLoad() {
-        this.theme = this.navParams.get('theme');
+        this.homeSer.SelectThemeActivityInformation().subscribe(
+            (res) => {
+                this.theme = res.data;
+            }
+        );
+        const Id = this.navParams.get('Id');
         const load = this.loadCtr.create();
         load.present();
         const data = {
             "csStatus": 2,  //课程状态 -1 未开始 0进行中 1已完成 2全部
-            "id":this.theme.Id,  //主题Id
+            "id": Id,  //主题Id
             "Conditions": "All"    // 条件  NotAll 前四条 All全部
         }
         this.homeSer.AppSelectThemeActivity(data).subscribe(

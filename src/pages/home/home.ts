@@ -520,7 +520,6 @@ export class HomePage implements OnInit {
                                         this.homeSer.InitializeLevel({leveltype: data.value}).subscribe(
                                             (resInit) => {
                                                 if (resInit.code === 200) {
-
                                                     this.navCtrl.push(AdvancedLevelPage, {
                                                         leveltype: data,
                                                         roleList: resRole.data
@@ -555,8 +554,6 @@ export class HomePage implements OnInit {
                 }
             }
         )
-
-        // this.navCtrl.push(AdvancedLevelPage);
     }
 
     //前往学习任务
@@ -582,6 +579,10 @@ export class HomePage implements OnInit {
         });
     }
 
+    /**
+     * 网页打开app之后 跳转
+     * @param url 链接
+     */
     openPosts(url) {
         let url_arr = url.split('/');
         // sgmw://forum/afd79774-4ad7-4c1f-838d-016e1d8705f7
@@ -767,11 +768,6 @@ export class HomePage implements OnInit {
                 }
             }
         )
-    }
-
-    //前往主题活动
-    toThemeActivity() {
-        this.navCtrl.push(ThemeActivityPage);
     }
 
     wxShare(item) {

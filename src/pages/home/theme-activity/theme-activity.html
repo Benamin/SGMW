@@ -9,7 +9,7 @@
 
 <ion-content>
     <div class="banner">
-        <img [src]="theme.coverUrl">
+        <img *ngIf="theme?.converUrl" [src]="theme.converUrl">
         <p>{{theme.name}}</p>
     </div>
     <div class="learn-list">

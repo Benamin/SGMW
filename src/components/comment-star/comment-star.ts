@@ -31,6 +31,8 @@ export class CommentStarComponent {
                 if (res.data) {
                     this.noData = false;
                     this.item = res.data;
+                    this.item.Text = this.item.Score;
+                    this.item.Score = this.item.Score / 2;
                 } else {
                     this.noData = true;
                 }

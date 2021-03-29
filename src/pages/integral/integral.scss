@@ -23,11 +23,13 @@ page-integral {
   .daily-task {
     > p {
       margin-bottom: 10px;
+      padding: 5px 10px;
+      font-weight: bold;
     }
 
     .daily-item {
       background-color: #fff;
-      padding: 15px;
+      padding: 15px 10px;
       border-radius: 5px;
       box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
       opacity: 0.99;
@@ -36,7 +38,9 @@ page-integral {
       padding-bottom: 25px;
 
       .left {
-        width: 70%;
+        width: calc(100% - 8rem);
+        padding: 0 .5rem;
+        padding-right: 1rem;
 
         p:first-child {
           font-weight: bolder;
@@ -49,8 +53,7 @@ page-integral {
         }
 
         p:last-child {
-          color: #666666;
-          letter-spacing: 1px;
+          font-size: 1.3rem;
         }
       }
 
@@ -58,7 +61,7 @@ page-integral {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 30%;
+        width: 8rem;
 
         span {
           background: linear-gradient(216deg, #FFF7CB 0%, #FFC92D 100%);
@@ -123,6 +126,7 @@ page-integral {
 
       .left {
         width: 70%;
+        padding: 0 .5rem;
 
         p:first-child {
           font-weight: bolder;
@@ -157,6 +161,7 @@ page-integral {
 
       .left {
         width: 70%;
+        padding: 0 .5rem;
       }
 
       .right {

@@ -21,16 +21,20 @@
     <div style="height: 10px;width: 100%; background: #f2f2f2;">
     </div>
     <div class="textarea-div" [ngStyle]="{'height':focusAmeR?textareaHeight:'calc(100% - 130px)'}">
-      <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea" contenteditable="true"
-        (keydown)="selectionStart($event)" (blur)="blurSelectionStart($event);focusAmeR=false;" (focus)="htmlTextDle();focusAmeR=true;">
+      <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea"
+           contenteditable="true"
+           (input)="inputChange()" (keydown)="selectionStart($event)"
+           (blur)="blurSelectionStart($event);focusAmeR=false;"
+           (focus)="htmlTextDle();focusAmeR=true;">
         <span style="color: rgb(134, 134, 134)" class="placeholder-text">请输入正文</span>
       </div>
+      <p class="inputTips" *ngIf="textareaLength > 0">在写<span style="color: #fd6466">{{textareaLength}}</span>个字可获得<span
+              style="color: #18a036">1</span>积分</p>
     </div>
   </div>
 </ion-content>
 <ion-footer>
   <div class="buttom-div" id="buttomImgDiv" [ngStyle]="{'padding-bottom': paddingBottom}">
-  <!-- <div class="buttom-div" [ngClass]="{'func-buttom-div': focusAmeR}" [ngStyle]="{'padding-bottom': paddingBottom}"> -->
     <div class="img-div">
       <div class="add-img" (click)="addImg()">
         <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">

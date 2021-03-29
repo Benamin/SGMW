@@ -1,14 +1,16 @@
 page-theme-activity {
   .banner {
     position: relative;
+    height: 8.5rem;
+    background-color: #f3f3f3;
 
     > p {
       position: absolute;
       left: 0;
-      bottom: 0.5rem;
+      bottom: 0;
       padding: .5rem;
       color: #fff;
-      background-color: rgba(0,0,0,.4);
+      background-color: rgba(0, 0, 0, .4);
       width: 100%;
       font-size: 1.3rem;
     }

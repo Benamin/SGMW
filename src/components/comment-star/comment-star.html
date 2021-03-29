@@ -4,7 +4,7 @@
 <!-- 课程评价的星星 -->
 <div *ngIf="isLoad && !noData" class="comment-star">
   <div class="left">
-      <p>{{item.Score}}分</p>
+      <p>{{item.Text.toFixed(1)}}分</p>
       <p>
         <span class="img-star">
           <ng-container *ngFor="let st of starList;let i = index">
@@ -33,19 +33,19 @@
   <div class="right">
       <p>
         <span>课程内容:</span>
-        <span>{{item?.Score1}}</span>
+        <span>{{item?.Score1.toFixed(1)}}</span>
       </p>
       <p>
         <span>授课方式:</span>
-        <span>{{item.Score2}}</span>
+        <span>{{item.Score2.toFixed(1)}}</span>
       </p>
       <p>
         <span>讲师评价:</span>
-        <span>{{item.Score3}}</span>
+        <span>{{item.Score3.toFixed(1)}}</span>
       </p>
       <p>
         <span>学习体验:</span>
-        <span>{{item.Score4}}</span>
+        <span>{{item.Score4.toFixed(1)}}</span>
       </p>
   </div>
 </div>

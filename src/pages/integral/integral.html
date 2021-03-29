@@ -16,50 +16,58 @@
     </div>
     <div class="daily-task">
         <p>今日获取{{dayObj?.message || 0}}分</p>
-        <div class="advance-task">
-            <div class="top">
-                <div class="left">
-                    <p>论坛精华帖</p>
-                    <p>要求:字数 > 200字，且带有图片</p>
-                    <p>10～20分/帖子</p>
-                </div>
-                <div class="right" (click)="PostAddComponent()">
-                    <span>去申请</span>
-                </div>
+        <div class="daily-item">
+            <div class="left">
+                <p>论坛发帖</p>
+                <p>要求:字数 > 100字，每日上限1次，每次可获得1分</p>
             </div>
-            <div class="bottom" (click)="GoToVerity()">
-                <div class="left">提交优秀案例，审核通过后给予积分</div>
-                <div class="right">查看审核进度
-                    <ion-icon name="arrow-forward"></ion-icon>
-                </div>
+            <div class="right" (click)="PostAddComponent()">
+                <span>去发帖</span>
             </div>
         </div>
         <div class="daily-item">
             <div class="left">
-                <p>每日学习</p>
-                <p>每日完成1门课程</p>
-                <p>课程已获{{obj?.GetNowDay || 0}}分/每日上限{{obj?.NowDayUpperLimit || 0}}分</p>
+                <p>课程学习</p>
+                <p>完成当月学习任务之外的课程，每月4次，每次可获得0.1分</p>
             </div>
             <div class="right" (click)="gotoListAll()">
                 <span>去学习</span>
             </div>
-            <div class="bottom-process">
-                <div *ngIf="obj?.GetNowDay > 0"
-                     [ngStyle]="{'width': ((obj?.GetNowDay / obj?.NowDayUpperLimit) *100) + '%' }" class="inner"></div>
-                <div *ngIf="obj?.GetNowDay == 0" style="width: 0%" class="inner"></div>
+        </div>
+        <div class="daily-item" style="height:100px">
+            <div class="left">
+                <p>课程评价</p>
+                <p>对上架一个月内的课程进行讨论，一门课程限一次，每次可获得0.1分</p>
+            </div>
+            <div class="right" (click)="gotoListAll()">
+                <span>去讨论</span>
+            </div>
+        </div>
+        <div class="daily-item" style="height:100px">
+            <div class="left">
+                <p>参与投票</p>
+                <p>成功参与一次投票，每月1次/人，每次可获得0.1分</p>
+            </div>
+            <div class="right" (click)="goQuestion()">
+                <span>去投票</span>
             </div>
         </div>
         <div class="daily-item" style="height:100px">
             <div class="left">
                 <p>销冠分享</p>
+                <p>每分享成功1次可获得100分</p>
             </div>
             <div class="right" (click)="showAlert()">
                 <span>去分享</span>
             </div>
-            <div class="bottom-process">
-                <div *ngIf="obj?.GetNowDay > 0"
-                     [ngStyle]="{'width': ((obj?.GetNowDay / obj?.NowDayUpperLimit) *100) + '%' }" class="inner"></div>
-                <div *ngIf="obj?.GetNowDay == 0" style="width: 0%" class="inner"></div>
+        </div>
+        <div class="daily-item" style="height:100px">
+            <div class="left">
+                <p>能力认证</p>
+                <p>从Lv1开始，能力每升级一次可获取，每次可获得1分</p>
+            </div>
+            <div class="right" (click)="goAdvancedLevel()">
+                <span>去认证</span>
             </div>
         </div>
     </div>

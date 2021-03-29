@@ -1,9 +1,8 @@
-import {Injectable, ViewChild} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {JPush} from '@jiguang-ionic/jpush';
 import {CommonService} from "./common.service";
 import {GlobalData} from "./GlobleData";
-import {App, Events, NavController} from "ionic-angular";
-import {TestCenterPage} from "../pages/home/test/test-center/test-center";
+import {App, Events} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 
 /**
@@ -37,12 +36,30 @@ export class JpushUtil {
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
             // this.commonSer.alert("jpush.openNotification: " + JSON.stringify(event));
-            //2=系统通知  3=培训通知  4=考试通知  5=考试 6=主题活动 22 论坛回复通知
+            //2=系统通知  3=培训通知  4=考试通知  5=课程通知 csid 6=主题活动 taid 22 论坛回复通知 PostId
             const sgmwType = event.extras.sgmwType;
             const data = {
                 sgmwType: event.extras.sgmwType,
                 Id: event.extras.PostId || ''
             }
+            switch (sgmwType) {
+                case 2:  //系统通知
+                    break;
+                case 3:  //培训通知
+                    break;
+                case 4:  //考试通知
+                    break;
+                case 5:  //课程通知
+                    data.Id = event.extras.csid || '';
+                    break;
+                case 6:  //主题活动
+                    data.Id = event.extras.taid || '';
+                    break;
+                case 22:  //论坛帖子详情
+                    data.Id = event.extras.PostId || '';
+                    break;
+            }
+
             this.globalData.JpushType = sgmwType;
             this.storage.set('sgmwType', data);
             this.events.publish('jPush', data);

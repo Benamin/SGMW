@@ -19,7 +19,6 @@ export class ThemeActivityComponent {
     }
 
     getData() {
-        console.log('theme-activity');
         this.homeSer.SelectThemeActivityInformation().subscribe(
             (res) => {
                 this.obj = res.data;
@@ -33,10 +32,6 @@ export class ThemeActivityComponent {
             this.commonSer.toast('暂无主题活动');
             return
         }
-        this.navCtrl.push(ThemeActivityPage, {
-            theme: {
-                Id: this.obj.Id, coverUrl: this.obj.converUrl, name: this.obj.name
-            }
-        });
+        this.navCtrl.push(ThemeActivityPage, { Id: this.obj.Id});
     }
 }
