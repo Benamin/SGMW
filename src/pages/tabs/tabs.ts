@@ -3,13 +3,9 @@ import {Component, ViewChild} from '@angular/core';
 import {HomePage} from '../home/home';
 import {Events, LoadingController, ModalController, NavController, NavParams, Platform, Tabs} from "ionic-angular";
 import {MinePage} from "../mine/mine";
-import {LearningPage} from "../learning/learning";
-import {CoursePage} from "../course/course";
 import {LoginPage} from "../login/login";
 import {TabService} from "../../core/tab.service";
 import {ForumPage} from '../forum/forum.component';
-import {NoDevPage} from "../home/no-dev/no-dev";
-import {Gesture} from "ionic-angular";
 import {TestCenterPage} from "../home/test/test-center/test-center";
 import {StudyPlanPage} from "../home/study-plan/study-plan";
 import {GlobalData} from "../../core/GlobleData";
@@ -19,11 +15,9 @@ import {Storage} from "@ionic/storage";
 import {PrivacyComponent} from "../../components/privacy/privacy";
 import {VideoListsPage} from "../home/short-video/video-lists/video-lists";
 import {CourseTypePage} from "../learning/course-type/course-type";
-import {ExamTipPage} from "../learning/exam-tip/exam-tip";
-import {TalkExamPage} from "../learning/talk-exam/talk-exam";
 import {PostsContentComponent} from "../forum/posts-content/posts-content.component";
-import {IntegralPage} from "../integral/integral";
-import {ChooseTopicPage} from "../forum/choose-topic/choose-topic";
+import {ThemeActivityPage} from "../home/theme-activity/theme-activity";
+import {CourseDetailPage} from "../learning/course-detail/course-detail";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -155,7 +149,9 @@ export class TabsPage {
         this.myTabs.select(e);
     }
 
-    // this.navCtrl.push(NoDevPage, {title: title});
+    /**
+     * 推送跳转
+     */
     listenEvents() {
         this.events.subscribe('toLogin', () => {
             this.nav.setRoot(LoginPage);
@@ -163,12 +159,24 @@ export class TabsPage {
         this.events.subscribe('jPush', (type) => {
             if (!this.global.JpushType) return;
             this.global.JpushType = null;
-            if (type.sgmwType == 3) {  //学习中心
-                this.nav.push(StudyPlanPage)
-            } else if (type.sgmwType == 4) {  //考试中心
-                this.nav.push(TestCenterPage)
-            } else if (type.sgmwType == 22) {  //论坛帖子
-                this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
+            switch (type.sgmwType) {
+                case 2:  //系统通知
+                    break;
+                case 3:  //培训通知
+                    this.nav.push(StudyPlanPage)
+                    break;
+                case 4:  //考试通知
+                    this.nav.push(TestCenterPage)
+                    break;
+                case 5:  //课程通知
+                    this.nav.push(CourseDetailPage, {id: type.Id, StructureType: "1"});
+                    break;
+                case 6:  //主题活动
+                    this.nav.push(ThemeActivityPage, {Id: type.Id});
+                    break;
+                case 22:
+                    this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
+                    break;
             }
         })
     }

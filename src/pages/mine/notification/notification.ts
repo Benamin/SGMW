@@ -27,7 +27,7 @@ export class NotificationPage {
         BigType: 0,
 	IsHaveNextPage: false
     };
-		
+
     navliArr=[{
         lable: 'all',
         text: '全部'
@@ -41,7 +41,7 @@ export class NotificationPage {
         lable: 'study',
         text: '学习通知'   //课程学习和主题活动
     }];
-    
+
     checkType = "all";
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer:CommonService, public homeSer: HomeService,
@@ -92,7 +92,7 @@ export class NotificationPage {
             this.goCourse(item);
         } else if(item.Type === 6) {
             // type=6 主题活动通知 taid   ActivityName=主题活动名称
-            this.getData();
+            this.toTheme(item);
         }else if(item.Type === 22) {
             // 互动通知  type=22等于回复  UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
             item.Id = item.TaId
@@ -102,31 +102,13 @@ export class NotificationPage {
         }
     }
 
-    getData() {
-        let loading = this.loadCtrl.create({
-            content:''
-        });
-        loading.present();
-        console.log('theme-activity');
-        this.homeSer.SelectThemeActivityInformation().subscribe(
-            (res) => {
-                this.toTheme(res.data);
-                loading.dismiss();
-            }
-        );
-    }
-
     // 前往主题活动
     toTheme(obj) {
-        if (!obj.name) {
+        if (!obj.Taid) {
             this.commonSer.toast('暂无主题活动');
             return
         }
-        this.navCtrl.push(ThemeActivityPage, {
-            theme: {
-                Id: obj.Id, coverUrl: obj.converUrl, name: obj.name
-            }
-        });
+        this.navCtrl.push(ThemeActivityPage, {Id: obj.Taid});
     }
 
     //前往课程
