@@ -85,15 +85,23 @@ export class NotificationPage {
     }
 
     goDetail(item) {
+        const data = {
+            id: item.Id
+        };
+        this.mineSer.GetNewsById(data).subscribe(
+            (res) => {
+                this.page.isLoad = true;
+            }
+        )
         if (item.Type === 3) { // 系统消息分三种 Type=1系统后台消息  Type=3-培训消息、Type=4考试消息
-            this.getDetail(item);
-        } else if(item.Type === 5) {
+            this.navCtrl.push(StudyPlanPage, {CrateTime: item.PlanTime});
+        } else if (item.Type === 5) {
             // type=5  课程学习通知  csid=课程id courseName=课程名称
             this.goCourse(item);
-        } else if(item.Type === 6) {
+        } else if (item.Type === 6) {
             // type=6 主题活动通知 taid   ActivityName=主题活动名称
             this.toTheme(item);
-        }else if(item.Type === 22) {
+        } else if (item.Type === 22) {
             // 互动通知  type=22等于回复  UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
             item.Id = item.TaId
             this.goPostsContent(item);
@@ -129,19 +137,6 @@ export class NotificationPage {
     // 前往帖子详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
-    }
-
-    getDetail(item) {
-        const data = {
-            id: item.Id
-        };
-        this.mineSer.GetNewsById(data).subscribe(
-            (res) => {
-                // this.detail = res.data;
-                this.navCtrl.push(StudyPlanPage, { CrateTime: item.PlanTime });
-                this.page.isLoad = true;
-            }
-        )
     }
 
     //加载更多
