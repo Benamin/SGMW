@@ -29,6 +29,7 @@ export class WantToAskDetailPage implements OnInit {
     // ionViewDidEnter() {
     //     this.getList();
     // }
+    ngOnInit() {}
 
     ionViewDidLoad() {
 			this.page.askItem = this.navParams.get("item")
@@ -51,13 +52,13 @@ export class WantToAskDetailPage implements OnInit {
 
     isShow = false;
 
-    showImgSrc = '';
+    showImgSrc: any;
     showImg = false;
     CloseImgTime = new Date().getTime(); // 关闭 图片时间
     openImg(index, imgIndex) {
         let imgs = []
         index === 0 ? this.vm.images = this.page.askItem.ImageList : this.vm.images = this.page.askItem.QuestionReplyItems.ImgAddress;
-        let imgs = this.vm.images[imgIndex];
+        imgs = this.vm.images[imgIndex];
         if (this.showImg || new Date().getTime() - this.CloseImgTime < 200) {
             return
         }
