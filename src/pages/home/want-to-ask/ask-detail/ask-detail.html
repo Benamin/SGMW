@@ -17,7 +17,7 @@
 			<div class="title">问题截图</div>
 			<!-- ImageList -->
 			<div *ngFor="let imgItem of page.askItem.ImageList; let imgIndex = index">
-				<span (click)="$event.stopPropagation();openFile(imgItem)" class="pics-text">查看图片</span>
+				<span (click)="$event.stopPropagation();openImg(0, imgIndex)" class="pics-text">查看图片</span>
 			</div>
 			
 			<!-- <a class="pics-text">查看图片</a> -->
@@ -32,7 +32,7 @@
 			<div *ngIf="page.askItem.QuestionReplyItems.ImgAddress.length > 0">
 				<div class="reply-title">回复截图</div>
 				<div *ngFor="let replyImgItem of page.askItem.QuestionReplyItems.ImgAddress; let replyImgIndex = index">
-					<span (click)="$event.stopPropagation();openFile(replyImgItem)" class="pics-text">查看图片</span>
+					<span (click)="$event.stopPropagation();openImg(1, replyImgIndex)" class="pics-text">查看图片</span>
 				</div>
 			</div>
 		
@@ -41,4 +41,32 @@
 		
 	</div>
 </ion-content>
-<img-preview (close)="preImgSrc = ''" [src]="preImgSrc"></img-preview>
+<div  style="  z-index: 99;
+width: 100%;
+height: 100%;
+top: 0;
+position: fixed;      background: #000;  overflow: auto; " *ngIf="showImg"  >
+  <div #panel class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let image of vm.images">
+        <div class="swiper-zoom-container">
+          <img data-src="{{image}}" class="swiper-lazy">
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+  <div style="    position: fixed;
+  bottom: 0;
+  z-index: 99;
+  padding-bottom: 20px;
+    padding-left: 10px;
+    width: 100%;
+    background: linear-gradient(-180deg, rgba(0,0,0,0), rgba(0,0,0,0.6));
+  ">
+  <span (click)="photoLibraryDown()">
+    <img src="./assets/imgs/forum/other/download.png" style="width: 30px;">
+</span>
+  </div>
+</div>
+<!--<img-preview (close)="preImgSrc = ''" [src]="preImgSrc"></img-preview>-->
