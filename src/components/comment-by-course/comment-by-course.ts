@@ -138,7 +138,11 @@ export class CommentByCourseComponent {
             (res) => {
                 this.btnDisable = true;
                 if (res.data) {
-                    this.submitTalk();
+                    if (this.replyContent) {
+                        this.submitTalk();
+                    }else{
+                        this.viewCtrl.dismiss(data);
+                    }
                 } else {
                     this.commonSer.toast(res.message);
                 }
