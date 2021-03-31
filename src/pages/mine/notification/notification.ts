@@ -48,7 +48,7 @@ export class NotificationPage {
                 private loadCtrl:LoadingController) {
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.getList();
     }
 
@@ -136,7 +136,7 @@ export class NotificationPage {
 
     // 前往帖子详情
     goPostsContent(data) {
-        this.navCtrl.push(PostsContentComponent, {data: data});
+        this.navCtrl.push(PostsContentComponent, {data: {Id: data.PostId, TopicPlateId: "", Name: ""}});
     }
 
     //加载更多

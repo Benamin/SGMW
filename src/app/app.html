@@ -4,6 +4,6 @@
 <ng-container *ngIf="!showSplash">
     <ion-nav [ngClass]="{'isIOS': isIOS, 'isIphone11IOS13': isIphone11IOS13,'isIphoneIOS13':isIphoneIOS13}" [root]="rootPage"></ion-nav>
 </ng-container>
-<ng-container >
+<ng-container *ngIf="app.UpdateTips">
     <update-app [AppUrl]="app.AppUrl" [UpdateText]="app.UpdateText"></update-app>
 </ng-container>
