@@ -48,7 +48,7 @@ declare let JSEncrypt: any;
     templateUrl: 'login.html',
 })
 export class LoginPage {
-    @ViewChild('checkCodeJunke') checkCodeJunke: CheckCodeComponent;
+    // @ViewChild('checkCodeJunke') checkCodeJunke: CheckCodeComponent;
     // @ViewChild('checkCodeXszs') checkCodeXszs: CheckCodeComponent;
     @ViewChild('checkCodeGys') checkCodeGys: CheckCodeComponent;
     @ViewChild('checkCodeYG') checkCodeYG: CheckCodeComponent;
@@ -166,7 +166,7 @@ export class LoginPage {
 
     ionViewDidLoad() {
         // this.checkCodeXszs.drawPic();
-        this.checkCodeJunke.drawPic();
+        // this.checkCodeJunke.drawPic();
         this.checkCodeGys.drawPic();
         this.checkCodeYG.drawPic();
         this.checkCodeFWZS.drawPic();
@@ -846,9 +846,9 @@ export class LoginPage {
 
     //获取新销售助手用户信息
     connectTokenByNXSZS(req) {
-        if (!req.idCard || !req.LoginName) {
+        if (!req.idCard) {
             this.dismissLoading();
-            this.commonSer.alert(this.noUserMsg);
+            this.commonSer.alert("登录信息缺少身份证号码");
             return;
         }
         const data = {
@@ -956,7 +956,7 @@ export class LoginPage {
         // if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'xszs') this.checkCodeXszs.drawPic();
         if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'llzs' && this.llzsLoginType === "phone") this.checkCodeLLZSByPhone.drawPic();
         if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'llzs' && this.llzsLoginType === "userName") this.checkCodeLLZS.drawPic();
-        if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'junke') this.checkCodeJunke.drawPic();
+        // if (this.loginObj.type == 'jxs' && this.loginObj.platform == 'junke') this.checkCodeJunke.drawPic();
         if (this.loginObj.type == 'gys') this.checkCodeGys.drawPic();
         if (this.loginObj.type == 'yg') this.checkCodeYG.drawPic();
         if (this.loginObj.type == 'fwzs') this.checkCodeFWZS.drawPic();

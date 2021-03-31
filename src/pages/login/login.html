@@ -15,27 +15,27 @@
             <div class="login-select">
                 <ion-select [(ngModel)]="loginObj.type" cancelText="取消" interface="action-sheet">
                     <ion-option value="fwzs">服务助手</ion-option>
-                    <ion-option value="jxs">经销商</ion-option>
+                    <ion-option value="jxs">菱菱助手</ion-option>
                     <ion-option value="gys">供应商</ion-option>
                     <ion-option value="yg">员工</ion-option>
                 </ion-select>
             </div>
             <div [hidden]="loginObj.type != 'jxs'">
-                <div class="loginPlatform">
-                    <div tappable [ngClass]="loginObj.platform == 'llzs'?'plat':''" (click)="changeSlide(0,'llzs')">
-                        菱菱助手
-                    </div>
-                    <div tappable [ngClass]="loginObj.platform == 'junke'?'plat':''" (click)="changeSlide(1,'junke')">
-                        新宝骏助手
-                    </div>
-                </div>
+<!--                <div class="loginPlatform">-->
+<!--                    <div tappable [ngClass]="loginObj.platform == 'llzs'?'plat':''" (click)="changeSlide(0,'llzs')">-->
+<!--                        菱菱助手-->
+<!--                    </div>-->
+<!--                    <div tappable [ngClass]="loginObj.platform == 'junke'?'plat':''" (click)="changeSlide(1,'junke')">-->
+<!--                        新宝骏助手-->
+<!--                    </div>-->
+<!--                </div>-->
                 <ion-slides (ionSlideDidChange)="slideChange()">
                     <!--菱菱助手-->
                     <ion-slide>
-<!--                        <div class="llzsLogin">-->
-<!--                            <span [ngClass]="{'check': llzsLoginType === 'userName'}" (click)="llzsLoginType = 'userName'">账号登录</span>-->
-<!--                            <span [ngClass]="{'check': llzsLoginType === 'phone'}" (click)="llzsLoginType = 'phone'">手机登录</span>-->
-<!--                        </div>-->
+                        <div class="llzsLogin">
+                            <span [ngClass]="{'check': llzsLoginType === 'userName'}" (click)="llzsLoginType = 'userName'">账号登录</span>
+                            <span [ngClass]="{'check': llzsLoginType === 'phone'}" (click)="llzsLoginType = 'phone'">手机登录</span>
+                        </div>
                         <div [hidden]="llzsLoginType !== 'userName'">
                             <form class="login-input">
                                 <div class="input-input">
@@ -63,64 +63,64 @@
                                 登录
                             </div>
                         </div>
-<!--                        <div [hidden]="llzsLoginType !== 'phone'">-->
-<!--                            <form class="login-input">-->
-<!--                                <div class="input-input">-->
-<!--                                    <input type="text" [(ngModel)]="llzsPhone.phone" name="xszsjxsh"-->
-<!--                                           placeholder="请输入手机号码"/>-->
-<!--                                </div>-->
-<!--                                <div style="width: 60%"  class="input-input">-->
-<!--                                    <input type="text" [(ngModel)]="llzsPhone.code" autocomplete name="xszspwd"-->
-<!--                                           placeholder="请输入手机验证码"/>-->
-<!--                                    <span [ngClass]="{'disableBtn':disableBtn}" class="sendCode" (click)="sendCode()">{{timeText}}</span>-->
-<!--                                </div>-->
-<!--                                <div class="check input-input">-->
-<!--                                    <input type="text" [(ngModel)]="llzsPhone.inputCode" name="llzsinputCode"-->
-<!--                                           placeholder="请输入验证码"/>-->
-<!--                                    <check-code class="checkCode" #checkCodeLLZSByPhone-->
-<!--                                                (done)="getCodeLLZSByPhone($event)"></check-code>-->
-<!--                                    <img tappable (click)="flashCode()" class="flash"-->
-<!--                                         src="./assets/imgs/login/flash.png"-->
-<!--                                         alt="">-->
-<!--                                </div>-->
-<!--                            </form>-->
-<!--                            <div class="tips">-->
-<!--                                <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span (click)="openModal()">《隐私协议》</span>-->
-<!--                            </div>-->
-<!--                            <div class="login-button" tappable (click)="llzsLoginByPhone()">-->
-<!--                                登录-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div [hidden]="llzsLoginType !== 'phone'">
+                            <form class="login-input">
+                                <div class="input-input">
+                                    <input type="text" [(ngModel)]="llzsPhone.phone" name="xszsjxsh"
+                                           placeholder="请输入手机号码"/>
+                                </div>
+                                <div style="width: 60%"  class="input-input">
+                                    <input type="text" [(ngModel)]="llzsPhone.code" autocomplete name="xszspwd"
+                                           placeholder="请输入手机验证码"/>
+                                    <span [ngClass]="{'disableBtn':disableBtn}" class="sendCode" (click)="sendCode()">{{timeText}}</span>
+                                </div>
+                                <div class="check input-input">
+                                    <input type="text" [(ngModel)]="llzsPhone.inputCode" name="llzsinputCode"
+                                           placeholder="请输入验证码"/>
+                                    <check-code class="checkCode" #checkCodeLLZSByPhone
+                                                (done)="getCodeLLZSByPhone($event)"></check-code>
+                                    <img tappable (click)="flashCode()" class="flash"
+                                         src="./assets/imgs/login/flash.png"
+                                         alt="">
+                                </div>
+                            </form>
+                            <div class="tips">
+                                <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span (click)="openModal()">《隐私协议》</span>
+                            </div>
+                            <div class="login-button" tappable (click)="llzsLoginByPhone()">
+                                登录
+                            </div>
+                        </div>
                     </ion-slide>
                     <!--新宝骏助手-->
-                    <ion-slide>
-                        <form class="login-input">
-                            <div class="input-input">
-                                <input type="text" [(ngModel)]="jxs.junke.username" name="junkeusername"
-                                       placeholder="请输入手机号"/>
-                            </div>
-                            <div class="input-input">
-                                <input type="password" [(ngModel)]="jxs.junke.password" autocomplete
-                                       name="junkepassword"
-                                       placeholder="请输入密码"/>
-                            </div>
-                            <div class="check input-input">
-                                <input type="text" [(ngModel)]="jxs.junke.inputCode" name="junkeinputCode"
-                                       placeholder="请输入验证码"/>
-                                <check-code class="checkCode" #checkCodeJunke
-                                            (done)="getCodeJunke($event)"></check-code>
-                                <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png"
-                                     alt="">
-                            </div>
-                        </form>
-                        <div class="tips">
-                            <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span
-                                (click)="openModal()">《隐私协议》</span>
-                        </div>
-                        <div class="login-button" tappable (click)="loginJunkeJsx()">
-                            登录
-                        </div>
-                    </ion-slide>
+<!--                    <ion-slide>-->
+<!--                        <form class="login-input">-->
+<!--                            <div class="input-input">-->
+<!--                                <input type="text" [(ngModel)]="jxs.junke.username" name="junkeusername"-->
+<!--                                       placeholder="请输入手机号"/>-->
+<!--                            </div>-->
+<!--                            <div class="input-input">-->
+<!--                                <input type="password" [(ngModel)]="jxs.junke.password" autocomplete-->
+<!--                                       name="junkepassword"-->
+<!--                                       placeholder="请输入密码"/>-->
+<!--                            </div>-->
+<!--                            <div class="check input-input">-->
+<!--                                <input type="text" [(ngModel)]="jxs.junke.inputCode" name="junkeinputCode"-->
+<!--                                       placeholder="请输入验证码"/>-->
+<!--                                <check-code class="checkCode" #checkCodeJunke-->
+<!--                                            (done)="getCodeJunke($event)"></check-code>-->
+<!--                                <img (click)="flashCode()" tappable class="flash" src="./assets/imgs/login/flash.png"-->
+<!--                                     alt="">-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                        <div class="tips">-->
+<!--                            <input type="checkbox" [(ngModel)]="checkBox">我已经阅读并同意 <span-->
+<!--                                (click)="openModal()">《隐私协议》</span>-->
+<!--                        </div>-->
+<!--                        <div class="login-button" tappable (click)="loginJunkeJsx()">-->
+<!--                            登录-->
+<!--                        </div>-->
+<!--                    </ion-slide>-->
                 </ion-slides>
             </div>
             <div [hidden]="loginObj.type != 'gys'">

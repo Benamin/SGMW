@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AppUpdateService} from "../../core/appUpdate.service";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {Platform} from "ionic-angular";
+import {AppDownLoadUrl, IOSDownLoadUrl} from "../../app/constants";
 
 @Component({
     selector: 'update-app',
@@ -12,7 +13,8 @@ export class UpdateAppComponent {
     @Input() UpdateText;
     @Input() AppUrl;
 
-    AppDownLoadUrl = "";
+    appDownLoadUrl = AppDownLoadUrl;
+    iosDownLoadUrl = IOSDownLoadUrl;
 
     constructor(private appUpdate: AppUpdateService,
                 private inAppBrowser: InAppBrowser,
@@ -34,12 +36,11 @@ export class UpdateAppComponent {
 
     //
     isIOS() {
-        const IOSUrl = 'https://apps.apple.com/us/app/骏菱学社/id1478072690?l=zh&ls=1';
-        this.inAppBrowser.create(IOSUrl, '_system');
+        this.inAppBrowser.create(this.iosDownLoadUrl, '_system');
     }
 
     //去官网更新
     updateAppByWeb() {
-        this.inAppBrowser.create(this.AppDownLoadUrl, '_system');
+        this.inAppBrowser.create(this.appDownLoadUrl, '_system');
     }
 }
