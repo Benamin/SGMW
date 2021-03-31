@@ -42,59 +42,63 @@
     </div>
     <div style="margin-top: 236px" #space class="space"></div>
 
-    <ion-slides (ionSlideDidChange)="slideChanged()">
-        <ng-container *ngIf="isLoad">
-            <!--      简介      -->
-            <ion-slide>
-                <div class="item">
-                    <p>简介</p>
-                    <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
-                </div>
-            </ion-slide>
-            <!--      章节      -->
-            <ion-slide>
-                <div id="chapter" class="item" style="min-height: 350px">
-                    <p>内训资料
-                        <span *ngIf="teacherFileList.length > 4" tappable (click)="goTeacherFile()" float-end
-                              class="look">更多</span>
-                    </p>
-                    <page-record (image)="viewimage($event)" [fileList]="teacherFileList" [maxNum]="4"></page-record>
-                </div>
-            </ion-slide>
-            <!--      讨论      -->
-            <ion-slide>
-                <div class="item" style="min-height: 350px">
-                    <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
-<!--                        <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end-->
-<!--                              class="look">更多</span>-->
-                        <span tappable (click)="goCourseDiscuss()"
-                              class="focus focus-blue">去讨论</span>
-                    </p>
-                    <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
-                    <div class="no-comment" *ngIf="comment.talk.length == 0">
-                        <ion-list text-center style="margin-top: 40px">
-                            <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                            <p style="color: #666666;font-size: 13px">
-                                暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
-                        </ion-list>
+    <div class="ionSlides" #ionSlidesDIV>
+        <div class="swiper-container swiper-inner-course-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--      简介      -->
+                    <div class="item">
+                        <p>简介</p>
+                        <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
                     </div>
                 </div>
-            </ion-slide>
-            <!--记录-->
-            <ion-slide>
-                <div class="item" style="margin-bottom: 5rem;min-height: 350px">
-                    <p>已上传记录
-                        <span *ngIf="mainFile.length > 4" tappable (click)="goMainFile()" float-end
-                              class="look">更多</span>
-                        <span *ngIf="product.detail?.IsBuy" tappable class="uploadImage" (click)="takePic()" float-end>
+                <!--      章节      -->
+                <div class="swiper-slide swiper-no-swiping">
+                    <div id="chapter" class="item" style="min-height: 350px">
+                        <p>内训资料
+                            <span *ngIf="teacherFileList.length > 4" tappable (click)="goTeacherFile()" float-end
+                                  class="look">更多</span>
+                        </p>
+                        <page-record (image)="viewimage($event)" [fileList]="teacherFileList" [maxNum]="4"></page-record>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <div #TalkContent class="item" style="min-height: 350px">
+                        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
+                            <!--                        <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end-->
+                            <!--                              class="look">更多</span>-->
+                            <span tappable (click)="goCourseDiscuss()"
+                                  class="focus focus-blue">去讨论</span>
+                        </p>
+                        <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
+                        <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
+                            <ion-spinner icon="spiral"></ion-spinner>
+                            正在加载
+                        </div>
+                        <div class="no-comment" *ngIf="comment.talk.length == 0">
+                            <ion-list text-center style="margin-top: 40px">
+                                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                                <p style="color: #666666;font-size: 13px">
+                                    暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
+                            </ion-list>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <div class="item" style="margin-bottom: 5rem;min-height: 350px">
+                        <p>已上传记录
+                            <span *ngIf="mainFile.length > 4" tappable (click)="goMainFile()" float-end
+                                  class="look">更多</span>
+                            <span *ngIf="product.detail?.IsBuy" tappable class="uploadImage" (click)="takePic()" float-end>
                             <img src="./assets/imgs/learn/shangchuantupian.png" alt="">
                             上传图片</span>
-                    </p>
-                    <page-record (delete)="getSelFile()" (image)="viewimage($event)" [fileList]="mainFile" [maxNum]="4"></page-record>
+                        </p>
+                        <page-record (delete)="getSelFile()" (image)="viewimage($event)" [fileList]="mainFile" [maxNum]="4"></page-record>
+                    </div>
                 </div>
-            </ion-slide>
-        </ng-container>
-    </ion-slides>
+            </div>
+        </div>
+    </div>
 </ion-content>
 <img-preview (close)="preImgSrc = ''" [src]="preImgSrc"></img-preview>
 

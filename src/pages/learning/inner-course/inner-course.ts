@@ -6,8 +6,7 @@ import {
     ModalController,
     NavController,
     NavParams,
-    Platform,
-    Slides
+    Platform
 } from 'ionic-angular';
 import {VideojsComponent} from "../../../components/videojs/videojs";
 import {
@@ -30,6 +29,7 @@ import {CourseFilePage} from "../course-file/course-file";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 
+declare let Swiper: any;
 @Component({
     selector: 'page-inner-course',
     templateUrl: 'inner-course.html',
@@ -38,8 +38,8 @@ export class InnerCoursePage {
 
     @ViewChild('banner') banner: ElementRef;
     @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild('TalkContent') TalkContent: ElementRef;
     @ViewChild('videojsCom') videojsCom: VideojsComponent;
-    @ViewChild(Slides) slides: Slides;
     @ViewChild('video')
     public video: ElementRef;
     @ViewChild(Content) content: Content;
@@ -76,7 +76,12 @@ export class InnerCoursePage {
         course: [],
         teacher: [],
         talk: [],
+        talkLoad: false,
     };
+    talkObj = {  //讨论 分页
+        Page: 0,
+        TotalCount: 0
+    }
 
     files = [];
 
@@ -95,6 +100,7 @@ export class InnerCoursePage {
     nowTime;
 
     uploadFile;  //上传文件信息
+    mySwiper;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
@@ -110,8 +116,8 @@ export class InnerCoursePage {
     }
 
     ionViewDidLoad() {
-        this.slides.autoHeight = true;
-        this.slides.onlyExternal = true;
+        this.listenerScroll();
+        this.initSwiper();
     }
 
     async ionViewDidEnter() {
@@ -145,6 +151,42 @@ export class InnerCoursePage {
         if (arr.length == 1 && this.videojsCom) this.videojsCom.destroy();
     }
 
+    //初始化swiper
+    initSwiper() {
+        let that = this;
+        that.mySwiper = new Swiper('.swiper-inner-course-container', {
+            speed: 300,// slide滑动动画时间
+            observer: true,
+            noSwiping: true,
+            observeParents: true,
+            on: {
+                touchEnd: function (event) {
+                    //你的事件
+                    if (that.isLoad) {
+                        that.bar.type = this.activeIndex + 1;
+                    }
+                },
+                slidePrevTransitionStart: function () {  //上滑
+
+                },
+                slideNextTransitionStart: function () {  //下滑
+
+                },
+
+            },
+        });
+    }
+
+    //tab切换
+    changeType(item) {
+        if (this.isLoad) {
+            this.bar.type = item.type;
+            this.mySwiper.slideTo(item.type - 1, 100);
+        } else {
+            this.commonSer.toast('数据加载中...')
+        }
+    }
+
     //内训资料
     async getProductInfo() {
         const data = {
@@ -158,19 +200,50 @@ export class InnerCoursePage {
             }
         );
 
+        this.talkObj.Page = 1;
         const data2 = {
-            pageSize: 1000,
-            page: 1,
+            pageSize: 5,
+            page: this.talkObj.Page,
             TopicType: "course",   //teacher  course
             topicID: this.product.detail.PrId
         }
         this.learnSer.GetTalkList(data2).subscribe(
             (res) => {
-                this.comment.talk = res.data.CommentItems;
+                if (res.data) {
+                    this.comment.talk = res.data.CommentItems;
+                    this.talkObj.TotalCount = res.data.TotalCount;
+                }
             }
         );
 
         this.getSelFile();
+    }
+
+    //加载更多--课程讨论
+    doInfinite() {
+        if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
+            this.commonSer.toast('没有更多讨论了');
+            this.comment.talkLoad = false;
+            return
+        }
+        this.talkObj.Page++;
+        const data3 = {
+            pageSize: 5,
+            page: this.talkObj.Page,
+            TopicType: "course",   //teacher  course
+            topicID: this.product.detail.PrId
+        };
+        this.learnSer.GetTalkList(data3).subscribe(   //课程讨论
+            (res) => {
+                if (res.data) {
+                    this.zone.run(() => {
+                        this.comment.talk = [...this.comment.talk, ...res.data.CommentItems];
+                    });
+                    this.talkObj.TotalCount = res.data.TotalCount;
+                    this.comment.talkLoad = false;
+                }
+            }
+        );
     }
 
     //获取自己上传的内训资料
@@ -406,20 +479,10 @@ export class InnerCoursePage {
         )
     }
 
-    changeType(item) {
-        this.bar.type = item.type;
-        this.slides.slideTo(item.type - 1, 100);
-    }
-
 
     //获取时间戳
     getTime(date) {
         return new Date(date).getTime();
-    }
-
-    //切换slide
-    slideChanged() {
-        this.bar.type = this.slides.realIndex + 1;
     }
 
     //前往资料记录
@@ -435,6 +498,31 @@ export class InnerCoursePage {
     viewimage(e) {
         console.log(e);
         this.preImgSrc = e;
+    }
+
+    //监听讨论列表滚动
+    listenerScroll() {
+        const documentHeight = document.body.clientHeight;   //窗口高度
+        // 256为banner区域高度  44 为ion-heider的高度
+        const viewHeight = documentHeight - 256 - 50 - 44;   //中间讨论区域可视高度
+        this.content.ionScroll.subscribe(($event: any) => {
+            if (this.bar.type == 3) {
+                const TalkContentHeight = this.TalkContent.nativeElement.clientHeight - 40;  //讨论列表高度
+                if (this.comment.talk.length + 1 > this.talkObj.TotalCount) {
+                    this.comment.talkLoad = false;
+                    return
+                }
+
+                if (this.comment.talkLoad) return
+                //给予50px高度的差异值
+                if ((TalkContentHeight - 50 < $event.scrollTop + viewHeight && $event.scrollTop + viewHeight < TalkContentHeight)
+                    || ($event.scrollTop + viewHeight == TalkContentHeight)) {
+                    console.log('加载更多');
+                    this.doInfinite();
+                    this.comment.talkLoad = true;
+                }
+            }
+        });
     }
 
 }

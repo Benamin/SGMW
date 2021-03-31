@@ -21,7 +21,7 @@
 						<span>{{ page.personalInfo?.userName }}</span>
 						<span *ngIf="page.personalInfo?.dealerName" class="tag">{{ page.personalInfo?.dealerName }}</span></div>
 					<div class="dealer-number" *ngIf="page.personalInfo?.dealerCode">经销商号：{{ page.personalInfo?.dealerCode }}</div>
-					<div class="phone" *ngIf="page.personalInfo?.Phone">手机号：{{ page.personalInfo?.Phone }}</div>
+<!--					<div class="phone" *ngIf="page.personalInfo?.Phone">手机号：{{ page.personalInfo?.Phone }}</div>-->
 				</div>
 			</div>
 			<div (click)="doFollower(true)" class="follow-btn" *ngIf="page.personalInfo?.isNoFocus === false">关注</div>
