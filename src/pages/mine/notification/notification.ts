@@ -84,6 +84,11 @@ export class NotificationPage {
         this.getList();
     }
 
+    /**
+     * 前往详情
+     * 2=系统通知  3=培训通知  4=考试通知  5=课程通知 Csid 6=主题活动 TaId 22 论坛回复通知 PostId
+     * @param item
+     */
     goDetail(item) {
         const data = {
             id: item.Id
@@ -103,7 +108,6 @@ export class NotificationPage {
             this.toTheme(item);
         } else if (item.Type === 22) {
             // 互动通知  type=22等于回复  UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
-            item.Id = item.TaId
             this.goPostsContent(item);
         } else { // 考试通知 type=4 系统通知  type=2
             this.navCtrl.push(NotificationDetailPage, {id: item.Id});

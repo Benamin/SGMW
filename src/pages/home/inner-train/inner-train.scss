@@ -110,4 +110,8 @@ page-inner-train {
       margin-top: 10px;
     }
   }
+
+  .swiper-container-autoheight, .swiper-container-autoheight .swiper-slide {
+    overflow: scroll;
+  }
 }
