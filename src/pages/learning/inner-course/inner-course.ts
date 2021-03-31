@@ -2,20 +2,20 @@ import {Component, ElementRef, NgZone, Renderer2, ViewChild} from '@angular/core
 import {
     ActionSheetController,
     Content,
-    IonicPage,
     LoadingController,
     ModalController,
     NavController,
-    NavParams, Platform,
+    NavParams,
+    Platform,
     Slides
 } from 'ionic-angular';
 import {VideojsComponent} from "../../../components/videojs/videojs";
 import {
     defaultHeadPhoto,
     env,
-    SERVER_API_URL_DEV, SERVER_API_URL_PROD,
-    SERVER_API_URL_UAT,
-    SERVER_HTTP_URL
+    SERVER_API_URL_DEV,
+    SERVER_API_URL_PROD,
+    SERVER_API_URL_UAT
 } from "../../../app/app.constants";
 import {LearnService} from "../learn.service";
 import {AppService} from "../../../app/app.service";
@@ -24,7 +24,6 @@ import {EmitService} from "../../../core/emit.service";
 import {FileService} from "../../../core/file.service";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {ViewFilePage} from "../view-file/view-file";
-import {TeacherPage} from "../teacher/teacher";
 import {CourseCommentPage} from "../course-comment/course-comment";
 import {timer} from "rxjs/observable/timer";
 import {CourseFilePage} from "../course-file/course-file";
@@ -146,7 +145,7 @@ export class InnerCoursePage {
         if (arr.length == 1 && this.videojsCom) this.videojsCom.destroy();
     }
 
-    //课程详情、课程章节、相关课程、课程评价、已上传资料
+    //内训资料
     async getProductInfo() {
         const data = {
             pid: this.pId
@@ -159,12 +158,15 @@ export class InnerCoursePage {
             }
         );
 
-        const data1 = {
+        const data2 = {
+            pageSize: 1000,
+            page: 1,
+            TopicType: "course",   //teacher  course
             topicID: this.product.detail.PrId
-        };
-        await this.learSer.GetCommentSum(data1).subscribe(
+        }
+        this.learnSer.GetTalkList(data2).subscribe(
             (res) => {
-
+                this.comment.talk = res.data.CommentItems;
             }
         );
 
