@@ -112,11 +112,11 @@ export class NotificationPage {
 
     // 前往主题活动
     toTheme(obj) {
-        if (!obj.Taid) {
+        if (!obj.TaId) {
             this.commonSer.toast('暂无主题活动');
             return
         }
-        this.navCtrl.push(ThemeActivityPage, {Id: obj.Taid});
+        this.navCtrl.push(ThemeActivityPage, {Id: obj.TaId});
     }
 
     //前往课程
