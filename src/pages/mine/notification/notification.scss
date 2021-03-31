@@ -97,6 +97,7 @@ page-notification {
 			object-fit: cover;
 		}
 		.right-box {
+            width: 24rem;
 			flex: 1;
 			.username {
 				margin-bottom: 0.5rem;
@@ -129,7 +130,7 @@ page-notification {
 				color: #666666;
 				line-height: 1.8rem;
 				.title {
-					width: 16rem;
+					width: 14rem;
 					text-align: right;
 					overflow: hidden;
 					white-space: nowrap;
