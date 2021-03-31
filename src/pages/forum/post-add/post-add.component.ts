@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import {CommonService} from "../../../core/common.service";
 import {ChooseTopicPage} from "../choose-topic/choose-topic";
+import {Keyboard} from "@ionic-native/keyboard";
 
 declare let ImagePicker;
 
@@ -34,18 +35,22 @@ export class PostAddComponent implements OnInit {
 
     ApplyEssence = false;  //true为申请精华贴
     textareaLength = 100;
+    leaveShow = true;
 
     constructor(
         private commonSer: CommonService,
         private navCtrl: NavController,
         private serve: ForumService,
         public navParams: NavParams,
+        private keyboard: Keyboard,
         private loadCtrl: LoadingController,
         private zone: NgZone,
         private toastCtrl: ToastController
     ) {
 
-        if (this.serve.iosOrAndroid() == "Ios") {
+        //
+
+        if (this.serve.iosOrAndroid() == "Ios" && !this.serve.isIOS14) {
             Observable.fromEvent(window, "native.keyboardshow")
                 .debounceTime(100)
                 .subscribe((event: any) => {
@@ -64,9 +69,10 @@ export class PostAddComponent implements OnInit {
         }
     }
 
+
+
     ngOnInit() {
         let data = this.navParams.get('data');
-        console.log(data);
 
         if (data.Status) {
             this.lidata.Id = data.TopicPlateId;
@@ -87,6 +93,7 @@ export class PostAddComponent implements OnInit {
     }
 
     ionViewDidEnter() {
+        this.leaveShow = false;
         const data = this.navParams.get('topic');
         console.log(data);
         if (data) {
@@ -97,9 +104,11 @@ export class PostAddComponent implements OnInit {
         }
     }
 
+
     focusAmeR = false;
 
     backPop() {
+        this.leaveShow = true;
         this.navCtrl.pop();
     }
 

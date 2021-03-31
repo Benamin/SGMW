@@ -258,7 +258,6 @@ export class ForumService {
     }
 
     iosOrAndroid() {
-
         var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -268,7 +267,18 @@ export class ForumService {
         if (isiOS == true) {
             return 'Ios'
         }
+    }
 
+    //判断是否ios13、14
+    isIOS14() {
+        const str = navigator.userAgent.toLowerCase();
+        const ver = str.match(/cpu iphone os (.*?) like mac os/);
+        const v = ver[1].replace(/_/g, ".");
+        if (v.includes('13') || v.includes('14')) {
+            return true
+        } else {
+            return false;
+        }
     }
 
 }

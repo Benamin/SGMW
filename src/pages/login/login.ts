@@ -514,16 +514,11 @@ export class LoginPage {
                         this.storage.clear();
                         this.commonSer.alert(res.message);
                     }
-                },
-                (error) => {
-                    this.dismissLoading();
-                    this.commonSer.alert(`${error.error.error_description}`);
                 }
             ).catch(error => {
-                console.log(error);
                 this.dismissLoading();
-                const message = JSON.parse(error.error);
-                this.commonSer.alert(message.error);
+                const message = error.error;
+                this.commonSer.alert(JSON.stringify(message.error));
             })
         } else {
             this.loginSer.fwzsLogin(content, header).subscribe(
@@ -733,7 +728,8 @@ export class LoginPage {
                     }
                 }, (error) => {
                     this.dismissLoading();
-                    this.commonSer.alert(`${error.error.error_description}`);
+                    const message = JSON.parse(error.error);
+                    this.commonSer.alert(`${message.error_description}`);
                 }
             ).catch(error => {
                 this.dismissLoading();
@@ -850,6 +846,11 @@ export class LoginPage {
 
     //获取新销售助手用户信息
     connectTokenByNXSZS(req) {
+        if (!req.idCard || !req.LoginName) {
+            this.dismissLoading();
+            this.commonSer.alert(this.noUserMsg);
+            return;
+        }
         const data = {
             grant_type: "password",
             client_id: NXSZS_client_id_login,
