@@ -73,7 +73,7 @@
                 </div>
             </ng-container>
             <!--            普通作业-->
-            <ng-container *ngIf="item.qtype == 0 || TopicType == 'course'">
+            <ng-container *ngIf="item.qtype == 0 || TopicType == 'course' || TopicType == 'talk'">
                 <div [innerHTML]="item.Contents | lineFeed" class="Contents"></div>
             </ng-container>
         </div>
