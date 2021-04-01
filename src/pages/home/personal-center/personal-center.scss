@@ -49,18 +49,24 @@ page-personal-center {
 
 				.info-detail {
 					padding-right: 1.5rem;
+					width: calc(100% - 11rem);
+					text-align: center;
+					height: 8rem;
+					padding-top: 1.2rem;
 
 					.name {
 						margin-bottom: 0.8rem;
 						font-size: 1.8rem;
 						display: flex;
 						align-items: center;
+						justify-content: center;
 
 						span:first-child {
 							width: 8rem;
 						}
 
 						.tag {
+							width: calc(100% - 8rem);
 							margin-left: 1rem;
 							padding: 0.3rem 0.5rem;
 							line-height: 1;
