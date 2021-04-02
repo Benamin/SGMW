@@ -36,7 +36,8 @@ export class JpushUtil {
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
             // this.commonSer.alert("jpush.openNotification: " + JSON.stringify(event));
-            //2=系统通知  3=培训通知  4=考试通知  5=课程通知 csid 6=主题活动 taid 22 论坛回复通知 PostId
+            //2=系统通知  3=培训通知  4=考试通知  5=课程通知(课程ID=csid) 6=主题活动(主题活动ID=taid) 22=论坛回复通知(帖子ID=PostId)
+            //30=帖子点赞通知(帖子ID=postID)  31=课程讨论点赞通知(讨论ID=TalkId, 课程ID=TopicID)  32=课程讨论回复通知(回贴ID=PostReplyId,课程ID=postid)
             const sgmwType = event.extras.sgmwType;
             const data = {
                 sgmwType: event.extras.sgmwType,

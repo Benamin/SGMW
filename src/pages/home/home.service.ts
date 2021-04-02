@@ -18,6 +18,11 @@ export class HomeService {
         return this.http.get(SERVER_API_URL + '/ENews/GetBannerListByRole?RoleID=' + RoleID);
     }
 
+    //热门课程
+    GetHotProductList(): Observable<any> {
+        return this.http.get(SERVER_API_URL + '/EProduct/GetHotProductList');
+    }
+
     //优秀教师，关注教师
     GetGoodTeacherList(): Observable<any> {
         return this.http.get(SERVER_API_URL + '/user/GetGoodTeacherList')

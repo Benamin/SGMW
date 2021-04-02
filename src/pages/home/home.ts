@@ -161,11 +161,11 @@ export class HomePage implements OnInit {
             }
         })
 
-        this.getGoodsTeacher();
+        // this.getGoodsTeacher();
         this.getLIistData();
         this.getCompetitionId();
         this.getServerCompetition();
-        this.getProductType();
+        // this.getProductType();
     }
 
     ionViewWillEnter() {
@@ -257,9 +257,9 @@ export class HomePage implements OnInit {
             "SortDir": "DESC",
             "RoleID": RoleID
         };
-        this.learnSer.GetProductList(data).subscribe(
+        this.homeSer.GetHotProductList().subscribe(
             (res) => {
-                this.productList = res.data.ProductList;
+                this.productList = res.data;
             }
         );
     }
