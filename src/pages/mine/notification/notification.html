@@ -22,23 +22,26 @@
 	<div *ngFor="let item of notificationList">
 		<div class="main" tappable (click)="goDetail(item)">
 		    <p>{{item.CrateTime}}</p>
-		    <div class="noti" *ngIf="item.Type !== 22">
-		        <span *ngIf="item.Status == 0" class="tips"></span>
-		        <p>{{item.Title}}</p>
-		        <p>{{item.SubTitle}}</p>
-		    </div>
-				<div class="interaction" *ngIf="item.Type === 22">
+				<div class="interaction" *ngIf="item.Type === 22 || item.Type === 30 || item.Type === 31 || item.Type === 32; else falsyTemplate">
 					<span *ngIf="item.Status == 0" class="tips"></span>
 					<img class="avatar" src="{{ item.ReplyHeadPhoto }}" alt="头像">
 				  <div class="right-box">
 						<div class="username">{{ item.ReplyPeopleName }}</div>
 						<div class="desc">{{ item.Text }}</div>
 						<div class="bottom-info">
-							<span>回复了你的帖子</span>
+							<span *ngIf="item.Type === 22">回复了你的论坛帖子</span>
+							<span *ngIf="item.Type === 30">点赞了你的论坛帖子</span>
+							<span *ngIf="item.Type === 31">点赞了你的课程讨论</span>
+							<span *ngIf="item.Type === 32">回复了你的课程讨论</span>
 							<span class="title">{{ item.Title }}</span>
 						</div>
 					</div>
 				</div>
+				<ng-template class="noti" #falsyTemplate>
+					<span *ngIf="item.Status == 0" class="tips"></span>
+					<p>{{item.Title}}</p>
+					<p>{{item.SubTitle}}</p>
+				</ng-template>
 		</div>
 	</div>
 

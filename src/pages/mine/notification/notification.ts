@@ -106,9 +106,13 @@ export class NotificationPage {
         } else if (item.Type === 6) {
             // type=6 主题活动通知 taid   ActivityName=主题活动名称
             this.toTheme(item);
-        } else if (item.Type === 22) {
-            // 互动通知  type=22等于回复  UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
+        } else if (item.Type === 22 || item.Type === 30) {
+            // 互动通知  type=22等于回复 type=30帖子点赞 UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
             this.goPostsContent(item);
+        } else if (item.Type === 31 || item.Type === 32) {
+            // 互动通知  type=31 课程讨论点赞
+            // 互动通知 type=32 课程讨论回复
+            this.goCourse(item);
         } else { // 考试通知 type=4 系统通知  type=2
             this.navCtrl.push(NotificationDetailPage, {id: item.Id});
         }
@@ -124,17 +128,17 @@ export class NotificationPage {
     }
 
     //前往课程
-    goCourse(e) {
+    goCourse(e, PostId=null) {
         if (!e) {
             this.commonSer.toast('数据加载中,请稍后...');
             return
         }
         if (e.TeachTypeName == "集中培训") {
-            this.navCtrl.push(FocusCoursePage, {id: e.csid});
+            this.navCtrl.push(FocusCoursePage, {id: PostId ? PostId : e.csid});
         } else if (e.TeachTypeName == "内训") {
-            this.navCtrl.push(InnerCoursePage, {id: e.csid});
+            this.navCtrl.push(InnerCoursePage, {id: PostId ? PostId : e.csid});
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: e.csid, StructureType: e.StructureType});
+            this.navCtrl.push(CourseDetailPage, {id: PostId ? PostId : e.csid, StructureType: e.StructureType});
         }
     }
 
