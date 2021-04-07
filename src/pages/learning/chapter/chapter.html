@@ -37,13 +37,19 @@
                         <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                              tappable (click)="downLoad(itemFile,$event)"
                              class="download-file" src="./assets/imgs/course/xiazai.png">
-                        <span class="done">
-                            <img *ngIf="itemFile.IsPass && itemFile.IsStudy;else other_img"
-                                 src="./assets/imgs/course/yiwancheng.png">
-                            <ng-template #other_img>
-                                <img src="./assets/imgs/course/daiwancheng.png" alt="">
-                            </ng-template>
-                    </span>
+                        <ng-container *ngIf="itemFile.IsAttachment">
+                            <span class="done">
+                                <img *ngIf="itemFile.IsPass && itemFile.IsStudy;else other_img"
+                                     src="./assets/imgs/course/yiwancheng.png">
+                                <ng-template #other_img>
+                                    <img src="./assets/imgs/course/daiwancheng.png" alt="">
+                                </ng-template>
+                            </span>
+                        </ng-container>
+                        <ng-container *ngIf="!itemFile.IsAttachment">
+                            <span class="done">附件</span>
+                        </ng-container>
+
                     </div>
                     <p>{{itemFile.DisplayName | stringSlice:10:10}}</p>
                 </ion-col>
@@ -66,7 +72,7 @@
                                   </span>
                                 <span class="new-yes" *ngIf="itemExam.examStatus == 8">
                                  <img src="./assets/imgs/course/yiwancheng.png" alt="">
-                            </span>
+                                </span>
                                 <img *ngIf="itemExam.JopType == 0" class="shipin_zy"
                                      src="./assets/imgs/learn/fujian.png">
                                 <img *ngIf="itemExam.JopType == 1" class="shipin_zy"

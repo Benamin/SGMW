@@ -2,7 +2,7 @@
     <p [ngStyle]="{'padding-left':(itemNode.NodeLevel*5)+'px'}" tappable (click)="getMore(itemNode)">
         {{itemNode.title}}
         <img *ngIf="itemNode.StudyStatus == 1 && itemNode.NodeLevel == 4" class="suo" src="./assets/imgs/learn/suo.png"
-             alt="">
+             >
         <ion-icon *ngIf="itemNode.children.length > 0 && !itemNode.show" class="more-icon"
                   name="arrow-forward"></ion-icon>
         <ion-icon *ngIf="itemNode.children.length > 0 && itemNode.show" class="more-icon" name="arrow-down"></ion-icon>
@@ -20,8 +20,12 @@
             <img *ngIf="itemFile.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
             <span class="itemNode">{{itemFile.DisplayName}}</span>
             <span class="tree-file-icon">{{itemFile.icon}}</span>
-            <img class="tree-done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png"
-                 alt="">
+            <ng-container *ngIf="itemFile.IsAttachment;else noAttachment">
+                <img class="tree-done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png">
+            </ng-container>
+            <ng-template #noAttachment>
+                <span class="tree-done">附件</span>
+            </ng-template>
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                  tappable (click)="downLoad(itemFile,$event)"
                  class="tree-download-file" src="./assets/imgs/course/xiazai.png">
@@ -40,10 +44,10 @@
                             <span *ngIf="itemExam.JopType == 2" class="jobType green">视频作业</span>
                             <span class="new-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
                     || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
-                                 <img src="./assets/imgs/course/daiwancheng.png" alt="">
+                                 <img src="./assets/imgs/course/daiwancheng.png" >
                                   </span>
                             <span class="new-yes" *ngIf="itemExam.examStatus == 8">
-                                 <img src="./assets/imgs/course/yiwancheng.png" alt="">
+                                 <img src="./assets/imgs/course/yiwancheng.png" >
                             </span>
                             <img *ngIf="itemExam.JopType == 0" class="shipin_zy"
                                  src="./assets/imgs/learn/fujian.png">
@@ -67,11 +71,11 @@
                 </span>
                     <span class="old-no" *ngIf="itemExam.examStatus == 4 || (itemExam.examStatus == 0 && itemExam.StudyStatus == 2)
                 || (itemExam.examStatus == 1 && itemExam.StudyStatus == 2) || (itemExam.examStatus == 2 && itemExam.StudyStatus == 2)">
-                    <img src="./assets/imgs/course/daiwancheng.png" alt="">
+                    <img src="./assets/imgs/course/daiwancheng.png" >
                     待完成
                 </span>
                     <span class="old-yes" *ngIf="itemExam.examStatus == 8">
-                    <img src="./assets/imgs/course/yiwancheng.png" alt="">
+                    <img src="./assets/imgs/course/yiwancheng.png" >
                     已完成
                 </span>
             </div>
