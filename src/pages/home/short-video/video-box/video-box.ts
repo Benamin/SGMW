@@ -21,6 +21,7 @@ export class VideoBoxPage {
     itemID;
     loading;
 
+    //视频播放组件
     initVideo = <any>{};
 
     Page;  //页码
@@ -202,6 +203,10 @@ export class VideoBoxPage {
         )
     }
 
+    /**
+     * 渲染视频播放器
+     * @param arr 数据数组
+     */
     loadVideo(arr) {
         timer(500).subscribe(() => {
             arr.forEach((e, index) => {
@@ -229,7 +234,6 @@ export class VideoBoxPage {
     }
 
     ionViewDidLeave() {
-
         this.mySwiper.destroy(true, true);
         for (let i in this.initVideo) {
             this.initVideo[i].dispose();
