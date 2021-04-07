@@ -106,7 +106,7 @@ export class NotificationPage {
         } else if (item.Type === 6) {
             // type=6 主题活动通知 taid   ActivityName=主题活动名称
             this.toTheme(item);
-        } else if (item.Type === 22 || item.Type === 30) {
+        } else if (item.Type === 22 || item.Type === 30 || item.Type === 33) {
             // 互动通知  type=22等于回复 type=30帖子点赞 UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
             this.goPostsContent(item);
         } else if (item.Type === 31 || item.Type === 32) {
