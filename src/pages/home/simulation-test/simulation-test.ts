@@ -1,11 +1,8 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import {HomeService} from "../home.service";
 import {CommonService} from "../../../core/common.service";
-import {DoTestPage} from "../test/do-test/do-test";
 import {SimulationDoTestPage} from "./simulation-do-test/simulation-do-test";
-import {TreeModel} from 'ng2-tree';
-import {QIndexComponent} from "../../../components/q-index/q-index";
 import {SubjectTreeComponent} from "../../../components/subject-tree/subject-tree";
 
 @Component({
@@ -23,16 +20,7 @@ export class SimulationTestPage {
             SubjectCode: "fwyy,gwnl,fwjlcj,jc,cs",
             ExamTimer: 0
         },
-        PaperRule: {
-            ChoiceNum: 0,
-            ChoiceScore: 0,
-            JudgeNum: 0,
-            JudgeScore: 0,
-            MultipleNum: 0,
-            MultipleScore: 0,
-            FillNum: 0,
-            FillScore: 0
-        }
+        TotalQuestionNum: 0,
     }
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -77,28 +65,9 @@ export class SimulationTestPage {
     }
 
     isCheck() {
-        if ((this.exam.PaperRule.MultipleNum + this.exam.PaperRule.JudgeNum
-            + this.exam.PaperRule.ChoiceNum) > 100) {
-            this.commonSer.alert('总题目数量不能超过100');
-            return
-        }
-        if ((this.exam.PaperRule.MultipleNum + this.exam.PaperRule.JudgeNum
-            + this.exam.PaperRule.ChoiceNum) < 1) {
-            this.commonSer.alert('至少有一道题目');
-            return
-        }
+
         if (this.exam.Exam.ExamTimer > 120) {
             this.commonSer.alert('考试最长时间为120分钟');
-            return
-        }
-        if ((this.exam.PaperRule.MultipleNum > 1 && this.exam.PaperRule.MultipleScore < 1) ||
-            (this.exam.PaperRule.MultipleNum < 1 && this.exam.PaperRule.MultipleScore > 0) ||
-            (this.exam.PaperRule.JudgeNum > 1 && this.exam.PaperRule.JudgeScore < 1) ||
-            (this.exam.PaperRule.JudgeNum < 1 && this.exam.PaperRule.JudgeScore > 0) ||
-            (this.exam.PaperRule.ChoiceNum > 1 && this.exam.PaperRule.ChoiceScore < 1) ||
-            (this.exam.PaperRule.ChoiceNum < 1 && this.exam.PaperRule.ChoiceScore > 0)
-        ) {
-            this.commonSer.alert('题目规则设置错误')
             return
         }
         if (this.brandList.length == 0) {
@@ -137,15 +106,13 @@ export class SimulationTestPage {
         }
     }
 
-    //add
-    addHandle(params) {
-        this.exam.PaperRule[params]++;
+    addTotal() {
+        this.exam.TotalQuestionNum++;
     }
 
-    //remove
-    removeHandle(params) {
-        if (this.exam.PaperRule[params] > 0) {
-            this.exam.PaperRule[params]--;
+    removeTotal() {
+        if (this.exam.TotalQuestionNum > 0) {
+            this.exam.TotalQuestionNum--;
         }
     }
 }
