@@ -68,19 +68,18 @@
             </div>
         </div>
         <div #CourseIntroduction>
-            <div *ngIf="StructureType == 2" class="course-introduction">
-                <p>课程简介
-                    <ion-icon *ngIf="!showMore" (click)="showIntroduction()" class="more-icon"
+            <div class="course-introduction">
+                <p (click)="showIntroduction()">课程简介
+                    <ion-icon *ngIf="!showMore" class="more-icon"
                               name="arrow-down"></ion-icon>
-                    <ion-icon *ngIf="showMore" (click)="showIntroduction()" class="more-icon"
+                    <ion-icon *ngIf="showMore" class="more-icon"
                               name="arrow-up"></ion-icon>
                 </p>
-                <div *ngIf="!showMore" class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
-                <div *ngIf="showMore" [innerHTML]="product.detail?.Description | lineFeed"></div>
+                <div [ngClass]="{'introduction':!showMore}" [innerHTML]="product.detail?.Description | lineFeed"></div>
             </div>
         </div>
         <div class="navbar">
-            <ng-container *ngFor="let item of navbarList;let i = index;">
+            <ng-container *ngFor="let item of NavbarList;let i = index;">
                 <div class="navbar-item" tappable (click)="changeType(item);$event.stopPropagation()">
                     <span class="{{bar.type == item.type?'duty-title':''}}">{{item.name}}</span>
                 </div>
@@ -91,13 +90,13 @@
     <div class="ionSlides" #ionSlidesDIV>
         <div class="swiper-container swiper-course-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide swiper-no-swiping" *ngIf="StructureType == 1">
-                    <!--      简介      -->
-                    <div class="item">
-                        <p>简介</p>
-                        <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>
-                    </div>
-                </div>
+                <!--                <div class="swiper-slide swiper-no-swiping" *ngIf="StructureType == 1">-->
+                <!--                    &lt;!&ndash;      简介      &ndash;&gt;-->
+                <!--                    <div class="item">-->
+                <!--                        <p>简介</p>-->
+                <!--                        <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
                 <div class="swiper-slide swiper-no-swiping">
                     <!--      章节      -->
                     <div id="chapter" class="item" style="min-height: 350px">
@@ -115,7 +114,8 @@
                     <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
                         <comment-star (flashData)="GetCommentData()" #commentStar></comment-star>
                         <p style="margin-top: 1rem"
-                           class="first-child">{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论</p>
+                           class="first-child">{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论 <span
+                                style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{talkObj?.TotalCount}})</span></p>
                         <page-comment-list
                                 [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
                         <div *ngIf="comment.talkLoad" class="loading-talk-spinner">

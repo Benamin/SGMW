@@ -53,13 +53,13 @@ export class TalkExamPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
-                if (res.Result == 1) {
-                    this.commonSer.toast(res.Message);
+                loading.dismiss();
+                if (res.Result !== 0) {
+                    if(res.message) this.commonSer.alert(res.message);
+                    if(res.Message) this.commonSer.alert(res.Message);
                 }
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.exam.QnAInfos = res.data.QnAInfos;
-                loading.dismiss();
-
             }
         )
     }

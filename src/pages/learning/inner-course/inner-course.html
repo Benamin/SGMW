@@ -64,9 +64,8 @@
                 </div>
                 <div class="swiper-slide swiper-no-swiping">
                     <div #TalkContent class="item" style="min-height: 350px">
-                        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
-                            <!--                        <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end-->
-                            <!--                              class="look">更多</span>-->
+                        <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论<span
+                                style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{talkObj?.TotalCount}})</span>
                             <span tappable (click)="goCourseDiscuss()"
                                   class="focus focus-blue">去讨论</span>
                         </p>

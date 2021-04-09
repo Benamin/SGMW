@@ -41,8 +41,10 @@ export class LookTestPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
-                if (res.Result == 1) {
-                    this.commonSer.toast(res.Message);
+                loading.dismiss();
+                if (res.Result !== 0) {
+                    if(res.message) this.commonSer.alert(res.message);
+                    if(res.Message) this.commonSer.alert(res.Message);
                 }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
@@ -50,7 +52,6 @@ export class LookTestPage {
                 if (Date.now() > this.commonSer.transFormTime(this.exam.ExamInfo.ExamEnd)) {
                     this.isTestEnd = true;
                 }
-                loading.dismiss();
                 this.storage.get('opTips').then(value => {
                     this.opTips = value ? 'false' : 'true';
                 })

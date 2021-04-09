@@ -49,7 +49,6 @@ import {GetRequestService} from "../../secret/getRequest.service";
 import {RoleModalPage} from "./role-modal/role-modal";
 import {StudyTaskPage} from "./study-task/study-task";
 import {ShareWxComponent} from "../../components/share-wx/share-wx";
-import {ThemeActivityPage} from "./theme-activity/theme-activity";
 import {ThemeActivityComponent} from "../../components/theme-activity/theme-activity";
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
@@ -378,7 +377,7 @@ export class HomePage implements OnInit {
                 return;
             }
             if (e.HttpURL.includes('#/notice/detail/')) {   //资讯
-                this.navCtrl.push(Componentsdetails, {data: {Id: ID}});
+                this.navCtrl.push(Componentsdetails, {dataId: ID});
                 return;
             }
             if (e.HttpURL.includes('#/notice/xsgjdetail/')) {  //狼灭榜
@@ -421,7 +420,7 @@ export class HomePage implements OnInit {
                 this.navCtrl.push(InnerCoursePage, {id: ID});
             }
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: ID, StructureType: theRequest.StructureType});
+            this.navCtrl.push(CourseDetailPage, {id: ID, StructureType: theRequest.StructureType || 2});
         }
     }
 

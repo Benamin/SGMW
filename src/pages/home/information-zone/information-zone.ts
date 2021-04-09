@@ -41,14 +41,32 @@ export class InformationZonePage {
 			this.GetAskType();
       this.getList();
     }
-				// 获取问题类型		GetAskType() {			let loading = this.loadCtrl.create({					content: ''			});					loading.present();			const data = {					code: 'MaterialFileType' // 问题类型 传QuestionType  资料分类传 MaterialFileType 			};			this.homeSer.GetAskType(data).subscribe(					(res) => { 
+
+		// 获取问题类型
+		GetAskType() {
+			let loading = this.loadCtrl.create({
+					content: ''
+			});
+
+			loading.present();
+			const data = {
+					code: 'MaterialFileType' // 问题类型 传QuestionType  资料分类传 MaterialFileType
+			};
+			this.homeSer.GetAskType(data).subscribe(
+					(res) => {
 						let allType =  { label: '全部类型', value: null };
 						let typeArr = [allType];
 						if (res.data && res.data.length>0) {
 							for (let i=0; i<res.data.length; i++) {
 								typeArr.push(res.data[i])
 							}
-						}						this.page.typeArr = typeArr;						this.page.FileType = this.page.typeArr[0];						loading.dismiss();					}			)		}
+						}
+						this.page.typeArr = typeArr;
+						this.page.FileType = this.page.typeArr[0];
+						loading.dismiss();
+					}
+			)
+		}
 
     showKey() { this.keyboard.show(); }
     //按键
@@ -155,7 +173,7 @@ export class InformationZonePage {
 		//下载文件
     downLoad(fileUrl, fileName, e) {
         e.stopPropagation();
-        this.fileSer.downloadFile(fileUrl, fileName);
+        this.fileSer.downloadFile(fileUrl, fileName,true);
     }
 
 		// 切换角色
