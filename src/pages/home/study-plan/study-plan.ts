@@ -116,7 +116,8 @@ export class StudyPlanPage {
         if (!item.canClick) return;
         let y;
         let m;
-
+        this.switchActived( rowIndex, colIndex);
+        if (!item.course && !item.exam) this.todayCourse = [];
         if (item.course === true || item.exam === true) { // 有课程/考试的获取列表
             y = this.year;
             m = this.month;
@@ -125,7 +126,6 @@ export class StudyPlanPage {
             else d = '0' + item.day;
             let date = new Date(`${y}/${m}/${d}`);
             this.getTodayCourse(date);
-            this.switchActived( rowIndex, colIndex);
         }
     }
 
