@@ -136,7 +136,7 @@ export class ForumService {
 
     // 回复评论
     replycomment_add(data) {
-        return this.http.post(SERVER_API_URL + '/forum/replycomment/add', data);
+        return this.http.post(SERVER_API_URL + '/forum/replycomment/addCommen', data);
     }
 
     // 删除帖子
