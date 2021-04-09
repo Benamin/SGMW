@@ -143,7 +143,7 @@ export class NumberOne {
 
     goComponentsdetails(data) {
         data['GetNewsList'] = 'xsal';
-        this.navCtrl.push(Componentsdetails, {data: data, navli: '销售案例'});
+        this.navCtrl.push(Componentsdetails, {dataId: data.Id, navli: '销售案例'});
     }
 
     // 请求数据
