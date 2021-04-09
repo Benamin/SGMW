@@ -91,7 +91,7 @@ export class PostsContentComponent implements OnInit {
         this.storage.set('sgmwType', null);
         this.lidata = this.navParams.get('data');
         let nowDate = Date.now();
-        if (new Date('2020-11-02 00:00').getTime() < nowDate && nowDate < new Date('2020-11-04 23:59').getTime()) {
+        if (new Date('2020-11-02 00:00').getTime() < nowDate && nowDate < new Date('2022-11-04 23:59').getTime()) {
             this.isShow = true;
         } else {
             this.isShow = false;

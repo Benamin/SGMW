@@ -502,7 +502,7 @@ page-course-detail {
   .more-icon {
     margin-top: 2px;
     color: rgba(0, 0, 0, .3);
-    margin-left: auto;
+    margin-left: 2rem;
   }
 
   .video-js {
@@ -627,6 +627,7 @@ page-course-detail {
       text-overflow: ellipsis;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
+      transition: all 300ms;
     }
   }
 

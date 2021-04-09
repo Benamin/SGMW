@@ -30,7 +30,7 @@ import {ExamTipPage} from "../exam-tip/exam-tip";
 import {ErrorExamPage} from "../../mine/error-exam/error-exam";
 import {Storage} from "@ionic/storage";
 import {HomeService} from "../../home/home.service";
-import { CommentStarComponent } from '../../../components/comment-star/comment-star';
+import {CommentStarComponent} from '../../../components/comment-star/comment-star';
 
 declare let Swiper: any;
 
@@ -66,18 +66,11 @@ export class CourseDetailPage {
     };
 
     relationList = [];
-    oldNavbarList = [
-        {type: 1, name: '简介', code: 'desc'},
-        {type: 2, name: '章节', code: 'chapter'},
-        {type: 3, name: '讨论', code: 'talk'},
-        {type: 4, name: '相关', code: 'relation'},
-    ];
-    newNavbarList = [
+    NavbarList = [
         {type: 1, name: '章节', code: 'chapter'},
         {type: 2, name: '讨论', code: 'talk'},
         {type: 3, name: '相关', code: 'relation'},
     ];
-    navbarList;
 
     showFooter = false;
 
@@ -151,16 +144,9 @@ export class CourseDetailPage {
         this.TaskId = this.navParams.get('TaskId');
         this.StructureType = this.navParams.get('StructureType') || 1;
         this.enterResource = this.navParams.get('enterResource') || "";
-        if (this.StructureType == 1) {
-            this.navbarList = this.oldNavbarList;
-            if (this.enterResource == "studyTask") {  //学习任务进入
-                this.navbarList.push({type: 6, name: '我的同学', code: 'classmate'},);
-            }
-        } else {
-            this.navbarList = this.newNavbarList;
-            if (this.enterResource == "studyTask") {  //学习任务进入
-                this.navbarList.push({type: 5, name: '我的同学', code: 'classmate'},);
-            }
+
+        if (this.enterResource == "studyTask") {  //学习任务进入
+            this.NavbarList.push({type: 4, name: '我的同学', code: 'classmate'},);
         }
 
 

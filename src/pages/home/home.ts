@@ -421,7 +421,7 @@ export class HomePage implements OnInit {
                 this.navCtrl.push(InnerCoursePage, {id: ID});
             }
         } else {
-            this.navCtrl.push(CourseDetailPage, {id: ID, StructureType: theRequest.StructureType});
+            this.navCtrl.push(CourseDetailPage, {id: ID, StructureType: theRequest.StructureType || 2});
         }
     }
 
