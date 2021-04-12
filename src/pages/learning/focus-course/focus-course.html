@@ -101,8 +101,7 @@
             <ion-slide>
                 <div class="item" style="min-height: 350px">
                     <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论
-<!--                        <span *ngIf="comment.talk.length > 0" tappable (click)="goCourseDiscuss()" float-end-->
-<!--                              class="look">更多</span>-->
+                        <span style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{talkObj?.TotalCount || 0}})</span>
                         <span tappable (click)="goCourseDiscuss()"
                               class="focus focus-blue">去讨论</span>
                     </p>
@@ -120,8 +119,7 @@
             <ion-slide>
                 <div class="item" style="min-height: 350px">
                     <p>{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}评价
-<!--                        <span *ngIf="comment.course.length > 0" tappable class="look" float-end-->
-<!--                              (click)="goCourseComment()">更多</span>-->
+                        <span style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{commentObj?.TotalCount || 0}})</span>
                         <span tappable class="focus-blue focus"
                               (click)="goCourseComment()">去评价</span>
                     </p>

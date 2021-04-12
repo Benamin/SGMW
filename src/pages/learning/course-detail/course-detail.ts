@@ -730,32 +730,6 @@ export class CourseDetailPage {
         }
     }
 
-    //扔鸡蛋or取消扔鸡蛋
-    handleHate() {
-        //已经点赞但是未扔鸡蛋
-        if (this.product.detail.IsPraise && !this.product.detail.IsHate) {
-            this.commonSer.toast('您已经点赞了哦～');
-            return
-        }
-        this.showLoading();
-        const data = {
-            TopicID: this.product.detail.PrId
-        }
-        if (this.product.detail.IsHate) {  //取消扔鸡蛋
-            this.learnSer.CancelHate(data).subscribe(
-                (res) => {
-                    this.getCourseDetail();
-                }
-            )
-        } else {   //扔鸡蛋
-            this.learnSer.SaveHate(data).subscribe(
-                (res) => {
-                    this.getCourseDetail();
-                }
-            )
-        }
-    }
-
     //收藏or取消收藏
     handleCollection() {
         this.showLoading();

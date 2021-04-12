@@ -1,4 +1,4 @@
-<p>评价
+<p>评价 <span style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{item?.PeopleNum || 0}})</span>
     <span *ngIf="isLoad && noData" (click)="openComment()" class="commentBtn1">去评价</span>
 </p>
 <!-- 课程评价的星星 -->
@@ -28,7 +28,7 @@
         </ng-container>
           </span>
       </p>
-      <p (click)="openComment()" class="commentBtn">去评价</p>
+      <p *ngIf="!IsComment" (click)="openComment()" class="commentBtn">去评价</p>
   </div>
   <div class="right">
       <p>

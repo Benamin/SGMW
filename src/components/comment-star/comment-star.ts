@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {LearnService} from '../../pages/learning/learn.service';
 import {CommentByCourseComponent} from "../comment-by-course/comment-by-course";
 import {ModalController} from "ionic-angular";
@@ -9,6 +9,7 @@ import {ModalController} from "ionic-angular";
 })
 export class CommentStarComponent {
     starList = new Array(5);
+    @Input() IsComment;
     @Output() flashData = new EventEmitter<any>();
     item = <any>{};
     PrId;
