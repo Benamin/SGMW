@@ -134,13 +134,8 @@ export class ChapterPage {
             return
         }
 
-        //对于附件 新结构不加学习进度  老结构加课件进度
-        // StructureType=课程结构  1老结构 2新结构 对于附件 新结构不加学习进度  老结构加课件进度
-        // IsAttachment 课件是=true 附件=false
-
-        //1、老结构即 StructureType=1的情况下 无论是课件还是附件均加课程进度
-        //2、文件是课件的即 IsAttachment=true 加课程进度
-        if (!file.icon.includes('mp4') && (this.StructureType === 1 || file.IsAttachment)) {
+        //对于附件 不加学习进度
+        if (!file.icon.includes('mp4') && !file.IsAttachment) {
             this.saveProcess(file);  //非视频文件保存进度
         }
 

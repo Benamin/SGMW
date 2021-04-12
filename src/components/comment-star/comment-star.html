@@ -29,6 +29,7 @@
           </span>
       </p>
       <p *ngIf="!IsComment" (click)="openComment()" class="commentBtn">去评价</p>
+      <p *ngIf="IsComment" class="commentBtn-gray">已评价</p>
   </div>
   <div class="right">
       <p>
