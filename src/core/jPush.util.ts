@@ -38,6 +38,7 @@ export class JpushUtil {
             // this.commonSer.alert("jpush.openNotification: " + JSON.stringify(event));
             //2=系统通知  3=培训通知  4=考试通知  5=课程通知(课程ID=csid) 6=主题活动(主题活动ID=taid) 22=论坛回复通知(帖子ID=PostId)
             //30=帖子点赞通知(帖子ID=postID)  31=课程讨论点赞通知(讨论ID=TalkId, 课程ID=TopicID)  32=课程讨论回复通知(回贴ID=PostReplyId,课程ID=postid)
+            //33=帖子回复通知(帖子ID=PostId)
             const sgmwType = event.extras.sgmwType;
             const data = {
                 sgmwType: event.extras.sgmwType,
@@ -57,6 +58,18 @@ export class JpushUtil {
                     data.Id = event.extras.taid || '';
                     break;
                 case 22:  //论坛帖子详情
+                    data.Id = event.extras.PostId || '';
+                    break;
+                case 30:  //帖子点赞通知
+                    data.Id = event.extras.postID || '';
+                    break;
+                case 31:  //讨论点赞通知
+                    data.Id = event.extras.TopicID || '';
+                    break;
+                case 32:  //讨论回复通知
+                    data.Id = event.extras.postid || '';
+                    break;
+                case 33:  //帖子回复通知
                     data.Id = event.extras.PostId || '';
                     break;
             }

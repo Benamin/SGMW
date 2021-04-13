@@ -177,6 +177,18 @@ export class TabsPage {
                 case 22:
                     this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
                     break;
+                case 30:
+                    this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
+                    break;
+                case 31:
+                    this.nav.push(CourseDetailPage, {id: type.Id, StructureType: 2});
+                    break;
+                case 32:
+                    this.nav.push(CourseDetailPage, {id: type.Id, StructureType: 2});
+                    break;
+                case 33:
+                    this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
+                    break;
             }
         })
     }

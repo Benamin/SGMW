@@ -112,10 +112,10 @@
                 <div class="swiper-slide swiper-no-swiping">
                     <!--      讨论      -->
                     <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
-                        <comment-star (flashData)="GetCommentData()" #commentStar></comment-star>
+                        <comment-star (flashData)="GetCommentData();getCourseDetail()" [IsComment]="product.detail?.IsComment" #commentStar></comment-star>
                         <p style="margin-top: 1rem"
                            class="first-child">{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论 <span
-                                style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{talkObj?.TotalCount}})</span></p>
+                                style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{talkObj?.TotalCount || 0}})</span></p>
                         <page-comment-list
                                 [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
                         <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
@@ -154,12 +154,7 @@
         </div>
     </div>
 
-    <div *ngIf="StructureType == 1 && bar.type == 3" (click)="openTalk()" class="comment-fixed" ion-fixed>
-        <div>
-            去讨论
-        </div>
-    </div>
-    <div *ngIf="StructureType == 2 && bar.type == 2" (click)="openTalk()" class="comment-fixed" ion-fixed>
+    <div *ngIf="bar.type == 2" (click)="openTalk()" class="comment-fixed" ion-fixed>
         <div>
             去讨论
         </div>

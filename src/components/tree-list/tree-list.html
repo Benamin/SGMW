@@ -15,12 +15,18 @@
     ></tree-list>
     <!--    课件     -->
     <div *ngFor="let itemFile of itemNode.files">
-        <p  [ngStyle]="{'padding-left':(itemFile.NodeLevel*5)+'px'}" tappable (click)="handle(itemNode,itemFile,$event)">
+        <p [ngStyle]="{'padding-left':(itemFile.NodeLevel*5)+'px'}" tappable (click)="handle(itemNode,itemFile,$event)">
             <img *ngIf="itemFile.icon != 'mp4'" src="./assets/imgs/learn/file.png">
             <img *ngIf="itemFile.icon == 'mp4'" src="./assets/imgs/learn/mp4.png">
             <span class="itemNode">{{itemFile.DisplayName}}</span>
             <span class="tree-file-icon">{{itemFile.icon}}</span>
-            <img class="tree-done" *ngIf="itemFile.IsPass && itemFile.IsStudy" src="./assets/imgs/home/xxjh_wc@2x.png">
+            <ng-container *ngIf="itemFile.IsAttachment">
+                <span class="done">附件</span>
+            </ng-container>
+            <ng-container *ngIf="!itemFile.IsAttachment">
+                <img class="tree-done" *ngIf="itemFile.IsPass && itemFile.IsStudy"
+                     src="./assets/imgs/home/xxjh_wc@2x.png">
+            </ng-container>
             <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                  tappable (click)="downLoad(itemFile,$event)"
                  class="tree-download-file" src="./assets/imgs/course/xiazai.png">

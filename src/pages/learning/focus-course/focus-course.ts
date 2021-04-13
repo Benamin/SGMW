@@ -70,6 +70,15 @@ export class FocusCoursePage {
         teacher: [],
         talk: [],
     };
+    talkObj = {  //讨论 分页
+        Page: 0,
+        TotalCount: 0
+    }
+
+    commentObj = {  //讨论 分页
+        Page: 0,
+        TotalCount: 0
+    }
 
     files = [];
 
@@ -371,6 +380,7 @@ export class FocusCoursePage {
             (res) => {
                 if (res.data) {
                     this.comment.course = res.data.CommentItems;
+                    this.commentObj.TotalCount = res.data.TotalCount;
                 }
             }
         );
@@ -385,6 +395,7 @@ export class FocusCoursePage {
             (res) => {
                 if (res.data) {
                     this.comment.talk = res.data.CommentItems;
+                    this.talkObj.TotalCount = res.data.TotalCount;
                 }
             }
         );
