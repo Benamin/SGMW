@@ -160,33 +160,33 @@ export class TabsPage {
             if (!this.global.JpushType) return;
             this.global.JpushType = null;
             switch (type.sgmwType) {
-                case 2:  //系统通知
+                case "2":  //系统通知
                     break;
-                case 3:  //培训通知
+                case "3":  //培训通知
                     this.nav.push(StudyPlanPage)
                     break;
-                case 4:  //考试通知
+                case "4":  //考试通知
                     this.nav.push(TestCenterPage)
                     break;
-                case 5:  //课程通知
+                case "5":  //课程通知
                     this.nav.push(CourseDetailPage, {id: type.Id, StructureType: "1"});
                     break;
-                case 6:  //主题活动
+                case "6":  //主题活动
                     this.nav.push(ThemeActivityPage, {Id: type.Id});
                     break;
-                case 22:
+                case "22":
                     this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
                     break;
-                case 30:
+                case "30":
                     this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
                     break;
-                case 31:
+                case "31":
                     this.nav.push(CourseDetailPage, {id: type.Id, StructureType: 2});
                     break;
-                case 32:
+                case "32":
                     this.nav.push(CourseDetailPage, {id: type.Id, StructureType: 2});
                     break;
-                case 33:
+                case "33":
                     this.nav.push(PostsContentComponent, {data: {Id: type.Id, TopicPlateId: "", Name: ""}});
                     break;
             }

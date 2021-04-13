@@ -21,7 +21,7 @@
             <span class="itemNode">{{itemFile.DisplayName}}</span>
             <span class="tree-file-icon">{{itemFile.icon}}</span>
             <ng-container *ngIf="itemFile.IsAttachment">
-                <span class="done">附件</span>
+                <span class="attachment-done">附件</span>
             </ng-container>
             <ng-container *ngIf="!itemFile.IsAttachment">
                 <img class="tree-done" *ngIf="itemFile.IsPass && itemFile.IsStudy"

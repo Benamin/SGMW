@@ -318,7 +318,6 @@ export class CourseDetailPage {
             "time": Date.now()
         }
         this.storage.get("courseData").then((value: any) => {
-            console.log(value);
             if (value && value.length > 0) {
                 const index = value.findIndex(e => e.Id === this.global.pId);
                 if (index > -1) {  //已存在当前课程
@@ -696,6 +695,8 @@ export class CourseDetailPage {
 
                 if (type == "video" || type == "Document") {
                     this.getChapter(type);   //查询课程目录
+                } else {
+                    this.saveCourseInfo(res.data, this.product.chapter);
                 }
 
 
@@ -846,10 +847,17 @@ export class CourseDetailPage {
 
     //tab切换
     changeType(item) {
+        console.log(item);
         if (this.isLoad) {
             this.bar.type = item.type;
             this.bar.code = item.code;
-            this.mySwiper.slideTo(item.type - 1, 100);
+            //多课程层级时，多个swiper
+            if (this.mySwiper.length > 0) {
+                const index = this.mySwiper.length - 1;
+                this.mySwiper[index].slideTo(item.type - 1, 100);
+            } else {
+                this.mySwiper.slideTo(item.type - 1, 100);
+            }
         } else {
             this.commonSer.toast('数据加载中...')
         }
