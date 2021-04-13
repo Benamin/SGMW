@@ -218,13 +218,13 @@ export class LoginPage {
                 } else {
                     this.dismissLoading();
                     this.storage.clear();
-                    this.commonSer.alert(res.error);
+                    this.commonSer.alert(res.error || JSON.stringify(res));
                 }
             },
             (error1) => {
                 this.dismissLoading();
                 const error = error1.error.error;
-                this.commonSer.alert(error);
+                this.commonSer.alert(error || JSON.stringify(error1.error));
             }
         )
     }
@@ -264,7 +264,7 @@ export class LoginPage {
             (error1) => {
                 this.dismissLoading();
                 const error = error1.error.error;
-                this.commonSer.alert(error);
+                this.commonSer.alert(error || JSON.stringify(error1.error));
             }
         )
     }
@@ -304,13 +304,13 @@ export class LoginPage {
                     } else {
                         this.dismissLoading();
                         this.storage.clear();
-                        this.commonSer.alert(res.error);
+                        this.commonSer.alert(res.error || JSON.stringify(res));
                     }
                 }
             ).catch(error => {
                 this.dismissLoading();
                 const errorMsg = JSON.parse(error.error);
-                this.commonSer.alert(errorMsg.error);
+                this.commonSer.alert(errorMsg.error || JSON.stringify(error.error));
             })
         } else {
             this.loginSer.sgmwLogin(this.jxs.xszs, header).subscribe(
@@ -320,12 +320,12 @@ export class LoginPage {
                     } else {
                         this.dismissLoading();
                         this.storage.clear();
-                        this.commonSer.alert(res.error);
+                        this.commonSer.alert(res.error || JSON.stringify(res));
                     }
                 }, error1 => {
                     this.dismissLoading();
                     const error = error1.error.error;
-                    this.commonSer.alert(error);
+                    this.commonSer.alert(error || JSON.stringify(error1.error));
                 }
             )
         }
@@ -351,13 +351,13 @@ export class LoginPage {
                 } else {
                     this.dismissLoading();
                     this.storage.clear();
-                    this.commonSer.alert(res.error);
+                    this.commonSer.alert(res.error || JSON.stringify(res));
                 }
             },
             (error1) => {
                 this.dismissLoading();
                 const error = error1.error.error;
-                this.commonSer.alert(error);
+                this.commonSer.alert(error || JSON.stringify(error1.error));
             }
         )
     }
@@ -399,12 +399,12 @@ export class LoginPage {
                     } else {
                         this.dismissLoading();
                         this.storage.clear();
-                        this.commonSer.alert(res.msg);
+                        this.commonSer.alert(res.msg || JSON.stringify(res));
                     }
                 },
                 (error) => {
                     this.dismissLoading();
-                    this.commonSer.alert(`${error.error.error_description}`);
+                    this.commonSer.alert(error.error.error_description || JSON.stringify(error.error));
                 }
             ).catch(error => {
                 console.log(error);
@@ -420,11 +420,11 @@ export class LoginPage {
                     } else {
                         this.dismissLoading();
                         this.storage.clear();
-                        this.commonSer.alert(res.msg);
+                        this.commonSer.alert(res.msg || JSON.stringify(res));
                     }
                 }, error => {
                     this.dismissLoading();
-                    this.commonSer.alert(error.error.errorMsg);
+                    this.commonSer.alert(error.error.errorMsg || JSON.stringify(error.error));
                 }
             )
         }
@@ -449,12 +449,12 @@ export class LoginPage {
                 } else {
                     this.dismissLoading();
                     this.storage.clear();
-                    this.commonSer.alert(res.error);
+                    this.commonSer.alert(res.error || JSON.stringify(res));
                 }
             }, error1 => {
                 this.dismissLoading();
                 const error = error1.error.error;
-                this.commonSer.alert(error);
+                this.commonSer.alert(error || JSON.stringify(error1.error));
             }
         )
     }
@@ -512,13 +512,17 @@ export class LoginPage {
                     } else {
                         this.dismissLoading();
                         this.storage.clear();
-                        this.commonSer.alert(res.message);
+                        this.commonSer.alert(res.message || JSON.stringify(res));
                     }
                 }
             ).catch(error => {
                 this.dismissLoading();
-                const message = error.error;
-                this.commonSer.alert(JSON.stringify(message.error));
+                const message = error.error.error;
+                if (message) {
+                    this.commonSer.alert(JSON.stringify(message));
+                } else {
+                    this.commonSer.alert(JSON.stringify(error.error))
+                }
             })
         } else {
             this.loginSer.fwzsLogin(content, header).subscribe(
@@ -528,12 +532,12 @@ export class LoginPage {
                     } else {
                         this.dismissLoading();
                         this.storage.clear();
-                        this.commonSer.alert(res.message);
+                        this.commonSer.alert(res.message || JSON.stringify(res));
                     }
                 }, error1 => {
                     this.dismissLoading();
                     const error = error1.error.error;
-                    this.commonSer.alert(error);
+                    this.commonSer.alert(error || JSON.stringify(error1.error));
                 }
             )
         }
@@ -558,13 +562,13 @@ export class LoginPage {
                 } else {
                     this.dismissLoading();
                     this.storage.clear();
-                    this.commonSer.alert(res.error);
+                    this.commonSer.alert(res.error || JSON.stringify(res));
                 }
             },
             (error1) => {
                 this.dismissLoading();
                 const error = error1.error.error;
-                this.commonSer.alert(error);
+                this.commonSer.alert(error || JSON.stringify(error1.error));
             }
         )
     }
@@ -602,7 +606,7 @@ export class LoginPage {
                 this.dismissLoading();
                 this.disableBtn = true;
                 const message = JSON.parse(error.error);
-                this.commonSer.alert(message.error_description);
+                this.commonSer.alert(message.error_description || JSON.stringify(error.error));
             })
         } else {
             this.loginSer.LLZSGeTCode(this.llzsPhone.phone, header).subscribe(
@@ -666,7 +670,7 @@ export class LoginPage {
             ).catch(error => {
                 this.dismissLoading();
                 const message = JSON.parse(error.error);
-                this.commonSer.alert(`账号密码错误: ${message.error_description}`);
+                this.commonSer.alert(message.error_description || JSON.stringify(error.error));
             })
         } else {
             this.loginSer.LLZSLoginByPhone(data).subscribe(
@@ -679,7 +683,7 @@ export class LoginPage {
                     }
                 }, (error) => {
                     this.dismissLoading();
-                    this.commonSer.alert(`错误: ${error.error.error_description}`);
+                    this.commonSer.alert(error.error.error_description || JSON.stringify(error.error));
                 }
             )
         }
@@ -729,7 +733,7 @@ export class LoginPage {
                 }, (error) => {
                     this.dismissLoading();
                     const message = JSON.parse(error.error);
-                    this.commonSer.alert(`${message.error_description}`);
+                    this.commonSer.alert(message.error_description || JSON.stringify(error.error));
                 }
             ).catch(error => {
                 this.dismissLoading();
@@ -748,7 +752,7 @@ export class LoginPage {
                 },
                 (error) => {
                     this.dismissLoading();
-                    this.commonSer.alert(`${error.error.error_description}`);
+                    this.commonSer.alert(error.error.error_description || JSON.stringify(error.error));
                 }
             )
         }
@@ -773,7 +777,7 @@ export class LoginPage {
             ).catch(error => {
                 this.dismissLoading();
                 const message = JSON.parse(error.error);
-                this.commonSer.alert(message.error_description);
+                this.commonSer.alert(message.error_description || JSON.stringify(error.error));
             })
         } else {
             this.loginSer.LLZSGetUnionId(header).subscribe(
@@ -787,7 +791,7 @@ export class LoginPage {
                 }
             ), error => {
                 this.dismissLoading();
-                this.commonSer.alert(`${error.error_description}`);
+                this.commonSer.alert(error.error_description || JSON.stringify(error));
             }
         }
     }
@@ -834,13 +838,13 @@ export class LoginPage {
                     this.connectTokenByNXSZS(data);
                 } else {
                     this.dismissLoading();
-                    this.commonSer.alert(res.message);
+                    this.commonSer.alert(res.message || JSON.stringify(res));
                 }
             }
         ), error1 => {
             this.dismissLoading();
             const error = error1.error.error;
-            this.commonSer.alert(error);
+            this.commonSer.alert(error || JSON.stringify(error1.error));
         }
     }
 
@@ -868,12 +872,12 @@ export class LoginPage {
                 } else {
                     this.dismissLoading();
                     this.storage.clear();
-                    this.commonSer.alert(res.error);
+                    this.commonSer.alert(res.error || JSON.stringify(res));
                 }
             }, error1 => {
                 this.dismissLoading();
                 const error = error1.error.error;
-                this.commonSer.alert(error);
+                this.commonSer.alert(error || JSON.stringify(error1.error));
             }
         )
     }
@@ -906,7 +910,7 @@ export class LoginPage {
                 } else {
                     this.dismissLoading();
                     this.storage.clear();
-                    this.commonSer.alert(res.message);
+                    this.commonSer.alert(res.message || JSON.stringify(res));
                 }
             }
         )
@@ -934,7 +938,7 @@ export class LoginPage {
         this.loginSer.UpdateUserRegID(data).subscribe(
             (res) => {
                 if (!res.data) {
-                    this.commonSer.toast(res.message);
+                    this.commonSer.toast(res.message || JSON.stringify(res));
                 }
             }
         )
