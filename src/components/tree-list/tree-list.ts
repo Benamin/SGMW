@@ -91,8 +91,8 @@ export class TreeListComponent {
             return
         }
 
-        //对于附件 不增加学习进度 IsAttachment 课件是=true 附件=false
-        if (!file.icon.includes('mp4') && file.IsAttachment) {
+        //对于附件 不增加学习进度 IsAttachment 课件是=false 附件=true
+        if (!file.IsAttachment && !file.icon.includes('mp4')) {
             this.saveProcess(file);  //非视频文件保存进度
         }
 

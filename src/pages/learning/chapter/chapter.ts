@@ -135,7 +135,7 @@ export class ChapterPage {
         }
 
         //对于附件 不加学习进度
-        if (!file.icon.includes('mp4') && file.IsAttachment) {
+        if (!file.icon.includes('mp4') && !file.IsAttachment) {
             this.saveProcess(file);  //非视频文件保存进度
         }
 

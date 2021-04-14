@@ -37,7 +37,7 @@
                         <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                              tappable (click)="downLoad(itemFile,$event)"
                              class="download-file" src="./assets/imgs/course/xiazai.png">
-                        <ng-container *ngIf="itemFile.IsAttachment">
+                        <ng-container *ngIf="!itemFile.IsAttachment">
                             <span class="done">
                                 <img *ngIf="itemFile.IsPass && itemFile.IsStudy;else other_img"
                                      src="./assets/imgs/course/yiwancheng.png">
@@ -46,7 +46,7 @@
                                 </ng-template>
                             </span>
                         </ng-container>
-                        <ng-container *ngIf="!itemFile.IsAttachment">
+                        <ng-container *ngIf="itemFile.IsAttachment">
                             <span class="done">附件</span>
                         </ng-container>
 
