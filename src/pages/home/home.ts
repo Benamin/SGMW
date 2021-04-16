@@ -114,7 +114,7 @@ export class HomePage implements OnInit {
         this.events.subscribe('RoleID', () => {
             this.storage.get('RoleID').then(value => {
                 this.getBanner(value);
-                this.getProductList(value);
+                this.getProductList();
             })
         })
     }
@@ -151,7 +151,7 @@ export class HomePage implements OnInit {
         //根据角色查询banner和产品列表
         this.storage.get('RoleID').then(value => {
             this.getBanner(value);
-            this.getProductList(value);
+            this.getProductList();
         })
 
         this.storage.get('CourseId').then(value => {
@@ -245,17 +245,8 @@ export class HomePage implements OnInit {
         )
     }
 
-    //获取产品分类 nlts
-    getProductList(RoleID) {
-        const data = {
-            "page": 1,
-            "pageSize": 10,
-            "OrderBy": "CreateTime",
-            "IsAsc": "DESC",
-            "IsHot": true,
-            "SortDir": "DESC",
-            "RoleID": RoleID
-        };
+    //获取热门课程
+    getProductList() {
         this.homeSer.GetHotProductList().subscribe(
             (res) => {
                 this.productList = res.data;
