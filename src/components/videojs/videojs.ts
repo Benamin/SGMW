@@ -43,20 +43,32 @@ export class VideojsComponent implements OnDestroy {
 
         timer(100).subscribe(() => {
             this.myPlayer = amp(this.videoEle, {
-                muted: false,
-                controls: true,
-                autoplay: true,
+                "muted": false,
+                "controls": true,
+                "autoplay": true,
                 "language": "zh-hans",
+                "enableFullscreen":true,
                 "playbackSpeed": {
                     "enabled": true,
-                    initialSpeed: 1.0,
-                    speedLevels: [
+                    "initialSpeed": 1.0,
+                    "speedLevels": [
                         {name: "x2.0", value: 2},
                         {name: "x1.75", value: 1.75},
                         {name: "x1.5", value: 1.5},
                         {name: "x1.25", value: 1.25},
                         {name: "x0.5", value: 0.5},
                     ]
+                },
+                "plugins": {
+                    "hotkeys": {
+                        //optional settings
+                        "volumeStep": 0.1,
+                        "seekStep": 5,
+                        "enableMute": true,
+                        "enableFullscreen": true,
+                        "enableNumbers": true,
+                        "enableJogStyle": false
+                    }
                 }
             }, (event) => {
                 this.myPlayer.addEventListener('fullscreenchange', () => {
@@ -90,6 +102,17 @@ export class VideojsComponent implements OnDestroy {
                 //获取视频总时长
                 this.myPlayer.addEventListener("loadeddata", () => {
                     this.videoDuration = this.myPlayer.duration();
+                    const fsBtn = document.querySelector(".vjs-fullscreen-control");
+                    const controlbaricons = document.querySelector(".amp-controlbaricons-right");
+                    const span = document.createElement("span");
+                    span.innerHTML = "全屏";
+                    span.className = "my-fullscreen";
+                    controlbaricons.appendChild(span);
+                    console.log(fsBtn);
+                    const myFsBtn = document.querySelector(".my-fullscreen");
+                    myFsBtn.addEventListener("click",(event)=>{
+                        console.log("myFsBtn click")
+                    })
                 })
                 //视频暂停时
                 // this.myPlayer.addEventListener("touchstart", () => {
