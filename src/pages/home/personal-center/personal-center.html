@@ -65,7 +65,9 @@
 					<img *ngIf="item.Images && item.Images.length == 1" src="{{ item.Images[0].Src }}" alt="封面图">
 				</div>
 				<div class="pics multiple" *ngIf="item.Images && item.Images.length > 1">
-					<img *ngFor="let picItem of item.Images" src="{{ picItem.Src }}" alt="封面图">
+					<span *ngFor="let picItem of item.Images;let picIndex = index">
+						<img *ngIf="picIndex < 3" src="{{ picItem.Src }}" alt="封面图">
+					</span>
 				</div>
 				<div class="tags-box">
 					<span *ngFor="let tItem of item.TopicTagPlateItem">#{{ tItem.TopicName }}#</span>
@@ -96,34 +98,35 @@
 					<img class="avatar" src="{{ item.headPhoto || userDefaultImg }}" alt="头像"/>
 					<div class="info-box">
 						<div class="name">
-							{{ item.userName }} <span class="tag">{{ item.couserName }}</span>
+							<span class="user">{{ item.userName }}</span>
+							<!--<span class="tag">{{ item.couserName }}</span>-->
 						</div>
 						<div class="timer">{{ item.createtime | date:'yyyy-MM-dd HH:mm' }}</div>
 					</div>
 					<div class="starts-box">
-						<!--<img *ngFor="let startItem of range(item.score)" class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>-->
+						<img *ngFor="let startItem of range(item.score)" class="start-icon" src="./assets/imgs/mine/star@2x.png" alt="评价星星"/>
 
-						<span class="img-star">
-          <ng-container *ngFor="let startItem of range(item.score);let i = index">
-            <img *ngIf="startItem > i +1 || startItem == i +1"
-								 src="./assets/imgs/learn/stars_5.png">
-            <ng-container
-								*ngIf="((startItem+'').split('.')[0] == i +1 && startItem != i +1) ||
-                    ((startItem+'').includes('0.') && i == 0)">
-                 <img *ngIf="(startItem+'').includes('.1') || (startItem+'').includes('.2')"
-											src="./assets/imgs/learn/stars_1.png">
-                <img *ngIf="(startItem+'').includes('.3') || (startItem+'').includes('.4')"
-										 src="./assets/imgs/learn/stars_2.png">
-                <img *ngIf="(startItem+'').includes('.5') || (startItem+'').includes('.6')"
-										 src="./assets/imgs/learn/stars_3.png">
-                <img *ngIf="(startItem+'').includes('.7') || (startItem+'').includes('.8')"
-										 src="./assets/imgs/learn/stars_4.png">
-            </ng-container>
-            <ng-container *ngIf="startItem < i || startItem == i">
-                <img src="./assets/imgs/learn/stars_outline.jpg">
-            </ng-container>
-        </ng-container>
-          </span>
+							<!--<span class="img-star">-->
+								<!--<ng-container *ngFor="let startItem of range(item.score);let i = index">-->
+									<!--<img *ngIf="startItem > i +1 || startItem == i +1"-->
+											 <!--src="./assets/imgs/learn/stars_5.png">-->
+									<!--<ng-container-->
+											<!--*ngIf="((startItem+'').split('.')[0] == i +1 && startItem != i +1) ||-->
+													<!--((startItem+'').includes('0.') && i == 0)">-->
+											 <!--<img *ngIf="(startItem+'').includes('.1') || (startItem+'').includes('.2')"-->
+														<!--src="./assets/imgs/learn/stars_1.png">-->
+											<!--<img *ngIf="(startItem+'').includes('.3') || (startItem+'').includes('.4')"-->
+													 <!--src="./assets/imgs/learn/stars_2.png">-->
+											<!--<img *ngIf="(startItem+'').includes('.5') || (startItem+'').includes('.6')"-->
+													 <!--src="./assets/imgs/learn/stars_3.png">-->
+											<!--<img *ngIf="(startItem+'').includes('.7') || (startItem+'').includes('.8')"-->
+													 <!--src="./assets/imgs/learn/stars_4.png">-->
+									<!--</ng-container>-->
+									<!--<ng-container *ngIf="startItem < i || startItem == i">-->
+											<!--<img src="./assets/imgs/learn/stars_outline.jpg">-->
+									<!--</ng-container>-->
+							<!--</ng-container>-->
+						<!--</span>-->
 					</div>
 				</div>
 				<div class="comment-desc">{{ item.replyContent }}</div>
