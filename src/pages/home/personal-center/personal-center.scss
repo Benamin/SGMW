@@ -236,19 +236,24 @@ page-personal-center {
 				&.multiple {
 					display: flex;
 					align-items: center;
-					justify-content: space-between;
+					//justify-content: space-between;
 					img {
-						width: 110px;
-						height: auto;
+						width: 11rem;
+						height: 8rem;
+						object-fit: cover;
+					}
+					span:nth-child(2) {
+						margin: 0 0.8rem;
 					}
 				}
 			}
 			.tags-box {
-				margin-top: 1rem;
 				margin-bottom: 2.2rem;
-				display: flex;
+				display: inline-flex;
+				flex-wrap: wrap;
 				align-items: center;
 				span {
+					margin-top: 1rem;
 					display: block;
 					margin-right: 1rem;
 					padding: 0 0.7rem;
@@ -343,6 +348,11 @@ page-personal-center {
 							height: 1.8rem;
 							display: flex;
 							align-items: center;
+							.user {
+								max-width: 10rem;
+								text-overflow:ellipsis;
+								overflow: hidden;
+							}
 							.tag {
 								margin-left: 0.5rem;
 								padding: 0 0.25rem;
@@ -367,6 +377,15 @@ page-personal-center {
 							margin-right: 0;
 							width: 1.5rem;
 							height: 1.5rem;
+						}
+
+						.img-star {
+							margin-left: auto;
+
+							img {
+								width: 1.5rem;
+								height: 1.5rem;
+							}
 						}
 					}
 				}
