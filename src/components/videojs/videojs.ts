@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild} from '@angular/core';
 import {timer} from "rxjs/observable/timer";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
@@ -18,6 +18,7 @@ declare let amp: any;
 })
 export class VideojsComponent implements OnDestroy {
     @ViewChild('example_video') example_video: ElementRef;
+    @Output() showHeader = new EventEmitter<any>();
 
     videoPoster: string;
     videoInfo;
@@ -28,6 +29,7 @@ export class VideojsComponent implements OnDestroy {
     videoPlayTime = 1;  //播放进度百分比
     videoDuration = 1;  //视频总时长
     IsPass = false;  //本视频是否观看完毕
+    isFullScreen = false;  //视频是否全屏
 
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
@@ -40,23 +42,35 @@ export class VideojsComponent implements OnDestroy {
                 private screenOrientation: ScreenOrientation) {
         const videoNum = this.global.videoNum;
         this.videoEle = `video${videoNum}`;
-
+        this.listenerApp();
         timer(100).subscribe(() => {
             this.myPlayer = amp(this.videoEle, {
-                muted: false,
-                controls: true,
-                autoplay: true,
+                "muted": false,
+                "controls": true,
+                "autoplay": true,
                 "language": "zh-hans",
+                "enableFullscreen": true,
                 "playbackSpeed": {
                     "enabled": true,
-                    initialSpeed: 1.0,
-                    speedLevels: [
+                    "initialSpeed": 1.0,
+                    "speedLevels": [
                         {name: "x2.0", value: 2},
                         {name: "x1.75", value: 1.75},
                         {name: "x1.5", value: 1.5},
                         {name: "x1.25", value: 1.25},
                         {name: "x0.5", value: 0.5},
                     ]
+                },
+                "plugins": {
+                    "hotkeys": {
+                        //optional settings
+                        "volumeStep": 0.1,
+                        "seekStep": 5,
+                        "enableMute": true,
+                        "enableFullscreen": true,
+                        "enableNumbers": true,
+                        "enableJogStyle": false
+                    }
                 }
             }, (event) => {
                 this.myPlayer.addEventListener('fullscreenchange', () => {
@@ -87,9 +101,36 @@ export class VideojsComponent implements OnDestroy {
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
-                //获取视频总时长
+                //视频加载完毕 获取视频总时长
                 this.myPlayer.addEventListener("loadeddata", () => {
                     this.videoDuration = this.myPlayer.duration();
+                    const videojsEle = <any>document.querySelector(".video-js");
+                    const controlbaricons = document.querySelector(".amp-controlbaricons-right");
+                    const screenWidth = document.body.clientWidth;
+                    const screenHeight = document.body.clientHeight;
+                    const span = document.createElement("span");
+                    span.className = "my-fullscreen-btn my-fullscreen-btn-open";
+                    controlbaricons.appendChild(span);
+                    const myFsBtn = document.querySelector(".my-fullscreen-btn");
+                    myFsBtn.addEventListener("click", (event) => {
+                        if (this.isFullScreen) {  //取消全屏
+                            span.className = "my-fullscreen-btn my-fullscreen-btn-open";
+                            this.isFullScreen = false;
+                            this.statusBar.show();
+                            this.showHeader.emit("show");
+                            this.screenOrientation.lock('portrait');  //竖屏
+                            videojsEle.style.width = screenWidth + "px";
+                            videojsEle.style.height = "200px";
+                        } else {  //全屏
+                            span.className = "my-fullscreen-btn my-fullscreen-btn-close";
+                            this.isFullScreen = true;
+                            this.statusBar.hide();
+                            this.showHeader.emit("hide");
+                            this.screenOrientation.lock('landscape');  //横屏
+                            videojsEle.style.width = screenHeight + "px";
+                            videojsEle.style.height = screenWidth + "px";
+                        }
+                    })
                 })
                 //视频暂停时
                 // this.myPlayer.addEventListener("touchstart", () => {
@@ -169,7 +210,6 @@ export class VideojsComponent implements OnDestroy {
             }
         })
     }
-
 
     //页面离开，切换视频
     destroy() {
@@ -253,6 +293,16 @@ export class VideojsComponent implements OnDestroy {
             //     "verticalPosition": "center"
             // })
         }
+    }
+
+    //监听软件是否进入后台
+    listenerApp() {
+        document.addEventListener("resume", () => {
+            console.log("进入，前台展示"); //进入，前台展示
+        }, false);
+        document.addEventListener("pause", () => {
+            console.log("退出，后台运行"); //退出，后台运行
+        }, false);
     }
 
 }

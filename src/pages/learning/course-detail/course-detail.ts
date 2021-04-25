@@ -130,6 +130,7 @@ export class CourseDetailPage {
         }
     };  //我的同学列表
     TaskId;  //学习任务ID；
+    showHeader = "show";  //是否现实header
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
@@ -1036,5 +1037,9 @@ export class CourseDetailPage {
             buttons: ['确定']
         })
         alert.present();
+    }
+
+    getShowHeader(event){
+        this.showHeader = event;
     }
 }
