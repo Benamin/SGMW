@@ -77,6 +77,7 @@ export class AdvancedLevelPage {
         getParams: null,
         hasArea: false,
         levelInformation: [],
+        nowLevelText: '',
         nowLevel: 0,
         nowProgress: 0,
         isNowLevel: null, // sales destructive clerk
@@ -213,7 +214,7 @@ export class AdvancedLevelPage {
             (res) => {
                 loading.dismiss();
                 if (res.code === 200) {
-
+                    this.page.nowLevelText = res.data.Level;
                     let levelInformation = res.data.levelInformation;
 
 
@@ -466,7 +467,7 @@ export class AdvancedLevelPage {
         console.log('nowLevel', item, '888***canClick', this.page.canClick)
         this.page.plid = item.ID;
         if (item) {
-            this.navCtrl.push(AdvancedListsPage, {plid: item.ID, canClick: this.page.canClick, Level: item.Level});
+            this.navCtrl.push(AdvancedListsPage, {plid: item.ID, canClick: this.page.canClick, Level: this.page.nowLevelText});
         }
     }
 
