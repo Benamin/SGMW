@@ -101,7 +101,7 @@ export class VideojsComponent implements OnDestroy {
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
-                //视频加载完毕 获取视频总时长
+                //视频加载完毕 获取视频总时长  加载全屏事件
                 this.myPlayer.addEventListener("loadeddata", () => {
                     this.videoDuration = this.myPlayer.duration();
                     const videojsEle = <any>document.querySelector(".video-js");
@@ -190,19 +190,20 @@ export class VideojsComponent implements OnDestroy {
 
     //存储视频播放进度
     saveVideoProcess(currentTime, ID) {
+        console.log("存储视频进度");
         const currentTime2 = <any>Number(currentTime).toFixed(1);
         if (currentTime2 < 1) {
             return
         }
         this.storage.get("currentTime").then((value: any) => {
             if (value && value.length > 0) {
-                if (value.toString().includes(ID)) {
-                    value.forEach((e, index) => {
+                if (value.toString().includes(ID)) {  //判断是否存在当前视频
+                    value.forEach((e, index) => {  //存在替换时间
                         if (e && e.includes(ID)) {
                             value[index] = `${ID}:${currentTime2}`;
                         }
                     });
-                } else {
+                } else {  //没有则重新添加
                     value.splice(9, 1);
                     value.unshift(`${ID}:${currentTime2}`);
                 }
@@ -295,14 +296,16 @@ export class VideojsComponent implements OnDestroy {
         }
     }
 
-    //监听软件是否进入后台
+    //监听软件是否进入后台 --如果进入后台
     listenerApp() {
         document.addEventListener("resume", () => {
             console.log("进入，前台展示"); //进入，前台展示
         }, false);
         document.addEventListener("pause", () => {
             console.log("退出，后台运行"); //退出，后台运行
+            if (this.videoInfo) {
+                this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
+            }
         }, false);
     }
-
 }
