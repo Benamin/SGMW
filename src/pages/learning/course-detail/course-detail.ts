@@ -3,7 +3,7 @@ import {
     AlertController,
     Content,
     LoadingController,
-    ModalController,
+    ModalController, Navbar,
     NavController,
     NavParams,
     Platform,
@@ -45,11 +45,12 @@ export class CourseDetailPage {
     @ViewChild('CourseIntroduction') CourseIntroduction: ElementRef;
     @ViewChild('ionSlidesDIV') ionSlidesDIV: ElementRef;
     @ViewChild('videojsCom') videojsCom: VideojsComponent;
-    @ViewChild('commentStar') commentStar:CommentStarComponent;
+    @ViewChild('commentStar') commentStar: CommentStarComponent;
     @ViewChild(Slides) slides: Slides;
     @ViewChild('video')
     public video: ElementRef;
     @ViewChild(Content) content: Content;
+    @ViewChild(Navbar) navbar: Navbar;
 
     product = {
         detail: <any>null,
@@ -136,10 +137,10 @@ export class CourseDetailPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private learSer: LearnService,
                 public loadCtrl: LoadingController, public appSer: AppService, public commonSer: CommonService,
                 public zone: NgZone, public renderer: Renderer2, private emitService: EmitService,
-                private learnSer: LearnService,public alertCtrl:AlertController,
-                private mineSer: MineService,private storage: Storage,
-                private homeSer: HomeService,public platform: Platform,private changeDetectorRef: ChangeDetectorRef,
-                private global: GlobalData,private fileSer: FileService, private inAppBrowser: InAppBrowser,
+                private learnSer: LearnService, public alertCtrl: AlertController,
+                private mineSer: MineService, private storage: Storage,
+                private homeSer: HomeService, public platform: Platform, private changeDetectorRef: ChangeDetectorRef,
+                private global: GlobalData, private fileSer: FileService, private inAppBrowser: InAppBrowser,
                 private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
         this.TaskId = this.navParams.get('TaskId');
@@ -155,7 +156,7 @@ export class CourseDetailPage {
 
     //仅进入初始化加载一次
     ionViewDidLoad() {
-        this.storage.remove('CourseId')
+        this.storage.remove('CourseId');
         this.listenerScroll();
         this.isError = false;
         const screenWidth = <any>window.screen.width;
@@ -164,7 +165,14 @@ export class CourseDetailPage {
         this.showFooter = true;
         this.showLoading();
 
+        this.navbar.backButtonClick = () => {
+            this.global.CourseEnterSource = "";
+            this.navCtrl.pop();
+        };
+
         this.storage.get("courseData").then((value: any) => {
+            console.log(value);
+            console.log(this.global.pId);
             if (value && value.length > 0) {
                 const index = value.findIndex(e => e.Id === this.global.pId);
                 console.log(index);
@@ -188,6 +196,7 @@ export class CourseDetailPage {
     //每次进入均加载
     ionViewDidEnter() {
         this.CourseEnterSource = this.global.CourseEnterSource;
+        console.log(this.CourseEnterSource);
         switch (this.CourseEnterSource) {
             case 'PDF':   //打开PDF文件返回
                 break;
@@ -222,7 +231,6 @@ export class CourseDetailPage {
         this.showFooter = false;
         this.isError = false;
         this.appSer.setFile(null);
-        this.CourseEnterSource = "";
         if (this.videojsCom) this.videojsCom.pageLeave();
         const courseArr = this.navCtrl.getViews().filter(e => e.name == 'CourseDetailPage');
         const doExamArr = this.navCtrl.getViews().filter(e => e.name == 'DoExamPage');
@@ -234,10 +242,16 @@ export class CourseDetailPage {
 
     //初始化查询课程信息
     initData() {
+        console.log("重新请求数据");
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
-                this.initOtherInfo(res.data);
-                this.getChapter();
+                if (res.data) {
+                    this.initOtherInfo(res.data);
+                    this.getChapter();
+                } else {
+                    this.dismissLoading();
+                    this.commonSer.alert(res.message);
+                }
             }
         );
     }
@@ -270,7 +284,6 @@ export class CourseDetailPage {
      * document = 文档打开后查询进度
      */
     getChapter(type?: any) {
-        this.showLoading();
         this.learSer.GetAdminChapterListByProductID(this.global.pId).subscribe(
             (res) => {
                 //本地存储课程的信息--课程速度加速
@@ -313,7 +326,7 @@ export class CourseDetailPage {
      */
     saveCourseInfo(detail, chapter) {
         const info = {
-            "Id": this.global.pId,
+            "Id": detail.Id,
             "detail": detail,
             "chapter": chapter,
             "time": Date.now()
@@ -576,7 +589,6 @@ export class CourseDetailPage {
      */
     openFileByType(node, file) {
         this.global.subscribeDone = false;
-        this.showLoading();
         this.saveProcess(file);   //创建学习记录
         if (file.icon.includes('mp4')) {
             const mp4 = {
@@ -589,7 +601,6 @@ export class CourseDetailPage {
         }
         if (file.icon.includes('pdf') && this.platform.is('android')) {   //pdf文件
             this.openPDF(file);
-            this.dismissLoading();
         }
         if (file.icon.includes('iframe')) {  //iframe
             const iframe = {
@@ -602,8 +613,6 @@ export class CourseDetailPage {
         if (!file.icon.includes('mp4') && !file.icon.includes('iframe')) {  //预览文件
             this.fileSer.ViewFile(file.fileUrl, file.filename);
         }
-
-        this.dismissLoading();
     }
 
     //更新学习进度  非视频
@@ -686,6 +695,9 @@ export class CourseDetailPage {
         this.learSer.GetProductById(this.global.pId).subscribe(
             (res) => {
                 this.dismissLoading();
+                if (!res.data) {
+                    this.commonSer.alert(res.message);
+                }
                 this.global.PostsCertID = res.data.PostCertificationID;
 
                 //页面不更新进度 强制更新
@@ -694,14 +706,15 @@ export class CourseDetailPage {
                 document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
                 document.getElementById('innerProcess').style.width = `${overpercentage}%`;
 
+                if (this.CourseEnterSource === "DoExam" && overpercentage === 100) {
+                    this.openComment();
+                }
+
                 if (type == "video" || type == "Document") {
                     this.getChapter(type);   //查询课程目录
                 } else {
                     this.saveCourseInfo(res.data, this.product.chapter);
                 }
-
-
-                this.dismissLoading();
             }
         );
     }
@@ -1028,7 +1041,7 @@ export class CourseDetailPage {
         }
     }
 
-    showTips(){
+    showTips() {
         const msg = `下载的课件:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下`;
         const alert = this.alertCtrl.create({
             title: `提示`,
@@ -1039,7 +1052,7 @@ export class CourseDetailPage {
         alert.present();
     }
 
-    getShowHeader(event){
+    getShowHeader(event) {
         this.showHeader = event;
     }
 }

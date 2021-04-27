@@ -74,8 +74,8 @@ export class DoExamPage {
             (res) => {
                 loading.dismiss();
                 if (res.Result !== 0) {
-                    if(res.message) this.commonSer.alert(res.message);
-                    if(res.Message) this.commonSer.alert(res.Message);
+                    if (res.message) this.commonSer.alert(res.message);
+                    if (res.Message) this.commonSer.alert(res.Message);
                 }
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
@@ -138,6 +138,9 @@ export class DoExamPage {
                     this.navCtrl.pop();
                 } else {
                     this.commonSer.toast(res.Message);
+                    setTimeout(() => {
+                        this.navCtrl.pop();
+                    }, 3000);
                 }
             }
         )
@@ -177,6 +180,9 @@ export class DoExamPage {
                         this.navCtrl.pop();
                     } else {
                         this.commonSer.toast(JSON.stringify(res));
+                        setTimeout(() => {
+                            this.navCtrl.pop();
+                        }, 3000);
                     }
                 }
             )

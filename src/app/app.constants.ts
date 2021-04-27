@@ -8,7 +8,7 @@ let keyEnv = 'dev';
 
 
 
-// /***培训平台***/
+ /***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';
 export const SERVER_API_URL_DEV = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
 export const SERVER_API_URL_UAT = 'http://sitapi1.chinacloudsites.cn/api'; //uat环境
