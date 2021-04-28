@@ -9,6 +9,7 @@ import {AppService} from "../../app/app.service";
 import {CommonService} from "../../core/common.service";
 import {Platform} from "ionic-angular";
 import {Storage} from "@ionic/storage";
+import {a} from "@angular/core/src/render3";
 
 declare let amp: any;
 
@@ -30,6 +31,8 @@ export class VideojsComponent implements OnDestroy {
     videoDuration = 1;  //视频总时长
     IsPass = false;  //本视频是否观看完毕
     isFullScreen = false;  //视频是否全屏
+
+    eleObj = <any>{};
 
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
@@ -98,38 +101,23 @@ export class VideojsComponent implements OnDestroy {
                     if (this.platform.is('android')) {
                         this.myPlayer.exitFullscreen();
                     }
+                    this.changeScreen();
                     this.statusBar.show();
                     this.updateVideoStatus();
                 })
                 //视频加载完毕 获取视频总时长  加载全屏事件
                 this.myPlayer.addEventListener("loadeddata", () => {
                     this.videoDuration = this.myPlayer.duration();
-                    const videojsEle = <any>document.querySelector(".video-js");
-                    const controlbaricons = document.querySelector(".amp-controlbaricons-right");
-                    const screenWidth = document.body.clientWidth;
-                    const screenHeight = document.body.clientHeight;
-                    const span = document.createElement("span");
-                    span.className = "my-fullscreen-btn my-fullscreen-btn-open";
-                    controlbaricons.appendChild(span);
+                    this.eleObj.videojsEle = <any>document.querySelector(".video-js");
+                    this.eleObj.controlbaricons = document.querySelector(".amp-controlbaricons-right");
+                    this.eleObj.screenWidth = document.body.clientWidth;
+                    this.eleObj.screenHeight = document.body.clientHeight;
+                    this.eleObj.span = document.createElement("span");
+                    this.eleObj.span.className = "my-fullscreen-btn my-fullscreen-btn-open";
+                    this.eleObj.controlbaricons.appendChild(this.eleObj.span);
                     const myFsBtn = document.querySelector(".my-fullscreen-btn");
                     myFsBtn.addEventListener("click", (event) => {
-                        if (this.isFullScreen) {  //取消全屏
-                            span.className = "my-fullscreen-btn my-fullscreen-btn-open";
-                            this.isFullScreen = false;
-                            this.statusBar.show();
-                            this.showHeader.emit("show");
-                            this.screenOrientation.lock('portrait');  //竖屏
-                            videojsEle.style.width = screenWidth + "px";
-                            videojsEle.style.height = "200px";
-                        } else {  //全屏
-                            span.className = "my-fullscreen-btn my-fullscreen-btn-close";
-                            this.isFullScreen = true;
-                            this.statusBar.hide();
-                            this.showHeader.emit("hide");
-                            this.screenOrientation.lock('landscape');  //横屏
-                            videojsEle.style.width = screenHeight + "px";
-                            videojsEle.style.height = screenWidth + "px";
-                        }
+                        this.changeScreen();
                     })
                 })
                 //视频暂停时
@@ -153,6 +141,26 @@ export class VideojsComponent implements OnDestroy {
                 this.global.videoNum++;
             });
         });
+    }
+
+    changeScreen() {
+        if (this.isFullScreen) {  //取消全屏
+            this.eleObj.span.className = "my-fullscreen-btn my-fullscreen-btn-open";
+            this.isFullScreen = false;
+            this.statusBar.show();
+            this.showHeader.emit("show");
+            this.screenOrientation.lock('portrait');  //竖屏
+            this.eleObj.videojsEle.style.width = this.eleObj.screenWidth + "px";
+            this.eleObj.videojsEle.style.height = "200px";
+        } else {  //全屏
+            this.eleObj.span.className = "my-fullscreen-btn my-fullscreen-btn-close";
+            this.isFullScreen = true;
+            this.statusBar.hide();
+            this.showHeader.emit("hide");
+            this.screenOrientation.lock('landscape');  //横屏
+            this.eleObj.videojsEle.style.width = this.eleObj.screenHeight + "px";
+            this.eleObj.videojsEle.style.height = this.eleObj.screenWidth + "px";
+        }
     }
 
 
@@ -263,7 +271,7 @@ export class VideojsComponent implements OnDestroy {
 
             //禁止or启用拖动进度条
             let control = <any>document.querySelector(".vjs-progress-control")
-            if (videoInfo.IsPass) {
+            if (videoInfo.IsPass || videoInfo.IsAttachment) {
                 control.style.pointerEvents = "auto";  //启用
             } else {
                 control.style.pointerEvents = "none";
@@ -300,9 +308,15 @@ export class VideojsComponent implements OnDestroy {
     listenerApp() {
         document.addEventListener("resume", () => {
             console.log("进入，前台展示"); //进入，前台展示
+            if (this.myPlayer) {
+                this.myPlayer.play();
+            }
         }, false);
         document.addEventListener("pause", () => {
             console.log("退出，后台运行"); //退出，后台运行
+            if (this.myPlayer) {
+                this.myPlayer.pause();
+            }
             if (this.videoInfo) {
                 this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
             }

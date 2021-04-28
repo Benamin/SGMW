@@ -19,6 +19,9 @@
     <div class="bg-black">
         <div class="score-line">
             <p>当月学分获取情况</p>
+            <p class="tips">
+                Tips:<span>课程上架{{obj?.PutAwayDay || "5"}}日内学习即可获取学分，过期学习不可获取学分</span>
+            </p>
             <div class="process">
                 <div class="out-process">
                     <div class="inner-process" [style.width]="width + '%'">

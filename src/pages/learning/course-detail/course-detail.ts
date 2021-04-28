@@ -171,11 +171,8 @@ export class CourseDetailPage {
         };
 
         this.storage.get("courseData").then((value: any) => {
-            console.log(value);
-            console.log(this.global.pId);
             if (value && value.length > 0) {
                 const index = value.findIndex(e => e.Id === this.global.pId);
-                console.log(index);
                 if (index > -1) {
                     const data = value[index];
                     if ((Date.now() - data.time) < (1 * 24 * 60 * 60 * 1000)) {  //超过一天 重新加载
@@ -196,7 +193,6 @@ export class CourseDetailPage {
     //每次进入均加载
     ionViewDidEnter() {
         this.CourseEnterSource = this.global.CourseEnterSource;
-        console.log(this.CourseEnterSource);
         switch (this.CourseEnterSource) {
             case 'PDF':   //打开PDF文件返回
                 break;
@@ -346,7 +342,6 @@ export class CourseDetailPage {
             } else {
                 const arr = [];
                 arr.push(info);
-                console.log('courseData', arr);
                 this.storage.set('courseData', arr);
             }
         })
@@ -384,6 +379,7 @@ export class CourseDetailPage {
             if (!value) {
                 return
             }
+            //视频播放完毕
             if (value.type == 'videoPlayEnd') {
                 if (!this.global.subscribeDone) {
                     this.global.subscribeDone = true;
@@ -706,7 +702,8 @@ export class CourseDetailPage {
                 document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
                 document.getElementById('innerProcess').style.width = `${overpercentage}%`;
 
-                if (this.CourseEnterSource === "DoExam" && overpercentage === 100) {
+                //1、未评级 + 课程进度100% +（ 刚做完作业 ｜｜ 视频播放完毕 ）
+                if (overpercentage === 100 && !this.product.detail.IsComment && (this.CourseEnterSource === "DoExam" || type === "video")) {
                     this.openComment();
                 }
 
@@ -861,7 +858,6 @@ export class CourseDetailPage {
 
     //tab切换
     changeType(item) {
-        console.log(item);
         if (this.isLoad) {
             this.bar.type = item.type;
             this.bar.code = item.code;
@@ -970,7 +966,6 @@ export class CourseDetailPage {
                     this.zone.run(() => {
                         this.classmate.obj.List = [...this.classmate.obj.List, ...res.data.UserDetails]
                     });
-                    console.log(this.classmate.obj.List);
                     this.classmate.obj.AnswerUserTotal = res.data.AnswerUserTotal;
                     this.classmate.obj.ThenUserTotal = res.data.ThenUserTotal;
                     this.classmate.obj.isLoad = false;
@@ -996,27 +991,20 @@ export class CourseDetailPage {
                 //给予50px高度的差异值
                 if ((TalkContentHeight - 50 < $event.scrollTop + viewHeight && $event.scrollTop + viewHeight < TalkContentHeight)
                     || ($event.scrollTop + viewHeight == TalkContentHeight)) {
-                    console.log('加载更多');
                     this.doInfinite();
                     this.comment.talkLoad = true;
                 }
             }
             if (this.bar.code == 'classmate') {
                 const ClassmateContentHeight = this.ClassmateContent.nativeElement.clientHeight - 40;  //讨论列表高度
-                console.log("ClassmateContentHeight", ClassmateContentHeight);
-                console.log("$event.scrollTop + viewHeight", $event.scrollTop + viewHeight);
                 if (this.classmate.obj.List.length + 1 > this.classmate.obj.AnswerUserTotal) {
-                    console.log("1");
                     this.classmate.obj.isLoad = false;
                     return
                 }
-                console.log("2");
                 if (this.classmate.obj.isLoad) return
-                console.log("3");
                 //给予50px高度的差异值
                 if ((ClassmateContentHeight - 50 < $event.scrollTop + viewHeight && $event.scrollTop + viewHeight < ClassmateContentHeight)
                     || ($event.scrollTop + viewHeight == ClassmateContentHeight)) {
-                    console.log("4");
                     this.classmate.obj.isLoad = true;
                     this.doInfiniteClassmate();
                 }

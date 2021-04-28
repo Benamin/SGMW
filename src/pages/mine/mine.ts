@@ -60,7 +60,6 @@ export class MinePage {
         this.storage.get('user').then(value => {
             console.log(value);
             this.mineInfo = value;
-
         });
         this.storage.get('LoginType').then(value => {
             this.LoginType = value || "-";

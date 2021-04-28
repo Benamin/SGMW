@@ -728,7 +728,7 @@ export class LoginPage {
                         this.LLZSGetUnionId(res.access_token);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert(LLZSNoUserMsg);
+                        this.commonSer.alert("错误：没查询到用户【TOKEN】");
                     }
                 }, (error) => {
                     this.dismissLoading();
@@ -747,7 +747,7 @@ export class LoginPage {
                         this.LLZSGetUnionId(res.access_token);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert(LLZSNoUserMsg);
+                        this.commonSer.alert("错误：没查询到用户【TOKEN】");
                     }
                 },
                 (error) => {
@@ -771,7 +771,7 @@ export class LoginPage {
                         this.LLZSGetUserInfo(res.unionId);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert(LLZSNoUserMsg);
+                        this.commonSer.alert("错误：未查询到【unionId】");
                     }
                 }
             ).catch(error => {
@@ -786,7 +786,7 @@ export class LoginPage {
                         this.LLZSGetUserInfo(res.unionId);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert(LLZSNoUserMsg);
+                        this.commonSer.alert("错误：未查询到【unionId】");
                     }
                 }
             ), error => {
@@ -806,7 +806,7 @@ export class LoginPage {
                         this.insertUserData(res.data, unionId);
                     } else {
                         this.dismissLoading();
-                        this.commonSer.alert(LLZSNoUserMsg);
+                        this.commonSer.alert("错误：未查询到【用户信息】");
                     }
                 }
             ).catch(error => {
@@ -820,7 +820,7 @@ export class LoginPage {
                     this.insertUserData(res.data, unionId);
                 } else {
                     this.dismissLoading();
-                    this.commonSer.alert(LLZSNoUserMsg);
+                    this.commonSer.alert("错误：未查询到【用户信息】");
                 }
             })
         }

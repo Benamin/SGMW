@@ -35,17 +35,16 @@ page-study-task {
     top: 2rem;
     left: 1rem;
     width: calc(100% - 2rem);
-    height: 9.5rem;
+    height: 10.5rem;
     background-image: url('../assets/imgs/home/studyTask/studyTask_banner.png');
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 15px 10px;
+    padding: .5rem 1rem;
     border-radius: 8px;
     font-weight: 500;
 
     p:first-child {
       color: #ffffff;
-      margin-bottom: 10px;
     }
 
     .score-process {
@@ -214,5 +213,14 @@ page-study-task {
     height: 100%;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, .4);
+  }
+
+  .tips {
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+
+    > span {
+      font-size: 1rem;
+    }
   }
 }
