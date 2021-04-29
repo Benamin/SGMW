@@ -31,6 +31,7 @@ export class StudyTaskPage {
     }
 
     width = 0;
+    load;
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -52,6 +53,8 @@ export class StudyTaskPage {
                 this.mineInfo = value;
             }
         });
+        this.load = this.loadCtrl.create({content: "加载中..."});
+        this.load.present();
         const year = new Date(this.myDate).getFullYear();
         const month = new Date(this.myDate).getMonth() + 1;
         const data = {
@@ -63,14 +66,15 @@ export class StudyTaskPage {
         this.homeSer.SaveStudyTaskList(data).subscribe(res => {
             if (res.data) {
                 this.getStudyTask();
+            } else {
+                this.load.dismissAll();
             }
         })
     }
 
     getStudyTask() {
         this.isLoad = true;
-        const load = this.loadCtrl.create({content: "加载中..."});
-        load.present();
+
         const year = new Date(this.myDate).getFullYear();
         const month = new Date(this.myDate).getMonth() + 1;
         const data = {
@@ -81,7 +85,7 @@ export class StudyTaskPage {
         }
         this.homeSer.StudyTaskList(data).subscribe(
             (res) => {
-                load.dismissAll();
+                this.load.dismissAll();
                 this.isLoad = false;
                 if (res.data) {
                     this.obj = res.data;
