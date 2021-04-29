@@ -458,6 +458,7 @@ export class LoginPage {
             }
         )
     }
+
     /***end***/
 
     /***服务助手登录***/
@@ -835,7 +836,7 @@ export class LoginPage {
         this.loginSer.InsertEsysUserLL(data).subscribe(
             (res) => {
                 if (res.code == 200) {
-                    this.connectTokenByNXSZS(data);
+                    this.connectTokenByNXSZS(data, unionId);
                 } else {
                     this.dismissLoading();
                     this.commonSer.alert(res.message || JSON.stringify(res));
@@ -849,7 +850,7 @@ export class LoginPage {
     }
 
     //获取新销售助手用户信息
-    connectTokenByNXSZS(req) {
+    connectTokenByNXSZS(req, unionId) {
         if (!req.idCard) {
             this.dismissLoading();
             this.commonSer.alert("登录信息缺少身份证号码");
@@ -859,7 +860,7 @@ export class LoginPage {
             grant_type: "password",
             client_id: NXSZS_client_id_login,
             Czydm: req.idCard,
-            UserName: req.LoginName,
+            UserName: unionId,
             usertype: 'LLZS',
         };
         this.loginSer.connectToken(data).subscribe(
