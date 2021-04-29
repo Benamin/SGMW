@@ -368,7 +368,7 @@ export class HomeService {
 
     // 查询 关注人的课程评价列表
     GetCourseReply(data): Observable<any> {
-        return this.http.post(SERVER_API_URL + '/EQuestionManagement/CourseReply', data);
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/CourseReplyList', data);
     }
 
     // 查询 查询问题列表（猜你想问）
