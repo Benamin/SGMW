@@ -34,6 +34,8 @@ export class VideojsComponent implements OnDestroy {
 
     eleObj = <any>{};
 
+    currentTime = 0;
+
     constructor(private mobileAccess: MobileAccessibility,
                 private statusBar: StatusBar,
                 private commonSer: CommonService,
@@ -77,45 +79,42 @@ export class VideojsComponent implements OnDestroy {
                 }
             }, (event) => {
                 this.myPlayer.addEventListener('fullscreenchange', () => {
+                    console.log("myPlayer fullscreenchange")
                     if (!this.isPlay) return;
                     if (this.myPlayer.isFullscreen()) {  //全屏
                         if (this.platform.is('ios')) {
                             this.appSer.setIOS('platformIOS');
                             this.appSer.setIOS('videoReset');
                         }
-                        this.screenOrientation.lock('landscape');  //横屏
-                        this.statusBar.hide();
-                    }
-                    if (!this.myPlayer.isFullscreen()) {
-                        this.screenOrientation.lock('portrait');  //锁定竖屏
-                        this.statusBar.show();
                     }
                 });
                 this.myPlayer.addEventListener('ended', () => {
                     this.isPlay = false;
-                    this.screenOrientation.lock('portrait');  //锁定竖屏
-                    if (this.platform.is('ios')) {
-                        this.appSer.setIOS('videoReset');
-                        document.getElementsByTagName('video')[0].webkitExitFullscreen();
-                    }
-                    if (this.platform.is('android')) {
-                        this.myPlayer.exitFullscreen();
-                    }
-                    this.changeScreen();
+                    this.changeScreen2();
                     this.statusBar.show();
-                    this.updateVideoStatus();
+                    //视频是附件则不更新进度
+                    if (!this.videoInfo.IsAttachment) {
+                        this.updateVideoStatus();
+                    }
                 })
                 //视频加载完毕 获取视频总时长  加载全屏事件
                 this.myPlayer.addEventListener("loadeddata", () => {
+                    if (this.currentTime > 0) {
+                        this.myPlayer.currentTime(this.currentTime);
+                    }
                     this.videoDuration = this.myPlayer.duration();
                     this.eleObj.videojsEle = <any>document.querySelector(".video-js");
                     this.eleObj.controlbaricons = document.querySelector(".amp-controlbaricons-right");
                     this.eleObj.screenWidth = document.body.clientWidth;
                     this.eleObj.screenHeight = document.body.clientHeight;
-                    this.eleObj.span = document.createElement("span");
-                    this.eleObj.span.className = "my-fullscreen-btn my-fullscreen-btn-open";
-                    this.eleObj.controlbaricons.appendChild(this.eleObj.span);
-                    const myFsBtn = document.querySelector(".my-fullscreen-btn");
+
+                    let myFsBtn = document.querySelector(".my-fullscreen-btn");
+                    if (!myFsBtn) {  //不存在则重新添加
+                        this.eleObj.span = document.createElement("span");
+                        this.eleObj.span.className = "my-fullscreen-btn my-fullscreen-btn-open";
+                        this.eleObj.controlbaricons.appendChild(this.eleObj.span);
+                        myFsBtn = document.querySelector(".my-fullscreen-btn");
+                    }
                     myFsBtn.addEventListener("click", (event) => {
                         this.changeScreen();
                     })
@@ -131,9 +130,7 @@ export class VideojsComponent implements OnDestroy {
                 //播放时间变化
                 this.myPlayer.addEventListener("timeupdate", () => {
                     let currentTime = this.myPlayer.currentTime().toFixed(2);
-                    if (currentTime > 0) {
-                        this.videoPlayTime = <any>((currentTime / this.videoDuration) * 100).toFixed(2);
-                    }
+                    this.saveVideoProcess(currentTime, this.videoInfo.ID);
                 });
                 //视频播放
                 // this.myPlayer.addEventListener("play", () => {
@@ -143,8 +140,9 @@ export class VideojsComponent implements OnDestroy {
         });
     }
 
+    //手动点击全屏按钮横屏or竖屏
     changeScreen() {
-        if (this.isFullScreen) {  //取消全屏
+        if (this.isFullScreen) {  // 如果是横屏则变成竖屏
             this.eleObj.span.className = "my-fullscreen-btn my-fullscreen-btn-open";
             this.isFullScreen = false;
             this.statusBar.show();
@@ -152,7 +150,7 @@ export class VideojsComponent implements OnDestroy {
             this.screenOrientation.lock('portrait');  //竖屏
             this.eleObj.videojsEle.style.width = this.eleObj.screenWidth + "px";
             this.eleObj.videojsEle.style.height = "200px";
-        } else {  //全屏
+        } else {  //如果是竖屏则变成横屏
             this.eleObj.span.className = "my-fullscreen-btn my-fullscreen-btn-close";
             this.isFullScreen = true;
             this.statusBar.hide();
@@ -163,6 +161,16 @@ export class VideojsComponent implements OnDestroy {
         }
     }
 
+    //播放结束自动触发 保持竖屏
+    changeScreen2() {
+        this.eleObj.span.className = "my-fullscreen-btn my-fullscreen-btn-open";
+        this.isFullScreen = false;
+        this.statusBar.show();
+        this.showHeader.emit("show");
+        this.screenOrientation.lock('portrait');  //竖屏
+        this.eleObj.videojsEle.style.width = this.eleObj.screenWidth + "px";
+        this.eleObj.videojsEle.style.height = "200px";
+    }
 
     //更新视频学习状态
     updateVideoStatus() {
@@ -190,15 +198,15 @@ export class VideojsComponent implements OnDestroy {
     pageLeave() {
         if (this.myPlayer['player_']) {
             this.myPlayer.pause();
-            if (this.videoInfo) {
-                this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
-            }
         }
     }
 
-    //存储视频播放进度
+    /**
+     * 存储视频播放进度
+     * @param currentTime  播放时间
+     * @param ID 视频ID
+     */
     saveVideoProcess(currentTime, ID) {
-        console.log("存储视频进度");
         const currentTime2 = <any>Number(currentTime).toFixed(1);
         if (currentTime2 < 1) {
             return
@@ -254,11 +262,6 @@ export class VideojsComponent implements OnDestroy {
     @Input() set GetVideo(videoInfo) {
         if (this.myPlayer && videoInfo) {
 
-            //存储视频播放进度
-            if (this.myPlayer.currentTime()) {
-                this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
-            }
-
             this.isPlay = true;
 
             let type = 'application/x-mpegURL';
@@ -289,6 +292,7 @@ export class VideojsComponent implements OnDestroy {
                                     time: this.commonSer.toTime(time),
                                     num: time
                                 });
+                                this.currentTime = Number(time);
                             }
                         }
                     })
@@ -307,18 +311,13 @@ export class VideojsComponent implements OnDestroy {
     //监听软件是否进入后台 --如果进入后台
     listenerApp() {
         document.addEventListener("resume", () => {
-            console.log("进入，前台展示"); //进入，前台展示
             if (this.myPlayer) {
                 this.myPlayer.play();
             }
         }, false);
         document.addEventListener("pause", () => {
-            console.log("退出，后台运行"); //退出，后台运行
             if (this.myPlayer) {
                 this.myPlayer.pause();
-            }
-            if (this.videoInfo) {
-                this.saveVideoProcess(this.myPlayer.currentTime(), this.videoInfo.ID);
             }
         }, false);
     }

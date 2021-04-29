@@ -330,6 +330,11 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/AppStudyTask/StudyTaskList', data);
     }
 
+    //根据月份查询学习任务
+    SaveStudyTaskList(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/AppStudyTask/SaveStudyTaskList', data);
+    }
+
     //根据课程查询我的同学
     StudyPlanList(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/AppStudyTask/StudyPlanList', data);

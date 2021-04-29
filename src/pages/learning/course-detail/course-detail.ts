@@ -150,8 +150,6 @@ export class CourseDetailPage {
         if (this.enterResource == "studyTask") {  //学习任务进入
             this.NavbarList.push({type: 4, name: '我的同学', code: 'classmate'},);
         }
-
-
     }
 
     //仅进入初始化加载一次
@@ -188,6 +186,10 @@ export class CourseDetailPage {
                 this.initData();
             }
         })
+
+        setTimeout(() => {
+            this.initData();
+        }, 5000);
     }
 
     //每次进入均加载
