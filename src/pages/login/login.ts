@@ -710,7 +710,7 @@ export class LoginPage {
         this.storage.set("LoginType", "菱菱助手")
         const data = {
             grant_type: "password",
-            username: encodeURI(this.jxs.llzs.username.trim()),
+            username: encodeURIComponent(this.jxs.llzs.username.trim()),
             password: this.jxs.llzs.password,
             client_id: NXSZS_clientId,
             client_secret: NXSZS_client_secret

@@ -3,12 +3,12 @@
 </p>
 <!-- 课程评价的星星 -->
 <div *ngIf="isLoad && !noData" class="comment-star">
-  <div class="left">
-      <p>{{item.Text.toFixed(1)}}分</p>
-      <p>
+    <div class="left">
+        <p>{{item.Text.toFixed(1)}}分</p>
+        <p>
         <span class="img-star">
           <ng-container *ngFor="let st of starList;let i = index">
-            <img *ngIf="item.Score > i +1 || item.Score == i +1"
+            <img *ngIf="item.Score > i +1 || item.Score == i +1 || (item.Score+'').includes('.9')"
                  src="./assets/imgs/learn/stars_5.png">
             <ng-container
                     *ngIf="((item.Score+'').split('.')[0] == i +1 && item.Score != i +1) ||
@@ -27,31 +27,31 @@
             </ng-container>
         </ng-container>
           </span>
-      </p>
-      <p *ngIf="!IsComment" (click)="openComment()" class="commentBtn">去评价</p>
-      <p *ngIf="IsComment" class="commentBtn-gray">已评价</p>
-  </div>
-  <div class="right">
-      <p>
-        <span>内容实用性:</span>
-        <span>{{item?.Score1.toFixed(1)}}</span>
-      </p>
-      <p>
-        <span>内容趣味性:</span>
-        <span>{{item.Score2.toFixed(1)}}</span>
-      </p>
-      <p>
-        <span>视频画面质量:</span>
-        <span>{{item.Score3.toFixed(1)}}</span>
-      </p>
-      <p>
-        <span>音频效果质量:</span>
-        <span>{{item.Score4.toFixed(1)}}</span>
-      </p>
-  </div>
+        </p>
+        <p *ngIf="!IsComment" (click)="openComment()" class="commentBtn">去评价</p>
+        <p *ngIf="IsComment" class="commentBtn-gray">已评价</p>
+    </div>
+    <div class="right">
+        <p>
+            <span>内容实用性:</span>
+            <span>{{item?.Score1.toFixed(1)}}</span>
+        </p>
+        <p>
+            <span>内容趣味性:</span>
+            <span>{{item.Score2.toFixed(1)}}</span>
+        </p>
+        <p>
+            <span>视频画面质量:</span>
+            <span>{{item.Score3.toFixed(1)}}</span>
+        </p>
+        <p>
+            <span>音频效果质量:</span>
+            <span>{{item.Score4.toFixed(1)}}</span>
+        </p>
+    </div>
 </div>
 <div *ngIf="isLoad && noData">
     <div text-center style="margin-top: 2rem">
-        <img style="width: 35%;" src="./assets/imgs/no-data.png" >
+        <img style="width: 35%;" src="./assets/imgs/no-data.png">
     </div>
 </div>

@@ -33,7 +33,8 @@ export class CommentStarComponent {
                     this.noData = false;
                     this.item = res.data;
                     this.item.Text = this.item.Score;
-                    this.item.Score = this.item.Score / 2;
+                    const score = this.item.Score.toFixed(1);
+                    this.item.Score = (score.split(".")[0] / 2) + score.split(".")[1];
                 } else {
                     this.noData = true;
                 }

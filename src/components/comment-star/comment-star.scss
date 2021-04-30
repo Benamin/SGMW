@@ -38,7 +38,7 @@ comment-star {
     display: flex;
 
     .left {
-      width: 60%;
+      width: 50%;
       text-align: center;
 
       p + p {
@@ -52,21 +52,21 @@ comment-star {
       }
     }
 
-        .right {
-          width: 40%;
-          padding-left: 1.2rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-around;
-          font-size: 1.4rem;
-          font-weight: 500;
-          color: #333333;
+    .right {
+      width: 50%;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #333333;
 
-          p span {
-            margin-right: .5rem;
-          }
-        }
+      p span {
+        margin-right: .5rem;
       }
+    }
+  }
 
   .commentBtn {
     width: 8rem;

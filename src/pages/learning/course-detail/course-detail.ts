@@ -189,7 +189,7 @@ export class CourseDetailPage {
 
         setTimeout(() => {
             this.initData();
-        }, 5000);
+        }, 2000);
     }
 
     //每次进入均加载
