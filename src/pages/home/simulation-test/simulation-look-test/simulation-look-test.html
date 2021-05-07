@@ -179,7 +179,10 @@
             <ng-container *ngIf="item.QAnswer;else other_content">
               <div class="item-answer">
                 答案：
-                <ng-container *ngIf="item.QType == 3">{{item.QAnswer == 1 ? 'A' : 'B'}}</ng-container>
+                <ng-container *ngIf="item.QType == 3">
+                  <ng-container *ngIf="item.QAnswer === 1">A</ng-container>
+                  <ng-container *ngIf="item.QAnswer === 2">B</ng-container>
+                </ng-container>
                 <ng-container *ngIf="item.QType != 3">{{item.QAnswer}}</ng-container>
               </div>
               <div class="item-explain">

@@ -57,7 +57,7 @@
     "cordova-plugin-file-opener2": "3.0.4",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
-    "cordova-plugin-ionic-webview": "4.0.0",
+    "cordova-plugin-ionic-webview": "1.2.1",
     "cordova-plugin-jcore": "1.3.3",
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-plugin-network-information": "git+https://gitee.com/Aavin/cordova-plugin-network-information.git",
@@ -137,9 +137,7 @@
         "CHANNEL": "developer-default"
       },
       "cordova-plugin-android-permissions": {},
-      "cordova-plugin-ionic-webview": {
-        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      }
+      "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
       "browser",

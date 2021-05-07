@@ -36,3 +36,5 @@ data-wow-iteration: Number of times the animation is repeated
 
 ###添加微信插件的命令
 ```cordova plugin add cordova-plugin-wechat  --variable wechatappid=wxb5bb0aae5137074c --variable universallink=https://elearning.sgmw.com.cn/```
+
+###别更新 cordova-plugin-ionic-webview 版本 因为最新版的 用android打开PDF会有跨域问题
