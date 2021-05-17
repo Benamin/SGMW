@@ -18,6 +18,7 @@ import {CourseTypePage} from "../learning/course-type/course-type";
 import {PostsContentComponent} from "../forum/posts-content/posts-content.component";
 import {ThemeActivityPage} from "../home/theme-activity/theme-activity";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
+import {NotificationPage} from "../mine/notification/notification";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -36,43 +37,36 @@ export class TabsPage {
         {
             root: HomePage,
             tabTitle: '首页',
-            tabIconOn: 'custom-home-on',
-            tabIconOff: 'custom-home-off',
+            tabIconOn: 'custom-tab1-on',
+            tabIconOff: 'custom-tab1-off',
             index: 0
         },
         {
             root: CourseTypePage,
-            tabTitle: '在线课程',
-            tabIconOn: 'custom-discover-on',
-            tabIconOff: 'custom-discover-off',
+            tabTitle: '课程',
+            tabIconOn: 'custom-tab2-on',
+            tabIconOff: 'custom-tab2-off',
             index: 1
         },
         {
             root: ForumPage,
-            tabTitle: '论坛',
-            tabIconOn: 'custom-forum-on',
-            tabIconOff: 'custom-forum-off',
+            tabTitle: '动态',
+            tabIconOn: 'custom-tab3-on',
+            tabIconOff: 'custom-tab3-off',
             index: 3
         },
         {
-            root: VideoListsPage,
-            tabTitle: '视频',
-            tabIconOn: 'custom-video-on',
-            tabIconOff: 'custom-video-off',
+            root: NotificationPage,
+            tabTitle: '消息',
+            tabIconOn: 'custom-tab4-on',
+            tabIconOff: 'custom-tab4-off',
             index: 4
         },
-        // {
-        //     root: IntegralPage,
-        //     tabTitle: '积分',
-        //     tabIconOn: 'custom-integral-on',
-        //     tabIconOff: 'custom-integral-off',
-        //     index: 5
-        // },
         {
             root: MinePage,
-            tabTitle: '个人中心',
-            tabIconOn: 'custom-mine-on',
-            tabIconOff: 'custom-mine-off',
+            tabTitle: '我的',
+            tabIconOn: 'custom-tab5-on',
+            tabIconOff: 'custom-tab5-off',
             index: 5
         },
     ];

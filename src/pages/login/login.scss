@@ -1,7 +1,7 @@
 page-login {
   .header-ios .toolbar-ios:last-child .toolbar-background-ios {
-    background-color: #1a1a1a;
-    border: 0.55px solid #1a1a1a;
+    background-color: #f8f8f8;
+    border: 0.55px solid #f8f8f8;
   }
 
   .scroll-content {
@@ -9,8 +9,10 @@ page-login {
   }
 
   .login {
-    height: 100%;
+    height: calc(100% - 2rem);
+    background-color: #f8f8f8;
     position: relative;
+    margin-top: 2rem;
 
     .back-img {
       height: 100%;
@@ -26,7 +28,18 @@ page-login {
       top: 0;
       left: 0;
       width: 100%;
+      height: 100%;
       z-index: 1;
+
+      .div-header {
+        height: 11.5rem;
+        position: relative;
+        padding-top: 7.2rem;
+      }
+
+      .div-content {
+        height: calc(100% - 11.5rem - 5.5rem);
+      }
     }
   }
 
@@ -35,15 +48,17 @@ page-login {
     top: 0;
     left: 0;
     width: 60%;
+    padding-top: 2px;
 
     .select-ios {
-      border: 1px solid #ccc;
+      border: 1px solid #767676;
       border-radius: 100px;
-      color: #ffffff;
+      color: #EA0A2A;
       margin-left: 10%;
       padding: 3px 8px;
       font-size: 1.2rem;
-      max-width: 38%;
+      max-width: 35%;
+      text-align: center;
     }
   }
 
@@ -73,10 +88,9 @@ page-login {
 
   .logo {
     text-align: center;
-    margin-bottom: 20px;
 
     img {
-      height: 100px;
+      height: 2.9rem;
     }
   }
 
@@ -90,9 +104,10 @@ page-login {
       width: calc(100% - 10px);
       background-color: #fff;
       border: 1px solid #ffffff;
-      border-radius: 50px;
-      padding-left: 20px;
+      border-radius: 5px;
+      padding-left: 1.2rem;
       position: relative;
+      height: 4rem;
       -webkit-user-select: auto !important;
 
       input {
@@ -122,7 +137,7 @@ page-login {
 
       .checkCode {
         position: absolute;
-        top: 50%;
+        top: 54%;
         right: 25px;
         transform: translate(-25px, -50%);
       }
@@ -130,13 +145,17 @@ page-login {
   }
 
   .login-button {
+    position: absolute;
+    bottom: 7rem;
+    left: 10%;
     text-align: center;
-    width: 85%;
-    margin: 40px auto;
-    height: 40px;
+    width: 80%;
+    margin: 0 auto;
+    height: 39px;
     line-height: 40px;
-    background-image: linear-gradient(to right, #fecc4b, #feeaa5);
-    border-radius: 100px;
+    background-color: #313f5d;
+    border-radius: 5px;
+    color: #ffffff;
 
     img {
       height: 60px;
@@ -148,14 +167,18 @@ page-login {
   }
 
   .tips {
-    color: #fff;
+    color: #666660;
     font-size: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
 
+    input {
+      margin-right: .5rem;
+    }
+
     span {
-      color: #398bfc;
+      color: #468AE8;
     }
   }
 
@@ -164,25 +187,37 @@ page-login {
     width: 85%;
     margin: 0 auto;
     height: 40px;
-    background: #FFFFFF;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    margin-top: 10px;
+    margin-bottom: 15px;
     font-size: 16px;
-    padding: 5px;
 
     > span {
       width: 50%;
       text-align: center;
-      height: 30px;
-      line-height: 30px;
-      border-radius: 15px;
-      color: #888888;
+      font-weight: 400;
+      height: 43px;
+      line-height: 43px;
+      color: #474747;
+      font-size: 1.5rem;
+      position: relative;
+      font-family: PingFangSC-Regular, PingFang SC;
+      transition: all 100ms;
     }
 
     > span.check {
-      color: #000000;
-      background: linear-gradient(242deg, #FFF7CB 0%, #FFC92D 100%);
+      font-weight: 600;
+      font-family: PingFangSC-Semibold, PingFang SC;
+    }
+
+    > span.check::after {
+      content: "";
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2.5rem;
+      height: .4rem;
+      background: #E90E2C;
+      border-radius: 10px;
     }
   }
 
@@ -192,10 +227,10 @@ page-login {
     right: -115px;
     height: 40px;
     line-height: 40px;
-    background: linear-gradient(242deg, #FFF7CB 0%, #FFC92D 100%);
-    border-radius: 20px;
+    background: linear-gradient(242deg, #FFF4D4 0%, #FFDE8A 100%);
+    border-radius: 5px;
     font-weight: 400;
-    color: #000000;
+    color: #5D5D5D;
     width: 107px;
     font-size: 14px;
   }
@@ -203,17 +238,13 @@ page-login {
   .sendCode.disableBtn {
     background: linear-gradient(242deg, #999 0%, #eee 100%);
   }
-}
 
-.action-sheet-group {
-  button.action-sheet-button {
-    color: #000000;
-    font-size: 1.6rem;
-    min-height: 4rem;
-    padding: 0;
+  input::-webkit-input-placeholder {
+    color: #999990;
+    font-size: 14px;
   }
 
-  button.action-sheet-selected {
-    color: #FA6400;
+  .swiper-slide {
+    align-items: baseline;
   }
 }

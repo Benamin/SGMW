@@ -177,16 +177,15 @@ export class LoginPage {
     userRoleName = '销售助手';
 
     //平台登录切换
-    changeSlide(index, platform) {
-        this.loginObj.platform = platform;
+    changeSlide(type, index) {
+        this.llzsLoginType = type;
         this.slides.slideTo(index, 100);
     }
 
     //slide改变
     slideChange() {
-        // if (this.slides.realIndex == 0) this.loginObj.platform = "xszs";
-        if (this.slides.realIndex == 0) this.loginObj.platform = "llzs";
-        if (this.slides.realIndex == 1) this.loginObj.platform = "junke";
+        if (this.slides.realIndex == 0) this.llzsLoginType = "userName";
+        if (this.slides.realIndex == 1) this.llzsLoginType = "phone";
     }
 
     //员工
@@ -268,198 +267,6 @@ export class LoginPage {
             }
         )
     }
-
-    /***销售助手***/
-    loginXszsJsx() {
-        this.userRoleName = '销售助手';
-        this.setRoleNames();
-        if (!this.checkBox) {
-            this.commonSer.toast('请阅读并同意用户协议');
-            return;
-        }
-        if (this.jxs.xszs.codeRight != this.jxs.xszs.inputCode) {
-            this.commonSer.toast('请输入正确的验证码');
-            return;
-        }
-
-        this.showLoading();
-        this.storage.set("LoginType", "菱菱助手")
-        const timestamp = this.datePipe.transform(new Date(), 'yyyyMMddHHmmss');
-        const nonce = this.randomWord.uuid();
-        const sign = XSZS_appId + XSZS_appKey + timestamp + nonce;
-        const header = {
-            appId: XSZS_appId,
-            nonce: nonce,
-            timestamp: timestamp,
-            sign: this.randomWord.hex_md5(sign)
-        };
-
-        if (this.isMobile) {
-            this.nativeHttp.setDataSerializer('json');
-            this.nativeHttp.post(`${XSZS_HTTP_URL}/LoginAPIHandler.ashx?action=validLogin_JXS`, this.jxs.xszs, header).then(
-                (response) => {
-                    const res = JSON.parse(response.data);
-                    if (res.success == "true") {
-                        this.connectTokenByXSZS(res.data);
-                    } else {
-                        this.dismissLoading();
-                        this.storage.clear();
-                        this.commonSer.alert(res.error || JSON.stringify(res));
-                    }
-                }
-            ).catch(error => {
-                this.dismissLoading();
-                const errorMsg = JSON.parse(error.error);
-                this.commonSer.alert(errorMsg.error || JSON.stringify(error.error));
-            })
-        } else {
-            this.loginSer.sgmwLogin(this.jxs.xszs, header).subscribe(
-                (res) => {
-                    if (res.success == "true") {
-                        this.connectTokenByXSZS(res.data);
-                    } else {
-                        this.dismissLoading();
-                        this.storage.clear();
-                        this.commonSer.alert(res.error || JSON.stringify(res));
-                    }
-                }, error1 => {
-                    this.dismissLoading();
-                    const error = error1.error.error;
-                    this.commonSer.alert(error || JSON.stringify(error1.error));
-                }
-            )
-        }
-    }
-
-    //获取token --销售助手
-    connectTokenByXSZS(res) {
-        const data = {
-            grant_type: "password",
-            client_id: XSZS_client_id,
-            username: res.czymc,
-            jxsh: res.jxsh,
-            czydm: res.czydm,
-            usertype: 'JXS',
-        };
-        this.loginSer.connectToken(data).subscribe(
-            (res) => {
-                if (res.access_token) {
-                    this.storage.set('Authorization', res.access_token);
-                    timer(300).subscribe(e => {
-                        this.getUserInfo();
-                    })
-                } else {
-                    this.dismissLoading();
-                    this.storage.clear();
-                    this.commonSer.alert(res.error || JSON.stringify(res));
-                }
-            },
-            (error1) => {
-                this.dismissLoading();
-                const error = error1.error.error;
-                this.commonSer.alert(error || JSON.stringify(error1.error));
-            }
-        )
-    }
-
-    /***end***/
-
-    /***新宝骏助手***/
-    //新宝骏助手---经销商登录
-    loginJunkeJsx() {
-        if (!this.checkBox) {
-            this.commonSer.toast('请阅读并同意用户协议');
-            return;
-        }
-        this.userRoleName = '新宝骏助手';
-        this.setRoleNames();
-        let encrypt = new JSEncrypt();
-        if (this.jxs.junke.codeRight != this.jxs.junke.inputCode) {
-            this.commonSer.toast('请输入正确的验证码');
-            return;
-        }
-
-        this.showLoading();
-        this.storage.set("LoginType", "新宝骏助手")
-        encrypt.setPublicKey(JunKe_PRIVATE_KEY);
-        const password = encrypt.encrypt(this.jxs.junke.password);
-        const data = {
-            "userName": this.jxs.junke.username.trim(),
-            "password": password
-        };
-
-        if (this.isMobile) {
-            this.nativeHttp.setDataSerializer('json');
-            this.nativeHttp.post(`${JunKe_HTTP_URL}/dmscloud.interfaceServer.yunyang/external/trainSys/login/appAuthCas`, data, {}).then(
-                (response) => {
-                    const res = JSON.parse(response.data);
-                    console.log(res);
-                    if (res.status) {
-                        this.connectTokenByJunKe(res.data);
-                    } else {
-                        this.dismissLoading();
-                        this.storage.clear();
-                        this.commonSer.alert(res.msg || JSON.stringify(res));
-                    }
-                },
-                (error) => {
-                    this.dismissLoading();
-                    this.commonSer.alert(error.error.error_description || JSON.stringify(error.error));
-                }
-            ).catch(error => {
-                console.log(error);
-                this.dismissLoading();
-                let message = JSON.parse(error.error);
-                this.commonSer.alert(message.errorMsg);
-            })
-        } else {
-            this.loginSer.JunkeAppAuthCas(data).subscribe(
-                (res) => {
-                    if (res.status) {
-                        this.connectTokenByJunKe(res.data);
-                    } else {
-                        this.dismissLoading();
-                        this.storage.clear();
-                        this.commonSer.alert(res.msg || JSON.stringify(res));
-                    }
-                }, error => {
-                    this.dismissLoading();
-                    this.commonSer.alert(error.error.errorMsg || JSON.stringify(error.error));
-                }
-            )
-        }
-    }
-
-    //获取junke token
-    connectTokenByJunKe(res) {
-        const data = {
-            grant_type: "password",
-            client_id: JunKe_client_id,
-            username: this.jxs.junke.username,
-            jxsh: res.dealerCode,
-            usertype: 'JK',
-        };
-        this.loginSer.connectToken(data).subscribe(
-            (res) => {
-                if (res.access_token) {
-                    this.storage.set('Authorization', res.access_token);
-                    timer(300).subscribe(e => {
-                        this.getUserInfo();
-                    })
-                } else {
-                    this.dismissLoading();
-                    this.storage.clear();
-                    this.commonSer.alert(res.error || JSON.stringify(res));
-                }
-            }, error1 => {
-                this.dismissLoading();
-                const error = error1.error.error;
-                this.commonSer.alert(error || JSON.stringify(error1.error));
-            }
-        )
-    }
-
-    /***end***/
 
     /***服务助手登录***/
     fwzsLogin() {

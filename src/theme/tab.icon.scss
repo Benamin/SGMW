@@ -9,83 +9,54 @@ ion-icon {
   }
 
   // custom icons
-  &[class*="home-on"] {
+  &[class*="tab1-on"] {
     background: url(../assets/imgs/tabs/tab1_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="home-off"] {
+  &[class*="tab1-off"] {
     background: url(../assets/imgs/tabs/tab1_off.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="discover-on"] {
+  &[class*="tab2-on"] {
     background: url(../assets/imgs/tabs/tab2_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="discover-off"] {
+  &[class*="tab2-off"] {
     background: url(../assets/imgs/tabs/tab2_off.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="serve-on"] {
+  &[class*="tab3-on"] {
     background: url(../assets/imgs/tabs/tab3_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="serve-off"] {
+  &[class*="tab3-off"] {
     background: url(../assets/imgs/tabs/tab3_off.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="mine-on"] {
+  &[class*="tab4-on"] {
     background: url(../assets/imgs/tabs/tab4_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="mine-off"] {
+  &[class*="tab4-off"] {
     background: url(../assets/imgs/tabs/tab4_off.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="forum-off"] {
+  &[class*="tab5-off"] {
     background: url(../assets/imgs/tabs/tab5_off.png) no-repeat 50% 50%;
     background-size: contain;
   }
 
-  &[class*="forum-on"] {
+  &[class*="tab5-on"] {
     background: url(../assets/imgs/tabs/tab5_on.png) no-repeat 50% 50%;
     background-size: contain;
   }
-
-  &[class*="video-off"] {
-    background: url(../assets/imgs/tabs/shiping_w@2x.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-
-  &[class*="video-on"] {
-    background: url(../assets/imgs/tabs/shiping@2x.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-
-  &[class*="integral-off"] {
-    background: url(../assets/imgs/tabs/tab6_off.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-
-  &[class*="integral-on"] {
-    background: url(../assets/imgs/tabs/tab6_on.png) no-repeat 50% 50%;
-    background-size: contain;
-  }
-
-
-  &[class*="tab-key"] {
-    background: url(../assets/imgs/tabs/icon-key.png) no-repeat 50% 50%;
-    background-size: contain;
-    height: 40px !important;
-    width: 40px !important;
-  }
-
 
 }
