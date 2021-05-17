@@ -10,40 +10,50 @@
         </div>
         <div class="info-box">
             <div class="user-box">
-                <div class="user-name">梁欣欣</div>
-                <div class="user-label">暂无头衔</div>
+                <div class="user-name">{{mineInfo?.UserName}}</div>
+                <div class="user-label" *ngFor="let badge of userInfo?.Badges">{{badge.BadgeName}}</div>
+              <!--badge.BadgeIcon || ''-->
             </div>
-            <div class="user-level">
+            <div class="user-level" (click)="showAlert()">
                 <img src="./assets/imgs/new_version/mine/authentication-icon.png">
-                岗位认证登记
+                岗位认证等级: {{isLabel || "-"}}
             </div>
         </div>
         <div class="points-box">
-            <div class="points-text">积分  6</div>
+            <div tappable (click)="goIntegral()" class="points-text">积分  {{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</div>
         </div>
     </div>
 
     <div class="login-info">
-        <div class="login-mode">登录方式：服务助手</div>
-        <div class="login-dealer-number">经销商号：B4530022</div>
+      <div class="login-mode">
+        <span>登录方式:</span>
+        <span>{{LoginType || "-"}}</span>
+      </div>
+      <div class="login-dealer-number">
+        <span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>
+        <ng-template #other_content>
+          <span>经销商号:</span>
+        </ng-template>
+        <span>{{mineInfo?.AgentNumber || "-"}}</span>
+      </div>
     </div>
 
     <div class="post-box">
         <ul class="post-list">
-            <li>
-                <div>124</div>
+            <li tappable (click)="goToCourse()">
+                <div>{{number?.CourseCount || '0'}}</div>
                 <div>课程</div>
             </li>
-            <li>
-                <div>45</div>
+            <li tappable (click)="goExam()">
+                <div>{{number?.WorkCount || '0'}}</div>
                 <div>作业</div>
             </li>
-            <li>
-                <div>0</div>
+            <li tappable (click)="goMyshortVideo()">
+                <div>{{number?.videoNum || '0'}}</div>
                 <div>视频</div>
             </li>
-            <li>
-                <div>1</div>
+            <li tappable (click)="goMyForum()">
+                <div>{{number?.PostCount || '0'}}</div>
                 <div>帖子</div>
             </li>
         </ul>
@@ -52,50 +62,55 @@
 
     <div class="mine-content">
         <div class="content-header">
-            <div class="switch-role">
+            <div class="switch-role" tappable (click)="switchUser()">
                 <img src="./assets/imgs/new_version/mine/switch-user-icon.png">
                 切换角色
             </div>
             <div class="current-role">
                 当前角色
-                <span>员工</span>
+                <span>{{RoleName}}</span>
                 <ion-icon name="arrow-forward"></ion-icon>
             </div>
+            <!-- 切换角色 弹出 start -->
+            <div class="login-select" style="position: absolute;width: 100%;opacity: 0;">
+              <ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"
+                          (ngModelChange)="switchUser()">
+                <ion-option [value]="item.RoleName" *ngFor="let item of RoleNames">{{item.RoleName}}</ion-option>
+              </ion-select>
+            </div>
+            <!-- 切换角色 弹出 end -->
         </div>
         <div class="content-list">
-            <li>
+            <li tappable (click)="goMyIntegral()">
                 <img src="./assets/imgs/new_version/mine/points-icon.png">
                 <div>我的积分</div>
             </li>
-            <li>
+            <li tappable (click)="goMyFollowsComponent()">
                 <img src="./assets/imgs/new_version/mine/follow.png">
                 <div>我的关注</div>
             </li>
-            <li>
+            <li tappable (click)="goToCollection()">
                 <img src="./assets/imgs/new_version/mine/collection.png">
                 <div>我的收藏</div>
             </li>
-            <li>
+            <li tappable (click)="goMedal()">
                 <img src="./assets/imgs/new_version/mine/medal.png">
                 <div>设置勋章</div>
             </li>
-            <li>
+            <li tappable (click)="openUrl()">
                 <img src="./assets/imgs/new_version/mine/yjfk.png">
                 <div>意见反馈</div>
             </li>
-            <li>
+            <li tappable (click)="checkVersion()">
                 <img src="./assets/imgs/new_version/mine/gyyy.png">
                 <div>关于应用</div>
             </li>
-            <li>
+            <li tappable (click)="logoutApp()">
                 <img src="./assets/imgs/new_version/mine/logout.png">
                 <div>推出登录</div>
             </li>
         </div>
     </div>
-
-
-
 
     <!--<div class="mine">-->
         <!--<div class="logo">-->
