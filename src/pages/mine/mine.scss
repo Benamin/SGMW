@@ -122,6 +122,62 @@ page-mine {
     }
   }
 
+  .mine-content {
+    margin: 0 1.5rem;
+    margin-top: 1.6rem;
+    padding: 0 1.8rem;
+    height: 34rem;
+    background: #FFFFFF;
+    border-radius: 0.3rem;
+    .content-header {
+      height: 5.1rem;
+      border-bottom: 1px solid #DEDEDE;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .switch-role {
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 1rem;
+          width: 2.2rem;
+          height: 2.3rem;
+        }
+      }
+      .current-role {
+        span {
+          margin-left:1.3rem;
+          margin-right: 3rem;
+          font-weight: bold;
+        }
+        .ion-icon {
+
+        }
+      }
+    }
+
+    .content-list {
+      list-style:none;
+      display: flex;
+      flex-wrap: wrap;
+
+      li {
+        padding-top: 3.3rem;
+        width: 7.7rem;
+        text-align: center;
+        img {
+          margin: 0 auto;
+          margin-bottom: 1.4rem;
+          width: 3.6rem;
+          height: 3.6rem;
+          display: block;
+
+        }
+      }
+    }
+  }
+
+
   //.mine {
   //  height: 225px;
   //  background-color: #343435;
