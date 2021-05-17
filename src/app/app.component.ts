@@ -122,7 +122,7 @@ export class MyApp {
             this.splashScreen.show();
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
-            this.statusBar.backgroundColorByHexString('#343435');
+            this.statusBar.backgroundColorByHexString('#F8F8F8');
             this.statusBar.styleLightContent();
 
             //IOS兼容性方法
