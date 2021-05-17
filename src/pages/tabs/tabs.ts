@@ -18,6 +18,7 @@ import {CourseTypePage} from "../learning/course-type/course-type";
 import {PostsContentComponent} from "../forum/posts-content/posts-content.component";
 import {ThemeActivityPage} from "../home/theme-activity/theme-activity";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
+import {NotificationPage} from "../mine/notification/notification";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -55,7 +56,7 @@ export class TabsPage {
             index: 3
         },
         {
-            root: VideoListsPage,
+            root: NotificationPage,
             tabTitle: '消息',
             tabIconOn: 'custom-tab4-on',
             tabIconOff: 'custom-tab4-off',
