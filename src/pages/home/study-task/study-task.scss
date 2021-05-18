@@ -157,7 +157,12 @@ page-study-task {
         padding: 3px 5px;
         display: flex;
         flex-flow: row wrap;
-
+        .final-time {
+          margin-top: 5px;
+          line-height: 1.5;
+          font-size: 1rem;
+          color: #999;
+        }
         > p {
           font-size: 1.6rem;
           font-weight: 400;
@@ -175,7 +180,7 @@ page-study-task {
           align-self: flex-end;
           width: 100%;
           color: #333333;
-          margin-top: 10px;
+          margin-top: 5px;
           display: flex;
 
           img {
