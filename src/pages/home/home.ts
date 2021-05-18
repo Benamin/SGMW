@@ -120,7 +120,6 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit() {
-        this.storage.set('TodayRemindMission', null);
         this.GetTodayRemind();
         this.GetTodayRemindMission();
         this.storage.get('sgmwType').then((value) => {
