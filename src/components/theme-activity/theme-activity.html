@@ -1,17 +1,17 @@
 <div *ngIf="obj?.name;else other_content" class="dayily-school">
-  <img class="bgImage" src="{{obj?.converUrl || defaultImg}}">
-  <div class="container" (click)="toTheme()">
-    <div class="left">
-      <div class="day">{{obj?.day}}</div>
-      <div class="other">
-        <p>{{obj?.month}}</p>
-        <p>{{obj?.year}}</p>
-      </div>
-    </div>
-    <div class="right">
-      <button>主题活动</button>
-    </div>
-  </div>
+  <img (click)="toTheme()" class="bgImage" src="{{obj?.converUrl || defaultImg}}" alt="主题活动图">
+  <!--<div class="container" (click)="toTheme()">-->
+    <!--<div class="left">-->
+      <!--<div class="day">{{obj?.day}}</div>-->
+      <!--<div class="other">-->
+        <!--<p>{{obj?.month}}</p>-->
+        <!--<p>{{obj?.year}}</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="right">-->
+      <!--<button>主题活动</button>-->
+    <!--</div>-->
+  <!--</div>-->
 </div>
 <ng-template #other_content>
   <div style="height: 4rem">

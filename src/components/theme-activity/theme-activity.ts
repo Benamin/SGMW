@@ -12,7 +12,7 @@ export class ThemeActivityComponent {
 
 
     obj;
-    defaultImg = "./assets/imgs/home/theme-bg.png";
+    defaultImg = "./assets/imgs/new_version/home/zthd.png";
 
     constructor(public homeSer: HomeService, public navCtrl: NavController,
                 private commonSer: CommonService) {
