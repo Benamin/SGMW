@@ -8,17 +8,17 @@
     </div>
       <div class="update-content">
           <div class="update-text">
-            <div class="curriculum" *ngFor="let item of StudyItems"  >
+            <div class="curriculum">
               <div class="icon">
                 <img src="assets/imgs/home/curriculum.png" alt="">
               </div>
               <div>
                 <div style="padding-left: 10px;">
-                您的【{{item.Name}}】待学习 。
+                  {{ message }}
                 </div>
                 <div style="text-align: right;">
-                    <button style="background: #ADDAE9;    background: #ADDAE9;width: 85px;height: 26px;font-size: 13px;border-radius: 13px;"
-                    (click)="curriculumFn(item)" >开始学习</button>
+                    <button style="margin-top: 7px;background: #ADDAE9; background: #ADDAE9;width: 85px;height: 26px;font-size: 13px;border-radius: 13px;"
+                    (click)="curriculumFn()" >开始学习</button>
                 </div>
               </div>
             </div>
@@ -36,8 +36,8 @@
               我知道了
           </div>
           <div class="no-remind" (click)="noRemind()" >
-            <img *ngIf="!isNoRemind"  src="assets/imgs/home/kctix_wx@2x.png" alt="" >
-            <img *ngIf="isNoRemind"  src="assets/imgs/home/kctix_yx@2x.png" alt="" >
+            <img *ngIf="!isNoRemindMission"  src="assets/imgs/home/kctix_wx@2x.png" alt="" >
+            <img *ngIf="isNoRemindMission"  src="assets/imgs/home/kctix_yx@2x.png" alt="" >
             今日不再提醒
           </div>
       </div>
