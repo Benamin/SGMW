@@ -78,9 +78,13 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/area/getAreaCitys', data);
     }
 
-    //今日提醒
+    // 今日提醒
     GetTodayRemind() {
         return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind', {});
+    }
+    // 今日提醒-学习任务
+    GetTodayRemindMission() {
+        return this.http.post(SERVER_API_URL + '/AppStudyTask/FirstLoginHint', {});
     }
 
     // 岗位认证列表
@@ -401,4 +405,5 @@ export class HomeService {
     AppSelectThemeActivity(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EThemeActivity/AppSelectThemeActivity', data);
     }
+
 }

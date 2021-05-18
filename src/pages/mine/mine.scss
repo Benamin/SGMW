@@ -2,6 +2,7 @@ page-mine {
   font-family: PingFangSC-Semibold, PingFang SC;
   background: linear-gradient(360deg, #F9F9FA 0%, #F0F1F2 100%);
   .mine-user {
+    position: relative;
     margin-top: 1rem;
     display: flex;
     .header {
@@ -61,11 +62,16 @@ page-mine {
       }
     }
     .points-box {
+      position: absolute;
+      z-index: -1;
+      right: 0;
       width: 16.4rem;
       height: 7.8rem;
       .points-text {
-        margin-top: 3rem;
-        text-align: center;
+        position: absolute;
+        top: 3rem;
+        left: 50%;
+        transform: translateX(-50%);
         font-size: 1.5rem;
         font-weight: 400;
         color: #000000;
@@ -76,6 +82,7 @@ page-mine {
   .login-info {
     box-sizing: border-box;
     margin: 0 1.5rem;
+    margin-top: 2.5rem;
     padding: 0 1.7rem;
     height: 2.9rem;
     display: flex;
@@ -169,7 +176,7 @@ page-mine {
           margin: 0 auto;
           margin-bottom: 1.4rem;
           width: 3.6rem;
-          height: 3.6rem;
+          height: 3.3rem;
           display: block;
 
         }

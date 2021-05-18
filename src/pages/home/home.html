@@ -221,6 +221,8 @@
 <!--        </div>-->
 <!--    </div>-->
 </ion-content>
+
+<app-today-remind-mission *ngIf="is_TodayRemindMission" [data]='TodayRemindMission' (Study)="startStudy($event)" (close)="closeTodayRemindMission()"></app-today-remind-mission>
 <app-today-remind *ngIf="is_TodayRemind" [data]='TodayRemind' (Study)="startStudy($event)"
                   (close)="closeTodayRemind()"></app-today-remind>
 
