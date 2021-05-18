@@ -121,6 +121,7 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.GetTodayRemind();
+        this.GetTodayRemindMission();
         this.storage.get('sgmwType').then((value) => {
             if (value && value.sgmwType == 3) {
                 this.navCtrl.push(StudyPlanPage);
@@ -652,6 +653,8 @@ export class HomePage implements OnInit {
 
     TodayRemind: any = {};
     is_TodayRemind = false;
+    TodayRemindMission: any = {};
+    is_TodayRemindMission = false;
 
     GetTodayRemind() {
         this.homeSer.GetTodayRemind().subscribe((res: any) => {
@@ -668,13 +671,34 @@ export class HomePage implements OnInit {
         })
     }
 
+    GetTodayRemindMission() {
+        this.homeSer.GetTodayRemindMission().subscribe((res: any) => {
+            console.log(999, res.data)
+            this.TodayRemindMission = res.data;
+            this.storage.get('TodayRemindMission').then(val => {
+                let date = new Date();
+                let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+                if (val != dateDay) { // 是否点击了取消今日提醒
+                    if (this.TodayRemindMission && this.TodayRemindMission === true) {
+                        this.is_TodayRemindMission = true;
+                    }
+                }
+            });
+        })
+    }
+
     // 开始学习
     startStudy(data) {
+        console.log('.....开始学习', data)
         this.getCourseDetailById(data);
     }
 
     closeTodayRemind() {
         this.is_TodayRemind = false;
+    }
+
+    closeTodayRemindMission() {
+        this.is_TodayRemindMission = false;
     }
 
     // 获取销售大赛ID 和 用户所属地区

@@ -16,6 +16,8 @@ import {ImgPreviewComponent} from './img-preview/img-preview';
 import {IframeFileComponent} from './iframe-file/iframe-file';
 import {PipesModule} from "../pipes/pipes.module";
 import {TodayRemindComponent} from './today-remind/today-remind.component';
+import {TodayRemindMissionComponent} from './today-remind-mission/today-remind-mission.component';
+
 import {PrivacyComponent} from './privacy/privacy';
 import {CommentByCourseComponent} from './comment-by-course/comment-by-course';
 import {EidtModalComponent} from './eidt-modal/eidt-modal.component';
@@ -41,6 +43,7 @@ import { CommentStarComponent } from './comment-star/comment-star';
         CheckCodeComponent,
         UpdateAppComponent,
         TodayRemindComponent,
+        TodayRemindMissionComponent,
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,
@@ -74,6 +77,7 @@ import { CommentStarComponent } from './comment-star/comment-star';
         CheckCodeComponent,
         UpdateAppComponent,
         TodayRemindComponent,
+        TodayRemindMissionComponent,
         VideojsComponent,
         SelectTeacherComponent,
         SearchSidebarComponent,

@@ -1,0 +1,45 @@
+<div class="cover">
+  <div class="bg-content">
+    <div class="remind">
+      <img src="assets/imgs/home/remind.png" alt="">
+    </div>
+    <div style="text-align: center;top: 40px;position: absolute;margin: auto;width: 100%;">
+      今日提醒
+    </div>
+      <div class="update-content">
+          <div class="update-text">
+            <div class="curriculum" *ngFor="let item of StudyItems"  >
+              <div class="icon">
+                <img src="assets/imgs/home/curriculum.png" alt="">
+              </div>
+              <div>
+                <div style="padding-left: 10px;">
+                您的【{{item.Name}}】待学习 。
+                </div>
+                <div style="text-align: right;">
+                    <button style="background: #ADDAE9;    background: #ADDAE9;width: 85px;height: 26px;font-size: 13px;border-radius: 13px;"
+                    (click)="curriculumFn(item)" >开始学习</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="Examination" *ngIf="data.ISExam" >
+              <div class="icon">
+                <img src="assets/imgs/home/kcts_ks@2x.png" alt="">
+              </div>
+              <div style="padding-left: 10px;">
+                今日有考试，请到考试中心完成考试
+              </div>
+            </div>
+          </div>
+          <div tappable  class="update-button" (click)="GotIt()">
+              我知道了
+          </div>
+          <div class="no-remind" (click)="noRemind()" >
+            <img *ngIf="!isNoRemind"  src="assets/imgs/home/kctix_wx@2x.png" alt="" >
+            <img *ngIf="isNoRemind"  src="assets/imgs/home/kctix_yx@2x.png" alt="" >
+            今日不再提醒
+          </div>
+      </div>
+  </div>
+</div>
