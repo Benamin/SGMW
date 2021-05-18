@@ -120,6 +120,7 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit() {
+        this.storage.set('TodayRemindMission', null);
         this.GetTodayRemind();
         this.GetTodayRemindMission();
         this.storage.get('sgmwType').then((value) => {
@@ -674,12 +675,12 @@ export class HomePage implements OnInit {
     GetTodayRemindMission() {
         this.homeSer.GetTodayRemindMission().subscribe((res: any) => {
             console.log(999, res.data)
-            this.TodayRemindMission = res.data;
+            this.TodayRemindMission = res;
             this.storage.get('TodayRemindMission').then(val => {
                 let date = new Date();
                 let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
                 if (val != dateDay) { // 是否点击了取消今日提醒
-                    if (this.TodayRemindMission && this.TodayRemindMission === true) {
+                    if (this.TodayRemindMission.data && this.TodayRemindMission.data === true) {
                         this.is_TodayRemindMission = true;
                     }
                 }

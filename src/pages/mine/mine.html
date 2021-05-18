@@ -11,6 +11,7 @@
         <div class="info-box">
             <div class="user-box">
                 <div class="user-name">{{mineInfo?.UserName}}</div>
+                <div class="user-label" *ngIf="!userInfo?.Badges || userInfo?.Badges.length === 0">暂无头衔</div>
                 <div class="user-label" *ngFor="let badge of userInfo?.Badges">{{badge.BadgeName}}</div>
               <!--badge.BadgeIcon || ''-->
             </div>
@@ -70,7 +71,7 @@
             <div class="current-role">
                 当前角色
                 <span>{{RoleName}}</span>
-                <ion-icon name="arrow-forward"></ion-icon>
+                <img src="./assets/imgs/new_version/mine/right.png">
             </div>
             <!-- 切换角色 弹出 start -->
             <div class="login-select" style="position: absolute;width: 100%;opacity: 0;">

@@ -16,18 +16,18 @@ export class TodayRemindMissionComponent implements OnInit {
 
     imgSrc = 'assets/imgs/home/kctix_wx@2x.png';
     isNoRemindMission = false;
-    StudyItems = []
+    message = ''
 
     ngOnInit() {
-        this.StudyItems = this.data.Items;
+        this.message = this.data.message;
     }
 
     noRemind() {
         this.isNoRemindMission = !this.isNoRemindMission;
     }
 
-    curriculumFn(data) {
-        this.Study.emit(data.ClassID)
+    curriculumFn() {
+        this.Study.emit()
     }
 
     GotIt() {
