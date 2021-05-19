@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>通知中心</ion-title>
+        <ion-title>消息</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -42,7 +42,11 @@
 				<div class="noti">
 					<span *ngIf="item.Status == 0" class="tips"></span>
 					<p>{{item.Title}}</p>
-					<p>{{item.SubTitle}}</p>
+					<p class="desc">{{item.SubTitle}}</p>
+					<div class="detail-text">
+						<span>查看详情</span>
+						<img src="./assets/imgs/new_version/mine/right.png">
+					</div>
 				</div>
 			</ng-template>
 		</div>

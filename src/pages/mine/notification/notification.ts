@@ -39,7 +39,7 @@ export class NotificationPage {
         text: '互动通知'
     }, {
         lable: 'study',
-        text: '学习通知'   //课程学习和主题活动
+        text: '培训通知'   //课程学习和主题活动
     }];
 
     checkType = "all";
