@@ -63,9 +63,9 @@
                         <img src="./assets/imgs/new_version/home/exam-center.png" alt="">
                         <p>考试中心</p>
                     </div>
-                    <div tappable class="category-item" (click)="goInnerTrain()">
+                    <div tappable class="category-item" (click)="goFocusTrain()">
                         <img src="./assets/imgs/new_version/home/training.png" alt="">
-                        <p>内训</p>
+                        <p>线下培训</p>
                     </div>
                     <div tappable class="category-item" (click)="goNumberOne()">
                         <img src="./assets/imgs/new_version/home/wolf-ranking.png" alt="">
@@ -81,121 +81,69 @@
                     </div>
                 </div>
 
-                <!--  新模块  -->
-                <!--<div class="new-module" style="margin-top: 20px;">-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goStudyPlan()">-->
-                        <!--<img src="./assets/imgs/home/1_1xxjh@2x.png" alt="">-->
+            </ion-slide>
+            <!--<ion-slide>-->
+                <!--<div class="slide-box">-->
+                    <!--<div tappable class="category-item" (click)="goStudyPlan()">-->
+                        <!--<img src="./assets/imgs/new_version/home/study-plan.png" alt="">-->
                         <!--<p>学习计划</p>-->
                     <!--</div>-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goConsultation()">-->
-                        <!--<img src="./assets/imgs/home/news@2x.png" alt="">-->
+                    <!--<div tappable class="category-item" (click)="goConsultation()">-->
+                        <!--<img src="./assets/imgs/new_version/home/consulting-service.png" alt="">-->
                         <!--<p>资讯</p>-->
                     <!--</div>-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goNumberOne()">-->
-                        <!--<img src="./assets/imgs/home/zys@2x.png" alt="">-->
-                        <!--<p>“狼灭”榜</p>-->
-                    <!--</div>-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInRight':''" class=" wow" data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goRanking()">-->
-                        <!--<img src="./assets/imgs/home/rank@2x.png" alt="">-->
+                    <!--<div tappable class="category-item" (click)="goRanking()">-->
+                        <!--<img src="./assets/imgs/new_version/home/ranking-list.png" alt="">-->
                         <!--<p>排行榜</p>-->
                     <!--</div>-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goTest()">-->
-                        <!--<img src="./assets/imgs/home/ks@2x.png" alt="">-->
-                        <!--<p>考试中心</p>-->
+                    <!--<div tappable class="category-item" (click)="goQuestion()">-->
+                        <!--<img src="./assets/imgs/new_version/home/voting.png" alt="">-->
+                        <!--<p>问卷/投票</p>-->
                     <!--</div>-->
                 <!--</div>-->
-                <!--<div class="new-module" style="margin-top: 20px;margin-bottom: 1.5rem">-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goLive()">-->
-                        <!--<img src="./assets/imgs/home/zb@2x.png" alt="">-->
-                        <!--<p>直播</p>-->
-                    <!--</div>-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goInformationZone()">-->
-                        <!--<img style="width: 33px;" src="./assets/imgs/home/home_zlzq@2x.png" alt="">-->
-                        <!--<p>资料专区</p>-->
-                    <!--</div>-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goInnerTrain()">-->
-                        <!--<img src="./assets/imgs/home/home_neixun@2x.png" alt="">-->
-                        <!--<p>内训</p>-->
-                    <!--</div>-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goFocusTrain()">-->
-                        <!--<img style="width: 28px;" src="./assets/imgs/home/home_jzpx@2x.png" alt="">-->
-                        <!--<p>线下培训</p>-->
-                    <!--</div>-->
-                    <!--<div tappable [ngClass]="wow == true?'slideInRight':''" class="wow" data-wow-duration="2s"-->
-                         <!--data-wow-delay="1s"-->
-                         <!--data-wow-offset="30" (click)="goWantToAsk()">-->
-                        <!--<img src="./assets/imgs/home/home_cnxw@2x.png" alt="猜你想问">-->
-                        <!--<p>猜你想问</p>-->
-                    <!--</div>-->
-                <!--</div>-->
-            </ion-slide>
-            <ion-slide>
-                <div class="slide-box">
-                    <div tappable class="category-item" (click)="goStudyPlan()">
-                        <img src="./assets/imgs/new_version/home/study-plan.png" alt="">
-                        <p>学习计划</p>
-                    </div>
-                    <div tappable class="category-item" (click)="goConsultation()">
-                        <img src="./assets/imgs/new_version/home/consulting-service.png" alt="">
-                        <p>资讯</p>
-                    </div>
-                    <div tappable class="category-item" (click)="goRanking()">
-                        <img src="./assets/imgs/new_version/home/ranking-list.png" alt="">
-                        <p>排行榜</p>
-                    </div>
-                    <div tappable class="category-item" (click)="goQuestion()">
-                        <img src="./assets/imgs/new_version/home/voting.png" alt="">
-                        <p>问卷/投票</p>
-                    </div>
-                </div>
-                <!--  新模块  -->
-                <!--<div class="new-module" style="margin-top: 20px;">-->
-                  <!--<div tappable class=" wow" (click)="goToXSCompetition()">-->
-                    <!--<img style="width: 28px;" src="./assets/imgs/home/home_jinjie@2x.png" alt="认证进阶">-->
-                    <!--<p>销售大赛</p>-->
-                  <!--</div>-->
-                    <!--<div tappable class="wow" (click)="goToFWCompetition()">-->
-                        <!--<img style="width: 28px;" src="./assets/imgs/home/fwds.png" alt="">-->
-                        <!--<p>服务大赛</p>-->
-                    <!--</div>-->
-                    <!--<div tappable class=" wow" (click)="goJobLevel()">-->
-                        <!--<img style="width: 28px;" src="./assets/imgs/home/job-level@2x.png" alt="">-->
-                        <!--<p>系列课程</p>-->
-                    <!--</div>-->
-
-                    <!--<div tappable class=" wow" (click)="goQuestion()">-->
-                      <!--<img style="width: 28px;" src="./assets/imgs/home/home_wenjuan@2x.png" alt="">-->
-                      <!--<p>问卷/投票</p>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;  新模块  &ndash;&gt;-->
-                <!--<div class="new-module" style="margin-top: 20px;margin-bottom: 1.5rem">-->
-                    <!--<div tappable class="wow" (click)="goToDayily()">-->
-                        <!--<img style="width: 28px;" src="./assets/imgs/home/mryx.png" alt="每日一学">-->
-                        <!--<p>每日一学</p>-->
-                    <!--</div>-->
-                <!--</div>-->
-            </ion-slide>
+            <!--</ion-slide>-->
         </ion-slides>
     </div>
+
+    <div class="hot-course">
+        <div class="title">
+            热门课程
+            <span (click)="moreCourse()">更多 ></span>
+        </div>
+        <ul class="course-list">
+            <li (click)="goCourse(item)" *ngFor="let item of productList;">
+                <img [src]="item?.ImageUrl || defaultImg" alt="热门课程封面图">
+                <div class="item-title">{{item?.Title}}</div>
+                <div class="item-about">
+                    <span>
+                        <img src="./assets/imgs/new_version/home/look-num.png" alt="浏览量">{{item?.ManCount}}
+                    </span>
+                    <span>
+                        <img src="./assets/imgs/new_version/home/love-num.png" alt="点赞量">{{item?.ZanCount}}
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="hot-post">
+        <div class="title">
+            热门动态
+            <span (click)="goForumComponent()">更多 ></span>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="product-float-tab">
         <div class="product-float-nav" tappable (click)="navli='product'" [ngClass]="{'act': navli=='product'}">
@@ -226,7 +174,7 @@
         </div>
     </div>
     <!-- 热门帖子 -->
-    <div class="sale" *ngIf="navli=='float'" style="    margin-top: 0px;">
+    <div class="sale" *ngIf="navli=='float'" style="margin-top: 0px;">
         <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
             <app-forum-list-time (share)="wxShare(item)" [item]='item'></app-forum-list-time>
         </div>
