@@ -326,11 +326,11 @@ page-home {
       height: 15.1rem;
       align-items: flex-end;
     }
-    ion-slides {
-      padding: 0 1.2rem;
-    }
+    ion-slides {}
     ion-slide {
-      padding: 0 !important;
+      box-sizing: border-box;
+      padding: 0 1.2rem;
+      width: 100% !important;
     }
     img {
       max-height: 14.5rem;
