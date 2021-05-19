@@ -17,14 +17,20 @@ import {AppService} from "../../../../app/app.service";
 import {ChooseImageProvider} from "../../../../providers/choose-image/choose-image";
 import {GlobalData} from "../../../../core/GlobleData";
 import {ShortVideoProvider} from "../../../../providers/short-video/short-video";
+import {FileEntry, File} from "@ionic-native/file";
+import {DomSanitizer} from "@angular/platform-browser";
 
-//需要弹出的页面
+declare let videojs: any;
 
 @Component({
     selector: 'page-edit',
     templateUrl: 'edit.html',
 })
 export class EditPage {
+    on(arg0: any, arg1: any): any {
+        throw new Error("Method not implemented.");
+    }
+
     editTitle = '视频编辑'
     form = {
         Title: '',
@@ -38,12 +44,17 @@ export class EditPage {
     choicePlateList;  //话题列表
     tempList;  //板块列表
     CoverUrl;
+    videoEle;
+    video1;
+    video2;
 
     constructor(public modalCtrl: ModalController, public navCtrl: NavController,
                 private serve: ForumService,
                 private commonSer: CommonService,
                 private platform: Platform,
+                private sanitizer: DomSanitizer,
                 private zone: NgZone,
+                private file: File,
                 public chooseImage: ChooseImageProvider,
                 public homeSer: HomeService,
                 public global: GlobalData,
@@ -56,11 +67,74 @@ export class EditPage {
                 private loading: LoadingController,
                 public navParams: NavParams, private elementRef: ElementRef) {
         this.mediaFile = this.navParams.get('mediaFile');
+        console.log("mediaFile", this.mediaFile);
+        const fileName = this.mediaFile.name;
+        let arr = this.mediaFile.fullPath.split('/');
+        arr.splice(arr.length - 1, 1);
+        const filePath = arr.join('/');
+        //读取文件并以ArrayBuffer的形式返回数据。
+        this.file.readAsArrayBuffer(filePath, fileName).then(file => {
+            // let readAsArrayBuffer = window.URL.createObjectURL(new Blob([file], {type: fileType}))
+            // console.log("readAsArrayBuffer", readAsArrayBuffer);
+        })
+        //读取文件并以二进制数据形式返回数据。
+        this.file.readAsBinaryString(filePath, fileName).then(value => {
+            // @ts-ignore
+            // let url = window.URL.createObjectURL(new File([value], fileName, {type: fileType}));
+            // this.videoUrl = <any>this.sanitizer.bypassSecurityTrustUrl(url);
+            // console.log("readAsBinaryString", this.videoUrl);
+        })
+
+        // let binaryData = [];
+        // binaryData.push(this.mediaFile.fullPath);
+        // this.videoUrl = window.URL.createObjectURL(new Blob(binaryData, {type: fileType}))
+        // let url = window.URL.createObjectURL(this.mediaFile.fullPath);
+        // this.videoUrl = this.mediaFile.fullPath;
+        // this.videoUrl = url;
         this.resp = this.navParams.get('resp');
     }
 
     ionViewDidLoad() {
+        let that = this;
+        const fileName = this.mediaFile.name;
+        let fileType = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length).toLowerCase();
+        that.video1 = videojs("localVideo1", {
+            controls: true,
+            autoplay: false,
+            sources: [{
+                src: this.mediaFile.fullPath,
+                type: fileType
+            }]
+        })
+        that.video2 = videojs("localVideo2", {
+            controls: true,
+            autoplay: false,
+            sources: [{
+                src: "https://sgmwstorage.blob.core.chinacloudapi.cn/asset-ca3dfb25-ff54-4b9a-9d30-43386457cdac/mmexport1620712418396.mp4?sv=2018-03-28&sr=b&sig=Y0IHY72AVKB2NFe13P5VAtf2SY527gM0chVERz9S1gM%3D&se=2031-05-11T05%3A57%3A26Z&sp=rcw",
+                type: 'application/x-mpegURL'
+            }]
+        }, function () {
+            this.on("loadeddata", () => {
+                setTimeout(() => {
+                    let canvas = document.createElement("canvas");
+                    canvas.width = 200;
+                    canvas.height = 100;
+                    let videoEle = <any>document.getElementById("localVideo2");
+                    console.log("videoEle", videoEle);
+                    canvas.getContext('2d').drawImage(videoEle, 0, 0, canvas.width, canvas.height);
+
+                    let img = document.createElement("img");
+                    img.setAttribute('crossOrigin', 'anonymous');
+                    img.src = canvas.toDataURL("image/png");
+                    console.log(img);
+                }, 10000)
+            })
+        })
         this.getList();
+    }
+
+    getDuration(event) {
+        console.log(Math.floor(event.duration));
     }
 
     //获取话题

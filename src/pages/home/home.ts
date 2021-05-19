@@ -96,7 +96,6 @@ export class HomePage implements OnInit {
                 private learSer: LearnService,
                 private forum_serve: ForumService,
                 private modalCtrl: ModalController) {
-        this.statusBar.backgroundColorByHexString('#343435');
         let app_url = (window as any).localStorage.getItem("app_url");
 
         if (app_url) {

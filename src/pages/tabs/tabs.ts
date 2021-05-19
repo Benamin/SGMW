@@ -19,6 +19,7 @@ import {PostsContentComponent} from "../forum/posts-content/posts-content.compon
 import {ThemeActivityPage} from "../home/theme-activity/theme-activity";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
 import {NotificationPage} from "../mine/notification/notification";
+import {EditPage} from "../home/competition/edit/edit";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -49,14 +50,14 @@ export class TabsPage {
             index: 1
         },
         {
-            root: ForumPage,
+            root: EditPage,
             tabTitle: '动态',
             tabIconOn: 'custom-tab3-on',
             tabIconOff: 'custom-tab3-off',
             index: 3
         },
         {
-            root: NotificationPage,
+            root: VideoListsPage,
             tabTitle: '消息',
             tabIconOn: 'custom-tab4-on',
             tabIconOff: 'custom-tab4-off',

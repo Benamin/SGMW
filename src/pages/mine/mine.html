@@ -17,8 +17,8 @@
                 <div style="width: 80%" class="info-name">
                     <p>
                         <span>{{mineInfo?.UserName}}</span>
-<!--                        <span tappable (click)="goIntegral()"-->
-<!--                              class="credit">积分：{{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</span>-->
+                        <!--                        <span tappable (click)="goIntegral()"-->
+                        <!--                              class="credit">积分：{{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</span>-->
                     </p>
                     <p class="badge" style="margin-top: 6px">
                         <span class="badgeSpan" *ngFor="let badge of userInfo?.Badges">
@@ -88,6 +88,15 @@
         </div>
     </div>
     <div class="mine-list" style="    margin-top: 10px;">
+        <div class="item" tappable (click)="goToFile()">
+            <div class="left">
+                <img src="./assets/imgs/tabs/tab6_on.png">
+            </div>
+            <div class="middle">我的积分</div>
+            <div class="right">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </div>
+        </div>
         <div class="item" tappable (click)="goMyIntegral()">
             <div class="left">
                 <img src="./assets/imgs/tabs/tab6_on.png">

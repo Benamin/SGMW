@@ -130,6 +130,7 @@ export class ShortVideoProvider {
         this.Camera.getPicture(option).then((videoData) => {
             let filePath = videoData.startsWith("file://") ? videoData : "file://" + videoData;
             this.file.resolveLocalFilesystemUrl(filePath).then((fileEntry: FileEntry) => {
+                console.log("fileEntry",fileEntry)
                 return new Promise((resolve, reject) => {
                     fileEntry.file(meta => resolve(meta), error => reject(error));
                 });

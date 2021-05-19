@@ -123,7 +123,7 @@ export class MyApp {
             this.statusBar.show();
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByHexString('#F8F8F8');
-            this.statusBar.styleLightContent();
+            this.statusBar.styleDefault();
 
             //IOS兼容性方法
             this.compatibleIOS();
