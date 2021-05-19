@@ -66,7 +66,7 @@ export class HomePage implements OnInit {
     type = 'teacher';
     personrType = 0;
     saleList = [];  //销售运营
-    productList = new Array(5);  //产品体验
+    productList = new Array(6);  //产品体验
     teacherList = [];
     bannerList = [
         {SourceUrl: defaultImg}
