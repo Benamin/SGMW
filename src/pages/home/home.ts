@@ -250,7 +250,11 @@ export class HomePage implements OnInit {
     getProductList() {
         this.homeSer.GetHotProductList().subscribe(
             (res) => {
-                this.productList = res.data;
+                let productList = [];
+                for (let i=0; i<res.data.length; i++) {
+                    if (i<6) productList.push(res.data[i]) // 限制6条数据
+                }
+                this.productList = productList;
             }
         );
     }
