@@ -1,4 +1,22 @@
 page-course-type {
+  .ion-content {
+    background-color: #F8F8F8;
+  }
+
+  .toolbar-ios {
+    min-height: 57px;
+  }
+  .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+    background-color: #F8F8F8;
+  }
+  .nav-title {
+    margin-left: 1.7rem;
+    font-size: 19px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #000000;
+  }
+
   .scroll-content {
     overflow-y: hidden;
   }
@@ -11,15 +29,6 @@ page-course-type {
     margin: 7px 8px 7px 0;
     padding: 0;
     width: calc(100% - 8px);
-  }
-
-  ion-input, ion-textarea {
-    color: #333;
-    background-color: #fff;
-    border-radius: 100px;
-    padding-left: 35px;
-    margin-left: 20px;
-    margin-right: 20px;
   }
 
   .header-ios .toolbar-ios:last-child .toolbar-background-ios {
@@ -44,18 +53,20 @@ page-course-type {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    width: 100%;
-    margin-left: 5px;
+    margin-left: auto;
+    margin-right: 0.9rem;
     position: relative;
-  }
-
-  .search-icon {
-    position: absolute;
-    top: 2px;
-    left: 30px;
-    color: #333;
-    z-index: 999;
-    font-size: 2.5rem;
+    width: 22.3rem;
+    height: 3.2rem;
+    background: #FFFFFF;
+    border-radius: 0.5rem;
+    border: 1px solid #EEEEEE;
+    .search-icon {
+      margin-left: 1.5rem;
+      margin-right: 0.6rem;
+      width: 1.8rem;
+      height: 1.8rem;
+    }
   }
 
   .clear {
@@ -77,29 +88,56 @@ page-course-type {
     height: 100%;
 
     .left {
-      width: 35%;
+      font-size: 1.5rem;
+      width: 9.1rem;
       overflow-y: scroll;
       padding-bottom: 60px;
 
       p {
-        padding: 15px;
+        display: flex;
+        align-items: center;
+        height: 5.4rem;
+        padding: 0 0.6rem 0 1.7rem;
+
+        span {
+          line-height: 1.8rem;
+          max-height: 3.6rem;
+          overflow: hidden;
+        }
       }
     }
 
     .right {
-      width: 65%;
+      width: 28.4rem;
       background-color: #fff;
       padding: 0 10px;
       height: 100%;
       overflow-y: scroll;
       padding-bottom: 60px;
+      color: #5D5D5D;
 
       .ch {
-        font-weight: bolder;
-        margin: 10px 0;
-        height: 25px;
-        line-height: 25px;
+        position: relative;
+        margin-top: 1.5rem;
+        margin-bottom: 1.6rem;
+        padding: 0 1.3rem 0 1rem;
+        box-sizing: border-box;
+        height: 2.3rem;
+        line-height: 2.3rem;
+        font-size: 1.4rem;
+        font-weight: 500;
 
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 0.4rem;
+          width: 0.4rem;
+          border-radius: 0.2rem;
+          background-color: #5D5D5D;
+        }
         ion-icon {
           vertical-align: middle;
           margin-left: 5px;
@@ -107,15 +145,26 @@ page-course-type {
       }
 
       .ch2 {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        padding: 0 1.4rem;
         span {
-          border: 1px solid #ddd;
-          border-radius: 10px;
-          padding: 0px 10px;
-          margin-right: 10px;
-          display: inline-block;
-          margin-bottom: 10px;
-          height: 32px;
-          line-height: 30px;
+          display: block;
+          box-sizing: border-box;
+          padding: 0 0.6rem;
+          width: 11rem;
+          height: 2.4rem;
+          line-height: 2.4rem;
+          text-align: center;
+          background: #F3F3F3;
+          border-radius: 3px;
+          margin-bottom: 2rem;
+          font-size: 1.4rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -124,6 +173,7 @@ page-course-type {
   .left-actived {
     background-color: #fff;
     font-weight: bolder;
+    color: #212121;
     position: relative;
   }
 
@@ -131,10 +181,12 @@ page-course-type {
     content: "";
     position: absolute;
     left: 0;
-    top: 0;
-    height: 100%;
-    width: 3px;
-    background-color: #ffc92d;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2.3rem;
+    width: 0.4rem;
+    border-radius: 0.2rem;
+    background-color: #e90e2c;
   }
 
   .right-actived {
