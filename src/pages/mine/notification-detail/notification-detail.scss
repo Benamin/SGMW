@@ -1,19 +1,28 @@
 page-notification-detail {
+  background-color: #F8F8F8;
+  ion-content {
+    background-color: #F8F8F8 !important;
+  }
+
+  font-family: PingFangSC-Semibold, PingFang SC;
+  .toolbar-ios {
+    min-height: 5.7rem;
+  }
   .main-content{
-    background-color: #ffffff;
-    padding: 2rem 1rem;
+    //background-color: #ffffff;
+    padding: 2.7rem 2.1rem;
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 500;
     color: rgba(0, 0, 0, 1);
     line-height: 2.33rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .createTime {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 400;
     color: rgba(0, 0, 0, .4);
     line-height: 1.5rem;

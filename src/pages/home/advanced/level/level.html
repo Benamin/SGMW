@@ -4,7 +4,7 @@
     <div class="top-box">
           <span class="top-right" (click)="showActionSheet()">
             <span>岗位切换</span>
-            <img src="assets/imgs/advanced/rzjj_xz@2x.png" alt="">
+            <!--<img src="assets/imgs/advanced/rzjj_xz@2x.png" alt="">-->
           </span>
     </div>
   </ion-navbar>
@@ -24,7 +24,7 @@
     <div class="rule-tip">
       <span>{{ page.levelTypeText }}岗位分级</span>
       <span class="rule-tip-text" (click)="getModalData()">
-        <img class="rule-icon" src="assets/imgs/advanced/rule-icon.png" alt="">
+        <!--<img class="rule-icon" src="assets/imgs/advanced/rule-icon.png" alt="">-->
         岗位分级说明
       </span>
     </div>
@@ -43,8 +43,8 @@
 
     <div class="level-scroll-box">
       <ul class="level-type-box">
-        <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="switchLevel(levelTypeIndex, item.Hierarchy > page.nowLevel + 1)" [ngClass]="{'actived': item.actived, 'disabled': item.Hierarchy > page.nowLevel + 1}">
-           <div [innerHTML]="assembleHTML(item.LevelText)"></div>
+        <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="switchLevel(levelTypeIndex, item.Hierarchy > page.nowLevel + 1)" [ngClass]="{'actived': item.actived, 'disabled': item.Hierarchy > page.nowLevel + 1}">LV{{ levelTypeIndex + 1 }}
+           <!--<div [innerHTML]="assembleHTML(item.LevelText)"></div>-->
         </li>
       </ul>
     </div>
@@ -68,30 +68,33 @@
 
     <!-- 课程列表 -->
     <div *ngIf="page.navliArr[0].isActived === true">
-      <div class="sec-nav-type">
-        <div class="nav-box">
-          <div class="btn-box">
+      <!-- 二级nav -->
+      <!--<div class="sec-nav-type">-->
+        <!--<div class="nav-box">-->
+          <!--<div class="btn-box">-->
 
-            <div *ngFor="let item of page.courseTypeArr; let navSecIndex = index">
-              <div *ngIf="navSecIndex !== 3"
-                   (click)="changeSecNav(navSecIndex, item.isActived)"
-                   class="type-btn"
-                   [ngClass]="{'actived': item.isActived}">
-                {{ item.navBtnText }}
-                <span class="item-line"></span>
-              </div>
-              <div *ngIf="navSecIndex === 3"
-                   (click)="goAdvancedLists()"
-                   class="type-btn"
-                   [ngClass]="{'actived': item.isActived}">
-                {{ item.navBtnText }}
-                <span class="item-line"></span>
-              </div>
-            </div>
+            <!--<div *ngFor="let item of page.courseTypeArr; let navSecIndex = index">-->
+              <!--<div *ngIf="navSecIndex !== 3"-->
+                   <!--(click)="changeSecNav(navSecIndex, item.isActived)"-->
+                   <!--class="type-btn"-->
+                   <!--[ngClass]="{'actived': item.isActived}">-->
+                <!--{{ item.navBtnText }}-->
+                <!--<span class="item-line"></span>-->
+              <!--</div>-->
+              <!--<div *ngIf="navSecIndex === 3"-->
+                   <!--(click)="goAdvancedLists()"-->
+                   <!--class="type-btn"-->
+                   <!--[ngClass]="{'actived': item.isActived}">-->
+                <!--{{ item.navBtnText }}-->
+                <!--<span class="item-line"></span>-->
+              <!--</div>-->
+            <!--</div>-->
 
-          </div>
-        </div>
-      </div>
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!-- 二级nav -->
+
       <div *ngFor="let item of page.navliArr[0].lists; let courseIndex = index">
         <div class="course-li" (click)="goCourse(item)">
           <img [src]="item.ImageUrl || page.defaultImg" alt="课程图片">
@@ -103,43 +106,37 @@
               {{item.SubjectName}}
             </div>
             <div class="status" *ngIf="item.studystate === 0">
-              <img src="assets/imgs/advanced/status-default.png"/>
+              <img src="./assets/imgs/new_version/advanced/not-start.png"/>
               未开始
             </div>
             <div class="status" *ngIf="item.studystate === 1">
-              <img src="assets/imgs/advanced/status-doing.png"/>
+              <img src="./assets/imgs/new_version/advanced/doing.png"/>
               进行中
             </div>
             <div class="status" *ngIf="item.studystate === 2 || item.studystate === -1">
-              <img src="assets/imgs/advanced/status-finish.png"/>
+              <img src="./assets/imgs/new_version/advanced/finish.png"/>
               已完成
             </div>
           </div>
         </div>
       </div>
 
-      <div *ngIf="page.navliArr[0].lists.length === 0 && page.isLoaded" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
+      <ion-list style="margin-top: 2.5rem;text-align: center;color: #999;text-align: center;" *ngIf="page.navliArr[0].lists.length === 0 && page.isLoaded">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+          暂无数据
+        </p>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载中"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
 
     </div>
     <!-- 课程列表 end -->
     <!-- 考试列表 -->
     <div *ngIf="page.navliArr[1].isActived === true">
-      <div class="sec-nav-type">
-        <div class="nav-box">
-          <div class="btn-box">
-            <div *ngFor="let item of page.courseTypeArr; let navSecIndex = index">
-
-              <div *ngIf="navSecIndex !== 3" (click)="changeSecNav(navSecIndex, item.isActived)"
-                   class="type-btn"
-                   [ngClass]="{'actived': item.isActived}">
-                {{ item.navBtnText }}
-                <span class="item-line"></span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div *ngFor="let item of page.navliArr[1].lists; let examIndex = index">
         <div class="item-exam" (click)="goExam(item)">
@@ -149,7 +146,19 @@
               <div class="title">{{ item.EName }}</div>
               <div class="achievement">本场考试：{{ item.PassScore + '分通过' }}</div>
               <div class="right_bottom">
-                <span style="color: #666;">时间：{{ item.ExamTimer === 0 ? '不限时' : item.ExamTimer + '分钟' }}</span>
+                <div class="status" *ngIf="item.StudyState === 1">
+                  <img src="./assets/imgs/new_version/advanced/not-start.png"/>
+                  未开始
+                </div>
+                <div class="status" *ngIf="item.StudyState === 2">
+                  <img src="./assets/imgs/new_version/advanced/doing.png"/>
+                  进行中
+                </div>
+                <div class="status" *ngIf="item.StudyState === 3">
+                  <img src="./assets/imgs/new_version/advanced/finish.png"/>
+                  已完成
+                </div>
+                <span>时间：{{ item.ExamTimer === 0 ? '不限时' : item.ExamTimer + '分钟' }}</span>
                 <div class="status" *ngIf="item.TotalScore >= item.PassScore">
                   <img src="assets/imgs/advanced/logo-actived.png"/>
                   <!-- <img src="assets/imgs/advanced/status-finish.png"/> -->
@@ -163,62 +172,6 @@
 
     </div>
     <!-- 考试列表 end -->
-
-    <!-- KPI -->
-    <div *ngIf="page.navliArr[2].isActived === true">
-      <div class="kpi-title" *ngIf="page.navliArr[2].lists.length > 0">岗位业绩指标</div>
-
-      <div *ngFor="let item of page.navliArr[2].lists; let kpiIndex = index">
-        <div class="kpi-item">
-          <div class="kpi-item-title">{{ item.KpiName }}</div>
-          <div class="progress-box">
-            <div class="progress-bar-bg"></div>
-						<!-- KpiValue若有 QualifiedKpiValue 为0的情况  如 1/0 ==Infinity -->
-						<div *ngIf="item.KpiValue !== 0 && item.QualifiedKpiValue === 0; else elseBlock" class="progress-bar" style="width: 100%;"></div>
-						<!-- *ngIf="item.QualifiedKpiValue !== 0" -->
-						<ng-template #elseBlock>
-							<div class="progress-bar" [ngStyle]="{'width': item.KpiValue === 0 && item.QualifiedKpiValue === 0 ? 0 : (item.KpiValue/item.QualifiedKpiValue*100) + '%' }"></div>
-						</ng-template>
-           
-          </div>
-          <div class="kpi-item-text">
-            <span class="progress-now" [ngClass]="{'finish': item.KpiValue >= item.QualifiedKpiValue }">当前{{( item.KpiValue * 100).toFixed(0) }}%</span>
-            <span class="progress-target">目标{{( item.QualifiedKpiValue * 100).toFixed(0) }}%</span>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="page.navliArr[2].lists.length === 0 && page.isLoaded" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
-
-    </div>
-    <!-- KPI end -->
-
-    <!-- 评分 -->
-    <div *ngIf="page.navliArr[3].isActived === true">
-      <!--<div class="kpi-title">试乘试驾操作评分</div>-->
-
-      <div *ngFor="let item of page.navliArr[3].lists; let kpiIndex = index">
-
-        <div class="kpi-item" *ngIf="item.IsExist">
-          <div class="kpi-item-title">试乘试驾操作评分</div>
-          <div class="progress-box">
-            <div class="progress-bar-bg"></div>
-            <div class="progress-bar" [ngStyle]="{'width': (item.Score/item.QualifiedScore*100) + '%' }"></div>
-          </div>
-          <div class="kpi-item-text">
-            <span class="progress-now" [ngClass]="{'finish': item.IsQualified }">当前{{ item.Score }}分</span>
-            <span class="progress-target">目标{{ item.QualifiedScore }}分</span>
-          </div>
-        </div>
-
-        <div *ngIf="page.navliArr[3].lists.length === 1 && !item.IsExist" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
-
-      </div>
-
-      <div *ngIf="page.navliArr[3].lists.length === 0 && page.isLoaded" style="margin-top: 2.5rem;text-align: center;color: #999;">暂无数据</div>
-
-    </div>
-    <!-- 评分 end -->
 
   </div>
 
