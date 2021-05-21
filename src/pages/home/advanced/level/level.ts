@@ -444,19 +444,19 @@ export class AdvancedLevelPage {
     }
 
     // 二级导航（课程/考试状态）切换
-    changeSecNav(navSecIndex, bool) {
-        if (bool) return;
-        this.page.isLoaded = false;
-        this.initLists();
-        console.log('changeNav', navSecIndex, bool)
-        for (var i = 0; i < this.page.courseTypeArr.length; i++) {
-            this.page.courseTypeArr[i].isActived = false;
-        }
-
-        this.page.courseTypeArr[navSecIndex].isActived = true;
-        this.page.nowClickSec = this.page.courseTypeArr[navSecIndex].navBtnEn
-        this.setParams();
-    }
+    // changeSecNav(navSecIndex, bool) {
+    //     if (bool) return;
+    //     this.page.isLoaded = false;
+    //     this.initLists();
+    //     console.log('changeNav', navSecIndex, bool)
+    //     for (var i = 0; i < this.page.courseTypeArr.length; i++) {
+    //         this.page.courseTypeArr[i].isActived = false;
+    //     }
+    //
+    //     this.page.courseTypeArr[navSecIndex].isActived = true;
+    //     this.page.nowClickSec = this.page.courseTypeArr[navSecIndex].navBtnEn
+    //     this.setParams();
+    // }
 
     // 前往 更多课程
     goAdvancedLists() {
@@ -566,7 +566,7 @@ export class AdvancedLevelPage {
         this.page.Page++;
         const data = {
             Page: this.page.Page,
-            PageSize: this.page.PageSize,
+            // PageSize: this.page.PageSize,
             csStatus: 2,
             plid: this.page.plid,
             Conditions: 'All'

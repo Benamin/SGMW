@@ -1,48 +1,63 @@
 page-theme-activity {
   .banner {
+    box-sizing: border-box;
+    margin: 1.1rem 1rem 1.6rem 1rem;
     position: relative;
-    height: 8.5rem;
+    line-height: 1;
     background-color: #f3f3f3;
+    border-radius: 0.9rem;
+    overflow: hidden;
 
     > p {
       position: absolute;
       left: 0;
       bottom: 0;
-      padding: .5rem;
-      color: #fff;
-      background-color: rgba(0, 0, 0, .4);
+      box-sizing: border-box;
+      padding: 0 2.3rem;
       width: 100%;
-      font-size: 1.3rem;
+      height: 3.3rem;
+      line-height: 3.3rem;
+      color: #fff;
+      font-size: 1.5rem;
+      background-color: rgba(0, 0, 0, .35);
     }
 
     img {
+      display: block;
       width: 100%;
       max-height: 12rem;
     }
   }
 
   .learn-list {
-    padding: 15px 10px;
+    padding: 0 10px 15px 10px;
+    box-sizing: border-box;
+
 
     .course-item {
+      margin-bottom: 1.5rem;
       display: flex;
-      padding: 5px;
+      padding: 1rem 0.7rem 1.1rem 0.9rem;
+      background-color: #FFFFFF;
+      border-radius: 0.5rem;
 
       .item-img {
-        width: 40%;
-        padding-right: 5px;
+        width: 14.3rem;
+        min-width: 14.3rem;
+        padding-right: 1.1rem;
         text-align: center;
 
         img {
+          display: block;
           border-radius: 5px;
-          height: 70px;
+          height: 8.1rem;
           width: 100%;
+          object-fit: cover;
         }
       }
 
       .item-desc {
-        width: 60%;
-        padding-left: 5px;
+        flex: 1;
         display: flex;
         flex-flow: row wrap;
 
@@ -50,26 +65,28 @@ page-theme-activity {
           font-size: 1.5rem;
           font-weight: 400;
           color: rgba(0, 0, 0, .9);
-          line-height: 1.75rem;
+          line-height: 1.8rem;
           overflow: hidden;
           display: -webkit-box;
           text-overflow: ellipsis;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
           align-self: flex-start;
+          word-break:break-all;
         }
 
         .status {
           align-self: flex-end;
           width: 100%;
-          color: #999999;
           margin-top: 10px;
           display: flex;
+          font-size: 12px;
+          color: #9D9D9E;;
 
           img {
-            margin-right: 2px;
-            width: 1.5rem;
-            height: 1.5rem;
+            margin-right: 0.6rem;
+            width: 1.4rem;
+            height: 1.4rem;
           }
 
           > span {

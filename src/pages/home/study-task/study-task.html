@@ -58,7 +58,7 @@
 
                 <div class="item-desc">
                     <p>{{item?.PName || "-" }}</p>
-                    <div class="final-time">{{ item?.FinalTime }}</div>
+                    <div class="final-time">{{ item?.FinalTime }}前学习可获取学分</div>
                     <div class="desc">
                         <span *ngIf="item.StudyStatus == 0"><img src="./assets/imgs/train/xxrw_wxx.png">未学习</span>
                         <span *ngIf="item.StudyStatus == 1"><img src="./assets/imgs/train/nx_zzjx@2x.png">进行中</span>
