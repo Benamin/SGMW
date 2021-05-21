@@ -1,19 +1,23 @@
 page-search {
-  .back-button.show-back-button{
-    display: none;
+  ion-content {
+    background-color: #FFFFFF !important;
   }
+  .search-no-data {
+    margin: 0 auto;
+    display: block;
+    width: 18.1rem;
+    height: 11.9rem;
+  }
+  //.back-button.show-back-button{
+  //  display: none;
+  //}
+
   .text-input-ios {
     margin: 7px 8px 7px 0;
     padding: 0;
     width: calc(100% - 8px);
   }
-  ion-input, ion-textarea{
-    color: #333;
-    background-color: #fff;
-    border-radius: 100px;
-    padding-left: 35px;
-    margin-left: 20px;
-  }
+
   .header-ios .toolbar-ios:last-child .toolbar-background-ios{
     border: none;
   }
@@ -29,22 +33,40 @@ page-search {
   }
 
   .search-header{
+    background-color: #F8F8F8;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     width: 100%;
-    margin-left: 5px;
+    padding: 1rem;
     position: relative;
+    .input-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background-color: #FFFFFF;
+      border-radius: 0.5rem;
+    }
+    .search-icon{
+      margin-left: 1.4rem;
+      margin-right: 0.6rem;
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+    ion-input, ion-textarea{
+      box-sizing: border-box;
+      color: #B2B2B2;
+      border-radius: 100px;
+      //padding-left: 35px;
+      //margin-left: 20px;
+    }
   }
-  .search-icon{
-    position: absolute;
-    top: 2px;
-    left: 30px;
-    color: #333;
-    z-index: 999;
-    font-size: 2.5rem;
+
+
+  .lists-box {
+    margin-top: 11.6rem;
   }
   .clear{
     color: #ffffff;
@@ -82,7 +104,9 @@ page-search {
     }
 
     .act {
-      color: rgba(0, 0, 0, 1);
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #474747;
       transition: all 0.2s;
     }
 
@@ -90,17 +114,14 @@ page-search {
       content: " ";
       display: block;
       position: absolute;
-      width: 28px;
-      height: 4px;
       margin-left: -10px;
       left: 50%;
       bottom: 0px;
       transition: all 0.2s;
-      background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      border-radius: 2px;
+      width: 2rem;
+      height: 0.3rem;
+      background: #E90E2C;
+      border-radius: 1.5rem;
     }
   }
   .post-introduction {
