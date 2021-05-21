@@ -1,15 +1,15 @@
 <ion-header *ngIf="show">
-  <ion-navbar>
-    <form class="search-header" action="#">
-      <ion-icon class="search-icon" name="search"></ion-icon>
-      <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off'
-        [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
-      <span class="clear" tappable (click)="clear()">取消</span>
-    </form>
-  </ion-navbar>
+  <ion-navbar></ion-navbar>
 </ion-header>
 
 <ion-content>
+  <form ion-fixed class="search-header" action="#">
+    <div class="input-box">
+      <img class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
+      <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off' [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
+    </div>
+    <!--<span class="clear" tappable (click)="clear()">取消</span>-->
+  </form>
   <div ion-fixed class="navul" *ngIf="navulShow">
     <div class="navli" [ngClass]="{'act': navli=='课程'}" tappable (click)="switchIn('课程')">
       课程
@@ -18,7 +18,7 @@
       论坛
     </div>
   </div>
-  <div style="margin-top: 4rem" *ngIf="navli=='论坛'">
+  <div class="lists-box" *ngIf="navli=='论坛'">
     <div style="background: #fff; ">
       <div class="topicplate-div" *ngFor="let item of topicplate" tappable (click)="goPostlist(item)">
         <div class="list">
@@ -90,7 +90,7 @@
       </p>
     </ion-list>
   </div>
-  <div style="margin-top: 4rem" *ngIf="navli=='课程'">
+  <div class="lists-box" *ngIf="navli=='课程'">
     <course-list [list]="productList" (done)="goCourse($event)"></course-list>
     <ion-list text-center style="margin-top: 10rem" *ngIf="emptyShow_Course">
       <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
@@ -100,8 +100,8 @@
     </ion-list>
   </div>
   <ion-list text-center style="margin-top: 10rem" *ngIf="showTips">
-    <img style="width: 15%;" src="./assets/imgs/tabs/tab3_off@3x.png">
-    <p text-center style="color: #999;font-size: 16px;margin-top: 20px">
+    <img class="search-no-data" src="./assets/imgs/new_version/home/search-no-data.png">
+    <p text-center style="color: #9D9D9E;font-size: 1.4rem;margin-top: 2px">
       请搜索你想要查找的内容
     </p>
   </ion-list>
