@@ -5,70 +5,100 @@
 </ion-header>
 
 <ion-content padding>
-    <div class="total-integral" (click)="GoList()">
+    <div class="check-integral" (click)="GoList()">
+        <div class="iconsimg"><img src="./assets/imgs/userDefault.jpg"/></div>
+        <div class="left">
+            <span>梁欣欣</span>
+        </div>
+        <div class="right">
+            <!-- <ion-icon name="arrow-forward"></ion-icon> -->
+            <span>查看积分</span>
+        </div>
+    </div>
+    <div class="total-integral">
+        <div class="iconsimg"><img src="./assets/imgs/integral/integ-integ.png"/></div>
         <div class="left">
             <span>总积分</span>
             <span>{{obj?.TotalCredit || '0'}}</span>
         </div>
         <div class="right">
-            <ion-icon name="arrow-forward"></ion-icon>
+            <!-- <ion-icon name="arrow-forward"></ion-icon> -->
+            <span>打败了<b>85%</b>的人</span>
         </div>
     </div>
     <div class="daily-task">
-        <p>今日获取{{dayObj?.message || 0}}分</p>
-        <div class="daily-item">
-            <div class="left">
-                <p>论坛发帖</p>
-                <p>要求:字数 > 100字，每日上限1次，每次可获得1分</p>
-            </div>
-            <div class="right" (click)="PostAddComponent()">
-                <span>去发帖</span>
+        <div class="trophy-list">
+            <p>今日获取{{dayObj?.message || 0}}分</p>
+            <div class="trophy">
+                <span><img src="./assets/imgs/integral/trophy.png"/></span>
+                积分榜
             </div>
         </div>
-        <div class="daily-item">
-            <div class="left">
-                <p>课程学习</p>
-                <p>完成当月学习任务之外的课程，每月4次，每次可获得0.1分</p>
+        <div class="integralgain">
+            <div class="daily-item">
+                <div class="left">
+                    <p><img src="./assets/imgs/integral/post.png"/> 论坛发帖</p>
+                </div>
+                <div class="right" (click)="PostAddComponent()">
+                    <span>去发帖</span>
+                </div>
             </div>
-            <div class="right" (click)="gotoListAll()">
-                <span>去学习</span>
-            </div>
+            <p>要求:字数 > 100字，每日上限1次，每次可获得1分</p>
         </div>
-        <div class="daily-item" style="height:100px">
-            <div class="left">
-                <p>课程讨论</p>
-                <p>对上架一个月内的课程进行讨论，一门课程限一次，每次可获得0.1分</p>
+        <div class="integralgain">
+            <div class="daily-item">
+                <div class="left">
+                    <p><img src="./assets/imgs/integral/course.png"/> 课程学习</p>
+                </div>
+                <div class="right" (click)="gotoListAll()">
+                    <span>去学习</span>
+                </div>
             </div>
-            <div class="right" (click)="gotoListAll()">
-                <span>去讨论</span>
-            </div>
+            <p>完成当月学习任务之外的课程，每月4次，每次可获得0.1分</p>
         </div>
-        <div class="daily-item" style="height:100px">
-            <div class="left">
-                <p>参与投票</p>
-                <p>成功参与一次投票，每月1次/人，每次可获得0.1分</p>
+        <div class="integralgain">
+            <div class="daily-item">
+                <div class="left">
+                    <p><img src="./assets/imgs/integral/discuss.png"/> 课程讨论</p>
+                </div>
+                <div class="right" (click)="gotoListAll()">
+                    <span>去讨论</span>
+                </div>
             </div>
-            <div class="right" (click)="goQuestion()">
-                <span>去投票</span>
-            </div>
+            <p>对上架一个月内的课程进行讨论，一门课程限一次，每次可获得0.1分</p>
         </div>
-        <div class="daily-item" style="height:100px">
-            <div class="left">
-                <p>销冠分享</p>
-                <p>每分享成功1次可获得100分</p>
+        <div class="integralgain">
+            <div class="daily-item">
+                <div class="left">
+                    <p><img src="./assets/imgs/integral/vote.png"/> 参与投票</p>
+                </div>
+                <div class="right" (click)="goQuestion()">
+                    <span>去投票</span>
+                </div>
             </div>
-            <div class="right" (click)="showAlert()">
-                <span>去分享</span>
-            </div>
+            <p>成功参与一次投票，每月1次/人，每次可获得0.1分</p>
         </div>
-        <div class="daily-item" style="height:100px">
-            <div class="left">
-                <p>能力认证</p>
-                <p>从Lv1开始，能力每升级一次可获取，每次可获得1分</p>
+        <div class="integralgain">
+            <div class="daily-item">
+                <div class="left">
+                    <p><img src="./assets/imgs/integral/share.png"/> 销冠分享</p>
+                </div>
+                <div class="right" (click)="showAlert()">
+                    <span>去分享</span>
+                </div>
             </div>
-            <div class="right" (click)="goAdvancedLevel()">
-                <span>去认证</span>
+            <p>每分享成功1次可获得100分</p>
+        </div>
+        <div class="integralgain">
+            <div class="daily-item">
+                <div class="left">
+                    <p><img src="./assets/imgs/integral/identifi.png"/> 能力认证</p>
+                </div>
+                <div class="right" (click)="goAdvancedLevel()">
+                    <span>去认证</span>
+                </div>
             </div>
+            <p>从Lv1开始，能力每升级一次可获取，每次可获得1分</p>
         </div>
     </div>
 </ion-content>
