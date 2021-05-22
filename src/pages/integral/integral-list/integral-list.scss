@@ -1,26 +1,36 @@
 page-integral-list {
-  .item {
-    display: flex;
-    padding: 2rem;
-    border-bottom: 1px solid #dddddd;
-    font-size: 1.6rem;
-    font-weight: bolder;
-
-    .left {
-      width: 80%;
-
-      > p:last-child {
-        font-size: 1.4rem;
-        margin-top: .6rem;
-        font-weight: normal;
-      }
+  .integraldetails{
+    margin-bottom: 2.5rem;
+    > p {
+      font-size: 1.4rem;
+      margin: 1rem 0;
+      font-weight: normal;
+      text-align: center;
+      color: #A4A4A4;
     }
-
-    .right {
-      width: 20%;
+    .item {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 1.5rem 2rem;
+      font-size: 1.6rem;
+      font-weight: bolder;
+      background: #fff;
+      .left {
+        width: 80%;
+  
+        > p:last-child {
+          font-size: 1.5rem;
+          font-weight: normal;
+        }
+      }
+  
+      .right {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        color: #FDCA36;
+        font-weight: 500;
+        justify-content: center;
+      }
     }
   }
 }
