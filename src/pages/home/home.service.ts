@@ -406,4 +406,8 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/EThemeActivity/AppSelectThemeActivity', data);
     }
 
+    // 猜你想问 常见问题
+    getCommonProblem(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/APPQueryQuestionItems', data);
+    }
 }

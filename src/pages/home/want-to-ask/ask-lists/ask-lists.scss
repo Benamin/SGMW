@@ -37,61 +37,160 @@ page-ask-lists {
 			}
 	  }
 	}
-	
-	.ask-lists {
+
+	.list-box {
 		margin: 0;
-		padding: 0 1rem;
-		padding-top: 6.2rem;
+		padding: 6.2rem 1.5rem 0 1.5rem;
+		background-color: #FFFFFF;
 		list-style: none;
+		overflow: hidden;
 		li {
-			margin-bottom: 1.5rem;
+			margin-bottom: 1.3rem;
 			box-sizing: border-box;
-			padding: 1.5rem 1.1rem 1.8rem 1rem;
-			border-radius: 1rem;
-			background-color: #FFFFFF;
-			
-			.title {
-				height: 4.4rem;
-				font-size: 1.5rem;
-				font-weight: 600;
-				overflow: hidden;
-				display: -webkit-box;
-				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 2;
-				overflow: hidden;
+			padding: 1.6rem 0 0.8rem 0;
+			font-size: 1.4rem;
+			color: #474747;
+			border-bottom: 1px solid #DEDEDE;
+			&:last-child {
+				border: none;
 			}
+			.questions-box {
+				margin-bottom: 1.1rem;
+				display: flex;
+				.label {
+					margin-right: 1.1rem;
+					display: block;
+					width: 1.7rem;
+					min-width: 1.7rem;
+					height: 1.7rem;
+					line-height: 1.7rem;
+					text-align: center;
+					color: #ffffff;
+					background: linear-gradient(323deg, #FFCDCD 0%, #F27C7C 100%);
+					border-radius: 0.5rem;
+					font-weight: 600;
+				}
+				.text-questions {
+					font-size: 1.4rem;
+					overflow: hidden;
+					text-overflow:ellipsis;
+					white-space: nowrap;
+					font-weight: 600;
+				}
+			}
+			.answers-box {
+				margin-bottom: 0.8rem;
+				display: flex;
+				.label {
+					margin-right: 1.1rem;
+					display: block;
+					width: 1.7rem;
+					min-width: 1.7rem;
+					height: 1.7rem;
+					line-height: 1.7rem;
+					text-align: center;
+					color: #ffffff;
+					background: linear-gradient(323deg, #FFCEA9 0%, #FFA869 100%);
+					border-radius: 0.5rem;
+					font-weight: 600;
+				}
+				.text-answers {
+					.name {
+						color: #999999;
+					}
+				}
+			}
+
 			.item-bottom {
 				margin-top: 0.6rem;
 				display: flex;
 				align-items: center;
 				font-size: 1.3rem;
 				.ask-count{
-					color: #C9C9C9;
+					margin-left: 3rem;
+					color: #999999;
 				}
 				.add-ask-btn {
 					margin-left: auto;
-					width: 9.4rem;
-					height: 2.7rem;
-					line-height: 2.7rem;
-					border: 1px solid #E90E2C;
-					border-radius: 1.35rem;
+					width: 7.1rem;
+					height: 2.3rem;
+					line-height: 2.3rem;
+					border: 1px solid #FCA241;
+					border-radius: 1.15rem;
 					text-align: center;
-					color: #333333;
+					color: #FCA241;
 				}
 				.edit-ask-btn {
 					margin-left: auto;
-					width: 9.4rem;
-					height: 2.7rem;
-					background: #E90E2C;
-					border-radius: 1.35rem;
+					width: 7.1rem;
+					height: 2.3rem;
+					line-height: 2.3rem;
+					//background: #E90E2C;
+					border-radius: 1.15rem;
+					border: 1px solid #959595;
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					color: #FFFFFF;
+					color: #959595;
 				}
 			}
 		}
-	}    
+	}
+
+	//.ask-lists {
+	//	margin: 0;
+	//	padding: 0 1rem;
+	//	padding-top: 6.2rem;
+	//	list-style: none;
+	//	li {
+	//		margin-bottom: 1.5rem;
+	//		box-sizing: border-box;
+	//		padding: 1.5rem 1.1rem 1.8rem 1rem;
+	//		border-radius: 1rem;
+	//		background-color: #FFFFFF;
+    //
+	//		.title {
+	//			height: 4.4rem;
+	//			font-size: 1.5rem;
+	//			font-weight: 600;
+	//			overflow: hidden;
+	//			display: -webkit-box;
+	//			-webkit-box-orient: vertical;
+	//			-webkit-line-clamp: 2;
+	//			overflow: hidden;
+	//		}
+	//		.item-bottom {
+	//			margin-top: 0.6rem;
+	//			display: flex;
+	//			align-items: center;
+	//			font-size: 1.3rem;
+	//			.ask-count{
+	//				color: #C9C9C9;
+	//			}
+	//			.add-ask-btn {
+	//				margin-left: auto;
+	//				width: 9.4rem;
+	//				height: 2.7rem;
+	//				line-height: 2.7rem;
+	//				border: 1px solid #E90E2C;
+	//				border-radius: 1.35rem;
+	//				text-align: center;
+	//				color: #333333;
+	//			}
+	//			.edit-ask-btn {
+	//				margin-left: auto;
+	//				width: 9.4rem;
+	//				height: 2.7rem;
+	//				background: #E90E2C;
+	//				border-radius: 1.35rem;
+	//				display: flex;
+	//				align-items: center;
+	//				justify-content: center;
+	//				color: #FFFFFF;
+	//			}
+	//		}
+	//	}
+	//}
 
 	.footer {
 		padding: 1.6rem 0;
