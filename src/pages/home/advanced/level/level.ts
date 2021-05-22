@@ -91,7 +91,8 @@ export class AdvancedLevelPage {
         nowLevelIndex: null,
         firstTime: true,
         TotalCount: 0,
-        Page: 1
+        Page: 1,
+        PageSize: 10
     }
 
     constructor(
@@ -327,7 +328,7 @@ export class AdvancedLevelPage {
         switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
             case 'course':
                 // 课程
-                getParams = Object.assign({}, getParams, {Conditions: 'All', Page: 1});
+                getParams = Object.assign({}, getParams, {Conditions: 'All', PageCurrent: this.page.Page});
                 getListsApi = (data) => {
                     return this.homeSer.QueryCourse(data);
                 };
@@ -565,8 +566,8 @@ export class AdvancedLevelPage {
         }
         this.page.Page++;
         const data = {
-            Page: this.page.Page,
-            // PageSize: this.page.PageSize,
+            PageCurrent: this.page.Page,
+            PageSize: this.page.PageSize,
             csStatus: 2,
             plid: this.page.plid,
             Conditions: 'All'
