@@ -34,7 +34,7 @@ import {JobLevelPage} from "./job-level/job-level";
 import {AdvancedLevelPage} from "./advanced/level/level";
 
 import {InformationZonePage} from "./information-zone/information-zone";
-import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
+import {AddAskPage} from "./want-to-ask/add-ask/add-ask";
 
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {ForumService} from '../forum/forum.service';
@@ -484,8 +484,8 @@ export class HomePage implements OnInit {
     }
 
     // 前往 猜你想问
-    goWantToAsk() {
-        this.navCtrl.push(WantToAskListsPage);
+    goAddAskPage() {
+        this.navCtrl.push(AddAskPage);
     }
 
     // 前往帖子详情

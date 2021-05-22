@@ -328,7 +328,7 @@ export class AdvancedLevelPage {
         switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
             case 'course':
                 // 课程
-                getParams = Object.assign({}, getParams, {Conditions: 'All', PageCurrent: this.page.Page});
+                getParams = Object.assign({}, getParams, {Conditions: 'All', PageCurrent: this.page.Page, PageSize: this.page.PageSize});
                 getListsApi = (data) => {
                     return this.homeSer.QueryCourse(data);
                 };
@@ -394,8 +394,8 @@ export class AdvancedLevelPage {
                     switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
                         case 'course':
                             // 课程
-                            this.page.navliArr[0].lists = res.data;
-                            this.page.TotalCount = res.TotalCount;
+                            this.page.navliArr[0].lists = res.data.productListItems;
+                            this.page.TotalCount = res.data.TotalCount;
                             break
                         case 'exam':
                             // 考试
@@ -572,11 +572,16 @@ export class AdvancedLevelPage {
             plid: this.page.plid,
             Conditions: 'All'
         };
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
         this.homeSer.QueryCourse(data).subscribe(
             (res) => {
-                this.page.navliArr[0].lists = this.page.navliArr[0].lists.concat(res.data);
+                this.page.navliArr[0].lists = this.page.navliArr[0].lists.concat(res.data.productListItems);
                 this.page.TotalCount = res.TotalCount;
                 e.complete();
+                loading.dismiss();
             }
         )
     }
