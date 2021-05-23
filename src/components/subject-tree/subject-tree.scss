@@ -7,18 +7,65 @@ subject-tree {
     line-height: 32px;
     background: linear-gradient(216deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
     box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
+    background: #394967;
+    color: #fff;
     border-radius: 16px;
   }
 
   .subject {
+    .chil1,.chil2{
+      color: #5D5D5D;
+      padding: 3px!important;
+      margin-top: 20px;
+    }
+    .chil3{
+      color: #5D5D5D;
+      padding: 4px!important;
+      margin-top: 20px;
+    }
+    .chil4{
+      color: #5D5D5D;
+      padding: 4px!important;
+      margin-top: 20px;
+    }
+    .chil2.select{
+      background: #F3F3F3;
+      color: #5D5D5D;
+      width: 40%;
+      padding: 3px;
+      border-radius: 3px;
+      margin-top: 20px;
+    }
+    .chil3.select{
+      background: #F3F3F3;
+      color: #5D5D5D;
+      width: 40%;
+      padding: 4px;
+      border-radius: 3px;
+      margin-top: 20px;
+    }
+    .chil4.select{
+      background: #F3F3F3;
+      color: #5D5D5D;
+      width: 40%;
+      padding: 4px;
+      border-radius: 3px;
+      margin-top: 20px;
+    }
+    .chil2.select{
+      .chil3.select{
+        width: 100%;
+      }
+    }
   }
 
   .chil1 {
     > p {
       font-weight: bold;
+      color: #5D5D5D;
     }
   }
-
+  
   .qIndex {
     padding: 15px;
 
@@ -30,13 +77,14 @@ subject-tree {
     .item-style {
       font-weight: normal;
       font-size: 13px;
-      margin-bottom: 6px;
       padding: 8px 0;
       border-radius: 2px;
     }
 
     .select {
       background: linear-gradient(216deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+      background: #F3F3F3;
+      color: #5D5D5D;
     }
   }
 

@@ -34,8 +34,11 @@
     <div>
         <ion-input class="teacher" [(ngModel)]="filterObj.TeacherName" placeholder="请输入导师名称"></ion-input>
     </div>
-    <div class="footer" >
-        <div tappable (click)="reset()">重置</div>
-        <div tappable (click)="confirm()">确定</div>
+    <div class="footer">
+        <div class="confirmbtn">
+            <div tappable (click)="reset()">重置</div>
+            <b></b>
+            <div tappable (click)="confirm()">确定</div>
+        </div>
     </div>
 </div>
