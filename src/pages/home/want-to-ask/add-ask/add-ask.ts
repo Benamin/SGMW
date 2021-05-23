@@ -4,6 +4,8 @@ import {AppVersion} from "@ionic-native/app-version";
 import {HomeService} from "../../home.service";
 import {ChooseImageProvider} from "../../../../providers/choose-image/choose-image";
 import {CommonService} from "../../../../core/common.service";
+import {WantToAskListsPage} from "../ask-lists/ask-lists";
+import {WantToAskDetailPage} from "../ask-detail/ask-detail";
 
 @Component({
     selector: 'page-add-ask',
@@ -11,16 +13,17 @@ import {CommonService} from "../../../../core/common.service";
 })
 export class AddAskPage {
     page = {
-			Title: '',
-			questionDesc: '',
-			askTypeArr: [],
-			nowSelectAskType: null,
-			UnitType: '',
-			AppVersion: '',
-			imgArr: [
-				// 'https://devstorgec.blob.core.chinacloudapi.cn/picture/img20210202184026.jpeg',
-				// 'https://devstorgec.blob.core.chinacloudapi.cn/picture/img20210202184026.jpeg'
-			]
+        CommonProblemLists: [],
+		Title: '',
+		questionDesc: '',
+		askTypeArr: [],
+		nowSelectAskType: null,
+		UnitType: '',
+		AppVersion: '',
+		imgArr: [
+			// 'https://devstorgec.blob.core.chinacloudapi.cn/picture/img20210202184026.jpeg',
+			// 'https://devstorgec.blob.core.chinacloudapi.cn/picture/img20210202184026.jpeg'
+		]
     };
 
     constructor(public navCtrl: NavController, private homeSer: HomeService,private loadCtrl: LoadingController, public chooseImage: ChooseImageProvider, private platform: Platform, private appVersion: AppVersion, public toastCtrl: ToastController, private commonSer: CommonService,) {
@@ -28,15 +31,11 @@ export class AddAskPage {
     }
 
     ionViewDidLoad() {
-			this.checkVersion();
-      this.GetAskType();
+		this.checkVersion();
+      	this.GetAskType();
+      	this.getCommonProblem();
     }
-		
-		goNavBack() {
-			console.log(888)
-			this.navCtrl.pop();
-		}
-		
+
 		// 获取问题类型
 		GetAskType() {
 			let loading = this.loadCtrl.create({
@@ -145,5 +144,34 @@ export class AddAskPage {
 			    }
 			)
 		}
+
+    goWantToAsk() {
+        this.navCtrl.push(WantToAskListsPage);
+    }
+
+    getCommonProblem() {
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+
+        loading.present();
+        const data = {
+            PageIndex: 1,
+            PageSize: 3
+        };
+
+        this.homeSer.getCommonProblem(data).subscribe(
+            (res) => {
+                if (res.code === 200) {
+                	this.page.CommonProblemLists = res.data.QuestionItems;
+                    loading.dismiss();
+                }
+            }
+        )
+	}
+
+    goAskedDetail(item) {
+    	this.navCtrl.push(WantToAskDetailPage, {item: item});
+    }
 
 }

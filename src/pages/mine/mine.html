@@ -3,174 +3,276 @@
         <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <div class="mine">
-        <div class="logo">
-            <img class="toolbar-img" src="./assets/imgs/mine/logo-mine.png">
-        </div>
-        <div class="mine-info">
-            <div class="info-item">
-                <div style="position: relative;width: 20%">
-                    <div class="mask1">
-                        <img class="img3" src="{{mineInfo?.HeadPhoto}}" alt="头像">
-                    </div>
-                </div>
-                <div style="width: 80%" class="info-name">
-                    <p>
-                        <span>{{mineInfo?.UserName}}</span>
-                        <!--                        <span tappable (click)="goIntegral()"-->
-                        <!--                              class="credit">积分：{{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</span>-->
-                    </p>
-                    <p class="badge" style="margin-top: 6px">
-                        <span class="badgeSpan" *ngFor="let badge of userInfo?.Badges">
-                            <img [src]="badge.BadgeIcon || ''">
-                            <span>{{badge.BadgeName}}</span>
-                        </span>
-                    </p>
-                    <p class="isLabel" (click)="showAlert()"><span>岗位认证等级: {{isLabel || "-"}}
-                        <ion-icon name="information-circle-outline"></ion-icon>
-                    </span>
-                    </p>
-                </div>
-            </div>
-            <div class="user-type">
-                <div>
-                    <span>登录方式:</span>
-                    <span>{{LoginType || "-"}}</span>
-                </div>
-                <div>
-                    <span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>
-                    <ng-template #other_content>
-                        <span>经销商号:</span>
-                    </ng-template>
-                    <span>{{mineInfo?.AgentNumber || "-"}}</span>
-                </div>
-            </div>
-            <div class="info-item item-type">
-                <div tappable (click)="goToCourse()">
-                    <p>{{number?.CourseCount || '0'}}</p>
-                    <p>课程</p>
-                </div>
-                <div tappable (click)="goExam()">
-                    <p>{{number?.WorkCount || '0'}}</p>
-                    <p>作业</p>
-                </div>
-                <div tappable (click)="goMyshortVideo()">
-                    <p>{{number?.videoNum || '0'}}</p>
-                    <p>视频</p>
-                </div>
-                <div tappable (click)="goMyForum()">
-                    <p>{{number?.PostCount || '0'}}</p>
-                    <p>帖子</p>
-                </div>
-            </div>
 
+    <div class="mine-user">
+        <div class="header">
+            <img src="{{mineInfo?.HeadPhoto || './assets/imgs/new_version/mine/default-avatar.png' }}" alt="头像">
+        </div>
+        <div class="info-box">
+            <div class="user-box">
+                <div class="user-name">{{mineInfo?.UserName}}</div>
+                <div class="user-label" *ngIf="!userInfo?.Badges || userInfo?.Badges.length === 0">暂无头衔</div>
+                <div class="user-label" *ngFor="let badge of userInfo?.Badges">{{badge.BadgeName}}</div>
+              <!--badge.BadgeIcon || ''-->
+            </div>
+            <div class="user-level" (click)="showAlert()">
+                <img src="./assets/imgs/new_version/mine/authentication-icon.png">
+                岗位认证等级: {{isLabel || "-"}}
+            </div>
+        </div>
+        <div class="points-box">
+            <img src="./assets/imgs/new_version/mine/points-bg.png">
+            <div tappable (click)="goIntegral()" class="points-text">积分  {{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</div>
         </div>
     </div>
-    <div class="mine-list" style="margin-bottom: 0px;">
-        <div class="item" tappable (click)="switchUser()">
-            <div class="left" style="height: 50px">
-                <img src="./assets/imgs/mine/switch-user.png">
-            </div>
-            <div class="middle">切换角色</div>
 
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
+    <div class="login-info">
+      <div class="login-mode">
+        <span>登录方式:</span>
+        <span>{{LoginType || "-"}}</span>
+      </div>
+      <div class="login-dealer-number">
+        <span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>
+        <ng-template #other_content>
+          <span>经销商号:</span>
+        </ng-template>
+        <span>{{mineInfo?.AgentNumber || "-"}}</span>
+      </div>
+    </div>
+
+    <div class="post-box">
+        <ul class="post-list">
+            <li tappable (click)="goToCourse()">
+                <div>{{number?.CourseCount || '0'}}</div>
+                <div>课程</div>
+            </li>
+            <li tappable (click)="goExam()">
+                <div>{{number?.WorkCount || '0'}}</div>
+                <div>作业</div>
+            </li>
+            <li tappable (click)="goMyshortVideo()">
+                <div>{{number?.videoNum || '0'}}</div>
+                <div>视频</div>
+            </li>
+            <li tappable (click)="goMyForum()">
+                <div>{{number?.PostCount || '0'}}</div>
+                <div>帖子</div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="mine-content">
+        <div class="content-header">
+            <div class="switch-role" tappable (click)="switchUser()">
+                <img src="./assets/imgs/new_version/mine/switch-user-icon.png">
+                切换角色
             </div>
-            <div style="width: 0px;padding-left: 0px;white-space: nowrap;right: 160px;position: relative;">
-                当前角色 <span style="padding-left: 5px;color: #000;  font-weight: 700;font-size: 16px;">{{RoleName}}</span>
+            <div class="current-role">
+                当前角色
+                <span>{{RoleName}}</span>
+                <img src="./assets/imgs/new_version/mine/right.png">
             </div>
+            <!-- 切换角色 弹出 start -->
             <div class="login-select" style="position: absolute;width: 100%;opacity: 0;">
-                <ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"
-                            (ngModelChange)="switchUser()">
-                    <ion-option [value]="item.RoleName" *ngFor="let item of RoleNames">{{item.RoleName}}</ion-option>
-                </ion-select>
+              <ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"
+                          (ngModelChange)="switchUser()">
+                <ion-option [value]="item.RoleName" *ngFor="let item of RoleNames">{{item.RoleName}}</ion-option>
+              </ion-select>
             </div>
+            <!-- 切换角色 弹出 end -->
+        </div>
+        <div class="content-list">
+            <li tappable (click)="goMyIntegral()">
+                <img src="./assets/imgs/new_version/mine/points-icon.png">
+                <div>我的积分</div>
+            </li>
+            <li tappable (click)="goMyFollowsComponent()">
+                <img src="./assets/imgs/new_version/mine/follow.png">
+                <div>我的关注</div>
+            </li>
+            <li tappable (click)="goToCollection()">
+                <img src="./assets/imgs/new_version/mine/collection.png">
+                <div>我的收藏</div>
+            </li>
+            <li tappable (click)="goMedal()">
+                <img src="./assets/imgs/new_version/mine/medal.png">
+                <div>设置勋章</div>
+            </li>
+            <li tappable (click)="openUrl()">
+                <img src="./assets/imgs/new_version/mine/yjfk.png">
+                <div>意见反馈</div>
+            </li>
+            <li tappable (click)="checkVersion()">
+                <img src="./assets/imgs/new_version/mine/gyyy.png">
+                <div>关于应用</div>
+            </li>
+            <li tappable (click)="logoutApp()">
+                <img src="./assets/imgs/new_version/mine/logout.png">
+                <div>退出登录</div>
+            </li>
         </div>
     </div>
-    <div class="mine-list" style="    margin-top: 10px;">
-        <div class="item" tappable (click)="goToFile()">
-            <div class="left">
-                <img src="./assets/imgs/tabs/tab6_on.png">
-            </div>
-            <div class="middle">我的积分</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-        <div class="item" tappable (click)="goMyIntegral()">
-            <div class="left">
-                <img src="./assets/imgs/tabs/tab6_on.png">
-            </div>
-            <div class="middle">我的积分</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-        <div class="item" tappable (click)="goMyFollowsComponent()">
-            <div class="left">
-                <img src="./assets/imgs/mine/p41_guanzhu.png">
-            </div>
-            <div class="middle">我的关注</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-        <div class="item" tappable (click)="goToCollection()">
-            <div class="left">
-                <img src="./assets/imgs/mine/shouchang.png">
-            </div>
-            <div class="middle">我的收藏</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-        <div class="item" tappable (click)="goToNoti()">
-            <div class="left">
-                <img src="./assets/imgs/mine/notifation.png">
-            </div>
-            <div class="middle">通知中心</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-        <div class="item" tappable (click)="goMedal()">
-            <div class="left">
-                <img src="./assets/imgs/mine/srats.png">
-            </div>
-            <div class="middle">设置勋章</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-        <div class="item" tappable (click)="openUrl()">
-            <div class="left">
-                <img src="./assets/imgs/mine/yjfk.png">
-            </div>
-            <div class="middle">意见反馈</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-        <div class="item" tappable (click)="checkVersion()">
-            <div class="left">
-                <img src="./assets/imgs/mine/gyyy.png">
-            </div>
-            <div class="middle">关于应用
-                <span float-end>正式版3.3.0</span></div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-        <div class="item" tappable (click)="logoutApp()">
-            <div class="left">
-                <img src="./assets/imgs/mine/logout.png">
-            </div>
-            <div class="middle">退出登录</div>
-            <div class="right">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </div>
-    </div>
+
+    <!--<div class="mine">-->
+        <!--<div class="logo">-->
+            <!--<img class="toolbar-img" src="./assets/imgs/mine/logo-mine.png">-->
+        <!--</div>-->
+        <!--<div class="mine-info">-->
+            <!--<div class="info-item">-->
+                <!--<div style="position: relative;width: 20%">-->
+                    <!--<div class="mask1">-->
+                        <!--<img class="img3" src="{{mineInfo?.HeadPhoto}}" alt="头像">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div style="width: 80%" class="info-name">-->
+                    <!--<p>-->
+                        <!--<span>{{mineInfo?.UserName}}</span>-->
+<!--&lt;!&ndash;                        <span tappable (click)="goIntegral()"&ndash;&gt;-->
+<!--&lt;!&ndash;                              class="credit">积分：{{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</span>&ndash;&gt;-->
+                    <!--</p>-->
+                    <!--<p class="badge" style="margin-top: 6px">-->
+                        <!--<span class="badgeSpan" *ngFor="let badge of userInfo?.Badges">-->
+                            <!--<img [src]="badge.BadgeIcon || ''">-->
+                            <!--<span>{{badge.BadgeName}}</span>-->
+                        <!--</span>-->
+                    <!--</p>-->
+                    <!--<p class="isLabel" (click)="showAlert()"><span>岗位认证等级: {{isLabel || "-"}}-->
+                        <!--<ion-icon name="information-circle-outline"></ion-icon>-->
+                    <!--</span>-->
+                    <!--</p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="user-type">-->
+                <!--<div>-->
+                    <!--<span>登录方式:</span>-->
+                    <!--<span>{{LoginType || "-"}}</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>-->
+                    <!--<ng-template #other_content>-->
+                        <!--<span>经销商号:</span>-->
+                    <!--</ng-template>-->
+                    <!--<span>{{mineInfo?.AgentNumber || "-"}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="info-item item-type">-->
+                <!--<div tappable (click)="goToCourse()">-->
+                    <!--<p>{{number?.CourseCount || '0'}}</p>-->
+                    <!--<p>课程</p>-->
+                <!--</div>-->
+                <!--<div tappable (click)="goExam()">-->
+                    <!--<p>{{number?.WorkCount || '0'}}</p>-->
+                    <!--<p>作业</p>-->
+                <!--</div>-->
+                <!--<div tappable (click)="goMyshortVideo()">-->
+                    <!--<p>{{number?.videoNum || '0'}}</p>-->
+                    <!--<p>视频</p>-->
+                <!--</div>-->
+                <!--<div tappable (click)="goMyForum()">-->
+                    <!--<p>{{number?.PostCount || '0'}}</p>-->
+                    <!--<p>帖子</p>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mine-list" style="margin-bottom: 0px;">-->
+        <!--<div class="item" tappable (click)="switchUser()">-->
+            <!--<div class="left" style="height: 50px">-->
+                <!--<img src="./assets/imgs/mine/switch-user.png">-->
+            <!--</div>-->
+            <!--<div class="middle">切换角色</div>-->
+
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+            <!--<div style="width: 0px;padding-left: 0px;white-space: nowrap;right: 160px;position: relative;">-->
+                <!--当前角色 <span style="padding-left: 5px;color: #000;  font-weight: 700;font-size: 16px;">{{RoleName}}</span>-->
+            <!--</div>-->
+            <!--<div class="login-select" style="position: absolute;width: 100%;opacity: 0;">-->
+                <!--<ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"-->
+                            <!--(ngModelChange)="switchUser()">-->
+                    <!--<ion-option [value]="item.RoleName" *ngFor="let item of RoleNames">{{item.RoleName}}</ion-option>-->
+                <!--</ion-select>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mine-list" style="    margin-top: 10px;">-->
+        <!--<div class="item" tappable (click)="goMyIntegral()">-->
+            <!--<div class="left">-->
+                <!--<img src="./assets/imgs/tabs/tab6_on.png">-->
+            <!--</div>-->
+            <!--<div class="middle">我的积分</div>-->
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="item" tappable (click)="goMyFollowsComponent()">-->
+            <!--<div class="left">-->
+                <!--<img src="./assets/imgs/mine/p41_guanzhu.png">-->
+            <!--</div>-->
+            <!--<div class="middle">我的关注</div>-->
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="item" tappable (click)="goToCollection()">-->
+            <!--<div class="left">-->
+                <!--<img src="./assets/imgs/mine/shouchang.png">-->
+            <!--</div>-->
+            <!--<div class="middle">我的收藏</div>-->
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="item" tappable (click)="goToNoti()">-->
+            <!--<div class="left">-->
+                <!--<img src="./assets/imgs/mine/notifation.png">-->
+            <!--</div>-->
+            <!--<div class="middle">通知中心</div>-->
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="item" tappable (click)="goMedal()">-->
+            <!--<div class="left">-->
+                <!--<img src="./assets/imgs/mine/srats.png">-->
+            <!--</div>-->
+            <!--<div class="middle">设置勋章</div>-->
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="item" tappable (click)="openUrl()">-->
+            <!--<div class="left">-->
+                <!--<img src="./assets/imgs/mine/yjfk.png">-->
+            <!--</div>-->
+            <!--<div class="middle">意见反馈</div>-->
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="item" tappable (click)="checkVersion()">-->
+            <!--<div class="left">-->
+                <!--<img src="./assets/imgs/mine/gyyy.png">-->
+            <!--</div>-->
+            <!--<div class="middle">关于应用-->
+                <!--<span float-end>正式版3.3.0</span></div>-->
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="item" tappable (click)="logoutApp()">-->
+            <!--<div class="left">-->
+                <!--<img src="./assets/imgs/mine/logout.png">-->
+            <!--</div>-->
+            <!--<div class="middle">退出登录</div>-->
+            <!--<div class="right">-->
+                <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
 </ion-content>
 

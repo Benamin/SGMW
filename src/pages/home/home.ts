@@ -34,7 +34,7 @@ import {JobLevelPage} from "./job-level/job-level";
 import {AdvancedLevelPage} from "./advanced/level/level";
 
 import {InformationZonePage} from "./information-zone/information-zone";
-import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
+import {AddAskPage} from "./want-to-ask/add-ask/add-ask";
 
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {ForumService} from '../forum/forum.service';
@@ -66,7 +66,7 @@ export class HomePage implements OnInit {
     type = 'teacher';
     personrType = 0;
     saleList = [];  //销售运营
-    productList = new Array(5);  //产品体验
+    productList = new Array(6);  //产品体验
     teacherList = [];
     bannerList = [
         {SourceUrl: defaultImg}
@@ -96,6 +96,7 @@ export class HomePage implements OnInit {
                 private learSer: LearnService,
                 private forum_serve: ForumService,
                 private modalCtrl: ModalController) {
+        this.statusBar.backgroundColorByHexString('#F8F8F8');
         let app_url = (window as any).localStorage.getItem("app_url");
 
         if (app_url) {
@@ -120,6 +121,7 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.GetTodayRemind();
+        this.GetTodayRemindMission();
         this.storage.get('sgmwType').then((value) => {
             if (value && value.sgmwType == 3) {
                 this.navCtrl.push(StudyPlanPage);
@@ -248,7 +250,11 @@ export class HomePage implements OnInit {
     getProductList() {
         this.homeSer.GetHotProductList().subscribe(
             (res) => {
-                this.productList = res.data;
+                let productList = [];
+                for (let i=0; i<res.data.length; i++) {
+                    if (i<6) productList.push(res.data[i]) // 限制6条数据
+                }
+                this.productList = productList;
             }
         );
     }
@@ -478,8 +484,8 @@ export class HomePage implements OnInit {
     }
 
     // 前往 猜你想问
-    goWantToAsk() {
-        this.navCtrl.push(WantToAskListsPage);
+    goAddAskPage() {
+        this.navCtrl.push(AddAskPage);
     }
 
     // 前往帖子详情
@@ -651,6 +657,8 @@ export class HomePage implements OnInit {
 
     TodayRemind: any = {};
     is_TodayRemind = false;
+    TodayRemindMission: any = {};
+    is_TodayRemindMission = false;
 
     GetTodayRemind() {
         this.homeSer.GetTodayRemind().subscribe((res: any) => {
@@ -667,13 +675,34 @@ export class HomePage implements OnInit {
         })
     }
 
+    GetTodayRemindMission() {
+        this.homeSer.GetTodayRemindMission().subscribe((res: any) => {
+            console.log(999, res.data)
+            this.TodayRemindMission = res;
+            this.storage.get('TodayRemindMission').then(val => {
+                let date = new Date();
+                let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+                if (val != dateDay) { // 是否点击了取消今日提醒
+                    if (this.TodayRemindMission.data && this.TodayRemindMission.data === true) {
+                        this.is_TodayRemindMission = true;
+                    }
+                }
+            });
+        })
+    }
+
     // 开始学习
     startStudy(data) {
+        console.log('.....开始学习', data)
         this.getCourseDetailById(data);
     }
 
     closeTodayRemind() {
         this.is_TodayRemind = false;
+    }
+
+    closeTodayRemindMission() {
+        this.is_TodayRemindMission = false;
     }
 
     // 获取销售大赛ID 和 用户所属地区

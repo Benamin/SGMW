@@ -22,54 +22,55 @@ export class AdvancedLevelPage {
         checkType: 'exam',
         navliArr: [
             {
-                navBtnText: '课程',
+                navBtnText: '学习',
                 navBtnEn: 'course',
                 isActived: true,
                 lists: []
             },
             {
-                navBtnText: '考试',
+                navBtnText: '认证',
                 navBtnEn: 'exam',
                 isActived: false,
                 lists: []
-            },
-            {
-                navBtnText: 'KPI',
-                navBtnEn: 'kpi',
-                isActived: false,
-                lists: []
-            },
-            {
-                navBtnText: '线下认证',
-                navBtnEn: 'points',
-                isActived: false,
-                lists: []
             }
+            // ,
+            // {
+            //     navBtnText: 'KPI',
+            //     navBtnEn: 'kpi',
+            //     isActived: false,
+            //     lists: []
+            // },
+            // {
+            //     navBtnText: '线下认证',
+            //     navBtnEn: 'points',
+            //     isActived: false,
+            //     lists: []
+            // }
         ],
-        courseTypeArr: [
-            {
-                navBtnText: '待开始',
-                navBtnEn: 'wait',
-                isActived: true
-            },
-            {
-                navBtnText: '进行中',
-                navBtnEn: 'doing',
-                isActived: false
-            },
-            {
-                navBtnText: '已完成',
-                navBtnEn: 'finish',
-                isActived: false
-            },
-            {
-                navBtnText: '更多',
-                navBtnEn: 'more',
-                isActived: false
-            }
-        ],
+        // courseTypeArr: [
+        //     {
+        //         navBtnText: '待开始',
+        //         navBtnEn: 'wait',
+        //         isActived: true
+        //     },
+        //     {
+        //         navBtnText: '进行中',
+        //         navBtnEn: 'doing',
+        //         isActived: false
+        //     },
+        //     {
+        //         navBtnText: '已完成',
+        //         navBtnEn: 'finish',
+        //         isActived: false
+        //     },
+        //     {
+        //         navBtnText: '更多',
+        //         navBtnEn: 'more',
+        //         isActived: false
+        //     }
+        // ],
         nowClick: 'course',
-        nowClickSec: 'wait',
+        nowClickSec: 'more',
         mineInfo: null,
         Lists: [],
         getListsApi: null, // 请求接口服务
@@ -88,7 +89,10 @@ export class AdvancedLevelPage {
         isLoaded: false,
         canClick: false,
         nowLevelIndex: null,
-        firstTime: true
+        firstTime: true,
+        TotalCount: 0,
+        Page: 1,
+        PageSize: 10
     }
 
     constructor(
@@ -317,14 +321,14 @@ export class AdvancedLevelPage {
     setParams() {
         let getListsApi = null;
         let getParams = {
-            csStatus: 0,          //-1 未开始 0进行中 1已完成 2全部
+            csStatus: 2,          //-1 未开始 0进行中 1已完成 2全部
             plid: this.page.plid                //等级ID
         }
 
         switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
             case 'course':
                 // 课程
-                getParams = Object.assign({}, getParams, {Conditions: 'NotAll'});
+                getParams = Object.assign({}, getParams, {Conditions: 'All', PageCurrent: this.page.Page, PageSize: this.page.PageSize});
                 getListsApi = (data) => {
                     return this.homeSer.QueryCourse(data);
                 };
@@ -335,39 +339,39 @@ export class AdvancedLevelPage {
                     return this.homeSer.QueryExam(data)
                 };
                 break
-            case 'kpi':
-                // KPI
-                getListsApi = (data) => {
-                    return this.homeSer.QueryKpiInformation(data)
-                };
-                break
-            case 'points':
-                // 评分
-                getListsApi = (data) => {
-                    return this.homeSer.QuerySpeakScore(data)
-                };
-                break
+            // case 'kpi':
+            //     // KPI
+            //     getListsApi = (data) => {
+            //         return this.homeSer.QueryKpiInformation(data)
+            //     };
+            //     break
+            // case 'points':
+            //     // 评分
+            //     getListsApi = (data) => {
+            //         return this.homeSer.QuerySpeakScore(data)
+            //     };
+            //     break
         }
-        if (this.page.nowClick === 'course' || this.page.nowClick === 'exam') {
-            switch (this.page.nowClickSec) { // 课程/考试  对应的列表 状态
-                case 'wait':
-                    // 未开始
-                    getParams = Object.assign({}, getParams, {csStatus: -1})
-                    break
-                case 'doing':
-                    // 0进行中
-                    getParams = Object.assign({}, getParams, {csStatus: 0})
-                    break
-                case 'finish':
-                    // 1已完成
-                    getParams = Object.assign({}, getParams, {csStatus: 1})
-                    break
-                case 'more':
-                    // 2全部
-                    getParams = Object.assign({}, getParams, {csStatus: 2})
-                    break
-            }
-        }
+        // if (this.page.nowClick === 'course' || this.page.nowClick === 'exam') {
+        //     switch (this.page.nowClickSec) { // 课程/考试  对应的列表 状态
+        //         case 'wait':
+        //             // 未开始
+        //             getParams = Object.assign({}, getParams, {csStatus: -1})
+        //             break
+        //         case 'doing':
+        //             // 0进行中
+        //             getParams = Object.assign({}, getParams, {csStatus: 0})
+        //             break
+        //         case 'finish':
+        //             // 1已完成
+        //             getParams = Object.assign({}, getParams, {csStatus: 1})
+        //             break
+        //         case 'more':
+        //             // 2全部
+        //             getParams = Object.assign({}, getParams, {csStatus: 2})
+        //             break
+        //     }
+        // }
 
         this.page.getListsApi = getListsApi;
         this.page.getParams = getParams;
@@ -390,20 +394,21 @@ export class AdvancedLevelPage {
                     switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
                         case 'course':
                             // 课程
-                            this.page.navliArr[0].lists = res.data;
+                            this.page.navliArr[0].lists = res.data.productListItems;
+                            this.page.TotalCount = res.data.TotalCount;
                             break
                         case 'exam':
                             // 考试
                             this.page.navliArr[1].lists = res.data;
                             break
-                        case 'kpi':
-                            // KPI
-                            this.page.navliArr[2].lists = res.data;
-                            break
-                        case 'points':
-                            // 评分
-                            this.page.navliArr[3].lists = res.data;
-                            break
+                        // case 'kpi':
+                        //     // KPI
+                        //     this.page.navliArr[2].lists = res.data;
+                        //     break
+                        // case 'points':
+                        //     // 评分
+                        //     this.page.navliArr[3].lists = res.data;
+                        //     break
                     }
                     this.page.isLoaded = true;
                     console.log('getListsApi', res)
@@ -440,19 +445,19 @@ export class AdvancedLevelPage {
     }
 
     // 二级导航（课程/考试状态）切换
-    changeSecNav(navSecIndex, bool) {
-        if (bool) return;
-        this.page.isLoaded = false;
-        this.initLists();
-        console.log('changeNav', navSecIndex, bool)
-        for (var i = 0; i < this.page.courseTypeArr.length; i++) {
-            this.page.courseTypeArr[i].isActived = false;
-        }
-
-        this.page.courseTypeArr[navSecIndex].isActived = true;
-        this.page.nowClickSec = this.page.courseTypeArr[navSecIndex].navBtnEn
-        this.setParams();
-    }
+    // changeSecNav(navSecIndex, bool) {
+    //     if (bool) return;
+    //     this.page.isLoaded = false;
+    //     this.initLists();
+    //     console.log('changeNav', navSecIndex, bool)
+    //     for (var i = 0; i < this.page.courseTypeArr.length; i++) {
+    //         this.page.courseTypeArr[i].isActived = false;
+    //     }
+    //
+    //     this.page.courseTypeArr[navSecIndex].isActived = true;
+    //     this.page.nowClickSec = this.page.courseTypeArr[navSecIndex].navBtnEn
+    //     this.setParams();
+    // }
 
     // 前往 更多课程
     goAdvancedLists() {
@@ -551,6 +556,34 @@ export class AdvancedLevelPage {
         } else {
             this.commonSer.alert('恭喜您！考试已通过！');
         }
+    }
+
+    //加载更多
+    doInfinite(e) {
+        if (this.page.navliArr[0].lists.length == this.page.TotalCount || this.page.navliArr[0].lists.length > this.page.TotalCount) {
+            e.complete();
+            return;
+        }
+        this.page.Page++;
+        const data = {
+            PageCurrent: this.page.Page,
+            PageSize: this.page.PageSize,
+            csStatus: 2,
+            plid: this.page.plid,
+            Conditions: 'All'
+        };
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
+        this.homeSer.QueryCourse(data).subscribe(
+            (res) => {
+                this.page.navliArr[0].lists = this.page.navliArr[0].lists.concat(res.data.productListItems);
+                this.page.TotalCount = res.TotalCount;
+                e.complete();
+                loading.dismiss();
+            }
+        )
     }
 
 }

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {HomeService} from "../../home.service";
 import {WantToAskDetailPage} from "../ask-detail/ask-detail";
-import {AddAskPage} from "../add-ask/add-ask";
+
 // import {askSearchModalPage} from "../ask-search-modal/ask-search-modal";
 import {Keyboard} from "@ionic-native/keyboard";
 import {timer} from "rxjs/observable/timer";
@@ -140,10 +140,6 @@ export class WantToAskListsPage {
 
 		goAskedDetail(item) {
 			this.navCtrl.push(WantToAskDetailPage, {item: item});
-		}
-
-		goAddAskPage(item) {
-			this.navCtrl.push(AddAskPage, {item: item});
 		}
 
 		// this.navCtrl.push(LookTestPage, {item: item});

@@ -1,4 +1,4 @@
-#项目相关命令
+~~4ttttttttt0';l9。；'    scord~~#项目相关命令
 npm install  
 ionic serve  
 ionic build --prod  

@@ -13,7 +13,7 @@
 	<div class="searchbar" ion-fixed>
 	  <form class="input">
 			<div class="input-box">
-				<img (click)="doSearch()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
+				<img (click)="doSearch()" class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
 				<!-- <span>请输入问题关键词</span> -->
 				<ion-input [(ngModel)]="page.Title"
 									 placeholder="请输入问题关键词"
@@ -26,11 +26,35 @@
 	  </form>
 	</div>
   
-	<ul class="ask-lists">
+	<!--<ul class="ask-lists">-->
+		<!--<li *ngFor="let item of page.askLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">-->
+			<!--<div class="title">{{ item.Title }}</div>-->
+			<!--<div class="item-bottom">-->
+				<!--<span class="ask-count">其他 <span style="color: #E46A65;">{{ item.FocusNum }}</span>人也想知道</span>-->
+				<!--<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="!item.IsNoFocus" class="add-ask-btn">我也想知道</span>-->
+				<!--<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="item.IsNoFocus" class="edit-ask-btn">已问</span>-->
+			<!--</div>-->
+		<!--</li>-->
+	<!--</ul>-->
+
+	<ul class="list-box">
 		<li *ngFor="let item of page.askLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">
-			<div class="title">{{ item.Title }}</div>
+			<div class="questions-box">
+				<span class="label">问</span>
+				<span class="text-questions">{{ item.Title }}</span>
+			</div>
+			<div class="answers-box">
+				<span class="label">答</span>
+				<span class="text-answers">
+					<span class="name">骏菱学社小助手：</span>
+					<span *ngIf="item.QuestionReplyItems">{{ item.QuestionReplyItems.ReplyContent }}</span>
+					<span *ngIf="!item.QuestionReplyItems">暂无回答</span>
+				</span>
+			</div>
+
 			<div class="item-bottom">
-				<span class="ask-count">其他 <span style="color: #7DBCEB;">{{ item.FocusNum }}</span>人也想知道</span>
+				<!--*ngIf="item.QuestionReplyItems"-->
+				<span class="ask-count">其他 <span style="color: #3971C2;">{{ item.FocusNum }}</span>人也想知道</span>
 				<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="!item.IsNoFocus" class="add-ask-btn">我也想问</span>
 				<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="item.IsNoFocus" class="edit-ask-btn">已问</span>
 			</div>
@@ -51,6 +75,6 @@
 	</ion-list>
 </ion-content>
 
-<ion-footer>
-	<div (click)="goAddAskPage()" class="other-want-ask">其他想问</div>
-</ion-footer>
+<!--<ion-footer>-->
+	<!--<div (click)="goAddAskPage()" class="other-want-ask">其他想问</div>-->
+<!--</ion-footer>-->
