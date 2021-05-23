@@ -130,7 +130,6 @@ page-chapter {
   .record-item {
     position: relative;
     height: 142px;
-    box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 
     .deleIcon {
@@ -141,6 +140,7 @@ page-chapter {
       color: #e93c46;
     }
   }
+
 
   .file-type {
     position: absolute;

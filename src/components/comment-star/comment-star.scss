@@ -82,10 +82,11 @@ comment-star {
     width: 8rem;
     height: 3rem;
     line-height: 3rem;
-    background: linear-gradient(241deg, #f1f0e7 0%, #706f6c 100%);
+    background: linear-gradient(241deg, rgb(240,240,240) 0%, rgb(229,229,229) 100%);
     border-radius: 1.4rem;
     text-align: center;
     margin: 0 auto;
+    font-weight: 400;
   }
 
   .commentBtn1 {
