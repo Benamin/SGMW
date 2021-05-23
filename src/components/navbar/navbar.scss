@@ -32,12 +32,13 @@ navbar {
   .duty-title::after {
     content: '';
     position: absolute;
-    width: 100%;
+    width: 60%;
     height: 4px;
     background-image: linear-gradient(to right, #feca46, #fee6a3);
     bottom: -10px;
-    left: 0;
+    left: 20%;
     border-radius: 4px;
+    background: #E90E2C;
   }
 
   .span-btn {

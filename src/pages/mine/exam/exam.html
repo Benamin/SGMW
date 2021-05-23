@@ -14,7 +14,7 @@
     <div class="exam">
         <ng-container *ngIf="type == '4'">
             <ng-container *ngFor="let item of exam.no">
-                <div class="space"></div>
+                <!-- <div class="space"></div> -->
                 <div class="item" tappable (click)="goExam(item)">
                     <span class="revert" *ngIf="item.ExamStatus == 4">重新答题</span>
                     <p class="courseName">{{item.CourseName}}</p>

@@ -159,30 +159,86 @@ html, body, p {
 .amp-logo {
   display: none !important;
 }
-
-.total-integral {
+.check-integral {
   display: flex;
   line-height: 3rem;
-  background-image: url('../assets/imgs/integral/jifen_banner.png');
-  background-size: cover;
-  margin-bottom: 1.5rem;
   padding: 2rem;
   font-size: 1.8rem;
-
+  .iconsimg{
+    width: 2.5rem;
+    margin-right: 1rem;
+    img{
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
   .left {
     span:first-child {
-      color: #ffffff;
+      color: #535353;
       margin-right: 5px;
-    }
-
-    span:last-child {
-      color: #FFC92D;
+      font-size: 2.0rem;
+      font-weight: 500;
+      vertical-align: top;
     }
   }
 
   .right {
     margin-left: auto;
-    color: #ffffff;
+    color: #535353;
+    span{
+      border-radius: 18px;
+      padding: 5px 10px;
+      color: #FCA241;
+      font-size: 1.5rem;
+      border:1px solid #FCA241;
+    }
+  }
+
+	.black-bg {
+		background-image: url('../assets/imgs/mine/wod_bg@2x.png') no-repeat bottom;
+		background-size: 100% 100%;
+	}
+}
+.total-integral {
+  display: flex;
+  line-height: 3rem;
+  // background-image: url('../assets/imgs/integral/jifen_banner.png');
+  background: -webkit-gradient(linear,0 0,0 100%,from(#FFEBC9),to(#FFF7D8));     
+  background: -moz-gradient(linear,0 0,0 100%,from(#FFEBC9),to(#FFF7D8));     
+  background:-webkit-gradient(linear,left top,left bottom,from(#FFEBC9),to(#FFF7D8)); 
+  border-radius: 2px;
+  background-size: cover;
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  font-size: 1.8rem;
+  .iconsimg{
+    width: 2.3rem;
+    margin-right: 1rem;
+    img{
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
+  .left {
+    span:first-child {
+      color: #FFA903;
+      margin-right: 5px;
+    }
+    span:last-child {
+      font-size: 2.8rem;
+      color: #FFA903;
+      vertical-align: top;
+    }
+  }
+
+  .right {
+    margin-left: auto;
+    color: #535353;
+    span{
+      b{
+        color: #FB7F1E;
+      }
+    }
   }
 
 	.black-bg {

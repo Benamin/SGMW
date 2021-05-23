@@ -4,22 +4,26 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingText="下拉刷新"
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <div class="item" *ngFor="let item of list">
-        <div class="left">
-            <p>{{item.OprateName}}</p>
-            <p>{{item.OprateTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
-        </div>
-        <div class="right">
-            <ng-container *ngIf="!item.Credit.includes('-')">+</ng-container>
-            {{item.Credit}}
+    <div class="integraldetails" *ngFor="let item of list">
+        <!-- <p>{{item.OprateTime | date:'yyyy-MM-dd HH:mm:ss'}}</p> -->
+        <p>{{item.OprateTime | date:'yyyy-MM-dd'}}</p>
+        <div class="item">
+            <div class="left">
+                <p>{{item.OprateName}}</p>
+            </div>
+            <div class="right">
+                <ng-container *ngIf="!item.Credit.includes('-')">+</ng-container>
+                {{item.Credit}} 分
+            </div>
         </div>
     </div>
+    
     <ion-list text-center style="margin-top: 10rem" *ngIf="list.length == 0 && page.isLoading">
         <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
         <p text-center style="color: #666666;font-size: 16px">

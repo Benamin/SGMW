@@ -68,9 +68,9 @@ page-my-course {
         align-items: flex-end;
         height: 78px;
         justify-content: center;
-
+        color: #6D7990;
+        font-weight: 400;
         span:first-child {
-          font-weight: bold;
           font-size: 14px;
         }
 
@@ -89,7 +89,7 @@ page-my-course {
 
   .outer {
     height: 6px;
-    background-color: #bee1ec;
+    background-color: #F3F3F3;
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -102,7 +102,7 @@ page-my-course {
       height: 6px;
       transition: all 500ms;
       border-radius: 10px;
-
+      background: #6D7990;
     }
   }
 }
