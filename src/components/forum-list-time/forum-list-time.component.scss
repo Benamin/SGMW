@@ -123,13 +123,14 @@
 
 .post-introduction-buttom {
   padding: 15px 0;
-  color: #757575;
+  color: #c9c9c9;
+  font-size: 12px;
   display: flex;
   align-items: center;
 
   img {
     width: 18px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   span:nth-child(1) {
@@ -143,7 +144,7 @@
     display: flex;
 
     img {
-      width: 22px !important;
+      width: 17px !important;
     }
   }
 
@@ -151,11 +152,19 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
+
+    img {
+      width: 15px !important;
+    }
   }
 
-  .p771_comment_like {
+  .comment_like {
     display: flex;
     align-items: center;
+
+    img {
+      width: 16px !important;
+    }
   }
 
   .share {

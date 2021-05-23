@@ -9,6 +9,7 @@ page-chapter {
 
     > div p {
       padding: 8px 0;
+      color: #707070;
       border-bottom: 1px solid #dddddd;
     }
 
@@ -20,7 +21,10 @@ page-chapter {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px;
+      background-color: #f8f8f8;
+      margin-left: -20px;
+      margin-right: -20px;
+      padding: 8px 20px;
       border-bottom: 1px solid #dddddd;
 
       > div:first-child {
@@ -116,7 +120,8 @@ page-chapter {
     padding: 10px;
 
     p {
-      margin-top: 12px;
+      font-size: 1.4rem;
+      color: #474747;
       text-align: center;
       overflow: hidden;
       display: -webkit-box;
@@ -129,7 +134,7 @@ page-chapter {
 
   .record-item {
     position: relative;
-    height: 142px;
+    height: 100px;
     border-radius: 5px;
 
     .deleIcon {
@@ -177,7 +182,7 @@ page-chapter {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60px;
+    width: 80px;
     height: 56px;
   }
 
@@ -191,22 +196,25 @@ page-chapter {
 
   .done {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 20px;
     color: #333;
     font-size: 1.2rem;
 
     img {
-      width: 18px;
-      height: 18px;
+      width: 14px;
+      height: 14px;
     }
   }
 
   .file-icon {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 18px;
+    left: 28px;
     border-radius: 4px;
+    z-index: 1;
+    display: inline-block;
+    transform: scale(.6);
   }
 
   img.suo {
@@ -218,10 +226,10 @@ page-chapter {
 
   img.download-file {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    height: 18px;
-    width: 18px;
+    bottom: 20px;
+    right: 20px;
+    height: 14px;
+    width: 14px;
   }
 
   .chapter-more-icon {

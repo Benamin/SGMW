@@ -31,13 +31,10 @@ page-forum {
       width: 28px;
       height: 4px;
       margin-left: -10px;
-      left: 50%;
+      left: 48%;
       bottom: 0px;
       transition: all 0.2s;
-      background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: #E90E2C;
       border-radius: 2px;
     }
   }
@@ -211,16 +208,18 @@ page-forum {
 
 
   .post-introduction {
+    margin: 0 15px;
     padding: 0 15px;
     background: #fff;
     padding-top: 20px;
     margin-bottom: 10px;
+    border-radius: 5px;
 
     .post-introduction-top {
       display: flex;
       align-items: center;
 
-     > img {
+      > img {
         width: 28px;
         height: 28px;
         border-radius: 50%;
@@ -312,7 +311,7 @@ page-forum {
 
       img {
         width: 18px;
-        margin-right: 10px;
+        margin-right: 5px;
       }
 
       span:nth-child(1) {
@@ -323,7 +322,7 @@ page-forum {
       span:nth-child(2) {
         display: flex;
         align-items: center;
-        margin-right: 20px;
+        margin-right: 10px;
       }
 
       span:nth-child(3) {
@@ -335,19 +334,22 @@ page-forum {
 
   .div-nav {
     padding: 0 15px;
-    background: #fff;
     display: flex;
 
     div {
       margin-right: 20px;
       padding: 10px 0;
       position: relative;
+      color: #707070;
     }
   }
 
   .act {
-    color: rgba(0, 0, 0, 1);
+    color: #333333 !important;
     transition: all 0.2s;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #333333;
   }
 
   .act::before {
@@ -360,10 +362,6 @@ page-forum {
     left: 50%;
     bottom: 0px;
     transition: all 0.2s;
-    background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-    background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-    background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-    background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
     border-radius: 2px;
   }
 
@@ -375,7 +373,7 @@ page-forum {
     right: 20px;
     border-radius: 50%;
     z-index: 99;
-    background: linear-gradient(-90deg, rgb(255, 243, 176), #FFC92D);
+    background: linear-gradient(117deg, #E90E2C 0%, #FF8697 100%);
   }
 
   .new-add:after,
@@ -387,7 +385,7 @@ page-forum {
     left: 50%;
     top: 50%;
     position: absolute;
-    background: #000;
+    background: #FFFFFF;
     transform: translate(-50%, -50%);
     border-radius: 3px;
   }
@@ -499,7 +497,7 @@ page-forum {
       font-size: 1.3rem;
     }
 
-   .check {
+    .check {
       background: linear-gradient(242deg, #FFF7CB 0%, #FFC92D 100%);
     }
 

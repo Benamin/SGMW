@@ -50,7 +50,7 @@ export class TabsPage {
             index: 1
         },
         {
-            root: EditPage,
+            root: ForumPage,
             tabTitle: '动态',
             tabIconOn: 'custom-tab3-on',
             tabIconOff: 'custom-tab3-off',
