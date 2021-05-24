@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>已下载</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <form ion-fixed class="search-header" action="#">
+        <div class="input-box">
+            <img (click)="doSearch()" class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
+            <ion-input [(ngModel)]="page.Title"
+                       placeholder="请输入资料关键词"
+                       [ngModelOptions]="{standalone: true}"
+                       (keypress)="search($event)"
+                       (ionFocus)="showKey()"
+                       autocomplete='off'
+            ></ion-input>
+        </div>
+    </form>
+</ion-content>

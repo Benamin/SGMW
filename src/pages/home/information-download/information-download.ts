@@ -4,14 +4,12 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 import {FileService} from "../../../core/file.service";
 import {timer} from "rxjs/observable/timer";
-import {InformationDownloadPage} from "../information-download/information-download";
-
 
 @Component({
-    selector: 'page-information-zone',
-    templateUrl: 'information-zone.html',
+    selector: 'page-information-download',
+    templateUrl: 'information-download.html',
 })
-export class InformationZonePage {
+export class InformationDownloadPage {
 		userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
         Title: '',
@@ -39,13 +37,11 @@ export class InformationZonePage {
     //   this.getList();
     // }
     ionViewDidLoad() {
-			this.page.resourceLists = [];
-			this.GetAskType();
-      this.getList();
+
     }
 
     goDownLoad() {
-        this.navCtrl.push(InformationDownloadPage);
+
 	}
 
 		// 获取问题类型
@@ -125,7 +121,7 @@ export class InformationZonePage {
 					Page: 1,
 					PageSize: this.page.PageSize
         };
-				if (this.page.FileType && this.page.FileType.value !== null) dataObj = Object.assign({}, dataObj, { FileTypeId: this.page.FileType.value }); // 判断是否全部类型
+				if (this.page.FileType && this.page.FileType.value !== null) dataObj = Object.assign({}, dataObj, { FileTypeId: this.page.FileType.value });
         this.homeSer.GetQueryMaterialFile(dataObj).subscribe(
             (res) => {
 							this.page.resourceLists = this.DataAssign(res.data);
@@ -182,11 +178,6 @@ export class InformationZonePage {
         this.fileSer.downloadFile(fileUrl, fileName,true);
     }
 
-    // 切换类型
-	switchTypeLists(item) {
-        this.page.FileType = item;
-        this.getList();
-	}
 		// 切换角色
 		showActionSheet() {
 			let typeArr = this.page.typeArr;

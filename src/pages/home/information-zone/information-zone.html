@@ -1,12 +1,18 @@
 <ion-header>
     <ion-navbar>
         <ion-title>资料专区</ion-title>
-				<div class="top-box" *ngIf="page.FileType">
-				      <span class="top-right" (click)="showActionSheet()">
-				        <span>{{ page.FileType.label }}</span>
-				        <img src="assets/imgs/train/shaixuan@2x.png" alt="">
-				      </span>
-				</div>
+				<!--<div class="top-box" *ngIf="page.FileType">-->
+				      <!--<span class="top-right" (click)="showActionSheet()">-->
+				        <!--<span>{{ page.FileType.label }}</span>-->
+				        <!--<img src="assets/imgs/train/shaixuan@2x.png" alt="">-->
+				      <!--</span>-->
+				<!--</div>-->
+			<div class="top-box">
+          <span class="top-right" (click)="goDownLoad()">
+            <span>已下载</span>
+						<!--<img src="assets/imgs/advanced/rzjj_xz@2x.png" alt="">-->
+          </span>
+			</div>
     </ion-navbar>
 </ion-header>
 <ion-content>
@@ -16,21 +22,30 @@
 	    </ion-refresher-content>
 	</ion-refresher>
 
-  <div class="searchbar" ion-fixed>
-	  <form class="input">
-		  <div class="input-box">
-			  <img (click)="doSearch()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
-			  <ion-input [(ngModel)]="page.Title"
-						 placeholder="请输入资料关键词"
-						 [ngModelOptions]="{standalone: true}"
-						 (keypress)="search($event)"
-						 (ionFocus)="showKey()"
-						 autocomplete='off'
-			  ></ion-input>
-		  </div>
-	  </form>
-  </div>
-	<p class="downloadTips">Tips：下载的资料:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下</p>
+	<div ion-fixed style="width: 100%;">
+		<form class="search-header" action="#">
+			<div class="input-box">
+				<img (click)="doSearch()" class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
+				<ion-input [(ngModel)]="page.Title"
+									 placeholder="请输入资料关键词"
+									 [ngModelOptions]="{standalone: true}"
+									 (keypress)="search($event)"
+									 (ionFocus)="showKey()"
+									 autocomplete='off'
+				></ion-input>
+			</div>
+		</form>
+
+		<div class="file-type-select">
+			<ul>
+				<li (click)="switchTypeLists(item)" *ngFor="let item of page.typeArr" [ngClass]="{'actived': this.page.FileType.label === item.label }">
+					{{ item.label }}
+				</li>
+				<span class="end-box"></span>
+			</ul>
+		</div>
+	</div>
+	<!--<p class="downloadTips">Tips：下载的资料:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下</p>-->
 	<ul class="file-lists">
 		<li *ngFor="let item of page.resourceLists">
 			<div class="flex-box">

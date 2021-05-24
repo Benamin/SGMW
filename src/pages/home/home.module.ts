@@ -42,6 +42,7 @@ import {RoleModalPage} from "./role-modal/role-modal";
 import {RuleModalPage} from "./advanced/rule-modal/rule-modal";
 import {StudyTaskPage} from "./study-task/study-task";
 import {InformationZonePage} from "./information-zone/information-zone";
+import {InformationDownloadPage} from "./information-download/information-download";
 import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
 import {askSearchModalPage} from "./want-to-ask/ask-search-modal/ask-search-modal";
 import {AddAskPage} from "./want-to-ask/add-ask/add-ask";
@@ -90,6 +91,7 @@ import {ThemeActivityPage} from "./theme-activity/theme-activity";
         StudyTaskPage,
         ThemeActivityPage,
         InformationZonePage,
+        InformationDownloadPage,
         WantToAskListsPage,
         askSearchModalPage,
         AddAskPage,
@@ -140,6 +142,7 @@ import {ThemeActivityPage} from "./theme-activity/theme-activity";
         StudyTaskPage,
         ThemeActivityPage,
         InformationZonePage,
+        InformationDownloadPage,
         WantToAskListsPage,
         askSearchModalPage,
         AddAskPage,
