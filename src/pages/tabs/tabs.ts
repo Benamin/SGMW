@@ -57,7 +57,7 @@ export class TabsPage {
             index: 3
         },
         {
-            root: VideoListsPage,
+            root: NotificationPage,
             tabTitle: '消息',
             tabIconOn: 'custom-tab4-on',
             tabIconOff: 'custom-tab4-off',
