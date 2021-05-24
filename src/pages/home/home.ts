@@ -53,6 +53,8 @@ import {ThemeActivityComponent} from "../../components/theme-activity/theme-acti
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
 
+declare let Swiper: any;
+
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
