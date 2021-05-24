@@ -32,31 +32,36 @@ page-my-follows {
             content: " ";
             display: block;
             position: absolute;
-            width: 28px;
+            width: 26px;
             height: 4px;
-            margin-left: -10px;
+            margin-left: -13px;
             left: 50%;
             bottom: 0px;
             transition: all 0.2s;
-            background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-            background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-            background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-            background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            // background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            // background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            // background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            // background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+            background: #E90E2C;
             border-radius: 2px;
         }
     }
 
     .content-div {
         padding-top: 5px;
+        margin: 0 16px;
     }
 
     .subscribe-div {
         background: #fff;
         margin-top: 15px;
+        margin-left: 16px;
+        margin-right: 16px;
+        overflow: hidden;
     }
 
     .GetSubscribeList {
-        border-bottom: 1px solid #E5E5E5;
+        // border-bottom: 1px solid #E5E5E5;
         margin-left: 20px;
         padding-right: 20px;
     }
@@ -89,15 +94,19 @@ page-my-follows {
     }
     .stae{
         width: 60px;
-    background: #CCCCCC;
-    height: 24px;
-    text-align: center;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
-    font-size: 12px;
+        background: #CCCCCC;
+        height: 24px;
+        text-align: center;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        font-size: 12px;
+        .focus-blue{
+            background: #e71633;
+            border: 0.08rem solid #e71633;
+        }
     }
     .Remark{
         overflow: hidden;
@@ -147,7 +156,7 @@ page-my-follows {
             .oldDate {
                 color: #bfbfbf;
                 position: relative;
-                padding-left: 10px;
+                padding-left: 5px;
                 font-size: 11px;
             }
 
@@ -155,7 +164,7 @@ page-my-follows {
                 content: " ";
                 display: block;
                 position: absolute;
-                background: #bfbfbf;
+                background: #fff;
                 width: 1px;
                 height: 13px;
                 left: 0;
@@ -225,17 +234,20 @@ page-my-follows {
             span:nth-child(1) {
                 flex: 1;
                 font-size: 12px;
+                color: #c9c9c9;
             }
 
             span:nth-child(2) {
                 display: flex;
                 align-items: center;
                 margin-right: 20px;
+                color: #c9c9c9;
             }
 
             span:nth-child(3) {
                 display: flex;
                 align-items: center;
+                color: #c9c9c9;
             }
         }
     }

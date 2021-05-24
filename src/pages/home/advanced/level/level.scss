@@ -117,7 +117,7 @@ page-level {
 
       .progress-bar {
         position: absolute;
-        top: 0;
+        top: -0.2rem;
         left: 0;
         width: 0;
         max-width: 100%;
@@ -129,7 +129,6 @@ page-level {
         align-items: center;
         opacity: 1;
         z-index: 2;
-        //overflow: hidden;
 
         .process-text {
           position: absolute;
@@ -189,6 +188,17 @@ page-level {
             height: 1.5rem;
             //border-radius: 50%;
           }
+        }
+        li:before {
+          content: " ";
+          position: absolute;
+          left: 50%;
+          top: -2.4rem;
+          transform: translateX(-50%);
+          width: 1rem;
+          height: 1rem;
+          border-radius: 50%;
+          background-color: #A7A6A6;
         }
 
         li:nth-last-child(1) {

@@ -7,7 +7,7 @@ page-exam {
       padding: 10px;
       border-radius: 5px;
       position: relative;
-
+      margin-bottom: 10px;
       .studyState {
         position: absolute;
         right: 0;
@@ -34,7 +34,7 @@ page-exam {
       }
 
       .courseName {
-        font-size: 1.8rem;
+        font-size: 1.7rem;
         font-weight: 400;
         margin-bottom: 10px;
         width: calc(100% - 60px);
@@ -62,17 +62,17 @@ page-exam {
     }
 
     .examScore {
-      font-size: 1.25rem;
+      font-size: 1.3rem!important;
       font-weight: 400;
-      color: rgba(0, 0, 0, .8);
+      color: #474747;
       line-height: 1.75rem;
     }
 
     .examTime {
-      font-size: 1rem;
+      font-size: 1.3rem!important;
       font-weight: 400;
-      color: rgba(0, 0, 0, .8);
-      line-height: 1.42rem;
+      color: #474747;
+      line-height: 1.75rem;
       float: right;
     }
   }
@@ -81,10 +81,10 @@ page-exam {
     position: absolute;
     top: 25px;
     right: 10px;
-    border: 1px solid #1994fa;
+    border: 1px solid #6D7990;
     border-radius: 5px;
     padding: 4px;
     font-size: 12px;
-    color: #1994fa;
+    color:#6D7990;
   }
 }
