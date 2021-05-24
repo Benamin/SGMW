@@ -117,7 +117,7 @@ page-level {
 
       .progress-bar {
         position: absolute;
-        top: -0.2rem;
+        top: 0;
         left: 0;
         width: 0;
         max-width: 100%;
@@ -186,6 +186,7 @@ page-level {
             transform: translateX(-50%);
             width: 1.7rem;
             height: 1.5rem;
+            z-index: 3;
             //border-radius: 50%;
           }
         }

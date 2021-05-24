@@ -3,7 +3,7 @@
         <ion-buttons start>
             <button ion-button icon-only class="search-button">
                 <img class="img-head" src="{{mineInfo?.HeadPhoto}}">
-                <span>你好，{{mineInfo?.UserName | stringSlice:5:5}}</span>
+                <span>{{mineInfo?.UserName | stringSlice:5:5}}</span>
             </button>
         </ion-buttons>
         <ion-buttons end class="navbar-search" tappable>
@@ -18,10 +18,10 @@
 <ion-content>
     <div class="bg-black">
         <div class="score-line">
-            <p>当月学分获取情况</p>
-            <p class="tips">
-                Tips:<span>课程上架{{obj?.PutAwayDay || "5"}}日内学习即可获取学分，过期学习不可获取学分</span>
-            </p>
+            <p>当前学分获取情况</p>
+            <!--<p class="tips">-->
+                <!--Tips:<span>课程上架{{obj?.PutAwayDay || "5"}}日内学习即可获取学分，过期学习不可获取学分</span>-->
+            <!--</p>-->
             <div class="process">
                 <div class="out-process">
                     <div class="inner-process" [style.width]="width + '%'">
@@ -36,7 +36,7 @@
     </div>
     <div class="time-choose">
         <p>
-            <span>历史查询 </span>
+            <span>历史查询:</span>
             <span class="ionDateTime">
                 <ion-datetime displayFormat="YYYY年MM月"
                               doneText="确定"
@@ -60,9 +60,9 @@
                     <p>{{item?.PName || "-" }}</p>
                     <div class="final-time">{{ item?.FinalTime }}前学习可获取学分</div>
                     <div class="desc">
-                        <span *ngIf="item.StudyStatus == 0"><img src="./assets/imgs/train/xxrw_wxx.png">未学习</span>
-                        <span *ngIf="item.StudyStatus == 1"><img src="./assets/imgs/train/nx_zzjx@2x.png">进行中</span>
-                        <span *ngIf="item.StudyStatus == 2"><img src="./assets/imgs/train/nx_ywc@2x.png">已学习</span>
+                        <span *ngIf="item.StudyStatus == 0"><img src="./assets/imgs/new_version/advanced/not-start.png">未开始</span>
+                        <span *ngIf="item.StudyStatus == 1"><img src="./assets/imgs/new_version/advanced/doing.png">进行中</span>
+                        <span *ngIf="item.StudyStatus == 2"><img src="./assets/imgs/new_version/advanced/finish.png">已完成</span>
                         <span *ngIf="item.StudyStatus == 3"><img src="./assets/imgs/home/studyTask/wsj.png">未上架</span>
                         <span class="credit">{{item.Credit}}分</span>
                     </div>
