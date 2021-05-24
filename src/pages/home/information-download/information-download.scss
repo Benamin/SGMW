@@ -1,4 +1,20 @@
 page-information-download {
+  .top-box {
+    display: flex;
+    align-items: center;
+
+    .top-right {
+      margin-left: auto;
+      margin-right: 1.5rem;
+      font-size: 1.4rem;
+      color: #FCA241;
+      width: 7.1rem;
+      height: 2.3rem;
+      text-align: center;
+      border-radius: 1.25rem;
+      border: 1px solid #FCA241;
+    }
+  }
 
   .search-header{
     background-color: #F8F8F8;
@@ -41,5 +57,167 @@ page-information-download {
         width: calc(100% - 2.3rem);
       }
     }
+  }
+
+  .file-type-select {
+    padding-top: 0.2rem;
+    width: 100%;
+    height: 3.7rem;
+    max-width: 37.5rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    background-color: #f8f8f8;
+    ul {
+      margin: 0;
+      padding: 0;
+      margin-left: 1rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      list-style: none;
+      li {
+        margin-right: 1.5rem;
+        height: 2.3rem;
+        padding: 0.3rem 2rem;
+        color: #474747;
+        border: 1px solid #7A7A7A;
+        border-radius: 1.15rem;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &.actived {
+          color: #FFFFFF;
+          background-color: #f88777;
+          border: 1px solid #f88777;
+        }
+      }
+      .end-box {
+        min-width: 0.5rem;
+        height: 1rem;
+        //background-color: #ff00ff;
+        display: block;
+      }
+    }
+  }
+  .file-lists {
+    margin: 0;
+    padding: 0;
+    margin-top: 9.3rem;
+    margin-bottom: 10px;
+    list-style: none;
+    background-color: #FFFFFF;
+
+    li {
+      position: relative;
+      margin: 0 1.5rem;
+      margin-bottom: 1px;
+      padding: 1.5rem 0 0.7rem;
+      border-bottom: 1px solid #DEDEDE;
+      &:last-child {
+        border: none;
+      }
+      .open-file-btn {
+        position: absolute;
+        top: 3rem;
+        right: 2rem;
+        width: 5.2rem;
+        height: 2.3rem;
+        line-height: 2.3rem;
+        text-align: center;
+        font-size: 1.4rem;
+        color: #474747;
+        background-color: #f8dd77;
+        border-radius: 1.15rem;
+      }
+
+      .title {
+        margin-bottom: 1rem;
+        height: 22px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .upload-time {
+        margin-left: auto;
+        margin-right: 12px;
+        margin-bottom: 0.2rem;
+        font-size: 13px;
+        color: #9D9D9E;
+      }
+      .flex-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #474747;
+        .author {
+          display: flex;
+          align-items: center;
+
+          font-size: 1.2rem;
+          .avatar {
+            margin-right: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+          }
+        }
+        .type-info {
+          margin-right: 3rem;
+          padding: 0 0.8rem;
+          height: 1.8rem;
+          font-size: 1rem;
+          border: 1px solid #474747;
+          border-radius: 0.9rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          span {
+            margin-right: 0.4rem;
+          }
+        }
+        .download-btn {
+          margin-right: 1.9rem;
+          font-size: 1.2rem;
+          img {
+            display: block;
+            margin-bottom: 0.5rem;
+            width: 3rem;
+            height: 2.4rem;
+          }
+        }
+
+        .suffix {
+          font-size: 10px;
+          color: #FFF;
+          padding: 3px 5px;
+          border-radius: 3px;
+        }
+        .docx-bg {
+          color: #2D7CE8;
+        }
+        .pdf-bg {
+          color: #E47E7B;
+        }
+        .xls-bg {
+          color: #12AB70;
+        }
+        .ppt-bg {
+          color: #EC5C52;
+        }
+        .zip-bg {
+          color: #4D087C;
+        }
+      }
+    }
+  }
+
+  .downloadTips {
+    margin-top: 6.2rem;
+    color: #333333;
+    padding: .5rem 1rem;
+    font-size: 1.2rem;
   }
 }

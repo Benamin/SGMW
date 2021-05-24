@@ -1,12 +1,6 @@
 <ion-header>
     <ion-navbar>
         <ion-title>资料专区</ion-title>
-				<!--<div class="top-box" *ngIf="page.FileType">-->
-				      <!--<span class="top-right" (click)="showActionSheet()">-->
-				        <!--<span>{{ page.FileType.label }}</span>-->
-				        <!--<img src="assets/imgs/train/shaixuan@2x.png" alt="">-->
-				      <!--</span>-->
-				<!--</div>-->
 			<div class="top-box">
           <span class="top-right" (click)="goDownLoad()">
             <span>已下载</span>
@@ -48,19 +42,35 @@
 	<!--<p class="downloadTips">Tips：下载的资料:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下</p>-->
 	<ul class="file-lists">
 		<li *ngFor="let item of page.resourceLists">
-			<div class="flex-box">
-				<span class="suffix" [ngClass]="item.suffixObj.suffixClass">{{ item.suffixObj.suffixText }}</span>
-				<span class="file-type">{{ item.FileType }}</span>
-				<span class="download-btn" (click)="downLoad(item.FileAddress, item.Name, $event)">下载</span>
-				<!-- <span class="download-btn" *ngIf="item.status === 0">下载</span>
-				<span class="download-btn success-btn" *ngIf="item.status === 1">预览</span> -->
-			</div>
 			<div class="title">{{ item.DIsplayName }}</div>
+			<div class="upload-time">上传时间：{{ item.CreateTime | date:'yyyy-MM-dd HH:mm' }}</div>
 			<div class="flex-box">
-				<img src="{{ item?.CreateHeadPhoto || userDefaultImg }}" class="avatar" alt="头像">
-				<span class="author">{{ item.Creater }}</span>
-				<span class="upload-time">上传时间：{{ item.CreateTime | date:'yyyy-MM-dd HH:mm' }}</span>
+				<div class="author">
+					<img src="{{ item?.CreateHeadPhoto || userDefaultImg }}" class="avatar" alt="头像">
+					<span class="author">{{ item.Creater }}</span>
+				</div>
+				<div class="type-info">
+					<span [ngClass]="item.suffixObj.suffixClass">{{ item.suffixObj.suffixText }}</span>
+					{{ item.FileType }}
+				</div>
+				<div class="download-btn">
+					<img (click)="doSearch()" src="./assets/imgs/new_version/home/download.png" alt="下载">
+					下载
+				</div>
 			</div>
+			<!--<div class="flex-box">-->
+				<!--<span class="suffix" [ngClass]="item.suffixObj.suffixClass">{{ item.suffixObj.suffixText }}</span>-->
+				<!--<span class="file-type">{{ item.FileType }}</span>-->
+				<!--<span class="download-btn" (click)="downLoad(item.FileAddress, item.Name, $event)">下载</span>-->
+				<!--&lt;!&ndash; <span class="download-btn" *ngIf="item.status === 0">下载</span>-->
+				<!--<span class="download-btn success-btn" *ngIf="item.status === 1">预览</span> &ndash;&gt;-->
+			<!--</div>-->
+			<!--<div class="title">{{ item.DIsplayName }}</div>-->
+			<!--<div class="flex-box">-->
+				<!--<img src="{{ item?.CreateHeadPhoto || userDefaultImg }}" class="avatar" alt="头像">-->
+				<!--<span class="author">{{ item.Creater }}</span>-->
+				<!--<span class="upload-time">上传时间：{{ item.CreateTime | date:'yyyy-MM-dd HH:mm' }}</span>-->
+			<!--</div>-->
 		</li>
 	</ul>
 

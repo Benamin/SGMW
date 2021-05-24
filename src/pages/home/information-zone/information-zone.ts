@@ -92,7 +92,7 @@ export class InformationZonePage {
 			let suffixClass:Object = { 'no': 'true' }
 			let suffixText = '';
 				// Word文档的扩展名有两个,分别是:doc和docx
-			if (suffix === 'doc' || suffix === 'doc') {
+			if (suffix === 'doc' || suffix === 'docx') {
 				suffixClass = { 'docx-bg': 'true' };
 				suffixText = 'Docx';
 			} else if (suffix === 'pdf') { // pdf
@@ -187,27 +187,5 @@ export class InformationZonePage {
         this.page.FileType = item;
         this.getList();
 	}
-		// 切换角色
-		showActionSheet() {
-			let typeArr = this.page.typeArr;
-		  let btnArr = []
-			for (let i = 0; i < typeArr.length; i++) {
-					let obj = {
-							text: typeArr[i].label,
-							role: this.page.FileType.value === typeArr[i].value ? 'destructive' : '',
-							handler: () => {
-								this.page.FileType = typeArr[i];
-								this.getList();
-							}
-					}
-					btnArr.push(obj)
-			}
-			// console.log('btnArr', btnArr)
-			const actionSheet = this.actionSheetCtrl.create({
-					cssClass: 'infoAction',
-					buttons: btnArr
-			});
-			actionSheet.present();
-		}
 
 }

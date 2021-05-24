@@ -4,16 +4,56 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <form ion-fixed class="search-header" action="#">
-        <div class="input-box">
-            <img (click)="doSearch()" class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
-            <ion-input [(ngModel)]="page.Title"
-                       placeholder="请输入资料关键词"
-                       [ngModelOptions]="{standalone: true}"
-                       (keypress)="search($event)"
-                       (ionFocus)="showKey()"
-                       autocomplete='off'
-            ></ion-input>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新"
+                               refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div ion-fixed style="width: 100%;">
+        <form class="search-header" action="#">
+            <div class="input-box">
+                <img (click)="doSearch()" class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
+                <ion-input [(ngModel)]="page.Title"
+                           placeholder="请输入资料关键词"
+                           [ngModelOptions]="{standalone: true}"
+                           (keypress)="search($event)"
+                           (ionFocus)="showKey()"
+                           autocomplete='off'
+                ></ion-input>
+            </div>
+        </form>
+
+        <div class="file-type-select">
+            <ul>
+                <li (click)="switchTypeLists(item)" *ngFor="let item of page.typeArr" [ngClass]="{'actived': this.page.FileType.label === item.label }">
+                    {{ item.label }}
+                </li>
+                <span class="end-box"></span>
+            </ul>
         </div>
-    </form>
+    </div>
+    <!--<p class="downloadTips">Tips：下载的资料:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下</p>-->
+    <ul class="file-lists">
+        <li *ngFor="let item of page.resourceLists">
+            <div class="title">{{ item.DIsplayName }}</div>
+            <!--{{ item.CreateTime | date:'yyyy-MM-dd HH:mm' }}-->
+            <div class="upload-time">下载时间：yyyy-MM-dd HH:mm</div>
+            <span class="open-file-btn">查看</span>
+        </li>
+    </ul>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-list *ngIf="page.isLoad && page.resourceLists.length === 0" text-center>
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+    </ion-list>
 </ion-content>
+
