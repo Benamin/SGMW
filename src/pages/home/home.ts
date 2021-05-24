@@ -70,9 +70,8 @@ export class HomePage implements OnInit {
     saleList = [];  //销售运营
     productList = new Array(6);  //产品体验
     teacherList = [];
-    bannerList = [
-        {SourceUrl: defaultImg}
-    ];
+    bannerList = [];
+    defaultBannerImg = defaultImg;
     mineInfo;
     defaultImg = defaultImg;
     httpUrl = SERVER_HTTP_URL;
@@ -86,6 +85,7 @@ export class HomePage implements OnInit {
     wow;   //是否执行动画
     competitionParam = null;
     serveCompetitionParam = null;
+    swiper;
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
@@ -144,8 +144,6 @@ export class HomePage implements OnInit {
             }
         });
         this.ThemeActivity.getData();
-        // this.getCompetitionId();
-        // this.getServerCompetition();
     }
 
     //首页初始化
@@ -226,9 +224,31 @@ export class HomePage implements OnInit {
     getBanner(RoleID) {
         this.homeSer.getBannerList(RoleID).subscribe(
             (res) => {
+                this.bannerList = [];
                 this.bannerList = res.data.NewsItems;
+                setTimeout(() => {
+                    this.initBanner();
+                }, 300)
             }
         )
+    }
+
+    initBanner() {
+        this.swiper = new Swiper(".swiper-home-banner-container", {
+            direction: 'horizontal',
+            loop: true,//循环切换
+            speed: 500,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            observer: true,
+            observeParents: true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            on: {}
+        })
     }
 
     //优秀教师
@@ -253,8 +273,8 @@ export class HomePage implements OnInit {
         this.homeSer.GetHotProductList().subscribe(
             (res) => {
                 let productList = [];
-                for (let i=0; i<res.data.length; i++) {
-                    if (i<6) productList.push(res.data[i]) // 限制6条数据
+                for (let i = 0; i < res.data.length; i++) {
+                    if (i < 6) productList.push(res.data[i]) // 限制6条数据
                 }
                 this.productList = productList;
             }
