@@ -23,39 +23,60 @@ search-sidebar {
     }
 
     .footer {
-      position: fixed;
       left: 0;
       bottom: 0;
       width: 100%;
       height: 58px;
       background: rgba(255, 255, 255, 1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      div {
-        width: 100px;
-        height: 32px;
-        font-size: 14px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 1);
-        line-height: 32px;
-        text-align: center;
+      text-align: center;
+      .confirmbtn{
+        border:1px solid #000001;
+        width: 200px;
+        margin: 0 auto;
+        margin-top: 10px;
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+        border-radius: 120px;
+        div{
+          font-size: 14px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #3B3B3C;
+          line-height: 32px;
+          text-align: center;
+          width: 99px;
+        }
+        b{
+          display: block;
+          width: 1px;
+          background: #000001;
+          margin: 3px 0;
+        }
       }
+      // div {
+      //   width: 100px;
+      //   height: 32px;
+      //   font-size: 14px;
+      //   font-family: PingFangSC-Medium, PingFang SC;
+      //   font-weight: 500;
+      //   color: rgba(0, 0, 0, 1);
+      //   line-height: 32px;
+      //   text-align: center;
+      // }
 
-      div:first-child {
-        border-top-left-radius: 16px;
-        border-bottom-left-radius: 16px;
-        background: linear-gradient(100deg, #fee595 0%, #fed675 100%);
-      }
+      // div:first-child {
+      //   border-top-left-radius: 16px;
+      //   border-bottom-left-radius: 16px;
+      //   background: linear-gradient(100deg, #fee595 0%, #fed675 100%);
+      // }
 
-      div:last-child {
-        border-top-right-radius: 16px;
-        border-bottom-right-radius: 16px;
-        background-color: rgba(255, 201, 45, 1);
-        //background: linear-gradient(100deg, #fed675 0%, rgba(255, 201, 45, 1) 100%);
-      }
+      // div:last-child {
+      //   border-top-right-radius: 16px;
+      //   border-bottom-right-radius: 16px;
+      //   background-color: rgba(255, 201, 45, 1);
+      //   //background: linear-gradient(100deg, #fed675 0%, rgba(255, 201, 45, 1) 100%);
+      // }
     }
   }
 

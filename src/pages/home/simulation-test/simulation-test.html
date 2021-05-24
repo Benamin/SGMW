@@ -6,22 +6,25 @@
 
 <ion-content>
     <div class="simulation-test">
-        <p class="title">模拟考满分为100分</p>
+        <p class="title scorestips">模拟考满分为100分</p>
         <div class="test-time">
             考试时长
             <span class="outline">
-                 <ion-icon (click)="addHandleExam('ExamTimer')" class="add-icon" name="add-circle-outline"></ion-icon>
+                <b (click)="addHandleExam('ExamTimer')" class="plus-icon">+</b>
                 <input type="number" style="width: 120px" max="120" [(ngModel)]="exam.Exam.ExamTimer">
-                <ion-icon (click)="removeHandleExam('ExamTimer')" class="remove-icon" name="remove-circle-outline"></ion-icon>
+                <!-- <ion-icon (click)="removeHandleExam('ExamTimer')" class="remove-icon" name="remove-circle-outline">-</ion-icon> -->
+                <b (click)="removeHandleExam('ExamTimer')" class="reduce-icon">-</b>
             </span>
             分钟
         </div>
         <div class="test-time">
             题目数量
             <span class="outline">
-                 <ion-icon (click)="addTotal()" class="add-icon" name="add-circle-outline"></ion-icon>
+                 <!-- <ion-icon (click)="addTotal()" class="add-icon" name="add-circle-outline"></ion-icon> -->
+                <b  (click)="addTotal()" class="plus-icon">+</b>
                 <input type="number" style="width: 120px" max="100" [(ngModel)]="exam.TotalQuestionNum">
-                <ion-icon (click)="removeTotal()" class="remove-icon" name="remove-circle-outline"></ion-icon>
+                <!-- <ion-icon (click)="removeTotal()" class="remove-icon" name="remove-circle-outline"></ion-icon> -->
+                <b (click)="removeTotal()" class="reduce-icon">-</b>
             </span>
         </div>
         <div class="test-brand">
