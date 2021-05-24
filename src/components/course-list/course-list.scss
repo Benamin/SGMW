@@ -13,8 +13,9 @@ course-list {
 
       .item-img {
         width: 14.3rem;
+        min-width: 14.3rem;
         height: 8.1rem;
-        margin-right: .5rem;
+        margin-right: 1.3rem;
         text-align: center;
 
         img {
@@ -51,7 +52,7 @@ course-list {
           margin-top: 10px;
           display: flex;
           img{
-            margin-right: 2px;
+            margin-right: 0.5rem;
             width: 18px;
           }
           > span{
