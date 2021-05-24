@@ -9,6 +9,16 @@
         <ion-input type="text" placeholder="填写视频描述，让更多人看到" [(ngModel)]="form.Title" autocomplete='off'></ion-input>
     </div>
     <div class="files-box">
+        <div>
+            <video id="localVideo1" class="video-js sgmw-video-js"
+                   playsinline="true" webkit-playsinline="true"
+                   width="100%" height="100%" controls preload="auto">
+            </video>
+            <video id="localVideo2" class="video-js sgmw-video-js"
+                   playsinline="true" webkit-playsinline="true"
+                   width="100%" height="100%" controls preload="auto">
+            </video>
+        </div>
         <div>封面图</div>
         <div *ngIf="CoverUrl" class="files-item" (click)="takePic()">
             <img class="poster" [src]="CoverUrl || ''">

@@ -25,9 +25,6 @@
         <div [ngClass]="{'slideInDown':wow == true}" class="img wow" autoplay="3000" data-wow-duration="2s" data-wow-delay="1s">
             <!--data-wow-offset="20"-->
             <ion-slides *ngIf="bannerList.length > 0" #slides pager  (ionSlideAutoplayStop)="aotuPlay()">
-                <!--<ion-slide tappable>-->
-                    <!--<img class="search-icon" src="./assets/imgs/new_version/home/banner.png" alt="轮播图">-->
-                <!--</ion-slide>-->
                 <ion-slide *ngFor="let item of bannerList" tappable (click)="goCourseBanner(item)">
                     <img [src]="item.SourceUrl || ''">
                 </ion-slide>
@@ -179,41 +176,6 @@
             <app-forum-list-time (share)="wxShare(item)" [item]='item'></app-forum-list-time>
         </div>
     </div>
-    <!--  课程分类-->
-<!--    <div class="sale">-->
-<!--        <p>课程分类-->
-<!--            <span class="float-more" (click)="moreCourse()" tappable>-->
-<!--           更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>-->
-<!--        </p>-->
-<!--        <div class="sale-box">-->
-<!--            <div class="scroll-tab">-->
-<!--                <div class="sale-content">-->
-<!--                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" tappable-->
-<!--                         (click)="saleToLearn(sale,i)">-->
-<!--                        <img src="./assets/imgs/home/shop{{i+1+'.png'}}" alt="">-->
-<!--                        <div class="sale-desc">-->
-<!--                            {{sale.TypeName}}-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="person">-->
-<!--        <p>金牌讲师<span class="float-more" (click)="moreTeacher()" tappable>-->
-<!--           更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>-->
-<!--        </p>-->
-<!--        <div class="teacher">-->
-<!--            <div class="teacher-info" *ngFor="let item of teacherList">-->
-<!--                <div class="headPhoto" tappable (click)="teachDetail(item)">-->
-<!--                    <img [src]="item.HeadPhoto || ''">-->
-<!--                </div>-->
-<!--                <div class="name">-->
-<!--                    <p style="font-weight: bold">{{item.UserName}}</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </ion-content>
 
 <app-today-remind-mission *ngIf="is_TodayRemindMission" [data]='TodayRemindMission' (Study)="goStudyTask()" (close)="closeTodayRemindMission()"></app-today-remind-mission>

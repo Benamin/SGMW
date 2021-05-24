@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <p *ngFor="let file of fileList">
+  <p *ngFor="let file of fileList" (click)="openFile(file)">
     文件名：{{file.name}}
     文件路径：{{file.nativeURL}}
   </p>

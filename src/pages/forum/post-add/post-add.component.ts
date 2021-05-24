@@ -70,7 +70,6 @@ export class PostAddComponent implements OnInit {
     }
 
 
-
     ngOnInit() {
         let data = this.navParams.get('data');
 
@@ -483,7 +482,6 @@ export class PostAddComponent implements OnInit {
     sevrData_click = false;
 
     sevrData(IsSaveAndPublish) {
-
         if (this.Title.length > 50) {
             this.serve.presentToast('标题不能超过50个字符');
             return;
@@ -585,11 +583,24 @@ export class PostAddComponent implements OnInit {
         this.addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds)
     }
 
-    // api/forum/post/addnewforumtagpost
     addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         let data = {
             "IsSaveAndPublish": IsSaveAndPublish,//保持并发布
             "Title": this.Title,//帖子标题
+            "CoverUrl": "https://sitstorgec.blob.core.chinacloudapi.cn/picture/ic_launcher20210524134204.png",
+            "files": {
+                "ID": "",
+                "filename": "QQ空间视频_20180824163916.mp4",
+                "DisplayName": "QQ空间视频_20180824163916.mp4",
+                "fileUrl": "转码中",
+                "DownloadUrl": "https://devstorgec.blob.core.chinacloudapi.cn/asset-8873e99f-6547-4cdd-ad00-3748ba05b9cf/QQ空间视频_20180824163916.mp4?sv=2018-03-28&sr=b&sig=liiHS983XeQYF8h3CU4k%2Bl638lDRz7ez9nPrpdT7aEY%3D&se=2031-05-24T05%3A27%3A06Z&sp=rcw",
+                "Size": "16762418",
+                "Description": "短视频",
+                "AssetId": "nb:cid:UUID:8873e99f-6547-4cdd-ad00-3748ba05b9cf",
+                "JobId": "nb:jid:UUID:3f5402fa-1700-8fe7-efad-f1ebbc50ad9d",
+                "icon": "MP4",
+                "UploadWay": 0
+            },
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,
             "Content": textInnerHTML,//帖子内容

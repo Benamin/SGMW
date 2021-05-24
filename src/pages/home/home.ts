@@ -53,6 +53,8 @@ import {ThemeActivityComponent} from "../../components/theme-activity/theme-acti
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
 
+declare let Swiper: any;
+
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -96,7 +98,7 @@ export class HomePage implements OnInit {
                 private learSer: LearnService,
                 private forum_serve: ForumService,
                 private modalCtrl: ModalController) {
-        this.statusBar.backgroundColorByHexString('#F8F8F8');
+        this.statusBar.backgroundColorByHexString('#FFFFFF');
         let app_url = (window as any).localStorage.getItem("app_url");
 
         if (app_url) {

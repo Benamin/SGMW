@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>capture screen</title>
+</head>
+<body>
+<video id="video" style="width: 200px" controls="controls">
+    <source src="https://sgmwstorage.blob.core.chinacloudapi.cn/asset-ca3dfb25-ff54-4b9a-9d30-43386457cdac/mmexport1620712418396.mp4?sv=2018-03-28&sr=b&sig=Y0IHY72AVKB2NFe13P5VAtf2SY527gM0chVERz9S1gM%3D&se=2031-05-11T05%3A57%3A26Z&sp=rcw">
+</video>
+<div style="width: 200px" id="output"></div>
+<script type="text/javascript">
+    (function(){
+        var video, output;
+        var scale = 0.8;
+        var initialize = function() {
+            output = document.getElementById("output");
+            video = document.getElementById("video");
+            video.addEventListener('loadeddata',function (){
+                setTimeout(function(){
+                    captureImage()
+                }, 100)
+            });
+        };
+
+        var captureImage = function() {
+            var canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth * scale;
+            canvas.height = video.videoHeight * scale;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            var img = document.createElement("img");
+            img.setAttribute('crossOrigin', 'anonymous');
+            img.src = canvas.toDataURL("image/png");
+            console.log(img);
+            output.appendChild(img);
+        };
+
+        initialize();
+    })();
+</script>
+</body>
+</html>

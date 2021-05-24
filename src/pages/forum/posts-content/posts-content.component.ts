@@ -13,6 +13,7 @@ import {PersonalCenterPage} from "../../home/personal-center/personal-center";
 
 declare var Wechat;
 declare let Swiper: any;
+declare let videojs: any;
 
 interface IInput {
     canEdit: boolean,   //能否编辑
@@ -59,6 +60,7 @@ export class PostsContentComponent implements OnInit {
     };
     @ViewChild('nnerhtml')
     greetDiv: ElementRef;
+    initVideo;
 
     // 查看帖子详情
     constructor(private serve: ForumService,
@@ -144,7 +146,23 @@ export class PostsContentComponent implements OnInit {
                 this.savePostInfo(res.data);
             }
             this.initPostInfo(res.data);
+            if (res.data.Pvideo) {
+                this.initVideo = videojs(`videoPoster`, {
+                    controls: true,
+                    "sources": [{
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: res.data.Pvideo.files.AttachmentUrl,
+                        type: 'application/x-mpegURL'
+                    }],
+                })
+            }
         });
+    }
+
+    ionViewWillLeave() {
+        if (this.initVideo) {
+            this.initVideo.dispose();
+        }
     }
 
     //查询帖子数据
@@ -191,7 +209,7 @@ export class PostsContentComponent implements OnInit {
         }
 
         //pt字体单位导致的 文字放大
-        data.Content = data.Content.replace(/pt/g,'px');
+        data.Content = data.Content.replace(/pt/g, 'px');
 
         this.dataCon = data;
 
