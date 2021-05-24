@@ -21,6 +21,7 @@ export class ForumListTimeComponent implements OnInit {
     @Output() share = new EventEmitter();
     @Output() toPostList = new EventEmitter();
 
+    defaultImg = './assets/imgs/competition/fengmian@2x.png'
     defaultHeadPhoto = defaultHeadPhoto;
 
     constructor(public commonSer: CommonService, public navCtrl: NavController, private modalCtrl: ModalController, private storage: Storage, private serve: ForumService,) {
@@ -77,15 +78,24 @@ export class ForumListTimeComponent implements OnInit {
 
     //他人详情
     toPersonInfo(item) {
-			this.storage.get('user').then(value => {
-					if (item.Poster !== value.MainUserID) {
-						this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
-					}
-			});
+        this.storage.get('user').then(value => {
+            if (item.Poster !== value.MainUserID) {
+                this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
+            }
+        });
     }
 
     //话题列表
-    goToPostList(item){
+    goToPostList(item) {
         this.toPostList.emit(item);
+    }
+
+    getDuration(ev, item) {
+        let value = Math.ceil(ev.target.duration);
+        let minute = <any>Math.floor(value / 60);
+        let second = <any>(value % 60);
+        minute = minute > 9 ? minute : '0' + minute;
+        second = second > 9 ? second : '0' + second;
+        item.duration = minute + ':' + second
     }
 }

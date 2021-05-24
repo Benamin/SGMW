@@ -31,14 +31,13 @@
 .oldDate{
     min-width: 80px;
 }
-.post-introduction-con img{
-    width: auto;
-    height:auto ;
-    min-width: 100%;
-    min-height: 100%;
-    max-width: none;
-    
-}
+/*.post-introduction-con img{*/
+/*    width: auto;*/
+/*    height:auto ;*/
+/*    min-width: 100%;*/
+/*    min-height: 100%;*/
+/*    max-width: none;*/
+/*}*/
 
 .post-introduction-con>.img-div>div{
     background: #f2f2f2;

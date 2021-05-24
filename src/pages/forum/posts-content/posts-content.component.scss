@@ -67,6 +67,7 @@ page-posts-content {
   .inner-html {
     margin-top: 20px;
     line-height: 22px;
+
     img {
       // margin: 10px 0;
       margin-top: 20px;
@@ -417,5 +418,24 @@ page-posts-content {
     color: #E2AC12;
     font-size: 1rem;
     display: block;
+  }
+
+  .sgmw-video-js {
+    width: 100%;
+    height: 200px;
+  }
+
+  .video-js .vjs-big-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 6rem;
+    height: 5rem;
+    z-index: 100;
+  }
+
+  .videoBox {
+    margin-top: 5px;
   }
 }
