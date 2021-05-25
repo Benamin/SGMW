@@ -38,3 +38,5 @@ data-wow-iteration: Number of times the animation is repeated
 ```cordova plugin add cordova-plugin-wechat  --variable wechatappid=wxb5bb0aae5137074c --variable universallink=https://elearning.sgmw.com.cn/```
 
 ###别更新 cordova-plugin-ionic-webview 版本 因为最新版的 用android打开PDF会有跨域问题
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk 骏菱学社

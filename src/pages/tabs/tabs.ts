@@ -36,7 +36,7 @@ export class TabsPage {
 
     tabRoots = [
         {
-            root: ForumPage,
+            root: HomePage,
             tabTitle: '首页',
             tabIconOn: 'custom-tab1-on',
             tabIconOff: 'custom-tab1-off',

@@ -7,7 +7,7 @@ import {CommonService} from "../../../core/common.service";
 import {ChooseTopicPage} from "../choose-topic/choose-topic";
 import {Keyboard} from "@ionic-native/keyboard";
 import {ChooseImageProvider} from "../../../providers/choose-image/choose-image";
-import {ShortVideoProvider} from "../../../providers/dynamic/dynamic";
+import {ShortVideoProvider} from "../../../providers/short-video/short-video";
 
 declare let ImagePicker;
 
@@ -294,7 +294,7 @@ export class PostAddComponent implements OnInit {
         }
     }
 
-    chooseVideo(successCallback) {
+    chooseVideo() {
         let modal = this.actionSheetCtrl.create(
             {
                 buttons: [
@@ -435,40 +435,71 @@ export class PostAddComponent implements OnInit {
         })
     }
 
-    // 上传图片
+    // 上传视频或文件
     uploadFile(event) {
         let fileList: FileList = event.target.files;
-        if (fileList.length > 0) {
-            const loading = this.loadCtrl.create({
-                content: '上传中...'
-            });
-            loading.present();
-            let srcArr = [];
-            const addImgS = (fileList_n, index) => {
-                let formData: FormData = new FormData();
-                formData.append('file', fileList_n);
-                this.serve.Upload_UploadFiles(formData).then((res: any) => {
-                    this.imgitems.push({
-                        src: res.data,
-                        alt: '',
-                    })
-                    srcArr.push(res.data);
-                    if (!this.focusNode.data && fileList.length == 1) {
-                        this.DomAddImg(res.data, '');
-                        loading.dismiss();
-                        return
-                    }
-                    if (fileList.length - 1 > index) {
-                        addImgS(fileList[index + 1], index + 1);
-                    } else {
-                        this.SetaddImg(srcArr, '');
-                        loading.dismiss();
-                    }
-                });
-            }
-            addImgS(fileList[0], 0);
-        }
+        let url = URL.createObjectURL(fileList[0]);
+        console.log(url);
+        let video = <any>document.getElementById("video_id");
+        video.src = url;
+        video.addEventListener('loadeddata', () => {
+            this.captureImage()
+        });
+        // if (fileList.length > 0) {
+        //     const loading = this.loadCtrl.create({
+        //         content: '上传中...'
+        //     });
+        //     loading.present();
+        //     let srcArr = [];
+        //     const addImgS = (fileList_n, index) => {
+        //         let formData: FormData = new FormData();
+        //         formData.append('file', fileList_n);
+        //         this.serve.Upload_UploadFiles(formData).then((res: any) => {
+        //             this.imgitems.push({
+        //                 src: res.data,
+        //                 alt: '',
+        //             })
+        //             srcArr.push(res.data);
+        //             if (!this.focusNode.data && fileList.length == 1) {
+        //                 this.DomAddImg(res.data, '');
+        //                 loading.dismiss();
+        //                 return
+        //             }
+        //             if (fileList.length - 1 > index) {
+        //                 addImgS(fileList[index + 1], index + 1);
+        //             } else {
+        //                 this.SetaddImg(srcArr, '');
+        //                 loading.dismiss();
+        //             }
+        //         });
+        //     }
+        //     addImgS(fileList[0], 0);
+        // }
     }
+
+    captureImage() {
+        let video = <any>document.getElementById("video_id");
+        let output = document.getElementById("output");
+        let canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth * 0.8;
+        canvas.height = video.videoHeight * 0.8;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        let img = document.createElement("img");
+        img.src = canvas.toDataURL("image/png");
+        img.width = 400;
+        img.height = 300;
+        output.appendChild(img);
+        const blob = this.commonSer.base64ToBlob(canvas.toDataURL("image/png"));
+        const file = this.commonSer.blobToFile(blob, 'test');
+        console.log("file", file);
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        this.serve.Upload_UploadFiles(formData).then((res: any) => {
+            console.log(res);
+        });
+
+    };
 
     // 获取焦点
     htmlTextDle() {
@@ -480,7 +511,7 @@ export class PostAddComponent implements OnInit {
 
     }
 
-    // 过滤删除图片
+// 过滤删除图片
     ImgSome() {
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
         let textInnerHTML: any = textareaImg.innerHTML;
@@ -503,7 +534,7 @@ export class PostAddComponent implements OnInit {
         this.iseditImg = true;
     }
 
-    // 编辑图片完成
+// 编辑图片完成
     editPicturesOk() {
         this.editImg['alt'] = this.editImg['newalt'];
         let textareaImg: any = document.getElementById('textareaImg');
@@ -587,7 +618,7 @@ export class PostAddComponent implements OnInit {
         this.sevrData_click = true;
     }
 
-    // 修改帖子
+// 修改帖子
     forum_post_edit(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         let data = {
             "Id": this.lidata.postId,//帖子编号
@@ -624,7 +655,7 @@ export class PostAddComponent implements OnInit {
     editImgOkText = "";
 
 
-    // 新增 或 保存草稿
+// 新增 或 保存草稿
     forum_post_add(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         this.addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds)
     }
@@ -701,7 +732,7 @@ export class PostAddComponent implements OnInit {
         this.conversationDataSelection.splice(index, 1);
     }
 
-    //添加话题
+//添加话题
     addTopic() {
         this.navCtrl.push(ChooseTopicPage);
     }
