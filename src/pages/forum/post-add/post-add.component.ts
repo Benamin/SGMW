@@ -35,7 +35,7 @@ export class PostAddComponent implements OnInit {
 
     ApplyEssence = false;  //true为申请精华贴
     textareaLength = 100;
-    leaveShow = true;
+    leaveShow = true;c
 
     constructor(
         private commonSer: CommonService,
