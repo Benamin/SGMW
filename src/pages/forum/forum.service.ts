@@ -209,8 +209,25 @@ export class ForumService {
             };
             oReq.send(formData);
         })
+    }
 
-        // return this.http.post(SERVER_API_URL + '/Upload/UploadFiles', data);
+    // 上传视频
+    UploadVideoFiles(formData) {
+        return new Promise((resolve, reject) => {
+            var oReq = new XMLHttpRequest();
+
+            const UploadFilesSERVER_API_URL = (env === 'localhost' ? SERVER_API_URL_DEV : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
+                SERVER_API_URL_UAT : (env == 'prod' ? SERVER_API_URL_PROD : ''))));
+
+            oReq.open("POST", UploadFilesSERVER_API_URL + "/AppShortVideo/UploadMainFile", true);
+            oReq.onload = function (oEvent: any) {
+                if (oReq.status == 200) {
+                    resolve(JSON.parse(oEvent.currentTarget.responseText));
+                } else {
+                }
+            };
+            oReq.send(formData);
+        })
     }
 
     // 过滤时间

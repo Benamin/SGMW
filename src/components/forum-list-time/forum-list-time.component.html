@@ -50,7 +50,7 @@
             </div>
             <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>
             <span *ngIf="item.VideoMinute > 0">{{item.VideoMinute | secondFormat}}</span>
-            <img class="video-poster" src="{{ item.CoverUrl || defaultImg }}" alt="视频封面图">
+            <img class="video-poster" src="{{ item?.Pvideo?.CoverUrl || defaultImg }}" alt="视频封面图">
             <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
         </div>
     </ng-container>
