@@ -1,24 +1,23 @@
 <div class="cover">
   <div class="bg-content">
     <div class="remind">
-      <img src="assets/imgs/home/remind.png" alt="">
+      <img src="assets/imgs/new_version/home/remind-icon.png" alt="">
     </div>
-    <div style="text-align: center;top: 40px;position: absolute;margin: auto;width: 100%;">
+    <div class="tip-text">
       今日提醒
     </div>
       <div class="update-content">
           <div class="update-text">
             <div class="curriculum">
-              <div class="icon">
-                <img src="assets/imgs/home/curriculum.png" alt="">
-              </div>
-              <div>
-                <div style="padding-left: 10px;">
+              <!--<div class="icon">-->
+                <!--<img src="assets/imgs/home/curriculum.png" alt="">-->
+              <!--</div>-->
+              <div class="study-box">
+                <div>
                   {{ message }}
                 </div>
-                <div style="text-align: right;">
-                    <button style="margin-top: 7px;background: #ADDAE9; background: #ADDAE9;width: 85px;height: 26px;font-size: 13px;border-radius: 13px;"
-                    (click)="curriculumFn()" >开始学习</button>
+                <div style="text-align: center;">
+                    <button class="study-btn"(click)="curriculumFn()" >开始学习</button>
                 </div>
               </div>
             </div>

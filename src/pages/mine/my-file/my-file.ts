@@ -42,8 +42,7 @@ export class MyFilePage {
     }
 
     readFile() {
-        console.log("folderName", this.folderName);
-        console.log("storageDirectory", this.storageDirectory);
+        console.log(this.storageDirectory)
         this.file.listDir(this.storageDirectory, this.folderName).then(
             value => {
                 console.log(value);

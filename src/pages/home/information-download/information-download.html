@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>已下载</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <!--<p class="downloadTips">Tips：下载的资料:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下</p>-->
+    <ul class="file-lists">
+        <li *ngFor="let item of fileList">
+            <div class="title">{{ item.name }}</div>
+            <!--{{ item.CreateTime | date:'yyyy-MM-dd HH:mm' }}-->
+            <span (click)="openFile(item)" class="open-file-btn">查看</span>
+        </li>
+    </ul>
+
+    <ion-list *ngIf="isLoad && fileList.length === 0" text-center>
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+    </ion-list>
+</ion-content>
+

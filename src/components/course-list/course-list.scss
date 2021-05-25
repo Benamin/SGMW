@@ -9,12 +9,13 @@ course-list {
       width: 100%;
       display: flex;
       padding: 0.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
 
       .item-img {
         width: 14.3rem;
+        min-width: 14.3rem;
         height: 8.1rem;
-        margin-right: .5rem;
+        margin-right: 1.3rem;
         text-align: center;
 
         img {
@@ -33,7 +34,7 @@ course-list {
 
         > p {
           font-size: 1.5rem;
-          font-weight: 400;
+          font-weight: 600;
           color: #474747;
           line-height: 1.75rem;
           overflow: hidden;
@@ -51,7 +52,7 @@ course-list {
           margin-top: 10px;
           display: flex;
           img{
-            margin-right: 2px;
+            margin-right: 0.5rem;
             width: 18px;
           }
           > span{

@@ -32,18 +32,22 @@
       <div class="progress-bar-bg"></div>
       <div class="progress-bar" [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1) * 100) + ((1/(page.levelInformation.length - 1) * (page.nowProgress * 100))) + '%' }">
         <!-- 小于50%就在进度右边 大于50% 就在进度左边 -->
-        <span class="process-text" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) >= 50">
-          {{ (page.nowProgress * 100).toFixed(0) }}%
-        </span>
-        <span class="process-text out-box" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) < 50">
-          {{ (page.nowProgress * 100).toFixed(0) }}%
-        </span>
+        <!--<span class="process-text" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) >= 50">-->
+          <!--{{ (page.nowProgress * 100).toFixed(0) }}%-->
+        <!--</span>-->
+        <!--<span class="process-text out-box" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) < 50">-->
+          <!--{{ (page.nowProgress * 100).toFixed(0) }}%-->
+        <!--</span>-->
+        <span class="process-text">{{ (page.nowProgress * 100).toFixed(0) }}%</span>
       </div>
     </div>
 
     <div class="level-scroll-box">
       <ul class="level-type-box">
-        <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="switchLevel(levelTypeIndex, item.Hierarchy > page.nowLevel + 1)" [ngClass]="{'actived': item.actived, 'disabled': item.Hierarchy > page.nowLevel + 1}">LV{{ levelTypeIndex + 1 }}
+        <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="switchLevel(levelTypeIndex, item.Hierarchy > page.nowLevel + 1)" [ngClass]="{'actived': item.actived, 'disabled': item.Hierarchy > page.nowLevel + 1}">
+          <img *ngIf="!item.actived"  class="level-point" src="./assets/imgs/new_version/advanced/level-point.png"/>
+          <img *ngIf="item.actived" item.actived class="level-point" src="./assets/imgs/new_version/advanced/level-point-active.png"/>
+          LV{{ levelTypeIndex + 1 }}
            <!--<div [innerHTML]="assembleHTML(item.LevelText)"></div>-->
         </li>
       </ul>
@@ -56,8 +60,7 @@
       <div class="nav-box">
         <div class="btn-box">
 
-          <div (click)="changeNav(navIndex, item.isActived)" *ngFor="let item of page.navliArr; let navIndex = index"
-               class="type-btn" [ngClass]="{'actived': item.isActived}">
+          <div (click)="changeNav(navIndex, item.isActived)" *ngFor="let item of page.navliArr; let navIndex = index" class="type-btn" [ngClass]="{'actived': item.isActived}">
             {{ item.navBtnText }}
             <span class="item-line"></span>
           </div>
