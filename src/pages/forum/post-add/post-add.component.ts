@@ -1,11 +1,13 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {LoadingController, NavController, NavParams, ToastController,} from "ionic-angular";
+import {ActionSheetController, LoadingController, NavController, NavParams, ToastController,} from "ionic-angular";
 import {ForumService} from "../forum.service";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import {CommonService} from "../../../core/common.service";
 import {ChooseTopicPage} from "../choose-topic/choose-topic";
 import {Keyboard} from "@ionic-native/keyboard";
+import {ChooseImageProvider} from "../../../providers/choose-image/choose-image";
+import {ShortVideoProvider} from "../../../providers/dynamic/dynamic";
 
 declare let ImagePicker;
 
@@ -36,6 +38,7 @@ export class PostAddComponent implements OnInit {
     ApplyEssence = false;  //true为申请精华贴
     textareaLength = 100;
     leaveShow = true;
+    c
 
     constructor(
         private commonSer: CommonService,
@@ -43,6 +46,9 @@ export class PostAddComponent implements OnInit {
         private serve: ForumService,
         public navParams: NavParams,
         private keyboard: Keyboard,
+        private chooseImagePro: ChooseImageProvider,
+        private shortVideoPro: ShortVideoProvider,
+        private actionSheetCtrl: ActionSheetController,
         private loadCtrl: LoadingController,
         private zone: NgZone,
         private toastCtrl: ToastController
@@ -68,7 +74,6 @@ export class PostAddComponent implements OnInit {
                 });
         }
     }
-
 
 
     ngOnInit() {
@@ -287,10 +292,50 @@ export class PostAddComponent implements OnInit {
         if (innerText == '请输入正文') {
             textareaImg.innerText = "";
         }
+    }
 
-        let pic_selector: any = document.getElementById('pic_selector');
-        pic_selector.value = '';
-        pic_selector.click();
+    chooseVideo(successCallback) {
+        let modal = this.actionSheetCtrl.create(
+            {
+                buttons: [
+                    {
+                        text: '录制视频',
+                        role: '',
+                        handler: () => {
+                            this.shortVideoPro.selectVide((data) => {
+                                console.log('shortVideoPro', data);
+                            })
+                        }
+                    },
+                    {
+                        text: '拍照',
+                        role: '',
+                        handler: () => {
+                            this.chooseImagePro.selectPicture(1, (data) => {
+                                console.log(data);
+                            })
+                        }
+                    },
+                    {
+                        text: '从相册选择',
+                        role: '',
+                        handler: () => {
+                            let pic_selector: any = document.getElementById('pic_selector');
+                            pic_selector.value = '';
+                            pic_selector.click();
+                        }
+                    },
+                    {
+                        text: '取消',
+                        role: 'cancel',
+                        handler: () => {
+                            return
+                        }
+                    },
+                ]
+            }
+        )
+        modal.present();
     }
 
     letfImgSrc = '';
@@ -483,7 +528,6 @@ export class PostAddComponent implements OnInit {
     sevrData_click = false;
 
     sevrData(IsSaveAndPublish) {
-
         if (this.Title.length > 50) {
             this.serve.presentToast('标题不能超过50个字符');
             return;
@@ -585,11 +629,24 @@ export class PostAddComponent implements OnInit {
         this.addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds)
     }
 
-    // api/forum/post/addnewforumtagpost
     addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         let data = {
             "IsSaveAndPublish": IsSaveAndPublish,//保持并发布
             "Title": this.Title,//帖子标题
+            "CoverUrl": "https://sitstorgec.blob.core.chinacloudapi.cn/picture/ic_launcher20210524134204.png",
+            "files": {
+                "ID": "",
+                "filename": "QQ空间视频_20180824163916.mp4",
+                "DisplayName": "QQ空间视频_20180824163916.mp4",
+                "fileUrl": "转码中",
+                "DownloadUrl": "https://devstorgec.blob.core.chinacloudapi.cn/asset-8873e99f-6547-4cdd-ad00-3748ba05b9cf/QQ空间视频_20180824163916.mp4?sv=2018-03-28&sr=b&sig=liiHS983XeQYF8h3CU4k%2Bl638lDRz7ez9nPrpdT7aEY%3D&se=2031-05-24T05%3A27%3A06Z&sp=rcw",
+                "Size": "16762418",
+                "Description": "短视频",
+                "AssetId": "nb:cid:UUID:8873e99f-6547-4cdd-ad00-3748ba05b9cf",
+                "JobId": "nb:jid:UUID:3f5402fa-1700-8fe7-efad-f1ebbc50ad9d",
+                "icon": "MP4",
+                "UploadWay": 0
+            },
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,
             "Content": textInnerHTML,//帖子内容

@@ -11,12 +11,13 @@
     </ion-refresher>
     <div class="searchbar" ion-fixed>
         <form class="input">
+            <img class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
             <ion-input [(ngModel)]="page.Title" placeholder="搜索课程" [ngModelOptions]="{standalone: true}"
                        (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off'
             ></ion-input>
         </form>
         <div class="filter" (click)="openFilter()">
-            <img src="./assets/imgs/train/shaixuan@2x.png" alt="">
+            <img src="./assets/imgs/train/filter.svg" alt="">
             <span>筛选</span>
         </div>
     </div>

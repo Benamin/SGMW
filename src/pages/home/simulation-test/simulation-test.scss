@@ -2,13 +2,47 @@ page-simulation-test {
   .scroll-content {
     background-color: #fff;
   }
-
+  .simulation-test{
+    .test-time{
+      .outline{
+        .plus-icon {
+          position: absolute;
+          top: 7px;
+          font-size: 15px;
+          font-weight: bolder;
+          border: 1px solid #979797;
+          width: 20px;
+          height: 20px;
+          line-height: 15px;
+          text-align: center;
+          border-radius: 100%;
+          left: 12px;
+        }
+        .reduce-icon{
+          position: absolute;
+          top: 7px;
+          font-size: 16px;
+          font-weight: bolder;
+          border: 1px solid #979797;
+          width: 20px;
+          height: 20px;
+          line-height: 16px;
+          text-align: center;
+          border-radius: 100%;
+          right: 12px;
+        }
+      }
+    }
+  }
   .title {
-    padding: 16px 10px;
-    font-weight: bold;
+    padding: 7px 10px;
+    margin: 10px 0;
+    font-weight: 400;
     color: #777;
   }
-
+  .scorestips{
+    background: #F8F8F8;
+  }
   .test-item, .test-time {
     display: flex;
     justify-content: center;
@@ -92,9 +126,11 @@ page-simulation-test {
     text-align: center;
     width: 50%;
     margin: 9px auto;
-    height: 32px;
+    height: 35px;
     line-height: 32px;
     background: linear-gradient(216deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+    background: #393967;
+    color: #fff;
     box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
     border-radius: 16px;
   }
@@ -113,12 +149,15 @@ page-simulation-test {
   }
 
   .addHandle {
-    border: 1px solid #111;
     border-radius: 100px;
     width: 60px;
     display: inline-block;
     text-align: center;
     height: 25px;
     line-height: 20px;
+    background: #F1F1F1;
+    color: #474747;
+    font-weight: 600;
+    font-size: 1.8rem;
   }
 }

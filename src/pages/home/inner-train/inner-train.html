@@ -12,13 +12,14 @@
     </ion-refresher>
     <div class="searchbar" ion-fixed>
         <form class="input">
+            <img (click)="sure()" class="search-icon" src="./assets/imgs/home/search@2x.png" alt="搜索">
             <ion-input [(ngModel)]="page.Title" placeholder="搜索内训" [ngModelOptions]="{standalone: true}"
                        (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off'
             ></ion-input>
         </form>
-        <div class="filter" (click)="sure()">
+        <!-- <div class="filter" (click)="sure()">
             <span>搜索</span>
-        </div>
+        </div> -->
     </div>
     <div class="learn-list">
         <ng-container *ngFor="let item of page.list">
