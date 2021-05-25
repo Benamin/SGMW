@@ -1,11 +1,13 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {LoadingController, NavController, NavParams, ToastController,} from "ionic-angular";
+import {ActionSheetController, LoadingController, NavController, NavParams, ToastController,} from "ionic-angular";
 import {ForumService} from "../forum.service";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import {CommonService} from "../../../core/common.service";
 import {ChooseTopicPage} from "../choose-topic/choose-topic";
 import {Keyboard} from "@ionic-native/keyboard";
+import {ChooseImageProvider} from "../../../providers/choose-image/choose-image";
+import {ShortVideoProvider} from "../../../providers/dynamic/dynamic";
 
 declare let ImagePicker;
 
@@ -35,7 +37,8 @@ export class PostAddComponent implements OnInit {
 
     ApplyEssence = false;  //true为申请精华贴
     textareaLength = 100;
-    leaveShow = true;c
+    leaveShow = true;
+    c
 
     constructor(
         private commonSer: CommonService,
@@ -43,6 +46,9 @@ export class PostAddComponent implements OnInit {
         private serve: ForumService,
         public navParams: NavParams,
         private keyboard: Keyboard,
+        private chooseImagePro: ChooseImageProvider,
+        private shortVideoPro: ShortVideoProvider,
+        private actionSheetCtrl: ActionSheetController,
         private loadCtrl: LoadingController,
         private zone: NgZone,
         private toastCtrl: ToastController
@@ -286,10 +292,50 @@ export class PostAddComponent implements OnInit {
         if (innerText == '请输入正文') {
             textareaImg.innerText = "";
         }
+    }
 
-        let pic_selector: any = document.getElementById('pic_selector');
-        pic_selector.value = '';
-        pic_selector.click();
+    chooseVideo(successCallback) {
+        let modal = this.actionSheetCtrl.create(
+            {
+                buttons: [
+                    {
+                        text: '录制视频',
+                        role: '',
+                        handler: () => {
+                            this.shortVideoPro.selectVide((data) => {
+                                console.log('shortVideoPro', data);
+                            })
+                        }
+                    },
+                    {
+                        text: '拍照',
+                        role: '',
+                        handler: () => {
+                            this.chooseImagePro.selectPicture(1, (data) => {
+                                console.log(data);
+                            })
+                        }
+                    },
+                    {
+                        text: '从相册选择',
+                        role: '',
+                        handler: () => {
+                            let pic_selector: any = document.getElementById('pic_selector');
+                            pic_selector.value = '';
+                            pic_selector.click();
+                        }
+                    },
+                    {
+                        text: '取消',
+                        role: 'cancel',
+                        handler: () => {
+                            return
+                        }
+                    },
+                ]
+            }
+        )
+        modal.present();
     }
 
     letfImgSrc = '';

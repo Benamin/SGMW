@@ -28,6 +28,8 @@ page-post-add {
 
   .content-div {
     height: calc(100% - 200px);
+    padding: 10px;
+    background-color: #f7f7f7;
 
     .input-div {
       margin-top: 0;
@@ -389,6 +391,7 @@ page-post-add {
         margin-right: .2rem;
       }
     }
+
     span:last-child {
       background-color: #ffffff;
       padding: 0;

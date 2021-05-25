@@ -57,11 +57,11 @@ export class ChooseImageProvider {
     //选择图片--打开相机
     selectPicture(srcType, successCallback) {
         const options: CameraOptions = {
-            quality: 10,  //1 拍照  2 相册
+            quality: 10,
             destinationType: this.camera.DestinationType.FILE_URI,
             encodingType: this.camera.EncodingType.PNG,
             mediaType: this.camera.MediaType.PICTURE,
-            sourceType: srcType,
+            sourceType: srcType,  //从哪里选择图片：PHOTOLIBRARY=0，相机拍照=1，SAVEDPHOTOALBUM=2。0和1其实都是本地图库
             targetWidth: 375,
             targetHeight: 667,
             saveToPhotoAlbum: false

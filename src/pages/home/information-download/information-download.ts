@@ -67,45 +67,4 @@ export class InformationDownloadPage {
     showKey() {
         this.keyboard.show();
     }
-
-    //按键
-    search(event) {
-        if (event && event.keyCode == 13) {
-            this.doSearch();
-        }
-    }
-
-    doSearch() {
-        console.log('筛选下载的文件，无法实现的话 麻烦问下需求怎么说')
-    }
-
-    setSuffixClass(fileName) {
-        let suffix = fileName.substr(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase();; // 后缀名
-        // let suffixArr = ['Docx', 'PDF', 'Xls', 'PPT', 'ZIP']
-        let suffixClass: Object = {'no': 'true'}
-        let suffixText = '';
-        // Word文档的扩展名有两个,分别是:doc和docx
-        if (suffix === 'doc' || suffix === 'docx') {
-            suffixClass = {'docx-bg': 'true'};
-            suffixText = 'Docx';
-        } else if (suffix === 'pdf') { // pdf
-            suffixClass = {'pdf-bg': 'true'};
-            suffixText = 'PDF';
-        } else if (suffix === 'xlsx' || suffix === 'xls' || suffix === 'csv') { // excel有很多版本的文件格式，另存为那里可以看到如图各类格式: xlsx/xls/csv
-            suffixClass = {'xls-bg': 'true'};
-            suffixText = 'Xls';
-        } else if (suffix === 'pptx') { // pptx
-            suffixClass = {'ppt-bg': 'true'};
-            suffixText = 'PPT';
-        } else if (suffix === 'zip') { // pptx
-            suffixClass = {'zip-bg': 'true'};
-            suffixText = 'ZIP';
-        }
-        let suffixObj = {
-            suffixClass: suffixClass,
-            suffixText: suffixText
-        }
-        return suffixObj
-    }
-
 }
