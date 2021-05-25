@@ -25,17 +25,6 @@
 			</div>
 	  </form>
 	</div>
-  
-	<!--<ul class="ask-lists">-->
-		<!--<li *ngFor="let item of page.askLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">-->
-			<!--<div class="title">{{ item.Title }}</div>-->
-			<!--<div class="item-bottom">-->
-				<!--<span class="ask-count">其他 <span style="color: #E46A65;">{{ item.FocusNum }}</span>人也想知道</span>-->
-				<!--<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="!item.IsNoFocus" class="add-ask-btn">我也想知道</span>-->
-				<!--<span (click)="$event.stopPropagation();changeSecNav(aIndex)" *ngIf="item.IsNoFocus" class="edit-ask-btn">已问</span>-->
-			<!--</div>-->
-		<!--</li>-->
-	<!--</ul>-->
 
 	<ul class="list-box">
 		<li *ngFor="let item of page.askLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">
@@ -46,8 +35,10 @@
 			<div class="answers-box">
 				<span class="label">答</span>
 				<span class="text-answers">
-					<span class="name">骏菱学社小助手：</span>
-					<span *ngIf="item.QuestionReplyItems">{{ item.QuestionReplyItems.ReplyContent }}</span>
+					<span *ngIf="item.QuestionReplyItems">
+						<span class="name">骏菱学社小助手：</span>
+						<span>{{ item.QuestionReplyItems.ReplyContent }}</span>
+					</span>
 					<span *ngIf="!item.QuestionReplyItems">暂无回答</span>
 				</span>
 			</div>

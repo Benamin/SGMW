@@ -288,3 +288,5 @@ html, body, p {
 .toolbar-ios {
   min-height: 5.7rem;
 }
+// tab选中颜色
+a[aria-selected="true"] { color: red !important; }

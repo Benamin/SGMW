@@ -98,7 +98,7 @@ export class WantToAskListsPage {
 			const data = {
 				PageIndex: this.page.PageIndex,
 				PageSize: this.page.PageSize,
-				IsNowMonth: true, // 是否只查当月的 pc为false
+				IsNowMonth: false, // 是否只查当月的 pc为false
 				IsNoDerive: 1, // 0, 1查询 2导出
 				Title: this.page.Title, // 问题描述
 				StartTime: null,
