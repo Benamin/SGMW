@@ -17,7 +17,7 @@ page-number-one {
       white-space: nowrap;
     }
     .navli::before{
-      background: linear-gradient(-90deg, #fff, #fff);
+      background: linear-gradient(-90deg, rgb(216, 162, 162), #fff);
     }
     .act{
       color: rgba(0,0,0,1);
@@ -37,6 +37,7 @@ page-number-one {
       background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
       background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
       background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: #E90E2C;
       border-radius: 2px;
     }
   }
@@ -166,52 +167,123 @@ page-number-one {
           border-bottom-left-radius: 10px;
           border-bottom-right-radius: 10px;
           flex-shrink:0;
-          width: 80px;
-          height: 105px;
+          width: 100px;
+          height: 85px;
           position: relative;
           margin-right: 15px;
+          margin-top: 5px;
           background: -webkit-linear-gradient(-120deg, #FFF7CB, #FFC92D);
           background: -o-linear-gradient(-120deg, #FFF7CB, #FFC92D);
           background: -moz-linear-gradient(-120deg, #FFF7CB, #FFC92D);
           background: linear-gradient(-120deg, #FFF7CB, #FFC92D);
+          background: url('../assets/imgs/numberone/champion.png') no-repeat;
+          position: relative;
+          background-size: 96% auto;
           .Month-p{
             text-align: center;
+            position: absolute;
+            height: 20px;
+            line-height: 20px;
+            color: #894E17;
+            top: 50%;
+            margin-top: -5px;
+            left: 0;
+            right: 0;
+            font-size: 1rem;
           }
-          .Month-p>p:nth-child(1){
-            text-align: center;
-            background: linear-gradient(0deg, #242425, #49494b);
-            color: #fff;
-            margin: auto;
-            margin-top: 10px;
-            font-size: 12px;
-            padding: 4px;
-            width: 70px;
-          }
-          .Month-p>p:nth-child(1)::before{
-            display: inline-block;
-            content: "销售冠军";
+          // .Month-p>p:nth-child(1){
+          //   text-align: center;
+          //   background: linear-gradient(0deg, #242425, #49494b);
+          //   color: #fff;
+          //   margin: auto;
+          //   margin-top: 10px;
+          //   font-size: 12px;
+          //   padding: 4px;
+          //   width: 70px;
+          // }
+          // .Month-p>p:nth-child(1)::before{
+          //   display: inline-block;
+          //   content: "销售冠军";
            
-            -webkit-background-clip:text;
-            color: transparent; 
-            font-weight: 700;
-            font-size: 12px;
-            background-image: linear-gradient(-90deg,#FFC92D, #FFF7CB);
-          }
-          .Month-p>p:nth-child(2){
+          //   -webkit-background-clip:text;
+          //   color: transparent; 
+          //   font-weight: 700;
+          //   font-size: 12px;
+          //   background-image: linear-gradient(-90deg,#FFC92D, #FFF7CB);
+          // }
+          // .Month-p>p:nth-child(2){
           
-            font-size: 30px;
-            font-weight: 700;
-            margin-top: 0px;
+          //   font-size: 30px;
+          //   font-weight: 700;
+          //   margin-top: 0px;
+          // }
+          // .Month-p>p:nth-child(3){
+          //   font-size: 14px;
+          //   font-weight: 700;
+          // }
+        }
+      }
+      .salesvolume{
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #DEDEDE;
+        padding: 10px 0;
+        margin: 0 20px;
+        .left{
+          width: 30%;
+          text-align: center;
+          b{
+            font-size: 2rem;
+            color: #D4A558;
+            margin-bottom: 1rem;
+            display: inline-block;
+            font-weight: 400;
           }
-          .Month-p>p:nth-child(3){
-            font-size: 14px;
-            font-weight: 700;
+          p{
+            color: #888888;
+          }
+        }
+        .year{
+          width: 40%;
+          text-align: center;
+          b{
+            font-size: 2rem;
+            color: #F07749;
+            margin-bottom: 1rem;
+            display: inline-block;
+            font-weight: 400;
+          }
+          p{
+            color: #888888;
+          }
+        }
+        .right{
+          width: 30%;
+          text-align: center;
+          b{
+            font-size: 2rem;
+            color: #0B0B0B;
+            margin-bottom: 5px;
+            display: inline-block;
+            font-weight: 400;
+          }
+          span{
+            display: block;
+            background: #5C5C5C;
+            color: #FFDC8D;
+            border-radius: 20px;
+            padding: 2px 5px;
+          }
+          p{
+            color: #888888;
           }
         }
       }
       .volume{
         display: flex;
-        justify-content: center;align-items: center;
+        justify-content: center;
+        align-items: center;
         .volume-title{
           font-size: 12px;
           flex:1;

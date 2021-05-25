@@ -54,7 +54,7 @@
         <div class="crown" *ngFor="let item of crownList" tappable (click)="goComponentsdetailsOne(item)">
             <div class="heard">
                 <div class="heard-img">
-                    <img class="crown-img" src="./assets/imgs/numberone/numberOne-AnCrown@3x.png" alt="">
+                    <!-- <img class="crown-img" src="./assets/imgs/numberone/numberOne-@3x.png" alt=""> -->
                     <img class="user-heard" src="{{item.ImageURL}}" alt="">
                 </div>
                 <div class="name">
@@ -64,13 +64,26 @@
                 <div class="Month">
                     <!-- <img src="./assets/imgs/numberone/NumberOne-bg.png" alt=""> -->
                     <div class="Month-p">
-                        <p></p>
-                        <p>{{item.MonthName}}</p>
-                        <p>月/{{item.YearName}}</p>
+                        <p>{{item.YearName}}年{{item.MonthName}}月</p>
                     </div>
                 </div>
             </div>
-            <div class="volume">
+            <div class="salesvolume">
+                <div class="left">
+                    <b>{{item.MonthCount}}</b>
+                    <p>{{item.MonthName}}月销售</p>
+                </div>
+                <div class="year">
+                    <b>{{item.YearCount}}</b>
+                    <p>年累计销售</p>
+                </div>
+                <div class="right">
+                    <b>{{item.CountSum}}</b>
+                    <span>{{item.TypeName}}</span>
+                    <p>{{item.LableName}}</p>
+                </div>
+            </div>
+            <!-- <div class="volume">
                 <div class="volume-title">
                     <div class="volume-text">
                         {{item.MonthName}}月销售
@@ -100,7 +113,7 @@
                     </span>
                 </div>
                 <div class="volume-number sale">{{item.CountSum}}</div>
-            </div>
+            </div> -->
             <div class="volume">
                 <div class="volume-title">
                     <span class="details">
