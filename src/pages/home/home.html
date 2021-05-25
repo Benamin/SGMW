@@ -22,9 +22,9 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="banner">
-        <div [ngClass]="{'slideInDown':wow == true}" class="img wow" autoplay="3000" data-wow-duration="2s" data-wow-delay="1s">
-            <!--data-wow-offset="20"-->
-            <ion-slides *ngIf="bannerList.length > 0" #slides pager  (ionSlideAutoplayStop)="aotuPlay()">
+        <div [ngClass]="{'slideInDown':wow == true}" class="img wow">
+            <!-- data-wow-offset="20"  data-wow-duration="2s" data-wow-delay="1s" -->
+            <ion-slides *ngIf="bannerList.length > 0" #slides pager  autoplay="3000" (ionSlideAutoplayStop)="aotuPlay()">
                 <!--<ion-slide tappable>-->
                     <!--<img class="search-icon" src="./assets/imgs/new_version/home/banner.png" alt="轮播图">-->
                 <!--</ion-slide>-->
