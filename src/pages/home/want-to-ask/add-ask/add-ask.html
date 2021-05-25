@@ -17,8 +17,10 @@
 			<div class="answers-box">
 				<span class="label">答</span>
 				<span class="text-answers">
-					<span class="name">骏菱学社小助手：</span>
-					<span *ngIf="item.QuestionReplyItems">{{ item.QuestionReplyItems.ReplyContent }}</span>
+					<span *ngIf="item.QuestionReplyItems">
+						<span class="name">骏菱学社小助手：</span>
+						<span>{{ item.QuestionReplyItems.ReplyContent }}</span>
+					</span>
 					<span *ngIf="!item.QuestionReplyItems">暂无回答</span>
 				</span>
 			</div>
