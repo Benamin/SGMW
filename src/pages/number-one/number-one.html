@@ -12,7 +12,7 @@
               </ion-refresher>
         <div class="navul">
                 <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable (click)="switchInformation(item.label)">
-                        {{item.label}}
+                        <span *ngIf="item.label=='销冠风采'">{{item.label}}</span>
                 </div>
             </div>
             <ion-list text-center style="  background: #fff;margin: 0;padding-bottom: 400px;padding-top: 200px;" *ngIf="no_list">
@@ -21,7 +21,7 @@
                         暂无数据
                     </p>
             </ion-list>
-    <div class="information-ul" *ngIf="navli=='销售案例'">
+    <!-- <div class="information-ul" *ngIf="navli=='销售案例'">
         <ng-container *ngFor="let item of dataList">
             <div class="information-list img1" *ngIf="item.IsSingle" tappable (click)="goComponentsdetails(item)">
                     <div class="list-time">
@@ -40,7 +40,7 @@
                     <div class="imgdiv-flex">
                             <div *ngFor="let img of item.SourceURLList" [ngStyle]="{'background-image': 'url('+img+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
                                 </div>
-                        <!-- <img [src]="img" *ngFor="let img of item.SourceURLList" alt=""> -->
+                        <img [src]="img" *ngFor="let img of item.SourceURLList" alt="">
                      
                     </div>
                     <div class="time">
@@ -49,7 +49,7 @@
                 </div>
         </ng-container>
    
-    </div>
+    </div> -->
     <div *ngIf="navli=='销冠风采'" class="crown-list">
         <div class="crown" *ngFor="let item of crownList" tappable (click)="goComponentsdetailsOne(item)">
             <div class="heard">

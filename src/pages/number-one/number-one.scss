@@ -232,16 +232,18 @@ page-number-one {
         margin: 0 20px;
         .left{
           width: 30%;
-          text-align: center;
+          text-align: left;
           b{
             font-size: 2rem;
             color: #D4A558;
             margin-bottom: 1rem;
             display: inline-block;
             font-weight: 400;
+            padding-left: 10px;
           }
           p{
             color: #888888;
+            text-align: left;
           }
         }
         .year{
