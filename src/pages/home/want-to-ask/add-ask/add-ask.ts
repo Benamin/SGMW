@@ -123,7 +123,7 @@ export class AddAskPage {
 			
 			loading.present();
 			const data = {
-			    // Title: this.page.Title,  // 标题
+			    Title: this.page.questionDesc, // this.page.Title,  // 标题
 			    questionDesc: this.page.questionDesc,  // 问题描述
 			    questionTypeId: this.page.nowSelectAskType.value,  // 问题类型Id
 			    questionType: this.page.nowSelectAskType.label, // 问题类型
