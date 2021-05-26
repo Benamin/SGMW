@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>积分榜</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ul ion-fixed class="nav-type">
+    <li *ngFor="let item of navliArr" (click)="changeCheckType(item.lable)"
+        [ngClass]="{'actived': checkType == item.lable}">
+        <div>{{ item.text }}</div>
+        <span class="item-line"></span>
+    </li>
+  </ul>
+  <div class="leaguebox">
+    <div class="leaguelist" *ngFor="let item of leaguelist">
+      <div class="left">
+        <b>{{item.rank}}</b>
+        <div class="avatar-box">
+          <img class="avatar" src="{{ item.userphoto?.userphoto || userDefaultImg }}" alt="个人头像"/>
+        </div>
+        <span>{{item.username}}</span>
+      </div>
+      <div class="right">
+        {{item.usercredit}}
+      </div>
+    </div>
+  </div>
+  <ion-list text-center style="margin-top: 10rem" *ngIf="leaguelist.length == 0 && page.isLoading">
+      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+      <p text-center style="color: #666666;font-size: 16px">
+          暂无排行记录
+      </p>
+  </ion-list>
+  <ion-infinite-scroll *ngIf="page.TotalCount > leaguelist.length" (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content
+              loadingSpinner="bubbles"
+              loadingText="加载中"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <p class="list-footer-page"
+     *ngIf="page.isLoading && page.TotalCount == leaguelist.length && page.TotalCount > 5">
+      没有更多了~~~</p>
+</ion-content>
