@@ -42,7 +42,8 @@ export class PostAddComponent implements OnInit {
     //视频
     video = {
         src: "",
-        poster: ""
+        poster: "",
+        isLoad: false,
     };
     CoverUrl = "";  //如果是视频 则上传封面
     multiple: boolean | string = ""; // video=只选择视频 image=只选择图片
@@ -454,7 +455,12 @@ export class PostAddComponent implements OnInit {
             this.uploadImageFile(event)
         }
         if (type === "video") {   //选择文件是视频
-
+            if (file.size > 20971520) {
+                this.commonSer.alert('上传视频不能超过20M');
+                this.multiple = "";
+                return;
+            }
+            this.video.isLoad = true;
             //本地预览
             let url = URL.createObjectURL(file);
             console.log(url);
@@ -474,6 +480,7 @@ export class PostAddComponent implements OnInit {
         formData.append('file', file);
         this.serve.UploadVideoFiles(formData).then((res: any) => {
             console.log("videoFiles", res);
+            this.video.isLoad = false;
             this.videoFiles = Object.assign(res.data, {
                 "icon": "MP4",
                 "filename": file.name,
@@ -605,6 +612,10 @@ export class PostAddComponent implements OnInit {
         if (this.Title.length > 50) {
             this.serve.presentToast('标题不能超过50个字符');
             return;
+        }
+        if (this.multiple === "video" && this.video.isLoad) {
+            this.commonSer.alert("视频未上传完成 请稍后再试");
+            return
         }
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
         let textInnerHTML: any = textareaImg.innerHTML;

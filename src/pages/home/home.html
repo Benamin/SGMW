@@ -28,8 +28,7 @@
              class="swiper-container swiper-home-banner-container">
             <div class="swiper-wrapper">
                 <div *ngFor="let item of bannerList;let i = index" (click)="goCourseBanner(item)" class="swiper-slide">
-<!--                    <img [src]="item.SourceUrl || ''">-->
-                    <img src="https://devstorgec.blob.core.chinacloudapi.cn/document/blob20210525215318.blob" alt="">
+                    <img [src]="item.SourceUrl || ''">
                 </div>
             </div>
             <div class="swiper-pagination"></div>

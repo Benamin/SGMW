@@ -35,8 +35,12 @@
             <div *ngIf="multiple !== 'video'" class="add-img" (click)="chooseVideo()">
                 <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
             </div>
-            <div [hidden]="multiple !== 'video' ">
-                <video id="video_id" width="200" height="150" preload [poster]="CoverUrl" controls>你的浏览器不能支持HTML5视频</video>
+            <div class="videoBox" [hidden]="multiple !== 'video' ">
+                <div *ngIf="video.isLoad" class="loading">
+                    <span class="dots-loader"></span>
+                </div>
+                <video id="video_id" width="200" height="150" preload [poster]="CoverUrl" controls>你的浏览器不能支持HTML5视频
+                </video>
             </div>
             <div [hidden]="multiple !== 'image'">
                 <div class="can-img" *ngFor="let item of imgitems;index as i" (click)="editimg(item)">
@@ -67,8 +71,8 @@
           <ion-icon ios="ios-close" md="md-close"></ion-icon>
       </span>
             <span (click)="addTopic()">
-        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-        话题</span>
+            <ion-icon ios="ios-add" md="md-add"></ion-icon>
+            话题</span>
         </div>
         <div class="plate" *ngIf="!focusAmeR">
             <div class="plate-li" (click)="choicePlate('ForumHistory')">
