@@ -12,7 +12,7 @@
 		<li *ngFor="let item of page.CommonProblemLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">
 			<div class="questions-box">
 				<span class="label">问</span>
-				<span class="text-questions">{{ item.Title }}</span>
+				<span class="text-questions">{{ item.QuestionDesc }}</span>
 			</div>
 			<div class="answers-box">
 				<span class="label">答</span>
@@ -34,9 +34,9 @@
 		</div>
 	</div>
 
-	<div class="title-box">
-		<ion-input type="text" placeholder="请输入问题标题" [(ngModel)]="page.Title" [ngModelOptions]="{standalone: true}"></ion-input>
-	</div>
+	<!--<div class="title-box">-->
+		<!--<ion-input type="text" placeholder="请输入问题标题" [(ngModel)]="page.Title" [ngModelOptions]="{standalone: true}"></ion-input>-->
+	<!--</div>-->
 
 	<div class="ask-content">
 		<textarea [(ngModel)]="page.questionDesc" class="content-area" placeholder="请输入问题内容…"></textarea>

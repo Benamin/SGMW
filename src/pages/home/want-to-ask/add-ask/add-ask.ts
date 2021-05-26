@@ -99,15 +99,15 @@ export class AddAskPage {
 				    toast.present();
 						return
 			}
-			if (!this.page.Title) {
-				let toast = this.toastCtrl.create({
-				      message: '请填写标题！',
-							position: 'middle',
-				      duration: 1500
-				    });
-				    toast.present();
-						return
-			}
+			// if (!this.page.Title) {
+			// 	let toast = this.toastCtrl.create({
+			// 	      message: '请填写标题！',
+			// 				position: 'middle',
+			// 	      duration: 1500
+			// 	    });
+			// 	    toast.present();
+			// 			return
+			// }
 			if (!this.page.questionDesc) {
 				let toast = this.toastCtrl.create({
 				      message: '请填写描述！',
@@ -123,7 +123,7 @@ export class AddAskPage {
 			
 			loading.present();
 			const data = {
-			    Title: this.page.Title,  // 标题
+			    // Title: this.page.Title,  // 标题
 			    questionDesc: this.page.questionDesc,  // 问题描述
 			    questionTypeId: this.page.nowSelectAskType.value,  // 问题类型Id
 			    questionType: this.page.nowSelectAskType.label, // 问题类型
