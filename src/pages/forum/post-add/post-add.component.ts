@@ -305,47 +305,56 @@ export class PostAddComponent implements OnInit {
     }
 
     chooseVideo() {
-        let modal = this.actionSheetCtrl.create(
-            {
-                buttons: [
-                    // {
-                    //     text: '录制视频',
-                    //     role: '',
-                    //     handler: () => {
-                    //         this.shortVideoPro.selectVide((data) => {
-                    //             console.log('shortVideoPro', data);
-                    //         })
-                    //     }
-                    // },
-                    // {
-                    //     text: '拍照',
-                    //     role: '',
-                    //     handler: () => {
-                    //         this.chooseImagePro.selectPicture(1, (data) => {
-                    //             console.log(data);
-                    //         })
-                    //     }
-                    // },
-                    {
-                        text: '从相册选择',
-                        role: '',
-                        handler: () => {  //选择视频或者图片
-                            let pic_selector: any = document.getElementById('file_selector');
-                            pic_selector.value = '';
-                            pic_selector.click();
-                        }
-                    },
-                    {
-                        text: '取消',
-                        role: 'cancel',
-                        handler: () => {
-                            return
-                        }
-                    },
-                ]
-            }
-        )
-        modal.present();
+        if (this.multiple === "") {
+            let modal = this.actionSheetCtrl.create(
+                {
+                    buttons: [
+                        {
+                            text: '选择视频',
+                            role: '',
+                            handler: () => {
+                                let video_selector: any = document.getElementById('video_selector');
+                                video_selector.value = '';
+                                video_selector.click();
+                            }
+                        },
+                        {
+                            text: '选择图片',
+                            role: '',
+                            handler: () => {  //选择视频或者图片
+                                let image_selector: any = document.getElementById('image_selector');
+                                image_selector.value = '';
+                                image_selector.click();
+                            }
+                        },
+                        {
+                            text: '取消',
+                            role: 'cancel',
+                            handler: () => {
+                                return
+                            }
+                        },
+                    ]
+                }
+            )
+            modal.present();
+        }
+        if (this.multiple === "image") {
+            let image_selector: any = document.getElementById('image_selector');
+            image_selector.value = '';
+            image_selector.click();
+        }
+        if (this.multiple === "video") {
+            let video_selector: any = document.getElementById('video_selector');
+            video_selector.value = '';
+            video_selector.click();
+        }
+    }
+
+    selectCoverImage() {
+        let cover_selector: any = document.getElementById('cover_selector');
+        cover_selector.value = '';
+        cover_selector.click();
     }
 
     letfImgSrc = '';
@@ -475,6 +484,7 @@ export class PostAddComponent implements OnInit {
         }
     }
 
+    //上传视频
     uploadVideoFile(file) {
         let formData: FormData = new FormData();
         formData.append('file', file);
@@ -525,6 +535,23 @@ export class PostAddComponent implements OnInit {
                 });
             }
             addImgS(fileList[0], 0);
+        }
+    }
+
+    //上传视频封面
+    uploadVideoCover(event) {
+        let fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            const loading = this.loadCtrl.create({
+                content: '上传中...'
+            });
+            loading.present();
+            let formData: FormData = new FormData();
+            formData.append('file', fileList[0]);
+            this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                this.CoverUrl = res.data;
+                loading.dismiss();
+            });
         }
     }
 
@@ -762,6 +789,7 @@ export class PostAddComponent implements OnInit {
         toast.present();//符合触发条件后立即执行显示。一定不能忘了这个
     }
 
+    //删除图片
     del_img(item, i) {
         this.imgitems.splice(i, 1);
         let textareaImg: any = document.getElementById('textareaImg');
@@ -769,6 +797,16 @@ export class PostAddComponent implements OnInit {
         let DivDom: any = textareaImg.querySelector(`div[src='${item.src}']`);
         ImgDom.parentNode.removeChild(ImgDom);
         DivDom.parentNode.removeChild(DivDom);
+        if (this.imgitems.length === 0) {
+            this.multiple = "";
+        }
+    }
+
+    //删除视频
+    del_video() {
+        this.multiple = "";
+        this.CoverUrl = "";
+        this.videoFiles = {};
     }
 
     deleteItem(index) {
@@ -778,6 +816,16 @@ export class PostAddComponent implements OnInit {
 //添加话题
     addTopic() {
         this.navCtrl.push(ChooseTopicPage);
+    }
+
+    //playVideo
+    playVideo() {
+        let video = <any>document.getElementById("video_id");
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
     }
 
 }
