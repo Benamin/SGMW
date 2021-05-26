@@ -1,4 +1,4 @@
-<ng-container *ngFor="let item of followList">
+<ng-container *ngFor="let item of PosterList">
     <div class="post-introduction" tappable>
         <div class="post-introduction-top" (click)="$event.stopPropagation();toPersonInfo(item)">
             <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto">
@@ -12,7 +12,8 @@
         </div>
         <div class="info-box">
             <div class="company" *ngIf="item.AgentName">{{ item.AgentName }}</div>
-            <span *ngIf="item.isMy && item.isMy === true && item.Ranking" class="box-ranking">本人排名：第{{ item.Ranking }}名</span>
+            <span *ngIf="item.isMy && item.isMy === true && item.Ranking" class="box-ranking">本人排名：第{{ item.Ranking }}
+                名</span>
             <span *ngIf="!item.isMy &&  item.Ranking" class="box-ranking">大赛排名：第{{ item.Ranking }}名</span>
         </div>
         <div class="post-introduction-con" (click)="goToDetail(item)">
@@ -64,7 +65,7 @@
         </div>
         <div class="post-introduction-buttom">
     <span class="nowrap-1">
-            <div class="oldDate">{{item.PostTimeFormatted}}</div>
+            <div class="oldDate">{{item.PostTimeFormatted | date:"yyyy-MM-dd HH:mm"}}</div>
     </span>
             <span class="eye">
       <img src="./assets/imgs/forum/other/eye.png">

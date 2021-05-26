@@ -61,7 +61,7 @@
     <!-- 二级导航 end-->
 
     <!-- 三级导航 start-->
-    <!--帖子 所有 start -->
+    <!--动态 所有 start -->
     <div class="nav-type-3"
          *ngIf="page.checkType === page.navliArr[1].lable && page.navliArr[1].secNav[0].isActived === true">
         <div (click)="changeThrNav(1, 0, thrNavIndex, item.isActived)"
@@ -70,8 +70,8 @@
             {{ item.navBtnText }}<span class="item-line"></span>
         </div>
     </div>
-    <!-- 帖子 所有 end -->
-    <!--帖子排行榜 start -->
+    <!-- 动态 所有 end -->
+    <!--动态排行榜 start -->
     <div class="nav-type-3"
          *ngIf="page.hasArea && page.checkType === page.navliArr[1].lable && page.navliArr[1].secNav[1] && page.navliArr[1].secNav[1].isActived === true">
         <div (click)="changeThrNav(1, 1, thrNavIndex, item.isActived)"
@@ -80,7 +80,7 @@
             {{ item.navBtnText }}<span class="item-line"></span>
         </div>
     </div>
-    <!-- 帖子排行榜 end -->
+    <!-- 动态排行榜 end -->
 
     <!-- 视频 所有 start -->
     <div class="nav-type-3"
@@ -128,11 +128,11 @@
     </ul>
     <!-- 三级导航 end-->
 
-    <!-- 帖子列表 -->
+    <!-- 动态列表 -->
     <ul class="topic-lists" *ngIf="page.checkType === 'topic'">
         <app-forum-list-time class="topic-discript" [followList]='page.competitionLists'></app-forum-list-time>
     </ul>
-    <!-- 帖子列表 -->
+    <!-- 动态列表 -->
 
     <!--视频列表-->
     <ul class="video-lists" *ngIf="page.checkType === 'short-video'">

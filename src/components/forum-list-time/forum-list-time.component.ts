@@ -17,15 +17,22 @@ declare var Wechat;
 
 export class ForumListTimeComponent implements OnInit {
 
-    @Input() followList;
     @Input() itemIndex;
     @Output() share = new EventEmitter();
     @Output() toPostList = new EventEmitter();
 
     defaultImg = './assets/imgs/competition/fengmian@2x.png'
     defaultHeadPhoto = defaultHeadPhoto;
+    PosterList = [];
 
     constructor(public commonSer: CommonService, public navCtrl: NavController, private modalCtrl: ModalController, private storage: Storage, private serve: ForumService,) {
+    }
+
+    @Input() set followList(event) {
+        this.PosterList = event.map(e => {
+            e.PostTimeFormatted = this.commonSer.transFormTime(e.PostTimeFormatted);
+            return e;
+        })
     }
 
     ngOnInit() {

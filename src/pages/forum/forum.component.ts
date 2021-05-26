@@ -17,11 +17,11 @@ import {ShareWxComponent} from "../../components/share-wx/share-wx";
 })
 export class ForumPage {
 
-    forumList = [];  //帖子列表
+    forumList = [];  //动态列表
     plateList = [];  //　板块列表
     isdoInfinite = true;
     no_list = false;
-    pageDate = {   //帖子信息
+    pageDate = {   //动态信息
         OrderBy: "CreateTime",  //CreateTime 发帖时间  ViewCount 浏览量  ReplyCount 回复量  PostTimeFormatted 回复时间
         name: "",
         Type: "New",  // New 最新 CreateTime 发帖时间 PostTimeFormatted 回复时间  //Hot 最热 ViewCount 浏览量  ReplyCount 回复量
@@ -80,17 +80,17 @@ export class ForumPage {
         this.navCtrl.push(ViewReplyComponent);
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
 
-    // 新增帖子
+    // 新增动态
     PostAddComponent() {
         this.navCtrl.push(PostAddComponent, {data: {}});
     }
 
-    // 前往帖子列表
+    // 前往动态列表
     goPostlist(data) {
         let HistoryName = ''
         if (this.navli == '板块') { //板块浏览历史
@@ -227,7 +227,7 @@ export class ForumPage {
         }
     }
 
-    //帖子信息
+    //动态信息
     getListData() {
         this.showLoading();
         let data = {

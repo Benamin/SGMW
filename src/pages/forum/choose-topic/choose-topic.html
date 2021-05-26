@@ -27,7 +27,7 @@
                             <img *ngIf="topic.TopicCreateType == 1" src="./assets/imgs/forum/gf.png" alt="">
                             <img *ngIf="topic.TopicType == 2" src="./assets/imgs/forum/huo.png" alt="">
                         </p>
-                        <p>{{topic.PostCount}}条帖子</p>
+                        <p>{{topic.PostCount}}条动态</p>
                     </div>
                 </ng-container>
                 <div *ngIf="!isIncludes" (click)="sevrData()" class="topic-item">
@@ -55,13 +55,13 @@
                     <!--                    热门话题-->
                     <div *ngIf="topic.TopicType == 2 && topicType == 2" (click)="selectTopic(topic)" class="topic-item">
                         <p><span style="color: #FFCA30;margin-right: .5rem">#</span>{{topic.Name}} </p>
-                        <p>{{topic.PostCount}}条帖子</p>
+                        <p>{{topic.PostCount}}条动态</p>
                     </div>
                     <!--                    官方话题-->
                     <div *ngIf="topic.TopicCreateType == 1 && topicType == 1" (click)="selectTopic(topic)"
                          class="topic-item">
                         <p><span style="color: #FFCA30;margin-right: .5rem">#</span>{{topic.Name}} </p>
-                        <p>{{topic.PostCount}}条帖子</p>
+                        <p>{{topic.PostCount}}条动态</p>
                     </div>
                 </ng-container>
             </div>

@@ -36,9 +36,9 @@ export class JpushUtil {
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
             // this.commonSer.alert("jpush.openNotification: " + JSON.stringify(event));
-            //2=系统通知  3=培训通知  4=考试通知  5=课程通知(课程ID=csid) 6=主题活动(主题活动ID=taid) 22=论坛回复通知(帖子ID=PostId)
-            //30=帖子点赞通知(帖子ID=PostId)  31=课程讨论点赞通知(讨论ID=TalkId, 课程ID=csid)  32=课程讨论回复通知(回复ID=PostReplyId,课程ID=csid)
-            //33=帖子评论回复通知(帖子ID=PostId 回复ID=PostReplyId)
+            //2=系统通知  3=培训通知  4=考试通知  5=课程通知(课程ID=csid) 6=主题活动(主题活动ID=taid) 22=论坛回复通知(动态ID=PostId)
+            //30=动态点赞通知(动态ID=PostId)  31=课程讨论点赞通知(讨论ID=TalkId, 课程ID=csid)  32=课程讨论回复通知(回复ID=PostReplyId,课程ID=csid)
+            //33=动态评论回复通知(动态ID=PostId 回复ID=PostReplyId)
             console.log(event.extras)
             const sgmwType = event.extras.sgmwType;
             const data = {
@@ -58,10 +58,10 @@ export class JpushUtil {
                 case "6":  //主题活动
                     data.Id = event.extras.taid || '';
                     break;
-                case "22":  //论坛帖子评论通知
+                case "22":  //论坛动态评论通知
                     data.Id = event.extras.PostId || '';
                     break;
-                case "30":  //帖子点赞通知
+                case "30":  //动态点赞通知
                     data.Id = event.extras.PostId || '';
                     break;
                 case "31":  //课程讨论点赞通知
@@ -70,7 +70,7 @@ export class JpushUtil {
                 case "32":  //课程讨论回复通知
                     data.Id = event.extras.csid || '';
                     break;
-                case "33":  //帖子评论里的回复通知
+                case "33":  //动态评论里的回复通知
                     data.Id = event.extras.PostId || '';
                     break;
             }
