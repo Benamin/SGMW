@@ -1,115 +1,118 @@
 <ion-header *ngIf="show">
-  <ion-navbar></ion-navbar>
+    <ion-navbar></ion-navbar>
 </ion-header>
 
 <ion-content>
-  <form ion-fixed class="search-header" action="#">
-    <div class="input-box">
-      <img class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
-      <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off' [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
+    <form ion-fixed class="search-header" action="#">
+        <div class="input-box">
+            <img class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
+            <ion-input type="search" placeholder="搜索内容" (keypress)="search($event)" (ionFocus)="showKey()"
+                       autocomplete='off' [(ngModel)]="page.title" [ngModelOptions]="{standalone: true}"></ion-input>
+        </div>
+        <!--<span class="clear" tappable (click)="clear()">取消</span>-->
+    </form>
+    <div ion-fixed class="navul" *ngIf="navulShow">
+        <div class="navli" [ngClass]="{'act': navli=='课程'}" tappable (click)="switchIn('课程')">
+            课程
+        </div>
+        <div class="navli" [ngClass]="{'act': navli=='论坛'}" tappable (click)="switchIn('论坛')">
+            动态
+        </div>
     </div>
-    <!--<span class="clear" tappable (click)="clear()">取消</span>-->
-  </form>
-  <div ion-fixed class="navul" *ngIf="navulShow">
-    <div class="navli" [ngClass]="{'act': navli=='课程'}" tappable (click)="switchIn('课程')">
-      课程
-    </div>
-    <div class="navli" [ngClass]="{'act': navli=='论坛'}" tappable (click)="switchIn('论坛')">
-      论坛
-    </div>
-  </div>
-  <div class="lists-box" *ngIf="navli=='论坛'">
-    <div style="background: #fff; ">
-      <div class="topicplate-div" *ngFor="let item of topicplate" tappable (click)="goPostlist(item)">
-        <div class="list">
-          <div class="img-div">
-            <img [src]="item.CoverImage || ''" alt="">
-          </div>
-          <div class="text">
-            <div class="number-text">
-              <span class="text-l" style="-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{item.Name}}</span>
-              <span class="text-r">[{{item.PostCount}}条帖子]</span>
+    <div class="lists-box" *ngIf="navli=='论坛'">
+        <div style="background: #fff; ">
+            <div class="topicplate-div" *ngFor="let item of topicplate" tappable (click)="goPostlist(item)">
+                <div class="list">
+                    <div class="img-div">
+                        <img [src]="item.CoverImage || ''" alt="">
+                    </div>
+                    <div class="text">
+                        <div class="number-text">
+                            <span class="text-l"
+                                  style="-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{item.Name}}</span>
+                            <span class="text-r">[{{item.PostCount}}条帖子]</span>
+                        </div>
+                        <p style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
+                            {{item.Description}}
+                        </p>
+                    </div>
+                </div>
             </div>
-            <p style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
-              {{item.Description}}
+        </div>
+        <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of postList">
+            <!--      <div (click)="$event.stopPropagation();toPersonInfo(item)" class="post-introduction-top">-->
+            <!--        <img src="{{item.PosterUserHeadPhoto || defaultHeadPhoto}}" alt="">-->
+            <!--        <div class="name">-->
+            <!--          {{item.PosterUserName}}-->
+            <!--          <span *ngIf="item?.System" class="System">{{item?.System}}</span>-->
+            <!--        </div>-->
+            <!--        <div class="oldDate">{{item.PostRelativeTime}}</div>-->
+            <!--      </div>-->
+            <!--      <div class="post-introduction-con">-->
+            <!--        <p>{{item.Title}}</p>-->
+            <!--        <div class="img-div img1" *ngIf="item.Images&&item.Images.length==1"-->
+            <!--        [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"-->
+            <!--        style="background-size: cover;background: no-repeat center;">-->
+            <!--        </div>-->
+            <!--        <div class="img-div img2" *ngIf="item.Images&&item.Images.length==2">-->
+            <!--            <div *ngFor="let img of item.Images">-->
+            <!--              <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"-->
+            <!--                [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <!--          </div>-->
+            <!--          <div class="img-div img3" *ngIf="item.Images&&item.Images.length>2">-->
+            <!--            <div *ngFor="let img of item.Images.slice(0,3)">-->
+            <!--              <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"-->
+            <!--                [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <!--          </div>-->
+
+            <!--      </div>-->
+            <!--      <div class="post-introduction-buttom">-->
+            <!--        <span class="nowrap-1">-->
+            <!--          {{item.TopicPlateName}}-->
+            <!--        </span>-->
+            <!--        <span>-->
+            <!--          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">-->
+            <!--          {{item.ReplyCount}}-->
+            <!--        </span>-->
+            <!--        <span tappable (click)="handleLike(item,$event)">-->
+            <!--          <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like@3x.png" >-->
+            <!--          <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" >-->
+            <!--          {{item.LikeCount}}-->
+            <!--        </span>-->
+            <!--      </div>-->
+            <app-forum-list-time [item]='item'></app-forum-list-time>
+        </div>
+
+        <ion-list text-center style="margin-top: 16rem;text-align: center;text-align: center;" *ngIf="emptyShow_Forum">
+            <img style="width: 19.3rem;" src="./assets/imgs/new_version/home/no-data.png" alt="无数据">
+            <p text-center style="color: #9D9D9E;font-size: 14px">
+                暂无数据
             </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of postList">
-      <div (click)="$event.stopPropagation();toPersonInfo(item)" class="post-introduction-top">
-        <img src="{{item.PosterUserHeadPhoto || defaultHeadPhoto}}" alt="">
-        <div class="name">
-          {{item.PosterUserName}}
-          <span *ngIf="item?.System" class="System">{{item?.System}}</span>
-        </div>
-        <div class="oldDate">{{item.PostRelativeTime}}</div>
-      </div>
-      <div class="post-introduction-con">
-        <p>{{item.Title}}</p>
-        <div class="img-div img1" *ngIf="item.Images&&item.Images.length==1"
-        [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
-        style="background-size: cover;background: no-repeat center;">
-        </div>
-        <div class="img-div img2" *ngIf="item.Images&&item.Images.length==2">
-            <div *ngFor="let img of item.Images">
-              <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
-                [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
-              </div>
-            </div>
-          </div>
-          <div class="img-div img3" *ngIf="item.Images&&item.Images.length>2">
-            <div *ngFor="let img of item.Images.slice(0,3)">
-              <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
-                [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
-              </div>
-            </div>
-          </div>
+        </ion-list>
 
-      </div>
-      <div class="post-introduction-buttom">
-        <span class="nowrap-1">
-          {{item.TopicPlateName}}
-        </span>
-        <span>
-          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-          {{item.ReplyCount}}
-        </span>
-        <span tappable (click)="handleLike(item,$event)">
-          <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like@3x.png" >
-          <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" >
-          {{item.LikeCount}}
-        </span>
-      </div>
     </div>
+    <div class="lists-box" *ngIf="navli=='课程'">
+        <course-list [list]="productList" (done)="goCourse($event)"></course-list>
 
-    <ion-list text-center style="margin-top: 16rem;text-align: center;text-align: center;" *ngIf="emptyShow_Forum">
-      <img style="width: 19.3rem;" src="./assets/imgs/new_version/home/no-data.png" alt="无数据">
-      <p text-center style="color: #9D9D9E;font-size: 14px">
-        暂无数据
-      </p>
+        <ion-list text-center style="margin-top: 16rem;text-align: center;text-align: center;" *ngIf="emptyShow_Course">
+            <img style="width: 19.3rem;" src="./assets/imgs/new_version/home/no-data.png" alt="无数据">
+            <p text-center style="color: #9D9D9E;font-size: 14px">
+                暂无数据
+            </p>
+        </ion-list>
+    </div>
+    <ion-list text-center style="margin-top: 10rem" *ngIf="showTips">
+        <img class="search-no-data" src="./assets/imgs/new_version/home/search-no-data.png">
+        <p text-center style="color: #9D9D9E;font-size: 1.4rem;margin-top: 2px">
+            请搜索你想要查找的内容
+        </p>
     </ion-list>
 
-  </div>
-  <div class="lists-box" *ngIf="navli=='课程'">
-    <course-list [list]="productList" (done)="goCourse($event)"></course-list>
-
-    <ion-list text-center style="margin-top: 16rem;text-align: center;text-align: center;" *ngIf="emptyShow_Course">
-      <img style="width: 19.3rem;" src="./assets/imgs/new_version/home/no-data.png" alt="无数据">
-      <p text-center style="color: #9D9D9E;font-size: 14px">
-        暂无数据
-      </p>
-    </ion-list>
-  </div>
-  <ion-list text-center style="margin-top: 10rem" *ngIf="showTips">
-    <img class="search-no-data" src="./assets/imgs/new_version/home/search-no-data.png">
-    <p text-center style="color: #9D9D9E;font-size: 1.4rem;margin-top: 2px">
-      请搜索你想要查找的内容
-    </p>
-  </ion-list>
-
-  <ion-infinite-scroll (ionInfinite)="addData($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-infinite-scroll (ionInfinite)="addData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

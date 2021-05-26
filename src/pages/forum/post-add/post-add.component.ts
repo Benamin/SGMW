@@ -211,7 +211,7 @@ export class PostAddComponent implements OnInit {
         }
     }
 
-    P_data = {
+    P_data = <any>{
         TopicItem: [],
         TopicTagItem: [],
     };
@@ -246,6 +246,11 @@ export class PostAddComponent implements OnInit {
                         alt: e.alt,
                     })
                 }
+            }
+            if (this.P_data.IsVideo) {
+                this.CoverUrl = this.P_data.Pvideo.CoverUrl;
+                this.videoFiles = this.P_data.Pvideo.files;
+                this.multiple = "video";
             }
 
         });

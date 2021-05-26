@@ -146,6 +146,7 @@ export class PostsContentComponent implements OnInit {
                 this.savePostInfo(res.data);
             }
             this.initPostInfo(res.data);
+            console.log(res.data.Pvide);
             if (res.data.Pvideo) {
                 this.initVideo = videojs(`videoPoster`, {
                     controls: true,

@@ -35,7 +35,7 @@
     </div>
     <div *ngIf="navli=='推荐'">
         <ng-container *ngFor="let item of forumList">
-            <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable (click)="goPostsContent(item)">
+            <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable>
                 <app-forum-list-time (toPostList)="toPostList($event)" (share)="wxShare(item)"
                                      [item]='item'></app-forum-list-time>
             </div>
@@ -85,7 +85,7 @@
     </div>
     <div *ngIf="navli=='关注'">
         <ng-container *ngFor="let item of followList">
-            <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable (click)="goPostsContent(item)">
+            <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable>
                 <app-forum-list-time (share)="wxShare(item)" [item]='item'></app-forum-list-time>
             </div>
         </ng-container>

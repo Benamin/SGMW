@@ -13,7 +13,7 @@
     <span *ngIf="item.isMy && item.isMy === true && item.Ranking" class="box-ranking">本人排名：第{{ item.Ranking }}名</span>
     <span *ngIf="!item.isMy &&  item.Ranking" class="box-ranking">大赛排名：第{{ item.Ranking }}名</span>
 </div>
-<div class="post-introduction-con">
+<div class="post-introduction-con" (click)="goToDetail()">
     <p class="nowrap-3">
         {{item.Title}}
     </p>

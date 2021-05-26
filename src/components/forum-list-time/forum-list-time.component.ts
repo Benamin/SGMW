@@ -5,6 +5,7 @@ import {ModalController, NavController} from "ionic-angular";
 import {ForumService} from "../../pages/forum/forum.service";
 import {PersonalCenterPage} from "../../pages/home/personal-center/personal-center";
 import {Storage} from "@ionic/storage";
+import {PostsContentComponent} from "../../pages/forum/posts-content/posts-content.component";
 
 declare var Wechat;
 
@@ -30,6 +31,12 @@ export class ForumListTimeComponent implements OnInit {
     ngOnInit() {
 
     }
+
+    //详情
+    goToDetail() {
+        this.navCtrl.push(PostsContentComponent, {data: this.item});
+    }
+
 
     //点赞
     handleLike(item, e) {
