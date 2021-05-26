@@ -4,13 +4,12 @@
             发布动态
         </ion-title>
         <span class="release" (click)="sevrData(true)">
-      发布
-    </span>
+          发布
+        </span>
     </ion-navbar>
 </ion-header>
 <ion-content style="background: #f7f7f7">
     <div class="content-div" [ngStyle]="{'padding-bottom': paddingBottom}">
-        <!-- <div class="content-div" [ngClass]="{'func-buttom-div': focusAmeR}" [ngStyle]="{'padding-bottom': paddingBottom}"> -->
         <div class="input-div">
             <input style="width: 100%;" type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;"
                    [(ngModel)]="Title"
@@ -33,17 +32,23 @@
 <ion-footer>
     <div class="buttom-div" id="buttomImgDiv" [ngStyle]="{'padding-bottom': paddingBottom}">
         <div class="img-div">
-            <div class="add-img" (click)="addImg()">
+            <div *ngIf="multiple !== 'video'" class="add-img" (click)="chooseVideo()">
                 <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
             </div>
-            <div class="can-img" *ngFor="let item of imgitems;index as i" (click)="editimg(item)">
-                <img class="can-p71_cancel" (click)="del_img(item,i);$event.stopPropagation();"
-                     src="./assets/imgs/forum/other/p71_cancel@3x.png" alt="">
-                <img src="{{item.src}}" alt="">
-                <p>{{item.alt}}</p>
+            <div [hidden]="multiple !== 'video' ">
+                <video id="video_id" width="200" height="150" preload [poster]="CoverUrl" controls>你的浏览器不能支持HTML5视频</video>
+            </div>
+            <div [hidden]="multiple !== 'image'">
+                <div class="can-img" *ngFor="let item of imgitems;index as i" (click)="editimg(item)">
+                    <img class="can-p71_cancel" (click)="del_img(item,i);$event.stopPropagation();"
+                         src="./assets/imgs/forum/other/p71_cancel@3x.png" alt="">
+                    <img src="{{item.src}}" alt="">
+                    <p>{{item.alt}}</p>
+                </div>
             </div>
         </div>
-        <input type="file" id="pic_selector" (change)="uploadFile($event)" accept="image/*,video/*" multiple/>
+        <input type="file" id="file_selector" (change)="uploadMultipleFile($event)"
+               accept="image/png,image/jpeg,video/mp4" multiple/>
         <div class="bun-buttom">
               <span class="describe" [ngStyle]="{'opacity': imgitems.length>0?1:0}">
                 点击图片编辑描述

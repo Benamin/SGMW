@@ -18,6 +18,10 @@
         <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content | lineFeed'>
         </div>
         <div class="videoBox" *ngIf="dataCon?.Pvideo">
+            转码状态：
+            <span *ngIf="dataCon?.Pvideo?.EncodeState === 1">转码中</span>
+            <span *ngIf="dataCon?.Pvideo?.EncodeState === 2">转码完成</span>
+            <span *ngIf="dataCon?.Pvideo?.EncodeState === 1">转码失败</span>
             <video id="videoPoster" class="video-js sgmw-video-js"
                    playsinline="true" webkit-playsinline="true"
                    width="100%" height="100%" controls preload="auto"
