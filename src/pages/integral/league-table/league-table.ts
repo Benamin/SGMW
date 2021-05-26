@@ -110,7 +110,7 @@ export class LeagueTablePage {
         }
         this.page.PageIndex++;
         const data = {
-            "PageIndex": this.page.PageIndex,
+            "PageCurrent": this.page.PageIndex,
             "PageSize": this.page.PageSize,
             "type": this.page.BigType
         };
