@@ -157,7 +157,7 @@ export class AddAskPage {
         loading.present();
         const data = {
             PageIndex: 1,
-            PageSize: 3
+            PageSize: 5
         };
 
         this.homeSer.getCommonProblem(data).subscribe(
