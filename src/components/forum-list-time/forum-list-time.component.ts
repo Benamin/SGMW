@@ -17,7 +17,7 @@ declare var Wechat;
 
 export class ForumListTimeComponent implements OnInit {
 
-    @Input() item;
+    @Input() followList;
     @Input() itemIndex;
     @Output() share = new EventEmitter();
     @Output() toPostList = new EventEmitter();
@@ -33,8 +33,8 @@ export class ForumListTimeComponent implements OnInit {
     }
 
     //详情
-    goToDetail() {
-        this.navCtrl.push(PostsContentComponent, {data: this.item});
+    goToDetail(item) {
+        this.navCtrl.push(PostsContentComponent, {data: item});
     }
 
 
@@ -79,8 +79,6 @@ export class ForumListTimeComponent implements OnInit {
         }
 
         this.share.emit(obj);
-
-        // this.commonSer.weChatShare(obj)
     }
 
     //他人详情

@@ -136,9 +136,7 @@
 
     <!-- 热门帖子 -->
     <div class="sale" style="margin-top: 0px;">
-        <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
-            <app-forum-list-time (share)="wxShare(item)" [item]='item'></app-forum-list-time>
-        </div>
+        <app-forum-list-time [followList]='forumLIst'></app-forum-list-time>
     </div>
 </ion-content>
 

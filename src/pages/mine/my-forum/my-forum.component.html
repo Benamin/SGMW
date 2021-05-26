@@ -17,11 +17,7 @@
         </div>
     </div>
     <div *ngIf="navli=='已发布'" class="content-div">
-
-        <div class="post-introduction" tappable *ngFor="let item of forumLIst">
-            <app-forum-list-time [item]='item'></app-forum-list-time>
-        </div>
-
+        <app-forum-list-time [followList]='forumLIst'></app-forum-list-time>
     </div>
     <div *ngIf="navli=='草稿箱'" class="content-div">
         <div class="post-introduction" *ngFor="let item of forumLIst">

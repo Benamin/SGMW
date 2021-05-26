@@ -34,13 +34,7 @@
         </div>
     </div>
     <div *ngIf="navli=='推荐'">
-        <ng-container *ngFor="let item of forumList">
-            <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable>
-                <app-forum-list-time (toPostList)="toPostList($event)" (share)="wxShare(item)"
-                                     [item]='item'></app-forum-list-time>
-            </div>
-        </ng-container>
-
+        <app-forum-list-time [followList]='forumList'></app-forum-list-time>
     </div>
     <div *ngIf="navli=='板块'">
         <div class="history" *ngIf="ForumHistory.length>0">
@@ -84,12 +78,9 @@
         </div>
     </div>
     <div *ngIf="navli=='关注'">
-        <ng-container *ngFor="let item of followList">
-            <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable>
-                <app-forum-list-time (share)="wxShare(item)" [item]='item'></app-forum-list-time>
-            </div>
-        </ng-container>
+        <app-forum-list-time [followList]='followList'></app-forum-list-time>
     </div>
+
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
     </ion-infinite-scroll>

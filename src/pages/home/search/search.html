@@ -39,53 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of postList">
-            <!--      <div (click)="$event.stopPropagation();toPersonInfo(item)" class="post-introduction-top">-->
-            <!--        <img src="{{item.PosterUserHeadPhoto || defaultHeadPhoto}}" alt="">-->
-            <!--        <div class="name">-->
-            <!--          {{item.PosterUserName}}-->
-            <!--          <span *ngIf="item?.System" class="System">{{item?.System}}</span>-->
-            <!--        </div>-->
-            <!--        <div class="oldDate">{{item.PostRelativeTime}}</div>-->
-            <!--      </div>-->
-            <!--      <div class="post-introduction-con">-->
-            <!--        <p>{{item.Title}}</p>-->
-            <!--        <div class="img-div img1" *ngIf="item.Images&&item.Images.length==1"-->
-            <!--        [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"-->
-            <!--        style="background-size: cover;background: no-repeat center;">-->
-            <!--        </div>-->
-            <!--        <div class="img-div img2" *ngIf="item.Images&&item.Images.length==2">-->
-            <!--            <div *ngFor="let img of item.Images">-->
-            <!--              <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"-->
-            <!--                [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <!--          <div class="img-div img3" *ngIf="item.Images&&item.Images.length>2">-->
-            <!--            <div *ngFor="let img of item.Images.slice(0,3)">-->
-            <!--              <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"-->
-            <!--                [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <!--          </div>-->
-
-            <!--      </div>-->
-            <!--      <div class="post-introduction-buttom">-->
-            <!--        <span class="nowrap-1">-->
-            <!--          {{item.TopicPlateName}}-->
-            <!--        </span>-->
-            <!--        <span>-->
-            <!--          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">-->
-            <!--          {{item.ReplyCount}}-->
-            <!--        </span>-->
-            <!--        <span tappable (click)="handleLike(item,$event)">-->
-            <!--          <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like@3x.png" >-->
-            <!--          <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" >-->
-            <!--          {{item.LikeCount}}-->
-            <!--        </span>-->
-            <!--      </div>-->
-            <app-forum-list-time [item]='item'></app-forum-list-time>
-        </div>
+        <app-forum-list-time [followList]='postList'></app-forum-list-time>
 
         <ion-list text-center style="margin-top: 16rem;text-align: center;text-align: center;" *ngIf="emptyShow_Forum">
             <img style="width: 19.3rem;" src="./assets/imgs/new_version/home/no-data.png" alt="无数据">

@@ -13,7 +13,7 @@
     <div class="con-div">
         <div class="list">
             <div class="img-div">
-                <img [src]="lidata.CoverImage" alt="">
+                <img [src]="lidata?.CoverImage" alt="">
             </div>
             <div class="text">
                 <div class="top-text-name">
@@ -48,12 +48,7 @@
             </div>
         </div>
         <div>
-            <ng-container *ngFor="let item of forumLIst">
-                <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable
-                     (click)="goPostsContent(item)">
-                    <app-forum-list-time (share)="wxShare(item)" (avatarClick)="goToPersonalCenter(item)" [item]='item'></app-forum-list-time>
-                </div>
-            </ng-container>
+            <app-forum-list-time [followList]='forumLIst'></app-forum-list-time>
             <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="no_list ">
                 <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
                 <p text-center style="color: #666666;font-size: 16px">

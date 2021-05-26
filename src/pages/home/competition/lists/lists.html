@@ -17,42 +17,6 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <!--<div class="podium-pg">-->
-    <!--<div class="more-btn" (click)="goTotalRanking(888)">-->
-    <!--更多<img style="margin-left: 0.6rem;width: 0.6rem;height: 1.1rem;" src="assets/imgs/competition/arrow@2x.png" alt="更多">-->
-    <!--</div>-->
-    <!--<div class="phb_2">-->
-    <!--<div class="name-div">-->
-    <!--<img class="user-head" src="{{ userDefaultImg }}" alt="">-->
-    <!--<div class="name type-name nowrap-1">闫磊</div>-->
-    <!--<div class="user-label nowrap-1">-->
-    <!--黄金门店-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<img class="phb_2bg" src="assets/imgs/ranking/phb_2@2x.png" alt="第二">-->
-    <!--</div>-->
-    <!--<div class="phb_1">-->
-    <!--<div class="name-div">-->
-    <!--<img class="user-head" src="{{ userDefaultImg }}" alt="">-->
-    <!--<div class="name type-name nowrap-1">1111111</div>-->
-    <!--<div class="user-label nowrap-1">-->
-    <!--青铜门店-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<img  class="phb_1bg" src="assets/imgs/ranking/phb_1@2x.png" alt="第一">-->
-    <!--</div>-->
-    <!--<div class="phb_3">-->
-    <!--<div class="name-div">-->
-    <!--<img class="user-head" src="{{ userDefaultImg }}" alt="">-->
-    <!--<div class="name type-name nowrap-1">孙喆</div>-->
-    <!--<div class="user-label nowrap-1">-->
-    <!--白银门店-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<img  class="phb_3bg" src="assets/imgs/ranking/phb_3@2x.png" alt="第三">-->
-    <!--</div>-->
-    <!--</div>-->
-
 
     <ul class="nav-type">
         <li *ngFor="let item of page.navliArr" (click)="changeCheckType(item.lable)"
@@ -166,9 +130,7 @@
 
     <!-- 帖子列表 -->
     <ul class="topic-lists" *ngIf="page.checkType === 'topic'">
-        <li *ngFor="let item of page.competitionLists, let itemIndex = index" (click)="goPostsContent(item)">
-            <app-forum-list-time (share)="wxShare(item)" (avatarClick)="goToPersonalCenter(item)" class="topic-discript" [item]='item' [itemIndex]='itemIndex'></app-forum-list-time>
-        </li>
+        <app-forum-list-time class="topic-discript" [followList]='page.competitionLists'></app-forum-list-time>
     </ul>
     <!-- 帖子列表 -->
 
@@ -184,7 +146,8 @@
                     <span>{{ item.Title }}</span>
                 </div>
                 <div class="bottom-info">
-                    <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4" (loadedmetadata)="getDuration($event,item)"
+                    <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4"
+                           (loadedmetadata)="getDuration($event,item)"
                            [src]="item.files.DownLoadUrl"></video>
                     <span *ngIf="item.VideoMinute === 0" class="video-length">{{ item.duration || '00:00'}}</span>
                     <span *ngIf="item.VideoMinute > 0" class="video-length">{{ item.VideoMinute | secondFormat}}</span>
@@ -192,8 +155,9 @@
             </div>
             <div class="video-info">
                 <span class="company">
-                    {{ item.Creater }}<span *ngIf="item.MyRanking && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true"
-                          class="right-text">——本人排名 第{{ item.MyRanking }}名</span>
+                    {{ item.Creater }}<span
+                        *ngIf="item.MyRanking && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true"
+                        class="right-text">——本人排名 第{{ item.MyRanking }}名</span>
                     <span *ngIf="item.AllRanking && page.checkType === page.navliArr[2].lable && page.navliArr[2].secNav[1].isActived === true"
                           class="right-text">——大赛排名 第{{ item.AllRanking }}名</span>
                 </span>
