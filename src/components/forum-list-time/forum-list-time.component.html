@@ -59,7 +59,7 @@
             <div class="topicList">
       <span class="topicSpan" (click)="$event.stopPropagation();goToPostList(topic)"
             *ngFor="let topic of item.TopicTagPlateItem">
-        #{{topic.TopicName}}#
+        {{topic.TopicName}}
       </span>
             </div>
         </div>

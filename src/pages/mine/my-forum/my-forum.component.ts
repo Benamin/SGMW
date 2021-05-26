@@ -75,10 +75,7 @@ export class MyForumComponent implements OnInit {
     delOk() {
         this.isDelShow = false;
         let loading = null;
-        loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
+
         this.serve.post_delete(this.delData.Id).subscribe((res: any) => {
             if (res.code == 200) {
                 for (let n = 0; n < this.forumList.length; n++) {
@@ -90,10 +87,6 @@ export class MyForumComponent implements OnInit {
             } else {
                 this.presentToast(res.message);
             }
-            if (loading) {
-                loading.dismiss();
-            }
-
         });
     }
 

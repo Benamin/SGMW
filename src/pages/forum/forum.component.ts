@@ -20,7 +20,7 @@ export class ForumPage {
     forumList = [];  //动态列表
     plateList = [];  //　板块列表
     isdoInfinite = true;
-    no_list = false;
+    isLoad = false;
     pageDate = {   //动态信息
         OrderBy: "CreateTime",  //CreateTime 发帖时间  ViewCount 浏览量  ReplyCount 回复量  PostTimeFormatted 回复时间
         name: "",
@@ -217,6 +217,7 @@ export class ForumPage {
 
     //navbar切换
     switchInformation(text) {
+        this.isLoad = false;
         this.navli = text;
         if (this.navli == '板块' && this.plateList.length == 0) {
             this.forum_topicplate_search();
@@ -244,13 +245,13 @@ export class ForumPage {
         };
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             this.dismissLoading()
+            this.isLoad = true;
             if (res.data) {
                 let arr = res.data.Posts.Items;
                 if (arr.length != 0) {
                     this.forumList = this.forumList.concat(arr);
                 }
                 this.pageDate.total = res.data.Posts.TotalItems;
-                this.no_list = this.forumList.length > 0 ? false : true;
                 if (arr == 0) {
                     // this.isdoInfinite = false;
                 }
@@ -264,6 +265,7 @@ export class ForumPage {
             this.showLoading();
         }
         this.serve.newsearchforumtopicplate(this.plateData).subscribe((res: any) => {
+            this.isLoad = true;
             if (!res.data) {
                 return
             }
@@ -273,7 +275,6 @@ export class ForumPage {
             }
             this.plateData.total = res.data.TotalItems;
             this.plateList = this.plateList.concat(arr);
-            this.no_list = this.plateList.length == 0 ? true : false;
             this.dismissLoading();
         })
     }
@@ -302,25 +303,23 @@ export class ForumPage {
         this.showLoading();
         this.serve.SearchNewRetFollower(this.followerData).subscribe(res => {
             this.dismissLoading()
+            this.isLoad = true;
             if (res.data) {
                 let arr = res.data.Posts.Items;
                 if (arr.length != 0) {
                     this.followList = this.followList.concat(arr);
                 }
                 this.followerData.total = res.data.Posts.TotalItems;
-                this.no_list = this.followList.length > 0 ? false : true;
                 if (arr == 0) {
                     // this.isdoInfinite = false;
                 }
-            } else if (this.followList.length == 0) {
-                this.no_list = true;
             }
         })
     }
 
     //搜索
     goToSearch() {
-        this.navCtrl.push(SearchPage, {type: '论坛'});
+        this.navCtrl.push(SearchPage, {type: '动态'});
     }
 
     //微信分享

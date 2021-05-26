@@ -4,9 +4,9 @@ page-my-forum {
   }
 
   .navul {
-    background: #fff;
-    // background: red;
+    background: white;
     display: flex;
+    width: 100%;
 
     .navli {
       flex: 1;
@@ -22,7 +22,9 @@ page-my-forum {
     }
 
     .act {
-      color: rgba(0, 0, 0, 1);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #474747;
       transition: all 0.2s;
     }
 
@@ -30,22 +32,19 @@ page-my-forum {
       content: " ";
       display: block;
       position: absolute;
-      width: 28px;
-      height: 4px;
       margin-left: -10px;
       left: 50%;
       bottom: 0px;
       transition: all 0.2s;
-      background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
-      border-radius: 2px;
+      width: 2rem;
+      height: 0.3rem;
+      background: #E90E2C;
+      border-radius: 1.5rem;
     }
   }
 
   .content-div {
-    padding-top: 5px;
+    padding-top: 50px;
   }
 
   .post-introduction {

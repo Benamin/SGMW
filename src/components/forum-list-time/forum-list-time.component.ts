@@ -6,6 +6,7 @@ import {ForumService} from "../../pages/forum/forum.service";
 import {PersonalCenterPage} from "../../pages/home/personal-center/personal-center";
 import {Storage} from "@ionic/storage";
 import {PostsContentComponent} from "../../pages/forum/posts-content/posts-content.component";
+import {ShareWxComponent} from "../share-wx/share-wx";
 
 declare var Wechat;
 
@@ -84,8 +85,8 @@ export class ForumListTimeComponent implements OnInit {
             thumb: thumb,
             webpageUrl: `${pcUrl}bbsdetails/${data.Id}`
         }
-
-        this.share.emit(obj);
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
+        modal.present();
     }
 
     //他人详情

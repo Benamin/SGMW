@@ -4,7 +4,6 @@ page-choose-topic {
   }
 
   .backPop {
-    color: #fff;
     margin-left: 10px;
   }
 
@@ -23,6 +22,7 @@ page-choose-topic {
     padding: 2rem;
     position: relative;
     display: flex;
+    background-color: #f8f8f8;
 
     .search-icon {
       position: absolute;
@@ -35,12 +35,12 @@ page-choose-topic {
     ion-input {
       height: 3.5rem;
       line-height: 1.3rem;
-      background: #F2F2F2;
-      border-radius: 15px;
+      background: #FFFFFF;
+      border-radius: 5px;
       padding-left: 3rem;
     }
 
-    span:last-child{
+    span:last-child {
       width: 4rem;
       display: flex;
       align-items: center;
@@ -59,7 +59,8 @@ page-choose-topic {
       display: inline-block;
       font-size: 1.2rem;
       margin-right: 1rem;
-      color: #000000;
+      color: #474747;
+      line-height: 20px;
 
       span {
         color: #FFCA30;
@@ -90,7 +91,6 @@ page-choose-topic {
     .title {
       display: flex;
       padding: 1rem;
-      border-bottom: 1px solid #dddddd;
 
       div {
         height: 2rem;
@@ -112,16 +112,14 @@ page-choose-topic {
         content: " ";
         display: block;
         position: absolute;
-        width: 35px;
+        width: 20px;
         height: 4px;
         margin-left: -10px;
-        left: 40%;
+        left: 50%;
         bottom: -1rem;
+        -webkit-transition: all 0.2s;
         transition: all 0.2s;
-        background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-        background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-        background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-        background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+        background-color: #E90E2C;
         border-radius: 2px;
       }
     }
@@ -130,7 +128,8 @@ page-choose-topic {
   .topic-list {
     .topic-item {
       border-bottom: 1px solid #dddddd;
-      padding: 1rem 2rem;
+      padding: 1rem 0rem;
+      margin: 0 2rem;
 
       > p:first-child {
         height: 20px;
@@ -159,8 +158,13 @@ page-choose-topic {
       > p:last-child {
         font-size: 1rem;
         font-weight: 400;
-        color: #333333;
-        padding-left: 1rem;
+        color: #9D9D9E;
+        margin-top: 2rem;
+
+        img {
+          width: 10px;
+          vertical-align: middle;
+        }
       }
     }
   }

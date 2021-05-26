@@ -820,6 +820,10 @@ export class PostAddComponent implements OnInit {
 
 //添加话题
     addTopic() {
+        if (this.conversationDataSelection.length > 2) {
+            this.commonSer.alert("最多选择3个话题");
+            return
+        }
         this.navCtrl.push(ChooseTopicPage);
     }
 

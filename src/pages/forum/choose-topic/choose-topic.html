@@ -12,9 +12,10 @@
 <ion-content>
     <div class="search">
         <ion-icon class="search-icon" name="search"></ion-icon>
-        <ion-input type="search" placeholder="请输入想要的话题" (keypress)="search($event)" (ionFocus)="showKey()" autocomplete='off'
+        <ion-input type="search" placeholder="请输入想要的话题" (keypress)="search($event)" (ionFocus)="showKey()"
+                   autocomplete='off'
                    [(ngModel)]="name" [ngModelOptions]="{standalone: true}"></ion-input>
-        <span  (click)="cancelSearch()">取消</span>
+        <span (click)="cancelSearch()">取消</span>
     </div>
     <ng-container *ngIf="isSearch">
         <div class="searchList">
@@ -22,16 +23,16 @@
                 <ng-container *ngFor="let topic of searchList">
                     <div (click)="selectTopic(topic)" class="topic-item">
                         <p>
-                            <span>#</span>
+                            <span></span>
                             <span>{{topic.Name}}</span>
                             <img *ngIf="topic.TopicCreateType == 1" src="./assets/imgs/forum/gf.png" alt="">
                             <img *ngIf="topic.TopicType == 2" src="./assets/imgs/forum/huo.png" alt="">
                         </p>
-                        <p>{{topic.PostCount}}条动态</p>
+                        <p><img src="./assets/imgs/forum/topic.png" alt="">【{{topic.PostCount}}条动态】</p>
                     </div>
                 </ng-container>
                 <div *ngIf="!isIncludes" (click)="sevrData()" class="topic-item">
-                    <p><span>#</span>{{name}}</p>
+                    <p>{{name}}</p>
                     <p style="color: #FFCA30">[新话题]</p>
                 </div>
             </div>
@@ -41,7 +42,7 @@
         <div class="usered">
             <p>最近使用</p>
             <div class="lately-span">
-                <span (click)="selectTopic(item)" *ngFor="let item of latelyList"><span>#</span>{{item.TopicName}}</span>
+                <span (click)="selectTopic(item)" *ngFor="let item of latelyList"><span></span>{{item.TopicName}}</span>
             </div>
         </div>
         <div class="space"></div>
@@ -54,14 +55,14 @@
                 <ng-container *ngFor="let topic of topicList">
                     <!--                    热门话题-->
                     <div *ngIf="topic.TopicType == 2 && topicType == 2" (click)="selectTopic(topic)" class="topic-item">
-                        <p><span style="color: #FFCA30;margin-right: .5rem">#</span>{{topic.Name}} </p>
-                        <p>{{topic.PostCount}}条动态</p>
+                        <p>{{topic.Name}} </p>
+                        <p><img src="./assets/imgs/forum/topic.png" alt="">【{{topic.PostCount}}条动态】</p>
                     </div>
                     <!--                    官方话题-->
                     <div *ngIf="topic.TopicCreateType == 1 && topicType == 1" (click)="selectTopic(topic)"
                          class="topic-item">
-                        <p><span style="color: #FFCA30;margin-right: .5rem">#</span>{{topic.Name}} </p>
-                        <p>{{topic.PostCount}}条动态</p>
+                        <p>{{topic.Name}} </p>
+                        <p><img src="./assets/imgs/forum/topic.png" alt="">【{{topic.PostCount}}条动态】</p>
                     </div>
                 </ng-container>
             </div>
