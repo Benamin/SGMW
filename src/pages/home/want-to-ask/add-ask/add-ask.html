@@ -6,7 +6,7 @@
 <ion-content>
 	<div class="top-box">
 		<span class="lists-title">常见问题</span>
-		<span class="all-btn" (click)="goWantToAsk(item)">全部问题</span>
+		<span class="all-btn" (click)="goWantToAsk()">全部问题</span>
 	</div>
 	<ul class="list-box">
 		<li *ngFor="let item of page.CommonProblemLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">

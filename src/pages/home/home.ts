@@ -113,7 +113,7 @@ export class HomePage implements OnInit {
 
     //部分用户登录无角色 绑定信息之后才会有角色
     listenEvents() {
-        // this.storage.set('TodayRemindMission', null); // 测试学习任务弹窗
+        this.storage.set('TodayRemindMission', null); // 测试学习任务弹窗
         this.events.subscribe('RoleID', () => {
             this.storage.get('RoleID').then(value => {
                 this.getBanner(value);

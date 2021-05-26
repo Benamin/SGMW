@@ -30,7 +30,7 @@
     </div>
     <div class="progress-box">
       <div class="progress-bar-bg"></div>
-      <div class="progress-bar" [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1) * 100) + ((1/(page.levelInformation.length - 1) * (page.nowProgress * 100))) + '%' }">
+      <div *ngIf="page.nowProgress && page.nowProgress !== 0" class="progress-bar" [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1) * 100) + ((1/(page.levelInformation.length - 1) * (page.nowProgress * 100))) + '%' }">
         <!-- 小于50%就在进度右边 大于50% 就在进度左边 -->
         <!--<span class="process-text" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) >= 50">-->
           <!--{{ (page.nowProgress * 100).toFixed(0) }}%-->
@@ -39,6 +39,9 @@
           <!--{{ (page.nowProgress * 100).toFixed(0) }}%-->
         <!--</span>-->
         <span class="process-text">{{ (page.nowProgress * 100).toFixed(0) }}%</span>
+      </div>
+      <div *ngIf="page.nowProgress === 0" class="progress-bar" style="width: 0;">
+        <span class="process-text">0%</span>
       </div>
     </div>
 

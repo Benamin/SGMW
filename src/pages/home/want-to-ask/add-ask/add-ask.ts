@@ -136,10 +136,10 @@ export class AddAskPage {
 			    (res) => {
 						if (res.code === 200) {
 							this.commonSer.alert('问题发布成功！');
-							  console.log(9999, res)
-								console.log('提交成功后返回')
-								this.navCtrl.pop();
-								loading.dismiss();
+                            console.log(9999, res)
+                            console.log('提交成功后返回')
+                            this.goWantToAsk()
+                            loading.dismiss();
 						}
 			    }
 			)
