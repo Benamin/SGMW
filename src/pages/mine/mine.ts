@@ -25,7 +25,6 @@ import {IntegralComponent} from "./Integral/Integral.component";
 import {MyShortVideoPage} from "./my-short-video/my-short-video";
 
 import {HomeService} from "../home/home.service";
-import {HomeService} from "../home/home.service";
 import {RuleModalPage} from "../home/advanced/rule-modal/rule-modal";
 import {IntegralPage} from "../integral/integral";
 
