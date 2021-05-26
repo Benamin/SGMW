@@ -86,7 +86,7 @@ export class NotificationPage {
 
     /**
      * 前往详情
-     * 2=系统通知  3=培训通知  4=考试通知  5=课程通知 Csid 6=主题活动 TaId 22 论坛回复通知 PostId
+     * 2=系统通知  3=培训通知  4=考试通知  5=课程通知 Csid 6=主题活动 TaId 22 动态回复通知 PostId
      * @param item
      */
     goDetail(item) {

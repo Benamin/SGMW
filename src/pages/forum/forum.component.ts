@@ -320,7 +320,7 @@ export class ForumPage {
 
     //搜索
     goToSearch() {
-        this.navCtrl.push(SearchPage, {type: '论坛'});
+        this.navCtrl.push(SearchPage, {type: '动态'});
     }
 
     //微信分享

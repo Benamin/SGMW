@@ -155,7 +155,7 @@ export class ForumService {
     }
 
 
-    // 论坛 热门帖子
+    // 动态 热门帖子
     GetPostSearchhotpost(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/searchnewret', data);
 

@@ -405,7 +405,7 @@ export class HomePage implements OnInit {
                 });
                 return;
             }
-            if (e.HttpURL.includes('#/bbsDetail/')) {   //论坛
+            if (e.HttpURL.includes('#/bbsDetail/')) {   // 动态
                 this.navCtrl.push(PostsContentComponent, {
                     data: {Id: ID, TopicPlateId: "", Name: ""}
                 });
@@ -456,7 +456,7 @@ export class HomePage implements OnInit {
         this.navCtrl.push(ConsultationPage);
     }
 
-    // 前往论坛
+    // 前往动态
     goForumComponent() {
         this.navCtrl.push(ForumPage);
     }
@@ -616,7 +616,7 @@ export class HomePage implements OnInit {
             return
         }
 
-        if (url.indexOf('forum') > -1) { // 论坛
+        if (url.indexOf('forum') > -1) { // 动态
             this.goPostsContent({Id: url_arr[3]});
             return;
         }
@@ -639,7 +639,7 @@ export class HomePage implements OnInit {
             this.navCtrl.push(MyShortVideoBoxPage, {ID: ID});
             return;
         }
-        if (url.indexOf('forum/') > -1) { // 兼容旧版本分享，论坛
+        if (url.indexOf('forum/') > -1) { // 兼容旧版本分享，动态
             // scheme_url+="forum/"+get_res[1]
             this.goPostsContent({Id: url_arr[3]});
         }
