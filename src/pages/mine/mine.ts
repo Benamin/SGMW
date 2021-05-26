@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, App, Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {AlertController, App, Events, IonicPage, NavController, NavParams, Platform, ModalController} from 'ionic-angular';
 import {MyCoursePage} from "./my-course/my-course";
 import {MycollectionPage} from "./mycollection/mycollection";
 import {NotificationPage} from "./notification/notification";
@@ -25,6 +25,8 @@ import {IntegralComponent} from "./Integral/Integral.component";
 import {MyShortVideoPage} from "./my-short-video/my-short-video";
 
 import {HomeService} from "../home/home.service";
+import {HomeService} from "../home/home.service";
+import {RuleModalPage} from "../home/advanced/rule-modal/rule-modal";
 import {IntegralPage} from "../integral/integral";
 
 @Component({
@@ -55,6 +57,7 @@ export class MinePage {
                 private forumServe: ForumService,
                 private homeSer: HomeService,
                 private commonSer: CommonService,
+                private modalCtrl: ModalController,
                 private appSer: AppService, private app: App, private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
@@ -279,13 +282,19 @@ export class MinePage {
             如果没有岗位认证等级的显示，则可能是以下情况：<br>
             1、菱菱助手中备案岗位字段为空，请查看菱菱助手中的备案岗位；<br>
             2、备案岗位在骏菱学社无对应的认证路径`;
-        const alert = this.alertCtrl.create({
-            title: `岗位认证等级显示规则`,
-            message: msg,
-            cssClass: 'mineAlert',
-            buttons: ['确定']
+
+        let modalData = {
+            leveltype: '岗位认证等级显示规则',
+            title: '',
+            content: msg
+        }
+        let modal = this.modalCtrl.create(RuleModalPage, {ruleData: modalData});
+        modal.onDidDismiss((data) => {
+            if (data) {
+                console.log('关闭modal：', data)
+            }
         })
-        alert.present();
+        modal.present();
     }
 
 }

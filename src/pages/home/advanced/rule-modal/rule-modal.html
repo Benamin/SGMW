@@ -6,7 +6,7 @@
             <div class="content-box">
               <!--<ion-icon name="close-outline" class="close-btn" (click)="close()"></ion-icon>-->
               <div class="desc" *ngIf="ruleData && ruleData.title">{{ ruleData.title }}</div>
-              <div class="content" *ngIf="ruleData">{{ ruleData.content }}</div>
+              <div class="content" *ngIf="ruleData" [innerHTML]='ruleData.content'></div>
             </div>
           </div>
           <div class="cancle-btn" (click)="close()">取消</div>

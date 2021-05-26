@@ -11,6 +11,7 @@ import {StudyPlanPage} from "../home/study-plan/study-plan";
 import {GlobalData} from "../../core/GlobleData";
 import {LoginService} from "../login/login.service";
 import {CommonService} from "../../core/common.service";
+import {MineService} from "../mine/mine.service";
 import {Storage} from "@ionic/storage";
 import {PrivacyComponent} from "../../components/privacy/privacy";
 import {VideoListsPage} from "../home/short-video/video-lists/video-lists";
@@ -33,6 +34,7 @@ export class TabsPage {
 
     userInfo;
     userInfoByCardNo;
+    tabBadgeNum=0
 
     tabRoots = [
         {
@@ -92,6 +94,7 @@ export class TabsPage {
                 private modalCtrl: ModalController,
                 private loadCtrl: LoadingController,
                 private commonSer: CommonService,
+                private mineSer: MineService,
                 private events: Events, private nav: NavController, private tabSer: TabService) {
         this.storage.get('user').then(value => {
             if (value && value.MainUserID) {
@@ -113,9 +116,11 @@ export class TabsPage {
 
         this.tabSer.tabChange.subscribe((value) => {
             this.tabParams = value;
-            this.myTabs.select(value.index)
+            this.myTabs.select(value.index);
+            this.getNew();
         });
         this.listenEvents();
+        this.getNew();
     }
 
     getUserInfo() {
@@ -279,5 +284,21 @@ export class TabsPage {
     resetLogin() {
         this.storage.clear();
         this.nav.setRoot(LoginPage);
+    }
+
+    //查询消息
+    getNew() {
+        const data = {
+            "Type": 0,
+            "Page": 1,
+            "PageSize": 99,
+        };
+        this.mineSer.GetUnReadUserNewsList(data).subscribe(
+            (res) => {
+                if (res.data.NewsList) {
+                    this.tabBadgeNum = res.data.NewsList.length;
+                }
+            }
+        )
     }
 }
