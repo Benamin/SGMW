@@ -10,12 +10,14 @@
         </ion-refresher-content>
     </ion-refresher>
     <course-list [list]="productList" (done)="goCourse($event)"></course-list>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="productList.length == 0 && page.isLoading">
-        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-        <p text-center style="color: #666666;font-size: 16px">
+
+    <ion-list text-center style="margin-top: 10rem;text-align: center;text-align: center;"  *ngIf="productList.length == 0 && page.isLoading">
+        <img style="width: 19.3rem;" src="./assets/imgs/new_version/home/no-data.png" alt="无数据">
+        <p text-center style="color: #9D9D9E;font-size: 14px">
             暂无课程
         </p>
     </ion-list>
+
     <ion-infinite-scroll *ngIf="this.page.TotalCount > this.productList.length" (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
