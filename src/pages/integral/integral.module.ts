@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {IntegralPage} from './integral';
 import {IntegralListPage} from "./integral-list/integral-list";
+import {LeagueTablePage} from "./league-table/league-table";
 import {IntegralVerifyPage} from "./integral-verify/integral-verify";
 import {PipesModule} from "../../pipes/pipes.module";
 
@@ -9,6 +10,7 @@ import {PipesModule} from "../../pipes/pipes.module";
     declarations: [
         IntegralPage,
         IntegralListPage,
+        LeagueTablePage,
         IntegralVerifyPage
     ],
     imports: [
@@ -17,6 +19,7 @@ import {PipesModule} from "../../pipes/pipes.module";
     ],
     entryComponents: [
         IntegralListPage,
+        LeagueTablePage,
         IntegralVerifyPage
     ]
 })

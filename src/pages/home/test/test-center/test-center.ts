@@ -38,7 +38,6 @@ export class TestCenterPage {
         PageSize: 10,
         TotalItems: 0,
     };
-
     examList = [];
     clickDisable = true;
 
