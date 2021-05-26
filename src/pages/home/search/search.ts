@@ -19,7 +19,7 @@ import {defaultHeadPhoto} from "../../../app/app.constants";
     templateUrl: 'search.html',
 })
 export class SearchPage {
-    navli: '论坛' | '课程' | null = null;
+    navli: '动态' | '课程' | null = null;
     productList = [];
     page = {
         title: '',

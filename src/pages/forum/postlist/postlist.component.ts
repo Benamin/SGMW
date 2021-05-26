@@ -172,7 +172,7 @@ export class PostlistComponent implements OnInit {
     }
 
     goToSearch() {
-        this.navCtrl.push(SearchPage, {type: '论坛'});
+        this.navCtrl.push(SearchPage, {type: '动态'});
     }
 
     wxShare(item) {

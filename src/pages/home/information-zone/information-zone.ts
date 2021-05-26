@@ -41,7 +41,6 @@ export class InformationZonePage {
     ionViewDidLoad() {
         this.page.resourceLists = [];
         this.GetAskType();
-        this.getList();
     }
 
     goDownLoad() {
@@ -60,15 +59,16 @@ export class InformationZonePage {
         };
         this.homeSer.GetAskType(data).subscribe(
             (res) => {
-                let allType = {label: '全部类型', value: null};
-                let typeArr = [allType];
-                if (res.data && res.data.length > 0) {
-                    for (let i = 0; i < res.data.length; i++) {
-                        typeArr.push(res.data[i])
-                    }
-                }
-                this.page.typeArr = typeArr;
+                // let allType = {label: '全部类型', value: null};
+                // let typeArr = [allType];
+                // if (res.data && res.data.length > 0) {
+                //     for (let i = 0; i < res.data.length; i++) {
+                //         typeArr.push(res.data[i])
+                //     }
+                // }
+                this.page.typeArr = res.data;
                 this.page.FileType = this.page.typeArr[0];
+                this.switchTypeLists(this.page.FileType)
                 loading.dismiss();
             }
         )

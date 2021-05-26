@@ -14,11 +14,11 @@
     <div class="navli" [ngClass]="{'act': navli=='课程'}" tappable (click)="switchIn('课程')">
       课程
     </div>
-    <div class="navli" [ngClass]="{'act': navli=='论坛'}" tappable (click)="switchIn('论坛')">
-      论坛
+    <div class="navli" [ngClass]="{'act': navli=='动态'}" tappable (click)="switchIn('动态')">
+      动态
     </div>
   </div>
-  <div class="lists-box" *ngIf="navli=='论坛'">
+  <div class="lists-box" *ngIf="navli=='动态'">
     <div style="background: #fff; ">
       <div class="topicplate-div" *ngFor="let item of topicplate" tappable (click)="goPostlist(item)">
         <div class="list">
@@ -44,7 +44,7 @@
           {{item.PosterUserName}}
           <span *ngIf="item?.System" class="System">{{item?.System}}</span>
         </div>
-        <div class="oldDate">{{item.PostRelativeTime}}</div>
+        <div class="oldDate">{{item.PostTimeFormatted}}</div>
       </div>
       <div class="post-introduction-con">
         <p>{{item.Title}}</p>
