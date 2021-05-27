@@ -20,7 +20,7 @@
         <div class="score-line">
             <p>当前学分获取情况</p>
             <!--<p class="tips">-->
-                <!--Tips:<span>课程上架{{obj?.PutAwayDay || "5"}}日内学习即可获取学分，过期学习不可获取学分</span>-->
+            <!--Tips:<span>课程上架{{obj?.PutAwayDay || "5"}}日内学习即可获取学分，过期学习不可获取学分</span>-->
             <!--</p>-->
             <div class="process">
                 <div class="out-process">
@@ -58,7 +58,7 @@
 
                 <div class="item-desc">
                     <p>{{item?.PName || "-" }}</p>
-                    <div class="final-time">{{ item?.FinalTime }}前学习可获取学分</div>
+                    <div class="final-time">{{ item?.FinalTime_NY}}前学习可获取学分</div>
                     <div class="desc">
                         <span *ngIf="item.StudyStatus == 0"><img src="./assets/imgs/new_version/advanced/not-start.png">未开始</span>
                         <span *ngIf="item.StudyStatus == 1"><img src="./assets/imgs/new_version/advanced/doing.png">进行中</span>

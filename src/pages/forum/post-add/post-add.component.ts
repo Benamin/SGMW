@@ -653,7 +653,7 @@ export class PostAddComponent implements OnInit {
         let textInnerHTML: any = textareaImg.innerHTML;
         let textInnerTEXT: any = textareaImg.innerText;
         console.log(textInnerTEXT);
-        if (!this.Title || textInnerTEXT == '请输入正文' || textInnerTEXT.length < 1) {
+        if (textInnerTEXT == '请输入正文' || textInnerTEXT.length < 1) {
             this.serve.presentToast('请填写动态或者内容');
             return;
         }

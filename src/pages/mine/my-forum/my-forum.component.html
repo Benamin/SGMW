@@ -44,24 +44,39 @@
                 </div>
                 <div class="post-introduction-con">
                     <p>{{item.Title}}</p>
-                    <div class="img-div img1" *ngIf="item.Images.length==1"
-                         [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
-                         style="background-size: cover;background: no-repeat center;">
-                    </div>
-                    <div class="img-div img2" *ngIf="item.Images.length==2">
-                        <div *ngFor="let img of item.Images">
-                            <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
-                                 [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+                    <ng-container *ngIf="item.Images && item.Images.length > 0">
+                        <div class="img-div img1" *ngIf="item.Images && item.Images.length==1"
+                             [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
+                             style="background-size: cover;background: no-repeat center;">
+                        </div>
+                        <div class="img-div img2" *ngIf="item.Images.length==2">
+                            <div *ngFor="let img of item.Images">
+                                <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
+                                     [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="img-div img3" *ngIf="item.Images.length>2">
-                        <div *ngFor="let img of item.Images.slice(0,3)">
-                            <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
-                                 [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+                        <div class="img-div img3" *ngIf="item.Images.length>2">
+                            <div *ngFor="let img of item.Images.slice(0,3)">
+                                <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
+                                     [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.Pvideo">
+                        <div class="poster-box">
+                            <div class="mask">
+                                <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4"
+                                       (loadedmetadata)="getDuration($event,item)"
+                                       [src]="item.files.DownLoadUrl"></video>
+                            </div>
+                            <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>
+                            <span *ngIf="item.VideoMinute > 0">{{item.VideoMinute | secondFormat}}</span>
+                            <img class="video-poster" src="{{ item?.Pvideo?.CoverUrl || defaultImg }}" alt="视频封面图">
+                            <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+                        </div>
+                    </ng-container>
                 </div>
                 <div class="post-introduction-buttom">
         <span class="nowrap-1">
