@@ -31,7 +31,7 @@ export class ForumListTimeComponent implements OnInit {
 
     @Input() set followList(event) {
         this.PosterList = event.map(e => {
-            e.PostTimeFormatted = this.commonSer.transFormTime(e.PostTimeFormatted);
+            e.PostTimeFormatted = e.PostTimeFormatted.replace(/-/g, '/')
             return e;
         })
     }
