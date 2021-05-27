@@ -3,6 +3,7 @@ import {AlertController, IonicPage, LoadingController, ModalController, NavContr
 import {IntegralService} from "./integral.service";
 import {PostAddComponent} from "../forum/post-add/post-add.component";
 import {IntegralListPage} from "./integral-list/integral-list";
+import {LeagueTablePage} from "./league-table/league-table";
 import {LearningPage} from "../learning/learning";
 import {IntegralVerifyPage} from "./integral-verify/integral-verify";
 import {CommonService} from "../../core/common.service";
@@ -77,8 +78,11 @@ export class IntegralPage {
     GoList() {
         this.navCtrl.push(IntegralListPage);
     }
-
-    // 新增帖子
+    //积分排行榜
+    GoLeagueTable() {
+        this.navCtrl.push(LeagueTablePage);
+    }
+    // 新增动态
     PostAddComponent() {
         this.navCtrl.push(PostAddComponent, {data: {}});
     }

@@ -77,19 +77,19 @@ export class PostlistComponent implements OnInit {
 
     l
 
-    // 我收藏的帖子
+    // 我收藏的动态
     myfavorites() {
         this.serve.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe(res => {
         })
     }
 
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
 
-    // 新增帖子
+    // 新增动态
     PostAddComponent(data) {
         this.navCtrl.push(PostAddComponent, {data: data});
     }
@@ -107,7 +107,7 @@ export class PostlistComponent implements OnInit {
         this.forum_post_search();
     }
 
-    // 获取帖子列表
+    // 获取动态列表
     forum_post_search() {
         let loading = null;
         if (this.pageDate.PageIndex == 1) {

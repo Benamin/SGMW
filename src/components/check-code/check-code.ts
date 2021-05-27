@@ -33,9 +33,8 @@ export class CheckCodeComponent {
         let _str = "0123456789";//设置随机数库
         let _picTxt = "";//随机数
         let _num = 4;//4个随机数字
-        let _width = $canvas.width;
-        let _height = $canvas.height;
-        console.log(_width, _height);
+        let _width = $canvas.width * 0.6;
+        let _height = $canvas.height * 0.6;
         let ctx = $canvas.getContext("2d");//获取 context 对象
         ctx.textBaseline = "bottom";//文字上下对齐方式--底部对齐
         ctx.fillStyle = this.randomColor(180, 240);//填充画布颜色
@@ -43,7 +42,6 @@ export class CheckCodeComponent {
         for (let i = 0; i < _num; i++) {
             let x = (_width - 10) / _num * i + 10;
             let y = this.randomNum(_height / 2, _height);
-            console.log("x,y", x, y);
             let deg = this.randomNum(-45, 45);
             let txt = _str[this.randomNum(0, _str.length)];
             _picTxt += txt;//获取一个随机数

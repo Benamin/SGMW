@@ -1,9 +1,7 @@
 <ion-header class="forum-header">
     <ion-navbar>
         <ion-title></ion-title>
-
     </ion-navbar>
-    <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
 <ion-content>
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -13,12 +11,12 @@
     <div class="con-div">
         <div class="list">
             <div class="img-div">
-                <img [src]="lidata.CoverImage" alt="">
+                <img [src]="lidata?.CoverImage" alt="">
             </div>
             <div class="text">
                 <div class="top-text-name">
                     <span class="text-l nowrap-1">{{lidata.Name}}</span>
-                    <span class="text-r">[{{lidata.PostCount}}条帖子]</span>
+                    <span class="text-r">【{{lidata.PostCount}}条动态】</span>
                 </div>
                 <p class="nowrap-2">
                     {{lidata.Description}}
@@ -34,26 +32,9 @@
         <div class="div-nav">
             <div [ngClass]="{'act': pageDate.Type =='New'}" tappable (click)="avtNav('New')">最新</div>
             <div [ngClass]="{'act': pageDate.Type =='Hot'}" tappable (click)="avtNav('Hot')">最热</div>
-            <div class="OrderBy" *ngIf="pageDate.Type =='New'">
-                <span (click)="changeOrder('CreateTime')"
-                      [ngClass]="{'check':pageDate.OrderBy == 'CreateTime'}">发帖时间</span>
-                <span (click)="changeOrder('PostTimeFormatted')"
-                      [ngClass]="{'check':pageDate.OrderBy == 'PostTimeFormatted'}">回复时间</span>
-            </div>
-            <div class="OrderBy" *ngIf="pageDate.Type =='Hot'">
-                <span (click)="changeOrder('ViewCount')"
-                      [ngClass]="{'check':pageDate.OrderBy == 'ViewCount'}">浏览量</span>
-                <span (click)="changeOrder('ReplyCount')"
-                      [ngClass]="{'check':pageDate.OrderBy == 'ReplyCount'}">回复量</span>
-            </div>
         </div>
         <div>
-            <ng-container *ngFor="let item of forumLIst">
-                <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable
-                     (click)="goPostsContent(item)">
-                    <app-forum-list-time (share)="wxShare(item)" (avatarClick)="goToPersonalCenter(item)" [item]='item'></app-forum-list-time>
-                </div>
-            </ng-container>
+            <app-forum-list-time [followList]='forumLIst'></app-forum-list-time>
             <ion-list text-center style="margin-top: 10rem;display: block;" *ngIf="no_list ">
                 <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
                 <p text-center style="color: #666666;font-size: 16px">

@@ -21,7 +21,7 @@ export class PostAddComponent implements OnInit {
     data: string = "";
     lidata = {
         Id: "7051bb5e-8729-49f4-b95a-016d7d8474ce", // 板块id
-        postId: '',  // 帖子Id
+        postId: '',  // 动态Id
         Status: null
     };
     Title = "";
@@ -211,7 +211,7 @@ export class PostAddComponent implements OnInit {
         }
     }
 
-    P_data = {
+    P_data = <any>{
         TopicItem: [],
         TopicTagItem: [],
     };
@@ -221,7 +221,7 @@ export class PostAddComponent implements OnInit {
         this.textareaLength = 100 - textareaImg.innerHTML.length > 0 ? 100 - textareaImg.innerHTML.length : 0;
     }
 
-    // 获取帖子信息
+    // 获取动态信息
     getData() {
         this.serve.forum_post_get({postId: this.lidata.postId}).subscribe((res: any) => {
             this.P_data = res.data;
@@ -246,6 +246,11 @@ export class PostAddComponent implements OnInit {
                         alt: e.alt,
                     })
                 }
+            }
+            if (this.P_data.IsVideo) {
+                this.CoverUrl = this.P_data.Pvideo.CoverUrl;
+                this.videoFiles = this.P_data.Pvideo.files;
+                this.multiple = "video";
             }
 
         });
@@ -305,47 +310,56 @@ export class PostAddComponent implements OnInit {
     }
 
     chooseVideo() {
-        let modal = this.actionSheetCtrl.create(
-            {
-                buttons: [
-                    // {
-                    //     text: '录制视频',
-                    //     role: '',
-                    //     handler: () => {
-                    //         this.shortVideoPro.selectVide((data) => {
-                    //             console.log('shortVideoPro', data);
-                    //         })
-                    //     }
-                    // },
-                    // {
-                    //     text: '拍照',
-                    //     role: '',
-                    //     handler: () => {
-                    //         this.chooseImagePro.selectPicture(1, (data) => {
-                    //             console.log(data);
-                    //         })
-                    //     }
-                    // },
-                    {
-                        text: '从相册选择',
-                        role: '',
-                        handler: () => {  //选择视频或者图片
-                            let pic_selector: any = document.getElementById('file_selector');
-                            pic_selector.value = '';
-                            pic_selector.click();
-                        }
-                    },
-                    {
-                        text: '取消',
-                        role: 'cancel',
-                        handler: () => {
-                            return
-                        }
-                    },
-                ]
-            }
-        )
-        modal.present();
+        if (this.multiple === "") {
+            let modal = this.actionSheetCtrl.create(
+                {
+                    buttons: [
+                        {
+                            text: '选择视频',
+                            role: '',
+                            handler: () => {
+                                let video_selector: any = document.getElementById('video_selector');
+                                video_selector.value = '';
+                                video_selector.click();
+                            }
+                        },
+                        {
+                            text: '选择图片',
+                            role: '',
+                            handler: () => {  //选择视频或者图片
+                                let image_selector: any = document.getElementById('image_selector');
+                                image_selector.value = '';
+                                image_selector.click();
+                            }
+                        },
+                        {
+                            text: '取消',
+                            role: 'cancel',
+                            handler: () => {
+                                return
+                            }
+                        },
+                    ]
+                }
+            )
+            modal.present();
+        }
+        if (this.multiple === "image") {
+            let image_selector: any = document.getElementById('image_selector');
+            image_selector.value = '';
+            image_selector.click();
+        }
+        if (this.multiple === "video") {
+            let video_selector: any = document.getElementById('video_selector');
+            video_selector.value = '';
+            video_selector.click();
+        }
+    }
+
+    selectCoverImage() {
+        let cover_selector: any = document.getElementById('cover_selector');
+        cover_selector.value = '';
+        cover_selector.click();
     }
 
     letfImgSrc = '';
@@ -475,6 +489,7 @@ export class PostAddComponent implements OnInit {
         }
     }
 
+    //上传视频
     uploadVideoFile(file) {
         let formData: FormData = new FormData();
         formData.append('file', file);
@@ -525,6 +540,23 @@ export class PostAddComponent implements OnInit {
                 });
             }
             addImgS(fileList[0], 0);
+        }
+    }
+
+    //上传视频封面
+    uploadVideoCover(event) {
+        let fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            const loading = this.loadCtrl.create({
+                content: '上传中...'
+            });
+            loading.present();
+            let formData: FormData = new FormData();
+            formData.append('file', fileList[0]);
+            this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                this.CoverUrl = res.data;
+                loading.dismiss();
+            });
         }
     }
 
@@ -622,17 +654,17 @@ export class PostAddComponent implements OnInit {
         let textInnerTEXT: any = textareaImg.innerText;
         console.log(textInnerTEXT);
         if (!this.Title || textInnerTEXT == '请输入正文' || textInnerTEXT.length < 1) {
-            this.serve.presentToast('请填写帖子或者内容');
+            this.serve.presentToast('请填写动态或者内容');
             return;
         }
 
         if (textInnerTEXT.length > 20000) {
-            this.serve.presentToast('帖子内容不能超过20000个字符');
+            this.serve.presentToast('动态内容不能超过20000个字符');
             return
         }
 
         if (this.ApplyEssence && (textInnerTEXT.length < 200 || this.imgitems.length === 0)) {
-            this.serve.presentToast('有图片且帖子字数大于200的才可以申请精华贴')
+            this.serve.presentToast('有图片且动态字数大于200的才可以申请精华贴')
             return
         }
 
@@ -653,18 +685,18 @@ export class PostAddComponent implements OnInit {
             }
         });
         if (TopicPlateIds.length == 0) {
-            return this.serve.presentToast('请选择帖子板块');
+            return this.serve.presentToast('请选择动态板块');
         }
         //话题非必选
         // if (TopicTagPlateIds.length == 0) {
-        //     return this.serve.presentToast('请选择帖子话题');
+        //     return this.serve.presentToast('请选择动态话题');
         // }
 
         this.loading = this.loadCtrl.create({
             content: '发布中...'
         });
         this.loading.present();
-        if (this.lidata.Status) { // 修改 草稿 帖子
+        if (this.lidata.Status) { // 修改 草稿 动态
             this.forum_post_edit(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds);
         } else {
             this.forum_post_add(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds);
@@ -672,13 +704,13 @@ export class PostAddComponent implements OnInit {
         this.sevrData_click = true;
     }
 
-// 修改帖子
+// 修改动态
     forum_post_edit(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         let data = {
-            "Id": this.lidata.postId,//帖子编号
-            "Title": this.Title,//帖子标题
-            "TopicPlateId": this.lidata.Id,//帖子所属板块编号
-            "Content": textInnerHTML,//帖子内容
+            "Id": this.lidata.postId,//动态编号
+            "Title": this.Title,//动态标题
+            "TopicPlateId": this.lidata.Id,//动态所属板块编号
+            "Content": textInnerHTML,//动态内容
             "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,  //话题编号
@@ -688,7 +720,7 @@ export class PostAddComponent implements OnInit {
         this.serve.editforumtagpost(data).subscribe((res: any) => {
             if (res.code == 200) {
                 if (IsSaveAndPublish) {
-                    this.editImgOkText = '帖子发布成功';
+                    this.editImgOkText = '动态发布成功';
                 } else {
                     this.editImgOkText = '保存成功';
                 }
@@ -717,20 +749,20 @@ export class PostAddComponent implements OnInit {
     addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         let data = {
             "IsSaveAndPublish": IsSaveAndPublish,//保持并发布
-            "Title": this.Title,//帖子标题
+            "Title": this.Title,//动态标题
             "IsVideo": this.multiple === "video",
             "CoverUrl": this.CoverUrl,
             "files": this.videoFiles,
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,
-            "Content": textInnerHTML,//帖子内容
+            "Content": textInnerHTML,//动态内容
             "ApplyEssence": this.ApplyEssence  ////true为申请精华贴
         }
 
         this.serve.addnewforumtagpost(data).subscribe((res: any) => {
             if (res.code == 200) {
                 if (IsSaveAndPublish) {
-                    this.editImgOkText = '帖子发布成功';
+                    this.editImgOkText = '动态发布成功';
                 } else {
                     this.editImgOkText = '保存成功';
                 }
@@ -762,6 +794,7 @@ export class PostAddComponent implements OnInit {
         toast.present();//符合触发条件后立即执行显示。一定不能忘了这个
     }
 
+    //删除图片
     del_img(item, i) {
         this.imgitems.splice(i, 1);
         let textareaImg: any = document.getElementById('textareaImg');
@@ -769,6 +802,16 @@ export class PostAddComponent implements OnInit {
         let DivDom: any = textareaImg.querySelector(`div[src='${item.src}']`);
         ImgDom.parentNode.removeChild(ImgDom);
         DivDom.parentNode.removeChild(DivDom);
+        if (this.imgitems.length === 0) {
+            this.multiple = "";
+        }
+    }
+
+    //删除视频
+    del_video() {
+        this.multiple = "";
+        this.CoverUrl = "";
+        this.videoFiles = {};
     }
 
     deleteItem(index) {
@@ -777,7 +820,21 @@ export class PostAddComponent implements OnInit {
 
 //添加话题
     addTopic() {
+        if (this.conversationDataSelection.length > 2) {
+            this.commonSer.alert("最多选择3个话题");
+            return
+        }
         this.navCtrl.push(ChooseTopicPage);
+    }
+
+    //playVideo
+    playVideo() {
+        let video = <any>document.getElementById("video_id");
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
     }
 
 }

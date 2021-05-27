@@ -437,5 +437,15 @@ page-posts-content {
 
   .videoBox {
     margin-top: 5px;
+    position: relative;
+
+    > span {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      font-size: 1rem;
+      color: #f8f8f8;
+      z-index: 999;
+    }
   }
 }

@@ -10,11 +10,11 @@
                 <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
                 </ion-refresher-content>
               </ion-refresher>
-        <div class="navul">
+        <!-- <div class="navul">
                 <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable (click)="switchInformation(item.label)">
                         <span *ngIf="item.label=='销冠风采'">{{item.label}}</span>
                 </div>
-            </div>
+            </div> -->
             <ion-list text-center style="  background: #fff;margin: 0;padding-bottom: 400px;padding-top: 200px;" *ngIf="no_list">
                     <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
                     <p text-center style="color: #666666;font-size: 16px">

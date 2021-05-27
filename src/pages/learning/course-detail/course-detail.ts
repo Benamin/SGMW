@@ -56,6 +56,7 @@ export class CourseDetailPage {
         detail: <any>null,
         chapter: null,
     };
+    elementId;
 
     courseFileType;
     videoInfo = {
@@ -143,6 +144,8 @@ export class CourseDetailPage {
                 private global: GlobalData, private fileSer: FileService, private inAppBrowser: InAppBrowser,
                 private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
+        this.elementId = this.navParams.get('id');
+        console.log(this.elementId);
         this.TaskId = this.navParams.get('TaskId');
         this.StructureType = this.navParams.get('StructureType') || 1;
         this.enterResource = this.navParams.get('enterResource') || "";
@@ -260,8 +263,9 @@ export class CourseDetailPage {
 
         //进度更新
         const overpercentage = data.overpercentage;
-        document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
-        document.getElementById('innerProcess').style.width = `${overpercentage}%`;
+        console.log("overpercentage", overpercentage);
+        document.getElementById('textProcess_' + this.elementId).innerHTML = `学习进度:${overpercentage}%`;
+        document.getElementById('innerProcess_' + this.elementId).style.width = `${overpercentage}%`;
 
         this.global.PostsCertID = data.PostCertificationID;
         this.SortType = data.SortType;
@@ -701,8 +705,9 @@ export class CourseDetailPage {
                 //页面不更新进度 强制更新
                 this.product.detail = res.data;
                 const overpercentage = res.data.overpercentage;
-                document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
-                document.getElementById('innerProcess').style.width = `${overpercentage}%`;
+                console.log(this.global.pId)
+                document.getElementById('textProcess_' + this.elementId).innerHTML = `学习进度:${overpercentage}%`;
+                document.getElementById('innerProcess_' + this.elementId).style.width = `${overpercentage}%`;
 
                 //1、未评级 + 课程进度100% +（ 刚做完作业 ｜｜ 视频播放完毕 ）
                 if (overpercentage === 100 && !this.product.detail.IsComment && (this.CourseEnterSource === "DoExam" || type === "video")) {

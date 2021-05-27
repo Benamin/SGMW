@@ -511,7 +511,7 @@ export class HomePage implements OnInit {
         this.navCtrl.push(AddAskPage);
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
@@ -579,7 +579,7 @@ export class HomePage implements OnInit {
         this.navCtrl.push(StudyTaskPage);
     }
 
-    // 获取热门帖子
+    // 获取热门动态
     getLIistData() {
         let data = {
             "IsHotPost": "1",

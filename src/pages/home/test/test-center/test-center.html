@@ -15,7 +15,7 @@
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <navbar [list]="navbarList" [select]="1" (done)="changeType($event)"></navbar>
+    <navbar ion-fixed [list]="navbarList" [select]="1" (done)="changeType($event)" class="navbarfix"></navbar>
     <div class="exam">
         <ng-container *ngFor="let item of examList">
             <!-- <div class="space"></div> -->
@@ -43,15 +43,15 @@
                           </span>
                     </div> -->
                 </div>
-                <p *ngIf="page.StudyState != 1" class="split"></p>
-                <p *ngIf="page.StudyState == 2">
+                <p *ngIf="page.StudyState != 1" class="space"></p>
+                <p *ngIf="page.StudyState == 2" class="scorespace">
                     <span class="examScore">考试时间：
                         <ng-container *ngIf="item.ExamTimer > 0">{{item.ExamTimer}}分钟</ng-container>
                         <ng-container *ngIf="item.ExamTimer == 0">不限制</ng-container>
                     </span>
                     <span class="examTime">到期时间：{{item.ExamEnd | date:'MM-dd HH:mm:ss'}}</span>
                 </p>
-                <p *ngIf="page.StudyState == 3">
+                <p *ngIf="page.StudyState == 3" class="scorespace">
                     <span class="examScore">
                         <img src="./assets/imgs/mine/exam-submit.png">考试得分：
                         <ng-container *ngIf="item.PaperScore *0.59 < item.TotalScore">{{item.TotalScore}}</ng-container>

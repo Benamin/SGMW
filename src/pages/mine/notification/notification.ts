@@ -107,7 +107,7 @@ export class NotificationPage {
             // type=6 主题活动通知 taid   ActivityName=主题活动名称
             this.toTheme(item);
         } else if (item.Type === 22 || item.Type === 30 || item.Type === 33) {
-            // 互动通知  type=22等于回复 type=30帖子点赞 UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
+            // 互动通知  type=22等于回复 type=30动态点赞 UserName=姓名 HeadPhoto=头部图片 Title=动态标题  Content=内容
             this.goPostsContent(item);
         } else if (item.Type === 31 || item.Type === 32) {
             // 互动通知  type=31 课程讨论点赞
@@ -142,7 +142,7 @@ export class NotificationPage {
         }
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: {Id: data.PostId, TopicPlateId: "", Name: ""}});
     }

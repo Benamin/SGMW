@@ -39,20 +39,27 @@
                 <div *ngIf="video.isLoad" class="loading">
                     <span class="dots-loader"></span>
                 </div>
-                <video id="video_id" width="200" height="150" preload [poster]="CoverUrl" controls>你的浏览器不能支持HTML5视频
+                <img class="can-p71_cancel" (click)="del_video();$event.stopPropagation();"
+                     src="./assets/imgs/forum/other/cancel.png">
+                <p class="uploadCover" (click)="selectCoverImage()">上传封面</p>
+                <video id="video_id" width="200" (click)="playVideo()" height="150" preload [poster]="CoverUrl">你的浏览器不能支持HTML5视频
                 </video>
             </div>
-            <div [hidden]="multiple !== 'image'">
+            <ng-container *ngIf="multiple === 'image'">
                 <div class="can-img" *ngFor="let item of imgitems;index as i" (click)="editimg(item)">
                     <img class="can-p71_cancel" (click)="del_img(item,i);$event.stopPropagation();"
-                         src="./assets/imgs/forum/other/p71_cancel@3x.png" alt="">
+                         src="./assets/imgs/forum/other/cancel.png" alt="">
                     <img src="{{item.src}}" alt="">
                     <p>{{item.alt}}</p>
                 </div>
-            </div>
+            </ng-container>
         </div>
-        <input type="file" id="file_selector" (change)="uploadMultipleFile($event)"
-               accept="image/png,image/jpeg,video/mp4" multiple/>
+        <!--            上传动态图片-->
+        <input type="file" id="image_selector" (change)="uploadMultipleFile($event)" accept="image/*" multiple/>
+        <!--        上传视频-->
+        <input type="file" id="video_selector" (change)="uploadMultipleFile($event)" accept="video/*" multiple/>
+        <!--        上传封面图片-->
+        <input type="file" id="cover_selector" (change)="uploadVideoCover($event)" accept="image/*" multiple/>
         <div class="bun-buttom">
               <span class="describe" [ngStyle]="{'opacity': imgitems.length>0?1:0}">
                 点击图片编辑描述
@@ -67,7 +74,7 @@
         </div>
         <div class="topicList">
       <span *ngFor="let item of conversationDataSelection;let i = index" (click)="deleteItem(i)">
-        <span>#</span>{{item.Name}}
+        {{item.Name}}
           <ion-icon ios="ios-close" md="md-close"></ion-icon>
       </span>
             <span (click)="addTopic()">
@@ -76,9 +83,9 @@
         </div>
         <div class="plate" *ngIf="!focusAmeR">
             <div class="plate-li" (click)="choicePlate('ForumHistory')">
-        <span class="plate-li-name" *ngIf="ForumHistorySelection.length==0">
-          选择板块
-        </span>
+                <span class="plate-li-name" *ngIf="ForumHistorySelection.length==0">
+                  选择板块
+                </span>
                 <span class="plate-li-name" *ngIf="ForumHistorySelection.length>0">
                   <span *ngFor="let item of ForumHistorySelection;index as i">
                     <span *ngIf="i!=0">、</span>
@@ -122,7 +129,6 @@
     </div>
     <div class="img-div" [ngStyle]="{'background-image': 'url('+editImg.src+')','background-size':'contain'}"
          style="max-width: 100%;max-height: 80%;background-size: contain;background: no-repeat center;">
-        <!-- <img style="width: auto;height: auto;max-width: 100%;max-height: 80%;" src="{{editImg.src}}" alt="{{editImg.alt}}"> -->
     </div>
     <div class="input-div">
         <input type="text" [(ngModel)]="editImg.newalt" placeholder="请给图片一个描述吧…" name="" id="">

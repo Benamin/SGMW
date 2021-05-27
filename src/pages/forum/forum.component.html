@@ -2,7 +2,6 @@
     <ion-navbar>
         <ion-title>动态</ion-title>
     </ion-navbar>
-    <img tappable (click)="goToSearch()" src="./assets/imgs/home/m11_icon_search@3x.png" alt="">
 </ion-header>
 <ion-content>
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -10,7 +9,7 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <div class="navul">
+    <div ion-fixed class="navul">
         <div class="navli" [ngClass]="{'act': navli=='推荐'}" tappable (click)="switchInformation('推荐')">
             推荐
         </div>
@@ -21,26 +20,29 @@
             关注
         </div>
     </div>
+    <div style="margin-top: 5rem;"></div>
     <div *ngIf=" navli=='推荐'" class="navul-navbar">
         <div *ngFor="let item of topList" class="navli" [ngClass]="{'check': checkTopic == item.Id}" tappable
              (click)="goPostlist(item)">
-            <span>#</span><span>{{item.Name}}</span>
-        </div>
-    </div>
-    <div class="div-nav">
-        <div [ngClass]="{'act': pageDate.Type =='New'}" tappable (click)="avtNav('New')">最新</div>
-        <div [ngClass]="{'act': pageDate.Type =='Hot'}" tappable (click)="avtNav('Hot')">最热</div>
-        <div>
+            <span>{{item.Name}}</span>
         </div>
     </div>
     <div *ngIf="navli=='推荐'">
-        <ng-container *ngFor="let item of forumList">
-            <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable (click)="goPostsContent(item)">
-                <app-forum-list-time (toPostList)="toPostList($event)" (share)="wxShare(item)"
-                                     [item]='item'></app-forum-list-time>
+        <div class="div-nav">
+            <div [ngClass]="{'act': pageDate.Type =='New'}" tappable (click)="avtNav('New')">最新</div>
+            <div [ngClass]="{'act': pageDate.Type =='Hot'}" tappable (click)="avtNav('Hot')">最热</div>
+            <div class="search" (click)="goToSearch()">
+                <img class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
+                搜索内容
             </div>
-        </ng-container>
-
+        </div>
+        <app-forum-list-time [followList]='forumList'></app-forum-list-time>
+        <ion-list text-center style="margin-top: 10rem" *ngIf="followList.length === 0 && isLoad">
+            <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+            <p text-center style="color: #666666;font-size: 16px">
+                暂无数据
+            </p>
+        </ion-list>
     </div>
     <div *ngIf="navli=='板块'">
         <div class="history" *ngIf="ForumHistory.length>0">
@@ -54,7 +56,7 @@
                     </div>
                     <div class='text'>
                         <h4>{{item.Name}}</h4>
-                        <p>[{{item.PostCount}}条帖子]</p>
+                        <p>[{{item.PostCount}}条动态]</p>
                     </div>
                 </div>
             </div>
@@ -73,7 +75,7 @@
                         <div class="number-text">
                             <span class="text-l"
                                   style="-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{item.Name}}</span>
-                            <span class="text-r">[{{item.PostCount}}条帖子]</span>
+                            <span class="text-r">【{{item.PostCount}}条动态】</span>
                         </div>
                         <p style="-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
                             {{item.Description}}
@@ -84,21 +86,18 @@
         </div>
     </div>
     <div *ngIf="navli=='关注'">
-        <ng-container *ngFor="let item of followList">
-            <div *ngIf="!Blacklist.includes(item.Id)" class="post-introduction" tappable (click)="goPostsContent(item)">
-                <app-forum-list-time (share)="wxShare(item)" [item]='item'></app-forum-list-time>
-            </div>
-        </ng-container>
+        <app-forum-list-time [followList]='followList'></app-forum-list-time>
+        <ion-list text-center style="margin-top: 10rem" *ngIf="followList.length === 0 && isLoad">
+            <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+            <p text-center style="color: #666666;font-size: 16px">
+                暂无数据
+            </p>
+        </ion-list>
     </div>
+
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-    <ion-list text-center style="margin-top: 10rem" *ngIf="no_list">
-        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-        <p text-center style="color: #666666;font-size: 16px">
-            暂无数据
-        </p>
-    </ion-list>
 
 </ion-content>
 <div class="new-add" tappable (click)="PostAddComponent()">

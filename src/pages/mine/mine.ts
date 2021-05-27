@@ -189,7 +189,7 @@ export class MinePage {
         this.logoutSer.logout();
     }
 
-    // 我的帖子
+    // 我的动态
     goMyForum() {
         this.navCtrl.push(MyForumComponent);
     }

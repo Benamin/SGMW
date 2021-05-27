@@ -53,7 +53,7 @@ export class ShareWxComponent {
             message: {
                 title: obj.Title, // 标题
                 description: obj.description, // 简介
-                thumb: obj.thumb, //帖子图片
+                thumb: obj.thumb, //动态图片
                 mediaTagName: "TEST-TAG-001",
                 messageExt: "这是第三方带的测试字段",
                 messageAction: "<action>dotalist</action>",

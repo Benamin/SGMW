@@ -16,6 +16,15 @@
   }
 }
 
+.post-introduction {
+  margin: 0 15px;
+  padding: 0 15px;
+  background: #fff;
+  padding-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
 .post-introduction-top {
   display: flex;
   align-items: center;
@@ -232,14 +241,14 @@
 
   .topicSpan {
     background: #D8D8D8;
-    border-radius: 9px;
+    border-radius: 20px;
     opacity: 0.5;
     font-size: 1rem;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     color: #000000;
-    padding: 0 .5rem;
-    height: 2rem;
+    padding: .3rem 1rem;
+    height: 2.5rem;
     line-height: 2rem;
     display: inline-block;
     margin-bottom: .5rem;

@@ -53,7 +53,7 @@ export class ConsultationService {
             }
         },
         {
-            name: '帖子详情',
+            name: '动态详情',
             spliceUrl: '#/bbsDetail/',
             Component: PostsContentComponent,
             Params: ['id'],

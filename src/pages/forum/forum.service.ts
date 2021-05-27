@@ -26,7 +26,7 @@ export class ForumService {
         return this.http.post(SERVER_API_URL + '/forum/topicplate/list', {});
     }
 
-    // 获取指定编号的帖子信息
+    // 获取指定编号的动态信息
     // https://devapi.chinacloudsites.cn/api/forum/post/get?postId=C1F48775-C0EE-4A32-87BB-016D7D4C5F08
     forum_post_get(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/get?postId=' + postId.postId, {postId});
@@ -48,88 +48,88 @@ export class ForumService {
         return this.http.post(SERVER_API_URL + '/forum/topicplate/searchtopictag', data);
     }
 
-    // 新增帖子 可选择 板块 、话题
+    // 新增动态 可选择 板块 、话题
     addnewforumtagpost(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/addnewforumtagpost', data);
     }
 
-    // 修改帖子 可选择 板块 、话题
+    // 修改动态 可选择 板块 、话题
     editforumtagpost(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/editforumtagpost', data);
     }
 
-    // 获取 帖子列表
+    // 获取 动态列表
     forum_post_search_old(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/search', data);
     }
 
-    // 获取 帖子列表
+    // 获取 动态列表
     forum_post_search(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/searchnewbkandht', data);
     }
 
-    // 发布指定的帖子信息
+    // 发布指定的动态信息
     forum_post_publish(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/publish', data);
     }
 
-    // 新增帖子
+    // 新增动态
     forum_post_add(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/add', data);
     }
 
-    // 修改 帖子
+    // 修改 动态
     forum_post_edit(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/edit', data);
     }
 
-    // 关注帖子
+    // 关注动态
     follow(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/follow?postId=' + postId, {postId: postId});
     }
 
-    // 取消关注帖子
+    // 取消关注动态
     cancelfollow(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/cancelfollow?postId=' + postId, {postId: postId});
     }
 
-    // 我关注的帖子列表
+    // 我关注的动态列表
     myfollows(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/myfollows', data);
     }
 
 
-    // 收藏帖子
+    // 收藏动态
     favorites(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/favorites?postId=' + postId, {postId: postId});
     }
 
-    // 取消收藏帖子
+    // 取消收藏动态
     cancelfavorites(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/cancelfavorites?postId=' + postId, {postId: postId});
     }
 
-    // 我收藏的帖子列表
+    // 我收藏的动态列表
     myfavorites(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/myfavorites', data);
     }
 
-    //  帖子点赞,参数:postId,帖子编号
+    //  动态点赞,参数:postId,动态编号
     forum_post_like(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/like?postId=' + postId, {postId: postId});
     }
 
-    // 取消点赞帖子,参数:postId,帖子编号
+    // 取消点赞动态,参数:postId,动态编号
     forum_post_cancellike(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/cancellike?postId=' + postId, {postId: postId});
     }
 
-    // 我点赞的帖子列表
+    // 我点赞的动态列表
     mylikes(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/mylikes', data);
     }
 
-    // 评论帖子
+    // 评论动态
     reply_add(data) {
         return this.http.post(SERVER_API_URL + '/forum/reply/add', data);
     }
@@ -139,7 +139,7 @@ export class ForumService {
         return this.http.post(SERVER_API_URL + '/forum/replycomment/addCommen', data);
     }
 
-    // 删除帖子
+    // 删除动态
     post_delete(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/delete?postId=' + postId, {postId: postId});
     }
@@ -149,25 +149,25 @@ export class ForumService {
         return this.http.post(SERVER_API_URL + '/EStudentSubscribe/GetSubscribeList', data);
     }
 
-    // 首页 热门帖子
+    // 首页 热门动态
     GetPostSearchnewret(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/searchhotpostbytimedesc', data);
     }
 
 
-    // 动态 热门帖子
+    // 论坛 热门动态
     GetPostSearchhotpost(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/searchnewret', data);
 
     }
 
-    // 我我发布的 帖子
+    // 我我发布的 动态
     GetMypost(data) {
         return this.http.post(SERVER_API_URL + '/forum/post/MyPostsEdit', data);
 
     }
 
-    // 我是否关注收/收藏/点赞帖子
+    // 我是否关注收/收藏/点赞动态
     GetForumPostOtherStatus(postId) {
         return this.http.post(SERVER_API_URL + '/forum/post/GetForumPostOtherStatus?postId=' + postId, {postId: postId});
     }

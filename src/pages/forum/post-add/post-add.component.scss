@@ -10,13 +10,14 @@ page-post-add {
   }
 
   .backPop {
-    color: #fff;
+    color: #535353;
     margin-left: 10px;
   }
 
   .release {
     position: absolute;
     right: 15px;
+    top: 18px;
     background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
     background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
     padding: 4px 13px;
@@ -166,6 +167,9 @@ page-post-add {
   }
 
   #pic_selector,
+  #image_selector,
+  #cover_selector,
+  #video_selector,
   #file_selector {
     display: none;
   }
@@ -286,6 +290,7 @@ page-post-add {
     right: 0;
     width: 20px;
     top: 0;
+    z-index: 2;
   }
 
   .plate {
@@ -416,7 +421,7 @@ page-post-add {
 
     .loading {
       position: absolute;
-      z-index: 1;
+      z-index: 2;
       top: 0;
       left: 0;
       width: 100%;
@@ -426,5 +431,22 @@ page-post-add {
       align-items: center;
       justify-content: center;
     }
+
+    .uploadCover {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 10px 0;
+      font-size: 1.2rem;
+      color: #FFFFFF;
+      width: 100%;
+      z-index: 1;
+      text-align: center;
+    }
+  }
+
+  video {
+    background-color: rgba(0, 0, 0, .5);
   }
 }
