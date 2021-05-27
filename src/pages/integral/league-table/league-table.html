@@ -44,4 +44,16 @@
   <p class="list-footer-page"
      *ngIf="page.isLoading && page.TotalCount == leaguelist.length && page.TotalCount > 5">
       没有更多了~~~</p>
+  <div class="myrank" ion-fixed>
+    <dl class="myrankleft">
+      <dt><img src="./assets/imgs/integral/rank.png" alt=""></dt>
+      <dd>
+        <h3>我的排名：{{rankList?rankList.ranking:null}}</h3>
+        <p>超越了{{rankList?rankList.colleague:null}}位同事</p>
+      </dd>
+    </dl>
+    <div class="myrankright">
+      {{rankList?rankList.credit:null}} 积分
+    </div>
+  </div>
 </ion-content>

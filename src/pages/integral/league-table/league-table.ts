@@ -20,7 +20,7 @@ export class LeagueTablePage {
     }
     list = [];  //积分列表
     leaguelist = [];  //积分排行榜
-
+    rankList = {}; // 积分排名信息
     loading;
     navliArr=[{
         lable: 1,
@@ -79,6 +79,7 @@ export class LeagueTablePage {
         };
         this.inteSer.IntergralTable(data).subscribe(res => {
             if (res.data) {
+                this.rankList = res.data
                 this.leaguelist = res.data.integralTables;
                 this.page.TotalCount = res.data.total
                 this.loading.dismissAll();
@@ -114,8 +115,10 @@ export class LeagueTablePage {
             "PageSize": this.page.PageSize,
             "type": this.page.BigType
         };
+        this.rankList = {}
         this.inteSer.IntergralTable(data).subscribe(
             (res) => {
+                this.rankList = res.data
                 this.leaguelist = this.leaguelist.concat(res.data.integralTables);
                 this.page.TotalCount = res.data.total;
                 this.page.isLoading = true;
