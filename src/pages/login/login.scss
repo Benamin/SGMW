@@ -143,9 +143,12 @@ page-login {
 
       .checkCode {
         position: absolute;
-        top: 54%;
+        top: 50%;
+        width: 90px;
+        height: 30px;
         right: 25px;
         transform: translate(-25px, -50%);
+        overflow: hidden;
       }
     }
   }
