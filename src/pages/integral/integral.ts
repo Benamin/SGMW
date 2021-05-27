@@ -45,7 +45,8 @@ export class IntegralPage {
         this.inteSer.GetNowDayStatusIntegralDetail().subscribe(
             res => {
                 if (res.data) {
-                    res.data.percentNew = res.data.percent?res.data.percent.substring(0, 3) + '%' : null;
+                    // res.data.percentNew = res.data.percent?res.data.percent.substring(0, 3) + '%' : null;
+                    res.data.percentNew = res.data.percent?parseFloat(res.data.percent).toFixed(1) + '%' : null;
                     this.obj = res.data;
                     console.log('今日积分',res.data)
                 }
