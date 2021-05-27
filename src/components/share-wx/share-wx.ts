@@ -48,7 +48,6 @@ export class ShareWxComponent {
             thumb: thumb,
             webpageUrl: `${pcUrl}bbsdetails/${this.data.Id}`
         }
-        console.log(obj);
         Wechat.share({
             message: {
                 title: obj.Title, // 标题
