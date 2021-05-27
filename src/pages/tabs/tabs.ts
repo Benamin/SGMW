@@ -96,6 +96,12 @@ export class TabsPage {
                 private commonSer: CommonService,
                 private mineSer: MineService,
                 private events: Events, private nav: NavController, private tabSer: TabService) {
+        // 订阅改变事件
+        this.events.subscribe('messageTabBadge:change', (tabBadgeNum) => {
+            // console.log(66666, tabBadgeNum)
+            this.getNew();
+        });
+
         this.storage.get('user').then(value => {
             if (value && value.MainUserID) {
                 this.getUserInfo();
@@ -117,10 +123,9 @@ export class TabsPage {
         this.tabSer.tabChange.subscribe((value) => {
             this.tabParams = value;
             this.myTabs.select(value.index);
-            this.getNew();
+
         });
         this.listenEvents();
-        this.getNew();
     }
 
     getUserInfo() {
@@ -296,7 +301,7 @@ export class TabsPage {
         this.mineSer.GetUnReadUserNewsList(data).subscribe(
             (res) => {
                 if (res.data.NewsList) {
-                    this.tabBadgeNum = res.data.NewsList.length;
+                    res.data.NewsList.length > 99 ? this.tabBadgeNum = 99 : this.tabBadgeNum = res.data.NewsList.length;
                 }
             }
         )

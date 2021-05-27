@@ -74,6 +74,8 @@ export class MinePage {
     }
 
     ionViewDidEnter() {
+        // 发布 自定义事件
+        this.events.publish('messageTabBadge:change', {});
         this.logSer.visitLog('grzx');
         this.getVersion();
         this.getUserInfo();

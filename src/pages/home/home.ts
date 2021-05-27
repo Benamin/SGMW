@@ -139,6 +139,7 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        this.events.publish('messageTabBadge:change', {});
         this.storage.get('user').then(value => {
             if (value) {
                 this.mineInfo = value;
@@ -176,7 +177,6 @@ export class HomePage implements OnInit {
                 this.wow = value;
             }
         );
-        this.getNew();
 
     }
 
@@ -318,22 +318,6 @@ export class HomePage implements OnInit {
             (res) => {
                 this.commonSer.toast('取消关注成功');
                 this.getGoodsTeacher();
-            }
-        )
-    }
-
-    //查询消息
-    getNew() {
-        const data = {
-            "Type": 0,
-            "Page": 1,
-            "PageSize": 99,
-        };
-        this.mineSer.GetUnReadUserNewsList(data).subscribe(
-            (res) => {
-                if (res.data.NewsList) {
-                    this.info.new = res.data.NewsList.length;
-                }
             }
         )
     }

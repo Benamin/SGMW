@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {LearnService} from "../learn.service";
 import {LearningPage} from "../learning";
 import {Keyboard} from "@ionic-native/keyboard";
@@ -22,10 +22,13 @@ export class CourseTypePage {
                 private keyboard: Keyboard,
                 public logSer: LogService,
                 private loadCtrl: LoadingController,
+                private events: Events,
                 private learnSer: LearnService) {
     }
 
     ionViewDidLoad() {
+        // 发布 自定义事件
+        this.events.publish('messageTabBadge:change', {});
         this.getType();
     }
 

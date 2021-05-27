@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, ModalController, NavController} from 'ionic-angular';
+import {Events, LoadingController, ModalController, NavController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {ForumService} from './forum.service';
 import {SearchPage} from "../home/search/search";
@@ -59,10 +59,13 @@ export class ForumPage {
 
     constructor(public navCtrl: NavController, private serve: ForumService,
                 public logSer: LogService, public modalCtrl: ModalController,
+                private events: Events,
                 private storage: Storage, private loadCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
+        // 发布 自定义事件
+        this.events.publish('messageTabBadge:change', {});
         this.logSer.visitLog('lt');
         this.forumList = [];
         this.pageDate.pageIndex = 1;

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Events, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {NotificationDetailPage} from "../notification-detail/notification-detail";
 import {StudyPlanPage} from "../../home/study-plan/study-plan";
@@ -44,11 +44,12 @@ export class NotificationPage {
 
     checkType = "all";
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer:CommonService, public homeSer: HomeService,
+    constructor(private events: Events, public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer:CommonService, public homeSer: HomeService,
                 private loadCtrl:LoadingController) {
     }
 
     ionViewDidLoad() {
+        // console.log(888999, AppModule)
         this.getList();
     }
 
@@ -69,6 +70,9 @@ export class NotificationPage {
 							this.page.TotalCount = res.data.TotalCount;
 							this.page.isLoad = true;
 							loading.dismiss();
+
+                // 发布 自定义事件
+                this.events.publish('messageTabBadge:change', {});
             }
         )
     }
