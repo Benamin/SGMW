@@ -159,6 +159,11 @@ league-table {
       border-radius: 3px;
       background: #fff;
       margin-top: 55px;
+      .leaguetip{
+        text-align: right;
+        padding: 1rem;
+        color: #CCA366;
+      }
       .leaguelist{
         display: -webkit-flex; /* Safari */
         display: flex;
