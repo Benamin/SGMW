@@ -84,7 +84,7 @@ export class IntegralPage {
     GoLeagueTable() {
         this.navCtrl.push(LeagueTablePage);
     }
-    // 新增帖子
+    // 新增动态
     PostAddComponent() {
         this.navCtrl.push(PostAddComponent, {data: {}});
     }

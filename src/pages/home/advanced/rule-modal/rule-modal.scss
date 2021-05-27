@@ -1,4 +1,5 @@
 page-rule-modal {
+  font-family: PingFangSC-Medium, PingFang SC;;
   .main {
     background-color: rgba(0, 0, 0, .4);
     height: 100%;
@@ -14,14 +15,13 @@ page-rule-modal {
       top: 50%;
       left: 50%;
       transform: translateX(-50%) translateY(-55%);
-      padding: 1.6rem 0 2.1rem 0;
+      padding: 1.6rem 2rem 0 2rem;
       width: 27.6rem;
       //height: 35.1rem;
       background: #fff;
       border-radius: 1rem;
       overflow: hidden;
       box-sizing: border-box;
-      font-family: PingFangSC-Medium, PingFang SC;;
       .close-btn {
         position: absolute;
         top: 1.2rem;
@@ -32,27 +32,36 @@ page-rule-modal {
       .scroll-box {
         margin: 0 auto;
         //width: 24rem;
-        height: 31.4rem;
+        height: 24.4rem;
         overflow: scroll;
         .content-box {
           box-sizing: border-box;
-          padding: 0 1.8rem;
           overflow-y: scroll;
         }
       }
+      .cancle-btn {
+        margin: 1rem auto 2.1rem;
+        width: 12.6rem;
+        height: 3.5rem;
+        line-height: 3.9rem;
+        color: #666666;
+        text-align: center;
+        font-size: 1.3rem;
+        background: linear-gradient(242deg, #FFF7CB 0%, #FFC92D 100%);
+        border-radius: 1.75rem;
+      }
       .title {
         //margin-top: 1.9rem;
-        margin-bottom: 0.2rem;
+        margin-bottom: 1.2rem;
         height: 21px;
-        font-size: 15px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #000000;
+        font-size: 1.6rem;
         text-align: center;
         line-height: 21px;
+        font-weight: 600;
+        color: #474747;
       }
       .desc {
-        margin-top: 1.5rem;
+        margin-bottom: 1rem;
         text-align: justify;
         text-justify: distribute-all-lines;
         text-align-last: left;
@@ -60,12 +69,14 @@ page-rule-modal {
         -webkit-text-align-last: left;
       }
       .content {
-        margin-top: 1.5rem;
         text-align: justify;
         text-justify: distribute-all-lines;
         text-align-last: left;
         -moz-text-align-last: left;
         -webkit-text-align-last: left;
+        line-height: 2.1rem;
+        font-size: 1.3rem;
+        color: #707070;
       }
       ion-icon {
         font-size: 3rem;

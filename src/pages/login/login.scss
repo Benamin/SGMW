@@ -1,7 +1,13 @@
 page-login {
   .header-ios .toolbar-ios:last-child .toolbar-background-ios {
-    background-color: #f8f8f8;
+    background-color: #FFFFFF;
     border: 0.55px solid #f8f8f8;
+  }
+
+  .tips-login {
+    font-size: 1rem;
+    padding-top: 5px;
+    color: #e80b25;
   }
 
   .scroll-content {
@@ -57,7 +63,7 @@ page-login {
       margin-left: 10%;
       padding: 3px 8px;
       font-size: 1.2rem;
-      max-width: 35%;
+      max-width: 40%;
       text-align: center;
     }
   }
@@ -137,9 +143,12 @@ page-login {
 
       .checkCode {
         position: absolute;
-        top: 54%;
+        top: 50%;
+        width: 90px;
+        height: 30px;
         right: 25px;
         transform: translate(-25px, -50%);
+        overflow: hidden;
       }
     }
   }

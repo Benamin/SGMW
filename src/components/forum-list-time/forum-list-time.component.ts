@@ -5,6 +5,8 @@ import {ModalController, NavController} from "ionic-angular";
 import {ForumService} from "../../pages/forum/forum.service";
 import {PersonalCenterPage} from "../../pages/home/personal-center/personal-center";
 import {Storage} from "@ionic/storage";
+import {PostsContentComponent} from "../../pages/forum/posts-content/posts-content.component";
+import {ShareWxComponent} from "../share-wx/share-wx";
 
 declare var Wechat;
 
@@ -16,19 +18,33 @@ declare var Wechat;
 
 export class ForumListTimeComponent implements OnInit {
 
-    @Input() item;
     @Input() itemIndex;
     @Output() share = new EventEmitter();
     @Output() toPostList = new EventEmitter();
 
+    defaultImg = './assets/imgs/competition/fengmian@2x.png'
     defaultHeadPhoto = defaultHeadPhoto;
+    PosterList = [];
 
     constructor(public commonSer: CommonService, public navCtrl: NavController, private modalCtrl: ModalController, private storage: Storage, private serve: ForumService,) {
+    }
+
+    @Input() set followList(event) {
+        this.PosterList = event.map(e => {
+            e.PostTimeFormatted = this.commonSer.transFormTime(e.PostTimeFormatted);
+            return e;
+        })
     }
 
     ngOnInit() {
 
     }
+
+    //详情
+    goToDetail(item) {
+        this.navCtrl.push(PostsContentComponent, {data: item});
+    }
+
 
     //点赞
     handleLike(item, e) {
@@ -69,23 +85,30 @@ export class ForumListTimeComponent implements OnInit {
             thumb: thumb,
             webpageUrl: `${pcUrl}bbsdetails/${data.Id}`
         }
-
-        this.share.emit(obj);
-
-        // this.commonSer.weChatShare(obj)
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
+        modal.present();
     }
 
     //他人详情
     toPersonInfo(item) {
-			this.storage.get('user').then(value => {
-					if (item.Poster !== value.MainUserID) {
-						this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
-					}
-			});
+        this.storage.get('user').then(value => {
+            if (item.Poster !== value.MainUserID) {
+                this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
+            }
+        });
     }
 
     //话题列表
-    goToPostList(item){
+    goToPostList(item) {
         this.toPostList.emit(item);
+    }
+
+    getDuration(ev, item) {
+        let value = Math.ceil(ev.target.duration);
+        let minute = <any>Math.floor(value / 60);
+        let second = <any>(value % 60);
+        minute = minute > 9 ? minute : '0' + minute;
+        second = second > 9 ? second : '0' + second;
+        item.duration = minute + ':' + second
     }
 }

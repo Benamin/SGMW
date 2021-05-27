@@ -16,6 +16,15 @@
   }
 }
 
+.post-introduction {
+  margin: 0 15px;
+  padding: 0 15px;
+  background: #fff;
+  padding-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
 .post-introduction-top {
   display: flex;
   align-items: center;
@@ -30,11 +39,11 @@
   .share {
     position: absolute;
     top: 0;
-    right: 2rem;
+    right: 1rem;
 
     > img {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
     }
   }
 
@@ -104,6 +113,56 @@
     }
   }
 
+  .poster-box {
+    position: relative;
+    margin: 1rem auto;
+    width: 100%;
+    height: 19.7rem;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    text-align: center;
+
+    img.video-poster {
+      max-height: 20rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 99;
+    }
+
+    img.video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 4rem;
+      min-width: 4rem;
+      height: 4rem;
+      min-height: 4rem;
+      z-index: 100;
+    }
+
+    .mask {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 35.2rem;
+      height: 19.7rem;
+      background-color: rgb(0, 0, 0);
+      z-index: 9;
+    }
+
+    .mask + span {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      color: #fff;
+      z-index: 100;
+    }
+  }
+
   .img2 {
     div {
       width: 33%;
@@ -123,13 +182,14 @@
 
 .post-introduction-buttom {
   padding: 15px 0;
-  color: #757575;
+  color: #c9c9c9;
+  font-size: 12px;
   display: flex;
   align-items: center;
 
   img {
     width: 18px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   span:nth-child(1) {
@@ -143,7 +203,7 @@
     display: flex;
 
     img {
-      width: 22px !important;
+      width: 17px !important;
     }
   }
 
@@ -151,11 +211,19 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
+
+    img {
+      width: 15px !important;
+    }
   }
 
-  .p771_comment_like {
+  .comment_like {
     display: flex;
     align-items: center;
+
+    img {
+      width: 16px !important;
+    }
   }
 
   .share {
@@ -173,14 +241,14 @@
 
   .topicSpan {
     background: #D8D8D8;
-    border-radius: 9px;
+    border-radius: 20px;
     opacity: 0.5;
     font-size: 1rem;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     color: #000000;
-    padding: 0 .5rem;
-    height: 2rem;
+    padding: .3rem 1rem;
+    height: 2.5rem;
     line-height: 2rem;
     display: inline-block;
     margin-bottom: .5rem;
@@ -189,4 +257,5 @@
   .topicSpan + .topicSpan {
     margin-left: 1rem;
   }
+
 }

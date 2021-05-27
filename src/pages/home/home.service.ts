@@ -78,9 +78,13 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/area/getAreaCitys', data);
     }
 
-    //今日提醒
+    // 今日提醒
     GetTodayRemind() {
         return this.http.post(SERVER_API_URL + '/appStudyPlan/GetTodayRemind', {});
+    }
+    // 今日提醒-学习任务
+    GetTodayRemindMission() {
+        return this.http.post(SERVER_API_URL + '/AppStudyTask/FirstLoginHint', {});
     }
 
     // 岗位认证列表
@@ -149,13 +153,13 @@ export class HomeService {
         return this.http.post(SERVER_API_URL + '/exam/DealerExamDetailRanking', data);
     }
 
-    // 帖子排行榜 列表
+    // 动态排行榜 列表
     GetTopicCompetitionLists(data): Observable<any> {
         // searchrank
         return this.http.post(SERVER_API_URL + '/forum/post/GetPostLeaderboardByTopicTag', data);
     }
 
-    // 所有帖子 最新最热 列表
+    // 所有动态 最新最热 列表
     GetAllTopicLists(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/forum/post/searchrownum', data);
     }
@@ -400,5 +404,10 @@ export class HomeService {
     //
     AppSelectThemeActivity(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EThemeActivity/AppSelectThemeActivity', data);
+    }
+
+    // 猜你想问 常见问题
+    getCommonProblem(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EQuestionManagement/APPQueryQuestionItems', data);
     }
 }

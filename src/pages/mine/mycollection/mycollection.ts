@@ -81,7 +81,7 @@ export class MycollectionPage {
         )
     }
 
-   // 前往帖子详情
+   // 前往动态详情
    goPostsContent(data) {
     this.navCtrl.push(PostsContentComponent,{data:data});
   }

@@ -1,11 +1,13 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {LoadingController, NavController, NavParams, ToastController,} from "ionic-angular";
+import {ActionSheetController, LoadingController, NavController, NavParams, ToastController,} from "ionic-angular";
 import {ForumService} from "../forum.service";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import {CommonService} from "../../../core/common.service";
 import {ChooseTopicPage} from "../choose-topic/choose-topic";
 import {Keyboard} from "@ionic-native/keyboard";
+import {ChooseImageProvider} from "../../../providers/choose-image/choose-image";
+import {ShortVideoProvider} from "../../../providers/short-video/short-video";
 
 declare let ImagePicker;
 
@@ -19,7 +21,7 @@ export class PostAddComponent implements OnInit {
     data: string = "";
     lidata = {
         Id: "7051bb5e-8729-49f4-b95a-016d7d8474ce", // 板块id
-        postId: '',  // 帖子Id
+        postId: '',  // 动态Id
         Status: null
     };
     Title = "";
@@ -37,12 +39,26 @@ export class PostAddComponent implements OnInit {
     textareaLength = 100;
     leaveShow = true;
 
+    //视频
+    video = {
+        src: "",
+        poster: "",
+        isLoad: false,
+    };
+    CoverUrl = "";  //如果是视频 则上传封面
+    multiple: boolean | string = ""; // video=只选择视频 image=只选择图片
+
+    videoFiles;  //上传文件成功后的返回值
+
     constructor(
         private commonSer: CommonService,
         private navCtrl: NavController,
         private serve: ForumService,
         public navParams: NavParams,
         private keyboard: Keyboard,
+        private chooseImagePro: ChooseImageProvider,
+        private shortVideoPro: ShortVideoProvider,
+        private actionSheetCtrl: ActionSheetController,
         private loadCtrl: LoadingController,
         private zone: NgZone,
         private toastCtrl: ToastController
@@ -68,7 +84,6 @@ export class PostAddComponent implements OnInit {
                 });
         }
     }
-
 
 
     ngOnInit() {
@@ -196,7 +211,7 @@ export class PostAddComponent implements OnInit {
         }
     }
 
-    P_data = {
+    P_data = <any>{
         TopicItem: [],
         TopicTagItem: [],
     };
@@ -206,7 +221,7 @@ export class PostAddComponent implements OnInit {
         this.textareaLength = 100 - textareaImg.innerHTML.length > 0 ? 100 - textareaImg.innerHTML.length : 0;
     }
 
-    // 获取帖子信息
+    // 获取动态信息
     getData() {
         this.serve.forum_post_get({postId: this.lidata.postId}).subscribe((res: any) => {
             this.P_data = res.data;
@@ -231,6 +246,11 @@ export class PostAddComponent implements OnInit {
                         alt: e.alt,
                     })
                 }
+            }
+            if (this.P_data.IsVideo) {
+                this.CoverUrl = this.P_data.Pvideo.CoverUrl;
+                this.videoFiles = this.P_data.Pvideo.files;
+                this.multiple = "video";
             }
 
         });
@@ -287,10 +307,59 @@ export class PostAddComponent implements OnInit {
         if (innerText == '请输入正文') {
             textareaImg.innerText = "";
         }
+    }
 
-        let pic_selector: any = document.getElementById('pic_selector');
-        pic_selector.value = '';
-        pic_selector.click();
+    chooseVideo() {
+        if (this.multiple === "") {
+            let modal = this.actionSheetCtrl.create(
+                {
+                    buttons: [
+                        {
+                            text: '选择视频',
+                            role: '',
+                            handler: () => {
+                                let video_selector: any = document.getElementById('video_selector');
+                                video_selector.value = '';
+                                video_selector.click();
+                            }
+                        },
+                        {
+                            text: '选择图片',
+                            role: '',
+                            handler: () => {  //选择视频或者图片
+                                let image_selector: any = document.getElementById('image_selector');
+                                image_selector.value = '';
+                                image_selector.click();
+                            }
+                        },
+                        {
+                            text: '取消',
+                            role: 'cancel',
+                            handler: () => {
+                                return
+                            }
+                        },
+                    ]
+                }
+            )
+            modal.present();
+        }
+        if (this.multiple === "image") {
+            let image_selector: any = document.getElementById('image_selector');
+            image_selector.value = '';
+            image_selector.click();
+        }
+        if (this.multiple === "video") {
+            let video_selector: any = document.getElementById('video_selector');
+            video_selector.value = '';
+            video_selector.click();
+        }
+    }
+
+    selectCoverImage() {
+        let cover_selector: any = document.getElementById('cover_selector');
+        cover_selector.value = '';
+        cover_selector.click();
     }
 
     letfImgSrc = '';
@@ -298,11 +367,11 @@ export class PostAddComponent implements OnInit {
     addImgDom(insert_element, target_element) {
         let newDiv = document.createElement("div");
         newDiv.innerHTML = insert_element;
-        var parent = target_element.parentNode;
+        let parent = target_element.parentNode;
         //最后一个子节点 lastElementChild兼容其他浏览器 lastChild  兼容ie678;
-        var last_element = parent.lastElementChild || parent.lastChild;
+        let last_element = parent.lastElementChild || parent.lastChild;
         //兄弟节点同样也是有兼容性
-        var target_sibling = target_element.nextElementSibling || target_element.nextSibling;
+        let target_sibling = target_element.nextElementSibling || target_element.nextSibling;
         if (last_element == target_element) {//先判断目标节点是不是父级的最后一个节点，如果是的话，直接给父级加子节点就好
             parent.appendChild(newDiv);
         } else {//不是最好后一个节点  那么插入到目标元素的下一个兄弟节点之前（就相当于目标元素的insertafter）
@@ -390,8 +459,57 @@ export class PostAddComponent implements OnInit {
         })
     }
 
-    // 上传图片
-    uploadFile(event) {
+    // 上传视频或文件
+    uploadMultipleFile(event) {
+        let fileList: FileList = event.target.files;
+        let file = fileList[0];
+        let type = this.commonSer.ImageOrVideo(file.name);
+        this.multiple = type;
+        if (type === "image") {  //选择文件为图片
+            this.uploadImageFile(event)
+        }
+        if (type === "video") {   //选择文件是视频
+            if (file.size > 20971520) {
+                this.commonSer.alert('上传视频不能超过20M');
+                this.multiple = "";
+                return;
+            }
+            this.video.isLoad = true;
+            //本地预览
+            let url = URL.createObjectURL(file);
+            console.log(url);
+            let video = <any>document.getElementById("video_id");
+            video.src = url;
+            video.addEventListener('loadeddata', () => {
+                this.captureImage()
+            });
+
+            //上传服务器
+            this.uploadVideoFile(file);
+        }
+    }
+
+    //上传视频
+    uploadVideoFile(file) {
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        this.serve.UploadVideoFiles(formData).then((res: any) => {
+            console.log("videoFiles", res);
+            this.video.isLoad = false;
+            this.videoFiles = Object.assign(res.data, {
+                "icon": "MP4",
+                "filename": file.name,
+                "DisplayName": file.name,
+                "Size": file.size,
+                "fileUrl": res.data.Url,
+                "Description": "短视频",
+                "UploadWay": 0
+            });
+        });
+    }
+
+    //上传图片
+    uploadImageFile(event) {
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             const loading = this.loadCtrl.create({
@@ -425,6 +543,46 @@ export class PostAddComponent implements OnInit {
         }
     }
 
+    //上传视频封面
+    uploadVideoCover(event) {
+        let fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            const loading = this.loadCtrl.create({
+                content: '上传中...'
+            });
+            loading.present();
+            let formData: FormData = new FormData();
+            formData.append('file', fileList[0]);
+            this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                this.CoverUrl = res.data;
+                loading.dismiss();
+            });
+        }
+    }
+
+    //视频截图
+    captureImage() {
+        let video = <any>document.getElementById("video_id");
+        let canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth * 0.5;
+        canvas.height = video.videoHeight * 0.5;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // let img = document.createElement("img");
+        // img.src = canvas.toDataURL("image/png");
+        // img.width = 200;
+        // img.height = 120;
+        const blob = this.commonSer.base64ToBlob(canvas.toDataURL("image/png"));
+        const file = this.commonSer.blobToFile(blob, 'test');
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        this.serve.Upload_UploadFiles(formData).then((res: any) => {
+            console.log("CoverUrl", res.data);
+            this.CoverUrl = res.data;
+        });
+
+    };
+
     // 获取焦点
     htmlTextDle() {
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
@@ -435,7 +593,7 @@ export class PostAddComponent implements OnInit {
 
     }
 
-    // 过滤删除图片
+// 过滤删除图片
     ImgSome() {
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
         let textInnerHTML: any = textareaImg.innerHTML;
@@ -458,7 +616,7 @@ export class PostAddComponent implements OnInit {
         this.iseditImg = true;
     }
 
-    // 编辑图片完成
+// 编辑图片完成
     editPicturesOk() {
         this.editImg['alt'] = this.editImg['newalt'];
         let textareaImg: any = document.getElementById('textareaImg');
@@ -483,27 +641,30 @@ export class PostAddComponent implements OnInit {
     sevrData_click = false;
 
     sevrData(IsSaveAndPublish) {
-
         if (this.Title.length > 50) {
             this.serve.presentToast('标题不能超过50个字符');
             return;
+        }
+        if (this.multiple === "video" && this.video.isLoad) {
+            this.commonSer.alert("视频未上传完成 请稍后再试");
+            return
         }
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
         let textInnerHTML: any = textareaImg.innerHTML;
         let textInnerTEXT: any = textareaImg.innerText;
         console.log(textInnerTEXT);
         if (!this.Title || textInnerTEXT == '请输入正文' || textInnerTEXT.length < 1) {
-            this.serve.presentToast('请填写帖子或者内容');
+            this.serve.presentToast('请填写动态或者内容');
             return;
         }
 
         if (textInnerTEXT.length > 20000) {
-            this.serve.presentToast('帖子内容不能超过20000个字符');
+            this.serve.presentToast('动态内容不能超过20000个字符');
             return
         }
 
         if (this.ApplyEssence && (textInnerTEXT.length < 200 || this.imgitems.length === 0)) {
-            this.serve.presentToast('有图片且帖子字数大于200的才可以申请精华贴')
+            this.serve.presentToast('有图片且动态字数大于200的才可以申请精华贴')
             return
         }
 
@@ -524,18 +685,18 @@ export class PostAddComponent implements OnInit {
             }
         });
         if (TopicPlateIds.length == 0) {
-            return this.serve.presentToast('请选择帖子板块');
+            return this.serve.presentToast('请选择动态板块');
         }
         //话题非必选
         // if (TopicTagPlateIds.length == 0) {
-        //     return this.serve.presentToast('请选择帖子话题');
+        //     return this.serve.presentToast('请选择动态话题');
         // }
 
         this.loading = this.loadCtrl.create({
             content: '发布中...'
         });
         this.loading.present();
-        if (this.lidata.Status) { // 修改 草稿 帖子
+        if (this.lidata.Status) { // 修改 草稿 动态
             this.forum_post_edit(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds);
         } else {
             this.forum_post_add(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds);
@@ -543,13 +704,13 @@ export class PostAddComponent implements OnInit {
         this.sevrData_click = true;
     }
 
-    // 修改帖子
+// 修改动态
     forum_post_edit(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         let data = {
-            "Id": this.lidata.postId,//帖子编号
-            "Title": this.Title,//帖子标题
-            "TopicPlateId": this.lidata.Id,//帖子所属板块编号
-            "Content": textInnerHTML,//帖子内容
+            "Id": this.lidata.postId,//动态编号
+            "Title": this.Title,//动态标题
+            "TopicPlateId": this.lidata.Id,//动态所属板块编号
+            "Content": textInnerHTML,//动态内容
             "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,  //话题编号
@@ -559,7 +720,7 @@ export class PostAddComponent implements OnInit {
         this.serve.editforumtagpost(data).subscribe((res: any) => {
             if (res.code == 200) {
                 if (IsSaveAndPublish) {
-                    this.editImgOkText = '帖子发布成功';
+                    this.editImgOkText = '动态发布成功';
                 } else {
                     this.editImgOkText = '保存成功';
                 }
@@ -580,26 +741,28 @@ export class PostAddComponent implements OnInit {
     editImgOkText = "";
 
 
-    // 新增 或 保存草稿
+// 新增 或 保存草稿
     forum_post_add(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         this.addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds)
     }
 
-    // api/forum/post/addnewforumtagpost
     addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
         let data = {
             "IsSaveAndPublish": IsSaveAndPublish,//保持并发布
-            "Title": this.Title,//帖子标题
+            "Title": this.Title,//动态标题
+            "IsVideo": this.multiple === "video",
+            "CoverUrl": this.CoverUrl,
+            "files": this.videoFiles,
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,
-            "Content": textInnerHTML,//帖子内容
+            "Content": textInnerHTML,//动态内容
             "ApplyEssence": this.ApplyEssence  ////true为申请精华贴
         }
 
         this.serve.addnewforumtagpost(data).subscribe((res: any) => {
             if (res.code == 200) {
                 if (IsSaveAndPublish) {
-                    this.editImgOkText = '帖子发布成功';
+                    this.editImgOkText = '动态发布成功';
                 } else {
                     this.editImgOkText = '保存成功';
                 }
@@ -631,6 +794,7 @@ export class PostAddComponent implements OnInit {
         toast.present();//符合触发条件后立即执行显示。一定不能忘了这个
     }
 
+    //删除图片
     del_img(item, i) {
         this.imgitems.splice(i, 1);
         let textareaImg: any = document.getElementById('textareaImg');
@@ -638,15 +802,39 @@ export class PostAddComponent implements OnInit {
         let DivDom: any = textareaImg.querySelector(`div[src='${item.src}']`);
         ImgDom.parentNode.removeChild(ImgDom);
         DivDom.parentNode.removeChild(DivDom);
+        if (this.imgitems.length === 0) {
+            this.multiple = "";
+        }
+    }
+
+    //删除视频
+    del_video() {
+        this.multiple = "";
+        this.CoverUrl = "";
+        this.videoFiles = {};
     }
 
     deleteItem(index) {
         this.conversationDataSelection.splice(index, 1);
     }
 
-    //添加话题
+//添加话题
     addTopic() {
+        if (this.conversationDataSelection.length > 2) {
+            this.commonSer.alert("最多选择3个话题");
+            return
+        }
         this.navCtrl.push(ChooseTopicPage);
+    }
+
+    //playVideo
+    playVideo() {
+        let video = <any>document.getElementById("video_id");
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
     }
 
 }

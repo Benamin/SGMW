@@ -1,34 +1,46 @@
-<!-- <ion-header>
-    <ion-toolbar>
-			<ion-buttons left tappable (click)="goNavBack()">
-					<span class="cancel-btn">取消</span>
-			</ion-buttons>
-
-			<ion-title>我想提问</ion-title>
-
-			<ion-buttons right tappable (click)="submitAdd()">
-				<span class="sub-btn">提交</span>
-			</ion-buttons>
-		</ion-toolbar>
-</ion-header> -->
+<ion-header>
+	<ion-navbar>
+		<ion-title>猜你想问</ion-title>
+	</ion-navbar>
+</ion-header>
 <ion-content>
-	<div class="header-box" ion-fixed>
-		<span class="cancel-btn" (click)="$event.stopPropagation();goNavBack()">取消</span>
-		<span class="title">我想提问</span>
-		<span class="sub-btn" (click)="$event.stopPropagation();submitAdd()">提交</span>
+	<div class="top-box">
+		<span class="lists-title">常见问题</span>
+		<span class="all-btn" (click)="goWantToAsk()">全部问题</span>
 	</div>
-	<div class="title-box">
-		<ion-input type="text" placeholder="请输入标题" [(ngModel)]="page.Title" [ngModelOptions]="{standalone: true}"></ion-input>
-	</div>
+	<ul class="list-box">
+		<li *ngFor="let item of page.CommonProblemLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">
+			<div class="questions-box">
+				<span class="label">问</span>
+				<span class="text-questions">{{ item.QuestionDesc }}</span>
+			</div>
+			<div class="answers-box">
+				<span class="label">答</span>
+				<span class="text-answers">
+					<span *ngIf="item.QuestionReplyItems">
+						<span class="name">骏菱学社小助手：</span>
+						<span>{{ item.QuestionReplyItems.ReplyContent }}</span>
+					</span>
+					<span *ngIf="!item.QuestionReplyItems">暂无回答</span>
+				</span>
+			</div>
+		</li>
+	</ul>
+
 	<div class="ask-type-box">
-		<div class="ask-type-text">问题类型</div>
+		<div class="ask-type-text">反馈类型</div>
 		<div class="ask-type-items">
 			<div class="type-item" [ngClass]="{'actived': page.nowSelectAskType?.value === item.value}" *ngFor="let item of page.askTypeArr; let aTIndex = index" (click)="changeAskType(aTIndex)">{{ item.label }}</div>
 		</div>
 	</div>
 
+	<!--<div class="title-box">-->
+		<!--<ion-input type="text" placeholder="请输入问题标题" [(ngModel)]="page.Title" [ngModelOptions]="{standalone: true}"></ion-input>-->
+	<!--</div>-->
+
 	<div class="ask-content">
 		<textarea [(ngModel)]="page.questionDesc" class="content-area" placeholder="请输入问题内容…"></textarea>
+		<div class="upload-text">上传图片</div>
 		<div class="ask-pics-lists">
 			<div class="ask-pics-box" *ngFor="let imgItem of page.imgArr; let imgIndex = index">
 				<div class="mask"></div>
@@ -42,4 +54,5 @@
 		<div class="ask-pics-desc">最多4张图</div>
 	</div>
 
+	<div (click)="$event.stopPropagation();submitAdd()" class="sub-btn">提交</div>
 </ion-content>

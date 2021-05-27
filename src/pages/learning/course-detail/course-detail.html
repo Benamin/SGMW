@@ -30,8 +30,8 @@
                         </div>
                     </div>
                     <div class="course-desc" style="margin: 1rem auto;">
-                            <span>上架时间：{{product.detail?.PutawayTime | date:'yyyy-MM-dd'}}</span>
-                            <span *ngIf="product.detail?.FinishTime && product.detail?.FinishTime != '0001-01-01T00:00:00'">完成时间：{{product.detail?.FinishTime | date:'yyyy-MM-dd'}}</span>
+                        <span>上架时间：{{product.detail?.PutawayTime | date:'yyyy-MM-dd'}}</span>
+                        <span *ngIf="product.detail?.FinishTime && product.detail?.FinishTime != '0001-01-01T00:00:00'">完成时间：{{product.detail?.FinishTime | date:'yyyy-MM-dd'}}</span>
                     </div>
                     <div class="course-desc">
                         <span>
@@ -64,8 +64,8 @@
         </div>
         <div [hidden]="showHeader !== 'show'" class="process">
             <div class="out-process">
-                <span id="textProcess"></span>
-                <div id="innerProcess" class="inner-process">
+                <span [id]="'textProcess_'+elementId"></span>
+                <div [id]="'innerProcess_'+elementId" class="inner-process">
                 </div>
             </div>
         </div>
@@ -90,76 +90,80 @@
     </div>
     <div [hidden]="showHeader !== 'show'" [ngStyle]="{'margin-top': 256 + marginTop+'px'}" #space class="space"></div>
     <div [hidden]="showHeader !== 'show'" class="ionSlides" #ionSlidesDIV>
-            <div class="swiper-container swiper-course-container">
-                <div class="swiper-wrapper">
-                    <!--                <div class="swiper-slide swiper-no-swiping" *ngIf="StructureType == 1">-->
-                    <!--                    &lt;!&ndash;      简介      &ndash;&gt;-->
-                    <!--                    <div class="item">-->
-                    <!--                        <p>简介</p>-->
-                    <!--                        <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>-->
-                    <!--                    </div>-->
-                    <!--                </div>-->
-                    <div class="swiper-slide swiper-no-swiping">
-                        <!--      章节      -->
-                        <div id="chapter" class="item" style="min-height: 350px">
-                            <p (click)="showTips()">章节 <ion-icon name="information-circle-outline"></ion-icon></p>
-                            <page-chapter
-                                    [chapter]="product.chapter?.Course?.children"
-                                    [IsBuy]="product.detail?.IsBuy"
-                                    [StructureType]="StructureType"
-                                    [TeachTypeName]="product.detail?.TeachTypeName"
-                            ></page-chapter>
+        <div class="swiper-container swiper-course-container">
+            <div class="swiper-wrapper">
+                <!--                <div class="swiper-slide swiper-no-swiping" *ngIf="StructureType == 1">-->
+                <!--                    &lt;!&ndash;      简介      &ndash;&gt;-->
+                <!--                    <div class="item">-->
+                <!--                        <p>简介</p>-->
+                <!--                        <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--      章节      -->
+                    <div id="chapter" class="item" style="min-height: 350px">
+                        <p (click)="showTips()">章节
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                        </p>
+                        <page-chapter
+                                [chapter]="product.chapter?.Course?.children"
+                                [IsBuy]="product.detail?.IsBuy"
+                                [StructureType]="StructureType"
+                                [TeachTypeName]="product.detail?.TeachTypeName"
+                        ></page-chapter>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--      讨论      -->
+                    <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
+                        <comment-star (flashData)="GetCommentData();getCourseDetail()"
+                                      [IsComment]="product.detail?.IsComment" #commentStar></comment-star>
+                        <p style="margin-top: 1rem"
+                           class="first-child">{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论 <span
+                                style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{talkObj?.TotalCount || 0}}
+                            )</span></p>
+                        <page-comment-list
+                                [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
+                        <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
+                            <ion-spinner icon="spiral"></ion-spinner>
+                            正在加载
+                        </div>
+                        <div class="no-comment" *ngIf="comment.talk.length == 0">
+                            <ion-list text-center style="margin-top: 40px">
+                                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                                <p style="color: #666666;font-size: 13px">
+                                    暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
+                            </ion-list>
                         </div>
                     </div>
-                    <div class="swiper-slide swiper-no-swiping">
-                        <!--      讨论      -->
-                        <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
-                            <comment-star (flashData)="GetCommentData();getCourseDetail()" [IsComment]="product.detail?.IsComment" #commentStar></comment-star>
-                            <p style="margin-top: 1rem"
-                               class="first-child">{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论 <span
-                                    style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{talkObj?.TotalCount || 0}})</span></p>
-                            <page-comment-list
-                                    [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
-                            <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
-                                <ion-spinner icon="spiral"></ion-spinner>
-                                正在加载
-                            </div>
-                            <div class="no-comment" *ngIf="comment.talk.length == 0">
-                                <ion-list text-center style="margin-top: 40px">
-                                    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                                    <p style="color: #666666;font-size: 13px">
-                                        暂无{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论，快去发一条吧～</p>
-                                </ion-list>
-                            </div>
-                        </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--            相关-->
+                    <div class="item" style="margin-bottom: 5rem">
+                        <p>相关推荐</p>
+                        <course-list [list]="relationList" (done)="goCourse($event)"></course-list>
                     </div>
-                    <div class="swiper-slide swiper-no-swiping">
-                        <!--            相关-->
-                        <div class="item" style="margin-bottom: 5rem">
-                            <p>相关推荐</p>
-                            <course-list [list]="relationList" (done)="goCourse($event)"></course-list>
-                        </div>
-                    </div>
-                    <div class="swiper-slide swiper-no-swiping">
-                        <!--我的同学-->
-                        <div #ClassmateContent class="item" style="margin-bottom: .5rem">
-                            <classmate [List]="classmate.obj.List"
-                                       [ThenUserTotal]=classmate.obj.ThenUserTotal
-                                       [AnswerUserTotal]=classmate.obj.AnswerUserTotal></classmate>
-                            <div *ngIf="classmate.obj.isLoad" class="loading-classmate-spinner">
-                                <ion-spinner icon="spiral"></ion-spinner>
-                                正在加载
-                            </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping">
+                    <!--我的同学-->
+                    <div #ClassmateContent class="item" style="margin-bottom: .5rem">
+                        <classmate [List]="classmate.obj.List"
+                                   [ThenUserTotal]=classmate.obj.ThenUserTotal
+                                   [AnswerUserTotal]=classmate.obj.AnswerUserTotal></classmate>
+                        <div *ngIf="classmate.obj.isLoad" class="loading-classmate-spinner">
+                            <ion-spinner icon="spiral"></ion-spinner>
+                            正在加载
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     <div [hidden]="showHeader !== 'show'" *ngIf="bar.type == 2" (click)="openTalk()" class="comment-fixed" ion-fixed>
-            <div>
-                去讨论
-            </div>
+        <div>
+            去讨论
         </div>
+    </div>
 </ion-content>
 <div *ngIf="isError" class="score" tappable ion-fixed (click)="isError = false; $event.stopPropagation();">
     <div class="content" style="width: 60%">

@@ -1,7 +1,10 @@
 <ion-header>
     <ion-navbar>
+        <ion-buttons start>
+            <span class="nav-title">课程分类</span>
+        </ion-buttons>
         <form class="search-header" action="#">
-            <ion-icon class="search-icon" name="search"></ion-icon>
+            <img class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
             <ion-input type="search" placeholder="搜索课程" (keypress)="search($event)" (focus)="showKey()"
                        autocomplete='off'
                        [(ngModel)]="keyWord" [ngModelOptions]="{standalone: true}"></ion-input>
@@ -16,12 +19,14 @@
     <div class="container-type">
         <div class="left">
             <p (click)="changeType(item)" [ngClass]="{'left-actived':item.value == rightList.value}"
-               *ngFor="let item of typeList">{{item.label}}</p>
+               *ngFor="let item of typeList">
+                <span>{{item.label}}</span>
+            </p>
         </div>
         <div class="right">
             <div *ngFor="let ch of rightList.children">
-                <p class="ch" (click)="goToList(ch.value,ch.label)">{{ch.label}}
-                    <ion-icon name="arrow-forward"></ion-icon>
+                <p class="ch" (click)="goToList(ch.value,ch.label)">
+                    {{ch.label}}<!--<ion-icon name="arrow-forward"></ion-icon>-->
                 </p>
                 <p class="ch2">
                     <span [ngClass]="{'right-actived':ch2.value == rightActived}" *ngFor="let ch2 of ch.children"

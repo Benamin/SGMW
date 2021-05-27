@@ -130,6 +130,7 @@ export class ShortVideoProvider {
         this.Camera.getPicture(option).then((videoData) => {
             let filePath = videoData.startsWith("file://") ? videoData : "file://" + videoData;
             this.file.resolveLocalFilesystemUrl(filePath).then((fileEntry: FileEntry) => {
+                console.log("fileEntry",fileEntry)
                 return new Promise((resolve, reject) => {
                     fileEntry.file(meta => resolve(meta), error => reject(error));
                 });
@@ -154,7 +155,7 @@ export class ShortVideoProvider {
      * 上传文件 【视频】
      * @param mediaFile
      */
-    // 【resp】=>
+    // 【resp】=>e
     // AssetId:"nb:cid:UUID:c7a84183-07bc-4f34-b607-912b29cc09fa"
     // DownloadUrl:"https://devstorgec.blob.core.chinacloudapi.cn/asset-c7a84183-07bc-4f34-b607-912b29cc09fa/VID_20200323_111446.mp4?sv=2018-03-28&sr=b&sig=ds86zkaBbVXIDDx5KzPMLNX6xxb1GrQ8o2slCHZG5PM%3D&se=2030-03-23T03%3A15%3A40Z&sp=rcw"
     // Imgurl:"https://devstorgec.blob.core.chinacloudapi.cn/asset-f15e6c34-b6b1-4717-8ac0-4dfad2d43b5a/VID_20200323_111446_000001.jpg?sv=2017-04-17&sr=c&si=6bed0a50-3f07-42ec-acc5-bb4e0376f44c&sig=doTiLv1%2BL3KmqLcD8iU2QK7S8cGBb%2B6Zjm2K6HVma68%3D&se=2020-04-02T03%3A16%3A37Z"

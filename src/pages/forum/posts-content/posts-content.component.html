@@ -1,11 +1,6 @@
 <ion-header>
     <ion-navbar>
         <ion-title>{{lidata?.Name}}</ion-title>
-        <ion-buttons *ngIf="isShow" end (click)="handleReport()">
-            <button class="icon-more">
-                <ion-icon name="more"></ion-icon>
-            </button>
-        </ion-buttons>
     </ion-navbar>
 </ion-header>
 <ion-content>
@@ -18,18 +13,28 @@
                 <p>{{dataCon?.PosterUserName}}</p>
                 <p *ngIf="dataCon.System">{{dataCon?.System}}</p>
             </div>
-            <div class="oldDate">{{dataCon.PostRelativeTime}}</div>
+            <div class="oldDate">{{dataCon.PostTimeFormatted}}</div>
         </div>
         <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content | lineFeed'>
         </div>
+        <div class="videoBox" *ngIf="dataCon?.Pvideo">
+            <span *ngIf="dataCon?.Pvideo?.EncodeState === 1">转码中</span>
+            <span *ngIf="dataCon?.Pvideo?.EncodeState === 2">转码完成</span>
+            <span *ngIf="dataCon?.Pvideo?.EncodeState === -1">转码失败</span>
+            <video id="videoPoster" class="video-js sgmw-video-js"
+                   playsinline="true" webkit-playsinline="true"
+                   width="100%" height="100%" controls preload="auto"
+                   [poster]="dataCon.Pvideo?.CoverUrl">
+            </video>
+        </div>
         <div class="type-label">
-      <span class="Topic-PlateName">
-        {{dataCon.TopicPlateName}}
-      </span>
+          <span class="Topic-PlateName">
+            {{dataCon.TopicPlateName}}
+          </span>
             <span class="eye">
-        <img src="./assets/imgs/forum/other/eye.png" alt="">
+                <img src="./assets/imgs/forum/other/eye.png" alt="">
                 {{dataCon.ViewCount}}
-      </span>
+              </span>
             <span class="share" (click)="wxShare(dataCon);$event.stopPropagation()">
         <img src="./assets/imgs/forum/other/share.png" alt="">
         分享
@@ -127,22 +132,22 @@
 
 </ion-footer>
 
-<div  style="  z-index: 99;
+<div style="  z-index: 99;
 width: 100%;
 height: 100%;
 top: 0;
-position: fixed;      background: #000;  overflow: auto; " *ngIf="showImg"  >
-<div #panel class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let image of vm.images">
-        <div class="swiper-zoom-container">
-          <img data-src="{{image}}" class="swiper-lazy">
+position: fixed;      background: #000;  overflow: auto; " *ngIf="showImg">
+    <div #panel class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let image of vm.images">
+                <div class="swiper-zoom-container">
+                    <img data-src="{{image}}" class="swiper-lazy">
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="swiper-pagination"></div>
     </div>
-    <div class="swiper-pagination"></div>
-  </div>
-  <div style="    position: fixed;
+    <div style="    position: fixed;
   bottom: 0;
   z-index: 99;
   padding-bottom: 20px;
@@ -153,5 +158,5 @@ position: fixed;      background: #000;  overflow: auto; " *ngIf="showImg"  >
   <span (click)="photoLibraryDown()">
     <img src="./assets/imgs/forum/other/download.png" style="width: 30px;">
 </span>
-  </div>
+    </div>
 </div>

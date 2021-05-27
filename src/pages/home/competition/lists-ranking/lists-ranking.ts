@@ -72,7 +72,7 @@ export class ListsRankingPage {
                 return this.homeSer.GetExamList(data)
             };
         } else if (this.page.checkType === this.page.navliArr[1].lable) {
-            // 帖子排行榜
+            // 动态排行榜
             this.page.getListsApi = (data) => {
                 return this.homeSer.GetDealerExamList(data)
             };

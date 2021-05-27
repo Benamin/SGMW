@@ -7,10 +7,10 @@
        <div class="item-desc">
          <p>{{item?.Title}}</p>
          <div class="desc">
-           <span><img style="width: 16px;" src="./assets/imgs/learn/person_gray@2x.png" alt="">{{item?.ManCount}}</span>
-           <span><img src="./assets/imgs/course/hua_h@2x.png" alt="">{{item?.ZanCount}}</span>
-           <span><img src="./assets/imgs/learn/collect@2x.png" alt="">{{item?.CollectionCount}}</span>
-           <span (click)="$event.stopPropagation();wxShare(item)"> <img src="./assets/imgs/forum/other/share.png" style="opacity: 0.5;" alt="">
+           <span><img style="width: 17px;" src="./assets/imgs/new_version/home/icon-count.png" alt="查看">{{item?.ManCount}}</span>
+           <span><img style="width: 16px;" src="./assets/imgs/new_version/home/icon-like.png" alt="点赞">{{item?.ZanCount}}</span>
+           <span><img src="./assets/imgs/new_version/home/icon-love.png" alt="收藏">{{item?.CollectionCount}}</span>
+           <span style="margin-left: auto;" (click)="$event.stopPropagation();wxShare(item)"> <img src="./assets/imgs/new_version/home/icon-share.png" style="width: 1.3rem;opacity: 0.5;" alt="分享">
           </span>
          </div>
        </div>

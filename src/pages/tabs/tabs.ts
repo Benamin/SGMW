@@ -11,6 +11,7 @@ import {StudyPlanPage} from "../home/study-plan/study-plan";
 import {GlobalData} from "../../core/GlobleData";
 import {LoginService} from "../login/login.service";
 import {CommonService} from "../../core/common.service";
+import {MineService} from "../mine/mine.service";
 import {Storage} from "@ionic/storage";
 import {PrivacyComponent} from "../../components/privacy/privacy";
 import {VideoListsPage} from "../home/short-video/video-lists/video-lists";
@@ -19,6 +20,7 @@ import {PostsContentComponent} from "../forum/posts-content/posts-content.compon
 import {ThemeActivityPage} from "../home/theme-activity/theme-activity";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
 import {NotificationPage} from "../mine/notification/notification";
+import {EditPage} from "../home/competition/edit/edit";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -32,6 +34,7 @@ export class TabsPage {
 
     userInfo;
     userInfoByCardNo;
+    tabBadgeNum=0
 
     tabRoots = [
         {
@@ -91,7 +94,14 @@ export class TabsPage {
                 private modalCtrl: ModalController,
                 private loadCtrl: LoadingController,
                 private commonSer: CommonService,
+                private mineSer: MineService,
                 private events: Events, private nav: NavController, private tabSer: TabService) {
+        // 订阅改变事件
+        this.events.subscribe('messageTabBadge:change', (tabBadgeNum) => {
+            // console.log(66666, tabBadgeNum)
+            this.getNew();
+        });
+
         this.storage.get('user').then(value => {
             if (value && value.MainUserID) {
                 this.getUserInfo();
@@ -112,7 +122,8 @@ export class TabsPage {
 
         this.tabSer.tabChange.subscribe((value) => {
             this.tabParams = value;
-            this.myTabs.select(value.index)
+            this.myTabs.select(value.index);
+
         });
         this.listenEvents();
     }
@@ -278,5 +289,21 @@ export class TabsPage {
     resetLogin() {
         this.storage.clear();
         this.nav.setRoot(LoginPage);
+    }
+
+    //查询消息
+    getNew() {
+        const data = {
+            "Type": 0,
+            "Page": 1,
+            "PageSize": 99,
+        };
+        this.mineSer.GetUnReadUserNewsList(data).subscribe(
+            (res) => {
+                if (res.data.NewsList) {
+                    res.data.NewsList.length > 99 ? this.tabBadgeNum = 99 : this.tabBadgeNum = res.data.NewsList.length;
+                }
+            }
+        )
     }
 }
