@@ -84,7 +84,7 @@
                                 </ng-container>
                                 <!--多选题-->
                                 <ng-container *ngIf="item.QType == 2">
-                                    <p *ngIf="item.ChoiceA">
+                                    <p *ngIf="item.ChoiceA" [ngClass]="{'active': item.StuAnswer.includes('A')}">
                                         <label>
                                             <input type="checkbox" [checked]="item.StuAnswer.includes('A')"
                                                    (change)="mutiSelect(i,'A')"
@@ -93,7 +93,7 @@
                                             {{item.ChoiceA}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceB">
+                                    <p *ngIf="item.ChoiceB" [ngClass]="{'active': item.StuAnswer.includes('B')}">
                                         <label>
                                             <input type="checkbox" [checked]="item.StuAnswer.includes('B')"
                                                    (change)="mutiSelect(i,'B')"
@@ -102,7 +102,7 @@
                                             {{item.ChoiceB}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceC">
+                                    <p *ngIf="item.ChoiceC" [ngClass]="{'active': item.StuAnswer.includes('C')}">
                                         <label>
                                             <input type="checkbox" [checked]="item.StuAnswer.includes('C')"
                                                    (change)="mutiSelect(i,'C')"
@@ -111,7 +111,7 @@
                                             {{item.ChoiceC}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceD">
+                                    <p *ngIf="item.ChoiceD" [ngClass]="{'active': item.StuAnswer.includes('D')}">
                                         <label>
                                             <input type="checkbox" [checked]="item.StuAnswer.includes('D')"
                                                    (change)="mutiSelect(i,'D')"
@@ -120,7 +120,7 @@
                                             {{item.ChoiceD}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceE">
+                                    <p *ngIf="item.ChoiceE" [ngClass]="{'active': item.StuAnswer.includes('E')}">
                                         <label>
                                             <input type="checkbox" [checked]="item.StuAnswer.includes('E')"
                                                    (change)="mutiSelect(i,'E')"
@@ -129,7 +129,7 @@
                                             {{item.ChoiceE}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceF">
+                                    <p *ngIf="item.ChoiceF" [ngClass]="{'active': item.StuAnswer.includes('F')}">
                                         <label>
                                             <input type="checkbox" [checked]="item.StuAnswer.includes('F')"
                                                    (change)="mutiSelect(i,'F')"
@@ -138,7 +138,7 @@
                                             {{item.ChoiceF}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceG">
+                                    <p *ngIf="item.ChoiceG" [ngClass]="{'active': item.StuAnswer.includes('G')}">
                                         <label>
                                             <input type="checkbox" [checked]="item.StuAnswer.includes('G')"
                                                    (change)="mutiSelect(i,'G')"
@@ -155,7 +155,7 @@
                                 </ng-container>
                                 <!--判断题-->
                                 <ng-container *ngIf="item.QType == 3">
-                                    <p>
+                                    <p [ngClass]="{'active': item.StuAnswer == '1'}">
                                         <label>
                                             <input [(ngModel)]="item.StuAnswer" [name]="item.QnAID" value="1"
                                                    type="radio">
@@ -163,7 +163,7 @@
                                             正确
                                         </label>
                                     </p>
-                                    <p>
+                                    <p [ngClass]="{'active': item.StuAnswer == '0'}">
                                         <label>
                                             <input [(ngModel)]="item.StuAnswer" [name]="item.QnAID" value="0"
                                                    type="radio">
