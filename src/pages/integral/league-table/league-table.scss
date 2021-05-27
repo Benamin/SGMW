@@ -1,4 +1,52 @@
 league-table {
+  .scroll-content{
+    margin-bottom: 50px;
+  }
+  .myrank{
+    padding: 15px;
+    background:linear-gradient(to right,#fdf0da,#ffe6c6);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .myrankleft{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 60%;
+      display: -webkit-flex; /* Safari */
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      dt{
+        width: 30px;
+        height: 30px;
+        img{
+          display: block;
+          width: 100%;
+        }
+      }
+      dd{
+        margin-left: 20px;
+        h3{
+          font-size: 1.9rem;
+          color: #A35818;
+          margin-top: 1rem;
+        }
+        p{
+          color: #DEB188;
+          font-size: 1.6rem;
+        }
+      }
+    }
+    .myrankright{
+      color: #000000;
+      font-size: 1.6rem;
+    }
+  }
   .nav-type {
     display: flex;
     margin: 0;
