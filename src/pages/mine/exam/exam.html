@@ -4,13 +4,13 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingText="下拉刷新"
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <navbar [list]="navbarList" [select]="'4'" (done)="changeType($event)"></navbar>
+    <navbar ion-fixed [list]="navbarList" class="exam-type" [select]="'4'" (done)="changeType($event)"></navbar>
     <div class="exam">
         <ng-container *ngIf="type == '4'">
             <ng-container *ngFor="let item of exam.no">
@@ -38,7 +38,7 @@
         </ng-container>
         <ng-container *ngIf="type == '8'">
             <ng-container *ngFor="let item of exam.done">
-                <div class="space"></div>
+                <!-- <div class="space"></div> -->
                 <div class="item" tappable (click)="goExam(item)">
                     <span class="revert" *ngIf="item.ExamStatus == 4">重新答题</span>
                     <p class="courseName">{{item.CourseName}}</p>
