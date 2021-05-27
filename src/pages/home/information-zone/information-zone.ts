@@ -1,10 +1,13 @@
 import {Component} from '@angular/core';
-import {ActionSheetController, LoadingController, NavController} from 'ionic-angular';
+import {ActionSheetController, LoadingController, NavController, Platform} from 'ionic-angular';
 import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 import {FileService} from "../../../core/file.service";
 import {timer} from "rxjs/observable/timer";
 import {InformationDownloadPage} from "../information-download/information-download";
+import {File} from "@ionic-native/file";
+import {CommonService} from "../../../core/common.service";
+import {FileOpener} from "@ionic-native/file-opener";
 
 
 @Component({
@@ -21,25 +24,21 @@ export class InformationZonePage {
         isLoad: false,
         resourceLists: [],
         FileType: null,
-        typeArr: [
-            // { label: '全部类型', value: null },
-            // { label: 'Docx', value: 'doc' },
-            // { label: 'PDF', value: 'pdf' },
-            // { label: 'Xls', value: 'xlsx' },
-            // { label: 'PPT', value: 'pptx' },
-            // { label: 'ZIP', value: 'zip' }
-        ]
+        typeArr: []
     };
 
-    constructor(public navCtrl: NavController, private keyboard: Keyboard, private homeSer: HomeService, private loadCtrl: LoadingController, private fileSer: FileService, public actionSheetCtrl: ActionSheetController,) {
+    localFile = [];
+    localFileName = [];
+
+    constructor(public navCtrl: NavController, private keyboard: Keyboard, private fileOpener: FileOpener,
+                public platform: Platform, private file: File, public commonSer: CommonService,
+                private homeSer: HomeService, private loadCtrl: LoadingController, private fileSer: FileService, public actionSheetCtrl: ActionSheetController,) {
 
     }
 
-    // ionViewDidEnter() {
-    //   this.getList();
-    // }
     ionViewDidLoad() {
         this.page.resourceLists = [];
+        this.readLocalFile();
         this.GetAskType();
     }
 
@@ -59,13 +58,6 @@ export class InformationZonePage {
         };
         this.homeSer.GetAskType(data).subscribe(
             (res) => {
-                // let allType = {label: '全部类型', value: null};
-                // let typeArr = [allType];
-                // if (res.data && res.data.length > 0) {
-                //     for (let i = 0; i < res.data.length; i++) {
-                //         typeArr.push(res.data[i])
-                //     }
-                // }
                 this.page.typeArr = res.data;
                 this.page.FileType = this.page.typeArr[0];
                 this.switchTypeLists(this.page.FileType)
@@ -92,7 +84,7 @@ export class InformationZonePage {
 
     setSuffixClass(fileName) {
         let suffix = fileName.substr(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase();
-        ; // 后缀名
+        // 后缀名
         // let suffixArr = ['Docx', 'PDF', 'Xls', 'PPT', 'ZIP']
         let suffixClass: Object = {'no': 'true'}
         let suffixText = '';
@@ -133,6 +125,7 @@ export class InformationZonePage {
         if (this.page.FileType && this.page.FileType.value !== null) dataObj = Object.assign({}, dataObj, {FileTypeId: this.page.FileType.value}); // 判断是否全部类型
         this.homeSer.GetQueryMaterialFile(dataObj).subscribe(
             (res) => {
+                this.readLocalFile();
                 this.page.resourceLists = this.DataAssign(res.data);
                 this.page.isLoad = true;
                 loading.dismiss();
@@ -182,9 +175,12 @@ export class InformationZonePage {
     }
 
     //下载文件
-    downLoad(item,e) {
+    downLoad(item, e) {
         e.stopPropagation();
-        this.fileSer.downloadFile(item.FileAddress, item.Name, false);
+        const obj = this.setSuffixClass(item.Name);
+        const fileName = item.DIsplayName + "." + obj.suffixText;
+        this.fileSer.downloadFile(item.FileAddress, fileName, false);
+        this.readLocalFile();
     }
 
     // 切换类型
@@ -193,4 +189,49 @@ export class InformationZonePage {
         this.getList();
     }
 
+    //读取本地文件
+    readLocalFile() {
+        let storageDirectory;
+        let folderName;
+        if (this.platform.is('ios')) {
+            storageDirectory = this.file.dataDirectory;
+            let arr = storageDirectory.split('/');
+            let index = arr.length;
+            let b = arr.splice(index - 2, 2);
+            folderName = b.join('/');
+            storageDirectory = arr.join('/');
+        } else if (this.platform.is('android')) {
+            // storageDirectory = file.externalDataDirectory + 'courseFile/';
+            folderName = "sgmw/"
+            storageDirectory = this.file.externalRootDirectory;
+        }
+
+        this.file.listDir(storageDirectory, folderName).then(
+            value => {
+                this.localFile = value.concat([]);
+                this.localFileName = value.map(e => {
+                    const name = e.name.split(".")[0];
+                    return name;
+                })
+                console.log(value);
+            }).catch(error => {
+            this.localFile = [];
+            console.log("error", error)
+        })
+    }
+
+    //打开本地文件
+    openFile(item) {
+        const obj = this.setSuffixClass(item.Name);
+        const fileName = item.DIsplayName + "." + obj.suffixText;
+        const file = this.localFile.find(e => e.name === fileName);
+        if (file) {
+            const fileType = this.fileSer.getFileMimeType(file.name);
+            this.fileOpener.open(file.nativeURL, fileType).then(res => {
+                console.log(JSON.stringify(res));
+            }, error => {
+                this.commonSer.alert(`打开文件出错,${JSON.stringify(error)}`);
+            });
+        }
+    }
 }

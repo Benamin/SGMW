@@ -15,8 +15,10 @@ import {FileOpener} from "@ionic-native/file-opener";
 export class InformationDownloadPage {
     storageDirectory;
     folderName;
-    fileList = [];
+    allList = <any>[];
+    fileList = <any>[];
     isLoad = false;
+    keyWord = "";
 
     constructor(public navCtrl: NavController, private keyboard: Keyboard,
                 private platform: Platform, private file: File, private commonSer: CommonService,
@@ -47,10 +49,13 @@ export class InformationDownloadPage {
         console.log(this.storageDirectory);
         this.file.listDir(this.storageDirectory, this.folderName).then(
             value => {
-                this.fileList = value;
+                this.allList = value.concat([]);
+                this.fileList = value.concat([]);
                 this.isLoad = true;
                 console.log(value);
             }).catch(error => {
+            this.fileList = [];
+            this.allList = [];
             console.log("error", error)
         })
     }
@@ -66,5 +71,18 @@ export class InformationDownloadPage {
 
     showKey() {
         this.keyboard.show();
+    }
+
+    //按键
+    search(event) {
+        if (event && event.keyCode == 13) {
+            this.doSearch();
+        }
+    }
+
+    doSearch() {
+        const arr = this.allList.filter(e => e.name.includes(this.keyWord));
+        this.fileList = arr.concat([]);
+        this.isLoad = true;
     }
 }

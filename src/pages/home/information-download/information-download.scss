@@ -16,7 +16,7 @@ page-information-download {
     }
   }
 
-  .search-header{
+  .search-header {
     background-color: #F8F8F8;
     display: flex;
     flex-direction: row;
@@ -26,6 +26,7 @@ page-information-download {
     width: 100%;
     padding: 1rem;
     position: relative;
+
     .input-box {
       padding: 0.8rem 0;
       width: 100%;
@@ -34,19 +35,22 @@ page-information-download {
       background-color: #FFFFFF;
       border-radius: 0.5rem;
     }
-    .search-icon{
+
+    .search-icon {
       margin-left: 1.4rem;
       margin-right: 0.6rem;
       width: 1.8rem;
       height: 1.8rem;
     }
-    ion-input, ion-textarea{
+
+    ion-input, ion-textarea {
       box-sizing: border-box;
       color: #B2B2B2;
       border-radius: 100px;
       //padding-left: 35px;
       //margin-left: 20px;
     }
+
     ion-input {
       .text-input-ios {
         margin: 0;
@@ -67,6 +71,7 @@ page-information-download {
     overflow-x: scroll;
     overflow-y: hidden;
     background-color: #f8f8f8;
+
     ul {
       margin: 0;
       padding: 0;
@@ -76,6 +81,7 @@ page-information-download {
       align-items: center;
       flex-wrap: nowrap;
       list-style: none;
+
       li {
         margin-right: 1.5rem;
         height: 2.3rem;
@@ -87,12 +93,14 @@ page-information-download {
         display: flex;
         align-items: center;
         justify-content: center;
+
         &.actived {
           color: #FFFFFF;
           background-color: #f88777;
           border: 1px solid #f88777;
         }
       }
+
       .end-box {
         min-width: 0.5rem;
         height: 1rem;
@@ -101,12 +109,14 @@ page-information-download {
       }
     }
   }
+
   .file-lists {
     margin: 0;
     padding: 0;
     margin-bottom: 10px;
     list-style: none;
     background-color: #FFFFFF;
+    margin-top: 5rem;
 
     li {
       position: relative;
@@ -114,13 +124,15 @@ page-information-download {
       margin-bottom: 1px;
       padding: 1.5rem 0 0.7rem;
       border-bottom: 1px solid #DEDEDE;
+
       &:last-child {
         border: none;
       }
+
       .open-file-btn {
         position: absolute;
         top: 3rem;
-        right: 2rem;
+        right: 1rem;
         width: 5.2rem;
         height: 2.3rem;
         line-height: 2.3rem;
@@ -133,13 +145,20 @@ page-information-download {
 
       .title {
         margin-bottom: 1rem;
-        height: 22px;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         font-weight: bold;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        p:last-child {
+          margin-top: 1rem;
+          color: #666666;
+          font-size: 1.3rem;
+          font-weight: normal;
+        }
       }
+
       .upload-time {
         margin-left: auto;
         margin-right: 12px;
@@ -147,22 +166,26 @@ page-information-download {
         font-size: 13px;
         color: #9D9D9E;
       }
+
       .flex-box {
         display: flex;
         align-items: center;
         justify-content: space-between;
         color: #474747;
+
         .author {
           display: flex;
           align-items: center;
 
           font-size: 1.2rem;
+
           .avatar {
             margin-right: 0.5rem;
             width: 2.5rem;
             height: 2.5rem;
           }
         }
+
         .type-info {
           margin-right: 3rem;
           padding: 0 0.8rem;
@@ -173,13 +196,16 @@ page-information-download {
           display: flex;
           align-items: center;
           justify-content: center;
+
           span {
             margin-right: 0.4rem;
           }
         }
+
         .download-btn {
           margin-right: 1.9rem;
           font-size: 1.2rem;
+
           img {
             display: block;
             margin-bottom: 0.5rem;
@@ -194,18 +220,23 @@ page-information-download {
           padding: 3px 5px;
           border-radius: 3px;
         }
+
         .docx-bg {
           color: #2D7CE8;
         }
+
         .pdf-bg {
           color: #E47E7B;
         }
+
         .xls-bg {
           color: #12AB70;
         }
+
         .ppt-bg {
           color: #EC5C52;
         }
+
         .zip-bg {
           color: #4D087C;
         }
@@ -218,5 +249,52 @@ page-information-download {
     color: #333333;
     padding: .5rem 1rem;
     font-size: 1.2rem;
+  }
+
+  .search-header {
+    background-color: #F8F8F8;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem;
+    position: relative;
+
+    .input-box {
+      padding: 0.8rem 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background-color: #FFFFFF;
+      border-radius: 0.5rem;
+    }
+
+    .search-icon {
+      margin-left: 1.4rem;
+      margin-right: 0.6rem;
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+
+    ion-input, ion-textarea {
+      box-sizing: border-box;
+      color: #B2B2B2;
+      border-radius: 100px;
+      //padding-left: 35px;
+      //margin-left: 20px;
+    }
+
+    ion-input {
+      .text-input-ios {
+        margin: 0;
+        height: 1.5rem;
+        background: rgba(255, 255, 255, 1);
+        // margin: 8px;
+        // padding-left: 15px;
+        width: calc(100% - 2.3rem);
+      }
+    }
   }
 }

@@ -5,16 +5,33 @@
 </ion-header>
 <ion-content>
     <!--<p class="downloadTips">Tips：下载的资料:安卓手机存储在根目录的sgmw文件夹目录下，苹果手机视频存储在相册内的sgmw文件夹下</p>-->
+    <div ion-fixed style="width: 100%;">
+        <form class="search-header" action="#">
+            <div class="input-box">
+                <img (click)="doSearch()" class="search-icon" src="./assets/imgs/new_version/home/search.png"
+                     alt="搜索图标">
+                <ion-input [(ngModel)]="keyWord"
+                           placeholder="请输入资料关键词"
+                           [ngModelOptions]="{standalone: true}"
+                           (keypress)="search($event)"
+                           (ionFocus)="showKey()"
+                           autocomplete='off'
+                ></ion-input>
+            </div>
+        </form>
+    </div>
     <ul class="file-lists">
         <li *ngFor="let item of fileList">
-            <div class="title">{{ item.name }}</div>
-            <!--{{ item.CreateTime | date:'yyyy-MM-dd HH:mm' }}-->
+            <div class="title">
+                <p>{{ item.name }}</p>
+                <p>下载时间：&nbsp;&nbsp;{{ "2020-09-20 20:20:20" | date:'yyyy-MM-dd HH:mm' }}</p>
+            </div>
             <span (click)="openFile(item)" class="open-file-btn">查看</span>
         </li>
     </ul>
 
     <ion-list *ngIf="isLoad && fileList.length === 0" text-center>
-        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <img style="width: 60%;margin-top: 5rem" src="./assets/imgs/no-data.png" alt="">
         <p text-center style="color: #666666;font-size: 16px">
             暂无数据
         </p>
