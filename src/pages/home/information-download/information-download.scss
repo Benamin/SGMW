@@ -123,21 +123,19 @@ page-information-download {
       margin: 0 1.5rem;
       margin-bottom: 1px;
       padding: 1.5rem 0 0.7rem;
-      border-bottom: 1px solid #DEDEDE;
+      display: flex;
+      align-items: center;
 
       &:last-child {
         border: none;
       }
 
       .open-file-btn {
-        position: absolute;
-        top: 3rem;
-        right: 1rem;
         width: 5.2rem;
         height: 2.3rem;
         line-height: 2.3rem;
         text-align: center;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         color: #474747;
         background-color: #f8dd77;
         border-radius: 1.15rem;
@@ -148,8 +146,7 @@ page-information-download {
         font-size: 1.6rem;
         font-weight: bold;
         overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        width: calc(100% - 6rem);
 
         p:last-child {
           margin-top: 1rem;
@@ -241,6 +238,21 @@ page-information-download {
           color: #4D087C;
         }
       }
+    }
+
+    li:before {
+      content: " ";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 1px;
+      border-top: 1px solid rgba(0, 0, 0, .1);
+      color: rgba(0, 0, 0, .1);
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
     }
   }
 

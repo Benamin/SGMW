@@ -27,6 +27,10 @@ export class InformationDownloadPage {
     }
 
     ionViewDidLoad() {
+        this.readFile();
+    }
+
+    readFile() {
         if (this.platform.is('ios')) {
             this.storageDirectory = this.file.dataDirectory;
             let arr = this.storageDirectory.split('/');
@@ -42,10 +46,6 @@ export class InformationDownloadPage {
             // exit otherwise, but you could add further types here e.g. Windows
             return false;
         }
-        this.readFile();
-    }
-
-    readFile() {
         console.log(this.storageDirectory);
         this.file.listDir(this.storageDirectory, this.folderName).then(
             value => {

@@ -165,8 +165,8 @@ export class HomePage implements OnInit {
 
         // this.getGoodsTeacher();
         this.getLIistData();
-        this.getCompetitionId();
-        this.getServerCompetition();
+        // this.getCompetitionId();
+        // this.getServerCompetition();
         // this.getProductType();
     }
 

@@ -34,12 +34,12 @@
                     <img src="{{item.PosterUserHeadPhoto}}" alt="">
                     <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
                     <div class="edit-div">
-          <span class="edit-img" tappable (click)="editITem(item)">
-            <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
-          </span>
-                        <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item)">
-            <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-          </span>
+                          <span class="edit-img" tappable (click)="editITem(item)">
+                            <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
+                          </span>
+                                        <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item)">
+                            <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
+                          </span>
                     </div>
                 </div>
                 <div class="post-introduction-con">
@@ -77,19 +77,30 @@
                             <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
                         </div>
                     </ng-container>
+                    <div class="topicList">
+                      <span class="topicSpan" (click)="$event.stopPropagation();toPostList(topic)"
+                            *ngFor="let topic of item.TopicTagPlateItem">
+                        {{topic.TopicName}}
+                      </span>
+                    </div>
                 </div>
                 <div class="post-introduction-buttom">
-        <span class="nowrap-1">
-          {{item.TopicPlateName}}
-        </span>
-                    <span>
-          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
+            <span class="nowrap-1">
+                    <div class="oldDate">{{item.PostTimeForm | date:"yyyy-MM-dd HH:mm"}}</div>
+            </span>
+                    <span class="eye">
+              <img src="./assets/imgs/forum/other/eye.png">
+                        {{item.ViewCount}}
+            </span>
+                    <span class="luntan_coment">
+              <img src="./assets/imgs/forum/other/reply.png">
                         {{item.ReplyCount}}
-        </span>
-                    <span>
-          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+            </span>
+                    <span tappable class="comment_like">
+      <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/like_off.png">
+      <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/like_on.png">
                         {{item.LikeCount}}
-        </span>
+    </span>
                 </div>
             </div>
         </div>

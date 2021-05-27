@@ -3,6 +3,7 @@ import {LoadingController, NavController, Slides, ToastController} from 'ionic-a
 import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
 import {ForumService} from '../../forum/forum.service';
 import {PostAddComponent} from '../../forum/post-add/post-add.component';
+import {PostlistComponent} from "../../forum/postlist/postlist.component";
 
 
 @Component({
@@ -129,7 +130,7 @@ export class MyForumComponent implements OnInit {
             }
             let arr = res.data.Posts.Items;
             arr.forEach(element => {
-                element.PostRelativeTime = this.serve.PostRelativeTimeForm(element.PostRelativeTime);
+                element.PostTimeForm = element.PostTimeForm.replace(/-/g, '/');
             });
             if (arr.length == 0) {
                 this.isdoInfinite = false;
@@ -150,6 +151,7 @@ export class MyForumComponent implements OnInit {
                 }
                 this.serve.listSplice(this.forumList);
             }
+            console.log(this.draftList);
 
         });
     }
@@ -169,6 +171,17 @@ export class MyForumComponent implements OnInit {
         setTimeout(() => {
             e.complete();
         }, 1000);
+    }
+
+    //话题列表
+    toPostList(item) {
+        const data = {
+            Id: item.TopicId,
+            CoverImage: item.TopicImageUrl,
+            Name: item.TopicName,
+            navli: "话题"
+        }
+        this.navCtrl.push(PostlistComponent, {data: data});
     }
 
 }
