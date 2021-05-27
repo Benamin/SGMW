@@ -50,7 +50,8 @@
         <li *ngFor="let item of page.levelInformation; let levelTypeIndex = index" (click)="switchLevel(levelTypeIndex, item.Hierarchy > page.nowLevel + 1)" [ngClass]="{'actived': item.actived, 'disabled': item.Hierarchy > page.nowLevel + 1}">
           <img *ngIf="!item.actived"  class="level-point" src="./assets/imgs/new_version/advanced/level-point.png"/>
           <img *ngIf="item.actived" item.actived class="level-point" src="./assets/imgs/new_version/advanced/level-point-active.png"/>
-          LV{{ levelTypeIndex + 1 }}
+          <!--LV{{ levelTypeIndex + 1 }}-->
+          {{ item.LevelLableCode }}
            <!--<div [innerHTML]="assembleHTML(item.LevelText)"></div>-->
         </li>
       </ul>

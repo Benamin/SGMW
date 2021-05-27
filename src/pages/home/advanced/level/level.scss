@@ -178,7 +178,9 @@ page-level {
           position: relative;
           //white-space:nowrap;
           //margin-right: 1em;
+          //flex: 1;
           line-height: 1.5;
+          min-width: 4rem;
           //white-space: pre-line;
           .level-point {
             content: " ";
@@ -188,21 +190,21 @@ page-level {
             transform: translateX(-50%);
             width: 1.7rem;
             height: 1.5rem;
-            z-index: 3;
+            z-index: 10;
             //border-radius: 50%;
           }
         }
-        li:before {
-          content: " ";
-          position: absolute;
-          left: 50%;
-          top: -2.4rem;
-          transform: translateX(-50%);
-          width: 1rem;
-          height: 1rem;
-          border-radius: 50%;
-          background-color: #A7A6A6;
-        }
+        //li:before {
+        //  content: " ";
+        //  position: absolute;
+        //  left: 50%;
+        //  top: -2.4rem;
+        //  transform: translateX(-50%);
+        //  width: 1rem;
+        //  height: 1rem;
+        //  border-radius: 50%;
+        //  background-color: #A7A6A6;
+        //}
 
         li:nth-last-child(1) {
           margin-right: 0;
