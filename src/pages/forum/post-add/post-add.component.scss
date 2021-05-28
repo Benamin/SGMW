@@ -418,6 +418,7 @@ page-post-add {
 
   .videoBox {
     position: relative;
+    background-color: #000000;
 
     .loading {
       position: absolute;
@@ -447,6 +448,6 @@ page-post-add {
   }
 
   video {
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .3);
   }
 }

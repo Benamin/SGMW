@@ -62,19 +62,28 @@ page-look-exam {
   }
 
   .item-content {
-    padding: 2rem 3rem;
+    padding: 2rem;
+    font-size: 1.6rem;
 
-    p {
-      margin: 1rem 0;
-      padding: 10px 0;
-    }
-    .active{
-      background:linear-gradient(to right,#EA092B,#F88F7C);
-      color: #fff;
-      .selectIndex {
-        background: none;
-        border: 0;
+    div {
+      p {
+        margin-bottom: 16px;
+        margin-left: 1rem;
+        line-height: 1.5rem;
+        position: relative;
+        padding: 5px 10px;
+      }
+
+      .active {
+        background: linear-gradient(to right, #EA092B, #F88F7C);
         color: #fff;
+        border-radius: 3px;
+
+        .selectIndex {
+          background: none;
+          border: 0;
+          color: #fff;
+        }
       }
     }
   }
@@ -311,6 +320,7 @@ page-look-exam {
     width: 2rem;
     height: 2rem;
     padding-left: 2px;
+
     span {
       font-size: 1.3rem;
       font-weight: bold;

@@ -9,6 +9,7 @@ import {PhotoLibrary} from "@ionic-native/photo-library";
 
 /**
  * 1、android下载文件 2、IOS下载文件
+ * 下载课程中的视频文件
  */
 
 @Injectable()

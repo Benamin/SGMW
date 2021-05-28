@@ -179,8 +179,10 @@ export class InformationZonePage {
         e.stopPropagation();
         const obj = this.setSuffixClass(item.Name);
         const fileName = item.DIsplayName + "." + obj.suffixText;
-        this.fileSer.downloadFile(item.FileAddress, fileName, false);
-        this.readLocalFile();
+        this.fileSer.downloadFile(item.FileAddress, fileName, false, "sgmwInforFile");
+        setTimeout(() => {
+            this.readLocalFile();
+        }, 3000);
     }
 
     // 切换类型
@@ -202,7 +204,7 @@ export class InformationZonePage {
             storageDirectory = arr.join('/');
         } else if (this.platform.is('android')) {
             // storageDirectory = file.externalDataDirectory + 'courseFile/';
-            folderName = "sgmw/"
+            folderName = "sgmwInforFile/"
             storageDirectory = this.file.externalRootDirectory;
         }
 

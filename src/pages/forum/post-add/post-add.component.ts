@@ -478,10 +478,12 @@ export class PostAddComponent implements OnInit {
             //本地预览
             let url = URL.createObjectURL(file);
             console.log(url);
+            //ios 只能播放的时候 截图。。
             let video = <any>document.getElementById("video_id");
+            video.volume = 0;
             video.src = url;
-            video.addEventListener('progress', () => {
-                console.log("video progress")
+            video.addEventListener('canplay', () => {
+                console.log("video canplay")
                 this.captureImage()
             });
             //上传服务器
@@ -567,15 +569,11 @@ export class PostAddComponent implements OnInit {
         canvas.width = video.videoWidth * 0.5;
         canvas.height = video.videoHeight * 0.5;
         canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        // let img = document.createElement("img");
-        // img.src = canvas.toDataURL("image/png");
-        // img.width = 200;
-        // img.height = 120;
         const blob = this.commonSer.base64ToBlob(canvas.toDataURL("image/png"));
         const file = this.commonSer.blobToFile(blob, 'test');
         let formData: FormData = new FormData();
         formData.append('file', file);
+        video.pause();
         this.serve.Upload_UploadFiles(formData).then((res: any) => {
             console.log("CoverUrl", res.data);
             this.CoverUrl = res.data;

@@ -89,7 +89,7 @@
                                     </p>
                                 </ng-container>
                                 <!--多选题-->
-                                <ng-container *ngIf="item.QType == 2">{{item.StuAnswer}}
+                                <ng-container *ngIf="item.QType == 2">
                                     <p *ngIf="item.ChoiceA" [ngClass]="{'active': item.StuAnswer.includes('A')}">
                                         <label>
                                             <input type="checkbox" value="A" [name]="item.QnAID">

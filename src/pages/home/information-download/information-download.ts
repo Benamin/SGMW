@@ -40,7 +40,7 @@ export class InformationDownloadPage {
             this.storageDirectory = arr.join('/');
         } else if (this.platform.is('android')) {
             // this.storageDirectory = this.file.externalDataDirectory + 'courseFile/';
-            this.folderName = "sgmw/"
+            this.folderName = "sgmwInforFile/"
             this.storageDirectory = this.file.externalRootDirectory;
         } else {
             // exit otherwise, but you could add further types here e.g. Windows
