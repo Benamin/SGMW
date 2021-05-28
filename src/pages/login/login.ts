@@ -541,12 +541,12 @@ export class LoginPage {
                 }, (error) => {
                     this.dismissLoading();
                     const message = JSON.parse(error.error);
-                    this.commonSer.alert(message.error_description || JSON.stringify(error.error));
+                    this.commonSer.alert("骏菱学社：账号或密码错误，" + (message.error_description || JSON.stringify(error.error)));
                 }
             ).catch(error => {
                 this.dismissLoading();
                 const message = JSON.parse(error.error);
-                this.commonSer.alert(`${message.error_description}`);
+                this.commonSer.alert(`骏菱学社：账号或密码错误，${message.error_description}`);
             })
         } else {
             this.loginSer.LLZSGetToken(data).subscribe(
@@ -560,7 +560,7 @@ export class LoginPage {
                 },
                 (error) => {
                     this.dismissLoading();
-                    this.commonSer.alert(error.error.error_description || JSON.stringify(error.error));
+                    this.commonSer.alert("骏菱学社：账号或密码错误，" + error.error.error_description || JSON.stringify(error.error));
                 }
             )
         }

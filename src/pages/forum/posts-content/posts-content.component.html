@@ -13,7 +13,7 @@
                 <p>{{dataCon?.PosterUserName}}</p>
                 <p *ngIf="dataCon.System">{{dataCon?.System}}</p>
             </div>
-            <div class="oldDate">{{dataCon.PostTimeFormatted}}</div>
+            <div class="oldDate">{{dataCon.PostTimeFormatted | date:"yyyy-MM-dd HH:mm"}}</div>
         </div>
         <div class="inner-html" #nnerhtml [innerHTML]='dataCon.Content | lineFeed'>
         </div>

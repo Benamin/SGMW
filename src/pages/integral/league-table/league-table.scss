@@ -1,10 +1,11 @@
 league-table {
-  .scroll-content{
+  .scroll-content {
     margin-bottom: 50px;
   }
-  .myrank{
+
+  .myrank {
     padding: 15px;
-    background:linear-gradient(to right,#fdf0da,#ffe6c6);
+    background: linear-gradient(to right, #fdf0da, #ffe6c6);
     bottom: 0;
     left: 0;
     right: 0;
@@ -12,7 +13,8 @@ league-table {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .myrankleft{
+
+    .myrankleft {
       list-style: none;
       margin: 0;
       padding: 0;
@@ -21,32 +23,39 @@ league-table {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      dt{
+
+      dt {
         width: 30px;
         height: 30px;
-        img{
+
+        img {
           display: block;
           width: 100%;
         }
       }
-      dd{
+
+      dd {
         margin-left: 20px;
-        h3{
+
+        h3 {
           font-size: 1.9rem;
           color: #A35818;
           margin-top: 1rem;
         }
-        p{
+
+        p {
           color: #DEB188;
           font-size: 1.6rem;
         }
       }
     }
-    .myrankright{
+
+    .myrankright {
       color: #000000;
       font-size: 1.6rem;
     }
   }
+
   .nav-type {
     display: flex;
     margin: 0;
@@ -57,10 +66,12 @@ league-table {
     list-style: none;
     background-color: #fff;
     z-index: 888;
+
     li {
       position: relative;
       flex: 1;
       text-align: center;
+
       .item-line {
         position: absolute;
         left: 50%;
@@ -74,161 +85,185 @@ league-table {
         opacity: 0.9;
       }
     }
+
+    li.actived {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
     .actived .item-line {
-      background: linear-gradient(241deg,rgba(255,247,203,1) 0%,rgba(255,201,45,1) 100%);
+      background: linear-gradient(241deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
       background: #E90E2C;
     }
   }
+
   .navul {
-      // background: red;
-      background: white;
+    background: white;
+    display: flex;
+
+    .navli {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 10px;
+      color: rgba(0, 0, 0, 0.6);
+      transition: all 0.2s;
+    }
+
+    .navli::before {
+      background: linear-gradient(-90deg, #fff, #fff);
+    }
+
+    .act {
+      color: rgba(0, 0, 0, 1);
+      transition: all 0.2s;
+    }
+
+    .act::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      width: 26px;
+      height: 4px;
+      margin-left: -13px;
+      left: 50%;
+      bottom: 0px;
+      transition: all 0.2s;
+      // background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      // background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      // background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      // background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
+      background: #E90E2C;
+      border-radius: 2px;
+    }
+  }
+
+  .integraldetails {
+    margin-bottom: 2.5rem;
+
+    > p {
+      font-size: 1.4rem;
+      margin: 1rem 0;
+      font-weight: normal;
+      text-align: center;
+      color: #A4A4A4;
+    }
+
+    .item {
       display: flex;
-
-      .navli {
-          flex: 1;
-          text-align: center;
-          position: relative;
-          padding: 10px;
-          color: rgba(0, 0, 0, 0.6);
-          transition: all 0.2s;
-      }
-
-      .navli::before {
-          background: linear-gradient(-90deg, #fff, #fff);
-      }
-
-      .act {
-          color: rgba(0, 0, 0, 1);
-          transition: all 0.2s;
-      }
-
-      .act::before {
-          content: " ";
-          display: block;
-          position: absolute;
-          width: 26px;
-          height: 4px;
-          margin-left: -13px;
-          left: 50%;
-          bottom: 0px;
-          transition: all 0.2s;
-          // background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-          // background: -o-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-          // background: -moz-linear-gradient(-90deg, #FFF7CB, #FFC92D);
-          // background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
-          background: #E90E2C;
-          border-radius: 2px;
-      }
-    }
-    .integraldetails{
-      margin-bottom: 2.5rem;
-      > p {
-        font-size: 1.4rem;
-        margin: 1rem 0;
-        font-weight: normal;
-        text-align: center;
-        color: #A4A4A4;
-      }
-      .item {
-        display: flex;
-        padding: 1.5rem 2rem;
-        font-size: 1.6rem;
-        font-weight: bolder;
-        background: #fff;
-        .left {
-          width: 80%;
-    
-          > p:last-child {
-            font-size: 1.5rem;
-            font-weight: normal;
-          }
-        }
-    
-        .right {
-          width: 20%;
-          display: flex;
-          align-items: center;
-          color: #FDCA36;
-          font-weight: 500;
-          justify-content: center;
-        }
-      }
-    }
-    .leaguebox{
-      margin: 1rem;
-      border-radius: 3px;
+      padding: 1.5rem 2rem;
+      font-size: 1.6rem;
+      font-weight: bolder;
       background: #fff;
-      margin-top: 55px;
-      .leaguelist{
+
+      .left {
+        width: 80%;
+
+        > p:last-child {
+          font-size: 1.5rem;
+          font-weight: normal;
+        }
+      }
+
+      .right {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        color: #FDCA36;
+        font-weight: 500;
+        justify-content: center;
+      }
+    }
+  }
+
+  .leaguebox {
+    margin: 1rem;
+    border-radius: 3px;
+    background: #fff;
+    margin-top: 55px;
+
+    .leaguelist {
+      display: -webkit-flex; /* Safari */
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 1rem;
+
+      .left {
+        height: 35px;
+        line-height: 35px;
         display: -webkit-flex; /* Safari */
         display: flex;
-        justify-content: space-between;
-        padding: 2rem 1rem;
-        .left{
+        align-items: center;
+
+        b {
+          color: #848494;
+          font-weight: 400;
+        }
+
+        .avatar-box {
+          display: inline-block;
+          width: 35px;
+          height: 35px;
+          margin: 0 10px 0 20px;
+
+          img {
+            display: block;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+          }
+        }
+
+        span {
+          display: inline-block;
+          color: #000000;
+          font-size: 1.7rem;
+          font-weight: 500;
           height: 35px;
           line-height: 35px;
-          display: -webkit-flex; /* Safari */
-          display: flex;
-          align-items: center;
-          b{
+        }
+      }
+
+      .right {
+        height: 35px;
+        line-height: 35px;
+      }
+
+      &:hover {
+        background: #fdf8f0;
+
+        .left {
+          b {
             color: #848494;
             font-weight: 400;
           }
-          .avatar-box{
+
+          .avatar-box {
             display: inline-block;
             width: 35px;
             height: 35px;
             margin: 0 10px 0 20px;
-            img{
+
+            img {
               display: block;
               width: 35px;
               height: 35px;
               border-radius: 50%;
             }
           }
-          span{
-            display: inline-block;
-            color: #000000;
-            font-size: 1.7rem;
-            font-weight: 500;
-            height: 35px;
-            line-height: 35px;
-          }
-        }
-        .right{
-          height: 35px;
-          line-height: 35px;
-        }
-        &:hover{
-          background: #fdf8f0;
-          .left{
-            b{
-              color: #848494;
-              font-weight: 400;
-            }
-            .avatar-box{
-              display: inline-block;
-              width: 35px;
-              height: 35px;
-              margin: 0 10px 0 20px;
-              img{
-                display: block;
-                width: 35px;
-                height: 35px;
-                border-radius: 50%;
-              }
-            }
-            span{
-              color: #CCA366;
-            }
-          }
-          .right{
-            height: 35px;
-            line-height: 35px;
+
+          span {
             color: #CCA366;
           }
+        }
+
+        .right {
+          height: 35px;
+          line-height: 35px;
+          color: #CCA366;
         }
       }
     }
   }
+}
   

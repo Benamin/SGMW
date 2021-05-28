@@ -217,6 +217,7 @@ export class PostsContentComponent implements OnInit {
         this.dataCon['is_like'] = false;
         this.dataCon['is_guanzhu'] = false;
         this.dataCon['is_collect'] = false;
+        this.dataCon.PostTimeFormatted = this.dataCon.PostTimeFormatted.replace(/-/g, "/")
         setTimeout(() => {
             this.openImg();
         }, 200);
