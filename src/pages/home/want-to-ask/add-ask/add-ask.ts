@@ -117,6 +117,15 @@ export class AddAskPage {
 				    toast.present();
 						return
 			}
+            // if (this.page.questionDesc.length > 300) {
+            //     let toast = this.toastCtrl.create({
+            //         message: '内容字数最多为300字符！',
+            //         position: 'middle',
+            //         duration: 1500
+            //     });
+            //     toast.present();
+            //     return
+            // }
 			let loading = this.loadCtrl.create({
 			    content: ''
 			});
@@ -137,7 +146,9 @@ export class AddAskPage {
 						if (res.code === 200) {
 							this.commonSer.alert('问题发布成功！');
                             console.log(9999, res)
-                            console.log('提交成功后返回')
+                            console.log('提交成功后清空并进入问题全部列表')
+                            this.page.questionDesc = '';
+                            this.page.imgArr = [];
                             this.goWantToAsk()
                             loading.dismiss();
 						}

@@ -42,7 +42,7 @@
 				<div class="noti">
 					<span *ngIf="item.Status == 0" class="tips"></span>
 					<p>{{item.Title}}</p>
-					<p class="desc">{{item.SubTitle}}</p>
+					<p class="desc" *ngIf="item.Text">{{ item.Text }}</p>
 					<div class="detail-text">
 						<span>查看详情</span>
 						<img src="./assets/imgs/new_version/mine/right.png">
