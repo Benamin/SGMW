@@ -166,7 +166,7 @@
                   已完成
                 </div>
                 <span>时间：{{ item.ExamTimer === 0 ? '不限时' : item.ExamTimer + '分钟' }}</span>
-                <div class="status" *ngIf="item.TotalScore >= item.PassScore">
+                <div class="status success" *ngIf="item.TotalScore >= item.PassScore">
                   <img src="assets/imgs/advanced/logo-actived.png"/>
                   <!-- <img src="assets/imgs/advanced/status-finish.png"/> -->
                 </div>
