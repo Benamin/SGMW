@@ -589,7 +589,7 @@ export class HomePage implements OnInit {
         let url_arr = url.split('/');
         // sgmw://forum/afd79774-4ad7-4c1f-838d-016e1d8705f7
         console.log(url);
-        if (url.indexOf('Course') > -1) {
+        if (url.indexOf('Course') > -1) {  //其他app跳转进入
             const req = <any>this.getRequest.getParamsByHybrid(url)
             this.navCtrl.push(CourseDetailPage, {id: req.CourseId});
             return;
@@ -606,7 +606,7 @@ export class HomePage implements OnInit {
         }
 
 
-        if (url.indexOf('learning') > -1) { //课程
+        if (url.indexOf('learning') > -1) { //课程 分享进入
             url_arr = url.split('&Id=');
             this.getCourseDetailById(url_arr[1]);
             return;

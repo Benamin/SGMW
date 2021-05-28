@@ -191,12 +191,14 @@ export class NumberOne {
         }
 
         const obj = {
-            Title: data.Name,
+            title: data.Name,
             description: description,
             thumb: thumb,
-            webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=learning&Id=${data.Id}`
+            paramsUrl: "/static/openApp.html?scheme_url=numberOne"
         }
-        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
+        let modal = this.modalCtrl.create(ShareWxComponent, {
+            data: obj,
+        });
         modal.present();
     }
 }

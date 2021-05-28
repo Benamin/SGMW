@@ -146,6 +146,8 @@ export class LoginPage {
     timeText = "发送验证码";
     disableBtn = false;
 
+
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
                 private jPush: JPush,
@@ -846,4 +848,6 @@ export class LoginPage {
             }
         }, 1000);
     }
+
+
 }

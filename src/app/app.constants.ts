@@ -7,7 +7,7 @@ let keyEnv = 'dev';
 // let keyEnv = 'prod';
 
 
- /***培训平台***/
+/***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';
 export const SERVER_API_URL_DEV = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
 export const SERVER_API_URL_UAT = 'http://sitapi1.chinacloudsites.cn/api'; //uat环境
@@ -129,9 +129,9 @@ export const NoUserMsg = "骏菱学社：您的用户信息暂未同步到骏菱
 export const LLZSNoUserMsg = "骏菱学社：无该用户信息，请至菱菱助手查看备案信息。";
 
 //分享
-const PCURLDEV = "https://devportal1.chinacloudsites.cn/#/"  //dev
-const PCURLUAT = "https://sitportal1.chinacloudsites.cn/#/"  //uat
-const PCURLPROD = "http://elearning.sgmw.com.cn/#/"  //prod
+const PCURLDEV = "https://devportal1.chinacloudsites.cn"  //dev
+const PCURLUAT = "https://sitportal1.chinacloudsites.cn"  //uat
+const PCURLPROD = "http://elearning.sgmw.com.cn"  //prod
 
 export const PCURL = (env === 'localhost' ? PCURLDEV : (env == 'dev' ? PCURLDEV : (env == 'uat' ?
     PCURLUAT : (env == 'prod' ? PCURLPROD : ''))));

@@ -1,45 +1,55 @@
 page-exam {
-  .scroll-content{
+  .scroll-content {
     background: #fff;
   }
-  .navbarfix{
+
+  .navbarfix {
     display: -webkit-flex; /* Safari */
     display: flex;
     left: 0;
     right: 0;
-    .navbar{
+
+    .navbar {
       width: 100%;
     }
   }
-  .exam{
+
+  .exam {
     background: #fff;
     padding: 0 !important;
     margin-top: 43px;
-    .item{
+
+    .item {
       margin-bottom: 0 !important;
       padding: 10px 0 !important;
-      .test-item{
+
+      .test-item {
         padding: 1.2rem !important;
       }
-      .space{
+
+      .space {
         height: 10px;
         background: #fff;
       }
-      .scorespace{
+
+      .scorespace {
         background: #f8f8f8;
         padding: 1.2rem;
       }
-    } 
+    }
   }
-  .scroll-content{
-    .examcenter{
-      .item{
-        padding:10px 0 !important;
+
+  .scroll-content {
+    .examcenter {
+      .item {
+        padding: 10px 0 !important;
       }
     }
   }
+
   .item {
     position: relative;
+
     .examScore {
       font-size: 15px !important;
       line-height: 15px !important;
@@ -75,16 +85,19 @@ page-exam {
       padding-left: 5px;
       display: flex;
       flex-flow: row wrap;
-      .sharetest{
+
+      .sharetest {
         position: absolute;
         right: 0px;
         top: 5px;
-        width: 20px;
-        img{
+        width: 25px;
+
+        img {
           display: block;
-          width: 100%;
+          width: 18px;
         }
       }
+
       > p.courseName {
         width: 90%;
         font-size: 18px;
@@ -127,7 +140,7 @@ page-exam {
 
   .simulation-btn {
     // background: linear-gradient(216deg, #fff7cb 0%, #ffc92d 100%);
-    border:1px solid #D4A558;
+    border: 1px solid #D4A558;
     font-size: 13px;
     margin-right: 10px;
     color: #D4A558;

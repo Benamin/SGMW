@@ -12,14 +12,12 @@ declare var Wechat;
 export class ShareWxComponent {
 
     data;
-    UrlType;
     defaultLogo = defaultLogo;
 
     constructor(private viewCtrl: ViewController,
                 private params: NavParams,
                 private commonSer: CommonService) {
         this.data = this.params.get('data');
-        this.UrlType = this.params.get('UrlType');
     }
 
     //分享到微信
@@ -31,39 +29,23 @@ export class ShareWxComponent {
      * 微信分享
      * @param type wx=微信好友 pyq=微信朋友圈
      * @param UrlType 分享的网页 bbsdetails=动态详情 Course、learning=课程
-     * @param UrlType  consultation=资讯 Course=课程 test=考试 shortVideo=短视频
+     * @param UrlType  consultation=资讯 learning=课程 test=考试 shortVideo=短视频
      */
     shareWX(type) {
-        let img = this.data.Images;
-        let description = this.data.ContentWithoutHtml || "";
-        let thumb = this.defaultLogo;
-
-        if (description.length > 100) {
-            description = description.slice(0, 100);
-        }
-        if (img && img.length > 0) {
-            thumb = img[0].Src || this.defaultLogo;
-        }
-
         const pcUrl = PCURL;
-        const obj = {
-            Title: this.data.Title,
-            description: description,
-            thumb: thumb,
-            webpageUrl: `${pcUrl}${this.UrlType}/${this.data.Id}`
-        }
-        console.log("分享微信", obj);
+        const webpageUrl = `${pcUrl}${this.data.paramsUrl}`
+        console.log("分享微信", this.data, webpageUrl);
         Wechat.share({
             message: {
-                title: obj.Title, // 标题
-                description: obj.description, // 简介
-                thumb: obj.thumb, //动态图片
+                title: this.data.title, // 标题
+                description: this.data.description, // 简介
+                thumb: this.data.thumb, //动态图片
                 mediaTagName: "TEST-TAG-001",
                 messageExt: "这是第三方带的测试字段",
                 messageAction: "<action>dotalist</action>",
                 media: {
                     type: Wechat.Type.WEBPAGE,
-                    webpageUrl: obj.webpageUrl   //打开的路径
+                    webpageUrl: webpageUrl   //打开的路径
                 }
             },
             scene: type === 'wx' ? Wechat.Scene.SESSION : Wechat.Scene.TIMELINE   //SESSION=好友  朋友圈=TIMELINE

@@ -28,18 +28,19 @@ export class CourseListComponent {
     wxShare(data) {
         let description = data.Description;
         let thumb = data.ImageUrl;
-
         if (description.length > 100) {
             description = description.slice(0, 100);
         }
-
         const obj = {
-            Title: data.Title,
+            title: data.Title,
             description: description,
             thumb: thumb,
-            webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=learning&Id=${data.Id}`
+            paramsUrl: `/static/openApp.html?scheme_url=learning&Id=${data.Id}`
         }
-        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
+        let modal = this.modalCtrl.create(ShareWxComponent,
+            {
+                data: obj,
+            });
         modal.present();
     }
 

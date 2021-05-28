@@ -154,8 +154,6 @@ page-login {
   }
 
   .login-button {
-    position: absolute;
-    bottom: 7rem;
     left: 10%;
     text-align: center;
     width: 80%;
@@ -165,6 +163,7 @@ page-login {
     background-color: #313f5d;
     border-radius: 5px;
     color: #ffffff;
+    margin-top: 15rem;
 
     img {
       height: 60px;

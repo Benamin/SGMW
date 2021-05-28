@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import {MineService} from "../../../mine/mine.service";
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
@@ -11,8 +11,7 @@ import {EmitService} from "../../../../core/emit.service";
 import {LogService} from "../../../../service/log.service";
 import {Storage} from "@ionic/storage";
 import {SimulationTestPage} from "../../simulation-test/simulation-test";
-
-declare var Wechat;
+import {ShareWxComponent} from "../../../../components/share-wx/share-wx";
 
 @Component({
     selector: 'page-exam',
@@ -43,7 +42,7 @@ export class TestCenterPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
                 private homeSer: HomeService, private datePipe: DatePipe,
-                private commonSer: CommonService,
+                private commonSer: CommonService, private modalCtrl: ModalController,
                 public eventEmitSer: EmitService,
                 private storage: Storage,
                 private logSer: LogService,
@@ -168,33 +167,18 @@ export class TestCenterPage {
     // 微信分享
     wxShare(data) {
         let description = data.SubjectName;
-        let thumb = data.PictureSrc;
-        let Title = data.EName
         if (description.length > 100) {
             description = description.slice(0, 100);
         }
-
-        let webpageUrl = `http://a1.hellowbs.com/openApp.html?scheme_url=test&Fid=${data.Fid}`;
-        Wechat.share({
-            message: {
-                title: Title, // 标题
-                description: description, // 简介
-                thumb: thumb, //图片
-                mediaTagName: "TEST-TAG-001",
-                messageExt: "这是第三方带的测试字段",
-                messageAction: "<action>dotalist</action>",
-                // media: "YOUR_MEDIA_OBJECT_HERE",
-                media: {
-                    type: Wechat.Type.WEBPAGE,
-                    webpageUrl: `http://a1.hellowbs.com/openApp.html?scheme_url=test&Fid=${data.Fid}`
-                }
-            },
-            scene: Wechat.Scene.SESSION
-        }, function () {
-            // alert("Success");
-        }, function (reason) {
-            // alert("Failed: " + reason);
-        });
+        const obj = {
+            "title": data.EName,
+            "description": description,
+            "thumb": data.PictureSrc,
+            "paramsUrl": `/static/openApp.html?scheme_url=test&Fid=${data.Fid}`
+        }
+        let modal = this.modalCtrl.create(ShareWxComponent,
+            {data: obj});
+        modal.present();
     }
 
     //模拟考试

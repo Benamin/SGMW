@@ -69,7 +69,6 @@ export class ForumListTimeComponent implements OnInit {
 
     // 微信分享
     wxShare(data) {
-        console.log(data);
         let description = data.ContentWithoutHtml.replace(/\&nbsp;/g, '');
         let thumb = '';
 
@@ -79,14 +78,14 @@ export class ForumListTimeComponent implements OnInit {
         if (data.Images.length > 0) {
             thumb = data.Images[0].Src;
         }
-        const pcUrl = PCURL;
         const obj = {
-            Title: data.Title,
+            title: data.Title,
             description: description,
             thumb: thumb,
-            webpageUrl: `${pcUrl}bbsdetails/${data.Id}`
+            paramsUrl: `/#/bbsdetails/${data.Id}`
         }
-        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj, UrlType: "bbsdetails"});
+        console.log(data.Id)
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
         modal.present();
     }
 
