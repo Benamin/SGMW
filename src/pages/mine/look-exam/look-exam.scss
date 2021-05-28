@@ -66,6 +66,16 @@ page-look-exam {
 
     p {
       margin: 1rem 0;
+      padding: 10px 0;
+    }
+    .active{
+      background:linear-gradient(to right,#EA092B,#F88F7C);
+      color: #fff;
+      .selectIndex {
+        background: none;
+        border: 0;
+        color: #fff;
+      }
     }
   }
 
@@ -282,8 +292,8 @@ page-look-exam {
     text-align: center;
     height: 2rem;
     line-height: 1.9rem;
-    border: 1px solid #333;
-    border-radius: 50%;
+    // border: 1px solid #333;
+    // border-radius: 50%;
     margin-right: 5px;
     color: #333;
     font-size: 1.5rem;

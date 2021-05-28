@@ -5,7 +5,30 @@ page-look-exam {
       height: 25px;
     }
   }
+  .item-content {
+    padding: 2rem;
+    font-size: 1.6rem;
 
+    div {
+      p {
+        margin-bottom: 16px;
+        margin-left: 1rem;
+        line-height: 1.5rem;
+        position: relative;
+        padding: 10px 0;
+        
+      }
+      .active{
+        background:linear-gradient(to right,#EA092B,#F88F7C);
+        color: #fff;
+        .selectIndex {
+          background: none;
+          border: 0;
+          color: #fff;
+        }
+      }
+    }
+  }
   .noDone {
     padding: 20px 30px;
     font-size: 14px;

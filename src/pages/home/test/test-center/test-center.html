@@ -16,10 +16,10 @@
         </ion-refresher-content>
     </ion-refresher>
     <navbar ion-fixed [list]="navbarList" [select]="1" (done)="changeType($event)" class="navbarfix"></navbar>
-    <div class="exam">
+    <div class="exam examcenter">
         <ng-container *ngFor="let item of examList">
             <!-- <div class="space"></div> -->
-            <div class="item" style="padding: 10px 5px;" tappable (click)="goExam(item)">
+            <div class="item" tappable (click)="goExam(item)">
                 <div class="test-item">
                     <div class="test-item-image">
                         <img [src]="item.PictureSrc || ''" alt="">
