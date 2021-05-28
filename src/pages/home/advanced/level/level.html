@@ -30,18 +30,15 @@
     </div>
     <div class="progress-box">
       <div class="progress-bar-bg"></div>
-      <div *ngIf="page.nowProgress && page.nowProgress !== 0" class="progress-bar" [ngStyle]="{'width': (page.nowLevel/(page.levelInformation.length-1) * 100) + ((1/(page.levelInformation.length - 1) * (page.nowProgress * 100))) + '%' }">
-        <!-- 小于50%就在进度右边 大于50% 就在进度左边 -->
-        <!--<span class="process-text" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) >= 50">-->
-          <!--{{ (page.nowProgress * 100).toFixed(0) }}%-->
-        <!--</span>-->
-        <!--<span class="process-text out-box" *ngIf="page.isLoaded && (page.nowProgress * 100).toFixed(0) < 50">-->
-          <!--{{ (page.nowProgress * 100).toFixed(0) }}%-->
-        <!--</span>-->
+      <!-- 第一个砖石边上多了宽度 -->
+      <!--<div *ngIf="page.nowProgress === 0 && page.nowLevel === 0" class="progress-bar" style="width: 6.1%;">-->
+        <!--<span class="process-text">0%</span>-->
+      <!--</div> page.nowProgress && page.nowProgress !== 0 && page.nowLevel === 0 &&  -->
+      <div *ngIf="(page.nowLevel !== null && page.nowLevel + 1 !== page.levelInformation.length - 1)" class="progress-bar" [ngStyle]="{'width': ((1 - 0.122)/(page.levelInformation.length-1) * page.nowLevel * 100) + (((1 - 0.122)/(page.levelInformation.length-1)* page.nowProgress + (0.122/2)) * 100) + '%' }">
         <span class="process-text">{{ (page.nowProgress * 100).toFixed(0) }}%</span>
       </div>
-      <div *ngIf="page.nowProgress === 0" class="progress-bar" style="width: 0;">
-        <span class="process-text">0%</span>
+      <div *ngIf="page.nowLevel !== null &&  page.nowLevel + 1 === page.levelInformation.length - 1" class="progress-bar" style="width: 100%;">
+        <span class="process-text">100%</span>
       </div>
     </div>
 
