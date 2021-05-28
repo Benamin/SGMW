@@ -7,7 +7,9 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
+      "proxyUrl": "http://devapi1.chinacloudsites.cn/api"
+<<<<<<< HEAD
+=======
     },
     {
       "path": "/api",
@@ -20,6 +22,7 @@
     {
       "path": "/JunKeAPI",
       "proxyUrl": "https://nbj.sgmw.com.cn"
+>>>>>>> 34cd6fbc467490dd291008ea977caa40d057e383
     },
     {
       "path": "/FWZSAPI",

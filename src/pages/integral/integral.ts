@@ -46,7 +46,7 @@ export class IntegralPage {
             res => {
                 if (res.data) {
                     // res.data.percentNew = res.data.percent?res.data.percent.substring(0, 3) + '%' : null;
-                    res.data.percentNew = res.data.percent?res.data.percent.split('.')[0] + '%' : null;
+                    res.data.percentNew = res.data.percent?parseInt(res.data.percent.split('%')[0]) + '%' : null;
                     this.obj = res.data;
                     console.log('今日积分',res.data)
                 }

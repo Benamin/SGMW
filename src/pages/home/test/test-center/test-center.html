@@ -25,6 +25,7 @@
                         <img [src]="item.PictureSrc || ''" alt="">
                     </div>
                     <div class="test-item-desc">
+                        <div class="sharetest" (click)="wxShare(item)"><img src="./assets/imgs/test/share.svg"></div>
                         <p class="courseName">{{item.EName}}</p>
                         <p class="eName">
                             <img src="./assets/imgs/test/book.svg">

@@ -70,13 +70,23 @@ page-exam {
     }
 
     .test-item-desc {
+      position: relative;
       width: 60%;
       padding-left: 5px;
       display: flex;
       flex-flow: row wrap;
-
+      .sharetest{
+        position: absolute;
+        right: 0px;
+        top: 5px;
+        width: 20px;
+        img{
+          display: block;
+          width: 100%;
+        }
+      }
       > p.courseName {
-        width: 100%;
+        width: 90%;
         font-size: 18px;
         font-weight: 500;
         color: rgba(0, 0, 0, .9);
