@@ -170,6 +170,7 @@ export class ForumPage {
 
     //下拉刷新
     doRefresh(e) {
+        this.isLoad = false;
         setTimeout(() => {
             e.complete();
             this.isdoInfinite = true;
@@ -196,7 +197,7 @@ export class ForumPage {
 
     //上拉加载更多
     doInfinite(e) {
-        console.log("doInfinite");
+        this.isLoad = false;
         if (this.navli == '板块' && this.plateData.total < this.plateData.total) {
             this.plateData.pageIndex++;
             this.forum_topicplate_search();

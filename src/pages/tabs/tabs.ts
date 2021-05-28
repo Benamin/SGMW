@@ -35,7 +35,7 @@ export class TabsPage {
 
     userInfo;
     userInfoByCardNo;
-    tabBadgeNum=0
+    tabBadgeNum = 0
 
     tabRoots = [
         {
@@ -97,11 +97,6 @@ export class TabsPage {
                 private commonSer: CommonService,
                 private mineSer: MineService,
                 private events: Events, private nav: NavController, private tabSer: TabService) {
-        // 订阅改变事件
-        this.events.subscribe('messageTabBadge:change', (tabBadgeNum) => {
-            // console.log(66666, tabBadgeNum)
-            this.getNew();
-        });
 
         this.storage.get('user').then(value => {
             if (value && value.MainUserID) {
@@ -159,9 +154,16 @@ export class TabsPage {
      * 推送跳转
      */
     listenEvents() {
+        // 消息订阅
+        this.events.subscribe('messageTabBadge:change', (tabBadgeNum) => {
+            // console.log(66666, tabBadgeNum)
+            this.getNew();
+        });
+        // 推出订阅
         this.events.subscribe('toLogin', () => {
             this.nav.setRoot(LoginPage);
         });
+        //推送订阅
         this.events.subscribe('jPush', (type) => {
             if (!this.global.JpushType) return;
             this.global.JpushType = null;
