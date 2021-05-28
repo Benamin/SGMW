@@ -106,6 +106,7 @@ export class MyForumComponent implements OnInit {
 
     // 获取数据
     getData() {
+        this.isLoad = false;
         let loading = null;
         if (this.pageDate.pageIndex == 1) {
             loading = this.loadCtrl.create({
@@ -151,7 +152,6 @@ export class MyForumComponent implements OnInit {
                 }
                 this.serve.listSplice(this.forumList);
             }
-            console.log(this.draftList);
 
         });
     }

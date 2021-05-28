@@ -78,6 +78,7 @@ export class JpushUtil {
             this.globalData.JpushType = sgmwType;
             this.storage.set('sgmwType', data);
             this.events.publish('jPush', data);
+            this.events.publish('messageTabBadge:change', {});
         }, false);
         /**接收本地消息 */
         document.addEventListener('jpush.', (event: any) => {

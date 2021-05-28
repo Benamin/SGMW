@@ -33,7 +33,7 @@ export class PostsContentComponent implements OnInit {
     lidata = {Id: '', TopicPlateId: "", Name: ""};
     inputText = "";
     textareaBlur = false;
-    dataCon = {
+    dataCon = <any>{
         "SetTopTime": "0001-01-01T00:00:00",
         "LockTime": "0001-01-01T00:00:00",
         "PosterHeadPhoto": "",
@@ -49,7 +49,7 @@ export class PostsContentComponent implements OnInit {
         "IsTop": false,
         "IsLocked": false,
         "Poster": "",
-        "PostTimeFormatted": "2019-09-29 14:26:39",
+        "PostTimeFormatted": "2019/09/29 14:26:39",
         "PostRelativeTime": "",
         "FollowCount": '0',
         "LikeCount": '0',
@@ -103,7 +103,6 @@ export class PostsContentComponent implements OnInit {
         this.storage.get("PostData").then((value: any) => {
             if (value && value.length > 0) {
                 const index = value.findIndex(e => e.Id === this.lidata.Id);
-                console.log(index);
                 if (index > -1) {
                     const data = value[index];
                     if ((Date.now() - data.time) < (1 * 24 * 60 * 60 * 1000)) {  //超过一天 重新加载
@@ -146,17 +145,6 @@ export class PostsContentComponent implements OnInit {
                 this.savePostInfo(res.data);
             }
             this.initPostInfo(res.data);
-            console.log(res.data.Pvide);
-            if (res.data.Pvideo) {
-                this.initVideo = videojs(`videoPoster`, {
-                    controls: true,
-                    "sources": [{
-                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
-                        src: res.data.Pvideo.files.AttachmentUrl,
-                        type: 'application/x-mpegURL'
-                    }],
-                })
-            }
         });
     }
 
@@ -222,6 +210,20 @@ export class PostsContentComponent implements OnInit {
             this.openImg();
         }, 200);
 
+        const videoEle = document.getElementById("videoPoster");
+        if (this.dataCon.Pvideo && videoEle) {
+            setTimeout(() => {
+                this.initVideo = videojs(`videoPoster`, {
+                    controls: true,
+                    "sources": [{
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: this.dataCon.Pvideo.files.AttachmentUrl,
+                        type: 'application/x-mpegURL'
+                    }],
+                })
+            }, 100)
+        }
+
         //查询我是否关注收/收藏/点赞动态
         this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((resp: any) => {
             this.dataCon['is_like'] = resp.data.is_like;
@@ -244,7 +246,6 @@ export class PostsContentComponent implements OnInit {
             "time": Date.now()
         }
         this.storage.get("PostData").then((value: any) => {
-            console.log(value);
             if (value && value.length > 0) {
                 const index = value.findIndex(e => e.Id === this.lidata.Id);
                 if (index > -1) {  //已存在当前动态
@@ -259,7 +260,6 @@ export class PostsContentComponent implements OnInit {
             } else {
                 const arr = [];
                 arr.push(info);
-                console.log('PostData', arr);
                 this.storage.set('PostData', arr);
             }
         })
@@ -314,6 +314,7 @@ export class PostsContentComponent implements OnInit {
             this.dataCon['is_like'] = false;
             this.dataCon['is_guanzhu'] = false;
             this.dataCon['is_collect'] = false;
+            this.dataCon.PostTimeFormatted = this.dataCon.PostTimeFormatted.replace(/-/g, "/")
 
             this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((res: any) => {
                 this.dataCon['is_like'] = res.data.is_like;

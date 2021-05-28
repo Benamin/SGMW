@@ -19,7 +19,6 @@
         </div>
         <div class="videoBox" *ngIf="dataCon?.Pvideo">
             <span *ngIf="dataCon?.Pvideo?.EncodeState === 1">转码中</span>
-            <span *ngIf="dataCon?.Pvideo?.EncodeState === 2">转码完成</span>
             <span *ngIf="dataCon?.Pvideo?.EncodeState === -1">转码失败</span>
             <video id="videoPoster" class="video-js sgmw-video-js"
                    playsinline="true" webkit-playsinline="true"

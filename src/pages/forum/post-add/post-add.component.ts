@@ -480,10 +480,10 @@ export class PostAddComponent implements OnInit {
             console.log(url);
             let video = <any>document.getElementById("video_id");
             video.src = url;
-            video.addEventListener('loadeddata', () => {
+            video.addEventListener('progress', () => {
+                console.log("video progress")
                 this.captureImage()
             });
-
             //上传服务器
             this.uploadVideoFile(file);
         }

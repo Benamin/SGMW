@@ -24,7 +24,7 @@
         <li *ngFor="let item of fileList">
             <div class="title">
                 <p>{{ item.name }}</p>
-                <p>下载时间：&nbsp;&nbsp;{{ "2020-09-20 20:20:20" | date:'yyyy-MM-dd HH:mm' }}</p>
+<!--                <p>下载时间：&nbsp;&nbsp;{{ "2020-09-20 20:20:20" | date:'yyyy-MM-dd HH:mm' }}</p>-->
             </div>
             <span (click)="openFile(item)" class="open-file-btn">查看</span>
         </li>

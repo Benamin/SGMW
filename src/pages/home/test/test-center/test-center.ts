@@ -57,6 +57,7 @@ export class TestCenterPage {
 
     ionViewDidEnter() {
         this.eventEmitSer.eventEmit.emit('false');
+        this.page.Page = 1;
         this.getList();
     }
 
@@ -100,6 +101,7 @@ export class TestCenterPage {
     changeType(e) {
         this.page.load = false;
         this.examList = [];
+        this.page.Page = 1;
         this.page.StudyState = e.type;
         this.getList();
     }
