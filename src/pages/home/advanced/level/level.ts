@@ -89,7 +89,7 @@ export class AdvancedLevelPage {
         isLoaded: false,
         canClick: false,
         nowLevelIndex: null,
-        // firstTime: true,
+        firstTime: true,
         TotalCount: 0,
         Page: 1,
         PageSize: 10
@@ -240,20 +240,20 @@ export class AdvancedLevelPage {
                     // this.page.nowLevel = nowLevel;
 
 
-                    // if (!this.page.firstTime) {
-                    //     let oldlevelInformation = this.page.levelInformation
-                    //     oldlevelInformation = this.tranLevelText(oldlevelInformation);
-                    //     let item = null;
-                    //     for (let i = 0; i < oldlevelInformation.length; i++) {
-                    //         if (oldlevelInformation[i].actived === true) {
-                    //             item = oldlevelInformation[i];
-                    //         }
-                    //     }
-                    //     this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
-                    //     this.setParams();
-                    //     return
-                    // }
-                    // this.page.firstTime = false;
+                    if (!this.page.firstTime) {
+                        let oldlevelInformation = this.page.levelInformation
+                        oldlevelInformation = this.tranLevelText(oldlevelInformation);
+                        let item = null;
+                        for (let i = 0; i < oldlevelInformation.length; i++) {
+                            if (oldlevelInformation[i].actived === true) {
+                                item = oldlevelInformation[i];
+                            }
+                        }
+                        this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
+                        this.setParams();
+                        return
+                    }
+                    this.page.firstTime = false;
 
                     for (let i = 0; i < levelInformation.length; i++) {
                         if (nowLevel === levelInformation[i].Hierarchy - 1) {
@@ -274,7 +274,7 @@ export class AdvancedLevelPage {
                             this.page.plid = levelInformation[1].ID;
                             // let item = this.page.levelInformation[1];
                             this.setParams();
-                            // this.page.canClick = true;
+                            this.page.canClick = true;
                         } else {
                             let isFullLevel = false;
                             let Hindex = null
@@ -292,6 +292,7 @@ export class AdvancedLevelPage {
                             } else {
                                 this.page.plid = levelInformation[Hindex + 1].ID;
                                 this.setParams();
+                                this.page.canClick = true;
                             }
                         }
                     }
@@ -311,20 +312,20 @@ export class AdvancedLevelPage {
     }
 
     tranLevelText(levelInformation) {
-        // 等级 字数 超出四个 换行
-        for (let i = 0; i < levelInformation.length; i++) {
-            // levelInformation[i].Level = '啦啦店'; // 测试
-            // console.log(66666, levelInformation[i].Level.substring(2))
-            if (levelInformation[i].Level.length >= 4) {
-                let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length / 2);
-                levelInformation[i].LevelText = `
-                      <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
-                      <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
-            } else {
-                levelInformation[i].LevelText = levelInformation[i].Level;
-            }
-            // console.log('Level', 8888888, levelInformation[i].Level)
-        }
+        // 等级 字数 超出四个 换行 (旧 换行)
+        // for (let i = 0; i < levelInformation.length; i++) {
+        //     // levelInformation[i].Level = '啦啦店'; // 测试
+        //     // console.log(66666, levelInformation[i].Level.substring(2))
+        //     if (levelInformation[i].Level.length >= 4) {
+        //         let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length / 2);
+        //         levelInformation[i].LevelText = `
+        //               <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
+        //               <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
+        //     } else {
+        //         levelInformation[i].LevelText = levelInformation[i].Level;
+        //     }
+        //     // console.log('Level', 8888888, levelInformation[i].Level)
+        // }
         return levelInformation;
     }
 
@@ -510,7 +511,7 @@ export class AdvancedLevelPage {
                                         this.page.leveltype = this.page.roleList[i].value;
                                         this.page.levelTypeText = this.page.roleList[i].label;
                                         loading.dismiss();
-                                        // this.page.firstTime = true;
+                                        this.page.firstTime = true;
                                         this.getAdvancedLevel();
 
                                     }
