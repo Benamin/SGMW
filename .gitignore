@@ -26,6 +26,7 @@ platforms/
 /www
 /plugins
 *.apk
+.history
 
 plugins/android.json
 plugins/ios.json
