@@ -179,7 +179,7 @@ export class InformationZonePage {
         e.stopPropagation();
         const obj = this.setSuffixClass(item.Name);
         const fileName = item.DIsplayName + "." + obj.suffixText;
-        this.fileSer.downloadFile(item.FileAddress, fileName, false, "sgmwInforFile");
+        this.fileSer.downloadFile(item.FileAddress, fileName, false, "sgmwInforFile/");
         setTimeout(() => {
             this.readLocalFile();
         }, 3000);

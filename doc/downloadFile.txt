@@ -1,0 +1,5 @@
+下载文件相关
+1、课程中的文件
+    android和IOS均存在 根目录的sgmw文件夹中
+2、资料专区的文件
+    android 存在 sgmwInforFile文件夹  ios存在默认路径
