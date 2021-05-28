@@ -31,6 +31,13 @@ page-exam {
       }
     } 
   }
+  .scroll-content{
+    .examcenter{
+      .item{
+        padding:10px 0 !important;
+      }
+    }
+  }
   .item {
     position: relative;
     .examScore {

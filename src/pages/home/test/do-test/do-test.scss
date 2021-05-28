@@ -19,7 +19,30 @@ page-do-exam {
       letter-spacing: 1px;
     }
   }
+  .item-content {
+    padding: 2rem;
+    font-size: 1.6rem;
 
+    div {
+      p {
+        margin-bottom: 16px;
+        margin-left: 1rem;
+        line-height: 1.5rem;
+        position: relative;
+        padding: 10px 0;
+        
+      }
+      .active{
+        background:linear-gradient(to right,#EA092B,#F88F7C);
+        color: #fff;
+        .selectIndex {
+          background: none;
+          border: 0;
+          color: #fff;
+        }
+      }
+    }
+  }
   .score .content .test.number {
     font-size: 13px;
     font-weight: normal;

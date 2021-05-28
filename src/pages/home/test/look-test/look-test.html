@@ -33,7 +33,7 @@
                             <div class="padding-20-20">
                                 <!--单选题-->
                                 <ng-container *ngIf="item.QType == 1">
-                                    <p *ngIf="item.ChoiceA">
+                                    <p *ngIf="item.ChoiceA" [ngClass]="{'active': item.StuAnswer.includes('A')}">
                                         <label>
                                             <input type="radio" value="A" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('A') == true}"
@@ -41,7 +41,7 @@
                                             {{item.ChoiceA}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceB">
+                                    <p *ngIf="item.ChoiceB" [ngClass]="{'active': item.StuAnswer.includes('B')}">
                                         <label>
                                             <input type="radio" value="B" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('B') == true}"
@@ -49,7 +49,7 @@
                                             {{item.ChoiceB}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceC">
+                                    <p *ngIf="item.ChoiceC" [ngClass]="{'active': item.StuAnswer.includes('C')}">
                                         <label>
                                             <input type="radio" value="C" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('C') == true}"
@@ -57,7 +57,7 @@
                                             {{item.ChoiceC}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceD">
+                                    <p *ngIf="item.ChoiceD" [ngClass]="{'active': item.StuAnswer.includes('D')}">
                                         <label>
                                             <input type="radio" value="D" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('D') == true}"
@@ -65,7 +65,7 @@
                                             {{item.ChoiceD}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceE">
+                                    <p *ngIf="item.ChoiceE" [ngClass]="{'active': item.StuAnswer.includes('E')}">
                                         <label>
                                             <input type="radio" value="E" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('E') == true}"
@@ -73,7 +73,7 @@
                                             {{item.ChoiceE}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceF">
+                                    <p *ngIf="item.ChoiceF" [ngClass]="{'active': item.StuAnswer.includes('F')}">
                                         <label>
                                             <input type="radio" value="F" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('F') == true}"
@@ -81,7 +81,7 @@
                                             {{item.ChoiceF}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceG">
+                                    <p *ngIf="item.ChoiceG" [ngClass]="{'active': item.StuAnswer.includes('G')}">
                                         <label>
                                             <input type="radio" value="D" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('G') == true}"
@@ -92,7 +92,7 @@
                                 </ng-container>
                                 <!--多选题-->
                                 <ng-container *ngIf="item.QType == 2">
-                                    <p *ngIf="item.ChoiceA">
+                                    <p *ngIf="item.ChoiceA" [ngClass]="{'active': item.StuAnswer.includes('A')}">
                                         <label>
                                             <input type="checkbox" value="A" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('A') == true}"
@@ -100,7 +100,7 @@
                                             {{item.ChoiceA}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceB">
+                                    <p *ngIf="item.ChoiceB" [ngClass]="{'active': item.StuAnswer.includes('B')}">
                                         <label>
                                             <input type="checkbox" value="B" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('B') == true}"
@@ -108,7 +108,7 @@
                                             {{item.ChoiceB}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceC">
+                                    <p *ngIf="item.ChoiceC" [ngClass]="{'active': item.StuAnswer.includes('C')}">
                                         <label>
                                             <input type="checkbox" value="C" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('C') == true}"
@@ -116,7 +116,7 @@
                                             {{item.ChoiceC}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceD">
+                                    <p *ngIf="item.ChoiceD" [ngClass]="{'active': item.StuAnswer.includes('D')}">
                                         <label>
                                             <input type="checkbox" value="D" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('D') == true}"
@@ -124,7 +124,7 @@
                                             {{item.ChoiceD}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceE">
+                                    <p *ngIf="item.ChoiceE" [ngClass]="{'active': item.StuAnswer.includes('E')}">
                                         <label>
                                             <input type="checkbox" value="E" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('E') == true}"
@@ -132,7 +132,7 @@
                                             {{item.ChoiceE}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceF">
+                                    <p *ngIf="item.ChoiceF" [ngClass]="{'active': item.StuAnswer.includes('F')}">
                                         <label>
                                             <input type="checkbox" value="F" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('F') == true}"
@@ -140,7 +140,7 @@
                                             {{item.ChoiceF}}
                                         </label>
                                     </p>
-                                    <p *ngIf="item.ChoiceG">
+                                    <p *ngIf="item.ChoiceG" [ngClass]="{'active': item.StuAnswer.includes('G')}">
                                         <label>
                                             <input type="checkbox" value="G" [name]="item.ID">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('G') == true}"
@@ -155,7 +155,7 @@
                                 </ng-container>
                                 <!--判断题-->
                                 <ng-container *ngIf="item.QType == 3">
-                                    <p>
+                                    <p [ngClass]="{'active': item.StuAnswer.includes('1')}">
                                         <label>
                                             <input [name]="item.ID" value="1" type="radio">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('1') == true}"
@@ -163,7 +163,7 @@
                                             正确
                                         </label>
                                     </p>
-                                    <p>
+                                    <p [ngClass]="{'active': item.StuAnswer.includes('0')}">
                                         <label>
                                             <input [name]="item.ID" value="0" type="radio">
                                             <span [ngClass]="{'select-right' : item.StuAnswer.includes('0') == true}"
