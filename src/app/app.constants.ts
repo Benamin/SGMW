@@ -1,11 +1,10 @@
-// export let env = 'localhost';
+export let env = 'localhost';
 // export let env = 'dev';
-export let env = 'uat';
+// export let env = 'uat';
 // export let env = 'prod';
 
 let keyEnv = 'dev';
 // let keyEnv = 'prod';
-
 
 
  /***培训平台***/

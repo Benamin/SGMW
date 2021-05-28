@@ -86,7 +86,7 @@ export class ForumListTimeComponent implements OnInit {
             thumb: thumb,
             webpageUrl: `${pcUrl}bbsdetails/${data.Id}`
         }
-        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj, UrlType: "bbsdetails"});
         modal.present();
     }
 

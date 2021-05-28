@@ -28,10 +28,12 @@ export class JpushUtil {
         /**接收通知触发 */
         document.addEventListener('jpush.receiveNotification', (event: any) => {
             // this.commonSer.alert('Receive notification: ' + JSON.stringify(event));
+            this.events.publish('messageTabBadge:change', {});
         }, false);
         /**接受自定义消息*/
         document.addEventListener("jpush.receiveMessage", (event: any) => {
             // this.commonSer.alert("jpush.receiveMessage: " + JSON.stringify(event));
+            this.events.publish('messageTabBadge:change', {});
         }, false);
         /**打开消息触发 */
         document.addEventListener('jpush.openNotification', (event: any) => {
@@ -78,11 +80,11 @@ export class JpushUtil {
             this.globalData.JpushType = sgmwType;
             this.storage.set('sgmwType', data);
             this.events.publish('jPush', data);
-            this.events.publish('messageTabBadge:change', {});
         }, false);
         /**接收本地消息 */
         document.addEventListener('jpush.', (event: any) => {
             this.commonSer.alert('receiveLocalNotification: ' + JSON.stringify(event));
+            this.events.publish('messageTabBadge:change', {});
         }, false);
     }
 

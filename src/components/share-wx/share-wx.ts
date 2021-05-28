@@ -12,12 +12,14 @@ declare var Wechat;
 export class ShareWxComponent {
 
     data;
+    UrlType;
     defaultLogo = defaultLogo;
 
     constructor(private viewCtrl: ViewController,
                 private params: NavParams,
                 private commonSer: CommonService) {
         this.data = this.params.get('data');
+        this.UrlType = this.params.get('UrlType');
     }
 
     //分享到微信
@@ -28,6 +30,8 @@ export class ShareWxComponent {
     /**
      * 微信分享
      * @param type wx=微信好友 pyq=微信朋友圈
+     * @param UrlType 分享的网页 bbsdetails=动态详情 Course、learning=课程
+     * @param UrlType  consultation=资讯 Course=课程 test=考试 shortVideo=短视频
      */
     shareWX(type) {
         let img = this.data.Images;
@@ -46,8 +50,9 @@ export class ShareWxComponent {
             Title: this.data.Title,
             description: description,
             thumb: thumb,
-            webpageUrl: `${pcUrl}bbsdetails/${this.data.Id}`
+            webpageUrl: `${pcUrl}${this.UrlType}/${this.data.Id}`
         }
+        console.log("分享微信", obj);
         Wechat.share({
             message: {
                 title: obj.Title, // 标题
