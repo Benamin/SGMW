@@ -67,6 +67,18 @@ page-do-exam {
         margin-bottom: 16px;
         margin-left: 1rem;
         line-height: 1.5rem;
+        position: relative;
+        padding: 10px 0;
+        
+      }
+      .active{
+        background:linear-gradient(to right,#EA092B,#F88F7C);
+        color: #fff;
+        .selectIndex {
+          background: none;
+          border: 0;
+          color: #fff;
+        }
       }
     }
   }
@@ -121,7 +133,9 @@ page-do-exam {
 
       div {
         background-image: linear-gradient(to right, #fecc4b, #feeaa5);
-        border-radius: 100px;
+        background: #384868;
+        color: #fff;
+        border-radius: 5px;
         text-align: center;
         height: 3rem;
         width: 90%;
@@ -133,7 +147,9 @@ page-do-exam {
 
       div {
         background-color: #aedae8;
-        border-radius: 100px;
+        background: #96A9D0;
+        color: #fff;
+        border-radius: 5px;
         text-align: center;
         height: 3rem;
         width: 90%;
@@ -200,8 +216,8 @@ page-do-exam {
     text-align: center;
     height: 24px;
     line-height: 24px;
-    border: 1px solid #333;
-    border-radius: 50%;
+    // border: 1px solid #333;
+    // border-radius: 50%;
     margin-right: 5px;
     color: #333;
     font-size: 1.5rem;

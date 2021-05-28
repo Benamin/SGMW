@@ -7,6 +7,7 @@ import {PersonalCenterPage} from "../../pages/home/personal-center/personal-cent
 import {Storage} from "@ionic/storage";
 import {PostsContentComponent} from "../../pages/forum/posts-content/posts-content.component";
 import {ShareWxComponent} from "../share-wx/share-wx";
+import {PostlistComponent} from "../../pages/forum/postlist/postlist.component";
 
 declare var Wechat;
 
@@ -20,7 +21,6 @@ export class ForumListTimeComponent implements OnInit {
 
     @Input() itemIndex;
     @Output() share = new EventEmitter();
-    @Output() toPostList = new EventEmitter();
 
     defaultImg = './assets/imgs/competition/fengmian@2x.png'
     defaultHeadPhoto = defaultHeadPhoto;
@@ -31,7 +31,7 @@ export class ForumListTimeComponent implements OnInit {
 
     @Input() set followList(event) {
         this.PosterList = event.map(e => {
-            e.PostTimeFormatted = this.commonSer.transFormTime(e.PostTimeFormatted);
+            e.PostTimeFormatted = e.PostTimeFormatted.replace(/-/g, '/');
             return e;
         })
     }
@@ -69,6 +69,7 @@ export class ForumListTimeComponent implements OnInit {
 
     // 微信分享
     wxShare(data) {
+        console.log(data);
         let description = data.ContentWithoutHtml.replace(/\&nbsp;/g, '');
         let thumb = '';
 
@@ -99,8 +100,14 @@ export class ForumListTimeComponent implements OnInit {
     }
 
     //话题列表
-    goToPostList(item) {
-        this.toPostList.emit(item);
+    toPostList(item) {
+        const data = {
+            Id: item.TopicId,
+            CoverImage: item.TopicImageUrl,
+            Name: item.TopicName,
+            navli: "话题"
+        }
+        this.navCtrl.push(PostlistComponent, {data: data});
     }
 
     getDuration(ev, item) {

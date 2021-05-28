@@ -21,6 +21,7 @@ import {ThemeActivityPage} from "../home/theme-activity/theme-activity";
 import {CourseDetailPage} from "../learning/course-detail/course-detail";
 import {NotificationPage} from "../mine/notification/notification";
 import {EditPage} from "../home/competition/edit/edit";
+import {InformationDownloadPage} from "../home/information-download/information-download";
 
 @Component({
     templateUrl: 'tabs.html'
@@ -38,7 +39,7 @@ export class TabsPage {
 
     tabRoots = [
         {
-            root: HomePage,
+            root: InformationDownloadPage,
             tabTitle: '首页',
             tabIconOn: 'custom-tab1-on',
             tabIconOff: 'custom-tab1-off',

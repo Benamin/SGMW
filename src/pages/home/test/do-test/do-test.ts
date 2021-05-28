@@ -70,8 +70,8 @@ export class DoTestPage {
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
                 if (res.Result !== 0) {
-                    if(res.message) this.commonSer.alert(res.message);
-                    if(res.Message) this.commonSer.alert(res.Message);
+                    if (res.message) this.commonSer.alert(res.message);
+                    if (res.Message) this.commonSer.alert(res.Message);
                 }
                 loading.dismiss();
                 this.exam.QnAInfos = res.data.QnAInfos;
@@ -196,6 +196,7 @@ export class DoTestPage {
                     loading.dismiss();
                     if (res.code == 200 && status == 3) {
                         this.score.score = res.message;
+                        console.log(this.score)
                         this.score.show = true;
                     } else if (res.code == 200 && status == 2) {
                         this.commonSer.toast('暂存成功');

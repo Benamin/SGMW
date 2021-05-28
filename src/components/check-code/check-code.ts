@@ -33,15 +33,15 @@ export class CheckCodeComponent {
         let _str = "0123456789";//设置随机数库
         let _picTxt = "";//随机数
         let _num = 4;//4个随机数字
-        let _width = $canvas.width * 0.6;
-        let _height = $canvas.height * 0.6;
+        let _width = $canvas.width;
+        let _height = $canvas.height;
         let ctx = $canvas.getContext("2d");//获取 context 对象
         ctx.textBaseline = "bottom";//文字上下对齐方式--底部对齐
         ctx.fillStyle = this.randomColor(180, 240);//填充画布颜色
         ctx.fillRect(0, 0, _width, _height);//填充矩形--画画
         for (let i = 0; i < _num; i++) {
             let x = (_width - 10) / _num * i + 10;
-            let y = this.randomNum(_height / 2, _height);
+            let y = this.randomNum(_height, _height);
             let deg = this.randomNum(-45, 45);
             let txt = _str[this.randomNum(0, _str.length)];
             _picTxt += txt;//获取一个随机数
@@ -66,7 +66,7 @@ export class CheckCodeComponent {
             ctx.fillStyle = this.randomColor(0, 255);
             ctx.beginPath();
             //随机画原，填充颜色
-            ctx.arc(this.randomNum(0, _width), this.randomNum(0, _height), 1, 0, 2 * Math.PI);
+            ctx.arc(this.randomNum(0, _width), this.randomNum(0, _height/2), 1, 0, 2 * Math.PI);
             ctx.fill();
         }
         this.done.emit(_picTxt);
