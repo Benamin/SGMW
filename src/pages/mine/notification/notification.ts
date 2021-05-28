@@ -48,7 +48,7 @@ export class NotificationPage {
                 private loadCtrl:LoadingController) {
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         // console.log(888999, AppModule)
         this.getList();
     }
