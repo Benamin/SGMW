@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>通知中心</ion-title>
+        <ion-title>消息</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -29,8 +29,8 @@
 					  <div class="username">{{ item.ReplyPeopleName }}</div>
 					  <div class="desc">{{ item.Text }}</div>
 					  <div class="bottom-info">
-						  <span *ngIf="item.Type === 22">回复了你的论坛帖子</span>
-						  <span *ngIf="item.Type === 30">点赞了你的论坛帖子</span>
+						  <span *ngIf="item.Type === 22">回复了你的动态帖子</span>
+						  <span *ngIf="item.Type === 30">点赞了你的动态帖子</span>
 						  <span *ngIf="item.Type === 31">点赞了你的课程讨论</span>
 						  <span *ngIf="item.Type === 32">回复了你的课程讨论</span>
 						  <span *ngIf="item.Type === 33">回复了你的帖子评论</span>
@@ -42,18 +42,23 @@
 				<div class="noti">
 					<span *ngIf="item.Status == 0" class="tips"></span>
 					<p>{{item.Title}}</p>
-					<p>{{item.SubTitle}}</p>
+					<p class="desc" *ngIf="item.Text">{{ item.Text }}</p>
+					<div class="detail-text">
+						<span>查看详情</span>
+						<img src="./assets/imgs/new_version/mine/right.png">
+					</div>
 				</div>
 			</ng-template>
 		</div>
 	</div>
 
-    <ion-list text-center style="margin-top: 10rem" *ngIf="page.isLoad && notificationList.length == 0">
-        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-        <p text-center style="color: #666666;font-size: 16px">
-            暂无数据
-        </p>
-    </ion-list>
+	<ion-list text-center style="margin-top: 10rem;text-align: center;text-align: center;" *ngIf="page.isLoad && notificationList.length == 0">
+		<img style="width: 19.3rem;" src="./assets/imgs/no-data.png" alt="无数据">
+		<p text-center style="color: #9D9D9E;font-size: 14px">
+			暂无数据
+		</p>
+	</ion-list>
+
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"

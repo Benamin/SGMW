@@ -68,12 +68,14 @@ page-do-exam {
         margin-left: 1rem;
         line-height: 1.5rem;
         position: relative;
-        padding: 10px 0;
-        
+        padding: 5px 10px;
       }
-      .active{
-        background:linear-gradient(to right,#EA092B,#F88F7C);
+
+      .active {
+        background: linear-gradient(to right, #EA092B, #F88F7C);
         color: #fff;
+        border-radius: 3px;
+
         .selectIndex {
           background: none;
           border: 0;

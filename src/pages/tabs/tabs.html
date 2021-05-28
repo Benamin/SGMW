@@ -2,7 +2,9 @@
     <ng-container *ngFor="let tabRoot of tabRoots;let i = index;">
         <ion-tab (ionSelect)="onChange(i)" [rootParams]="tabParams" [root]="tabRoot.root"
                  tabTitle="{{tabRoot.tabTitle}}"
-                 tabIcon="{{ tabsIndex == i ? tabRoot.tabIconOn:tabRoot.tabIconOff }}"></ion-tab>
+                 tabIcon="{{ tabsIndex == i ? tabRoot.tabIconOn:tabRoot.tabIconOff }}"
+                 tabBadge="{{ i === 3 && tabBadgeNum!==0 ? tabBadgeNum : ''}}"
+                 tabBadgeStyle="{{ i === 3 && tabBadgeNum!==0 ? 'danger' : ''}}"></ion-tab>
     </ng-container>
 </ion-tabs>
 <div class="privacy" *ngIf="inputType">

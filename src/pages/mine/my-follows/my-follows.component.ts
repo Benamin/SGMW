@@ -44,7 +44,7 @@ export class MyFollowsComponent implements OnInit {
         this.is_getData();
     }
 
-    // 关注的帖子
+    // 关注的动态
     myfollows() {
         let loading = null;
         if (this.myfavoritespage.PageIndex == 1) {
@@ -161,7 +161,7 @@ export class MyFollowsComponent implements OnInit {
         )
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
     }

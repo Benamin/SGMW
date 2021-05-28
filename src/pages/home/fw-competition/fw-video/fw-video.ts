@@ -282,7 +282,7 @@ export class FwVideoPage {
       message: {
         title: data.Title, // 标题
         description: "", // 简介
-        thumb: thumb, //帖子图片
+        thumb: thumb, //动态图片
         mediaTagName: "TEST-TAG-001",
         messageExt: "这是第三方带的测试字段",
         messageAction: "<action>dotalist</action>",

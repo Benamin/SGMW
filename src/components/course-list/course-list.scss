@@ -8,17 +8,21 @@ course-list {
     .course-item {
       width: 100%;
       display: flex;
-      padding: 5px;
+      padding: 0.5rem;
+      margin-bottom: 2rem;
 
       .item-img {
-        width: 12.6rem;
-        margin-right: .5rem;
+        width: 14.3rem;
+        min-width: 14.3rem;
+        height: 8.1rem;
+        margin-right: 1.3rem;
         text-align: center;
 
         img {
           border-radius: 5px;
-          height: 7rem;
-          width: 12.6rem;
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
         }
       }
 
@@ -30,8 +34,8 @@ course-list {
 
         > p {
           font-size: 1.5rem;
-          font-weight: 400;
-          color: rgba(0, 0, 0, .9);
+          font-weight: 600;
+          color: #474747;
           line-height: 1.75rem;
           overflow: hidden;
           display: -webkit-box;
@@ -44,11 +48,11 @@ course-list {
         .desc {
           align-self: flex-end;
           width: 100%;
-          color: #999999;
+          color: #C9C9C9;
           margin-top: 10px;
           display: flex;
           img{
-            margin-right: 2px;
+            margin-right: 0.5rem;
             width: 18px;
           }
           > span{

@@ -156,7 +156,7 @@ export class LoginPage {
                 private globalData: GlobalData,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
-        this.statusBar.backgroundColorByHexString('#1a1a1a');
+        this.statusBar.backgroundColorByHexString('#FFFFFF');
         console.log(this.platform.is('mobileweb'))
         console.log(this.platform.is('core'))
         if (this.platform.is('mobileweb') || this.platform.is('core')) {
@@ -541,12 +541,12 @@ export class LoginPage {
                 }, (error) => {
                     this.dismissLoading();
                     const message = JSON.parse(error.error);
-                    this.commonSer.alert(message.error_description || JSON.stringify(error.error));
+                    this.commonSer.alert("骏菱学社：账号或密码错误，" + (message.error_description || JSON.stringify(error.error)));
                 }
             ).catch(error => {
                 this.dismissLoading();
                 const message = JSON.parse(error.error);
-                this.commonSer.alert(`${message.error_description}`);
+                this.commonSer.alert(`骏菱学社：账号或密码错误，${message.error_description}`);
             })
         } else {
             this.loginSer.LLZSGetToken(data).subscribe(
@@ -560,7 +560,7 @@ export class LoginPage {
                 },
                 (error) => {
                     this.dismissLoading();
-                    this.commonSer.alert(error.error.error_description || JSON.stringify(error.error));
+                    this.commonSer.alert("骏菱学社：账号或密码错误，" + error.error.error_description || JSON.stringify(error.error));
                 }
             )
         }

@@ -1,147 +1,131 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>我的帖子</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>我的动态</ion-title>
+    </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
-    </ion-refresher-content>
-  </ion-refresher>
-  <div class="navul">
-    <div class="navli" [ngClass]="{'act': navli=='已发布'}" tappable (click)="switchInformation('已发布',2)">
-      已发布
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div ion-fixed class="navul">
+        <div class="navli" [ngClass]="{'act': navli=='已发布'}" tappable (click)="switchInformation('已发布',2)">
+            已发布
+        </div>
+        <div class="navli" [ngClass]="{'act': navli=='草稿箱'}" tappable (click)="switchInformation('草稿箱',1)">
+            草稿箱
+        </div>
     </div>
-    <div class="navli" [ngClass]="{'act': navli=='草稿箱'}" tappable (click)="switchInformation('草稿箱',1)">
-      草稿箱
-    </div>
-  </div>
-  <div *ngIf="navli=='已发布'" class="content-div">
-  
-    <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
-      <div class="post-introduction-top">
-        <img src="{{item.PosterUserHeadPhoto}}" alt="">
-        <div class="name nowrap-1">{{item.PosterUserName}}</div>
-        <div class="oldDate nowrap-1">{{item.PostRelativeTime}}</div>
-        <div style="flex: 1;">
+    <ng-container *ngIf="navli=='已发布'">
+        <div class="content-div">
+            <app-forum-list-time [followList]='forumList'></app-forum-list-time>
+            <ion-list text-center style="margin-top: 10rem" *ngIf="forumList.length == 0 && isLoad">
+                <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+                <p text-center style="color: #666666;font-size: 16px">
+                    暂无数据
+                </p>
+            </ion-list>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="navli=='草稿箱'">
+        <div class="content-div">
+            <div class="post-introduction" *ngFor="let item of draftList">
+                <div class="post-introduction-top">
+                    <img src="{{item.PosterUserHeadPhoto}}" alt="">
+                    <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
+                    <div class="edit-div">
+                          <span class="edit-img" tappable (click)="editITem(item)">
+                            <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
+                          </span>
+                                        <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item)">
+                            <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
+                          </span>
+                    </div>
+                </div>
+                <div class="post-introduction-con">
+                    <p>{{item.Title}}</p>
+                    <ng-container *ngIf="item.Images && item.Images.length > 0">
+                        <div class="img-div img1" *ngIf="item.Images && item.Images.length==1"
+                             [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
+                             style="background-size: cover;background: no-repeat center;">
+                        </div>
+                        <div class="img-div img2" *ngIf="item.Images.length==2">
+                            <div *ngFor="let img of item.Images">
+                                <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
+                                     [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="img-div img3" *ngIf="item.Images.length>2">
+                            <div *ngFor="let img of item.Images.slice(0,3)">
+                                <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
+                                     [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.Pvideo">
+                        <div class="poster-box">
+                            <div class="mask">
+                                <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4"
+                                       (loadedmetadata)="getDuration($event,item)"
+                                       [src]="item.files.DownLoadUrl"></video>
+                            </div>
+                            <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>
+                            <span *ngIf="item.VideoMinute > 0">{{item.VideoMinute | secondFormat}}</span>
+                            <img class="video-poster" src="{{ item?.Pvideo?.CoverUrl || defaultImg }}" alt="视频封面图">
+                            <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+                        </div>
+                    </ng-container>
+                    <div class="topicList">
+                      <span class="topicSpan" (click)="$event.stopPropagation();toPostList(topic)"
+                            *ngFor="let topic of item.TopicTagPlateItem">
+                        {{topic.TopicName}}
+                      </span>
+                    </div>
+                </div>
+                <div class="post-introduction-buttom">
+            <span class="nowrap-1">
+                    <div class="oldDate">{{item.PostTimeForm | date:"yyyy-MM-dd HH:mm"}}</div>
+            </span>
+                    <span class="eye">
+              <img src="./assets/imgs/forum/other/eye.png">
+                        {{item.ViewCount}}
+            </span>
+                    <span class="luntan_coment">
+              <img src="./assets/imgs/forum/other/reply.png">
+                        {{item.ReplyCount}}
+            </span>
+                    <span tappable class="comment_like">
+      <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/like_off.png">
+      <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/like_on.png">
+                        {{item.LikeCount}}
+    </span>
+                </div>
+            </div>
+        </div>
+        <ion-list text-center style="margin-top: 10rem" *ngIf="draftList.length == 0 && isLoad">
+            <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+            <p text-center style="color: #666666;font-size: 16px">
+                暂无数据
+            </p>
+        </ion-list>
+    </ng-container>
 
-        </div>
-        <div class="edit-div" >
-          <span class="edit-img" tappable (click)="editITem(item);$event.stopPropagation()">
-            <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
-          </span>
-          <span class="del-img" tappable (click)="delITem(item);$event.stopPropagation()">
-            <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-          </span>
-        </div>
-      </div>
-      <div class="post-introduction-con">
-        <p>{{item.Title}}</p>
-        <div class="img-div img1" *ngIf="item.Images.length==1"
-        [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
-        style="background-size: cover;background: no-repeat center;">
-      </div>
-      <div class="img-div img2" *ngIf="item.Images.length==2">
-        <div *ngFor="let img of item.Images">
-          <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
-            [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
-          </div>
-        </div>
-      </div>
-      <div class="img-div img3" *ngIf="item.Images.length>2">
-        <div *ngFor="let img of item.Images.slice(0,3)">
-          <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
-            [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
-          </div>
-        </div>
-      </div>
-      </div>
-      <div class="post-introduction-buttom">
-        <span class="nowrap-1">
-          {{item.TopicPlateName}}
-        </span>
-        <span>
-          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-          {{item.ReplyCount}}
-        </span>
-        <span>
-          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-          {{item.LikeCount}}
-        </span>
-      </div>
-    </div>
 
-  </div>
-  <div *ngIf="navli=='草稿箱'" class="content-div">
-    <div class="post-introduction" *ngFor="let item of forumLIst">
-      <div class="post-introduction-top">
-        <img src="{{item.PosterUserHeadPhoto}}" alt="">
-        <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
-        <div class="edit-div">
-          <span class="edit-img" tappable (click)="editITem(item)">
-            <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
-          </span>
-          <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item)">
-            <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
-          </span>
-        </div>
-      </div>
-      <div class="post-introduction-con">
-        <p>{{item.Title}}</p>
-        <div class="img-div img1" *ngIf="item.Images.length==1"
-        [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
-        style="background-size: cover;background: no-repeat center;">
-      </div>
-      <div class="img-div img2" *ngIf="item.Images.length==2">
-        <div *ngFor="let img of item.Images">
-          <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
-            [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
-          </div>
-        </div>
-      </div>
-      <div class="img-div img3" *ngIf="item.Images.length>2">
-        <div *ngFor="let img of item.Images.slice(0,3)">
-          <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
-            [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
-          </div>
-        </div>
-      </div>
-      </div>
-      <div class="post-introduction-buttom">
-        <span class="nowrap-1">
-          {{item.TopicPlateName}}
-        </span>
-        <span>
-          <img src="./assets/imgs/forum/list/luntan_coment@3x.png" alt="">
-          {{item.ReplyCount}}
-        </span>
-        <span>
-          <img src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
-          {{item.LikeCount}}
-        </span>
-      </div>
-    </div>
-
-  </div>
-  <ion-list text-center style="margin-top: 10rem" *ngIf="forumLIst.length==0">
-      <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-      <p text-center style="color: #666666;font-size: 16px">
-        暂无数据
-      </p>
-  </ion-list>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
 
 <div class="isOk" *ngIf="isDelShow">
-  <div class="isOk-con">
-    <div class="text-div">
-      确定删除吗？
+    <div class="isOk-con">
+        <div class="text-div">
+            确定删除吗？
+        </div>
+        <div class="btn-div">
+            <div class="del-no" tappable (click)="isDelShow=false">取消</div>
+            <div class="del-ok" tappable (click)="delOk()">确定</div>
+        </div>
     </div>
-    <div class="btn-div">
-      <div class="del-no" tappable (click)="isDelShow=false">取消</div>
-      <div class="del-ok" tappable (click)="delOk()">确定</div>
-    </div>
-  </div>
 </div>

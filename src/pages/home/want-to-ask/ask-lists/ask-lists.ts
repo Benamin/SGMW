@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {HomeService} from "../../home.service";
 import {WantToAskDetailPage} from "../ask-detail/ask-detail";
-import {AddAskPage} from "../add-ask/add-ask";
+
 // import {askSearchModalPage} from "../ask-search-modal/ask-search-modal";
 import {Keyboard} from "@ionic-native/keyboard";
 import {timer} from "rxjs/observable/timer";
@@ -98,7 +98,7 @@ export class WantToAskListsPage {
 			const data = {
 				PageIndex: this.page.PageIndex,
 				PageSize: this.page.PageSize,
-				IsNowMonth: true, // 是否只查当月的 pc为false
+				IsNowMonth: false, // 是否只查当月的 pc为false
 				IsNoDerive: 1, // 0, 1查询 2导出
 				Title: this.page.Title, // 问题描述
 				StartTime: null,
@@ -140,10 +140,6 @@ export class WantToAskListsPage {
 
 		goAskedDetail(item) {
 			this.navCtrl.push(WantToAskDetailPage, {item: item});
-		}
-
-		goAddAskPage(item) {
-			this.navCtrl.push(AddAskPage, {item: item});
 		}
 
 		// this.navCtrl.push(LookTestPage, {item: item});

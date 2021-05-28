@@ -1,157 +1,172 @@
 <ion-header>
-  <ion-navbar hideBackButton>
-    <span class="backPop" (click)="backPop()">
-      取消
-    </span>
-    <ion-title>
-      发布帖子
-    </ion-title>
-    <span class="release" (click)="sevrData(true)">
-      发布
-    </span>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            发布动态
+        </ion-title>
+        <span class="release" (click)="sevrData(true)">
+          发布
+        </span>
+    </ion-navbar>
 </ion-header>
-<ion-content style="background: #fff">
-  <div class="content-div"  [ngStyle]="{'padding-bottom': paddingBottom}">
-  <!-- <div class="content-div" [ngClass]="{'func-buttom-div': focusAmeR}" [ngStyle]="{'padding-bottom': paddingBottom}"> -->
-    <div class="input-div">
-      <input style="width: 100%;" type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;" [(ngModel)]="Title"
-        placeholder="请输入标题">
+<ion-content style="background: #f7f7f7">
+    <div class="content-div" [ngStyle]="{'padding-bottom': paddingBottom}">
+        <div class="input-div">
+            <input style="width: 100%;" type="text" name="" (blur)="focusAmeR=false;" (focus)="focusAmeR=true;"
+                   [(ngModel)]="Title"
+                   placeholder="请输入标题">
+        </div>
+        <div style="height: 10px;width: 100%; background: #f7f7f7;"></div>
+        <div class="textarea-div" [ngStyle]="{'height':focusAmeR?textareaHeight:'calc(100% - 130px)'}">
+            <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea"
+                 contenteditable="true"
+                 (input)="inputChange()" (keydown)="selectionStart($event)"
+                 (blur)="blurSelectionStart($event);focusAmeR=false;"
+                 (focus)="htmlTextDle();focusAmeR=true;">
+                <span style="color: rgb(134, 134, 134)" class="placeholder-text">请输入正文</span>
+            </div>
+            <p class="inputTips" *ngIf="textareaLength > 0">再写<span style="color: #fd6466">{{textareaLength}}</span>个字可获得<span
+                    style="color: #18a036">1</span>积分</p>
+        </div>
     </div>
-    <div style="height: 10px;width: 100%; background: #f2f2f2;">
-    </div>
-    <div class="textarea-div" [ngStyle]="{'height':focusAmeR?textareaHeight:'calc(100% - 130px)'}">
-      <div placeholder="请输入正文" tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea"
-           contenteditable="true"
-           (input)="inputChange()" (keydown)="selectionStart($event)"
-           (blur)="blurSelectionStart($event);focusAmeR=false;"
-           (focus)="htmlTextDle();focusAmeR=true;">
-        <span style="color: rgb(134, 134, 134)" class="placeholder-text">请输入正文</span>
-      </div>
-      <p class="inputTips" *ngIf="textareaLength > 0">再写<span style="color: #fd6466">{{textareaLength}}</span>个字可获得<span
-              style="color: #18a036">1</span>积分</p>
-    </div>
-  </div>
 </ion-content>
 <ion-footer>
-  <div class="buttom-div" id="buttomImgDiv" [ngStyle]="{'padding-bottom': paddingBottom}">
-    <div class="img-div">
-      <div class="add-img" (click)="addImg()">
-        <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
-      </div>
-      <div class="can-img" *ngFor="let item of imgitems;index as i" (click)="editimg(item)">
-        <img class="can-p71_cancel" (click)="del_img(item,i);$event.stopPropagation();" src="./assets/imgs/forum/other/p71_cancel@3x.png" alt="">
-        <img src="{{item.src}}" alt="">
-        <p>{{item.alt}}</p>
-      </div>
-
-    </div>
-    <input type="file" id="pic_selector" (change)="uploadFile($event)" accept="image/*" multiple />
-    <div class="bun-buttom">
-      <span class="describe" [ngStyle]="{'opacity': imgitems.length>0?1:0}">
-        点击图片编辑描述
-      </span>
-      <div></div>
-      <span class="seve-draft" (click)="sevrData(false)">
+    <div class="buttom-div" id="buttomImgDiv" [ngStyle]="{'padding-bottom': paddingBottom}">
+        <div class="img-div">
+            <div *ngIf="multiple !== 'video'" class="add-img" (click)="chooseVideo()">
+                <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
+            </div>
+            <div class="videoBox" [hidden]="multiple !== 'video' ">
+                <div *ngIf="video.isLoad" class="loading">
+                    <span class="dots-loader"></span>
+                </div>
+                <img class="can-p71_cancel" (click)="del_video();$event.stopPropagation();"
+                     src="./assets/imgs/forum/other/cancel.png">
+                <p class="uploadCover" (click)="selectCoverImage()">替换封面</p>
+                <video id="video_id" width="200" (click)="playVideo()" height="150" preload [poster]="CoverUrl">你的浏览器不能支持HTML5视频
+                </video>
+            </div>
+            <ng-container *ngIf="multiple === 'image'">
+                <div class="can-img" *ngFor="let item of imgitems;index as i" (click)="editimg(item)">
+                    <img class="can-p71_cancel" (click)="del_img(item,i);$event.stopPropagation();"
+                         src="./assets/imgs/forum/other/cancel.png" alt="">
+                    <img src="{{item.src}}" alt="">
+                    <p>{{item.alt}}</p>
+                </div>
+            </ng-container>
+        </div>
+        <!--            上传动态图片-->
+        <input type="file" id="image_selector" (change)="uploadMultipleFile($event)" accept="image/*" multiple/>
+        <!--        上传视频-->
+        <input type="file" id="video_selector" (change)="uploadMultipleFile($event)" accept="video/*" multiple/>
+        <!--        上传封面图片-->
+        <input type="file" id="cover_selector" (change)="uploadVideoCover($event)" accept="image/*" multiple/>
+        <div class="bun-buttom">
+              <span class="describe" [ngStyle]="{'opacity': imgitems.length>0?1:0}">
+                点击图片编辑描述
+              </span>
+            <div></div>
+            <span class="seve-draft" (click)="sevrData(false)">
         <img src="./assets/imgs/forum/other/p71_save@3x.png" alt="">
         <span>
           保存草稿
         </span>
       </span>
-    </div>
-    <div class="topicList">
+        </div>
+        <div class="topicList">
       <span *ngFor="let item of conversationDataSelection;let i = index" (click)="deleteItem(i)">
-        <span>#</span>{{item.Name}}
-        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+        {{item.Name}}
+          <ion-icon ios="ios-close" md="md-close"></ion-icon>
       </span>
-      <span (click)="addTopic()">
-        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-        话题</span>
+            <span (click)="addTopic()">
+            <ion-icon ios="ios-add" md="md-add"></ion-icon>
+            话题</span>
+        </div>
+        <div class="plate" *ngIf="!focusAmeR">
+            <div class="plate-li" (click)="choicePlate('ForumHistory')">
+                <span class="plate-li-name" *ngIf="ForumHistorySelection.length==0">
+                  选择板块
+                </span>
+                <span class="plate-li-name" *ngIf="ForumHistorySelection.length>0">
+                  <span *ngFor="let item of ForumHistorySelection;index as i">
+                    <span *ngIf="i!=0">、</span>
+                      {{item.Name}}
+                  </span>
+                </span>
+                <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
+            </div>
+            <!--      <div class="plate-li" (click)="choicePlate('conversationData')">-->
+            <!--        <span class="plate-li-name"  *ngIf="conversationDataSelection.length==0" >-->
+            <!--          选择话题-->
+            <!--        </span>-->
+            <!--        <span class="plate-li-name" *ngIf="conversationDataSelection.length>0" >-->
+            <!--          <span  *ngFor="let item of conversationDataSelection;index as i" >-->
+            <!--            <span *ngIf="i!=0" >、</span>-->
+            <!--            {{item.Name}}-->
+            <!--          </span>-->
+            <!--        </span>-->
+            <!--        <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">-->
+            <!--      </div>-->
+            <!--      <div class="plate-li">-->
+            <!--        <span class="plate-li-name">-->
+            <!--          申请精华帖-->
+            <!--        </span>-->
+            <!--        <span class="plate-li-name" >-->
+            <!--          <ion-checkbox class="checkbox-btn" [(ngModel)]="ApplyEssence"></ion-checkbox>-->
+            <!--        </span>-->
+            <!--      </div>-->
+        </div>
     </div>
-    <div class="plate" *ngIf="!focusAmeR" >
-      <div class="plate-li" (click)="choicePlate('ForumHistory')">
-        <span class="plate-li-name" *ngIf="ForumHistorySelection.length==0" >
-          选择板块
-        </span>
-        <span class="plate-li-name" *ngIf="ForumHistorySelection.length>0" >
-          <span *ngFor="let item of ForumHistorySelection;index as i" >
-            <span *ngIf="i!=0" >、</span>
-            {{item.Name}}
-          </span>
-        </span>
-        <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
-      </div>
-<!--      <div class="plate-li" (click)="choicePlate('conversationData')">-->
-<!--        <span class="plate-li-name"  *ngIf="conversationDataSelection.length==0" >-->
-<!--          选择话题-->
-<!--        </span>-->
-<!--        <span class="plate-li-name" *ngIf="conversationDataSelection.length>0" >-->
-<!--          <span  *ngFor="let item of conversationDataSelection;index as i" >-->
-<!--            <span *ngIf="i!=0" >、</span>-->
-<!--            {{item.Name}}-->
-<!--          </span>-->
-<!--        </span>-->
-<!--        <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">-->
-<!--      </div>-->
-      <div class="plate-li">
-        <span class="plate-li-name">
-          申请精华帖
-        </span>
-        <span class="plate-li-name" >
-          <ion-checkbox class="checkbox-btn" [(ngModel)]="ApplyEssence"></ion-checkbox>
-        </span>
-      </div>
-    </div>
-  </div>
 </ion-footer>
 <div class="edit-pictures" *ngIf="iseditImg">
-  <div class="navbar-div">
-    <div (click)="iseditImg=false"><img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt=""></div>
-    <div>编辑图片</div>
-    <div>
+    <div class="navbar-div">
+        <div (click)="iseditImg=false"><img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt=""></div>
+        <div>编辑图片</div>
+        <div>
       <span class="release" (click)="editPicturesOk()">
         完成
       </span>
+        </div>
     </div>
-  </div>
-  <div class="img-div" [ngStyle]="{'background-image': 'url('+editImg.src+')','background-size':'contain'}" style="max-width: 100%;max-height: 80%;background-size: contain;background: no-repeat center;">
-    <!-- <img style="width: auto;height: auto;max-width: 100%;max-height: 80%;" src="{{editImg.src}}" alt="{{editImg.alt}}"> -->
-  </div>
-  <div class="input-div">
-    <input type="text" [(ngModel)]="editImg.newalt" placeholder="请给图片一个描述吧…" name="" id="">
-  </div>
+    <div class="img-div" [ngStyle]="{'background-image': 'url('+editImg.src+')','background-size':'contain'}"
+         style="max-width: 100%;max-height: 80%;background-size: contain;background: no-repeat center;">
+    </div>
+    <div class="input-div">
+        <input type="text" [(ngModel)]="editImg.newalt" placeholder="请给图片一个描述吧…" name="" id="">
+    </div>
 </div>
 <div class="editImg-ok" *ngIf="editImgOk">
-  <div class="img-div">
-    <div>
-      <img src="./assets/imgs/forum/other/p71_sucess@3x.png" alt="">
+    <div class="img-div">
+        <div>
+            <img src="./assets/imgs/forum/other/p71_sucess@3x.png" alt="">
+        </div>
+        <div>
+            {{editImgOkText}}
+        </div>
     </div>
-    <div>
-      {{editImgOkText}}
-    </div>
-  </div>
 </div>
 
 <!--弹窗-->
-<div class="choice-plate" *ngIf="choicePlateShow" >
-  <div class="choice-plate-box" >
-    <div class="choice-plate-top">
-      请选择{{plateType=='ForumHistory'?'板块':'话题'}}
-    </div>
-    <div class="choice-plate-con" style="    padding-bottom: 90px;">
-      <div class="choice-plate-li" *ngFor="let item of choicePlateList" (click)="choicePlateListClick(item)">
-        {{item.Name}}
-        <img *ngIf="item.Selection"  src="./assets/imgs/forum/other/xz@2x.png" alt="">
-        <img *ngIf="!item.Selection"  src="./assets/imgs/forum/other/xz_no@2x.png" alt="">
-      </div>
-    </div>
-    <div style="    background: #e4e4e6;
+<div class="choice-plate" *ngIf="choicePlateShow">
+    <div class="choice-plate-box">
+        <div class="choice-plate-top">
+            请选择{{plateType == 'ForumHistory' ? '板块' : '话题'}}
+        </div>
+        <div class="choice-plate-con" style="    padding-bottom: 90px;">
+            <div class="choice-plate-li" *ngFor="let item of choicePlateList" (click)="choicePlateListClick(item)">
+                {{item.Name}}
+                <img *ngIf="item.Selection" src="./assets/imgs/forum/other/xz@2x.png" alt="">
+                <img *ngIf="!item.Selection" src="./assets/imgs/forum/other/xz_no@2x.png" alt="">
+            </div>
+        </div>
+        <div style="    background: #e4e4e6;
     padding-top: 10px;    position: fixed;
     width: 100%;
     bottom: 0;">
-      <div class="but-list" (click)="SelectionChoicePlate(plateType)" style="border-bottom: 1px solid #f3f3f3;">确定</div>
-      <div class="but-list" (click)="choicePlateShow=false">取消</div>
+            <div class="but-list" (click)="SelectionChoicePlate(plateType)" style="border-bottom: 1px solid #f3f3f3;">
+                确定
+            </div>
+            <div class="but-list" (click)="choicePlateShow=false">取消</div>
+        </div>
     </div>
-  </div>
 
 </div>

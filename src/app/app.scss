@@ -103,9 +103,17 @@ html, body, p {
   height: calc(100% - 20px);
 }
 
+// 上拉选择样式 如岗位认证 切换岗位 start
 .levelAction {
   .action-sheet-container {
     padding: 0;
+    .action-sheet-group {
+      box-sizing: border-box;
+      margin: 0 1rem;
+      margin-top: 0;
+      margin-bottom: 0.9rem !important;
+      padding: 1.1rem 1.3rem 1.8rem 1.3rem !important;
+    }
   }
 
   .action-sheet-group {
@@ -118,17 +126,27 @@ html, body, p {
   }
 
   button.action-sheet-button {
-    height: 55px;
+    height: 4.2rem;
 
     .button-inner {
-      font-size: 14px;
+      font-size: 1.5rem;
+    }
+    &:nth-child(1):before {
+      border-top: 0 !important;
+      height: 0 !important;
     }
   }
 
   button.action-sheet-destructive {
-    color: #FA6400 !important;
+    color: #FF001B !important;
+
   }
+  .action-sheet-group button.action-sheet-button:before {
+    border-color: #DEDEDE ;
+  }
+
 }
+// 上拉选择样式 end
 
 .mineAlert .alert-message {
   text-align: left !important;
@@ -266,3 +284,9 @@ html, body, p {
     font-weight: 400;
   }
 }
+
+.toolbar-ios {
+  min-height: 5.7rem;
+}
+// tab选中颜色
+a[aria-selected="true"] { color: red !important; }

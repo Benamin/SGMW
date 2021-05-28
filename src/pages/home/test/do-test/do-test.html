@@ -225,18 +225,18 @@
     <div class="content">
         <img src="./assets/imgs/mine/exam-submit.png" alt="">
         <p>试卷提交成功</p>
-        <ng-container *ngIf="sourceType === 'advance';else other_content">
+        <ng-template *ngIf="sourceType === 'advance';else other_content">
             <p class="advance-tips"
                *ngIf="score.score > exam.ExamInfo?.PassScore || score.score == exam.ExamInfo?.PassScore">
                 恭喜您通过当前阶段的认证考试，请等待下一阶段认证的开启</p>
             <p class="advance-tips" *ngIf="score.score < exam.ExamInfo?.PassScore">
                 未达到分数要求({{exam.ExamInfo?.PassScore}}分),请重新答题
             </p>
-        </ng-container>
-        <ng-container #other_content>
+        </ng-template>
+        <ng-template #other_content>
             <p class="number">{{score.score}}</p>
             <p>试卷得分</p>
-        </ng-container>
+        </ng-template>
         <div>完成</div>
     </div>
 </div>

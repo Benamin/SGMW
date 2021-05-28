@@ -10,24 +10,12 @@
       "proxyUrl": "http://devapi1.chinacloudsites.cn/api"
     },
     {
-      "path": "/api",
-      "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
-    },
-    {
-      "path": "/XSZSAPI",
-      "proxyUrl": "http://112.124.23.230:8010/API"
-    },
-    {
-      "path": "/JunKeAPI",
-      "proxyUrl": "https://nbj.sgmw.com.cn"
-    },
-    {
       "path": "/FWZSAPI",
       "proxyUrl": "https://sgmwsa.shaoxingzhuoyue.com/api"
     },
     {
       "path": "/LLZSAPI",
-      "proxyUrl": "https://sso-sales.sgmwsales.com"
+      "proxyUrl": "https://sso-test.baojunev.com"
     }
   ]
 }

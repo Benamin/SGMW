@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, ModalController, NavController} from 'ionic-angular';
+import {Events, LoadingController, ModalController, NavController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {ForumService} from './forum.service';
 import {SearchPage} from "../home/search/search";
@@ -17,11 +17,11 @@ import {ShareWxComponent} from "../../components/share-wx/share-wx";
 })
 export class ForumPage {
 
-    forumList = [];  //帖子列表
+    forumList = [];  //动态列表
     plateList = [];  //　板块列表
     isdoInfinite = true;
-    no_list = false;
-    pageDate = {   //帖子信息
+    isLoad = false;
+    pageDate = {   //动态信息
         OrderBy: "CreateTime",  //CreateTime 发帖时间  ViewCount 浏览量  ReplyCount 回复量  PostTimeFormatted 回复时间
         name: "",
         Type: "New",  // New 最新 CreateTime 发帖时间 PostTimeFormatted 回复时间  //Hot 最热 ViewCount 浏览量  ReplyCount 回复量
@@ -59,10 +59,13 @@ export class ForumPage {
 
     constructor(public navCtrl: NavController, private serve: ForumService,
                 public logSer: LogService, public modalCtrl: ModalController,
+                private events: Events,
                 private storage: Storage, private loadCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
+        // 发布 自定义事件
+        this.events.publish('messageTabBadge:change', {});
         this.logSer.visitLog('lt');
         this.forumList = [];
         this.pageDate.pageIndex = 1;
@@ -80,17 +83,17 @@ export class ForumPage {
         this.navCtrl.push(ViewReplyComponent);
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
 
-    // 新增帖子
+    // 新增动态
     PostAddComponent() {
         this.navCtrl.push(PostAddComponent, {data: {}});
     }
 
-    // 前往帖子列表
+    // 前往动态列表
     goPostlist(data) {
         let HistoryName = ''
         if (this.navli == '板块') { //板块浏览历史
@@ -217,6 +220,7 @@ export class ForumPage {
 
     //navbar切换
     switchInformation(text) {
+        this.isLoad = false;
         this.navli = text;
         if (this.navli == '板块' && this.plateList.length == 0) {
             this.forum_topicplate_search();
@@ -227,7 +231,7 @@ export class ForumPage {
         }
     }
 
-    //帖子信息
+    //动态信息
     getListData() {
         this.showLoading();
         let data = {
@@ -244,13 +248,13 @@ export class ForumPage {
         };
         this.serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             this.dismissLoading()
+            this.isLoad = true;
             if (res.data) {
                 let arr = res.data.Posts.Items;
                 if (arr.length != 0) {
                     this.forumList = this.forumList.concat(arr);
                 }
                 this.pageDate.total = res.data.Posts.TotalItems;
-                this.no_list = this.forumList.length > 0 ? false : true;
                 if (arr == 0) {
                     // this.isdoInfinite = false;
                 }
@@ -264,6 +268,7 @@ export class ForumPage {
             this.showLoading();
         }
         this.serve.newsearchforumtopicplate(this.plateData).subscribe((res: any) => {
+            this.isLoad = true;
             if (!res.data) {
                 return
             }
@@ -273,7 +278,6 @@ export class ForumPage {
             }
             this.plateData.total = res.data.TotalItems;
             this.plateList = this.plateList.concat(arr);
-            this.no_list = this.plateList.length == 0 ? true : false;
             this.dismissLoading();
         })
     }
@@ -302,25 +306,23 @@ export class ForumPage {
         this.showLoading();
         this.serve.SearchNewRetFollower(this.followerData).subscribe(res => {
             this.dismissLoading()
+            this.isLoad = true;
             if (res.data) {
                 let arr = res.data.Posts.Items;
                 if (arr.length != 0) {
                     this.followList = this.followList.concat(arr);
                 }
                 this.followerData.total = res.data.Posts.TotalItems;
-                this.no_list = this.followList.length > 0 ? false : true;
                 if (arr == 0) {
                     // this.isdoInfinite = false;
                 }
-            } else if (this.followList.length == 0) {
-                this.no_list = true;
             }
         })
     }
 
     //搜索
     goToSearch() {
-        this.navCtrl.push(SearchPage, {type: '论坛'});
+        this.navCtrl.push(SearchPage, {type: '动态'});
     }
 
     //微信分享

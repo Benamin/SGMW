@@ -35,11 +35,11 @@ import {PersonalCenterPage} from "../../personal-center/personal-center";
  * 销售大赛 列表
  * 考试项目列表（第几轮考试列表）
  *    |-某一轮考试（项目）的列表
- * 帖子
- *    |-所有帖子
+ * 动态
+ *    |-所有动态
  *      |-最新
  *      |-最热
- *    |-帖子排行榜
+ *    |-动态排行榜
  *      |-所有
  *      |-东区
  * 短视频
@@ -66,10 +66,10 @@ export class CompetitionListsPage {
             secNav: null
         }, {
             lable: 'topic',
-            text: '帖子',
+            text: '动态',
             secNav: [
                 {
-                    navBtnText: '所有帖子',
+                    navBtnText: '所有动态',
                     navBtnEn: 'allTopic',
                     isActived: true,
                     thrNav: [
@@ -141,7 +141,7 @@ export class CompetitionListsPage {
         let competitionParam = this.navParams.get('competitionParam');
         if (competitionParam && competitionParam.userArea && competitionParam.userArea != 'null') {
             this.page.hasArea = true;
-            // 帖子区域
+            // 动态区域
             this.page.navliArr[1].secNav[1].thrNav = [
                 {
                     navBtnText: '所有',
@@ -154,7 +154,7 @@ export class CompetitionListsPage {
                     isActived: false
                 }
             ];
-            // 帖子区域
+            // 动态区域
             this.page.navliArr[2].secNav[1].thrNav = [
                 {
                     navBtnText: '所有',
@@ -288,7 +288,7 @@ export class CompetitionListsPage {
 
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(item) {
 			console.log('888-item', item.Poster)
         let data = {Id: item.Id}
@@ -360,16 +360,16 @@ export class CompetitionListsPage {
         this.page.getParams.OrderBy = '' // LikeCount//标识最热 OrderBy这个字段传：CreateTime//表示最新
         this.page.getParams.AreaID = '' // 传入则查询地区排行和排行榜//不传则查询所有地区排行榜
 
-        // 判断是考试/帖子/短视频
+        // 判断是考试/动态/短视频
         if (this.page.checkType === this.page.navliArr[0].lable) {
             this.page.getListsApi = (data) => {
                 return this.homeSer.GetExamProList(data)
             };
         } else if (this.page.checkType === this.page.navliArr[1].lable) {
-            // 帖子
+            // 动态
             if (this.page.navliArr[1].secNav[0].isActived === true) {
                 this.page.getParams.OrderByDirection = 'DESC';
-                // 帖子最新/最热
+                // 动态最新/最热
                 this.page.getListsApi = (data) => {
                     return this.homeSer.GetAllTopicLists(data)
                 };
@@ -380,7 +380,7 @@ export class CompetitionListsPage {
                     this.page.getParams.OrderBy = 'LikeCount';
                 }
             } else if (this.page.navliArr[1].secNav && this.page.navliArr[1].secNav[1] && this.page.navliArr[1].secNav[1].isActived === true) {
-                // 帖子排行榜
+                // 动态排行榜
                 this.page.getListsApi = (data) => {
                     return this.homeSer.GetTopicCompetitionLists(data)
                 };
@@ -454,13 +454,13 @@ export class CompetitionListsPage {
             Lists = Data.LeaderboardItems.Items;
             this.page.getParams.TotalCount = Data.LeaderboardItems.TotalCount;
         } else if (Data.MyTopPost && Data.MyTopPost.Id) {
-            // 大赛 帖子
+            // 大赛 动态
             Lists = Data.AllPostByTopicTag.AllPost;
             this.page.getParams.TotalCount = Data.AllPostByTopicTag.TotalCount;
             Data.MyTopPost = Object.assign(Data.MyTopPost, { isMy: true })
             Lists.unshift(Data.MyTopPost);
         } else if (!Data.MyTopPost && Data.AllPostByTopicTag && Data.AllPostByTopicTag.AllPost) {
-            // 帖子 第一个返回null的情况
+            // 动态 第一个返回null的情况
             Lists = Data.AllPostByTopicTag.AllPost;
             this.page.getParams.TotalCount = Data.AllPostByTopicTag.TotalCount;
         } else {
@@ -526,5 +526,8 @@ export class CompetitionListsPage {
         modal.present();
     }
 
-		goToPersonalCenter(item) {			console.log('666-item', item.Poster)      this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});    }
+		goToPersonalCenter(item) {
+			console.log('666-item', item.Poster)
+      this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster});
+    }
 }

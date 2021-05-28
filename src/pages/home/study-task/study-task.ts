@@ -73,8 +73,7 @@ export class StudyTaskPage {
     }
 
     getStudyTask() {
-        this.isLoad = true;
-
+        this.isLoad = false;
         const year = new Date(this.myDate).getFullYear();
         const month = new Date(this.myDate).getMonth() + 1;
         const data = {
@@ -86,7 +85,7 @@ export class StudyTaskPage {
         this.homeSer.StudyTaskList(data).subscribe(
             (res) => {
                 this.load.dismissAll();
-                this.isLoad = false;
+                this.isLoad = true;
                 if (res.data) {
                     this.obj = res.data;
                     this.page.TotalCount = res.data.TotalCount;

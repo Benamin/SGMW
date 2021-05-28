@@ -17,6 +17,7 @@ page-post-add {
   .release {
     position: absolute;
     right: 15px;
+    top: 18px;
     background: -webkit-linear-gradient(-90deg, #FFF7CB, #FFC92D);
     background: linear-gradient(-90deg, #FFF7CB, #FFC92D);
     padding: 4px 13px;
@@ -28,6 +29,8 @@ page-post-add {
 
   .content-div {
     height: calc(100% - 200px);
+    padding: 10px;
+    background-color: #f7f7f7;
 
     .input-div {
       margin-top: 0;
@@ -163,7 +166,11 @@ page-post-add {
     }
   }
 
-  #pic_selector {
+  #pic_selector,
+  #image_selector,
+  #cover_selector,
+  #video_selector,
+  #file_selector {
     display: none;
   }
 
@@ -283,6 +290,7 @@ page-post-add {
     right: 0;
     width: 20px;
     top: 0;
+    z-index: 2;
   }
 
   .plate {
@@ -389,6 +397,7 @@ page-post-add {
         margin-right: .2rem;
       }
     }
+
     span:last-child {
       background-color: #ffffff;
       padding: 0;
@@ -405,5 +414,39 @@ page-post-add {
         margin-right: .5rem;
       }
     }
+  }
+
+  .videoBox {
+    position: relative;
+
+    .loading {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .uploadCover {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 10px 0;
+      font-size: 1.2rem;
+      color: #FFFFFF;
+      width: 100%;
+      z-index: 1;
+      text-align: center;
+    }
+  }
+
+  video {
+    background-color: rgba(0, 0, 0, .5);
   }
 }

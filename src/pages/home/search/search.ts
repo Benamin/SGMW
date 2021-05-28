@@ -19,7 +19,7 @@ import {defaultHeadPhoto} from "../../../app/app.constants";
     templateUrl: 'search.html',
 })
 export class SearchPage {
-    navli: '论坛' | '课程' | null = null;
+    navli: '动态' | '课程' | null = null;
     productList = [];
     page = {
         title: '',
@@ -283,7 +283,7 @@ export class SearchPage {
         this.navCtrl.push(PostlistComponent, {data: data});
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
     }

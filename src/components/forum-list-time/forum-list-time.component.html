@@ -1,67 +1,85 @@
-  <div class="post-introduction-top" (click)="$event.stopPropagation();toPersonInfo(item)">
-    <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto" >
-    <div class="name nowrap-1">
-      <p>{{item.PosterUserName}}</p>
-      <p *ngIf="item.System">{{item.System}}</p>
-    </div>
-    <div class="oldDate">{{item.PostRelativeTime}}</div>
-    <span class="share" (click)="wxShare(item);$event.stopPropagation()">
-        <img src="./assets/imgs/forum/other/share.png" >
+<ng-container *ngFor="let item of PosterList">
+    <div class="post-introduction" tappable>
+        <div class="post-introduction-top" (click)="$event.stopPropagation();toPersonInfo(item)">
+            <img [src]="item.PosterUserHeadPhoto || defaultHeadPhoto">
+            <div class="name nowrap-1">
+                <p>{{item.PosterUserName}}</p>
+                <p *ngIf="item.System">{{item.System}}</p>
+            </div>
+            <span class="share" (click)="wxShare(item);$event.stopPropagation()">
+        <img src="./assets/imgs/forum/other/share.png">
       </span>
-  </div>
-  <div class="info-box">
-    <div class="company" *ngIf="item.AgentName">{{ item.AgentName }}</div>
-    <span *ngIf="item.isMy && item.isMy === true && item.Ranking" class="box-ranking">本人排名：第{{ item.Ranking }}名</span>
-    <!--<span *ngIf="itemIndex === 0 && item.Ranking === 0" class="box-ranking">本人排名：第1名</span>-->
-    <span *ngIf="!item.isMy &&  item.Ranking" class="box-ranking">大赛排名：第{{ item.Ranking }}名</span>
-  </div>
-  <div class="post-introduction-con">
-    <p class="nowrap-3">
-      {{item.Title}}
-      <!--{{ item.RowNumber }}-->
-    </p>
-    <div *ngIf="!item.Images || (item.Images && item.Images.length==0)" class="nowrap-2"  [innerHTML]='item.ContentWithoutHtml'>
-
-    </div>
-    <div class="img-div img1" *ngIf="item.Images && item.Images.length==1"
-      [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
-      style="background-size: cover;background: no-repeat center;">
-    </div>
-    <div class="img-div img2" *ngIf="item.Images.length==2">
-      <div *ngFor="let img of item.Images">
-        <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
-          [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
         </div>
-      </div>
-    </div>
-    <div class="img-div img3" *ngIf="item.Images.length>2">
-      <div *ngFor="let img of item.Images.slice(0,3)">
-        <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
-          [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+        <div class="info-box">
+            <div class="company" *ngIf="item.AgentName">{{ item.AgentName }}</div>
+            <span *ngIf="item.isMy && item.isMy === true && item.Ranking" class="box-ranking">本人排名：第{{ item.Ranking }}
+                名</span>
+            <span *ngIf="!item.isMy &&  item.Ranking" class="box-ranking">大赛排名：第{{ item.Ranking }}名</span>
         </div>
-      </div>
+        <div class="post-introduction-con" (click)="goToDetail(item)">
+            <p class="nowrap-3">
+                {{item.Title}}
+            </p>
+            <div *ngIf="!item.Images || (item.Images && item.Images.length==0)" class="nowrap-2"
+                 [innerHTML]='item.ContentWithoutHtml'>
+            </div>
+            <ng-container *ngIf="item.Images && item.Images.length > 0">
+                <div class="img-div img1" *ngIf="item.Images && item.Images.length==1"
+                     [ngStyle]="{'background-image': 'url('+item.Images[0].Src+')','background-size':'cover'}"
+                     style="background-size: cover;background: no-repeat center;">
+                </div>
+                <div class="img-div img2" *ngIf="item.Images.length==2">
+                    <div *ngFor="let img of item.Images">
+                        <div style="width: 100%;height: 100%; background: no-repeat center;background-size: cover;"
+                             [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+                        </div>
+                    </div>
+                </div>
+                <div class="img-div img3" *ngIf="item.Images.length>2">
+                    <div *ngFor="let img of item.Images.slice(0,3)">
+                        <div style="background-size: cover;width: 100%;height: 100%; background: no-repeat center;"
+                             [ngStyle]="{'background-image': 'url('+img.Src+')','background-size':'cover'}">
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="item.Pvideo">
+                <div class="poster-box">
+                    <div class="mask">
+                        <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4"
+                               (loadedmetadata)="getDuration($event,item)"
+                               [src]="item.files.DownLoadUrl"></video>
+                    </div>
+                    <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>
+                    <span *ngIf="item.VideoMinute > 0">{{item.VideoMinute | secondFormat}}</span>
+                    <img class="video-poster" src="{{ item?.Pvideo?.CoverUrl || defaultImg }}" alt="视频封面图">
+                    <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+                </div>
+            </ng-container>
+            <div class="topicList">
+              <span class="topicSpan" (click)="$event.stopPropagation();toPostList(topic)"
+                    *ngFor="let topic of item.TopicTagPlateItem">
+                {{topic.TopicName}}
+              </span>
+            </div>
+        </div>
+        <div class="post-introduction-buttom">
+            <span class="nowrap-1">
+                    <div class="oldDate">{{item.PostTimeFormatted | date:"yyyy-MM-dd HH:mm"}}</div>
+            </span>
+            <span class="eye">
+              <img src="./assets/imgs/forum/other/eye.png">
+                        {{item.ViewCount}}
+            </span>
+            <span class="luntan_coment">
+              <img src="./assets/imgs/forum/other/reply.png">
+                        {{item.ReplyCount}}
+            </span>
+            <span tappable (click)="handleLike(item,$event)" class="comment_like">
+      <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/like_off.png">
+      <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/like_on.png">
+                {{item.LikeCount}}
+    </span>
+        </div>
     </div>
-    <div class="topicList">
-      <span class="topicSpan" (click)="$event.stopPropagation();goToPostList(topic)" *ngFor="let topic of item.TopicTagPlateItem">
-        #{{topic.TopicName}}#
-      </span>
-    </div>
-  </div>
-  <div class="post-introduction-buttom">
-    <span class="nowrap-1">
-      <!-- {{item.TopicPlateName}} -->
-    </span>
-    <span  class="eye">
-      <img src="./assets/imgs/forum/other/eye.png" >
-      {{item.ViewCount}}
-    </span>
-    <span class="luntan_coment">
-      <img src="./assets/imgs/forum/list/luntan_coment@3x.png" >
-      {{item.ReplyCount}}
-    </span>
-    <span tappable (click)="handleLike(item,$event)" class="p771_comment_like">
-      <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like@3x.png" >
-      <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" >
-      {{item.LikeCount}}
-    </span>
-  </div>
+</ng-container>

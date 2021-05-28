@@ -13,6 +13,7 @@ import {PersonalCenterPage} from "../../home/personal-center/personal-center";
 
 declare var Wechat;
 declare let Swiper: any;
+declare let videojs: any;
 
 interface IInput {
     canEdit: boolean,   //能否编辑
@@ -59,8 +60,9 @@ export class PostsContentComponent implements OnInit {
     };
     @ViewChild('nnerhtml')
     greetDiv: ElementRef;
+    initVideo;
 
-    // 查看帖子详情
+    // 查看动态详情
     constructor(private serve: ForumService,
                 public navParams: NavParams,
                 public navCtrl: NavController,
@@ -144,10 +146,27 @@ export class PostsContentComponent implements OnInit {
                 this.savePostInfo(res.data);
             }
             this.initPostInfo(res.data);
+            console.log(res.data.Pvide);
+            if (res.data.Pvideo) {
+                this.initVideo = videojs(`videoPoster`, {
+                    controls: true,
+                    "sources": [{
+                        //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                        src: res.data.Pvideo.files.AttachmentUrl,
+                        type: 'application/x-mpegURL'
+                    }],
+                })
+            }
         });
     }
 
-    //查询帖子数据
+    ionViewWillLeave() {
+        if (this.initVideo) {
+            this.initVideo.dispose();
+        }
+    }
+
+    //查询动态数据
     async forum_post_publish() {
         this.showLoading();
         this.serve.forum_post_get({postId: this.lidata.Id}).subscribe((res: any) => {
@@ -191,18 +210,19 @@ export class PostsContentComponent implements OnInit {
         }
 
         //pt字体单位导致的 文字放大
-        data.Content = data.Content.replace(/pt/g,'px');
+        data.Content = data.Content.replace(/pt/g, 'px');
 
         this.dataCon = data;
 
         this.dataCon['is_like'] = false;
         this.dataCon['is_guanzhu'] = false;
         this.dataCon['is_collect'] = false;
+        this.dataCon.PostTimeFormatted = this.dataCon.PostTimeFormatted.replace(/-/g, "/")
         setTimeout(() => {
             this.openImg();
         }, 200);
 
-        //查询我是否关注收/收藏/点赞帖子
+        //查询我是否关注收/收藏/点赞动态
         this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((resp: any) => {
             this.dataCon['is_like'] = resp.data.is_like;
             this.dataCon['is_guanzhu'] = resp.data.is_guanzhu;
@@ -214,8 +234,8 @@ export class PostsContentComponent implements OnInit {
     }
 
     /**
-     * 存储帖子信息
-     * @param detail=帖子信息  this.lidata.Id=当前帖子ID
+     * 存储动态信息
+     * @param detail=动态信息  this.lidata.Id=当前动态ID
      */
     savePostInfo(detail) {
         const info = {
@@ -227,11 +247,11 @@ export class PostsContentComponent implements OnInit {
             console.log(value);
             if (value && value.length > 0) {
                 const index = value.findIndex(e => e.Id === this.lidata.Id);
-                if (index > -1) {  //已存在当前帖子
+                if (index > -1) {  //已存在当前动态
                     value[index] = info;
-                } else if (index === -1 && value.length < 5) {  //不存在帖子 且当前帖子存储长度有空余
+                } else if (index === -1 && value.length < 5) {  //不存在动态 且当前动态存储长度有空余
                     value.push(info);
-                } else {  //不存在帖子 且当前帖子存储长度无空余
+                } else {  //不存在动态 且当前动态存储长度无空余
                     value.splice(4, 1);
                     value.unshift(info);
                 }
@@ -416,7 +436,7 @@ export class PostsContentComponent implements OnInit {
     }
 
 
-    // 评论帖子
+    // 评论动态
     reply_add_click = false;
 
     reply_add() {
@@ -424,7 +444,7 @@ export class PostsContentComponent implements OnInit {
             return this.serve.presentToast('请输入评论内容');
         }
         let data = {
-            "PostId": this.dataCon.Id,//帖子编号
+            "PostId": this.dataCon.Id,//动态编号
             "Content": this.inputText,//回帖内容
         }
         this.showLoading();

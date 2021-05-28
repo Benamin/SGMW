@@ -21,15 +21,15 @@
                 <div class="item-desc">
                     <p>{{item?.Title}}</p>
                     <div class="status" *ngIf="item.studystate === 0">
-                        <img src="assets/imgs/advanced/status-default.png"/>
+                        <img src="assets/imgs/new_version/advanced/not-start.png"/>
                         未开始
                     </div>
                     <div class="status" *ngIf="item.studystate === 1">
-                        <img src="assets/imgs/advanced/status-doing.png"/>
+                        <img src="assets/imgs/new_version/advanced/doing.png"/>
                         进行中
                     </div>
                     <div class="status" *ngIf="item.studystate === 2 || item.studystate === -1">
-                        <img src="assets/imgs/advanced/status-finish.png"/>
+                        <img src="assets/imgs/new_version/advanced/finish.png"/>
                         已完成
                     </div>
                 </div>

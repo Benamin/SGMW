@@ -1,21 +1,16 @@
 <ion-header>
-    <ion-navbar style="padding-right: 0">
+    <ion-navbar style="padding-right: 0;">
         <ion-buttons start>
             <button ion-button icon-only class="search-button">
-                <img class="img-head" src="{{mineInfo?.HeadPhoto}}" alt="">
-                <span>你好，{{mineInfo?.UserName | stringSlice:3:3}}</span>
+                <img class="img-head"
+                     src="{{mineInfo?.HeadPhoto || './assets/imgs/new_version/mine/default-avatar.png' }}" alt="头像">
+                <span>{{mineInfo?.UserName | stringSlice:3:3}}</span>
             </button>
         </ion-buttons>
         <ion-buttons end class="navbar-search" tappable (click)="goToSearch()">
             <button ion-button icon-only class="toolbar-icon">
-                <ion-icon class="search-icon" name="search"></ion-icon>
+                <img class="search-icon" src="./assets/imgs/new_version/home/search.png" alt="搜索图标">
                 <ion-input class="search" placeholder="搜索内容" autocomplete='off'></ion-input>
-            </button>
-        </ion-buttons>
-        <ion-buttons end class="navbar-search" tappable (click)="goToNotifation()">
-            <button ion-button icon-only class="toolbar-tips">
-                <img style="position: absolute;top: 0;right: -2px;" src="./assets/imgs/home/tips.png" alt="">
-                <span *ngIf="info.new > 0" class="tips-num">{{info.new}}</span>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -28,13 +23,15 @@
         </ion-refresher-content>
     </ion-refresher>
     <div class="banner">
-        <div [ngClass]="{'slideInDown':wow == true}" class="img wow" data-wow-duration="2s" data-wow-delay="1s"
-             data-wow-offset="20">
-            <ion-slides *ngIf="bannerList.length > 0" #slides pager autoplay="3000" (ionSlideAutoplayStop)="aotuPlay()">
-                <ion-slide *ngFor="let item of bannerList" tappable (click)="goCourseBanner(item)">
+        <img [ngClass]="{'slideInDown':wow == true}" *ngIf="bannerList.length == 0" [src]="defaultBannerImg">
+        <div [ngClass]="{'slideInDown':wow == true}"
+             class="swiper-container swiper-home-banner-container">
+            <div class="swiper-wrapper">
+                <div *ngFor="let item of bannerList;let i = index" (click)="goCourseBanner(item)" class="swiper-slide">
                     <img [src]="item.SourceUrl || ''">
-                </ion-slide>
-            </ion-slides>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
@@ -42,185 +39,109 @@
     <theme-activity #ThemeActivity></theme-activity>
 
     <div class="competition-box">
-        <div class="competition-banner" tappable (click)="goStudyTask()">
-            <img src="./assets/imgs/home/xxrw.png" alt="学习任务">
+        <div class="competition-banner xxrw" tappable (click)="goStudyTask()">
+            <div class="competition-text">
+                <div class="competition-title">学习任务</div>
+                <div class="competition-desc">进入任务清单</div>
+            </div>
+            <img src="./assets/imgs/new_version/home/xxrw.png" alt="学习任务">
         </div>
-        <div class="competition-banner" tappable (click)="goAdvancedLevel()">
-            <img src="./assets/imgs/home/gwrz.png" alt="岗位认证">
+        <div class="competition-banner gwrz" tappable (click)="goAdvancedLevel()">
+            <div class="competition-text">
+                <div class="competition-title">岗位认证</div>
+                <div class="competition-desc">开始认证学习</div>
+            </div>
+            <img src="./assets/imgs/new_version/home/gwrz.png" alt="岗位认证">
         </div>
     </div>
 
     <div class="category-box">
         <ion-slides style="width: 100%;" pager>
             <ion-slide>
-                <!--  新模块  -->
-                <div class="new-module" style="margin-top: 20px;">
-                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goStudyPlan()">
-                        <img src="./assets/imgs/home/1_1xxjh@2x.png" alt="">
-                        <p>学习计划</p>
-                    </div>
-                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goConsultation()">
-                        <img src="./assets/imgs/home/news@2x.png" alt="">
-                        <p>资讯</p>
-                    </div>
-                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class=" wow" data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goNumberOne()">
-                        <img src="./assets/imgs/home/zys@2x.png" alt="">
-                        <p>“狼灭”榜</p>
-                    </div>
-                    <div tappable [ngClass]="wow == true?'slideInRight':''" class=" wow" data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goRanking()">
-                        <img src="./assets/imgs/home/rank@2x.png" alt="">
-                        <p>排行榜</p>
-                    </div>
-                    <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goTest()">
-                        <img src="./assets/imgs/home/ks@2x.png" alt="">
+                <div class="slide-box">
+                    <div tappable class="category-item" (click)="goTest()">
+                        <img src="./assets/imgs/new_version/home/exam-center.png" alt="">
                         <p>考试中心</p>
                     </div>
-                </div>
-                <div class="new-module" style="margin-top: 20px;margin-bottom: 1.5rem">
-                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goLive()">
-                        <img src="./assets/imgs/home/zb@2x.png" alt="">
-                        <p>直播</p>
-                    </div>
-                    <div tappable [ngClass]="wow == true?'slideInLeft':''" class="wow " data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goInformationZone()">
-                        <img style="width: 33px;" src="./assets/imgs/home/home_zlzq@2x.png" alt="">
-                        <p>资料专区</p>
-                    </div>
-                    <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goInnerTrain()">
-                        <img src="./assets/imgs/home/home_neixun@2x.png" alt="">
-                        <p>内训</p>
-                    </div>
-                    <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow " data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goFocusTrain()">
-                        <img style="width: 28px;" src="./assets/imgs/home/home_jzpx@2x.png" alt="">
+                    <div tappable class="category-item" (click)="goFocusTrain()">
+                        <img src="./assets/imgs/new_version/home/training.png" alt="">
                         <p>线下培训</p>
                     </div>
-                    <div tappable [ngClass]="wow == true?'slideInRight':''" class="wow" data-wow-duration="2s"
-                         data-wow-delay="1s"
-                         data-wow-offset="30" (click)="goWantToAsk()">
-                        <img src="./assets/imgs/home/home_cnxw@2x.png" alt="猜你想问">
-                        <p>猜你想问</p>
+                    <div tappable class="category-item" (click)="goNumberOne()">
+                        <img src="./assets/imgs/new_version/home/wolf-ranking.png" alt="">
+                        <p>狼灭榜</p>
+                    </div>
+                    <div tappable class="category-item" (click)="goAddAskPage()">
+                        <img src="./assets/imgs/new_version/home/guess-ask.png" alt="">
+                        <p>我想反馈</p>
+                    </div>
+                    <div tappable class="category-item" (click)="goInformationZone()">
+                        <img src="./assets/imgs/new_version/home/data-center.png" alt="">
+                        <p>资料专区</p>
                     </div>
                 </div>
-            </ion-slide>
-            <ion-slide>
-                <!--  新模块  -->
-                <div class="new-module" style="margin-top: 20px;">
-                  <div tappable class=" wow" (click)="goToXSCompetition()">
-                    <img style="width: 28px;" src="./assets/imgs/home/home_jinjie@2x.png" alt="认证进阶">
-                    <p>销售大赛</p>
-                  </div>
-                    <div tappable class="wow" (click)="goToFWCompetition()">
-                        <img style="width: 28px;" src="./assets/imgs/home/fwds.png" alt="">
-                        <p>服务大赛</p>
-                    </div>
-                    <div tappable class=" wow" (click)="goJobLevel()">
-                        <img style="width: 28px;" src="./assets/imgs/home/job-level@2x.png" alt="">
-                        <p>系列课程</p>
-                    </div>
 
-                    <div tappable class=" wow" (click)="goQuestion()">
-                      <img style="width: 28px;" src="./assets/imgs/home/home_wenjuan@2x.png" alt="">
-                      <p>问卷/投票</p>
-                    </div>
-                </div>
-                <!--  新模块  -->
-                <div class="new-module" style="margin-top: 20px;margin-bottom: 1.5rem">
-                    <div tappable class="wow" (click)="goToDayily()">
-                        <img style="width: 28px;" src="./assets/imgs/home/mryx.png" alt="每日一学">
-                        <p>每日一学</p>
-                    </div>
-                </div>
             </ion-slide>
+            <!--<ion-slide>-->
+            <!--<div class="slide-box">-->
+            <!--<div tappable class="category-item" (click)="goStudyPlan()">-->
+            <!--<img src="./assets/imgs/new_version/home/study-plan.png" alt="">-->
+            <!--<p>学习计划</p>-->
+            <!--</div>-->
+            <!--<div tappable class="category-item" (click)="goConsultation()">-->
+            <!--<img src="./assets/imgs/new_version/home/consulting-service.png" alt="">-->
+            <!--<p>资讯</p>-->
+            <!--</div>-->
+            <!--<div tappable class="category-item" (click)="goRanking()">-->
+            <!--<img src="./assets/imgs/new_version/home/ranking-list.png" alt="">-->
+            <!--<p>排行榜</p>-->
+            <!--</div>-->
+            <!--<div tappable class="category-item" (click)="goQuestion()">-->
+            <!--<img src="./assets/imgs/new_version/home/voting.png" alt="">-->
+            <!--<p>问卷/投票</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</ion-slide>-->
         </ion-slides>
     </div>
 
-    <div class="product-float-tab">
-        <div class="product-float-nav" tappable (click)="navli='product'" [ngClass]="{'act': navli=='product'}">
+    <div class="hot-course">
+        <div class="title">
             热门课程
+            <span (click)="moreCourse()">更多 ></span>
         </div>
-        <div class="product-float-nav" tappable (click)="navli='float'" [ngClass]="{'act': navli=='float'}">
-            热门帖子
-        </div>
-        <div style="    position: absolute;
-        right: 24px;
-        bottom: 10px;">
-         <span class="float-more" tappable (click)="goToNavli()">更多
-             <ion-icon class="more-icon" name="arrow-forward"></ion-icon>
-         </span>
+        <ul class="course-list">
+            <li (click)="goCourse(item)" *ngFor="let item of productList;">
+                <img [src]="item?.ImageUrl || defaultImg" alt="热门课程封面图">
+                <div class="item-title">{{item?.Title}}</div>
+                <div class="item-about">
+                    <span>
+                        <img src="./assets/imgs/new_version/home/look-num.png" alt="浏览量">{{item?.ManCount}}
+                    </span>
+                    <span>
+                        <img src="./assets/imgs/new_version/home/love-num.png" alt="点赞量">{{item?.ZanCount}}
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
 
+    <div class="hot-post">
+        <div class="title">
+            热门动态
+            <span (click)="goForumComponent()">更多 ></span>
         </div>
-    </div>
-    <!--  热门课程-->
 
-    <div class="product" *ngIf="navli=='product'">
-        <!-- <p>
-            <span class="float-more" tappable (click)="moreCourse()">
-           更多
-           <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>
-        </p> -->
-        <div class="item">
-            <course-list [list]="productList" (done)="goCourse($event)"></course-list>
-        </div>
     </div>
-    <!-- 热门帖子 -->
-    <div class="sale" *ngIf="navli=='float'" style="    margin-top: 0px;">
-        <div class="post-introduction" tappable (click)="goPostsContent(item)" *ngFor="let item of forumLIst">
-            <app-forum-list-time (share)="wxShare(item)" [item]='item'></app-forum-list-time>
-        </div>
+
+    <!-- 热门动态 -->
+    <div class="sale" style="margin-top: 0px;">
+        <app-forum-list-time [followList]='forumLIst'></app-forum-list-time>
     </div>
-    <!--  课程分类-->
-<!--    <div class="sale">-->
-<!--        <p>课程分类-->
-<!--            <span class="float-more" (click)="moreCourse()" tappable>-->
-<!--           更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>-->
-<!--        </p>-->
-<!--        <div class="sale-box">-->
-<!--            <div class="scroll-tab">-->
-<!--                <div class="sale-content">-->
-<!--                    <div class="sale-item" *ngFor="let sale of saleList;let i = index;" tappable-->
-<!--                         (click)="saleToLearn(sale,i)">-->
-<!--                        <img src="./assets/imgs/home/shop{{i+1+'.png'}}" alt="">-->
-<!--                        <div class="sale-desc">-->
-<!--                            {{sale.TypeName}}-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="person">-->
-<!--        <p>金牌讲师<span class="float-more" (click)="moreTeacher()" tappable>-->
-<!--           更多 <ion-icon class="more-icon" name="arrow-forward"></ion-icon></span>-->
-<!--        </p>-->
-<!--        <div class="teacher">-->
-<!--            <div class="teacher-info" *ngFor="let item of teacherList">-->
-<!--                <div class="headPhoto" tappable (click)="teachDetail(item)">-->
-<!--                    <img [src]="item.HeadPhoto || ''">-->
-<!--                </div>-->
-<!--                <div class="name">-->
-<!--                    <p style="font-weight: bold">{{item.UserName}}</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </ion-content>
+
+<app-today-remind-mission *ngIf="is_TodayRemindMission" [data]='TodayRemindMission' (Study)="goStudyTask()"
+                          (close)="closeTodayRemindMission()"></app-today-remind-mission>
 <app-today-remind *ngIf="is_TodayRemind" [data]='TodayRemind' (Study)="startStudy($event)"
                   (close)="closeTodayRemind()"></app-today-remind>
 

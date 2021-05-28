@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Events, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {NotificationDetailPage} from "../notification-detail/notification-detail";
 import {StudyPlanPage} from "../../home/study-plan/study-plan";
@@ -44,11 +44,12 @@ export class NotificationPage {
 
     checkType = "all";
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer:CommonService, public homeSer: HomeService,
+    constructor(private events: Events, public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer:CommonService, public homeSer: HomeService,
                 private loadCtrl:LoadingController) {
     }
 
     ionViewDidLoad() {
+        // console.log(888999, AppModule)
         this.getList();
     }
 
@@ -69,6 +70,9 @@ export class NotificationPage {
 							this.page.TotalCount = res.data.TotalCount;
 							this.page.isLoad = true;
 							loading.dismiss();
+
+                // 发布 自定义事件
+                this.events.publish('messageTabBadge:change', {});
             }
         )
     }
@@ -86,7 +90,7 @@ export class NotificationPage {
 
     /**
      * 前往详情
-     * 2=系统通知  3=培训通知  4=考试通知  5=课程通知 Csid 6=主题活动 TaId 22 论坛回复通知 PostId
+     * 2=系统通知  3=培训通知  4=考试通知  5=课程通知 Csid 6=主题活动 TaId 22 动态回复通知 PostId
      * @param item
      */
     goDetail(item) {
@@ -107,7 +111,7 @@ export class NotificationPage {
             // type=6 主题活动通知 taid   ActivityName=主题活动名称
             this.toTheme(item);
         } else if (item.Type === 22 || item.Type === 30 || item.Type === 33) {
-            // 互动通知  type=22等于回复 type=30帖子点赞 UserName=姓名 HeadPhoto=头部图片 Title=帖子标题  Content=内容
+            // 互动通知  type=22等于回复 type=30动态点赞 UserName=姓名 HeadPhoto=头部图片 Title=动态标题  Content=内容
             this.goPostsContent(item);
         } else if (item.Type === 31 || item.Type === 32) {
             // 互动通知  type=31 课程讨论点赞
@@ -142,7 +146,7 @@ export class NotificationPage {
         }
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: {Id: data.PostId, TopicPlateId: "", Name: ""}});
     }

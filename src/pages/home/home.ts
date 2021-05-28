@@ -34,7 +34,7 @@ import {JobLevelPage} from "./job-level/job-level";
 import {AdvancedLevelPage} from "./advanced/level/level";
 
 import {InformationZonePage} from "./information-zone/information-zone";
-import {WantToAskListsPage} from "./want-to-ask/ask-lists/ask-lists";
+import {AddAskPage} from "./want-to-ask/add-ask/add-ask";
 
 import {InnerTrainPage} from "./inner-train/inner-train";
 import {ForumService} from '../forum/forum.service';
@@ -53,6 +53,8 @@ import {ThemeActivityComponent} from "../../components/theme-activity/theme-acti
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
 
+declare let Swiper: any;
+
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -66,11 +68,10 @@ export class HomePage implements OnInit {
     type = 'teacher';
     personrType = 0;
     saleList = [];  //销售运营
-    productList = new Array(5);  //产品体验
+    productList = new Array(6);  //产品体验
     teacherList = [];
-    bannerList = [
-        {SourceUrl: defaultImg}
-    ];
+    bannerList = [];
+    defaultBannerImg = defaultImg;
     mineInfo;
     defaultImg = defaultImg;
     httpUrl = SERVER_HTTP_URL;
@@ -84,6 +85,7 @@ export class HomePage implements OnInit {
     wow;   //是否执行动画
     competitionParam = null;
     serveCompetitionParam = null;
+    swiper;
 
     constructor(public navCtrl: NavController, public homeSer: HomeService, private loadCtrl: LoadingController,
                 private learnSer: LearnService, private commonSer: CommonService, private storage: Storage,
@@ -96,7 +98,7 @@ export class HomePage implements OnInit {
                 private learSer: LearnService,
                 private forum_serve: ForumService,
                 private modalCtrl: ModalController) {
-        this.statusBar.backgroundColorByHexString('#343435');
+        this.statusBar.backgroundColorByHexString('#FFFFFF');
         let app_url = (window as any).localStorage.getItem("app_url");
 
         if (app_url) {
@@ -111,6 +113,7 @@ export class HomePage implements OnInit {
 
     //部分用户登录无角色 绑定信息之后才会有角色
     listenEvents() {
+        // this.storage.set('TodayRemindMission', null); // 测试学习任务弹窗
         this.events.subscribe('RoleID', () => {
             this.storage.get('RoleID').then(value => {
                 this.getBanner(value);
@@ -121,6 +124,7 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.GetTodayRemind();
+        this.GetTodayRemindMission();
         this.storage.get('sgmwType').then((value) => {
             if (value && value.sgmwType == 3) {
                 this.navCtrl.push(StudyPlanPage);
@@ -135,14 +139,13 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        this.events.publish('messageTabBadge:change', {});
         this.storage.get('user').then(value => {
             if (value) {
                 this.mineInfo = value;
             }
         });
         this.ThemeActivity.getData();
-        // this.getCompetitionId();
-        // this.getServerCompetition();
     }
 
     //首页初始化
@@ -162,8 +165,8 @@ export class HomePage implements OnInit {
 
         // this.getGoodsTeacher();
         this.getLIistData();
-        this.getCompetitionId();
-        this.getServerCompetition();
+        // this.getCompetitionId();
+        // this.getServerCompetition();
         // this.getProductType();
     }
 
@@ -174,7 +177,6 @@ export class HomePage implements OnInit {
                 this.wow = value;
             }
         );
-        this.getNew();
 
     }
 
@@ -223,9 +225,31 @@ export class HomePage implements OnInit {
     getBanner(RoleID) {
         this.homeSer.getBannerList(RoleID).subscribe(
             (res) => {
+                this.bannerList = [];
                 this.bannerList = res.data.NewsItems;
+                setTimeout(() => {
+                    this.initBanner();
+                }, 300)
             }
         )
+    }
+
+    initBanner() {
+        this.swiper = new Swiper(".swiper-home-banner-container", {
+            direction: 'horizontal',
+            loop: true,//循环切换
+            speed: 500,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            observer: true,
+            observeParents: true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            on: {}
+        })
     }
 
     //优秀教师
@@ -249,7 +273,11 @@ export class HomePage implements OnInit {
     getProductList() {
         this.homeSer.GetHotProductList().subscribe(
             (res) => {
-                this.productList = res.data;
+                let productList = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    if (i < 6) productList.push(res.data[i]) // 限制6条数据
+                }
+                this.productList = productList;
             }
         );
     }
@@ -290,22 +318,6 @@ export class HomePage implements OnInit {
             (res) => {
                 this.commonSer.toast('取消关注成功');
                 this.getGoodsTeacher();
-            }
-        )
-    }
-
-    //查询消息
-    getNew() {
-        const data = {
-            "Type": 0,
-            "Page": 1,
-            "PageSize": 99,
-        };
-        this.mineSer.GetUnReadUserNewsList(data).subscribe(
-            (res) => {
-                if (res.data.NewsList) {
-                    this.info.new = res.data.NewsList.length;
-                }
             }
         )
     }
@@ -479,11 +491,11 @@ export class HomePage implements OnInit {
     }
 
     // 前往 猜你想问
-    goWantToAsk() {
-        this.navCtrl.push(WantToAskListsPage);
+    goAddAskPage() {
+        this.navCtrl.push(AddAskPage);
     }
 
-    // 前往帖子详情
+    // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
@@ -551,7 +563,7 @@ export class HomePage implements OnInit {
         this.navCtrl.push(StudyTaskPage);
     }
 
-    // 获取热门帖子
+    // 获取热门动态
     getLIistData() {
         let data = {
             "IsHotPost": "1",
@@ -652,6 +664,8 @@ export class HomePage implements OnInit {
 
     TodayRemind: any = {};
     is_TodayRemind = false;
+    TodayRemindMission: any = {};
+    is_TodayRemindMission = false;
 
     GetTodayRemind() {
         this.homeSer.GetTodayRemind().subscribe((res: any) => {
@@ -668,13 +682,34 @@ export class HomePage implements OnInit {
         })
     }
 
+    GetTodayRemindMission() {
+        this.homeSer.GetTodayRemindMission().subscribe((res: any) => {
+            console.log(999, res.data)
+            this.TodayRemindMission = res;
+            this.storage.get('TodayRemindMission').then(val => {
+                let date = new Date();
+                let dateDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+                if (val != dateDay) { // 是否点击了取消今日提醒
+                    if (this.TodayRemindMission.data && this.TodayRemindMission.data === true) {
+                        this.is_TodayRemindMission = true;
+                    }
+                }
+            });
+        })
+    }
+
     // 开始学习
     startStudy(data) {
+        console.log('.....开始学习', data)
         this.getCourseDetailById(data);
     }
 
     closeTodayRemind() {
         this.is_TodayRemind = false;
+    }
+
+    closeTodayRemindMission() {
+        this.is_TodayRemindMission = false;
     }
 
     // 获取销售大赛ID 和 用户所属地区
