@@ -183,7 +183,7 @@ export class NumberOne {
 
     // 微信分享
     wxShare(data) {
-        let description = "狼灭榜-" + data.Mark;
+        let description = data.Mark;
         let thumb = data.ImageURL;
 
         if (description.length > 100) {
@@ -194,7 +194,7 @@ export class NumberOne {
             title: data.Name,
             description: description,
             thumb: thumb,
-            paramsUrl: "/static/openApp.html?scheme_url=numberOne"
+            paramsUrl: "/static/openApp.html?scheme_url=numberOne&Id=" + data.Id
         }
         let modal = this.modalCtrl.create(ShareWxComponent, {
             data: obj,

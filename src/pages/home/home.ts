@@ -605,6 +605,11 @@ export class HomePage implements OnInit {
             return;
         }
 
+        if (url.indexOf('numberOne') > -1) { // 狼灭榜
+            this.goNumberOne();
+            return;
+        }
+
 
         if (url.indexOf('learning') > -1) { //课程 分享进入
             url_arr = url.split('&Id=');

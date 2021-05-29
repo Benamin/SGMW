@@ -49,6 +49,7 @@ export class PostAddComponent implements OnInit {
     multiple: boolean | string = ""; // video=只选择视频 image=只选择图片
 
     videoFiles;  //上传文件成功后的返回值
+    isShowPlaceHolder = true;
 
     constructor(
         private commonSer: CommonService,
@@ -282,6 +283,13 @@ export class PostAddComponent implements OnInit {
         setTimeout(() => {
             this.ImgSome();
             let textareaImg: HTMLElement = document.getElementById('textareaImg');
+            let innerText: any = textareaImg.innerText;
+            console.log("innerText", innerText)
+            if (innerText.length > 0) {
+                this.isShowPlaceHolder = false;
+            } else {
+                this.isShowPlaceHolder = true;
+            }
             this.zone.run(() => {
             })
         }, 50);
@@ -299,15 +307,6 @@ export class PostAddComponent implements OnInit {
             this.zone.run(() => {
             })
         }, 100);
-    }
-
-    // 选择图片
-    addImg() {
-        let textareaImg: HTMLElement = document.getElementById('textareaImg');
-        let innerText: any = textareaImg.innerText;
-        if (innerText == '请输入正文') {
-            textareaImg.innerText = "";
-        }
     }
 
     chooseVideo() {
@@ -390,6 +389,7 @@ export class PostAddComponent implements OnInit {
             return
         }
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
+        this.isShowPlaceHolder = false;
 
         if (!this.focusNode.parentElement) {
             imgSrcArr.forEach(imgSrc => {
@@ -435,6 +435,11 @@ export class PostAddComponent implements OnInit {
     DomAddImg(imgSrc, alt) {
         this.letfImgSrc = imgSrc;
         let textareaImg: any = document.getElementById('textareaImg');
+        let innerText: any = textareaImg.innerText;
+        console.log(innerText, "innerText")
+        if (innerText == '请输入正文') {
+            textareaImg.innerText = "";
+        }
         if (textareaImg) {
             let domText = `
       <div style='display: inline-block; padding-top: 9px;padding-bottom: 17px;'>
@@ -524,6 +529,7 @@ export class PostAddComponent implements OnInit {
                 let formData: FormData = new FormData();
                 formData.append('file', fileList_n);
                 this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                    this.isShowPlaceHolder = false;
                     this.imgitems.push({
                         src: res.data,
                         alt: '',
@@ -586,10 +592,11 @@ export class PostAddComponent implements OnInit {
     htmlTextDle() {
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
         let innerText: any = textareaImg.innerText;
+        console.log(textareaImg.innerText);
         if (innerText == '请输入正文') {
             textareaImg.innerText = "";
         }
-
+        this.isShowPlaceHolder = false;
     }
 
 // 过滤删除图片

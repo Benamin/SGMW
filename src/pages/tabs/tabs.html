@@ -10,7 +10,8 @@
 <div class="privacy" *ngIf="inputType">
     <div *ngIf="inputType == 'submit'" class="content">
         <img class="tips" src="./assets/imgs/test/test-tips@2x.png">
-        <p>当前为该账号第一次登录，需要绑定以下信息，请在阅读<span (click)="openPrivacy()">《用户隐私协议》</span>后如实填写内容。</p>
+        <p style="border-bottom: 1px solid #dddddd;">当前为该账号第一次登录，需要绑定以下信息，请在阅读<span
+                (click)="openPrivacy()">《用户隐私协议》</span>后如实填写内容。</p>
         <div class="input-info">
             <p><span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</span><span>{{userInfo?.UserName}}</span></p>
             <p><span><span style="color: red">*</span>身份证:</span>

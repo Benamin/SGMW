@@ -38,7 +38,7 @@ export class InformationZonePage {
 
     ionViewDidLoad() {
         this.page.resourceLists = [];
-        this.readLocalFile();
+        // this.readLocalFile();
         this.GetAskType();
     }
 
@@ -125,7 +125,7 @@ export class InformationZonePage {
         if (this.page.FileType && this.page.FileType.value !== null) dataObj = Object.assign({}, dataObj, {FileTypeId: this.page.FileType.value}); // 判断是否全部类型
         this.homeSer.GetQueryMaterialFile(dataObj).subscribe(
             (res) => {
-                this.readLocalFile();
+                // this.readLocalFile();
                 this.page.resourceLists = this.DataAssign(res.data);
                 this.page.isLoad = true;
                 loading.dismiss();

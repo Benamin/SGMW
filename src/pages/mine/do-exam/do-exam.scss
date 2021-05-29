@@ -276,7 +276,7 @@ page-do-exam {
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      width: 60%;
+      width: 65%;
       background-color: #fff;
       border-radius: 10px;
       text-align: center;
@@ -290,6 +290,7 @@ page-do-exam {
       }
 
       p {
+        font-size: 1.2rem;
         margin-bottom: 15px;
       }
 

@@ -32,7 +32,7 @@
                     </div>
                     <div class="imgdiv">
                             <div [ngStyle]="{'background-image': 'url('+item.SourceURLList[0]+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
-                            </div> 
+                            </div>
                     </div>
                 </div>
                 <div class="information-list img3" *ngIf="!item.IsSingle" tappable (click)="goComponentsdetails(item)">
@@ -41,7 +41,7 @@
                             <div *ngFor="let img of item.SourceURLList" [ngStyle]="{'background-image': 'url('+img+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
                                 </div>
                         <img [src]="img" *ngFor="let img of item.SourceURLList" alt="">
-                     
+
                     </div>
                     <div class="time">
                         {{item.ReleaseTime}}
@@ -83,37 +83,6 @@
                     <p>{{item.LableName}}</p>
                 </div>
             </div>
-            <!-- <div class="volume">
-                <div class="volume-title">
-                    <div class="volume-text">
-                        {{item.MonthName}}月销售
-                    </div>
-                    <div class="percentage blue-bg" [ngStyle]="{'width': item.MonthPercentage+'%'}">
-                    </div>
-                </div>
-                <div class="volume-number blue">{{item.MonthCount}}</div>
-            </div>
-            <div class="volume">
-                <div class="volume-title">
-                    <div class="volume-text">
-                        年累计销售
-                    </div>
-                    <div class="percentage red-bg" [ngStyle]="{'width': item.YearPercentage+'%'}">
-                    </div>
-                </div>
-                <div class="volume-number red">{{item.YearCount}}</div>
-            </div>
-            <div class="volume">
-                <div class="volume-title">
-                    <span class="label">
-                        <span class="label-before">{{item.TypeName}}</span>
-                    </span>
-                    <span class="volume-title-sale">
-                        {{item.LableName}}
-                    </span>
-                </div>
-                <div class="volume-number sale">{{item.CountSum}}</div>
-            </div> -->
             <div class="volume">
                 <div class="volume-title">
                     <span class="details">

@@ -1,7 +1,7 @@
 微信分享的配置  链接地址+对应模块的  paramsUrl
 1、考试  /static/openApp.html?scheme_url=test&Fid=xxx
 2、课程  /static/openApp.html?scheme_url=learning&Id=xxx
-3、狼灭榜  /static/openApp.html?scheme_url=numberOne
+3、狼灭榜  /static/openApp.html?scheme_url=numberOne&Id=xxx
 
 4、动态   /#/bbsdetails/xxxx
 5、

@@ -47,6 +47,11 @@ page-post-add {
       height: calc(100% - 130px);
       overflow: auto;
 
+      .placeholder-text {
+        position: absolute;
+        top: 1rem;
+      }
+
       .inputTips {
         position: absolute;
         bottom: 5rem;

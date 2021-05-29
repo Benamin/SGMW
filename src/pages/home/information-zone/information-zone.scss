@@ -6,10 +6,11 @@ page-information-zone {
     .top-right {
       margin-left: auto;
       margin-right: 1.5rem;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: #FCA241;
       width: 7.1rem;
       height: 2.3rem;
+      line-height: 2.3rem;
       text-align: center;
       border-radius: 1.25rem;
       border: 1px solid #FCA241;
@@ -182,8 +183,15 @@ page-information-zone {
         }
 
         .download-btn {
-          margin-right: 1.9rem;
           font-size: 1.2rem;
+          width: 5.2rem;
+
+          > span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+          }
 
           img {
             display: block;
@@ -236,7 +244,7 @@ page-information-zone {
     height: 2.3rem;
     line-height: 2.3rem;
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: #474747;
     background-color: #f8dd77;
     border-radius: 1.15rem;
