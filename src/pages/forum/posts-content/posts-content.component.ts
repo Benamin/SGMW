@@ -144,6 +144,7 @@ export class PostsContentComponent implements OnInit {
             } else {
                 this.savePostInfo(res.data);
             }
+            this.initVideoEle();
             this.initPostInfo(res.data);
         });
     }
@@ -164,6 +165,7 @@ export class PostsContentComponent implements OnInit {
             } else {
                 this.savePostInfo(res.data);
             }
+            this.initVideoEle();
             this.initPostInfo(res.data);
         });
     }
@@ -205,13 +207,29 @@ export class PostsContentComponent implements OnInit {
         this.dataCon['is_like'] = false;
         this.dataCon['is_guanzhu'] = false;
         this.dataCon['is_collect'] = false;
+        this.initVideoEle();
         this.dataCon.PostTimeFormatted = this.dataCon.PostTimeFormatted.replace(/-/g, "/")
         setTimeout(() => {
             this.openImg();
         }, 200);
 
+
+        //查询我是否关注收/收藏/点赞动态
+        this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((resp: any) => {
+            this.dataCon['is_like'] = resp.data.is_like;
+            this.dataCon['is_guanzhu'] = resp.data.is_guanzhu;
+            this.dataCon['is_collect'] = resp.data.is_collect;
+            this.dismissLoading();
+        }, err => {
+            this.dismissLoading();
+        });
+    }
+
+    initVideoEle() {
         const videoEle = document.getElementById("videoPoster");
-        if (this.dataCon.Pvideo && videoEle) {
+        console.log(this.dataCon.Pvideo)
+        if (this.dataCon.Pvideo && videoEle && !this.initVideo) {
+            console.log("initVideo");
             setTimeout(() => {
                 this.initVideo = videojs(`videoPoster`, {
                     controls: true,
@@ -223,16 +241,6 @@ export class PostsContentComponent implements OnInit {
                 })
             }, 100)
         }
-
-        //查询我是否关注收/收藏/点赞动态
-        this.serve.GetForumPostOtherStatus(this.dataCon.Id).subscribe((resp: any) => {
-            this.dataCon['is_like'] = resp.data.is_like;
-            this.dataCon['is_guanzhu'] = resp.data.is_guanzhu;
-            this.dataCon['is_collect'] = resp.data.is_collect;
-            this.dismissLoading();
-        }, err => {
-            this.dismissLoading();
-        });
     }
 
     /**

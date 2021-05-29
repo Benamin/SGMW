@@ -19,14 +19,15 @@ export class MyCoursePage {
     page = {
         page: 1,
         pageSize: 10,
-        TotalCount:null,
+        TotalCount: null,
         studystate: 2,
     };
 
     courseList = [];
+    isLoad = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService,
-                private loadCtrl:LoadingController) {
+                private loadCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
@@ -41,12 +42,13 @@ export class MyCoursePage {
         const data = {
             page: this.page.page,
             pageSize: this.page.pageSize,
-            studystate:this.page.studystate
+            studystate: this.page.studystate
         };
         this.mineSer.GetMyProductList(data).subscribe(
             (res) => {
                 this.courseList = res.data.ProductList;
                 this.page.TotalCount = res.data.TotalCount;
+                this.isLoad = true;
                 loading.dismiss();
             }
         )
@@ -74,14 +76,16 @@ export class MyCoursePage {
             e.complete();
             return;
         }
+        this.isLoad = false;
         this.page.page++;
         const data = {
             page: this.page.page,
             pageSize: this.page.pageSize,
-            studystate:this.page.studystate
+            studystate: this.page.studystate
         };
         this.mineSer.GetMyProductList(data).subscribe(
             (res) => {
+                this.isLoad = true;
                 this.courseList = this.courseList.concat(res.data.ProductList);
                 this.page.TotalCount = res.data.TotalCount;
                 e.complete();
@@ -93,7 +97,9 @@ export class MyCoursePage {
     doRefresh(e) {
         this.page.page = 1;
         this.getList();
-        timer(1000).subscribe(() => {e.complete();});
+        timer(1000).subscribe(() => {
+            e.complete();
+        });
     }
 
 }

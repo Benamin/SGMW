@@ -218,6 +218,7 @@ export class PostAddComponent implements OnInit {
 
     inputChange() {
         let textareaImg = document.querySelector("#textareaImg");
+        console.log(textareaImg.innerHTML);
         this.textareaLength = 100 - textareaImg.innerHTML.length > 0 ? 100 - textareaImg.innerHTML.length : 0;
     }
 
