@@ -471,7 +471,22 @@ export class PostsContentComponent implements OnInit {
 
     // 微信分享
     wxShare(data) {
-        let modal = this.modalCtrl.create(ShareWxComponent, {data: data});
+        let description = data.Content.replace(/\&nbsp;/g, '');
+        let thumb = '';
+
+        if (description.length > 100) {
+            description = description.slice(0, 100);
+        }
+        if (data.Images && data.Images.length > 0) {
+            thumb = data.Images[0].Src;
+        }
+        const obj = {
+            title: data.Title,
+            description: description,
+            thumb: thumb,
+            paramsUrl: `/#/bbsdetails/${data.Id}`
+        }
+        let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
         modal.present();
         // this.commonSer.weChatShare(obj)
     }

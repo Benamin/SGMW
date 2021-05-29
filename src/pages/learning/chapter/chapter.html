@@ -33,9 +33,10 @@
                     <div class="record-item">
                         <span class="file-icon file-icon_{{itemFile.icon}}">{{itemFile.icon | uppercase}}</span>
                         <img *ngIf="itemFile.icon == 'mp4'" class="shipin_zy" src="./assets/imgs/learn/shipin_zy.png">
-                        <img style="width: 56px" *ngIf="itemFile.icon != 'mp4'" class="shipin_zy" src="./assets/imgs/learn/fujian.png">
+                        <img style="width: 56px" *ngIf="itemFile.icon != 'mp4'" class="shipin_zy"
+                             src="./assets/imgs/learn/fujian.png">
                         <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
-                             tappable (click)="downLoad(itemFile,$event)"
+                             tappable (click)="downLoad(itemFile,$event)" style="right: 35px"
                              class="download-file" src="./assets/imgs/course/xiazai.png">
                         <ng-container *ngIf="!itemFile.IsAttachment">
                             <span class="done">

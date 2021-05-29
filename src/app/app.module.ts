@@ -52,7 +52,7 @@ import {DatePipe} from "@angular/common";
 import {RandomWordService} from "../secret/randomWord.service";
 import {MobileAccessibility} from "@ionic-native/mobile-accessibility";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
-import { AndroidPermissions } from '@ionic-native/android-permissions';
+import {AndroidPermissions} from '@ionic-native/android-permissions';
 import {GlobalData} from "../core/GlobleData";
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {DownloadFileProvider} from '../providers/download-file/download-file';
@@ -66,6 +66,7 @@ import {ChooseImageProvider} from '../providers/choose-image/choose-image';
 import {DocumentViewer} from '@ionic-native/document-viewer';
 import {IntegralPageModule} from "../pages/integral/integral.module";
 import {IntegralService} from "../pages/integral/integral.service";
+import {Device} from "@ionic-native/device";
 
 @NgModule({
     declarations: [
@@ -120,6 +121,7 @@ import {IntegralService} from "../pages/integral/integral.service";
             InAppBrowser,
             AppVersion,
             File,
+            Device,
             FileTransfer,
             MobileAccessibility,
             ScreenOrientation,

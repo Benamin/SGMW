@@ -75,13 +75,12 @@ export class MyForumComponent implements OnInit {
     // 确定删除
     delOk() {
         this.isDelShow = false;
-        let loading = null;
-
         this.serve.post_delete(this.delData.Id).subscribe((res: any) => {
             if (res.code == 200) {
-                for (let n = 0; n < this.forumList.length; n++) {
-                    if (this.forumList[n].Id == this.delData.Id) {
-                        this.forumList.splice(n, 1)
+                this.presentToast("删除成功");
+                for (let n = 0; n < this.draftList.length; n++) {
+                    if (this.draftList[n].Id == this.delData.Id) {
+                        this.draftList.splice(n, 1)
                         n--;
                     }
                 }

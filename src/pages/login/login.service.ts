@@ -62,9 +62,9 @@ export class LoginService {
     //    return this.http.post(SERVER_API_URL + '/eaccount/getUserInfoXSZS', data);
     //}
 
-    //经销商退出登录
-    sgmwLogout(data): Observable<any> {
-        return this.http.get(SERVER_API_URL + '/eaccount/Logout' + this.dataForm.toQuery(data));
+    //退出登录
+    sgmwLogout(params): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/user/ExitLogin?JpushID=' + params, null);
     }
 
     /***end***/

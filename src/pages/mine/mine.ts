@@ -1,5 +1,14 @@
 import {Component} from '@angular/core';
-import {AlertController, App, Events, IonicPage, NavController, NavParams, Platform, ModalController} from 'ionic-angular';
+import {
+    AlertController,
+    App,
+    Events,
+    IonicPage,
+    NavController,
+    NavParams,
+    Platform,
+    ModalController
+} from 'ionic-angular';
 import {MyCoursePage} from "./my-course/my-course";
 import {MycollectionPage} from "./mycollection/mycollection";
 import {NotificationPage} from "./notification/notification";

@@ -147,7 +147,6 @@ export class LoginPage {
     disableBtn = false;
 
 
-
     constructor(public navCtrl: NavController, public navParams: NavParams, private loadCtrl: LoadingController,
                 private datePipe: DatePipe,
                 private jPush: JPush,
@@ -730,6 +729,7 @@ export class LoginPage {
     updateRegID(res) {
         this.jPush.getRegistrationID().then((regiID) => {
             if (regiID) {
+                console.log("登陆 jpushId", regiID);
                 this.RegiID = regiID;
                 this.uploadRegID(res);
             } else {
