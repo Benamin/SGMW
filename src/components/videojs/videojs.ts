@@ -197,7 +197,8 @@ export class VideojsComponent implements OnDestroy {
     //页面离开暂停
     pageLeave() {
         if (this.myPlayer['player_']) {
-            this.myPlayer.pause();
+            // this.myPlayer.pause();
+            this.myPlayer.dispose();
         }
     }
 

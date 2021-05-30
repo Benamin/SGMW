@@ -179,7 +179,7 @@
                                 </ng-container>
                             </div>
                         </div>
-                        <div *ngIf="SubmitNumber > 1" class="item-answer">
+                        <div *ngIf="SubmitNumber > 1 && item.QAnswer" class="item-answer">
                             答案：
                             <ng-container *ngIf="item.QType == 3">
                                 <ng-container *ngIf="item.QAnswer === 1">A</ng-container>

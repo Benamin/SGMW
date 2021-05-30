@@ -1,22 +1,26 @@
 page-mine {
   font-family: PingFangSC-Semibold, PingFang SC;
   background: linear-gradient(360deg, #F9F9FA 0%, #F0F1F2 100%);
+
   .mine-user {
     position: relative;
     margin-top: 1rem;
     display: flex;
+
     .header {
       margin: 0.5rem 1.3rem 0 2.6rem;
       width: 4.7rem;
       height: 4.7rem;
       border-radius: 2.35rem;
       overflow: hidden;
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
     }
+
     .info-box {
       margin-top: 0.5rem;
       height: 4.8rem;
@@ -24,17 +28,20 @@ page-mine {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+
       .user-box {
         margin-top: 0.7rem;
         line-height: 1;
         flex: 1;
         display: flex;
         justify-content: flex-start;
+
         .user-name {
           font-size: 1.9rem;
           font-weight: 600;
           color: #000000;
         }
+
         .user-label {
           margin-left: 1.3rem;
           height: 1.5rem;
@@ -56,6 +63,7 @@ page-mine {
         font-weight: 400;
         color: #767575;
         line-height: 1.5rem;
+
         img {
           margin-right: 0.4rem;
           width: 1.1rem;
@@ -63,12 +71,14 @@ page-mine {
         }
       }
     }
+
     .points-box {
       position: absolute;
       z-index: -1;
       right: 0;
       width: 16.4rem;
       height: 7.8rem;
+
       .points-text {
         position: absolute;
         top: 3rem;
@@ -105,6 +115,7 @@ page-mine {
     height: 89px;
     background: linear-gradient(90deg, #EA082A 0%, #F8907C 100%);
     border-radius: 5px;
+
     .post-list {
       margin: 0;
       padding: 0;
@@ -112,15 +123,18 @@ page-mine {
       display: flex;
       justify-content: space-evenly;
       color: #FFFFFF;
+
       li {
-        width: 10.4rem;
+        width: calc(100% / 3);
         text-align: center;
+
         div:nth-child(1) {
           margin-top: 1.2rem;
           font-size: 3rem;
           font-weight: 500;
           line-height: 4.2rem;
         }
+
         div:nth-child(2) {
           height: 1.9rem;
           font-size: 1.3rem;
@@ -138,27 +152,32 @@ page-mine {
     height: 34rem;
     background: #FFFFFF;
     border-radius: 0.3rem;
+
     .content-header {
       height: 5.1rem;
       border-bottom: 1px solid #DEDEDE;
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .switch-role {
         display: flex;
         align-items: center;
+
         img {
           margin-right: 1rem;
           width: 2.2rem;
           height: 2.3rem;
         }
       }
+
       .current-role {
         span {
-          margin-left:1.3rem;
+          margin-left: 1.3rem;
           margin-right: 3rem;
           font-weight: bold;
         }
+
         img {
           width: 0.8rem;
           height: 1.3rem;
@@ -167,14 +186,15 @@ page-mine {
     }
 
     .content-list {
-      list-style:none;
+      list-style: none;
       display: flex;
       flex-wrap: wrap;
 
       li {
         padding-top: 3.3rem;
-        width: 7.7rem;
+        width: 25%;
         text-align: center;
+
         img {
           margin: 0 auto;
           margin-bottom: 1.4rem;
@@ -187,233 +207,4 @@ page-mine {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //.mine {
-  //  height: 225px;
-  //  background-color: #343435;
-  //  position: relative;
-  //}
-  //
-  //.logo {
-  //  text-align: center;
-  //
-  //  img {
-  //    width: 85px;
-  //    margin-top: 20px;
-  //  }
-  //}
-  //
-  ////个人信息区域
-  //.mine-info {
-  //  position: absolute;
-  //  left: 20px;
-  //  right: 20px;
-  //  bottom: -90px;
-  //  width: calc(100% - 40px);
-  //  height: 90%;
-  //  background-color: #fff;
-  //  border-radius: 6px;
-  //  padding: 15px 0;
-  //}
-  //
-  //.info-item {
-  //  display: flex;
-  //  align-items: center;
-  //  justify-content: center;
-  //  padding: 0 20px;
-  //
-  //  > div {
-  //    width: 25%;
-  //  }
-  //
-  //  .info-name {
-  //    flex: 1;
-  //
-  //    p:first-child {
-  //      font-weight: bold;
-  //      font-size: 18px;
-  //      display: flex;
-  //      align-items: center;
-  //      height: 30px;
-  //      line-height: 30px;
-  //      padding-left: 1.5rem;
-  //    }
-  //
-  //    .forumTitle {
-  //      border-radius: 4px;
-  //      border: 1px solid rgba(235, 192, 68, 1);
-  //      font-size: 12px;
-  //      font-family: PingFangSC-Semibold, PingFang SC;
-  //      font-weight: 600;
-  //      color: rgba(235, 192, 68, 1);
-  //      line-height: 14px;
-  //      display: inline-block;
-  //      transform: scale(0.8);
-  //      margin-left: 10px;
-  //      padding: 2px 4px;
-  //    }
-  //
-  //    .credit {
-  //      font-size: 13px;
-  //      font-family: PingFangSC-Regular, PingFang SC;
-  //      font-weight: 400;
-  //      color: rgba(0, 0, 0, 1);
-  //      line-height: 18px;
-  //      margin-left: 10px;
-  //    }
-  //  }
-  //
-  //  .info-position {
-  //    font-size: 12px;
-  //
-  //    a {
-  //      color: #333333;
-  //      background-image: linear-gradient(to right, #feca46, #fee6a3);
-  //      padding: 4px 5px;
-  //      border-radius: 4px;
-  //    }
-  //
-  //    img {
-  //      max-width: 100%;
-  //      vertical-align: sub;
-  //      margin-right: 5px;
-  //    }
-  //  }
-  //}
-  //
-  //.item-type {
-  //  text-align: center;
-  //
-  //  > div > p:first-child {
-  //    font-size: 3.2rem;
-  //    font-weight: 400;
-  //    color: #333333;
-  //  }
-  //
-  //  > div > p:last-child {
-  //    font-size: 12px;
-  //    color: #999999;
-  //  }
-  //}
-  //
-  //.info-item + .info-item {
-  //  margin-top: 10px;
-  //}
-  //
-  ////列表区域
-  //.mine-list {
-  //  margin: 65px 20px;
-  //  margin-top: 75px;
-  //  background-color: #fff;
-  //  border-radius: 6px;
-  //}
-  //
-  //.item {
-  //  display: flex;
-  //  align-items: center;
-  //  justify-content: center;
-  //  padding: 15px;
-  //
-  //  img {
-  //    width: 20px;
-  //  }
-  //
-  //  > div:nth-child(2n +1) {
-  //    display: flex;
-  //    align-items: center;
-  //    justify-content: center;
-  //    width: 10%;
-  //  }
-  //
-  //  > div:nth-child(2n) {
-  //    width: 80%;
-  //    padding-left: 10px;
-  //
-  //    span {
-  //      color: #C4C4C4;
-  //      letter-spacing: 1px;
-  //    }
-  //  }
-  //
-  //  .right {
-  //    font-size: 1.6rem;
-  //    color: #999999;
-  //    height: 20px;
-  //  }
-  //}
-  //
-  //.item + .item {
-  //  border-top: 0.1rem solid #e3e3e3;
-  //}
-  //
-  //.mask1 {
-  //  position: relative;
-  //  width: 5rem;
-  //  height: 5rem;
-  //  overflow: hidden;
-  //  border-radius: 50%;
-  //  background: #FFFFFF;
-  //  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
-  //  display: flex;
-  //  align-items: center;
-  //  justify-content: center;
-  //  margin: 0 auto;
-  //
-  //  img {
-  //    width: 5rem;
-  //    height: 5rem;
-  //  }
-  //}
-  //
-  //.img3 {
-  //  width: 100%;
-  //  height: 100%;
-  //}
-  //
-  //.user-type {
-  //  display: flex;
-  //  align-items: center;
-  //  padding: 6px 25px;
-  //  margin: 6px 0;
-  //  font-size: 13px;
-  //  background: linear-gradient(44deg, #FFF7CB 0%, #FFC92D 100%);
-  //
-  //  > div {
-  //    width: 50%;
-  //  }
-  //}
-  //
-  //.isLabel {
-  //  font-size: 12px;
-  //  height: 20px;
-  //  margin-top: 5px;
-  //
-  //  > span {
-  //    border-radius: 17px;
-  //    border: 1px solid #FAD872;
-  //    padding: 3px 10px;
-  //
-  //    ion-icon {
-  //      margin-left: 10px;
-  //      font-size: 14px;
-  //      font-weight: 600;
-  //      color: #777;
-  //      vertical-align: bottom;
-  //    }
-  //  }
-  //}
 }

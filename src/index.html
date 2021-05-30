@@ -55,7 +55,7 @@
 
 <!-- The main bundle js is generated during the build process -->
 <script src="build/main.js"></script>
-<script src="assets/js/wow.min.js"></script>lo
+<script src="assets/js/wow.min.js"></script>
 <script src="assets/js/md5.js"></script>
 <script src="assets/js/disableProcess.js"></script>
 <script src="assets/AzureMediaPlayer/plugin/amp_title_overlay.js"></script>
@@ -66,26 +66,5 @@
 <script>
     new WOW().init();
 </script>
-<script>
-// rem 调试适配
-(function (doc, win) {
-    var docEl = doc.documentElement,
-        resizeEvt = "orientationchange" in window ? "orientationchange" : "resize",
-        recalc = function () {
-            var clientWidth = docEl.clientWidth;
-            if (!clientWidth) return;
-            if (clientWidth >= 760) {
-                docEl.style.fontSize = 760 / 37.5 + "px";
-            } else {
-                docEl.style.fontSize = clientWidth / 37.5 + "px";
-            }
-        };
-    if (!doc.addEventListener) return;
-    win.addEventListener(resizeEvt, recalc, false);
-    doc.addEventListener("DOMContentLoaded", recalc, false);
-})(document, window);
-// rem 调试适配
-</script>
-
 </body>
 </html>
