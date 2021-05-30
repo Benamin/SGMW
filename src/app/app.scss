@@ -20,12 +20,12 @@ html, body, p {
   display: block;
   margin: 0;
 }
-body {
-  position: relative;
-  margin:0 auto;
-  width: 100%;
-  max-width: 760px;
-}
+//body {
+//  position: relative;
+//  margin:0 auto;
+//  width: 100%;
+//  max-width: 760px;
+//}
 
 .space {
   height: 10px;
@@ -210,9 +210,9 @@ body {
   display: flex;
   line-height: 3rem;
   // background-image: url('../assets/imgs/integral/jifen_banner.png');
-  background: -webkit-gradient(linear,0 0,0 100%,from(#FFEBC9),to(#FFF7D8));     
-  background: -moz-gradient(linear,0 0,0 100%,from(#FFEBC9),to(#FFF7D8));     
-  background:-webkit-gradient(linear,left top,left bottom,from(#FFEBC9),to(#FFF7D8)); 
+  background: -webkit-gradient(linear,0 0,0 100%,from(#FFEBC9),to(#FFF7D8));
+  background: -moz-gradient(linear,0 0,0 100%,from(#FFEBC9),to(#FFF7D8));
+  background:-webkit-gradient(linear,left top,left bottom,from(#FFEBC9),to(#FFF7D8));
   border-radius: 2px;
   background-size: cover;
   margin-bottom: 1.5rem;
