@@ -305,6 +305,10 @@ export class HomeService {
     QueryCourse(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EApprove/QueryCourse', data);
     }
+    // 根据条件查询课程（改版后的为了不影响）
+    QueryCoursePage(data): Observable<any> {
+        return this.http.post(SERVER_API_URL + '/EApprove/QueryCoursePage', data);
+    }
     // 根据条件查询考试
     QueryExam(data): Observable<any> {
         return this.http.post(SERVER_API_URL + '/EApprove/QueryExam', data);

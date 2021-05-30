@@ -17,7 +17,14 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 html, body, p {
+  display: block;
   margin: 0;
+}
+body {
+  position: relative;
+  margin:0 auto;
+  width: 100%;
+  max-width: 760px;
 }
 
 .space {

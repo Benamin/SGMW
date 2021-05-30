@@ -375,7 +375,7 @@ export class AdvancedLevelPage {
                 // 课程
                 getParams = Object.assign({}, getParams, {Conditions: 'All', PageCurrent: this.page.Page, PageSize: this.page.PageSize});
                 getListsApi = (data) => {
-                    return this.homeSer.QueryCourse(data);
+                    return this.homeSer.QueryCoursePage(data);
                 };
                 break
             case 'exam':
@@ -440,7 +440,7 @@ export class AdvancedLevelPage {
                         case 'course':
                             // 课程
                             this.page.navliArr[0].lists = res.data.productListItems;
-                            this.page.TotalCount = res.data.TotalCount;
+                            this.page.TotalCount = res.data.totalcount;
                             break
                         case 'exam':
                             // 考试
@@ -531,6 +531,9 @@ export class AdvancedLevelPage {
                                         loading.dismiss();
                                         this.page.firstTime = true;
                                         this.page.nowLevelIndex = null;
+                                        this.page.TotalCount = 0;
+                                        this.page.Page = 1;
+                                        this.page.PageSize = 10;
                                         console.log('leveltype', this.page.leveltype)
                                         this.getAdvancedLevel();
 
@@ -591,6 +594,7 @@ export class AdvancedLevelPage {
 
     //加载更多
     doInfinite(e) {
+        console.log('8888-----', this.page.navliArr[0].lists.length, this.page.TotalCount)
         if (this.page.navliArr[0].lists.length == this.page.TotalCount || this.page.navliArr[0].lists.length > this.page.TotalCount) {
             e.complete();
             return;
@@ -607,10 +611,10 @@ export class AdvancedLevelPage {
             content: ''
         });
         loading.present();
-        this.homeSer.QueryCourse(data).subscribe(
+        this.homeSer.QueryCoursePage(data).subscribe(
             (res) => {
                 this.page.navliArr[0].lists = this.page.navliArr[0].lists.concat(res.data.productListItems);
-                this.page.TotalCount = res.TotalCount;
+                this.page.TotalCount = res.data.totalcount;
                 e.complete();
                 loading.dismiss();
             }
