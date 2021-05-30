@@ -375,7 +375,7 @@ export class AdvancedLevelPage {
                 // 课程
                 getParams = Object.assign({}, getParams, {Conditions: 'All', PageCurrent: this.page.Page, PageSize: this.page.PageSize});
                 getListsApi = (data) => {
-                    return this.homeSer.QueryCourse(data);
+                    return this.homeSer.QueryCoursePage(data);
                 };
                 break
             case 'exam':
@@ -611,7 +611,7 @@ export class AdvancedLevelPage {
             content: ''
         });
         loading.present();
-        this.homeSer.QueryCourse(data).subscribe(
+        this.homeSer.QueryCoursePage(data).subscribe(
             (res) => {
                 this.page.navliArr[0].lists = this.page.navliArr[0].lists.concat(res.data.productListItems);
                 this.page.TotalCount = res.data.totalcount;
