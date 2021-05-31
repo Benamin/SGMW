@@ -35,20 +35,21 @@
                     </div>
                     <div class="course-desc">
                         <span>
-                            <img src="./assets/imgs/learn/person@2x.png" alt="">{{product.detail?.ManCount || "0"}}
+                            <img src="./assets/imgs/new_version/home/icon-count.png"
+                                 alt="">{{product.detail?.ManCount || "0"}}
                             人学习</span>
                         <span tappable (click)="handlePraise()">  <!--点赞-->
                             <img *ngIf="!product.detail?.IsPraise"
-                                 src="./assets/imgs/course/hua@2x.png" alt="">
+                                 src="./assets/imgs/new_version/home/icon-like.png" alt="">
                             <img *ngIf="product.detail?.IsPraise"
-                                 src="./assets/imgs/course/hua_y@2x.png" alt="">
+                                 src="./assets/imgs/new_version/home/icon_like_yes.png" alt="">
                             点赞·{{product.detail?.ZanCount || "0"}}
                         </span>
                         <span tappable (click)="handleCollection()">  <!--收藏-->
                         <img *ngIf="!product.detail?.IsCollection"
-                             src="./assets/imgs/course/sc@2x.png" alt="">
+                             src="./assets/imgs/new_version/home/icon-love.png" alt="">
                         <img *ngIf="product.detail?.IsCollection"
-                             src="./assets/imgs/course/sc_y@2x.png" alt="">
+                             src="./assets/imgs/new_version/home/icon_love_yes.png" alt="">
                             收藏·
                             {{product.detail?.CollectionCount || "0"}}</span>
                     </div>
@@ -92,13 +93,6 @@
     <div [hidden]="showHeader !== 'show'" class="ionSlides" #ionSlidesDIV>
         <div class="swiper-container swiper-course-container">
             <div class="swiper-wrapper">
-                <!--                <div class="swiper-slide swiper-no-swiping" *ngIf="StructureType == 1">-->
-                <!--                    &lt;!&ndash;      简介      &ndash;&gt;-->
-                <!--                    <div class="item">-->
-                <!--                        <p>简介</p>-->
-                <!--                        <div class="introduction" [innerHTML]="product.detail?.Description | lineFeed"></div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 <div class="swiper-slide swiper-no-swiping">
                     <!--      章节      -->
                     <div id="chapter" class="item" style="min-height: 350px">
@@ -116,14 +110,13 @@
                 <div class="swiper-slide swiper-no-swiping">
                     <!--      讨论      -->
                     <div #TalkContent class="item" style="min-height: 350px;overflow-y: scroll">
-                        <comment-star (flashData)="GetCommentData();getCourseDetail()"
+                        <comment-star (flashData)="getCourseDetail()"
                                       [IsComment]="product.detail?.IsComment" #commentStar></comment-star>
                         <p style="margin-top: 1rem"
                            class="first-child">{{product.detail?.TeachTypeName == "直播" ? "直播" : "课程"}}讨论 <span
                                 style="color: #999;margin-left: .5rem;font-size: 1.3rem;">({{talkObj?.TotalCount || 0}}
                             )</span></p>
-                        <page-comment-list
-                                [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
+                        <page-comment-list [cList]="comment.talk" [TopicType]="'talk'"></page-comment-list>
                         <div *ngIf="comment.talkLoad" class="loading-talk-spinner">
                             <ion-spinner icon="spiral"></ion-spinner>
                             正在加载
@@ -141,7 +134,7 @@
                     <!--            相关-->
                     <div class="item" style="margin-bottom: 5rem">
                         <p>相关推荐</p>
-<!--                        <course-list [list]="relationList" (done)="goCourse($event)"></course-list>-->
+                        <!--                        <course-list [list]="relationList" (done)="goCourse($event)"></course-list>-->
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping">

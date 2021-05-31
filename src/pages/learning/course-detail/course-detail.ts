@@ -179,6 +179,9 @@ export class CourseDetailPage {
                     if ((Date.now() - data.time) < (1 * 24 * 60 * 60 * 1000)) {  //超过一天 重新加载
                         this.initOtherInfo(data.detail);
                         this.initChapterInfo(data.chapter);
+                        setTimeout(() => {
+                            this.initData();
+                        }, 2000);
                     } else {
                         this.initData();
                     }
@@ -189,10 +192,6 @@ export class CourseDetailPage {
                 this.initData();
             }
         })
-
-        setTimeout(() => {
-            this.initData();
-        }, 2000);
     }
 
     //每次进入均加载
@@ -202,10 +201,10 @@ export class CourseDetailPage {
             case 'PDF':   //打开PDF文件返回
                 break;
             case 'CourseTalk':   // 课程讨论详情返回
-                this.getTalkList();   //获取课程讨论
+                // this.getTalkList();   //获取课程讨论
                 break;
             case 'CourseComment':   //课程评价详情返回
-                this.commentStar.getCommentList(this.product.detail.PrId);  //获取课程评价
+                // this.commentStar.getCommentList(this.product.detail.PrId);  //获取课程评价
                 break;
             case 'RelationCourse':          // 相关课程返回
                 break;
@@ -270,8 +269,8 @@ export class CourseDetailPage {
         this.global.PostsCertID = data.PostCertificationID;
         this.SortType = data.SortType;
 
-        this.GetCommentData();   //讲师信息
         this.GetClassmate();  //我的同学
+        this.getTalkList();
         //接受文件通知
         this.getFileInfo();
         setTimeout(() => {
@@ -319,7 +318,6 @@ export class CourseDetailPage {
         });
         this.videoInfo.poster = this.product.chapter.Course.CoverUrl;
         this.dismissLoading();
-        this.isLoad = true;
     }
 
     /**
@@ -356,6 +354,9 @@ export class CourseDetailPage {
     //初始化swiper
     initSwiper() {
         let that = this;
+        if (that.mySwiper) {
+            return
+        }
         that.mySwiper = new Swiper('.swiper-course-container', {
             speed: 300,// slide滑动动画时间
             observer: true,
@@ -368,13 +369,6 @@ export class CourseDetailPage {
                         that.bar.type = this.activeIndex + 1;
                     }
                 },
-                slidePrevTransitionStart: function () {  //上滑
-
-                },
-                slideNextTransitionStart: function () {  //下滑
-
-                },
-
             },
         });
     }
@@ -771,26 +765,6 @@ export class CourseDetailPage {
 
     }
 
-    //关注讲师
-    focusHandle(UserID) {
-        const data = {
-            TopicID: UserID
-        };
-        this.learSer.SaveSubscribe(data).subscribe(
-            (res) => {
-                this.commonSer.toast('关注成功');
-                this.getCourseDetail();
-            }
-        )
-    }
-
-
-    //获取评价列表、讲师列表
-    GetCommentData() {
-        this.commentStar.getCommentList(this.product.detail.PrId);
-        this.getTalkList();
-    }
-
     //课程讨论
     getTalkList() {
         this.talkObj.Page = 1;
@@ -803,6 +777,7 @@ export class CourseDetailPage {
         this.learnSer.GetTalkLists(data3).subscribe(   //课程讨论
             (res) => {
                 if (res.data) {
+                    this.isLoad = true;
                     this.comment.talk = res.data.CommentItems;
                     this.talkObj.TotalCount = res.data.TotalCount;
                 }
@@ -810,20 +785,7 @@ export class CourseDetailPage {
         );
     }
 
-    //取消关注
-    cancleFocusHandle(UserID) {
-        const data = {
-            TopicID: UserID
-        };
-        this.learSer.CancelSubscribe(data).subscribe(
-            (res) => {
-                this.commonSer.toast('取消关注成功');
-                this.getCourseDetail();
-            }
-        )
-    }
-
-    //打开课程评论弹窗
+    //打开课程讨论弹窗
     openComment() {
         let modal = this.modalCtrl.create(CommentByCourseComponent, {
             placeholder: '请理性发言，文明用语...',

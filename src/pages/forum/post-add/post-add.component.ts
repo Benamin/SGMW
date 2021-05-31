@@ -712,6 +712,8 @@ export class PostAddComponent implements OnInit {
 
 // 修改动态
     forum_post_edit(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
+        let textareaImg: HTMLElement = document.getElementById('textareaImg');
+        let textInnerTEXT: any = textareaImg.innerText;
         let data = {
             "Id": this.lidata.postId,//动态编号
             "Title": this.Title,//动态标题
@@ -720,7 +722,8 @@ export class PostAddComponent implements OnInit {
             "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,  //话题编号
-            "ApplyEssence": this.ApplyEssence  ////true为申请精华贴
+            "ApplyEssence": this.ApplyEssence,  ////true为申请精华贴
+            "ContentText": textInnerTEXT.replace(/\ +/g, "").replace(/[\r\n]/g, "")
         }
 
         this.serve.editforumtagpost(data).subscribe((res: any) => {
@@ -753,6 +756,8 @@ export class PostAddComponent implements OnInit {
     }
 
     addnewforumtagpost(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds) {
+        let textareaImg: HTMLElement = document.getElementById('textareaImg');
+        let textInnerTEXT: any = textareaImg.innerText;
         let data = {
             "IsSaveAndPublish": IsSaveAndPublish,//保持并发布
             "Title": this.Title,//动态标题
@@ -762,7 +767,8 @@ export class PostAddComponent implements OnInit {
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,
             "Content": textInnerHTML,//动态内容
-            "ApplyEssence": this.ApplyEssence  ////true为申请精华贴
+            "ApplyEssence": this.ApplyEssence,  ////true为申请精华贴
+            "ContentText": textInnerTEXT.replace(/\ +/g, "").replace(/[\r\n]/g, "")
         }
 
         this.serve.addnewforumtagpost(data).subscribe((res: any) => {
