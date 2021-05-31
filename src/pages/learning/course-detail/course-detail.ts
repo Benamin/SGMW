@@ -56,7 +56,6 @@ export class CourseDetailPage {
         detail: <any>null,
         chapter: null,
     };
-    elementId;
 
     courseFileType;
     videoInfo = {
@@ -144,8 +143,6 @@ export class CourseDetailPage {
                 private global: GlobalData, private fileSer: FileService, private inAppBrowser: InAppBrowser,
                 private modalCtrl: ModalController) {
         this.global.pId = this.navParams.get('id');
-        this.elementId = this.navParams.get('id');
-        console.log(this.elementId);
         this.TaskId = this.navParams.get('TaskId');
         this.StructureType = this.navParams.get('StructureType') || 1;
         this.enterResource = this.navParams.get('enterResource') || "";
@@ -204,7 +201,7 @@ export class CourseDetailPage {
                 // this.getTalkList();   //获取课程讨论
                 break;
             case 'CourseComment':   //课程评价详情返回
-                // this.commentStar.getCommentList(this.product.detail.PrId);  //获取课程评价
+                this.commentStar.getCommentList(this.product.detail.PrId);  //获取课程评价
                 break;
             case 'RelationCourse':          // 相关课程返回
                 break;
@@ -263,14 +260,15 @@ export class CourseDetailPage {
         //进度更新
         const overpercentage = data.overpercentage;
         console.log("overpercentage", overpercentage);
-        document.getElementById('textProcess_' + this.elementId).innerHTML = `学习进度:${overpercentage}%`;
-        document.getElementById('innerProcess_' + this.elementId).style.width = `${overpercentage}%`;
+        document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
+        document.getElementById('innerProcess').style.width = `${overpercentage}%`;
 
         this.global.PostsCertID = data.PostCertificationID;
         this.SortType = data.SortType;
 
         this.GetClassmate();  //我的同学
         this.getTalkList();
+        this.commentStar.getCommentList(this.product.detail.PrId);
         //接受文件通知
         this.getFileInfo();
         setTimeout(() => {
@@ -700,8 +698,8 @@ export class CourseDetailPage {
                 this.product.detail = res.data;
                 const overpercentage = res.data.overpercentage;
                 console.log(this.global.pId)
-                document.getElementById('textProcess_' + this.elementId).innerHTML = `学习进度:${overpercentage}%`;
-                document.getElementById('innerProcess_' + this.elementId).style.width = `${overpercentage}%`;
+                document.getElementById('textProcess').innerHTML = `学习进度:${overpercentage}%`;
+                document.getElementById('innerProcess').style.width = `${overpercentage}%`;
 
                 //1、未评级 + 课程进度100% +（ 刚做完作业 ｜｜ 视频播放完毕 ）
                 if (overpercentage === 100 && !this.product.detail.IsComment && (this.CourseEnterSource === "DoExam" || type === "video")) {
