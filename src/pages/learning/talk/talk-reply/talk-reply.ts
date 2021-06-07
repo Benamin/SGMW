@@ -1,5 +1,5 @@
 import {Component, Input, ViewChild} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
+import {IonicPage, ModalController, Navbar, NavController, NavParams, Platform} from 'ionic-angular';
 import {CommentComponent} from "../../../../components/comment/comment";
 import {LearnService} from "../../learn.service";
 import {CommonService} from "../../../../core/common.service";
@@ -18,7 +18,7 @@ import {Storage} from "@ionic/storage";
     templateUrl: 'talk-reply.html',
 })
 export class TalkReplyPage {
-
+    @ViewChild(Navbar) navbar: Navbar;
     item;
     data = [];
     defaultImg = defaultImg;
@@ -48,6 +48,7 @@ export class TalkReplyPage {
         this.learnSer.replycomment_search(data).subscribe(
             (res) => {
                 this.data = res.data.Items;
+                this.item.ReplyCount = this.data.length;
             }
         )
     }
