@@ -6,24 +6,61 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="src/assets/js/jsencrypt.js"></script>
+    <script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>
 </head>
 <body>
-<button onclick="filterText()">过滤</button>
-<div style="overflow:hidden;height: 824px;width: 100%;border: 1px solid #dddddd;" class='paste_content'
-     contenteditable='true'></div>
-
+<div>
+    需要加密的字符串：
+    <textarea name="" id="keyword" cols="30" rows="10"></textarea>
+</div>
+<div>
+    请输入公钥加密：
+    <textarea name="" id="publishKey" cols="30" rows="10"></textarea>
+    <button onclick="setEncrypt()">加密</button>
+</div>
+<div>
+    加密结果
+    <span id="result"></span>
+</div>
+<div>
+    请输入私钥解密：
+    <textarea name="" id="privateKey" cols="30" rows="10"></textarea>
+    <button onclick="decrypt()">解密</button>
+</div>
+<div>
+    解密结果
+    <span id="enResult"></span>
+</div>
 
 <script>
-    window.onload = () => {
 
+    let code = "";
+
+    //加密
+    function setEncrypt(msg){
+        // 加密公钥
+        let pubkey = document.querySelector("#publishKey").value;
+        let keyword = document.querySelector("#keyword").value;
+        const jsencrypt = new JSEncrypt()
+        jsencrypt.setPublicKey(pubkey)
+        let code = jsencrypt.encrypt(keyword);
+        console.log(code)
+        document.querySelector("#result").innerText = code;
     }
 
-    function filterText() {
-        var paste_content = document.querySelector(".paste_content");
-        const innerText= paste_content.innerText;
-        console.log(innerText);
-        console.log(innerText.replace(/\s(?!href=|src=)[^\s"'<>/=]+(?:\s*(=)\s*(?:"([^"])"+|'([^'])'+|([^\s"'=<>`]+)))?/g,''));
+
+    //私钥
+    function decrypt () {
+        // 解密私钥
+        const privateKey = document.querySelector("#privateKey").value;
+        let decrypt = new JSEncrypt()
+        decrypt.setPrivateKey(privateKey)
+        let code = document.querySelector("#result").innerText;
+        let decryptMsg = decrypt.decrypt(code)
+        document.querySelector("#enResult").innerText = decryptMsg;
     }
+
 </script>
 
 </body>
