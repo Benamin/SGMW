@@ -66,12 +66,16 @@
             </div>
         </li>
     </ul>
+    <p class="list-footer-page"
+       *ngIf="page.isLoad && page.TotalCount == page.resourceLists.length && page.TotalCount > 5">
+        没有更多了~~~</p>
 
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
                 loadingText="加载中"></ion-infinite-scroll-content>
     </ion-infinite-scroll>
+
 
     <ion-list text-center style="margin-top: 2.5rem;text-align: center;text-align: center;"
               *ngIf="page.isLoad && page.resourceLists.length === 0">

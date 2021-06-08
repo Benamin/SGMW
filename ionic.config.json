@@ -29,5 +29,6 @@
       "path": "/LLZSAPI",
       "proxyUrl": "https://sso-sales.sgmwsales.com"
     }
-  ]
+  ],
+  "app_id": ""
 }

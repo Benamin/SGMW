@@ -28,6 +28,7 @@ export class WantToAskListsPage {
     }
 
     ionViewDidEnter() {
+    	this.page.PageIndex = 1;
         this.getList();
     }
 
