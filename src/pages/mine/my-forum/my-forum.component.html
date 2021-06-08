@@ -31,7 +31,7 @@
                           </span>
                     </div>
                 </div>
-                <div class="post-introduction-con">
+                <div class="post-introduction-con" (click)="goPostsContent(item);$event.stopPropagation();">
                     <p>{{item.Title}}</p>
                     <ng-container *ngIf="item.Images && item.Images.length > 0">
                         <div class="img-div img1" *ngIf="item.Images && item.Images.length==1"
@@ -75,22 +75,21 @@
                     </div>
                 </div>
                 <div class="post-introduction-buttom">
-            <span class="nowrap-1">
-                    <div class="oldDate">{{item.PostTimeForm | date:"yyyy-MM-dd HH:mm"}}</div>
-            </span>
+                <span class="nowrap-1">
+                        <div class="oldDate">{{item.PostTimeForm | date:"yyyy-MM-dd HH:mm"}}</div>
+                </span>
                     <span class="eye">
-              <img src="./assets/imgs/forum/other/eye.png">
-                        {{item.ViewCount}}
-            </span>
+                      <img src="./assets/imgs/forum/other/eye.png">{{item.ViewCount}}
+                    </span>
                     <span class="luntan_coment">
               <img src="./assets/imgs/forum/other/reply.png">
                         {{item.ReplyCount}}
             </span>
                     <span tappable class="comment_like">
-      <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/like_off.png">
-      <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/like_on.png">
+                        <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/like_off.png">
+                        <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/like_on.png">
                         {{item.LikeCount}}
-    </span>
+                        </span>
                 </div>
             </div>
         </div>
@@ -116,7 +115,7 @@
                           </span>
                     </div>
                 </div>
-                <div class="post-introduction-con">
+                <div class="post-introduction-con" (click)="goPostsContent(item);$event.stopPropagation();">
                     <p>{{item.Title}}</p>
                     <ng-container *ngIf="item.Images && item.Images.length > 0">
                         <div class="img-div img1" *ngIf="item.Images && item.Images.length==1"

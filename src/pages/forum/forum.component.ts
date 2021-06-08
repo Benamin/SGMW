@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Events, LoadingController, ModalController, NavController} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, Events, LoadingController, ModalController, NavController, Refresher} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {ForumService} from './forum.service';
 import {SearchPage} from "../home/search/search";
@@ -16,6 +16,8 @@ import {ShareWxComponent} from "../../components/share-wx/share-wx";
     templateUrl: './forum.component.html'
 })
 export class ForumPage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
 
     forumList = [];  //动态列表
     plateList = [];  //　板块列表
@@ -170,27 +172,26 @@ export class ForumPage {
 
     //下拉刷新
     doRefresh(e) {
-        this.isLoad = false;
-        setTimeout(() => {
-            e.complete();
-            this.isdoInfinite = true;
-        }, 1000);
-        if (this.navli == '板块') {
-            this.plateData.pageIndex = 1;
-            this.plateList = [];
-            this.forum_topicplate_search();
-        }
-        if (this.navli == '推荐') {
-            this.pageDate.pageIndex = 1;
-            this.forumList = [];
-            this.getListData();
-        }
-
-        if (this.navli == '关注') {
-            this.followerData.pageIndex = 1;
-            this.followList = [];
-            this.SearchNewRetFollower();
-        }
+        // this.isLoad = false;
+        // setTimeout(() => {
+        //     this.isdoInfinite = true;
+        // }, 1000);
+        // if (this.navli == '板块') {
+        //     this.plateData.pageIndex = 1;
+        //     this.plateList = [];
+        //     this.forum_topicplate_search();
+        // }
+        // if (this.navli == '推荐') {
+        //     this.pageDate.pageIndex = 1;
+        //     this.forumList = [];
+        //     this.getListData();
+        // }
+        //
+        // if (this.navli == '关注') {
+        //     this.followerData.pageIndex = 1;
+        //     this.followList = [];
+        //     this.SearchNewRetFollower();
+        // }
 
         this.isdoInfinite = true;
     }
@@ -333,18 +334,12 @@ export class ForumPage {
     }
 
     showLoading() {
-        if (!this.loading) {
-            this.loading = this.loadCtrl.create({
-                content: '加载中...'
-            });
-            this.loading.present();
-        }
+        this.refresher._top = this.content.contentTop + 56 + 'px';
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
     }
 
     dismissLoading() {
-        if (this.loading) {
-            this.loading.dismiss();
-            this.loading = null;
-        }
+        // this.refresher.complete();
     }
 }

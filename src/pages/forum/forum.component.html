@@ -4,8 +4,8 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+    <ion-refresher #ionRefresher  style="display: block" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
 

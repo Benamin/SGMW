@@ -20,6 +20,7 @@ html, body, p {
   display: block;
   margin: 0;
 }
+
 //body {
 //  position: relative;
 //  margin:0 auto;
@@ -114,6 +115,7 @@ html, body, p {
 .levelAction {
   .action-sheet-container {
     padding: 0;
+
     .action-sheet-group {
       box-sizing: border-box;
       margin: 0 1rem;
@@ -138,6 +140,7 @@ html, body, p {
     .button-inner {
       font-size: 1.5rem;
     }
+
     &:nth-child(1):before {
       border-top: 0 !important;
       height: 0 !important;
@@ -148,11 +151,13 @@ html, body, p {
     color: #FF001B !important;
 
   }
+
   .action-sheet-group button.action-sheet-button:before {
-    border-color: #DEDEDE ;
+    border-color: #DEDEDE;
   }
 
 }
+
 // 上拉选择样式 end
 
 .mineAlert .alert-message {
@@ -166,19 +171,23 @@ html, body, p {
 .amp-logo {
   display: none !important;
 }
+
 .check-integral {
   display: flex;
   line-height: 3rem;
   padding: 2rem;
   font-size: 1.8rem;
-  .iconsimg{
+
+  .iconsimg {
     width: 2.5rem;
     margin-right: 1rem;
-    img{
+
+    img {
       width: 100%;
       vertical-align: middle;
     }
   }
+
   .left {
     span:first-child {
       color: #535353;
@@ -192,45 +201,51 @@ html, body, p {
   .right {
     margin-left: auto;
     color: #535353;
-    span{
+
+    span {
       border-radius: 18px;
       padding: 5px 10px;
       color: #FCA241;
       font-size: 1.5rem;
-      border:1px solid #FCA241;
+      border: 1px solid #FCA241;
     }
   }
 
-	.black-bg {
-		background-image: url('../assets/imgs/mine/wod_bg@2x.png') no-repeat bottom;
-		background-size: 100% 100%;
-	}
+  .black-bg {
+    background-image: url('../assets/imgs/mine/wod_bg@2x.png') no-repeat bottom;
+    background-size: 100% 100%;
+  }
 }
+
 .total-integral {
   display: flex;
   line-height: 3rem;
   // background-image: url('../assets/imgs/integral/jifen_banner.png');
-  background: -webkit-gradient(linear,0 0,0 100%,from(#FFEBC9),to(#FFF7D8));
-  background: -moz-gradient(linear,0 0,0 100%,from(#FFEBC9),to(#FFF7D8));
-  background:-webkit-gradient(linear,left top,left bottom,from(#FFEBC9),to(#FFF7D8));
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#FFEBC9), to(#FFF7D8));
+  background: -moz-gradient(linear, 0 0, 0 100%, from(#FFEBC9), to(#FFF7D8));
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFEBC9), to(#FFF7D8));
   border-radius: 2px;
   background-size: cover;
   margin-bottom: 1.5rem;
   padding: 2rem 1.5rem;
   font-size: 1.8rem;
-  .iconsimg{
+
+  .iconsimg {
     width: 2.3rem;
     margin-right: 1rem;
-    img{
+
+    img {
       width: 100%;
       vertical-align: middle;
     }
   }
+
   .left {
     span:first-child {
       color: #FFA903;
       margin-right: 5px;
     }
+
     span:last-child {
       font-size: 2.6rem;
       color: #FFA903;
@@ -241,18 +256,20 @@ html, body, p {
   .right {
     margin-left: auto;
     color: #535353;
-    span{
-      b{
+
+    span {
+      b {
         color: #FB7F1E;
       }
     }
   }
 
-	.black-bg {
-		background-image: url('../assets/imgs/mine/wod_bg@2x.png') no-repeat bottom;
-		background-size: 100% 100%;
-	}
+  .black-bg {
+    background-image: url('../assets/imgs/mine/wod_bg@2x.png') no-repeat bottom;
+    background-size: 100% 100%;
+  }
 }
+
 //底部弹窗
 .action-sheet-container .action-sheet-group {
   border-radius: 5px;
@@ -295,5 +312,12 @@ html, body, p {
 .toolbar-ios {
   min-height: 5.7rem;
 }
+
 // tab选中颜色
-a[aria-selected="true"] { color: red !important; }
+a[aria-selected="true"] {
+  color: red !important;
+}
+
+.has-refresher > .scroll-content {
+  border: none;
+}
