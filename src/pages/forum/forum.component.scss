@@ -435,5 +435,7 @@ page-forum {
 
   ion-refresher {
     z-index: 1;
+    display: block;
+    top: 116px !important;
   }
 }

@@ -241,6 +241,11 @@ export class PostsContentComponent implements OnInit {
                 })
             }, 100)
         }
+        if (this.dataCon.Pvideo && !videoEle) {
+            setTimeout(() => {
+                this.initVideoEle();
+            }, 100);
+        }
     }
 
     /**

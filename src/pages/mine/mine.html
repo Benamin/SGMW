@@ -13,7 +13,7 @@
                 <div class="user-name">{{mineInfo?.UserName}}</div>
                 <div class="user-label" *ngIf="!userInfo?.Badges || userInfo?.Badges.length === 0">暂无头衔</div>
                 <div class="user-label" *ngFor="let badge of userInfo?.Badges">{{badge.BadgeName}}</div>
-              <!--badge.BadgeIcon || ''-->
+                <!--badge.BadgeIcon || ''-->
             </div>
             <div class="user-level" (click)="showAlert()">
                 <img src="./assets/imgs/new_version/mine/authentication-icon.png">
@@ -22,22 +22,23 @@
         </div>
         <div class="points-box">
             <img src="./assets/imgs/new_version/mine/points-bg.png">
-            <div tappable (click)="goIntegral()" class="points-text">积分  {{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</div>
+            <div tappable (click)="goIntegral()" class="points-text">
+                积分  {{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</div>
         </div>
     </div>
 
     <div class="login-info">
-      <div class="login-mode">
-        <span>登录方式:</span>
-        <span>{{LoginType || "-"}}</span>
-      </div>
-      <div class="login-dealer-number">
-        <span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>
-        <ng-template #other_content>
-          <span>经销商号:</span>
-        </ng-template>
-        <span>{{mineInfo?.AgentNumber || "-"}}</span>
-      </div>
+        <div class="login-mode">
+            <span>登录方式:</span>
+            <span>{{LoginType || "-"}}</span>
+        </div>
+        <div class="login-dealer-number">
+            <span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>
+            <ng-template #other_content>
+                <span>经销商号:</span>
+            </ng-template>
+            <span>{{mineInfo?.AgentNumber || "-"}}</span>
+        </div>
     </div>
 
     <div class="post-box">
@@ -50,10 +51,6 @@
                 <div>{{number?.WorkCount || '0'}}</div>
                 <div>作业</div>
             </li>
-            <!--<li tappable (click)="goMyshortVideo()">-->
-                <!--<div>{{number?.videoNum || '0'}}</div>-->
-                <!--<div>视频</div>-->
-            <!--</li>-->
             <li tappable (click)="goMyForum()">
                 <div>{{number?.PostCount || '0'}}</div>
                 <div>动态</div>
@@ -63,25 +60,25 @@
 
 
     <div class="mine-content">
-        <div class="content-header">
-            <div class="switch-role" tappable (click)="switchUser()">
-                <img src="./assets/imgs/new_version/mine/switch-user-icon.png">
-                切换角色
-            </div>
-            <div class="current-role">
-                当前角色
-                <span>{{RoleName}}</span>
-                <img src="./assets/imgs/new_version/mine/right.png">
-            </div>
-            <!-- 切换角色 弹出 start -->
-            <div class="login-select" style="position: absolute;width: 100%;opacity: 0;">
-              <ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"
-                          (ngModelChange)="switchUser()">
-                <ion-option [value]="item.RoleName" *ngFor="let item of RoleNames">{{item.RoleName}}</ion-option>
-              </ion-select>
-            </div>
-            <!-- 切换角色 弹出 end -->
-        </div>
+<!--        <div class="content-header">-->
+<!--            <div class="switch-role" tappable (click)="switchUser()">-->
+<!--                <img src="./assets/imgs/new_version/mine/switch-user-icon.png">-->
+<!--                切换角色-->
+<!--            </div>-->
+<!--            <div class="current-role">-->
+<!--                当前角色-->
+<!--                <span>{{RoleName}}</span>-->
+<!--                <img src="./assets/imgs/new_version/mine/right.png">-->
+<!--            </div>-->
+<!--            &lt;!&ndash; 切换角色 弹出 start &ndash;&gt;-->
+<!--            <div class="login-select" style="position: absolute;width: 100%;opacity: 0;">-->
+<!--                <ion-select [(ngModel)]="RoleName" cancelText="取消" interface="action-sheet"-->
+<!--                            (ngModelChange)="switchUser()">-->
+<!--                    <ion-option [value]="item.RoleName" *ngFor="let item of RoleNames">{{item.RoleName}}</ion-option>-->
+<!--                </ion-select>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; 切换角色 弹出 end &ndash;&gt;-->
+<!--        </div>-->
         <div class="content-list">
             <li tappable (click)="goMyIntegral()">
                 <img src="./assets/imgs/new_version/mine/points-icon.png">
@@ -99,10 +96,6 @@
                 <img src="./assets/imgs/new_version/mine/medal.png">
                 <div>设置勋章</div>
             </li>
-<!--            <li tappable (click)="openUrl()">-->
-<!--                <img src="./assets/imgs/new_version/mine/yjfk.png">-->
-<!--                <div>意见反馈</div>-->
-<!--            </li>-->
             <li tappable (click)="checkVersion()">
                 <img src="./assets/imgs/new_version/mine/gyyy.png">
                 <div>关于应用</div>

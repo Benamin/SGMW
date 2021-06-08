@@ -1,36 +1,41 @@
-.nowrap-1{
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+.nowrap-1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
 }
-.nowrap-2{
-    overflow:hidden;
-    text-overflow:ellipsis;
+
+.nowrap-2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
     /* white-space:nowrap; */
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     display: -webkit-box;
 }
-.nowrap-3{
-    overflow:hidden;
-    text-overflow:ellipsis;
+
+.nowrap-3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     display: -webkit-box;
 }
 
 
-.edit-div{
+.edit-div {
     flex-shrink: 0;
 }
-.post-introduction-buttom>span:nth-child(2){
-    margin-left:10px; 
+
+.post-introduction-buttom > span:nth-child(2) {
+    margin-left: 10px;
 }
-.oldDate{
+
+.oldDate {
     min-width: 80px;
 }
+
 /*.post-introduction-con img{*/
 /*    width: auto;*/
 /*    height:auto ;*/
@@ -39,33 +44,41 @@
 /*    max-width: none;*/
 /*}*/
 
-.post-introduction-con>.img-div>div{
+.post-introduction-con > .img-div > div {
     background: #f2f2f2;
     overflow: hidden;
 }
-.post-introduction-con>.img1{
+
+.post-introduction-con > .img1 {
     background-size: cover;
     background: #f2f2f2;
     overflow: hidden;
 }
 
-.post-introduction-con>.img2{
+.post-introduction-con > .img2 {
     display: flex;
-      overflow: hidden;
+    overflow: hidden;
 }
-.post-introduction-con>.img3{
+
+.post-introduction-con > .img3 {
     display: flex;
-      overflow: hidden;
+    overflow: hidden;
 }
-.post-introduction-con>.img3>div{
+
+.post-introduction-con > .img3 > div {
     height: 97px !important;
+    border-radius: 5px;
 }
-.post-introduction-con>.img3>div>div{
+
+.post-introduction-con > .img3 > div > div {
     height: 97px !important;
+    border-radius: 5px;
 }
-.post-introduction-con>.img3>div>div,
-.post-introduction-con>.img2>div>div{
+
+.post-introduction-con > .img3 > div > div,
+.post-introduction-con > .img2 > div > div {
     background-size: cover;
     overflow: hidden;
+    border-radius: 5px;
 }
 

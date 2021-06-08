@@ -195,7 +195,7 @@ export class LoginPage {
             this.commonSer.toast('请阅读并同意用户协议');
             return;
         }
-        this.userRoleName = '员工';
+        this.userRoleName = 'SGMW员工';
         this.setRoleNames();
         if (!this.ygObj.username || !this.ygObj.password) {
             this.commonSer.toast("请输入用户名密码");
@@ -207,7 +207,7 @@ export class LoginPage {
         }
 
         this.showLoading();
-        this.storage.set("LoginType", "员工")
+        this.storage.set("LoginType", "SGMW员工")
         this.loginSer.connectToken(this.ygObj).subscribe(
             (res) => {
                 if (res.access_token) {

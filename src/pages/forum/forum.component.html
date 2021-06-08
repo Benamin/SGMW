@@ -4,7 +4,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-refresher #ionRefresher  style="display: block" (ionRefresh)="doRefresh($event)">
+    <ion-refresher #ionRefresher  [ngStyle]="{height: refresher.state === 'completing'?'0':'auto'}" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
@@ -21,6 +21,7 @@
         </div>
     </div>
     <div style="margin-top: 5rem;"></div>
+<!--    话题列表-->
     <div *ngIf=" navli=='推荐'" class="navul-navbar">
         <div *ngFor="let item of topList" class="navli" [ngClass]="{'check': checkTopic == item.Id}" tappable
              (click)="goPostlist(item)">

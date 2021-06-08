@@ -566,18 +566,21 @@ export class HomePage implements OnInit {
     // 获取热门动态
     getLIistData() {
         let data = {
-            "IsHotPost": "1",
-            "OrderBy": "",
-            "OrderByDirection": "",
-            "PageIndex": 1,
-            "PageSize": 10
+            IsPlate: 0,
+            OrderBy: "ViewCount",
+            OrderByDirection: "DESC",
+            PageIndex: 1,
+            PageSize: 10,
+            Poster: "",
+            Status: 2,
+            Title: "",
+            TopicTagPlateId: "",
+            Type: "Hot",
         };
-        this.forum_serve.GetPostSearchnewret(data).subscribe((res: any) => {
-            // this.forum_serve.forum_post_search(data).subscribe((res: any) => {
+        this.forum_serve.GetPostSearchhotpost(data).subscribe((res: any) => {
             if (res.data) {
-                this.forumLIst = res.data.UnTopPosts.Items;
+                this.forumLIst = res.data.Posts.Items;
             }
-
         });
     }
 

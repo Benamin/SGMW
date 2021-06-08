@@ -53,15 +53,16 @@ export class ForumListTimeComponent implements OnInit {
 
         item.isClick = true;
         if (item.IsGiveLike) {
+            item.isClick = false;
+            item['IsGiveLike'] = false;
+            if (item.LikeCount > 0) item.LikeCount--;
             this.serve.forum_post_cancellike(item.Id).subscribe((res: any) => {
-                item['IsGiveLike'] = false;
-                if (item.LikeCount > 0) item.LikeCount--;
                 item.isClick = false;
             });
         } else {
+            item['IsGiveLike'] = true;
+            item.LikeCount++;
             this.serve.forum_post_like(item.Id).subscribe((res: any) => {
-                item['IsGiveLike'] = true;
-                item.LikeCount++;
                 item.isClick = false;
             });
         }
@@ -71,7 +72,6 @@ export class ForumListTimeComponent implements OnInit {
     wxShare(data) {
         let description = data.ContentWithoutHtml.replace(/\&nbsp;/g, '');
         let thumb = '';
-
         if (description.length > 100) {
             description = description.slice(0, 100);
         }
@@ -84,7 +84,6 @@ export class ForumListTimeComponent implements OnInit {
             thumb: thumb,
             paramsUrl: `/#/bbsdetails/${data.Id}`
         }
-        console.log(data.Id)
         let modal = this.modalCtrl.create(ShareWxComponent, {data: obj});
         modal.present();
     }

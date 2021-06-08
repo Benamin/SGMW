@@ -39,4 +39,7 @@ data-wow-iteration: Number of times the animation is repeated
 
 ###别更新 cordova-plugin-ionic-webview 版本 因为最新版的 用android打开PDF会有跨域问题
 
+##图片压缩 带测试
+```https://github.com/wuwhs/js-image-compressor/blob/master/README-CN.md```
+
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk 骏菱学社

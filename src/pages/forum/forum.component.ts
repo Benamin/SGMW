@@ -69,6 +69,9 @@ export class ForumPage {
         // 发布 自定义事件
         this.events.publish('messageTabBadge:change', {});
         this.logSer.visitLog('lt');
+        this.showLoading();
+
+
         this.forumList = [];
         this.pageDate.pageIndex = 1;
         this.initData();
@@ -142,6 +145,7 @@ export class ForumPage {
             this.SearchNewRetFollower();
         }
 
+        //推荐话题
         const data = {
             PageIndex: 1,
             PageSize: 6,
@@ -172,26 +176,26 @@ export class ForumPage {
 
     //下拉刷新
     doRefresh(e) {
-        // this.isLoad = false;
+        this.isLoad = false;
         // setTimeout(() => {
         //     this.isdoInfinite = true;
         // }, 1000);
-        // if (this.navli == '板块') {
-        //     this.plateData.pageIndex = 1;
-        //     this.plateList = [];
-        //     this.forum_topicplate_search();
-        // }
-        // if (this.navli == '推荐') {
-        //     this.pageDate.pageIndex = 1;
-        //     this.forumList = [];
-        //     this.getListData();
-        // }
-        //
-        // if (this.navli == '关注') {
-        //     this.followerData.pageIndex = 1;
-        //     this.followList = [];
-        //     this.SearchNewRetFollower();
-        // }
+        if (this.navli == '板块') {
+            this.plateData.pageIndex = 1;
+            this.plateList = [];
+            this.forum_topicplate_search();
+        }
+        if (this.navli == '推荐') {
+            this.pageDate.pageIndex = 1;
+            this.forumList = [];
+            this.getListData();
+        }
+
+        if (this.navli == '关注') {
+            this.followerData.pageIndex = 1;
+            this.followList = [];
+            this.SearchNewRetFollower();
+        }
 
         this.isdoInfinite = true;
     }
@@ -224,6 +228,7 @@ export class ForumPage {
     switchInformation(text) {
         this.isLoad = false;
         this.navli = text;
+        this.showLoading();
         if (this.navli == '板块' && this.plateList.length == 0) {
             this.forum_topicplate_search();
         } else if (this.navli == '推荐' && this.forumList.length == 0) {
@@ -235,11 +240,8 @@ export class ForumPage {
 
     //动态信息
     getListData() {
-        this.showLoading();
         let data = {
-            "Title": "",
             "Status": 2,
-            "Poster": "",
             "IsPlate": 0,
             "OrderBy": this.pageDate.OrderBy,
             "OrderByDirection": "DESC",
@@ -257,18 +259,12 @@ export class ForumPage {
                     this.forumList = this.forumList.concat(arr);
                 }
                 this.pageDate.total = res.data.Posts.TotalItems;
-                if (arr == 0) {
-                    // this.isdoInfinite = false;
-                }
             }
         });
     }
 
     //板块列表
     forum_topicplate_search() {
-        if (this.plateData.pageIndex == 1) {
-            this.showLoading();
-        }
         this.serve.newsearchforumtopicplate(this.plateData).subscribe((res: any) => {
             this.isLoad = true;
             if (!res.data) {
@@ -305,9 +301,7 @@ export class ForumPage {
 
     // 关注人的发帖信息
     SearchNewRetFollower() {
-        this.showLoading();
         this.serve.SearchNewRetFollower(this.followerData).subscribe(res => {
-            this.dismissLoading()
             this.isLoad = true;
             if (res.data) {
                 let arr = res.data.Posts.Items;
@@ -315,10 +309,8 @@ export class ForumPage {
                     this.followList = this.followList.concat(arr);
                 }
                 this.followerData.total = res.data.Posts.TotalItems;
-                if (arr == 0) {
-                    // this.isdoInfinite = false;
-                }
             }
+            this.dismissLoading();
         })
     }
 
@@ -340,6 +332,7 @@ export class ForumPage {
     }
 
     dismissLoading() {
-        // this.refresher.complete();
+        this.refresher.complete();
+        console.log("this.refresher.state",this.refresher.state);
     }
 }

@@ -23,7 +23,7 @@ export class CommentListPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public commonSer: CommonService,
                 public global: GlobalData,
-								private storage: Storage,
+                private storage: Storage,
                 private learnSer: LearnService) {
     }
 
@@ -57,12 +57,11 @@ export class CommentListPage {
         const data = {
             TalkId: item.ID
         };
+        item.IsMyLike = true;
+        item.LikeCount++;
         this.learnSer.Liketalk(data).subscribe(
             (res) => {
                 if (res.Result == 0) {
-                    item.IsMyLike = true;
-                    item.LikeCount++;
-                    this.commonSer.toast('感谢点赞');
                 }
                 this.disBtn = false;
             }
@@ -77,12 +76,11 @@ export class CommentListPage {
         const data = {
             TalkId: item.ID
         };
+        item.IsMyLike = false;
+        if (item.LikeCount-- < 1) item.LikeCount = 0;
         this.learnSer.CancelLiketalk(data).subscribe(
             (res) => {
                 if (res.Result == 0) {
-                    item.IsMyLike = false;
-                    if (item.LikeCount-- < 1) item.LikeCount = 0;
-                    this.commonSer.toast('取消点赞成功');
                 }
                 this.disBtn = false;
             }
@@ -101,11 +99,12 @@ export class CommentListPage {
         const data = {
             TalkId: item.ID
         };
+        item.DisLikeCount++;
+        item.IsMyDisLike = true;
         this.learnSer.DisLiketalk(data).subscribe(
             (res) => {
                 if (res.Result == 0) {
-                    item.DisLikeCount++;
-                    item.IsMyDisLike = true;
+
                 }
                 this.disBtn = false;
             }
@@ -120,11 +119,12 @@ export class CommentListPage {
         const data = {
             TalkId: item.ID
         };
+        item.IsMyDisLike = false;
+        if (item.DisLikeCount-- < 1) item.DisLikeCount = 0;
         this.learnSer.CancelDisLiketalk(data).subscribe(
             (res) => {
                 if (res.Result == 0) {
-                    item.IsMyDisLike = false;
-                    if (item.DisLikeCount-- < 1) item.DisLikeCount = 0;
+
                 }
                 this.disBtn = false;
             }
@@ -138,12 +138,12 @@ export class CommentListPage {
     }
 
     //他人详情
-    toPersonInfo(item){
-			this.storage.get('user').then(value => {
-					if (item.UserID !== value.MainUserID) {
-						this.navCtrl.push(PersonalCenterPage, {Poster: item.UserID})
-					}
-			});
+    toPersonInfo(item) {
+        this.storage.get('user').then(value => {
+            if (item.UserID !== value.MainUserID) {
+                this.navCtrl.push(PersonalCenterPage, {Poster: item.UserID})
+            }
+        });
     }
 
 
