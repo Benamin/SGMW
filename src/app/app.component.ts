@@ -40,6 +40,7 @@ import {EmitService} from "../core/emit.service";
 import {SimulationTestPage} from "../pages/home/simulation-test/simulation-test";
 import {HTTP} from "@ionic-native/http";
 import {DataFormatService} from "../core/dataFormat.service";
+import {Badge} from "@ionic-native/badge";
 
 @Component({
     templateUrl: 'app.html'
@@ -173,7 +174,7 @@ export class MyApp {
         const str = navigator.userAgent.toLowerCase();
         const ver = str.match(/cpu iphone os (.*?) like mac os/);
         const v = ver[1].replace(/_/g, ".");
-        console.log("isIOS13OR14",v)
+        console.log("isIOS13OR14", v)
         if (v.includes('13') || v.includes('14')) {
             return true
         } else {

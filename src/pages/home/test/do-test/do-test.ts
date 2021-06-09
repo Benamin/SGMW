@@ -69,11 +69,12 @@ export class DoTestPage {
         };
         this.homeSer.getPaperDetailByStu(data).subscribe(
             (res) => {
+                loading.dismiss();
                 if (res.Result !== 0) {
                     if (res.message) this.commonSer.alert(res.message);
                     if (res.Message) this.commonSer.alert(res.Message);
+                    this.navCtrl.pop();
                 }
-                loading.dismiss();
                 this.exam.QnAInfos = res.data.QnAInfos;
                 this.exam.ExamInfo = res.data.ExamInfo;
                 this.score.tips = true;

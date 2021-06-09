@@ -67,6 +67,7 @@ import {DocumentViewer} from '@ionic-native/document-viewer';
 import {IntegralPageModule} from "../pages/integral/integral.module";
 import {IntegralService} from "../pages/integral/integral.service";
 import {Device} from "@ionic-native/device";
+import {Badge} from "@ionic-native/badge";
 
 @NgModule({
     declarations: [
@@ -135,6 +136,7 @@ import {Device} from "@ionic-native/device";
             MineService,
             IntegralService,
             HTTP,
+            Badge,
             AppService,
             DataFormatService,
             EmitService,

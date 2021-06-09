@@ -11,6 +11,7 @@ import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
 import {ThemeActivityPage} from "../../home/theme-activity/theme-activity";
 import {HomeService} from "../../home/home.service";
+import {Badge} from "@ionic-native/badge";
 
 @Component({
     selector: 'page-notification',
@@ -23,12 +24,12 @@ export class NotificationPage {
         page: 1,
         pageSize: 10,
         TotalCount: null,
-        isLoad:false,
+        isLoad: false,
         BigType: 0,
-	IsHaveNextPage: false
+        IsHaveNextPage: false
     };
 
-    navliArr=[{
+    navliArr = [{
         lable: 'all',
         text: '全部'
     }, {
@@ -44,18 +45,18 @@ export class NotificationPage {
 
     checkType = "all";
 
-    constructor(private events: Events, public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer:CommonService, public homeSer: HomeService,
-                private loadCtrl:LoadingController) {
+    constructor(private events: Events, public navCtrl: NavController, public navParams: NavParams, private mineSer: MineService, public commonSer: CommonService, public homeSer: HomeService,
+                private loadCtrl: LoadingController, private badge: Badge) {
     }
 
     ionViewDidEnter() {
-        // console.log(888999, AppModule)
+        this.badge.clear().then(()=>{});
         this.getList();
     }
 
     getList() {
         let loading = this.loadCtrl.create({
-            content:''
+            content: ''
         });
         loading.present();
         const data = {
@@ -65,11 +66,11 @@ export class NotificationPage {
         };
         this.mineSer.GetUserNewsList(data).subscribe(
             (res) => {
-							this.page.IsHaveNextPage = res.data.IsHaveNextPage;
-							this.notificationList = res.data.NewsList;
-							this.page.TotalCount = res.data.TotalCount;
-							this.page.isLoad = true;
-							loading.dismiss();
+                this.page.IsHaveNextPage = res.data.IsHaveNextPage;
+                this.notificationList = res.data.NewsList;
+                this.page.TotalCount = res.data.TotalCount;
+                this.page.isLoad = true;
+                loading.dismiss();
 
                 // 发布 自定义事件
                 this.events.publish('messageTabBadge:change', {});
@@ -83,7 +84,7 @@ export class NotificationPage {
         if (checkType === 'all') this.page.BigType = 0;
         if (checkType === 'system') this.page.BigType = 1;
         if (checkType === 'communication') this.page.BigType = 2;
-				if (checkType === 'study') this.page.BigType = 3;
+        if (checkType === 'study') this.page.BigType = 3;
         this.page.page = 1;
         this.getList();
     }
@@ -132,7 +133,7 @@ export class NotificationPage {
     }
 
     //前往课程
-    goCourse(e, PostId=null) {
+    goCourse(e, PostId = null) {
         if (!e) {
             this.commonSer.toast('数据加载中,请稍后...');
             return
@@ -165,10 +166,10 @@ export class NotificationPage {
         };
         this.mineSer.GetUserNewsList(data).subscribe(
             (res) => {
-							this.page.IsHaveNextPage = res.data.IsHaveNextPage;
-							this.notificationList = this.notificationList.concat(res.data.NewsList);
-							this.page.TotalCount = res.data.TotalCount;
-							e.complete();
+                this.page.IsHaveNextPage = res.data.IsHaveNextPage;
+                this.notificationList = this.notificationList.concat(res.data.NewsList);
+                this.page.TotalCount = res.data.TotalCount;
+                e.complete();
             }
         )
     }
@@ -177,6 +178,8 @@ export class NotificationPage {
     doRefresh(e) {
         this.page.page = 1;
         this.getList();
-        timer(1000).subscribe(() => {e.complete();});
+        timer(1000).subscribe(() => {
+            e.complete();
+        });
     }
 }
