@@ -315,11 +315,9 @@ export class AdvancedLevelPage {
                             let isFullLevel = false;
                             let Hindex = null
                             for (var i = 0; i < levelInformation.length; i++) {
-                                if (res.data.Hierarchy === levelInformation[levelInformation.length-1].Hierarchy) {
-                                    Hindex = i;
-                                    // 当前已经满等级
-                                    isFullLevel = true;
-                                }
+                                if (res.data.Hierarchy === levelInformation[i].Hierarchy) Hindex = i;
+                                // 当前已经满等级
+                                if (res.data.Hierarchy === levelInformation[levelInformation.length-1].Hierarchy)  isFullLevel = true;
                             }
                             if (isFullLevel === true) {
                                 this.page.isLoaded = true;
