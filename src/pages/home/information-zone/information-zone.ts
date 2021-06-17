@@ -116,10 +116,11 @@ export class InformationZonePage {
         let loading = this.loadCtrl.create({
             content: ''
         });
+        this.page.page = 1;
         loading.present();
         let dataObj = {
             DisplayName: this.page.Title,
-            Page: 1,
+            Page: this.page.page,
             PageSize: this.page.PageSize
         };
         if (this.page.FileType && this.page.FileType.value !== null) dataObj = Object.assign({}, dataObj, {FileTypeId: this.page.FileType.value}); // 判断是否全部类型
