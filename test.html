@@ -1,75 +1,70 @@
-<!DOCTYPE html>
-<html lang="zh">
-
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数字动画</title>
-
-    <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        .box {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-            background: lightblue;
-        }
-
-        .count {
-            position: relative;
-            font-size: 100px;
-            font-weight: 600;
-            color: #268F81;
-            margin: auto;
-            letter-spacing: 5px;
-            display: flex;
-        }
-
-        .item {
-            background: #FFF;
-            text-align: center;
-            border-left: 1px solid #CCCCCC;
-            border-right: 1px solid #CCCCCC;
-            margin: 0 2px;
-        }
-    </style>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="src/assets/js/jsencrypt.js"></script>
+    <script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>
 </head>
-
 <body>
-<div class="box">
-    <span class="count">6849874165182</span>
+<div>
+    需要加密的字符串：
+    <textarea name="" id="keyword" cols="30" rows="10"></textarea>
 </div>
-</body>
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-<script src="http://sucai.suoluomei.cn/sucai_zs/file/20191112160050-jquery.countup.min.js"></script>
+<div>
+    请输入公钥加密：
+    <textarea name="" id="publishKey" cols="30" rows="10"></textarea>
+    <button onclick="setEncrypt()">加密</button>
+</div>
+<div>
+    加密结果
+    <span id="result"></span>
+</div>
+<div>
+    请输入私钥解密：
+    <textarea name="" id="privateKey" cols="30" rows="10"></textarea>
+    <button onclick="decrypt()">解密</button>
+</div>
+<div>
+    解密结果
+    <span id="enResult"></span>
+</div>
 
 <script>
-    var count = '6849874165182'
-    var split = count.split('')
-    var num = ''
-    new Promise((resolve, reject) => {
-        split.forEach((i) => {
-            num += `<div class="item">${i}</div>`
-        })
-        $('.count').html(num)
-        resolve(num)
-    }).then(res => {
-        $('.count .item').countUp({
-            delay: 10,//动画延迟执行
-            time: 2000//动画持续时间
-        });
-    })
-    // 或者这种展示
-    // $('.count').countUp({
-    //     delay: 10,
-    //     time: 2000
-    // });
+
+    let code = "";
+
+    //加密
+    function setEncrypt(msg){
+        // 加密公钥
+        let pubkey = document.querySelector("#publishKey").value;
+        let keyword = document.querySelector("#keyword").value;
+        const jsencrypt = new JSEncrypt()
+        jsencrypt.setPublicKey(pubkey)
+        let code = jsencrypt.encrypt(keyword);
+        console.log(code)
+        document.querySelector("#result").innerText = code;
+    }
+
+
+    //私钥
+    function decrypt () {
+        // 解密私钥
+        const privateKey = "MIICWwIBAAKBgQC/4KBDCEbyLwLjQXygTga1Ft/zSKGojW+rrd9QrqVRKYTKT7Bdvw9yEF8i0e3k6dcx7N4Z1K4wbDAd5kT3yHKhij3WYPLJM3zgW7yV8JrCNo9PkmahlR2IdR05fPK6WQD87uHTt8wFMjH+412vTzYKiSyNRamcnKS5p6MMmVFg6wIDAQABAoGADbjz3TdnU4S3MSeK0TAjXKohJBYKsbJDzURnFy8WVaKhg5KFa37xjNfM5gGbgOaUZFarX6+NMZtbKZhBUHM+d105Fmgljp9d3DZJTVjpMNHjoNh2MAdFWwcjBaA5IqYs2jDqsIPRzFFKJYAcxVcFY3G04+CmRq16PgSz63O2C3ECQQD2hr9NwjkBiyW9enqS1ANWJ3f+iqe9mPkXLwT6sSffA4jkfQ3J5d94kUnnbvzVAFbo0pSnYTLeczFCt/QXSinTAkEAx0BCUg7uMuaqD4Kh07lu6ObYnETRZg2HT54Xfh49lNXVmmBTT3yBpPTU+g9/o2hO50iSA5fPuvmvVzZaPCSliQJAKhD+LdeZgKDs1LNEnS9eTmI3wJCKZPjocENOtzRpmE1zG4IXSz9Vba5lDP/MVtBTBDGCujkExB6l5jubhCncjwJAR42VA4DnG5JoOd+wm6b45FyaJywzgpGTKQ1d5GWZucw8xA6ZfG7647EklpRgQt9fjoEqJm4rJDssM4aKSxTh+QJAP+g2+Tt91bmA0y8qVYVhfg8czfqEmCZr4phMkWwNGVocEcWhYiyQyluccAhB8bOPLxa8fvIxsYeYSFrl4WBjLQ==";
+        let a = "brLx064XJaW4yVWzMS4yd+eyfwhPE/b+NVDt6rXX8WoJuDD77IMdCMh9rf/SUQS6Y5/9ppgsWZrqw0ZBzxPtmAxJ3SwUilJliq9/klOOBwgs/1fI1zKB1QLNCGLOc8CJeoBEJMt5SLOTAZpTN+jrBIekYJLoLH1a6yON+ntsBcM="
+        let decrypt = new JSEncrypt()
+        decrypt.setPrivateKey(privateKey)
+        let code = document.querySelector("#result").innerText;
+        let decryptMsg = decrypt.decrypt(a)
+        document.querySelector("#enResult").innerText = decryptMsg;
+    }
+
+    decrypt()
+
 </script>
 
+</body>
 </html>

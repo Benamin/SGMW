@@ -37,7 +37,13 @@ export class ForumListTimeComponent implements OnInit {
             e.PostTimeFormatted = e.PostTimeFormatted.replace(/-/g, '/');
             return e;
         })
-        this.initVideo();
+        if (this.PosterList.length == 0) {
+            Object.keys(this.videoObj).forEach(e => {
+                this.videoObj[e].dispose();
+            })
+        } else {
+            this.initVideo();
+        }
     }
 
     initVideo() {

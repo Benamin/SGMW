@@ -91,10 +91,6 @@ export class LearningPage {
         this.scrollTabs.select.index = 0;
         this.page.page = 1;
         this.headType = index;
-        this.loading = this.loadCtrl.create({
-            content: ''
-        });
-        this.loading.present();
         this.scrollTabs.isShow = false;
         this.code = title.type;
         this.homeSer.GetDictionaryByPCode(this.code).subscribe(
@@ -111,7 +107,6 @@ export class LearningPage {
                     this.getProduct();
                 } else {
                     this.productList = [];
-                    this.loading.dismiss();
                 }
             }
         )
@@ -125,8 +120,6 @@ export class LearningPage {
     }
 
     getProduct() {
-        this.loading = this.loadCtrl.create();
-        this.loading.present();
         const data = {
             title: this.keyWord,
             SubjectID: this.page.SubjectID,
@@ -141,7 +134,6 @@ export class LearningPage {
                 this.page.isLoading = true;
                 this.productList = res.data.ProductList;
                 this.page.TotalCount = res.data.TotalCount;
-                this.loading.dismiss();
             }
         )
     }

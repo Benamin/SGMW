@@ -38,7 +38,6 @@ export class InformationZonePage {
 
     ionViewDidLoad() {
         this.page.resourceLists = [];
-        // this.readLocalFile();
         this.GetAskType();
     }
 
@@ -91,19 +90,19 @@ export class InformationZonePage {
         // Word文档的扩展名有两个,分别是:doc和docx
         if (suffix === 'doc' || suffix === 'docx') {
             suffixClass = {'docx-bg': 'true'};
-            suffixText = 'Docx';
+            suffixText = 'docx';
         } else if (suffix === 'pdf') { // pdf
             suffixClass = {'pdf-bg': 'true'};
-            suffixText = 'PDF';
+            suffixText = 'pdf';
         } else if (suffix === 'xlsx' || suffix === 'xls' || suffix === 'csv') { // excel有很多版本的文件格式，另存为那里可以看到如图各类格式: xlsx/xls/csv
             suffixClass = {'xls-bg': 'true'};
-            suffixText = 'Xls';
+            suffixText = 'xls';
         } else if (suffix === 'pptx') { // pptx
             suffixClass = {'ppt-bg': 'true'};
-            suffixText = 'PPT';
+            suffixText = 'ppt';
         } else if (suffix === 'zip') { // pptx
             suffixClass = {'zip-bg': 'true'};
-            suffixText = 'ZIP';
+            suffixText = 'zip';
         }
         let suffixObj = {
             suffixClass: suffixClass,
@@ -125,7 +124,7 @@ export class InformationZonePage {
         if (this.page.FileType && this.page.FileType.value !== null) dataObj = Object.assign({}, dataObj, {FileTypeId: this.page.FileType.value}); // 判断是否全部类型
         this.homeSer.GetQueryMaterialFile(dataObj).subscribe(
             (res) => {
-                // this.readLocalFile();
+                this.readLocalFile();
                 this.page.resourceLists = this.DataAssign(res.data);
                 this.page.isLoad = true;
                 loading.dismiss();

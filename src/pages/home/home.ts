@@ -248,7 +248,13 @@ export class HomePage implements OnInit {
             pagination: {
                 el: '.swiper-pagination',
             },
-            on: {}
+            on: {
+                slideChangeTransitionEnd: () => {
+                    if (this.swiper) {  //手动切换后，pagination组件错乱
+                        this.swiper.update();
+                    }
+                }
+            }
         })
     }
 

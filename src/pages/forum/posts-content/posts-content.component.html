@@ -98,33 +98,20 @@
                       (focus)="textareaclick();$event.stopPropagation();" rows="1"></textarea>
         </div>
         <div class="icon-div">
-            <div class="reply-more">
-                <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu@3x.png"
-                     (click)=" favorites(dataCon);" alt="">
-                <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png"
-                     (click)=" cancelfavorites(dataCon);" alt="">
-                <span>
-          {{dataCon.FavoritesCount || 0}}
-        </span>
+            <div class="reply-more" (click)="favorites(dataCon);">
+                <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu@3x.png" alt="">
+                <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png" alt="">
+                <span>{{dataCon.FavoritesCount || 0}}·收藏</span>
             </div>
-            <div class="reply-more">
-                <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png"
-                     (click)="forum_post_cancellike(dataCon);" alt="">
-                <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png"
-                     (click)="forum_post_like(dataCon);" alt="">
-                <span>
-          {{dataCon.LikeCount}}
-        </span>
+            <div class="reply-more" (click)="forum_post_like(dataCon);">
+                <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" alt="">
+                <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+                <span>{{dataCon.LikeCount}}·点赞</span>
             </div>
-            <div class="reply-more">
-                <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect@3x.png"
-                     (click)="follow(dataCon);"
-                     alt="">
-                <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect_on@3x.png"
-                     (click)="cancelfollow(dataCon);" alt="">
-                <span>
-          {{dataCon.FollowCount}}
-        </span>
+            <div class="reply-more" (click)="follow(dataCon);">
+                <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect@3x.png" alt="">
+                <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_collect_on@3x.png">
+                <span>{{dataCon.FollowCount}}·关注</span>
             </div>
         </div>
     </div>

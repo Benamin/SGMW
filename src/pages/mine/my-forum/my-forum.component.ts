@@ -4,6 +4,7 @@ import {PostsContentComponent} from '../../forum/posts-content/posts-content.com
 import {ForumService} from '../../forum/forum.service';
 import {PostAddComponent} from '../../forum/post-add/post-add.component';
 import {PostlistComponent} from "../../forum/postlist/postlist.component";
+import {CommonService} from "../../../core/common.service";
 
 
 @Component({
@@ -32,7 +33,7 @@ export class MyForumComponent implements OnInit {
     constructor(public navCtrl: NavController,
                 private serve: ForumService,
                 private loadCtrl: LoadingController,
-                private zone: NgZone,
+                private zone: NgZone, private commonSer: CommonService,
                 private toastCtrl: ToastController) {
     }
 
@@ -63,44 +64,23 @@ export class MyForumComponent implements OnInit {
         this.navCtrl.push(PostAddComponent, {data: time});
     }
 
-    isDelShow = false;
-    delData = null;
-
     // 删除动态
     delITem(data) {
-        this.delData = data;
-        this.isDelShow = true;
-    }
-
-    // 确定删除
-    delOk() {
-        this.isDelShow = false;
-        this.serve.post_delete(this.delData.Id).subscribe((res: any) => {
-            if (res.code == 200) {
-                this.presentToast("删除成功");
-                for (let n = 0; n < this.draftList.length; n++) {
-                    if (this.draftList[n].Id == this.delData.Id) {
-                        this.draftList.splice(n, 1)
-                        n--;
+        this.commonSer.alert(`确定删除吗?`, () => {
+            this.serve.post_delete(data.Id).subscribe((res: any) => {
+                if (res.code == 200) {
+                    this.commonSer.toast("删除成功");
+                    for (let n = 0; n < this.draftList.length; n++) {
+                        if (this.draftList[n].Id == data.Id) {
+                            this.draftList.splice(n, 1)
+                            n--;
+                        }
                     }
+                } else {
+                    this.commonSer.toast(res.message);
                 }
-            } else {
-                this.presentToast(res.message);
-            }
-        });
-    }
-
-    presentToast(text) {
-        let toast = this.toastCtrl.create({
-            message: text,
-            duration: 3000,
-            position: 'middle',
-            closeButtonText: "关闭"
-        });
-        toast.onDidDismiss(() => {
-            console.log('Dismissed toast');
-        });
-        toast.present();
+            });
+        })
     }
 
     // 获取数据

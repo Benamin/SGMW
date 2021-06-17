@@ -339,114 +339,72 @@ export class PostsContentComponent implements OnInit {
             });
 
 
-            // const p= Promise.all([this.is_like(this.dataCon),this.is_guanzhu(this.dataCon),this.is_collect(this.dataCon)]);
-            // p.then(res => {
-            //   loading.dismiss();
-            // });
-
-
-        });
-    }
-
-    async is_like(data) {
-        await this.serve.forum_post_like(data.Id).subscribe((res: any) => {
-            if (res.code == 200) {
-                this.serve.forum_post_cancellike(data.Id);
-            } else if (res.code == 300) {
-                data['is_like'] = true;
-            }
-        });
-    }
-
-    async is_guanzhu(data) {
-
-        await this.serve.follow(data.Id).subscribe((res: any) => {
-            if (res.code == 200) {
-                this.serve.cancelfollow(data.Id).subscribe((res: any) => {
-                });
-            } else if (res.code == 300) {
-                data['is_guanzhu'] = true;
-            }
-        });
-    }
-
-    async is_collect(data) {  // 收藏
-        await this.serve.favorites(data.Id).subscribe((res: any) => {
-            if (res.code == 200) {
-                this.serve.cancelfavorites(data.Id).subscribe((res: any) => {
-                });
-            } else if (res.code == 300) {
-                data['is_collect'] = true;
-            }
         });
     }
 
     // 关注
     follow(data) {
-        this.showLoading();
-        this.serve.follow(data.Id).subscribe((res: any) => {
-            data['is_guanzhu'] = true;
-            this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) + 1 + '';
-            this.dismissLoading();
-        });
-    }
+        console.log(data['is_guanzhu']);
+        if (data.isFollowClick) return;
+        data.isFollowClick = true;
 
-    // 取消关注
-    cancelfollow(data) {
-        if (parseInt(this.dataCon['FollowCount']) == 0) {
-            return;
-        }
-        this.showLoading();
-        this.serve.cancelfollow(data.Id).subscribe((res: any) => {
+        if (data['is_guanzhu']) {
+            if (parseInt(this.dataCon['FollowCount']) == 0) {
+                return;
+            }
             data['is_guanzhu'] = false;
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) - 1 + '';
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) < 0 ? '0' : this.dataCon['FollowCount'];
-            this.dismissLoading();
-            // this.reasizeData();
-        });
+            this.serve.cancelfollow(data.Id).subscribe((res: any) => {
+                data.isFollowClick = false;
+            });
+        } else {
+            data['is_guanzhu'] = true;
+            this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) + 1 + '';
+            this.serve.follow(data.Id).subscribe((res: any) => {
+                data.isFollowClick = false;
+            });
+        }
     }
 
     // 收藏
     favorites(data) {
-        this.showLoading();
-        this.serve.favorites(data.Id).subscribe((res: any) => {
-            data['is_collect'] = true;
-            this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount']) + 1 + '';
-            this.dismissLoading();
-            // this.reasizeData();
-        });
-    }
+        if (data.isFavoritesClick) return;
+        data.isFavoritesClick = true;
 
-    // 取消收藏
-    cancelfavorites(data) {
-        this.showLoading()
-        this.serve.cancelfavorites(data.Id).subscribe((res: any) => {
+        if (data['is_collect']) {
             data['is_collect'] = false;
             this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount']) - 1 + '';
-            this.dismissLoading();
-            // this.reasizeData();
-        });
+            this.serve.cancelfavorites(data.Id).subscribe((res: any) => {
+                data.isFavoritesClick = false;
+            });
+        } else {
+            data['is_collect'] = true;
+            this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount']) + 1 + '';
+            this.serve.favorites(data.Id).subscribe((res: any) => {
+                data.isFavoritesClick = false;
+            });
+        }
     }
 
     // 点赞
     forum_post_like(data) {
-        this.showLoading()
-        this.serve.forum_post_like(data.Id).subscribe((res: any) => {
-            data['is_like'] = true;
-            this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount']) + 1 + '';
-            // this.reasizeData();
-            this.dismissLoading();
-        });
-    }
+        if (data.isLikeClick) return;
+        data.isLikeClick = true;
 
-    // 取消点赞
-    forum_post_cancellike(data) {
-        this.showLoading();
-        this.serve.forum_post_cancellike(data.Id).subscribe((res: any) => {
+        if (data['is_like']) {
             data['is_like'] = false;
             this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount']) - 1 + '';
-            this.dismissLoading();
-        });
+            this.serve.forum_post_cancellike(data.Id).subscribe((res: any) => {
+                data.isLikeClick = false;
+            });
+        } else {
+            data['is_like'] = true;
+            this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount']) + 1 + '';
+            this.serve.forum_post_like(data.Id).subscribe((res: any) => {
+                data.isLikeClick = false;
+            });
+        }
     }
 
 

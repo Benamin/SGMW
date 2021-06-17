@@ -2,7 +2,7 @@
    <ng-container *ngFor="let item of list" >
      <div class="course-item" tappable (click)="getItem(item)">
        <div class="item-img">
-         <img [src]="item?.ImageUrlqw || defaultImg">
+         <img [src]="item?.ImageUrl || defaultImg">
        </div>
        <div class="item-desc">
          <p>{{item?.Title}}</p>

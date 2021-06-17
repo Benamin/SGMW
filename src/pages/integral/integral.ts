@@ -186,16 +186,22 @@ export class IntegralPage {
     }
 
     openMini() {
-        let str = `UserId=${this.mineInfo.LoginUserID}&CardNo=${this.mineInfo.CardNo}`;
+        if (!this.mineInfo.MainUserID && this.mineInfo.MainUserID === '00000000-0000-0000-0000-000000000000') {
+            this.commonSer.alert('用户信息错误' + this.mineInfo.MainUserID);
+            return
+        }
+        let str = `UserId=${this.mineInfo.MainUserID}&CardNo=${this.mineInfo.CardNo}`;
+
         const jsencrypt = new JSEncrypt();
         jsencrypt.setPublicKey(LING_CLUB_Pub)
         let code = jsencrypt.encrypt(str);
+        let path = `/pointsexchange/index?code=${encodeURIComponent(code)}&scene=jlxs`;
+        //code中包含+ = 所以需要 encodeURIComponent 编码一下
         let params = {
             userName: LING_CLUB_APPID, // 原始ID
-            path: `/pointsexchange/index?code=${code}&scene=jlxs`, // open mini program page
+            path: path, // open mini program page
             miniprogramType: 2 // 0是正式 1是开发 2是体验版本
         };
-
         Wechat.openMiniProgram(params, (data) => {
             console.log(data); // data:{extMsg:""}  extMsg: Corresponds to the app-parameter attribute in the Mini Program component <button open-type="launchApp">
         }, (error) => {

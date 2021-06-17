@@ -4,7 +4,7 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 import {FileService} from "../../../core/file.service";
 import {timer} from "rxjs/observable/timer";
-import {File} from "@ionic-native/file";
+import {File, FileEntry, IFile} from "@ionic-native/file";
 import {CommonService} from "../../../core/common.service";
 import {FileOpener} from "@ionic-native/file-opener";
 
@@ -48,16 +48,40 @@ export class InformationDownloadPage {
         }
         console.log(this.storageDirectory);
         this.file.listDir(this.storageDirectory, this.folderName).then(
-            value => {
-                this.allList = value.concat([]);
-                this.fileList = value.concat([]);
-                this.isLoad = true;
-                console.log(value);
+            (value: any) => {
+                value.forEach(e => {
+                    this.getFileMedata(e.nativeURL, (createTime) => {
+                        e.createTime = createTime;
+                    });
+                })
+                setTimeout(() => {
+                    value.sort(function (a, b) {
+                        return b.createTime - a.createTime;
+                    })
+                    this.allList = value.concat([]);
+                    this.fileList = value.concat([]);
+                    this.isLoad = true;
+                }, 500);
             }).catch(error => {
             this.fileList = [];
             this.allList = [];
             console.log("error", error)
         })
+    }
+
+    getFileMedata(filePath, callback) {
+        console.log("-----------filepath", filePath);
+        this.file.resolveLocalFilesystemUrl(filePath).then((fileEntry: FileEntry) => {
+            console.log("fileEntry", fileEntry)
+            return new Promise((resolve, reject) => {
+                fileEntry.file(meta => resolve(meta), error => reject(error));
+            });
+        }).then((fileMeta: IFile) => {
+            const createTime = fileMeta.lastModifiedDate.toFixed(0);
+            console.log('-000000000fileMeta0000000-');
+            console.log(createTime);
+            callback(createTime);
+        });
     }
 
     openFile(file) {
