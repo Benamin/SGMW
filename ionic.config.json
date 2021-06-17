@@ -10,12 +10,8 @@
       "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
     },
     {
-      "path": "/api",
-      "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
-    },
-    {
       "path": "/XSZSAPI",
-      "proxyUrl": "http://112.124.23.230:8010/API"
+      "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
     },
     {
       "path": "/JunKeAPI",
@@ -27,7 +23,7 @@
     },
     {
       "path": "/LLZSAPI",
-      "proxyUrl": "https://sso-sales.sgmwsales.com"
+      "proxyUrl": "https://nbj.sgmw.com.cn"
     }
   ]
 }

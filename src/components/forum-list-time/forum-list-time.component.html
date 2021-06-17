@@ -45,13 +45,11 @@
             </ng-container>
             <ng-container *ngIf="item.Pvideo">
                 <div class="poster-box">
-                    <div class="mask">
-                        <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4"
-                               (loadedmetadata)="getDuration($event,item)"
-                               [src]="item.files.DownLoadUrl"></video>
-                    </div>
-                    <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>
-                    <span *ngIf="item.VideoMinute > 0">{{item.VideoMinute | secondFormat}}</span>
+                    <video (loadedmetadata)="getDuration($event,item)" (click)="playVide($event)" controls>
+                        <source [src]="item?.Pvideo?.files?.DownLoadUrl" type="video/mp4">
+                    </video>
+                    <span *ngIf="item.duration === 0">{{item.duration || '00:00'}}</span>
+                    <span *ngIf="item.duration > 0">{{item.duration | secondFormat}}</span>
                     <img class="video-poster" src="{{ item?.Pvideo?.CoverUrl || defaultImg }}" alt="视频封面图">
                     <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
                 </div>
@@ -63,22 +61,22 @@
               </span>
             </div>
         </div>
-        <div class="post-introduction-buttom"  (click)="goToDetail(item)">
+        <div class="post-introduction-buttom" (click)="goToDetail(item)">
             <span class="nowrap-1">
                     <div class="oldDate">{{item.PostTimeFormatted | date:"yyyy-MM-dd HH:mm"}}</div>
             </span>
             <span class="eye">
               <img src="./assets/imgs/forum/other/eye.png">
-                        {{item.ViewCount}}
+                {{item.ViewCount}}
             </span>
             <span class="luntan_coment">
               <img src="./assets/imgs/forum/other/reply.png">
-                        {{item.ReplyCount}}
+                {{item.ReplyCount}}
             </span>
             <span tappable (click)="handleLike(item,$event)" class="comment_like">
                   <img *ngIf="!item.IsGiveLike" src="./assets/imgs/forum/other/like_off.png">
                   <img *ngIf="item.IsGiveLike" src="./assets/imgs/forum/other/like_on.png">
-                            {{item.LikeCount}}
+                {{item.LikeCount}}
                 </span>
         </div>
     </div>

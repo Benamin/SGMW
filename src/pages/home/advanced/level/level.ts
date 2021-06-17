@@ -18,7 +18,7 @@ import {Storage} from "@ionic/storage";
 })
 export class AdvancedLevelPage {
     page = {
-        defaultImg: 'assets/imgs/default.jpg',
+        defaultImg: 'assets/imgs/default.png',
         checkType: 'exam',
         navliArr: [
             {

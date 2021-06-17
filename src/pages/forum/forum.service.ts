@@ -197,7 +197,7 @@ export class ForumService {
         return new Promise((resolve, reject) => {
             var oReq = new XMLHttpRequest();
 
-            const UploadFilesSERVER_API_URL = (env === 'localhost' ? SERVER_API_URL_DEV : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
+            const UploadFilesSERVER_API_URL = (env === 'localhost' ? SERVER_API_URL_PROD : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
                 SERVER_API_URL_UAT : (env == 'prod' ? SERVER_API_URL_PROD : ''))));
 
             oReq.open("POST", UploadFilesSERVER_API_URL + "/Upload/UploadFiles", true);

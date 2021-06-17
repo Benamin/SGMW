@@ -119,6 +119,11 @@
     overflow: hidden;
     text-align: center;
 
+    video {
+      height: 100%;
+      width: 100%;
+    }
+
     img.video-poster {
       max-height: 20rem;
       position: absolute;

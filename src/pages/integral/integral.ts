@@ -7,13 +7,16 @@ import {LeagueTablePage} from "./league-table/league-table";
 import {LearningPage} from "../learning/learning";
 import {IntegralVerifyPage} from "./integral-verify/integral-verify";
 import {CommonService} from "../../core/common.service";
-import {XGShareText, XGShareUrl} from "../../app/constants";
+import {LING_CLUB_APPID, LING_CLUB_Pub, XGShareText, XGShareUrl} from "../../app/constants";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {MyQuestion} from "../home/question/my-question/my-question";
 import {RoleModalPage} from "../home/role-modal/role-modal";
 import {AdvancedLevelPage} from "../home/advanced/level/level";
 import {HomeService} from "../home/home.service";
+import {Storage} from "@ionic/storage";
 
+declare var Wechat;
+declare let JSEncrypt: any;
 
 @IonicPage()
 @Component({
@@ -29,13 +32,19 @@ export class IntegralPage {
     xgShareText = XGShareText;
     XgShareUrl = XGShareUrl;
     showCover = false;
+    mineInfo;
+
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
                 private inAppBrowser: InAppBrowser, private loadCtrl: LoadingController, private homeSer: HomeService,
+                private storage: Storage,
                 public inteSer: IntegralService, private commonSer: CommonService, private modalCtrl: ModalController) {
     }
 
     ionViewDidEnter() {
+        this.storage.get('user').then(value => {
+            this.mineInfo = value;
+        });
         this.init();
     }
 
@@ -46,9 +55,8 @@ export class IntegralPage {
             res => {
                 if (res.data) {
                     // res.data.percentNew = res.data.percent?res.data.percent.substring(0, 3) + '%' : null;
-                    res.data.percentNew = res.data.percent?parseInt(res.data.percent.split('%')[0]) + '%' : null;
+                    res.data.percentNew = res.data.percent ? parseInt(res.data.percent.split('%')[0]) + '%' : null;
                     this.obj = res.data;
-                    console.log('今日积分',res.data)
                 }
             }
         )
@@ -59,6 +67,7 @@ export class IntegralPage {
             }
         )
     }
+
     //每日签到
     DailyCheck() {
         if (this.isDailyCheck) return
@@ -80,10 +89,12 @@ export class IntegralPage {
     GoList() {
         this.navCtrl.push(IntegralListPage);
     }
+
     //积分排行榜
     GoLeagueTable() {
         this.navCtrl.push(LeagueTablePage);
     }
+
     // 新增动态
     PostAddComponent() {
         this.navCtrl.push(PostAddComponent, {data: {}});
@@ -168,6 +179,24 @@ export class IntegralPage {
 
     goTo() {
         this.inAppBrowser.create(this.XgShareUrl, '_system');
+    }
+
+    openMini() {
+        let str = `Source=jlxs&UserId=${this.mineInfo.LoginUserID}&CardNo=${this.mineInfo.CardNo}`;
+        const jsencrypt = new JSEncrypt();
+        jsencrypt.setPublicKey(LING_CLUB_Pub)
+        let code = jsencrypt.encrypt(str);
+        let params = {
+            userName: LING_CLUB_APPID, // 原始ID
+            path: `/pointsexchange/index?code=${code}`, // open mini program page
+            miniprogramType: 0 // 0是正式 1是开发 2是体验版本
+        };
+
+        Wechat.openMiniProgram(params, (data) => {
+            console.log(data); // data:{extMsg:""}  extMsg: Corresponds to the app-parameter attribute in the Mini Program component <button open-type="launchApp">
+        }, (error) => {
+            this.commonSer.alert('error:' + JSON.stringify(error));
+        });
     }
 
 }

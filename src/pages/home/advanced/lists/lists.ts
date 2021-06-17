@@ -17,7 +17,7 @@ import {CourseDetailPage} from "../../../learning/course-detail/course-detail";
 export class AdvancedListsPage {
     page = {
         Level: '',
-        defaultImg: 'assets/imgs/default.jpg',
+        defaultImg: 'assets/imgs/default.png',
         canClick: false,
         plid: null,
         advancedArr: [

@@ -54,7 +54,7 @@ export class ShareWxComponent {
         }, function (reason) {
             // alert("Failed: " + reason);
         });
-        this.viewCtrl.dismiss()
+        this.viewCtrl.dismiss();
     }
 
 }
