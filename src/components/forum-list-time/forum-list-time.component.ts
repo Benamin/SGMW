@@ -8,8 +8,10 @@ import {Storage} from "@ionic/storage";
 import {PostsContentComponent} from "../../pages/forum/posts-content/posts-content.component";
 import {ShareWxComponent} from "../share-wx/share-wx";
 import {PostlistComponent} from "../../pages/forum/postlist/postlist.component";
+import {timer} from "rxjs/observable/timer";
 
 declare var Wechat;
+declare let videojs: any;
 
 @Component({
     selector: 'app-forum-list-time',
@@ -25,6 +27,7 @@ export class ForumListTimeComponent implements OnInit {
     defaultImg = './assets/imgs/competition/fengmian@2x.png'
     defaultHeadPhoto = defaultHeadPhoto;
     PosterList = [];
+    videoObj = <any>{};
 
     constructor(public commonSer: CommonService, public navCtrl: NavController, private modalCtrl: ModalController, private storage: Storage, private serve: ForumService,) {
     }
@@ -33,6 +36,37 @@ export class ForumListTimeComponent implements OnInit {
         this.PosterList = event.map(e => {
             e.PostTimeFormatted = e.PostTimeFormatted.replace(/-/g, '/');
             return e;
+        })
+        this.initVideo();
+    }
+
+    initVideo() {
+        timer(500).subscribe(() => {
+            this.PosterList.forEach((e, index) => {
+                if (e.Pvideo) {
+                    this.videoObj[`video${e.Pvideo.ID}`] = videojs(`video${e.Pvideo.ID}`, {
+                        controls: true,
+                        autoplay: false,
+                        "sources": [{
+                            //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
+                            src: e.Pvideo.files.AttachmentUrl,
+                            type: 'application/x-mpegURL'
+                        }],
+                    })
+                    this.videoObj[`video${e.Pvideo.ID}`].on('loadedmetadata', () => {
+                        this.videoObj[`video${e.Pvideo.ID}`].on('touchstart', () => {
+                            if (this.videoObj[`video${e.Pvideo.ID}`].paused()) {
+                                Object.keys(this.videoObj).forEach(e => {
+                                    this.videoObj[e].pause();
+                                })
+                                this.videoObj[`video${e.Pvideo.ID}`].play();
+                            } else {
+                                this.videoObj[`video${e.Pvideo.ID}`].pause();
+                            }
+                        })
+                    });
+                }
+            });
         })
     }
 
@@ -109,15 +143,17 @@ export class ForumListTimeComponent implements OnInit {
     }
 
     playVide(event) {
-        console.log(event);
+        let videoList = <any>document.querySelectorAll("video");
+        console.log(videoList);
+        videoList.forEach(e => {
+            e.pause();
+        })
+        event.target.play();
         event.stopPropagation();
-        event.play();
     }
 
     getDuration(ev, item) {
         let value = Math.ceil(ev.target.duration);
-        console.log(ev.target);
         item.duration = value;
-        console.log(item.duration);
     }
 }

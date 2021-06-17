@@ -275,11 +275,11 @@ export class VideojsComponent implements OnDestroy {
 
             //禁止or启用拖动进度条
             let control = <any>document.querySelector(".vjs-progress-control")
-            if (videoInfo.IsPass || videoInfo.IsAttachment) {
-                control.style.pointerEvents = "auto";  //启用
-            } else {
-                control.style.pointerEvents = "none";
-            }
+            // if (videoInfo.IsPass || videoInfo.IsAttachment) {
+            //     control.style.pointerEvents = "auto";  //启用
+            // } else {
+            //     control.style.pointerEvents = "none";
+            // }
             this.videoInfo = videoInfo;
 
             //继续播放component

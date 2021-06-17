@@ -1,10 +1,10 @@
-export let env = 'localhost';
+// export let env = 'localhost';
 // export let env = 'dev';
-// export let env = 'uat';
+export let env = 'uat';
 // export let env = 'prod';
 
-// let keyEnv = 'dev';
-let keyEnv = 'prod';
+let keyEnv = 'dev';
+// let keyEnv = 'prod';
 
 
 /***培训平台***/
@@ -64,7 +64,7 @@ export const XSZS_client_id = "138B0798-8D43-4588-B291-DB8545865C8A";
 /*****end******/
 
 
-/***新销售助手***/
+/***凌凌助手***/
 //环境
 const NXSZS_HTTP_URL_LOCALHOST = "/LLZSAPI";  //代理地址
 const NXSZS_HTTP_URL_DEV = "https://sso-test.baojunev.com";   //测试

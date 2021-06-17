@@ -23,8 +23,7 @@
     },
     {
       "path": "/LLZSAPI",
-      "proxyUrl": "https://nbj.sgmw.com.cn"
+      "proxyUrl": "https://sso-sales.sgmwsales.com"
     }
-  ],
-  "app_id": ""
+  ]
 }

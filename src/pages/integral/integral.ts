@@ -33,6 +33,7 @@ export class IntegralPage {
     XgShareUrl = XGShareUrl;
     showCover = false;
     mineInfo;
+    LoginType;
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
@@ -45,6 +46,9 @@ export class IntegralPage {
         this.storage.get('user').then(value => {
             this.mineInfo = value;
         });
+        this.storage.get("LoginType").then(value => {
+            this.LoginType = value;
+        })
         this.init();
     }
 
@@ -182,14 +186,14 @@ export class IntegralPage {
     }
 
     openMini() {
-        let str = `Source=jlxs&UserId=${this.mineInfo.LoginUserID}&CardNo=${this.mineInfo.CardNo}`;
+        let str = `UserId=${this.mineInfo.LoginUserID}&CardNo=${this.mineInfo.CardNo}`;
         const jsencrypt = new JSEncrypt();
         jsencrypt.setPublicKey(LING_CLUB_Pub)
         let code = jsencrypt.encrypt(str);
         let params = {
             userName: LING_CLUB_APPID, // 原始ID
-            path: `/pointsexchange/index?code=${code}`, // open mini program page
-            miniprogramType: 0 // 0是正式 1是开发 2是体验版本
+            path: `/pointsexchange/index?code=${code}&scene=jlxs`, // open mini program page
+            miniprogramType: 2 // 0是正式 1是开发 2是体验版本
         };
 
         Wechat.openMiniProgram(params, (data) => {

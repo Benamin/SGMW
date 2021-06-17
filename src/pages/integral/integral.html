@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-title>积分</ion-title>
-        <ion-buttons end>
+        <ion-buttons *ngIf="LoginType && LoginType === '菱菱助手'" end>
             <button (click)="openMini()" ion-button icon-only class="search-button">
                 积分兑换
             </button>

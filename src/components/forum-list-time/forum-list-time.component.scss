@@ -119,7 +119,7 @@
     overflow: hidden;
     text-align: center;
 
-    video {
+    video, .video-js {
       height: 100%;
       width: 100%;
     }
@@ -259,5 +259,10 @@
   .topicSpan + .topicSpan {
     margin-left: 1rem;
   }
+}
 
+.video-js .vjs-big-play-button {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }

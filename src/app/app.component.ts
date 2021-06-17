@@ -41,6 +41,7 @@ import {SimulationTestPage} from "../pages/home/simulation-test/simulation-test"
 import {HTTP} from "@ionic-native/http";
 import {DataFormatService} from "../core/dataFormat.service";
 import {Badge} from "@ionic-native/badge";
+import {ScreenOrientation} from "@ionic-native/screen-orientation";
 
 @Component({
     templateUrl: 'app.html'
@@ -80,6 +81,7 @@ export class MyApp {
                 private getRequest: GetRequestService, private appVersion: AppVersion,
                 private appUpdate: AppUpdateService,
                 public appCtrl: App,
+                private screenOrientation: ScreenOrientation,
                 private mobileAccess: MobileAccessibility,
                 private appSer: AppService,
                 private nativeHttp: HTTP,
@@ -474,6 +476,7 @@ export class MyApp {
     registerBackButtonAction(): void {
 
         this.platform.registerBackButtonAction(() => {
+            this.screenOrientation.lock('portrait');  //竖屏
             //隐藏toast || modal || loading || Overlay
             let activePortal = this.ionicApp._toastPortal.getActive() ||
                 this.ionicApp._overlayPortal.getActive() ||
