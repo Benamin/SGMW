@@ -55,7 +55,7 @@
 
     <ul class="post-lists">
         <div *ngIf="page.checkType === 'post'">
-            <app-forum-list-time [followList]='page.navliArr[0].listArr'></app-forum-list-time>
+            <app-forum-list-time [scene]="'personal'" [followList]='page.navliArr[0].listArr'></app-forum-list-time>
         </div>
         <div *ngIf="page.checkType === 'reply'">
             <li class="reply" *ngFor="let item of page.navliArr[1].listArr">

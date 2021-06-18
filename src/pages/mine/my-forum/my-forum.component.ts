@@ -65,16 +65,15 @@ export class MyForumComponent implements OnInit {
     }
 
     // 删除动态
-    delITem(data) {
+    delITem(data, index) {
         this.commonSer.alert(`确定删除吗?`, () => {
             this.serve.post_delete(data.Id).subscribe((res: any) => {
                 if (res.code == 200) {
                     this.commonSer.toast("删除成功");
-                    for (let n = 0; n < this.draftList.length; n++) {
-                        if (this.draftList[n].Id == data.Id) {
-                            this.draftList.splice(n, 1)
-                            n--;
-                        }
+                    if (this.navli === "草稿箱") {
+                        this.draftList.splice(index, 1);
+                    } else {
+                        this.forumList.splice(index, 1);
                     }
                 } else {
                     this.commonSer.toast(res.message);

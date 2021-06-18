@@ -37,7 +37,7 @@ export class ForumPage {
         name: "",
         Type: "New",  // New 最新 CreateTime 发帖时间 PostTimeFormatted 回复时间  //Hot 最热 ViewCount 浏览量  ReplyCount 回复量
         pageIndex: 1,
-        pageSize: 10,
+        pageSize: 100,
         total: 0,
     }
 
@@ -74,7 +74,7 @@ export class ForumPage {
 
         this.forumList = [];
         this.pageDate.pageIndex = 1;
-        this.initData();
+        // this.initData();
 
         this.storage.get('Blacklist').then(value => {
             if (value) {
@@ -177,23 +177,17 @@ export class ForumPage {
     //下拉刷新
     doRefresh(e) {
         this.isLoad = false;
-        // setTimeout(() => {
-        //     this.isdoInfinite = true;
-        // }, 1000);
         if (this.navli == '板块') {
             this.plateData.pageIndex = 1;
-            this.plateList = [];
             this.forum_topicplate_search();
         }
         if (this.navli == '推荐') {
             this.pageDate.pageIndex = 1;
-            this.forumList = [];
             this.getListData();
         }
 
         if (this.navli == '关注') {
             this.followerData.pageIndex = 1;
-            this.followList = [];
             this.SearchNewRetFollower();
         }
 
@@ -226,6 +220,7 @@ export class ForumPage {
 
     //navbar切换
     switchInformation(text) {
+        console.log(text);
         this.isLoad = false;
         this.navli = text;
         this.showLoading();
@@ -255,7 +250,9 @@ export class ForumPage {
             this.isLoad = true;
             if (res.data) {
                 let arr = res.data.Posts.Items;
-                if (arr.length != 0) {
+                if (this.pageDate.pageIndex == 1) {
+                    this.forumList = arr;
+                } else if (arr.length != 0) {
                     this.forumList = this.forumList.concat(arr);
                 }
                 this.pageDate.total = res.data.Posts.TotalItems;
@@ -271,11 +268,8 @@ export class ForumPage {
                 return
             }
             let arr = res.data.Items;
-            if (arr.length == 0) {
-                // this.isdoInfinite = false;
-            }
             this.plateData.total = res.data.TotalItems;
-            this.plateList = this.plateList.concat(arr);
+            this.plateList = arr;
             this.dismissLoading();
         })
     }
@@ -305,7 +299,9 @@ export class ForumPage {
             this.isLoad = true;
             if (res.data) {
                 let arr = res.data.Posts.Items;
-                if (arr.length != 0) {
+                if (this.followerData.pageIndex == 1) {
+                    this.followList = arr;
+                } else if (arr.length != 0) {
                     this.followList = this.followList.concat(arr);
                 }
                 this.followerData.total = res.data.Posts.TotalItems;
@@ -333,6 +329,6 @@ export class ForumPage {
 
     dismissLoading() {
         this.refresher.complete();
-        console.log("this.refresher.state",this.refresher.state);
+        console.log("this.refresher.state", this.refresher.state);
     }
 }

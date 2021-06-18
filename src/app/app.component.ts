@@ -141,22 +141,22 @@ export class MyApp {
                     return
                 }
                 if (value == 'platformIOS') {
-                    this.isIOS = true;
+                    // this.isIOS = true;
                 }
                 if ((this.isIOS13OR14() && this.isIphoneXR()) || (this.isIOS13OR14() && this.isIphoneX())) {  //ios 13、14
-                    this.isIphone11IOS13 = true;
+                    // this.isIphone11IOS13 = true;
                 }
                 if (value == 'videoReset') {
-                    this.isIphone11IOS13 = false;
-                    this.isIphoneIOS13 = false;
+                    // this.isIphone11IOS13 = false;
+                    // this.isIphoneIOS13 = false;
                     return;
                 }
                 if (value == 'innerCourse' && this.isIphoneXR()) {  //iphone 11
-                    this.isIphone11IOS13 = true;
+                    // this.isIphone11IOS13 = true;
                     return;
                 }
                 if (value == 'innerCourse' && this.isIphoneX()) { //iphone X
-                    this.isIphone11IOS13 = true;
+                    // this.isIphone11IOS13 = true;
                     return;
                 }
             }

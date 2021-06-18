@@ -1,5 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActionSheetController, LoadingController, ModalController, NavController, NavParams} from "ionic-angular";
+import {
+    ActionSheetController,
+    LoadingController,
+    ModalController,
+    Navbar,
+    NavController,
+    NavParams
+} from "ionic-angular";
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {ForumService} from '../forum.service';
 import {CommonService} from "../../../core/common.service";
@@ -14,6 +21,7 @@ import {PersonalCenterPage} from "../../home/personal-center/personal-center";
 declare var Wechat;
 declare let Swiper: any;
 declare let videojs: any;
+declare let amp: any;
 
 interface IInput {
     canEdit: boolean,   //能否编辑
@@ -26,8 +34,9 @@ interface IInput {
     selector: 'page-posts-content',
     templateUrl: './posts-content.component.html',
 })
-export class PostsContentComponent implements OnInit {
+export class PostsContentComponent {
     @ViewChild('panel') panel: ElementRef;
+    @ViewChild(Navbar) navbar: Navbar;
 
     defaultHeadPhoto = defaultHeadPhoto;
     lidata = {Id: '', TopicPlateId: "", Name: ""};
@@ -85,8 +94,13 @@ export class PostsContentComponent implements OnInit {
 
     isShow = false;
 
-    ngOnInit() {
-
+    ionViewDidLoad() {
+        this.navbar.backButtonClick = () => {
+            if (this.initVideo) {
+                this.initVideo.dispose();
+            }
+            this.navCtrl.pop();
+        };
     }
 
     ionViewDidEnter() {
@@ -147,12 +161,6 @@ export class PostsContentComponent implements OnInit {
             this.initVideoEle();
             this.initPostInfo(res.data);
         });
-    }
-
-    ionViewWillLeave() {
-        if (this.initVideo) {
-            this.initVideo.dispose();
-        }
     }
 
     //查询动态数据
@@ -226,10 +234,11 @@ export class PostsContentComponent implements OnInit {
     }
 
     initVideoEle() {
+        if (this.initVideo) {
+            return;
+        }
         const videoEle = document.getElementById("videoPoster");
-        console.log(this.dataCon.Pvideo)
         if (this.dataCon.Pvideo && videoEle && !this.initVideo) {
-            console.log("initVideo");
             setTimeout(() => {
                 this.initVideo = videojs(`videoPoster`, {
                     controls: true,
@@ -356,13 +365,21 @@ export class PostsContentComponent implements OnInit {
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) - 1 + '';
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) < 0 ? '0' : this.dataCon['FollowCount'];
             this.serve.cancelfollow(data.Id).subscribe((res: any) => {
-                data.isFollowClick = false;
+                if (res.code == 200) {
+                    data.isFollowClick = false;
+                } else {
+                    this.commonSer.alert(res.message);
+                }
             });
         } else {
             data['is_guanzhu'] = true;
             this.dataCon['FollowCount'] = parseInt(this.dataCon['FollowCount']) + 1 + '';
             this.serve.follow(data.Id).subscribe((res: any) => {
-                data.isFollowClick = false;
+                if (res.code == 200) {
+                    data.isFollowClick = false;
+                } else {
+                    this.commonSer.alert(res.message);
+                }
             });
         }
     }
@@ -376,13 +393,21 @@ export class PostsContentComponent implements OnInit {
             data['is_collect'] = false;
             this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount']) - 1 + '';
             this.serve.cancelfavorites(data.Id).subscribe((res: any) => {
-                data.isFavoritesClick = false;
+                if (res.code == 200) {
+                    data.isFavoritesClick = false;
+                } else {
+                    this.commonSer.alert(res.message);
+                }
             });
         } else {
             data['is_collect'] = true;
             this.dataCon['FavoritesCount'] = parseInt(this.dataCon['FavoritesCount']) + 1 + '';
             this.serve.favorites(data.Id).subscribe((res: any) => {
-                data.isFavoritesClick = false;
+                if (res.code == 200) {
+                    data.isFavoritesClick = false;
+                } else {
+                    this.commonSer.alert(res.message);
+                }
             });
         }
     }
@@ -396,13 +421,21 @@ export class PostsContentComponent implements OnInit {
             data['is_like'] = false;
             this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount']) - 1 + '';
             this.serve.forum_post_cancellike(data.Id).subscribe((res: any) => {
-                data.isLikeClick = false;
+                if (res.code == 200) {
+                    data.isLikeClick = false;
+                } else {
+                    this.commonSer.alert(res.message);
+                }
             });
         } else {
             data['is_like'] = true;
             this.dataCon['LikeCount'] = parseInt(this.dataCon['LikeCount']) + 1 + '';
             this.serve.forum_post_like(data.Id).subscribe((res: any) => {
-                data.isLikeClick = false;
+                if (res.code == 200) {
+                    data.isLikeClick = false;
+                } else {
+                    this.commonSer.alert(res.message);
+                }
             });
         }
     }

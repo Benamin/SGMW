@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <app-forum-list-time [followList]="postList"></app-forum-list-time>
+        <app-forum-list-time [scene]="'search'" [followList]="postList"></app-forum-list-time>
 
         <ion-list text-center style="margin-top: 16rem;text-align: center;text-align: center;"
                   *ngIf="postList.length === 0 && emptyShow_Forum">

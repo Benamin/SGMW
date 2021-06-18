@@ -37,7 +37,7 @@
                 搜索内容
             </div>
         </div>
-        <app-forum-list-time [followList]='forumList'></app-forum-list-time>
+        <app-forum-list-time [followList]='forumList' [scene]="'forumList'"></app-forum-list-time>
         <ion-list text-center style="margin-top: 10rem" *ngIf="forumList.length === 0 && isLoad">
             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
             <p text-center style="color: #666666;font-size: 16px">
@@ -61,7 +61,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="more-com">
             <div class="left-bg">
@@ -87,7 +86,7 @@
         </div>
     </div>
     <div *ngIf="navli=='关注'">
-        <app-forum-list-time [followList]='followList'></app-forum-list-time>
+        <app-forum-list-time [followList]='followList' [scene]="'followList'"></app-forum-list-time>
         <ion-list text-center style="margin-top: 10rem" *ngIf="followList.length === 0 && isLoad">
             <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
             <p text-center style="color: #666666;font-size: 16px">

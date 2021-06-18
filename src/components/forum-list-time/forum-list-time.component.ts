@@ -21,7 +21,7 @@ declare let videojs: any;
 
 export class ForumListTimeComponent implements OnInit {
 
-    @Input() itemIndex;
+    @Input() scene;
     @Output() share = new EventEmitter();
 
     defaultImg = './assets/imgs/competition/fengmian@2x.png'
@@ -33,6 +33,7 @@ export class ForumListTimeComponent implements OnInit {
     }
 
     @Input() set followList(event) {
+        console.log(event);
         this.PosterList = event.map(e => {
             e.PostTimeFormatted = e.PostTimeFormatted.replace(/-/g, '/');
             return e;
@@ -50,7 +51,10 @@ export class ForumListTimeComponent implements OnInit {
         timer(500).subscribe(() => {
             this.PosterList.forEach((e, index) => {
                 if (e.Pvideo) {
-                    this.videoObj[`video${e.Pvideo.ID}`] = videojs(`video${e.Pvideo.ID}`, {
+                    if (this.videoObj[`${this.scene}_video${e.Pvideo.ID}`]) {
+                        this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].dispose();
+                    }
+                    this.videoObj[`${this.scene}_video${e.Pvideo.ID}`] = videojs(`${this.scene}_video${e.Pvideo.ID}`, {
                         controls: true,
                         autoplay: false,
                         "sources": [{
@@ -59,15 +63,15 @@ export class ForumListTimeComponent implements OnInit {
                             type: 'application/x-mpegURL'
                         }],
                     })
-                    this.videoObj[`video${e.Pvideo.ID}`].on('loadedmetadata', () => {
-                        this.videoObj[`video${e.Pvideo.ID}`].on('touchstart', () => {
-                            if (this.videoObj[`video${e.Pvideo.ID}`].paused()) {
+                    this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].on('loadedmetadata', () => {
+                        this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].on('touchstart', () => {
+                            if (this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].paused()) {
                                 Object.keys(this.videoObj).forEach(e => {
                                     this.videoObj[e].pause();
                                 })
-                                this.videoObj[`video${e.Pvideo.ID}`].play();
+                                this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].play();
                             } else {
-                                this.videoObj[`video${e.Pvideo.ID}`].pause();
+                                this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].pause();
                             }
                         })
                     });
@@ -93,7 +97,6 @@ export class ForumListTimeComponent implements OnInit {
 
         item.isClick = true;
         if (item.IsGiveLike) {
-            item.isClick = false;
             item['IsGiveLike'] = false;
             if (item.LikeCount > 0) item.LikeCount--;
             this.serve.forum_post_cancellike(item.Id).subscribe((res: any) => {

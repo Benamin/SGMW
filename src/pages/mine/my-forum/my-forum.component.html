@@ -18,7 +18,7 @@
     </div>
     <ng-container *ngIf="navli=='已发布'">
         <div class="content-div">
-            <div class="post-introduction" *ngFor="let item of forumList">
+            <div class="post-introduction" *ngFor="let item of forumList;let i1 = index">
                 <div class="post-introduction-top">
                     <img src="{{item.PosterUserHeadPhoto}}" alt="">
                     <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
@@ -26,7 +26,7 @@
                           <span class="edit-img" tappable (click)="editITem(item)">
                             <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
                           </span>
-                        <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item)">
+                        <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item,i1)">
                             <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
                           </span>
                     </div>
@@ -102,7 +102,7 @@
     </ng-container>
     <ng-container *ngIf="navli=='草稿箱'">
         <div class="content-div">
-            <div class="post-introduction" *ngFor="let item of draftList">
+            <div class="post-introduction" *ngFor="let item of draftList;let i2 = index">
                 <div class="post-introduction-top">
                     <img src="{{item.PosterUserHeadPhoto}}" alt="">
                     <div class="name nowrap-1" style="    flex: 1;">{{item.PosterUserName}}</div>
@@ -110,7 +110,7 @@
                           <span class="edit-img" tappable (click)="editITem(item)">
                             <img src="./assets/imgs/forum/other/p411b_edit@3x.png" alt="">
                           </span>
-                        <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item)">
+                        <span class="del-img" tappable (click)="$event.stopPropagation();delITem(item,i2)">
                             <img src="./assets/imgs/forum/other/p771_delete@3x.png" alt="">
                           </span>
                     </div>

@@ -45,7 +45,7 @@
             </ng-container>
             <ng-container *ngIf="item.Pvideo">
                 <div class="poster-box">
-                    <video [id]="'video'+item?.Pvideo?.ID" class="video-js sgmw-video-js"
+                    <video [id]="scene+'_video'+item?.Pvideo?.ID" class="video-js sgmw-video-js"
                            playsinline="true" webkit-playsinline="true"
                            width="100%" height="100%" controls
                            [poster]="item?.Pvideo?.CoverUrl || defaultImg">

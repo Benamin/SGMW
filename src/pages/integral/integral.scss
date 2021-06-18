@@ -1,4 +1,7 @@
 page-integral {
+  .scroll-content {
+    padding: 0 1.6rem;
+  }
 
   .task-type {
     display: flex;
@@ -21,33 +24,39 @@ page-integral {
   }
 
   .daily-task {
-    .trophy-list{
+    .trophy-list {
       display: -webkit-flex; /* Safari */
       display: flex;
       justify-content: space-between;
       margin-bottom: 1.5rem;
+      margin-top: 1.5rem;
       padding: 0 1.5rem;
-      p{
+
+      p {
         color: #535353;
       }
-      .trophy{
-        span{
+
+      .trophy {
+        span {
           float: left;
           width: 1.5rem;
           margin-right: 0.5rem;
-          img{
+
+          img {
             width: 100%;
             vertical-align: middle;
           }
         }
       }
     }
+
     > p {
       margin-bottom: 10px;
       padding: 5px 10px;
       color: #535353;
     }
-    .integralgain{
+
+    .integralgain {
       background-color: #fff;
       padding: 15px 10px;
       border-radius: 3px;
@@ -55,15 +64,18 @@ page-integral {
       opacity: 0.99;
       padding-bottom: 20px;
       margin-bottom: 1.5rem;
-      > p{
+
+      > p {
         padding: 0 0.5rem;
         color: #535353;
         font-size: 1.3rem;
       }
+
       .daily-item {
         display: flex;
         position: relative;
         padding-bottom: 25px;
+
         .left {
           width: calc(100% - 8rem);
           padding: 0 .5rem;
@@ -71,9 +83,11 @@ page-integral {
           display: -webkit-flex; /* Safari */
           display: flex;
           align-items: center;
-          p{
+
+          p {
             font-size: 2rem;
-            img{
+
+            img {
               display: inline-block;
               width: 1.5rem;
               margin-right: 0.5rem;
@@ -82,39 +96,34 @@ page-integral {
               top: -1px;
             }
           }
+
           p:first-child {
             font-weight: bolder;
             font-size: 1.8rem;
             color: #535353;
           }
-  
+
           p:nth-child(2) {
             margin-bottom: 5px;
           }
-  
+
           p:last-child {
             font-size: 1.6rem;
           }
         }
-  
+
         .right {
           display: flex;
           align-items: center;
           justify-content: center;
           width: 8rem;
-  
+
           span {
-            background: linear-gradient(216deg, #FFF7CB 0%, #FFC92D 100%);
-            box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
-            border-radius: 18px;
-            opacity: 0.99;
-            width: 10rem;
-            height: 2.7rem;
             text-align: center;
-            line-height: 2.7rem;
             font-weight: 500;
+            margin-right: 0.5rem;
           }
-  
+
           span.check-done {
             background: none;
             display: flex;
@@ -122,14 +131,14 @@ page-integral {
             justify-content: center;
             box-shadow: none;
             color: #25be48;
-  
+
             img {
               width: 1.5rem;
               margin-left: 5px;
             }
           }
         }
-  
+
         .bottom-process {
           position: absolute;
           bottom: 0;
@@ -137,7 +146,7 @@ page-integral {
           height: 10px;
           width: 100%;
           background-color: #CCCCCC;
-  
+
           .inner {
             height: 10px;
             background: linear-gradient(261deg, #FFC92D 0%, #FFF7CB 100%);
@@ -147,7 +156,7 @@ page-integral {
           }
         }
       }
-  
+
       .daily-item + .daily-item {
         margin-top: 10px;
       }

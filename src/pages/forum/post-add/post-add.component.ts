@@ -8,6 +8,7 @@ import {ChooseTopicPage} from "../choose-topic/choose-topic";
 import {Keyboard} from "@ionic-native/keyboard";
 import {ChooseImageProvider} from "../../../providers/choose-image/choose-image";
 import {ShortVideoProvider} from "../../../providers/short-video/short-video";
+import {StatusBar} from "@ionic-native/status-bar";
 
 declare let ImagePicker;
 declare let ImageCompressor;
@@ -58,6 +59,7 @@ export class PostAddComponent implements OnInit {
         private serve: ForumService,
         public navParams: NavParams,
         private keyboard: Keyboard,
+        private statusBar: StatusBar,
         private chooseImagePro: ChooseImageProvider,
         private shortVideoPro: ShortVideoProvider,
         private actionSheetCtrl: ActionSheetController,
@@ -555,16 +557,16 @@ export class PostAddComponent implements OnInit {
                                 alt: '',
                             })
                             srcArr.push(res.data);
+                            loading.dismiss();
+
                             if (!this.focusNode.data && fileList.length == 1) {
                                 this.DomAddImg(res.data, '');
-                                loading.dismiss();
                                 return
                             }
                             if (fileList.length - 1 > index) {
                                 addImgS(fileList[index + 1], index + 1);
                             } else {
                                 this.SetaddImg(srcArr, '');
-                                loading.dismiss();
                             }
                         });
                     }
