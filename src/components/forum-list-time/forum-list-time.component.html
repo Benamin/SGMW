@@ -45,18 +45,19 @@
             </ng-container>
             <ng-container *ngIf="item.Pvideo">
                 <div class="poster-box">
-                    <video [id]="scene+'_video'+item?.Pvideo?.ID" class="video-js sgmw-video-js"
-                           playsinline="true" webkit-playsinline="true"
-                           width="100%" height="100%" controls
-                           [poster]="item?.Pvideo?.CoverUrl || defaultImg">
-                    </video>
-                    <!--                    <video (play)="playVide($event)" (loadedmetadata)="getDuration($event,item)"-->
-                    <!--                           (click)="playVide($event)"-->
-                    <!--                           [poster]="item?.Pvideo?.CoverUrl || defaultImg" controls>-->
-                    <!--                        <source [src]="item?.Pvideo?.files?.DownLoadUrl" type="video/mp4">-->
+                    <!--                    <forum-video [poster]="item?.Pvideo?.CoverUrl || defaultImg" [scene]="scene" [GetVideo]="item.Pvideo"></forum-video>-->
+                    <!--                    <video [id]="scene+'_video_'+item?.Pvideo?.ID" class="video-js sgmw-video-js"-->
+                    <!--                           playsinline="true" webkit-playsinline="true"-->
+                    <!--                           width="100%" height="100%" controls-->
+                    <!--                           [poster]="item?.Pvideo?.CoverUrl || defaultImg">-->
                     <!--                    </video>-->
-                    <!--                    <span *ngIf="item.duration === 0">{{item.duration || '00:00'}}</span>-->
-                    <!--                    <span *ngIf="item.duration > 0">{{item.duration | secondFormat}}</span>-->
+                    <video (canplay)="getDuration($event,item)"
+                           (play)="clickVideo($event)" disablePictureInPicture controlsList="nodownload"
+                           [poster]="item?.Pvideo?.CoverUrl || defaultImg" controls>
+                        <source [src]="item?.Pvideo?.files?.DownLoadUrl" type="video/mp4">
+                    </video>
+                    <span *ngIf="item.duration === 0">{{item.duration || '00:00'}}</span>
+                    <span *ngIf="item.duration > 0">{{item.duration | secondFormat}}</span>
                 </div>
             </ng-container>
             <div class="topicList">

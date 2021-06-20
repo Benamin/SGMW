@@ -16,6 +16,19 @@
   }
 }
 
+
+video::-internal-media-controls-download-button {
+  display: none;
+}
+
+video::-webkit-media-controls-enclosure {
+  overflow: hidden;
+}
+
+video::-webkit-media-controls-panel {
+  width: calc(100% + 50px);
+}
+
 .post-introduction {
   margin: 0 15px;
   padding: 0 15px;
@@ -118,11 +131,13 @@
     border-radius: 1.2rem;
     overflow: hidden;
     text-align: center;
+    background-color: rgba(0, 0, 0, .7);
 
     video, .video-js {
       height: 100%;
       width: 100%;
     }
+
 
     img.video-poster {
       max-height: 20rem;
@@ -164,6 +179,7 @@
       z-index: 100;
     }
   }
+
 
   .img2 {
     div {

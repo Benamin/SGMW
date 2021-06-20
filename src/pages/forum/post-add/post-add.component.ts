@@ -221,9 +221,9 @@ export class PostAddComponent implements OnInit {
     };
 
     inputChange() {
-        let textareaImg = document.querySelector("#textareaImg");
-        console.log(textareaImg.innerHTML);
-        this.textareaLength = 100 - textareaImg.innerHTML.length > 0 ? 100 - textareaImg.innerHTML.length : 0;
+        let textareaImg = <any>document.querySelector("#textareaImg");
+        console.log(textareaImg.innerText);
+        this.textareaLength = 100 - textareaImg.innerText.length > 0 ? 100 - textareaImg.innerText.length : 0;
     }
 
     // 获取动态信息
@@ -236,6 +236,9 @@ export class PostAddComponent implements OnInit {
             this.topicplateSearchtopictag();
             let textareaImg: HTMLElement = document.getElementById('textareaImg');
             textareaImg.innerHTML = res.data.Content;
+            if (res.data.Content.length > 0) {
+                this.isShowPlaceHolder = false;
+            }
             let imgDom = textareaImg.querySelectorAll('img');
             let DivDom: any = textareaImg.querySelectorAll('div[src]');
             if (DivDom) {
@@ -533,7 +536,7 @@ export class PostAddComponent implements OnInit {
                 //压缩图片
                 let options = {
                     file: fileList_n,
-                    quality: 0.5,
+                    quality: 0.8,
                     // 压缩前回调
                     beforeCompress: (result) => {
                         console.log('压缩之前图片尺寸大小: ', result.size);

@@ -19,7 +19,7 @@ declare let videojs: any;
 })
 
 
-export class ForumListTimeComponent implements OnInit {
+export class ForumListTimeComponent {
 
     @Input() scene;
     @Output() share = new EventEmitter();
@@ -29,63 +29,63 @@ export class ForumListTimeComponent implements OnInit {
     PosterList = [];
     videoObj = <any>{};
 
+
     constructor(public commonSer: CommonService, public navCtrl: NavController, private modalCtrl: ModalController, private storage: Storage, private serve: ForumService,) {
     }
 
     @Input() set followList(event) {
-        console.log(event);
         this.PosterList = event.map(e => {
             e.PostTimeFormatted = e.PostTimeFormatted.replace(/-/g, '/');
             return e;
         })
         if (this.PosterList.length == 0) {
             Object.keys(this.videoObj).forEach(e => {
-                this.videoObj[e].dispose();
+                // this.videoObj[e].dispose();
             })
         } else {
-            this.initVideo();
+            // this.initVideo();
         }
     }
 
     initVideo() {
-        timer(500).subscribe(() => {
+        timer(100).subscribe(() => {
             this.PosterList.forEach((e, index) => {
                 if (e.Pvideo) {
-                    if (this.videoObj[`${this.scene}_video${e.Pvideo.ID}`]) {
-                        this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].dispose();
+                    let videoID = `${this.scene}_video_${e.Pvideo.ID}`;
+                    let videoEle = document.getElementById(videoID);
+                    if (!videoEle) {
+                        console.log("videoEle未加载完成")
+                        return
                     }
-                    this.videoObj[`${this.scene}_video${e.Pvideo.ID}`] = videojs(`${this.scene}_video${e.Pvideo.ID}`, {
+                    console.log("videoEle加载完成", videoEle);
+                    if (this.videoObj[videoID]) {
+                        this.videoObj[videoID].dispose();
+                        let videoBox = document.getElementById('videoBox_' + e.Pvideo.ID);
+                        videoBox.innerHTML = `<video id="${this.scene + '_video_' + e.Pvideo.ID}" class="video-js sgmw-video-js"
+                           playsinline="true" webkit-playsinline="true"
+                           width="100%" height="100%" controls
+                           poster="${e.Pvideo.CoverUrl}"></video>`
+                    }
+                    console.log(this.videoObj[videoID]);
+                    this.videoObj[videoID] = videojs(videoID, {
                         controls: true,
                         autoplay: false,
                         "sources": [{
                             //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放
                             src: e.Pvideo.files.AttachmentUrl,
+                            // src: e.Pvideo.files.DownLoadUrl,
                             type: 'application/x-mpegURL'
                         }],
                     })
-                    this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].on('loadedmetadata', () => {
-                        this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].on('touchstart', () => {
-                            if (this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].paused()) {
-                                Object.keys(this.videoObj).forEach(e => {
-                                    this.videoObj[e].pause();
-                                })
-                                this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].play();
-                            } else {
-                                this.videoObj[`${this.scene}_video${e.Pvideo.ID}`].pause();
-                            }
-                        })
-                    });
+
                 }
             });
         })
     }
 
-    ngOnInit() {
-
-    }
-
     //详情
     goToDetail(item) {
+        this.videoStop();
         this.navCtrl.push(PostsContentComponent, {data: item});
     }
 
@@ -133,11 +133,18 @@ export class ForumListTimeComponent implements OnInit {
 
     //他人详情
     toPersonInfo(item) {
+
         this.storage.get('user').then(value => {
             if (item.Poster !== value.MainUserID) {
+                this.videoStop();
                 this.navCtrl.push(PersonalCenterPage, {Poster: item.Poster})
             }
         });
+    }
+
+    videoStop() {
+        const videoArr = <any>document.querySelectorAll("video");
+        videoArr.forEach(e => e.pause());
     }
 
     //话题列表
@@ -151,18 +158,19 @@ export class ForumListTimeComponent implements OnInit {
         this.navCtrl.push(PostlistComponent, {data: data});
     }
 
-    playVide(event) {
-        let videoList = <any>document.querySelectorAll("video");
-        console.log(videoList);
-        videoList.forEach(e => {
-            e.pause();
-        })
-        event.target.play();
-        event.stopPropagation();
-    }
-
     getDuration(ev, item) {
         let value = Math.ceil(ev.target.duration);
         item.duration = value;
+    }
+
+    //列表视频不同时播放
+    clickVideo(e) {
+        e.stopPropagation();
+        const videoArr = document.querySelectorAll("video");
+        for (let i = 0; i < videoArr.length; i++) {
+            if (videoArr[i] != e.target) {
+                videoArr[i].pause();
+            }
+        }
     }
 }

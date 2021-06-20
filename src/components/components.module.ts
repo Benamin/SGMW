@@ -27,8 +27,8 @@ import {DayilySchoolComponent} from './dayily-school/dayily-school';
 import {SubjectTreeComponent} from './subject-tree/subject-tree';
 import {ClassmateComponent} from './classmate/classmate';
 import {ShareWxComponent} from './share-wx/share-wx';
-import { ThemeActivityComponent } from './theme-activity/theme-activity';
-import { CommentStarComponent } from './comment-star/comment-star';
+import {ThemeActivityComponent} from './theme-activity/theme-activity';
+import {CommentStarComponent} from './comment-star/comment-star';
 
 
 @NgModule({
@@ -59,8 +59,8 @@ import { CommentStarComponent } from './comment-star/comment-star';
         SubjectTreeComponent,
         ClassmateComponent,
         ShareWxComponent,
-    ThemeActivityComponent,
-    CommentStarComponent,
+        ThemeActivityComponent,
+        CommentStarComponent,
     ],
     imports: [
         IonicPageModule,
@@ -93,9 +93,8 @@ import { CommentStarComponent } from './comment-star/comment-star';
         SubjectTreeComponent,
         ClassmateComponent,
         ShareWxComponent,
-    ThemeActivityComponent,
-    CommentStarComponent,
-
+        ThemeActivityComponent,
+        CommentStarComponent,
     ],
     providers: [
         CommentComponent,

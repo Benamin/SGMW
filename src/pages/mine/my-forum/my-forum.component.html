@@ -55,16 +55,11 @@
                     </ng-container>
                     <ng-container *ngIf="item.Pvideo">
                         <div class="poster-box">
-                            <div class="mask">
-                                <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4"
-                                       (loadedmetadata)="getDuration($event,item)"
-                                       [src]="item.files.DownLoadUrl"></video>
-                            </div>
-                            <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>
-                            <span *ngIf="item.VideoMinute > 0">{{item.VideoMinute | secondFormat}}</span>
-                            <img class="video-poster" src="{{ item?.Pvideo?.CoverUrl || defaultImg }}" alt="视频封面图">
-                            <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png"
-                                 alt="播放按钮">
+                            <video (canplay)="getDuration($event,item)"
+                                   (play)="clickVideo($event)" disablePictureInPicture controlsList="nodownload"
+                                   [poster]="item?.Pvideo?.CoverUrl" controls>
+                                <source [src]="item?.Pvideo?.files?.DownLoadUrl" type="video/mp4">
+                            </video>
                         </div>
                     </ng-container>
                     <div class="topicList">
@@ -139,15 +134,11 @@
                     </ng-container>
                     <ng-container *ngIf="item.Pvideo">
                         <div class="poster-box">
-                            <div class="mask">
-                                <video *ngIf="item.VideoMinute === 0" hidden type="video/mp4"
-                                       (loadedmetadata)="getDuration($event,item)"
-                                       [src]="item.files.DownLoadUrl"></video>
-                            </div>
-                            <span *ngIf="item.VideoMinute === 0">{{item.duration || '00:00'}}</span>
-                            <span *ngIf="item.VideoMinute > 0">{{item.VideoMinute | secondFormat}}</span>
-                            <img class="video-poster" src="{{ item?.Pvideo?.CoverUrl || defaultImg }}" alt="视频封面图">
-                            <img class="video-play-btn" src="./assets/imgs/forum/list/luntan_play@2x.png" alt="播放按钮">
+                            <video (canplay)="getDuration($event,item)"
+                                   (play)="clickVideo($event)" disablePictureInPicture controlsList="nodownload"
+                                   [poster]="item?.Pvideo?.CoverUrl" controls>
+                                <source [src]="item?.Pvideo?.files?.DownLoadUrl" type="video/mp4">
+                            </video>
                         </div>
                     </ng-container>
                     <div class="topicList">

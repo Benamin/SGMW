@@ -56,11 +56,13 @@ export class MyForumComponent implements OnInit {
 
     // 前往动态详情
     goPostsContent(data) {
+        this.videoStop();
         this.navCtrl.push(PostsContentComponent, {data: data});
     }
 
     // 编辑动态
     editITem(time) {
+        this.videoStop();
         this.navCtrl.push(PostAddComponent, {data: time});
     }
 
@@ -153,6 +155,7 @@ export class MyForumComponent implements OnInit {
 
     //话题列表
     toPostList(item) {
+        this.videoStop();
         const data = {
             Id: item.TopicId,
             CoverImage: item.TopicImageUrl,
@@ -160,6 +163,27 @@ export class MyForumComponent implements OnInit {
             navli: "话题"
         }
         this.navCtrl.push(PostlistComponent, {data: data});
+    }
+
+    videoStop() {
+        const videoArr = <any>document.querySelectorAll("video");
+        videoArr.forEach(e => e.pause());
+    }
+
+    getDuration(ev, item) {
+        let value = Math.ceil(ev.target.duration);
+        item.duration = value;
+    }
+
+    //列表视频不同时播放
+    clickVideo(e) {
+        e.stopPropagation();
+        const videoArr = document.querySelectorAll("video");
+        for (let i = 0; i < videoArr.length; i++) {
+            if (videoArr[i] != e.target) {
+                videoArr[i].pause();
+            }
+        }
     }
 
 }
