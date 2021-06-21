@@ -749,9 +749,9 @@ export class PostAddComponent implements OnInit {
             content: '发布中...'
         });
         this.loading.present();
-        if (this.lidata.Status) { // 修改 草稿 动态
+        if (this.lidata.Status) { // 保存草稿
             this.forum_post_edit(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds);
-        } else {
+        } else {   //发布
             this.forum_post_add(IsSaveAndPublish, textInnerHTML, TopicPlateIds, TopicTagPlateIds);
         }
         this.sevrData_click = true;
@@ -766,6 +766,9 @@ export class PostAddComponent implements OnInit {
             "Title": this.Title,//动态标题
             "TopicPlateId": this.lidata.Id,//动态所属板块编号
             "Content": textInnerHTML,//动态内容
+            "IsVideo": this.multiple === "video",
+            "CoverUrl": this.CoverUrl,
+            "files": Object.assign(this.videoFiles, {icon: "MP4"}),
             "IsSaveAndPublish": IsSaveAndPublish,//是否保存并提交
             "TopicPlateIds": TopicPlateIds,
             "TopicTagPlateIds": TopicTagPlateIds,  //话题编号

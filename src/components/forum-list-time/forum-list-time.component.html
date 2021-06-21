@@ -44,14 +44,14 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="item.Pvideo">
-                <div class="poster-box">
+                <div class="poster-box" (click)="$event.stopPropagation();">
                     <!--                    <forum-video [poster]="item?.Pvideo?.CoverUrl || defaultImg" [scene]="scene" [GetVideo]="item.Pvideo"></forum-video>-->
                     <!--                    <video [id]="scene+'_video_'+item?.Pvideo?.ID" class="video-js sgmw-video-js"-->
                     <!--                           playsinline="true" webkit-playsinline="true"-->
                     <!--                           width="100%" height="100%" controls-->
                     <!--                           [poster]="item?.Pvideo?.CoverUrl || defaultImg">-->
                     <!--                    </video>-->
-                    <video (canplay)="getDuration($event,item)"
+                    <video (canplay)="getDuration($event,item)"  playsinline
                            (play)="clickVideo($event)" disablePictureInPicture controlsList="nodownload"
                            [poster]="item?.Pvideo?.CoverUrl || defaultImg" controls>
                         <source [src]="item?.Pvideo?.files?.DownLoadUrl" type="video/mp4">
