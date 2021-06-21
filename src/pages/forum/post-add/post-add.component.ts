@@ -222,8 +222,9 @@ export class PostAddComponent implements OnInit {
 
     inputChange() {
         let textareaImg = <any>document.querySelector("#textareaImg");
-        console.log(textareaImg.innerText);
-        this.textareaLength = 100 - textareaImg.innerText.length > 0 ? 100 - textareaImg.innerText.length : 0;
+        let innerText = textareaImg.innerText;
+        innerText = innerText.replace(/\r?\n/g, "");
+        this.textareaLength = 100 - innerText.length > 0 ? 100 - innerText.length : 0;
     }
 
     // 获取动态信息
@@ -236,6 +237,7 @@ export class PostAddComponent implements OnInit {
             this.topicplateSearchtopictag();
             let textareaImg: HTMLElement = document.getElementById('textareaImg');
             textareaImg.innerHTML = res.data.Content;
+            this.inputChange();
             if (res.data.Content.length > 0) {
                 this.isShowPlaceHolder = false;
             }
@@ -247,6 +249,7 @@ export class PostAddComponent implements OnInit {
                 }
             }
             if (imgDom) {
+                this.multiple = "image";
                 for (let n = 0; n < imgDom.length; n++) {
                     let e = imgDom[n];
                     this.imgitems.push({
@@ -282,6 +285,7 @@ export class PostAddComponent implements OnInit {
 
     // 光标失去焦点
     blurSelectionStart(element) {
+        this.inputChange();
         let Selection = (<any>document).getSelection();
         this.focusNode = Selection.focusNode;
         this.anchorOffset = Selection.anchorOffset;
@@ -533,48 +537,69 @@ export class PostAddComponent implements OnInit {
             loading.present();
             let srcArr = [];
             const addImgS = (fileList_n, index) => {
-                //压缩图片
-                let options = {
-                    file: fileList_n,
-                    quality: 0.8,
-                    // 压缩前回调
-                    beforeCompress: (result) => {
-                        console.log('压缩之前图片尺寸大小: ', result.size);
-                        // 将上传图片在页面预览
-                        ImageCompressor.file2DataUrl(result, function (url) {
-                        })
-                    },
+                let formData: FormData = new FormData();
+                formData.append('file', fileList_n);
+                this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                    this.isShowPlaceHolder = false;
+                    this.imgitems.push({
+                        src: res.data,
+                        alt: '',
+                    })
+                    srcArr.push(res.data);
+                    loading.dismiss();
 
-                    // 压缩成功回调
-                    success: (result) => {
-                        console.log('压缩之后图片尺寸大小: ', result.size);
-                        console.log('实际压缩率： ', ((fileList_n.size - result.size) / fileList_n.size * 100).toFixed(2) + '%');
-                        // 上传到远程服务器
-                        // util.upload('/upload.png', result);
-                        let formData: FormData = new FormData();
-                        formData.append('file', result);
-                        this.serve.Upload_UploadFiles(formData).then((res: any) => {
-                            this.isShowPlaceHolder = false;
-                            this.imgitems.push({
-                                src: res.data,
-                                alt: '',
-                            })
-                            srcArr.push(res.data);
-                            loading.dismiss();
-
-                            if (!this.focusNode.data && fileList.length == 1) {
-                                this.DomAddImg(res.data, '');
-                                return
-                            }
-                            if (fileList.length - 1 > index) {
-                                addImgS(fileList[index + 1], index + 1);
-                            } else {
-                                this.SetaddImg(srcArr, '');
-                            }
-                        });
+                    if (!this.focusNode.data && fileList.length == 1) {
+                        this.DomAddImg(res.data, '');
+                        return
                     }
-                };
-                new ImageCompressor(options);
+                    if (fileList.length - 1 > index) {
+                        addImgS(fileList[index + 1], index + 1);
+                    } else {
+                        this.SetaddImg(srcArr, '');
+                    }
+                });
+                //压缩图片
+                // let options = {
+                //     file: fileList_n,
+                //     quality: 0.8,
+                //     // 压缩前回调
+                //     beforeCompress: (result) => {
+                //         console.log('压缩之前图片尺寸大小: ', result.size);
+                //         // 将上传图片在页面预览
+                //         ImageCompressor.file2DataUrl(result, function (url) {
+                //         })
+                //     },
+                //
+                //     // 压缩成功回调
+                //     success: (result) => {
+                //         console.log('压缩之后图片尺寸大小: ', result.size);
+                //         console.log('实际压缩率： ', ((fileList_n.size - result.size) / fileList_n.size * 100).toFixed(2) + '%');
+                //         // 上传到远程服务器
+                //         // util.upload('/upload.png', result);
+                //         let formData: FormData = new FormData();
+                //         formData.append('file', result);
+                //         this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                //             this.isShowPlaceHolder = false;
+                //             this.imgitems.push({
+                //                 src: res.data,
+                //                 alt: '',
+                //             })
+                //             srcArr.push(res.data);
+                //             loading.dismiss();
+                //
+                //             if (!this.focusNode.data && fileList.length == 1) {
+                //                 this.DomAddImg(res.data, '');
+                //                 return
+                //             }
+                //             if (fileList.length - 1 > index) {
+                //                 addImgS(fileList[index + 1], index + 1);
+                //             } else {
+                //                 this.SetaddImg(srcArr, '');
+                //             }
+                //         });
+                //     }
+                // };
+                // new ImageCompressor(options);
             }
             addImgS(fileList[0], 0);
         }
@@ -588,31 +613,39 @@ export class PostAddComponent implements OnInit {
                 content: '上传中...'
             });
             loading.present();
-            let options = {
-                file: fileList[0],
-                quality: 0.5,
-                // 压缩前回调
-                beforeCompress: (result) => {
-                    console.log('压缩之前图片尺寸大小: ', result.size);
-                    // 将上传图片在页面预览
-                    ImageCompressor.file2DataUrl(result, function (url) {
-                    })
-                },
 
-                // 压缩成功回调
-                success: (result) => {
-                    console.log('压缩之后图片尺寸大小: ', result.size);
-                    console.log('实际压缩率： ', ((fileList[0].size - result.size) / fileList[0].size * 100).toFixed(2) + '%');
-                    // 上传到远程服务器
-                    let formData: FormData = new FormData();
-                    formData.append('file', result);
-                    this.serve.Upload_UploadFiles(formData).then((res: any) => {
-                        this.CoverUrl = res.data;
-                        loading.dismiss();
-                    });
-                }
-            };
-            new ImageCompressor(options);
+            let formData: FormData = new FormData();
+            formData.append('file', fileList[0]);
+            this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                this.CoverUrl = res.data;
+                loading.dismiss();
+            });
+
+            // let options = {
+            //     file: fileList[0],
+            //     quality: 0.5,
+            //     // 压缩前回调
+            //     beforeCompress: (result) => {
+            //         console.log('压缩之前图片尺寸大小: ', result.size);
+            //         // 将上传图片在页面预览
+            //         ImageCompressor.file2DataUrl(result, function (url) {
+            //         })
+            //     },
+            //
+            //     // 压缩成功回调
+            //     success: (result) => {
+            //         console.log('压缩之后图片尺寸大小: ', result.size);
+            //         console.log('实际压缩率： ', ((fileList[0].size - result.size) / fileList[0].size * 100).toFixed(2) + '%');
+            //         // 上传到远程服务器
+            //         let formData: FormData = new FormData();
+            //         formData.append('file', result);
+            //         this.serve.Upload_UploadFiles(formData).then((res: any) => {
+            //             this.CoverUrl = res.data;
+            //             loading.dismiss();
+            //         });
+            //     }
+            // };
+            // new ImageCompressor(options);
         }
     }
 
@@ -639,7 +672,7 @@ export class PostAddComponent implements OnInit {
     htmlTextDle() {
         let textareaImg: HTMLElement = document.getElementById('textareaImg');
         let innerText: any = textareaImg.innerText;
-        console.log(textareaImg.innerText);
+        this.inputChange();
         if (innerText == '请输入正文') {
             textareaImg.innerText = "";
         }

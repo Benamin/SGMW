@@ -240,7 +240,7 @@ export class PostsContentComponent {
         const videoEle = document.getElementById("videoPoster");
         if (this.dataCon.Pvideo && videoEle && !this.initVideo) {
             setTimeout(() => {
-                this.initVideo = videojs(`videoPoster`, {
+                this.initVideo = amp(`videoPoster`, {
                     controls: true,
                     "sources": [{
                         //android 的用视频流地址播放 会出现视频画面模糊的问题 暂未解决只能根据视频地址播放

@@ -11,7 +11,7 @@ import {CommonService} from "../../../core/common.service";
     selector: 'page-my-forum',
     templateUrl: './my-forum.component.html',
 })
-export class MyForumComponent implements OnInit {
+export class MyForumComponent {
     navli: '已发布' | '草稿箱' = '已发布';
     isdoInfinite = true;
     no_list = false;
@@ -37,13 +37,10 @@ export class MyForumComponent implements OnInit {
                 private toastCtrl: ToastController) {
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.pageDate.pageIndex = 1;
         this.forumList = [];
         this.getData();
-    }
-
-    ngOnInit() {
     }
 
     // 切换已发布/草稿箱
