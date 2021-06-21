@@ -37,6 +37,8 @@ import {HomeService} from "../home/home.service";
 import {RuleModalPage} from "../home/advanced/rule-modal/rule-modal";
 import {IntegralPage} from "../integral/integral";
 
+import {ChooseImageProvider} from "../../providers/choose-image/choose-image";
+
 @Component({
     selector: 'page-mine',
     templateUrl: 'mine.html',
@@ -66,7 +68,9 @@ export class MinePage {
                 private homeSer: HomeService,
                 private commonSer: CommonService,
                 private modalCtrl: ModalController,
-                private appSer: AppService, private app: App, private storage: Storage) {
+                private appSer: AppService, private app: App,
+                public chooseImage: ChooseImageProvider,
+                private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
             console.log(value);
@@ -79,6 +83,19 @@ export class MinePage {
         this.storage.get('CurrentRole').then(val => {
             this.CurrentRole = val;
             this.RoleName = val.CurrentRoleName;
+        })
+    }
+
+    changeHeadPhoto() {
+        this.chooseImage.takePic((data) => {
+            if (this.mineInfo) this.mineInfo.HeadPhoto = data[data.length-1];
+            // 上传成功后 把图片传给后台存储更换 头像（等接口）
+            // this.mineSer.GetMyProductCountInfo().subscribe(
+            //     (res2) => {
+            //
+            //     }
+            // )
+
         })
     }
 
