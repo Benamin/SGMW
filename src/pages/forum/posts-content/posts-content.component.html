@@ -4,6 +4,10 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
+    <ion-refresher #ionRefresher [ngStyle]="{height: refresher.state === 'completing'?'0':'auto'}">
+        <ion-refresher-content refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
     <div class="cons">
         <h3>{{dataCon.Title}}</h3>
         <div class="post-introduction-top">

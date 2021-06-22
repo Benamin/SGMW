@@ -169,13 +169,18 @@ export class ForumListTimeComponent {
         this.navCtrl.push(PostlistComponent, {data: data});
     }
 
+    playVideo(e) {
+        console.log("playVideo")
+        e.target.play();
+    }
+
     getDuration(ev, item) {
         let value = Math.ceil(ev.target.duration);
         item.duration = value;
     }
 
     //列表视频不同时播放
-    clickVideo(e) {
+    playing(e) {
         e.stopPropagation();
         const videoArr = document.querySelectorAll("video");
         for (let i = 0; i < videoArr.length; i++) {

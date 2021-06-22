@@ -69,12 +69,16 @@ export class ForumPage {
         // 发布 自定义事件
         this.events.publish('messageTabBadge:change', {});
         this.logSer.visitLog('lt');
-        this.showLoading();
 
-
-        this.forumList = [];
         this.pageDate.pageIndex = 1;
         // this.initData();
+        this.storage.get("forumList").then(value => {
+            if (value) {
+                this.forumList = value;
+            } else {
+                this.showLoading();
+            }
+        })
 
         this.storage.get('Blacklist').then(value => {
             if (value) {
@@ -201,7 +205,7 @@ export class ForumPage {
             this.plateData.pageIndex++;
             this.forum_topicplate_search();
         }
-        if (this.navli == '推荐' && this.forumList.length < this.pageDate.total) {
+        if (this.navli == '推荐') {
             this.pageDate.pageIndex++;
             this.getListData();
         }
@@ -252,6 +256,7 @@ export class ForumPage {
                 let arr = res.data.Posts.Items;
                 if (this.pageDate.pageIndex == 1) {
                     this.forumList = arr;
+                    this.storage.set("forumList", this.forumList);
                 } else if (arr.length != 0) {
                     this.forumList = this.forumList.concat(arr);
                 }
@@ -329,6 +334,5 @@ export class ForumPage {
 
     dismissLoading() {
         this.refresher.complete();
-        console.log("this.refresher.state", this.refresher.state);
     }
 }

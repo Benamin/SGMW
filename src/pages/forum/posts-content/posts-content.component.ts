@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {
-    ActionSheetController,
+    ActionSheetController, Content,
     LoadingController,
     ModalController,
     Navbar,
     NavController,
-    NavParams
+    NavParams, Refresher
 } from "ionic-angular";
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {ForumService} from '../forum.service';
@@ -37,6 +37,8 @@ interface IInput {
 export class PostsContentComponent {
     @ViewChild('panel') panel: ElementRef;
     @ViewChild(Navbar) navbar: Navbar;
+    @ViewChild(Refresher) refresher: Refresher;
+    @ViewChild(Content) content: Content;
 
     defaultHeadPhoto = defaultHeadPhoto;
     lidata = {Id: '', TopicPlateId: "", Name: ""};
@@ -579,21 +581,21 @@ export class PostsContentComponent {
         })
     }
 
+    //下拉刷新
+    doRefresh(e) {
+    }
+
 
     showLoading() {
-        if (!this.loading) {
-            this.loading = this.loadCtrl.create({
-                content: ''
-            });
-            this.loading.present();
-        }
+        console.log("showLoading");
+        this.refresher._top = this.content.contentTop + 'px';
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
     }
 
     dismissLoading() {
-        if (this.loading) {
-            this.loading.dismiss();
-            this.loading = null;
-        }
+        console.log("dismissLoading");
+        this.refresher.complete();
     }
 
     toPerson(item) {
