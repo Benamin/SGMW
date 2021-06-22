@@ -87,6 +87,7 @@ export class MinePage {
     }
 
     changeHeadPhoto() {
+        // 模拟上传返回测试 start
         // console.log(this.mineInfo)
         // let photo = 'https://devstorgec.blob.core.chinacloudapi.cn/picture/下载2019100910085720200224112628.jpeg'
         // let obj = this.mineInfo
@@ -97,6 +98,8 @@ export class MinePage {
         //         this.commonSer.toast('头像更换成功！');
         //     }
         // )
+        // 模拟上传返回测试 end
+
         this.chooseImage.takePic((data) => {
 
             // 上传成功后 把图片传给后台存储更换 头像（等接口）
@@ -108,15 +111,9 @@ export class MinePage {
                 (res2) => {
                     this.mineInfo.HeadPhoto = photo;
                     this.commonSer.toast('头像更换成功！');
-                }
-            )
-            // this.mineSer.updateUser().subscribe(
-            //     (res2) => {
-            //
-            //     }
-            // )
-
+                })
         })
+
     }
 
     ionViewDidEnter() {
