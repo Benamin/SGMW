@@ -93,21 +93,32 @@ export class ForumListTimeComponent {
     //点赞
     handleLike(item, e) {
         e.stopPropagation();
-        if (item.isClick) return;
-
-        item.isClick = true;
         if (item.IsGiveLike) {
             item['IsGiveLike'] = false;
             if (item.LikeCount > 0) item.LikeCount--;
-            this.serve.forum_post_cancellike(item.Id).subscribe((res: any) => {
-                item.isClick = false;
-            });
         } else {
             item['IsGiveLike'] = true;
             item.LikeCount++;
-            this.serve.forum_post_like(item.Id).subscribe((res: any) => {
-                item.isClick = false;
-            });
+        }
+        console.log('' + item.IsGiveLike);
+        if (item.isClick) return;
+
+        item.isClick = true;
+        setTimeout(() => {
+            handleLike();
+        }, 3000)
+
+        let handleLike = () => {
+            console.log('执行，' + item.IsGiveLike);
+            if (item.IsGiveLike) {
+                this.serve.forum_post_like(item.Id).subscribe((res: any) => {
+                    item.isClick = false;
+                });
+            } else {
+                this.serve.forum_post_cancellike(item.Id).subscribe((res: any) => {
+                    item.isClick = false;
+                });
+            }
         }
     }
 
@@ -158,13 +169,18 @@ export class ForumListTimeComponent {
         this.navCtrl.push(PostlistComponent, {data: data});
     }
 
+    playVideo(e) {
+        console.log("playVideo")
+        e.target.play();
+    }
+
     getDuration(ev, item) {
         let value = Math.ceil(ev.target.duration);
         item.duration = value;
     }
 
     //列表视频不同时播放
-    clickVideo(e) {
+    playing(e) {
         e.stopPropagation();
         const videoArr = document.querySelectorAll("video");
         for (let i = 0; i < videoArr.length; i++) {
