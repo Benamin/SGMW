@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {HomePage} from "./home";
 import {SearchPage} from "./search/search";
@@ -148,7 +148,8 @@ import {ThemeActivityPage} from "./theme-activity/theme-activity";
         AddAskPage,
         WantToAskDetailPage,
         PersonalCenterPage
-    ]
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 export class HomeModule {
 }
