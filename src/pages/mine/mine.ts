@@ -37,6 +37,8 @@ import {HomeService} from "../home/home.service";
 import {RuleModalPage} from "../home/advanced/rule-modal/rule-modal";
 import {IntegralPage} from "../integral/integral";
 
+import {ChooseImageProvider} from "../../providers/choose-image/choose-image";
+
 @Component({
     selector: 'page-mine',
     templateUrl: 'mine.html',
@@ -66,7 +68,9 @@ export class MinePage {
                 private homeSer: HomeService,
                 private commonSer: CommonService,
                 private modalCtrl: ModalController,
-                private appSer: AppService, private app: App, private storage: Storage) {
+                private appSer: AppService, private app: App,
+                public chooseImage: ChooseImageProvider,
+                private storage: Storage) {
         //获取个人信息
         this.storage.get('user').then(value => {
             console.log(value);
@@ -79,7 +83,56 @@ export class MinePage {
         this.storage.get('CurrentRole').then(val => {
             this.CurrentRole = val;
             this.RoleName = val.CurrentRoleName;
+        });
+        this.getDataNum();
+    }
+
+    getDataNum (){
+        this.mineSer.GetCourseCount().subscribe(
+            (res) => {
+                Object.assign(this.number, { CourseCount: res.data });
+            }
+        );
+        this.mineSer.GetNowMonthIntegralData().subscribe(
+            (res) => {
+                Object.assign(this.number, { NowMonthIntegralData: res.data });
+            }
+        );
+        this.mineSer.GetPostTalkData().subscribe(
+            (res) => {
+                Object.assign(this.number, { PostTalkData: res.data });
+            }
+        );
+    }
+
+    changeHeadPhoto() {
+        // 模拟上传返回测试 start
+        // console.log(this.mineInfo)
+        // let photo = 'https://devstorgec.blob.core.chinacloudapi.cn/picture/下载2019100910085720200224112628.jpeg'
+        // let obj = this.mineInfo
+        // obj.HeadPhoto = photo;
+        // this.mineSer.updateUser(obj).subscribe(
+        //     (res2) => {
+        //         this.mineInfo.HeadPhoto = photo;
+        //         this.commonSer.toast('头像更换成功！');
+        //     }
+        // )
+        // 模拟上传返回测试 end
+
+        this.chooseImage.takePic((data) => {
+
+            // 上传成功后 把图片传给后台存储更换 头像（等接口）
+            if (!this.mineInfo) return;
+            let photo = data[data.length-1]
+            let obj = this.mineInfo
+            obj.HeadPhoto = photo;
+            this.mineSer.updateUser(obj).subscribe(
+                (res2) => {
+                    this.mineInfo.HeadPhoto = photo;
+                    this.commonSer.toast('头像更换成功！');
+                })
         })
+
     }
 
     ionViewDidEnter() {
@@ -88,14 +141,14 @@ export class MinePage {
         this.logSer.visitLog('grzx');
         this.getVersion();
         this.getUserInfo();
-        this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {
-            this.mineSer.GetMyProductCountInfo().subscribe(
-                (res2) => {
-                    res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
-                    Object.assign(this.number, res2.data);
-                }
-            )
-        });
+        // this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {
+            // this.mineSer.GetMyProductCountInfo().subscribe(
+            //     (res2) => {
+            //         res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
+            //         Object.assign(this.number, res2.data);
+            //     }
+            // )
+        // });
         const data = {
             "GetMyList": 1,//是否获取我的短视频列表1代表我得，0代表所有
             "Page": 1,

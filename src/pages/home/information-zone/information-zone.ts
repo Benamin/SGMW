@@ -57,7 +57,14 @@ export class InformationZonePage {
         };
         this.homeSer.GetAskType(data).subscribe(
             (res) => {
-                this.page.typeArr = res.data;
+                let allType = {label: '全部类型', value: null};
+                let typeArr = [allType];
+                if (res.data && res.data.length > 0) {
+                    for (let i = 0; i < res.data.length; i++) {
+                        typeArr.push(res.data[i])
+                    }
+                }
+                this.page.typeArr = typeArr;
                 this.page.FileType = this.page.typeArr[0];
                 this.switchTypeLists(this.page.FileType)
                 loading.dismiss();
@@ -125,7 +132,7 @@ export class InformationZonePage {
         if (this.page.FileType && this.page.FileType.value !== null) dataObj = Object.assign({}, dataObj, {FileTypeId: this.page.FileType.value}); // 判断是否全部类型
         this.homeSer.GetQueryMaterialFile(dataObj).subscribe(
             (res) => {
-                this.readLocalFile();
+                if (this.file.dataDirectory) this.readLocalFile();
                 this.page.resourceLists = this.DataAssign(res.data);
                 this.page.isLoad = true;
                 loading.dismiss();

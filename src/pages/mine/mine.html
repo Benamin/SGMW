@@ -6,7 +6,7 @@
 
     <div class="mine-user">
         <div class="header">
-            <img src="{{mineInfo?.HeadPhoto || './assets/imgs/new_version/mine/default-avatar.png' }}" alt="头像">
+            <img (click)="changeHeadPhoto()" src="{{mineInfo?.HeadPhoto || './assets/imgs/new_version/mine/default-avatar.png' }}" alt="头像">
         </div>
         <div class="info-box">
             <div class="user-box">
@@ -22,68 +22,107 @@
         </div>
         <div class="points-box">
             <img src="./assets/imgs/new_version/mine/points-bg.png">
-            <div tappable (click)="goIntegral()" class="points-text">
-                积分  {{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</div>
+            <!--<div tappable (click)="goIntegral()" class="points-text">积分  {{(userInfo?.TitleInfo?.Credit).toFixed(0) || 0}}</div>-->
         </div>
     </div>
 
-    <div class="login-info">
-        <div class="login-mode">
-            <span>登录方式:</span>
-            <span>{{LoginType || "-"}}</span>
-        </div>
-        <div class="login-dealer-number">
-            <span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>
-            <ng-template #other_content>
-                <span>经销商号:</span>
-            </ng-template>
-            <span>{{mineInfo?.AgentNumber || "-"}}</span>
-        </div>
-    </div>
+    <!--<div class="login-info">-->
+        <!--<div class="login-mode">-->
+            <!--<span>登录方式:</span>-->
+            <!--<span>{{LoginType || "-"}}</span>-->
+        <!--</div>-->
+        <!--<div class="login-dealer-number">-->
+            <!--<span *ngIf="LoginType == '供应商' || LoginType === '员工';else other_content">账号:</span>-->
+            <!--<ng-template #other_content>-->
+                <!--<span>经销商号:</span>-->
+            <!--</ng-template>-->
+            <!--<span>{{mineInfo?.AgentNumber || "-"}}</span>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="post-box">
+    <div class="post-box-study" tappable (click)="goToCourse()">
+        <div class="label-text">学习数据</div>
         <ul class="post-list">
-            <li tappable (click)="goToCourse()">
-                <div>{{number?.CourseCount || '0'}}</div>
-                <div>课程</div>
+            <li>
+                <div>{{ number?.CourseCount?.NowMonthStudied || '0'}}</div>
+                <div>本月学习</div>
             </li>
-            <li tappable (click)="goExam()">
-                <div>{{number?.WorkCount || '0'}}</div>
-                <div>作业</div>
-            </li>
-            <li tappable (click)="goMyForum()">
-                <div>{{number?.PostCount || '0'}}</div>
-                <div>动态</div>
+            <li>
+                <div>{{ number?.CourseCount?.TotalStudied || '0'}}</div>
+                <div>累计学习</div>
             </li>
         </ul>
     </div>
 
+    <div class="post-box-exchange" tappable (click)="goMyForum()">
+        <div class="label-text">交流数据</div>
+        <ul class="post-list">
+            <li>
+                <div>{{ number?.NowMonthIntegralData?.TotalMonth  || '0'}}</div>
+                <div>本月发帖</div>
+            </li>
+            <li>
+                <div>{{ number?.NowMonthIntegralData?.Total  || '0'}}</div>
+                <div>累计发帖</div>
+            </li>
+            <li>
+                <div>{{ number?.NowMonthIntegralData?.TotalMonthView  || '0'}}</div>
+                <div>本月浏览量</div>
+            </li>
+            <li>
+                <div>{{ number?.NowMonthIntegralData?.TotalView || '0'}}</div>
+                <div>累计浏览量</div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="post-box-points" tappable (click)="goToCourse()">
+        <div class="label-text">积分数据</div>
+        <ul class="post-list">
+            <li>
+                <div>{{ number?.NowMonthIntegralData?.MonthCreadit || '0'}}</div>
+                <div>本月获取</div>
+            </li>
+            <li>
+                <div>{{ number?.NowMonthIntegralData?.MonthDHJFCreadit  || '0'}}</div>
+                <div>本月消费</div>
+            </li>
+            <li>
+                <div>{{ number?.NowMonthIntegralData?.credit || '0'}}</div>
+                <div>当前持有</div>
+            </li>
+        </ul>
+    </div>
 
     <div class="mine-content">
         <div class="content-list">
-            <li tappable (click)="goMyIntegral()">
-                <img src="./assets/imgs/new_version/mine/points-icon.png">
-                <div>我的积分</div>
-            </li>
+            <!--<li tappable (click)="goMyIntegral()">-->
+                <!--<img src="./assets/imgs/new_version/mine/points-icon.png">-->
+                <!--<div>我的积分</div>-->
+            <!--</li>-->
             <li tappable (click)="goMyFollowsComponent()">
-                <img src="./assets/imgs/new_version/mine/follow.png">
+                <img class="left-icon" src="./assets/imgs/new_version/mine/6-22-follow.png">
                 <div>我的关注</div>
+                <img class="right" src="./assets/imgs/new_version/mine/6-22-right.png">
             </li>
             <li tappable (click)="goToCollection()">
-                <img src="./assets/imgs/new_version/mine/collection.png">
+                <img class="left-icon" src="./assets/imgs/new_version/mine/6-22-collection.png">
                 <div>我的收藏</div>
+                <img class="right" src="./assets/imgs/new_version/mine/6-22-right.png">
             </li>
-            <li tappable (click)="goMedal()">
-                <img src="./assets/imgs/new_version/mine/medal.png">
-                <div>设置勋章</div>
-            </li>
+            <!--<li tappable (click)="goMedal()">-->
+                <!--<img src="./assets/imgs/new_version/mine/medal.png">-->
+                <!--<div>设置勋章</div>-->
+            <!--</li>-->
             <li tappable (click)="checkVersion()">
-                <img src="./assets/imgs/new_version/mine/gyyy.png">
+                <img class="left-icon" src="./assets/imgs/new_version/mine/6-22-gyyy.png">
                 <div>关于应用</div>
+                <img class="right" src="./assets/imgs/new_version/mine/6-22-right.png">
             </li>
             <li tappable (click)="logoutApp()">
-                <img src="./assets/imgs/new_version/mine/logout.png">
+                <img class="left-icon" src="./assets/imgs/new_version/mine/6-22-logout.png">
                 <div>退出登录</div>
+                <img class="right" src="./assets/imgs/new_version/mine/6-22-right.png">
             </li>
         </div>
     </div>
