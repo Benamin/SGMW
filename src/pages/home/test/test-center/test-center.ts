@@ -1,5 +1,13 @@
-import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {
+    Content,
+    IonicPage,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Refresher
+} from 'ionic-angular';
 import {MineService} from "../../../mine/mine.service";
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
@@ -18,6 +26,8 @@ import {ShareWxComponent} from "../../../../components/share-wx/share-wx";
     templateUrl: 'test-center.html',
 })
 export class TestCenterPage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
 
     navbarList = [
         {type: '1', name: '未开始'},
@@ -58,23 +68,17 @@ export class TestCenterPage {
         this.eventEmitSer.eventEmit.emit('false');
         this.page.Page = 1;
         this.getList();
+        this.showLoading();
     }
 
     doRefresh(e) {
         this.page.Page = 1;
         this.getList();
-        timer(1000).subscribe((res) => {
-            e.complete()
-        });
     }
 
     //考试列表-EType
     //EType  1-等级考试 2-普通考试 3-课堂练习（预习作业）4-课后作业 5-调查问卷
     getList() {
-        const loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
         const data = {
             StudyState: [this.page.StudyState],
             EType: [this.page.EType],
@@ -92,7 +96,7 @@ export class TestCenterPage {
                 this.examList = res.data.Items;
                 this.page.TotalItems = res.data.TotalItems;
                 this.page.load = true;
-                loading.dismiss();
+                this.dismissLoading()
             }
         )
     }
@@ -103,6 +107,7 @@ export class TestCenterPage {
         this.page.Page = 1;
         this.page.StudyState = e.type;
         this.getList();
+        this.showLoading();
     }
 
     goExam(item) {
@@ -184,6 +189,16 @@ export class TestCenterPage {
     //模拟考试
     goToSimulation() {
         this.navCtrl.push(SimulationTestPage);
+    }
+
+    showLoading() {
+        this.refresher._top = this.content.contentTop + 43 + 'px';
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 
 }

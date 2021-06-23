@@ -327,3 +327,7 @@ a[aria-selected="true"] {
 .has-refresher > .scroll-content {
   border: none;
 }
+
+ion-refresher {
+  z-index: 9;
+}

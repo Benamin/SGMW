@@ -101,15 +101,13 @@ export class MinePage {
         // 模拟上传返回测试 end
 
         this.chooseImage.takePic((data) => {
-
             // 上传成功后 把图片传给后台存储更换 头像（等接口）
             if (!this.mineInfo) return;
-            let photo = data[data.length-1]
             let obj = this.mineInfo
-            obj.HeadPhoto = photo;
+            obj.HeadPhoto = data;
             this.mineSer.updateUser(obj).subscribe(
                 (res2) => {
-                    this.mineInfo.HeadPhoto = photo;
+                    this.mineInfo.HeadPhoto = data;
                     this.commonSer.toast('头像更换成功！');
                 })
         })
