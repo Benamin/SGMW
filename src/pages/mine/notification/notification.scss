@@ -1,8 +1,14 @@
 page-notification {
+  ion-refresher {
+    top: 100px !important;
+  }
+
   font-family: PingFangSC-Regular, PingFang SC;
+
   .toolbar-ios {
     min-height: 5.7rem;
   }
+
   .nav-type {
     display: flex;
     margin: 0;
@@ -12,10 +18,12 @@ page-notification {
     line-height: 4rem;
     list-style: none;
     background-color: #fff;
+
     li {
       position: relative;
       flex: 1;
       text-align: center;
+
       .item-line {
         position: absolute;
         left: 50%;
@@ -29,11 +37,12 @@ page-notification {
         opacity: 0.9;
       }
     }
+
     .actived .item-line {
       background: #E90E2C;
     }
   }
-  
+
   .main {
     padding: 1.5rem;
   }
@@ -53,6 +62,7 @@ page-notification {
     padding: 1.5rem 1.8rem 1.1rem 1.5rem;
     position: relative;
     border-radius: 0.2rem;
+
     .tips {
       position: absolute;
       top: 10px;
@@ -83,6 +93,7 @@ page-notification {
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
+
     .detail-text {
       margin-top: 0.8rem;
       padding-top: 0.8rem;
@@ -93,6 +104,7 @@ page-notification {
       font-weight: 400;
       color: #999999;
       border-top: 1px solid #E5E5E5;
+
       img {
         margin-right: 0.2rem;
         width: 0.6rem;
@@ -100,73 +112,81 @@ page-notification {
       }
     }
   }
-	.interaction {
-      position: relative;
-      box-sizing: border-box;
-      background-color: #fff;
-      border-radius: 0.2rem;
-      padding: 1.2rem 1.7rem 1.2rem 1.5rem;
-      display: flex;
-      .tips {
-        position: absolute;
-        top: 10px;
-        width: 5px;
-        height: 5px;
-        background-color: red;
-        right: 10px;
-        border-radius: 50%;
+
+  .interaction {
+    position: relative;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 0.2rem;
+    padding: 1.2rem 1.7rem 1.2rem 1.5rem;
+    display: flex;
+
+    .tips {
+      position: absolute;
+      top: 10px;
+      width: 5px;
+      height: 5px;
+      background-color: red;
+      right: 10px;
+      border-radius: 50%;
+    }
+
+    .avatar {
+      margin-right: 1.1rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .right-box {
+      width: 24rem;
+      flex: 1;
+
+      .username {
+        margin-top: 0.7rem;
+        margin-bottom: 0.8rem;
+        line-height: 2rem;
+        font-size: 1.4rem;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: #000000;
       }
-      .avatar {
-          margin-right: 1.1rem;
-          width: 3.5rem;
-          height: 3.5rem;
-          border-radius: 50%;
-          object-fit: cover;
+
+      .desc {
+        margin-bottom: 0.7rem;
+        width: 28.8rem;
+        font-size: 1.2rem;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #000000;
+        line-height: 1.8rem;
+        letter-spacing: 0.2px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
-      .right-box {
-        width: 24rem;
-        flex: 1;
-        .username {
-            margin-top: 0.7rem;
-            margin-bottom: 0.8rem;
-            line-height: 2rem;
-            font-size: 1.4rem;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
-            color: #000000;
-        }
-        .desc {
-            margin-bottom: 0.7rem;
-            width: 28.8rem;
-            font-size: 1.2rem;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: #000000;
-            line-height: 1.8rem;
-            letter-spacing: 0.2px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-        .bottom-info {
-          box-sizing: border-box;
-          padding-bottom: 0.8rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          font-size: 1.2rem;
-          font-family: PingFangSC-Regular, PingFang SC;
-          font-weight: 400;
-          color: #707070;
-          line-height: 1.8rem;
-          .title {
-            width: 14rem;
-            text-align: right;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
+
+      .bottom-info {
+        box-sizing: border-box;
+        padding-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #707070;
+        line-height: 1.8rem;
+
+        .title {
+          width: 14rem;
+          text-align: right;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
-	}      
+    }
+  }
 }

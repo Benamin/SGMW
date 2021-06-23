@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, IonicPage, LoadingController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {HomeService} from "../home.service";
 import {Storage} from "@ionic/storage";
 import {defaultImg} from "../../../app/app.constants";
@@ -11,6 +11,8 @@ import {CommonService} from "../../../core/common.service";
     templateUrl: 'study-task.html',
 })
 export class StudyTaskPage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
 
     defaultImg = defaultImg;
     mineInfo;
@@ -53,8 +55,11 @@ export class StudyTaskPage {
                 this.mineInfo = value;
             }
         });
-        this.load = this.loadCtrl.create({content: "加载中..."});
-        this.load.present();
+        this.showLoading();
+        this.initData();
+    }
+
+    initData() {
         const year = new Date(this.myDate).getFullYear();
         const month = new Date(this.myDate).getMonth() + 1;
         const data = {
@@ -67,7 +72,7 @@ export class StudyTaskPage {
             if (res.data) {
                 this.getStudyTask();
             } else {
-                this.load.dismissAll();
+                this.dismissLoading();
             }
         })
     }
@@ -84,7 +89,7 @@ export class StudyTaskPage {
         }
         this.homeSer.StudyTaskList(data).subscribe(
             (res) => {
-                this.load.dismissAll();
+                this.dismissLoading();
                 this.isLoad = true;
                 if (res.data) {
                     this.obj = res.data;
@@ -134,7 +139,7 @@ export class StudyTaskPage {
 
     }
 
-    //千万课程
+    //前往课程
     getItem(item) {
         const date = new Date();
         const nowMonth = date.getMonth() + 1;
@@ -155,6 +160,21 @@ export class StudyTaskPage {
             StructureType: item.StructureType,
             enterResource: 'studyTask'
         })
+    }
+
+
+    doRefresh(e) {
+        this.initData();
+    }
+
+    showLoading() {
+        this.refresher._top = this.content.contentTop + 'px';
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 
 }

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Events, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, Events, IonicPage, LoadingController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {LearnService} from "../learn.service";
 import {LearningPage} from "../learning";
 import {Keyboard} from "@ionic-native/keyboard";
@@ -11,6 +11,8 @@ import {LogService} from "../../../service/log.service";
     templateUrl: 'course-type.html',
 })
 export class CourseTypePage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
 
     typeList = [];
     rightList = [];
@@ -29,12 +31,11 @@ export class CourseTypePage {
     ionViewDidLoad() {
         // 发布 自定义事件
         this.events.publish('messageTabBadge:change', {});
+        this.showLoading();
         this.getType();
     }
 
     getType() {
-        const loading = this.loadCtrl.create();
-        loading.present();
         const data = {
             code: "Subject"
         }
@@ -43,7 +44,7 @@ export class CourseTypePage {
                 if (res.data) {
                     this.typeList = res.data;
                     this.rightList = this.typeList[0];
-                    loading.dismiss();
+                    this.dismissLoading();
                 }
             }
         )
@@ -75,5 +76,18 @@ export class CourseTypePage {
 
     gotoListAll() {
         this.navCtrl.push(LearningPage, {keyWord: ''});
+    }
+
+    doRefresh(e) {
+        this.getType();
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 }

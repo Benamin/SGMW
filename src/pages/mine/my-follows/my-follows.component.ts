@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {timer} from "rxjs/observable/timer";
-import {LoadingController, NavController} from 'ionic-angular';
+import {Content, LoadingController, NavController, Refresher} from 'ionic-angular';
 import {TeacherPage} from "../../learning/teacher/teacher";
 import {ForumService} from '../../forum/forum.service';
 import {LearnService} from "../../learning/learn.service";
@@ -12,7 +12,9 @@ import {LogService} from "../../../service/log.service";
     selector: 'page-my-follows',
     templateUrl: './my-follows.component.html',
 })
-export class MyFollowsComponent implements OnInit {
+export class MyFollowsComponent  {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
     navli = '讲师';
     collectionList = [];
 
@@ -27,13 +29,9 @@ export class MyFollowsComponent implements OnInit {
         public navCtrl: NavController,
         private loadCtrl: LoadingController,
         private forumServe: ForumService,
-        private logSer:LogService,
+        private logSer: LogService,
         private learnSer: LearnService,
         private commonSer: CommonService) {
-    }
-
-    ngOnInit() {
-
     }
 
     ionViewDidEnter() {
@@ -41,22 +39,14 @@ export class MyFollowsComponent implements OnInit {
         this.GetSubscribeListpage.page = 1;
         this.myfavoritespage.PageIndex = 1;
         this.logSer.visitLog('wdgz');
-        this.is_getData();
+        this.showLoading();
     }
 
     // 关注的动态
     myfollows() {
         let loading = null;
-        if (this.myfavoritespage.PageIndex == 1) {
-            loading = this.loadCtrl.create({
-                content: ''
-            });
-            loading.present();
-        }
         this.forumServe.myfollows(this.myfavoritespage).subscribe((res: any) => {
-            if (this.myfavoritespage.PageIndex == 1) {
-                loading.dismiss();
-            }
+            this.dismissLoading();
             let arr = res.data.Items;
             arr.forEach(element => {
                 element.PostRelativeTime = this.forumServe.PostRelativeTimeForm(element.PostRelativeTime);
@@ -70,16 +60,9 @@ export class MyFollowsComponent implements OnInit {
 
     // 关注的讲师列表
     GetSubscribeList() {
-        let loading = null;
-        if (this.GetSubscribeListpage.page == 1) {
-            loading = this.loadCtrl.create({
-                content: ''
-            });
-            loading.present();
-        }
         this.forumServe.GetSubscribeList(this.GetSubscribeListpage).subscribe((res: any) => {
             if (this.GetSubscribeListpage.page == 1) {
-                loading.dismiss();
+                this.dismissLoading();
             }
             let arr = res.data.TeacherItems;
             if (arr.length == 0) {
@@ -102,6 +85,8 @@ export class MyFollowsComponent implements OnInit {
         this.navli = text;
         this.GetSubscribeListpage.page = 1;
         this.myfavoritespage.PageIndex = 1;
+        this.showLoading()
+
         this.is_getData();
     }
 
@@ -112,9 +97,6 @@ export class MyFollowsComponent implements OnInit {
         this.GetSubscribeListpage.page = 1;
         this.collectionList = [];
         this.is_getData();
-        timer(1000).subscribe(() => {
-            e.complete();
-        });
     }
 
     is_getData() {
@@ -126,13 +108,11 @@ export class MyFollowsComponent implements OnInit {
     }
 
     isAddData(e) {
+        this.showLoading()
+
         this.GetSubscribeListpage.page++;
         this.myfavoritespage.PageIndex++;
         this.is_getData();
-
-        setTimeout(() => {
-            e.complete();
-        }, 1000);
     }
 
 
@@ -164,5 +144,14 @@ export class MyFollowsComponent implements OnInit {
     // 前往动态详情
     goPostsContent(data) {
         this.navCtrl.push(PostsContentComponent, {data: data});
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 }

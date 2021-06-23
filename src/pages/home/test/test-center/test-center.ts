@@ -71,11 +71,6 @@ export class TestCenterPage {
         this.showLoading();
     }
 
-    doRefresh(e) {
-        this.page.Page = 1;
-        this.getList();
-    }
-
     //考试列表-EType
     //EType  1-等级考试 2-普通考试 3-课堂练习（预习作业）4-课后作业 5-调查问卷
     getList() {
@@ -191,8 +186,12 @@ export class TestCenterPage {
         this.navCtrl.push(SimulationTestPage);
     }
 
+    doRefresh(e) {
+        this.page.Page = 1;
+        this.getList();
+    }
+
     showLoading() {
-        this.refresher._top = this.content.contentTop + 43 + 'px';
         this.refresher.state = 'ready';
         this.refresher._onEnd();
     }

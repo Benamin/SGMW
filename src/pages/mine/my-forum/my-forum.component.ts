@@ -1,5 +1,5 @@
-import {Component, OnInit, NgZone} from '@angular/core';
-import {LoadingController, NavController, Slides, ToastController} from 'ionic-angular';
+import {Component, OnInit, NgZone, ViewChild} from '@angular/core';
+import {Content, LoadingController, NavController, Refresher, Slides, ToastController} from 'ionic-angular';
 import {PostsContentComponent} from '../../forum/posts-content/posts-content.component';
 import {ForumService} from '../../forum/forum.service';
 import {PostAddComponent} from '../../forum/post-add/post-add.component';
@@ -12,6 +12,8 @@ import {CommonService} from "../../../core/common.service";
     templateUrl: './my-forum.component.html',
 })
 export class MyForumComponent {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
     navli: '已发布' | '草稿箱' = '已发布';
     isdoInfinite = true;
     no_list = false;
@@ -40,12 +42,14 @@ export class MyForumComponent {
     ionViewDidLoad() {
         this.pageDate.pageIndex = 1;
         this.forumList = [];
+        this.showLoading();
         this.getData();
     }
 
     // 切换已发布/草稿箱
     switchInformation(text, number) {
         this.navli = text;
+        this.showLoading();
         this.pageDate.pageIndex = 1;
         this.pageDate.status = number;
         this.getData();
@@ -85,12 +89,6 @@ export class MyForumComponent {
     getData() {
         this.isLoad = false;
         let loading = null;
-        if (this.pageDate.pageIndex == 1) {
-            loading = this.loadCtrl.create({
-                content: ''
-            });
-            loading.present();
-        }
         let data = {
             pageIndex: this.pageDate.pageIndex,
             pageSize: this.pageDate.pageSize,
@@ -99,9 +97,7 @@ export class MyForumComponent {
         // GetMypost
         this.serve.GetMypost(data).subscribe((res: any) => {
             this.isLoad = true;
-            if (loading) {
-                loading.dismiss();
-            }
+            this.dismissLoading();
             if (!res.data) {
                 this.isdoInfinite = false;
                 return
@@ -145,9 +141,6 @@ export class MyForumComponent {
     doRefresh(e) {
         this.pageDate.pageIndex = 1;
         this.getData();
-        setTimeout(() => {
-            e.complete();
-        }, 1000);
     }
 
     //话题列表
@@ -181,6 +174,15 @@ export class MyForumComponent {
                 videoArr[i].pause();
             }
         }
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 
 }

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Events, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, Events, LoadingController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {NotificationDetailPage} from "../notification-detail/notification-detail";
 import {StudyPlanPage} from "../../home/study-plan/study-plan";
@@ -18,6 +18,8 @@ import {Badge} from "@ionic-native/badge";
     templateUrl: 'notification.html',
 })
 export class NotificationPage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
 
     notificationList = [];
     page = {
@@ -50,15 +52,12 @@ export class NotificationPage {
     }
 
     ionViewDidEnter() {
-        this.badge.clear().then(()=>{});
-        this.getList();
+        this.badge.clear().then(() => {
+        });
+        this.showLoading();
     }
 
     getList() {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
         const data = {
             page: 1,
             pageSize: this.page.pageSize,
@@ -70,8 +69,7 @@ export class NotificationPage {
                 this.notificationList = res.data.NewsList;
                 this.page.TotalCount = res.data.TotalCount;
                 this.page.isLoad = true;
-                loading.dismiss();
-
+                this.dismissLoading();
                 // 发布 自定义事件
                 this.events.publish('messageTabBadge:change', {});
             }
@@ -79,6 +77,7 @@ export class NotificationPage {
     }
 
     changeCheckType(checkType) {
+        this.showLoading();
         if (this.checkType === checkType) return;
         this.checkType = checkType;
         if (checkType === 'all') this.page.BigType = 0;
@@ -178,8 +177,14 @@ export class NotificationPage {
     doRefresh(e) {
         this.page.page = 1;
         this.getList();
-        timer(1000).subscribe(() => {
-            e.complete();
-        });
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 }

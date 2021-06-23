@@ -10,7 +10,7 @@
                                refreshingSpinner="bubbles">
         </ion-refresher-content>
     </ion-refresher>
-    <navbar [list]="navbarList" [select]="2" (done)="changeType($event)"></navbar>
+    <navbar ion-fixed [list]="navbarList" [select]="2" (done)="changeType($event)"></navbar>
     <div class="learn-list">
         <div class="course-item" tappable *ngFor="let item of courseList" (click)="goCourse(item)">
             <div class="item-img">

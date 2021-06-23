@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {ActionSheetController, LoadingController, NavController, Platform} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {ActionSheetController, Content, LoadingController, NavController, Platform, Refresher} from 'ionic-angular';
 import {Keyboard} from "@ionic-native/keyboard";
 import {HomeService} from "../home.service";
 import {FileService} from "../../../core/file.service";
@@ -15,6 +15,9 @@ import {FileOpener} from "@ionic-native/file-opener";
     templateUrl: 'information-zone.html',
 })
 export class InformationZonePage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
+
     userDefaultImg = './assets/imgs/userDefault.jpg';
     page = {
         Title: '',
@@ -37,6 +40,7 @@ export class InformationZonePage {
     }
 
     ionViewDidLoad() {
+        this.showLoading();
         this.page.resourceLists = [];
         this.GetAskType();
     }
@@ -47,11 +51,6 @@ export class InformationZonePage {
 
     // 获取问题类型
     GetAskType() {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-
-        loading.present();
         const data = {
             code: 'MaterialFileType' // 问题类型 传QuestionType  资料分类传 MaterialFileType
         };
@@ -67,7 +66,6 @@ export class InformationZonePage {
                 this.page.typeArr = typeArr;
                 this.page.FileType = this.page.typeArr[0];
                 this.switchTypeLists(this.page.FileType)
-                loading.dismiss();
             }
         )
     }
@@ -119,11 +117,7 @@ export class InformationZonePage {
     }
 
     getList() {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
         this.page.page = 1;
-        loading.present();
         let dataObj = {
             DisplayName: this.page.Title,
             Page: this.page.page,
@@ -135,7 +129,7 @@ export class InformationZonePage {
                 if (this.file.dataDirectory) this.readLocalFile();
                 this.page.resourceLists = this.DataAssign(res.data);
                 this.page.isLoad = true;
-                loading.dismiss();
+                this.dismissLoading();
             }
         )
     }
@@ -154,9 +148,6 @@ export class InformationZonePage {
     doRefresh(e) {
         this.page.page = 1;
         this.getList();
-        timer(1000).subscribe(() => {
-            e.complete();
-        });
     }
 
     //加载更多
@@ -194,6 +185,7 @@ export class InformationZonePage {
 
     // 切换类型
     switchTypeLists(item) {
+        this.showLoading();
         this.page.FileType = item;
         this.getList();
     }
@@ -242,5 +234,14 @@ export class InformationZonePage {
                 this.commonSer.alert(`打开文件出错,${JSON.stringify(error)}`);
             });
         }
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 }

@@ -1,5 +1,13 @@
-import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {
+    Content,
+    IonicPage,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Refresher
+} from 'ionic-angular';
 import {QIndexComponent} from "../../../components/q-index/q-index";
 import {SearchSidebarComponent} from "../../../components/search-sidebar/search-sidebar";
 import {defaultImg} from "../../../app/app.constants";
@@ -19,6 +27,8 @@ import {CommonService} from "../../../core/common.service";
     templateUrl: 'focus-train.html',
 })
 export class FocusTrainPage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
     defaultImg = defaultImg;
     page = {
         Title: "",
@@ -52,6 +62,7 @@ export class FocusTrainPage {
     }
 
     ionViewDidLoad() {
+        this.showLoading();
         this.getList();
         this.getArea();
     }
@@ -60,6 +71,7 @@ export class FocusTrainPage {
     search(event) {
         if (event && event.keyCode == 13) {
             this.page.page = 1;
+            this.showLoading();
             this.getList();
             //搜索日志
             if (this.page.Title) this.logSer.keyWordLog(this.page.Title);
@@ -94,10 +106,6 @@ export class FocusTrainPage {
 
     getList() {
         this.nowTime = new Date().getTime();
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
         const data = {
             page: 1,
             Title: this.page.Title,
@@ -119,7 +127,7 @@ export class FocusTrainPage {
                     this.page.TotalItems = res.data.TotalCount;
                 }
                 this.page.isLoad = true;
-                loading.dismiss();
+                this.dismissLoading();
             }
         )
     }
@@ -155,15 +163,6 @@ export class FocusTrainPage {
         )
     }
 
-    //下拉刷新
-    doRefresh(e) {
-        this.page.page = 1;
-        this.getList();
-        timer(1000).subscribe(() => {
-            e.complete();
-        });
-    }
-
     //前往详情
     getItem(item) {
         this.navCtrl.push(FocusCoursePage, {id: item.Id});
@@ -178,11 +177,26 @@ export class FocusTrainPage {
             });
         modal.onDidDismiss(res => {
             if (res) {
+                this.showLoading();
                 this.filterObj = res;
                 this.getList();
             }
         });
         modal.present();
+    }
+
+    doRefresh(e) {
+        this.page.page = 1;
+        this.getList();
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 
 }
