@@ -239,7 +239,9 @@ page-integral {
     position: relative;
     text-align: center;
   }
-
+  .title-ios{
+    position: absolute;
+  }
   .title:before {
     content: " ";
     position: absolute;
