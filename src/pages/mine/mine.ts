@@ -83,7 +83,26 @@ export class MinePage {
         this.storage.get('CurrentRole').then(val => {
             this.CurrentRole = val;
             this.RoleName = val.CurrentRoleName;
-        })
+        });
+        this.getDataNum();
+    }
+
+    getDataNum (){
+        this.mineSer.GetCourseCount().subscribe(
+            (res) => {
+                Object.assign(this.number, { CourseCount: res.data });
+            }
+        );
+        this.mineSer.GetNowMonthIntegralData().subscribe(
+            (res) => {
+                Object.assign(this.number, { NowMonthIntegralData: res.data });
+            }
+        );
+        this.mineSer.GetPostTalkData().subscribe(
+            (res) => {
+                Object.assign(this.number, { PostTalkData: res.data });
+            }
+        );
     }
 
     changeHeadPhoto() {
@@ -122,14 +141,14 @@ export class MinePage {
         this.logSer.visitLog('grzx');
         this.getVersion();
         this.getUserInfo();
-        this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {
-            this.mineSer.GetMyProductCountInfo().subscribe(
-                (res2) => {
-                    res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
-                    Object.assign(this.number, res2.data);
-                }
-            )
-        });
+        // this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {
+            // this.mineSer.GetMyProductCountInfo().subscribe(
+            //     (res2) => {
+            //         res2.data.CollectionCount = res1.data.TotalItems + res2.data.CollectionCount;
+            //         Object.assign(this.number, res2.data);
+            //     }
+            // )
+        // });
         const data = {
             "GetMyList": 1,//是否获取我的短视频列表1代表我得，0代表所有
             "Page": 1,

@@ -44,51 +44,51 @@
         <div class="label-text">学习数据</div>
         <ul class="post-list">
             <li>
-                <div>{{number?.CourseCount || '0'}}</div>
-                <div>课程</div>
+                <div>{{ number?.CourseCount?.NowMonthStudied || '0'}}</div>
+                <div>本月学习</div>
             </li>
             <li>
-                <div>{{number?.WorkCount || '0'}}</div>
-                <div>累积学习</div>
+                <div>{{ number?.CourseCount?.TotalStudied || '0'}}</div>
+                <div>累计学习</div>
             </li>
         </ul>
     </div>
 
-    <div class="post-box-exchange" tappable>
+    <div class="post-box-exchange" tappable (click)="goMyForum()">
         <div class="label-text">交流数据</div>
         <ul class="post-list">
             <li>
-                <div>{{number?.CourseCount || '0'}}</div>
+                <div>{{ number?.NowMonthIntegralData?.TotalMonth  || '0'}}</div>
                 <div>本月发帖</div>
             </li>
             <li>
-                <div>{{number?.WorkCount || '0'}}</div>
+                <div>{{ number?.NowMonthIntegralData?.Total  || '0'}}</div>
                 <div>累计发帖</div>
             </li>
             <li>
-                <div>{{number?.WorkCount || '0'}}</div>
+                <div>{{ number?.NowMonthIntegralData?.TotalMonthView  || '0'}}</div>
                 <div>本月浏览量</div>
             </li>
             <li>
-                <div>{{number?.WorkCount || '0'}}</div>
+                <div>{{ number?.NowMonthIntegralData?.TotalView || '0'}}</div>
                 <div>累计浏览量</div>
             </li>
         </ul>
     </div>
 
-    <div class="post-box-points" tappable>
+    <div class="post-box-points" tappable (click)="goToCourse()">
         <div class="label-text">积分数据</div>
         <ul class="post-list">
             <li>
-                <div>{{number?.CourseCount || '0'}}</div>
+                <div>{{ number?.NowMonthIntegralData?.MonthCreadit || '0'}}</div>
                 <div>本月获取</div>
             </li>
             <li>
-                <div>{{number?.WorkCount || '0'}}</div>
+                <div>{{ number?.NowMonthIntegralData?.MonthDHJFCreadit  || '0'}}</div>
                 <div>本月消费</div>
             </li>
             <li>
-                <div>{{number?.WorkCount || '0'}}</div>
+                <div>{{ number?.NowMonthIntegralData?.credit || '0'}}</div>
                 <div>当前持有</div>
             </li>
         </ul>
