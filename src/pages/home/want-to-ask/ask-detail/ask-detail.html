@@ -10,6 +10,7 @@
 			<img class="avatar" src="{{ page.askItem.headPhoto || userDefaultImg }}" alt="头像"/>
 			<span class="name">{{ page.askItem.UserName }}</span>
 			<span class="total-num">其他{{ page.askItem.FocusNum }}人也想知道</span>
+			<span class="timer">{{ page.askItem.CreateTime | date:'yyyy-MM-dd HH:mm' }}</span>
 		</div>
 		<div class="desc">{{ page.askItem.QuestionDesc }}</div>
 		
