@@ -50,9 +50,9 @@ export class AddAskPage {
 			    (res) => {
 			        console.log(9999, res.data)
 							this.page.askTypeArr = res.data;
-							if (this.page.askTypeArr.length > 0) {
-								this.page.nowSelectAskType = this.page.askTypeArr[0];
-							}
+							// if (this.page.askTypeArr.length > 0) {
+							// 	this.page.nowSelectAskType = this.page.askTypeArr[0];
+							// }
 							loading.dismiss();
 			    }
 			)
@@ -92,7 +92,7 @@ export class AddAskPage {
 		submitAdd() {
 			if (this.page.nowSelectAskType === null) {
 				let toast = this.toastCtrl.create({
-				      message: '请选择问题类型！',
+				      message: '请选择反馈类型！',
 							position: 'middle',
 				      duration: 1500
 				    });

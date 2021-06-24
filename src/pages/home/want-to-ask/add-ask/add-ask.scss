@@ -119,16 +119,19 @@ page-add-ask {
 				// width: 6.7rem;
 				padding: 0 1.5rem;
 				height: 2rem;
-				line-height: 2rem;
 				font-size: 1.3rem;
 				text-align: center;
 				background: #FFFFFF;
 				color: #7A7A7A;
 				border: 1px solid #7A7A7A;
 				border-radius: 1.4rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				&.actived {
-					color: #474747;
-					background: #DEDEDE;
+					color: #FCA241;
+					background: linear-gradient(90deg, #FFE88D 0%, #FFF6D4 100%);
+					border-color: #FCA241;
 				}
 			}
 		} 

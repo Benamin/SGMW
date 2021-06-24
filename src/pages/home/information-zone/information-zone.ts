@@ -57,7 +57,7 @@ export class InformationZonePage {
         };
         this.homeSer.GetAskType(data).subscribe(
             (res) => {
-                let allType = {label: '全部类型', value: null};
+                let allType = {label: '全部', value: null};
                 let typeArr = [allType];
                 if (res.data && res.data.length > 0) {
                     for (let i = 0; i < res.data.length; i++) {
