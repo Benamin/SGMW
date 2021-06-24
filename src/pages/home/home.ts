@@ -508,6 +508,12 @@ export class HomePage implements OnInit {
 
     // 前往 认证进阶 的 勋章设置
     goAdvancedLevel() {
+        // let loading = this.loadCtrl.create({
+            // spinner: 'hide',
+            // content: `<div>加载中</div>`
+        //     content: "加载中...",
+        //     spinner: 'crescent',
+        // });
         let loading = this.loadCtrl.create({
             content: ''
         });

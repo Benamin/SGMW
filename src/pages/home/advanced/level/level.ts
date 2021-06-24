@@ -124,7 +124,7 @@ export class AdvancedLevelPage {
         let loading = this.loadCtrl.create({
             content: ''
         });
-        loading.present();
+        // loading.present();
         let nowPlId = null;
         if (this.page.plid === 'theLast') {
             nowPlId = this.page.levelInformation[this.page.levelInformation.length - 1].ID;
@@ -247,7 +247,7 @@ export class AdvancedLevelPage {
         let loading = this.loadCtrl.create({
             content: ''
         });
-        loading.present();
+        // loading.present();
         console.log('888*****leveltype', this.page.leveltype)
         this.homeSer.getAdvancedLevel({leveltype: this.page.leveltype}).subscribe(
             (res) => {
@@ -426,7 +426,7 @@ export class AdvancedLevelPage {
         let loading = this.loadCtrl.create({
             content: ''
         });
-        loading.present();
+        // loading.present();
 
         console.log('getParams', this.page.getParams)
         this.page.getListsApi(this.page.getParams).subscribe(
@@ -515,7 +515,7 @@ export class AdvancedLevelPage {
                     let loading = this.loadCtrl.create({
                         content: ''
                     });
-                    loading.present();
+                    // loading.present();
 
                     this.homeSer.ValidationLevel({}).subscribe(
                         (res) => {
@@ -608,7 +608,7 @@ export class AdvancedLevelPage {
         let loading = this.loadCtrl.create({
             content: ''
         });
-        loading.present();
+        // loading.present();
         this.homeSer.QueryCoursePage(data).subscribe(
             (res) => {
                 this.page.navliArr[0].lists = this.page.navliArr[0].lists.concat(res.data.productListItems);
