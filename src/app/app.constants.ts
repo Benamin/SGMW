@@ -1,6 +1,6 @@
-export let env = 'localhost';
+// export let env = 'localhost';
 // export let env = 'dev';
-// export let env = 'uat';
+export let env = 'uat';
 // export let env = 'prod';
 
 let keyEnv = 'dev';
@@ -10,7 +10,7 @@ let keyEnv = 'dev';
 /***培训平台***/
 export const SERVER_API_URL_LOCALHOST = '/api';
 export const SERVER_API_URL_DEV = 'http://devapi1.chinacloudsites.cn/api'; //开发环境
-export const SERVER_API_URL_UAT = 'http://sitapipo1.chinacloudsites.cn/api'; //uat环境
+export const SERVER_API_URL_UAT = 'http://sitapi1.chinacloudsites.cn/api'; //uat环境
 export const SERVER_API_URL_PROD = 'https://elearningapi.sgmw.com.cn/api';  //生产环境
 export const SERVER_API_URL = (env === 'localhost' ? SERVER_API_URL_LOCALHOST : (env == 'dev' ? SERVER_API_URL_DEV : (env == 'uat' ?
     SERVER_API_URL_UAT : (env == 'prod' ? SERVER_API_URL_PROD : ''))));

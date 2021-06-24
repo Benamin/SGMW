@@ -157,7 +157,7 @@ export class LoginPage {
                 private globalData: GlobalData,
                 private loginSer: LoginService, private storage: Storage, private appSer: AppService,
                 private commonSer: CommonService, private keyboard: Keyboard, public statusBar: StatusBar) {
-        this.statusBar.backgroundColorByHexString('#FFFFFF');
+        this.statusBar.backgroundColorByHexString('#F8F8F8');
         console.log(this.platform.is('mobileweb'))
         console.log(this.platform.is('core'))
         if (this.platform.is('mobileweb') || this.platform.is('core')) {
