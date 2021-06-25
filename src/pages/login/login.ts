@@ -310,6 +310,10 @@ export class LoginPage {
             timeStamp: timeStamp,
             sign: this.randomWord.hex_md5(sign)
         };
+        console.log("content");
+        console.log(content);
+        console.log("header");
+        console.log(header);
 
         if (this.isMobile) {
             this.nativeHttp.setDataSerializer('json');
