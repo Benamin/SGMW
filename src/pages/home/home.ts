@@ -720,7 +720,7 @@ export class HomePage implements OnInit {
         })
     }
     GetTodayIsWantAsk() {
-        this.storage.set('TodayTodayIsWantAsk', null); // 测试
+        // this.storage.set('TodayTodayIsWantAsk', null); // 测试
         this.storage.get('TodayTodayIsWantAsk').then(val => {
             let dateDay = new Date().getTime();
             if (val === null || (val && dateDay - val > 24*60*60*1000*15)) {
