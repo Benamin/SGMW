@@ -39,6 +39,7 @@ import {TreeModule} from 'ng2-tree'
 import {AdvancedLevelPage} from "./advanced/level/level";
 import {AdvancedListsPage} from "./advanced/lists/lists";
 import {RoleModalPage} from "./role-modal/role-modal";
+import {wantAskModalPage} from "./want-ask-modal/want-ask-modal";
 import {RuleModalPage} from "./advanced/rule-modal/rule-modal";
 import {StudyTaskPage} from "./study-task/study-task";
 import {InformationZonePage} from "./information-zone/information-zone";
@@ -49,7 +50,6 @@ import {AddAskPage} from "./want-to-ask/add-ask/add-ask";
 import {WantToAskDetailPage} from "./want-to-ask/ask-detail/ask-detail";
 import {PersonalCenterPage} from "./personal-center/personal-center";
 import {ThemeActivityPage} from "./theme-activity/theme-activity";
-
 
 @NgModule({
     declarations: [
@@ -79,6 +79,7 @@ import {ThemeActivityPage} from "./theme-activity/theme-activity";
         TotalRankingPage,
         VideoReplyPage,
         RoleModalPage,
+        wantAskModalPage,
         RuleModalPage,
         ReplyInputPage,
         CompetitionVideoPage,
@@ -130,6 +131,7 @@ import {ThemeActivityPage} from "./theme-activity/theme-activity";
         TotalRankingPage,
         VideoReplyPage,
         RoleModalPage,
+        wantAskModalPage,
         RuleModalPage,
         ReplyInputPage,
         CompetitionVideoPage,
