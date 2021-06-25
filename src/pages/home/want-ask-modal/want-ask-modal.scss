@@ -21,34 +21,39 @@ page-want-ask-modal {
       overflow: scroll;
       .title {
         box-sizing: border-box;
-        margin: 1.3rem 0 .5rem 1.2rem;
-        font-size: 15px;
+        margin: 1.3rem 0 0.5rem 1.5rem;
+        font-size: 1.6rem;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
-        color: #939393;
+        color: #8D8D8D;
         line-height: 1;
         display: flex;
         align-items: flex-start;
 
         .close-btn {
-          line-height: 1;
-          height: 2rem;
-          margin-top: -0.8rem;
+          //line-height: 1;
+          width: 1.2rem;
+          height: 1.2rem;
+          //margin-top: -0.8rem;
           margin-left: auto;
-          margin-right: 1.2rem;
+          margin-right: 1.5rem;
           color: #ffce40;
+          img {
+            width: 100%;
+            height: 100%;
+          }
           //background-image:-webkit-linear-gradient(bottom,red,#fd8403,yellow);
           //-webkit-background-clip:text;
           //-webkit-text-fill-color:transparent;
         }
       }
       .desc {
-        margin: 0 1.2rem;
-        margin-bottom: 1rem;
+        margin: 0 1.5rem;
+        margin-bottom: 1.2rem;
         padding-bottom: 1rem;
         text-indent: 2em;
-        color: #939393;
-        letter-spacing: 0.2rem;
+        font-size: 1.6rem;
+        color: #8D8D8D;
         text-align:justify;
         text-justify:distribute-all-lines;/*ie6-8*/
         text-align-last: left;/* ie9*/
@@ -60,7 +65,7 @@ page-want-ask-modal {
       .ask-type-box {
         box-sizing: border-box;
         margin-bottom: 0.5rem;
-        padding: 0 1.2rem;
+        padding: 0 1.5rem;
         width: 100%;
         border-bottom: 1rem;
         .ask-type-text {
@@ -78,21 +83,21 @@ page-want-ask-modal {
             margin-right: 1rem;
             // width: 6.7rem;
             padding: 0 1.5rem;
-            height: 2rem;
-            font-size: 1.2rem;
+            height: 2.2rem;
+            //line-height: 2.3rem;
+            font-size: 1.3rem;
             text-align: center;
             background: #FFFFFF;
-            color: #7A7A7A;
-            border: 1px solid #7A7A7A;
+            color: #474747;
+            border: 1px solid rgba(153, 153, 153, 0.5);
             border-radius: 1.4rem;
             display: flex;
             align-items: center;
             justify-content: center;
             &.actived {
-              //color: #FCA241;
+              box-shadow: 0 2px 5px #9fa8b8, 0 0 1px #9fa8b8, 0 0 3px #9fa8b8;
+              border: #bac1cc;
               //background: linear-gradient(90deg, #FFE88D 0%, #FFF6D4 100%);
-              //border-color: #FCA241;
-              box-shadow: 1.5px 1.5px 2px 1px #888888;
             }
           }
         }
@@ -101,12 +106,12 @@ page-want-ask-modal {
       .ask-content {
         padding: 0 1.5rem;
         .content-area {
-          margin-bottom: 0.8rem;
+          margin-bottom: 1.2rem;
           box-sizing: border-box;
           padding: 0.8rem 1.2rem;
-          font-size: 1.2rem;
+          font-size: 1.3rem;
           width: 100%;
-          height: 8.5rem;
+          height: 8.3rem;
           border: none;
           resize: none;
           cursor: pointer;
@@ -127,27 +132,27 @@ page-want-ask-modal {
           .ask-pics-box {
             position: relative;
             margin-right: 1rem;
-            width: 4.6rem;
-            height: 4.6rem;
+            width: 5rem;
+            height: 5rem;
 
             .mask {
               position: absolute;
               top: 0;
               left: 0;
-              width: 4.6rem;
-              height: 4.6rem;
+              width: 5rem;
+              height: 5rem;
               background-color: rgba($color: #000000, $alpha: 0.3);
             }
             .close-icon {
               position: absolute;
               top: 0;
               right: 0;
-              width: 2rem;
-              height: 2rem;
+              width: 1.1rem;
+              height: 1.1rem;
             }
             .cover-pic {
-              width: 4.6rem;
-              height: 4.6rem;
+              width: 5rem;
+              height: 5rem;
               object-fit: cover;
             }
 
@@ -170,18 +175,19 @@ page-want-ask-modal {
 
       .sure-btn {
         margin: 0 auto;
-        margin-top: 1.4rem;
+        margin-top: 1.5rem;
         margin-bottom: 1.8rem;
         width: 13rem;
         height: 3.4rem;
         line-height: 3.5rem;
         text-align: center;
         font-size: 1.4rem;
-        color: #000000;
+        font-weight: 600;
+        color: #666666;
         border-radius: 1.7rem;
         //background: url('../assets/imgs/advanced/rz_button@2x.png') no-repeat;
         //background-size: 100% 100%;
-        background: linear-gradient(90deg, #fcd18c 0%, #fbefb5 100%);
+        background: linear-gradient(90deg, #ffd180 0%, #ffeeb7 100%);
         box-sizing: border-box;
       }
       ion-icon {
