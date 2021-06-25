@@ -140,7 +140,8 @@
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-badge": {},
-      "cordova-plugin-advanced-http": {}
+      "cordova-plugin-advanced-http": {},
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "browser",

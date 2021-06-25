@@ -540,7 +540,9 @@ export class PostAddComponent implements OnInit {
                 //压缩图片
                 let options = {
                     file: fileList_n,
-                    quality: 0.5,
+                    quality: 0.2,
+                    mimeType: 'image/jpeg',
+                    redressOrientation: false,
                     // 压缩前回调
                     beforeCompress: (result) => {
                         console.log('压缩之前图片尺寸大小: ', result.size);
@@ -595,7 +597,9 @@ export class PostAddComponent implements OnInit {
 
             let options = {
                 file: fileList[0],
-                quality: 0.5,
+                quality: 0.2,
+                mimeType: 'image/jpeg',
+                redressOrientation: false,
                 // 压缩前回调
                 beforeCompress: (result) => {
                     console.log('压缩之前图片尺寸大小: ', result.size);

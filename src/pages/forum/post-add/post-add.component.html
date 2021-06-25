@@ -3,9 +3,6 @@
         <ion-title>
             发布动态
         </ion-title>
-        <span class="release" (click)="sevrData(true)">
-          发布
-        </span>
     </ion-navbar>
 </ion-header>
 <ion-content style="background: #f7f7f7">
@@ -74,15 +71,6 @@
         </span>
       </span>
         </div>
-        <div class="topicList">
-      <span *ngFor="let item of conversationDataSelection;let i = index" (click)="deleteItem(i)">
-        {{item.Name}}
-          <ion-icon ios="ios-close" md="md-close"></ion-icon>
-      </span>
-            <span (click)="addTopic()">
-            <ion-icon ios="ios-add" md="md-add"></ion-icon>
-            话题</span>
-        </div>
         <div class="plate" *ngIf="!focusAmeR">
             <div class="plate-li" (click)="choicePlate('ForumHistory')">
                 <span class="plate-li-name" *ngIf="ForumHistorySelection.length==0">
@@ -96,26 +84,24 @@
                 </span>
                 <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
             </div>
-            <!--      <div class="plate-li" (click)="choicePlate('conversationData')">-->
-            <!--        <span class="plate-li-name"  *ngIf="conversationDataSelection.length==0" >-->
-            <!--          选择话题-->
-            <!--        </span>-->
-            <!--        <span class="plate-li-name" *ngIf="conversationDataSelection.length>0" >-->
-            <!--          <span  *ngFor="let item of conversationDataSelection;index as i" >-->
-            <!--            <span *ngIf="i!=0" >、</span>-->
-            <!--            {{item.Name}}-->
-            <!--          </span>-->
-            <!--        </span>-->
-            <!--        <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">-->
-            <!--      </div>-->
-            <!--      <div class="plate-li">-->
-            <!--        <span class="plate-li-name">-->
-            <!--          申请精华帖-->
-            <!--        </span>-->
-            <!--        <span class="plate-li-name" >-->
-            <!--          <ion-checkbox class="checkbox-btn" [(ngModel)]="ApplyEssence"></ion-checkbox>-->
-            <!--        </span>-->
-            <!--      </div>-->
+            <div class="plate-li" (click)="addTopic()">
+                    <span class="plate-li-name" *ngIf="conversationDataSelection.length==0">
+                      选择话题
+                    </span>
+                <span class="plate-li-name" *ngIf="conversationDataSelection.length>0">
+                      <span *ngFor="let item of conversationDataSelection;index as i" (click)="deleteItem(i)">
+                        <span *ngIf="i!=0">、</span>
+                          {{item.Name}}
+                          <ion-icon style="color: red" ios="ios-close" md="md-close"></ion-icon>
+                      </span>
+                    </span>
+                <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
+            </div>
+        </div>
+        <div class="submitF">
+            <span  (click)="sevrData(true)">
+              发布
+            </span>
         </div>
     </div>
 </ion-footer>

@@ -211,7 +211,7 @@ export class IntegralPage {
         let params = {
             userName: LING_CLUB_APPID, // 原始ID
             path: path, // open mini program page
-            miniprogramType: 2 // 0是正式 1是开发 2是体验版本
+            miniprogramType: 0 // 0是正式 1是开发 2是体验版本
         };
         Wechat.openMiniProgram(params, (data) => {
             console.log(data); // data:{extMsg:""}  extMsg: Corresponds to the app-parameter attribute in the Mini Program component <button open-type="launchApp">

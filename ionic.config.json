@@ -7,15 +7,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://sitapi1.chinacloudsites.cn/api"
-    },
-    {
-      "path": "/XSZSAPI",
       "proxyUrl": "https://elearningapi.sgmw.com.cn/api"
-    },
-    {
-      "path": "/JunKeAPI",
-      "proxyUrl": "https://nbj.sgmw.com.cn"
     },
     {
       "path": "/FWZSAPI",
@@ -23,7 +15,7 @@
     },
     {
       "path": "/LLZSAPI",
-      "proxyUrl": "https://sso-test.baojunev.com"
+      "proxyUrl": "https://sso-sales.sgmwsales.com"
     }
   ]
 }

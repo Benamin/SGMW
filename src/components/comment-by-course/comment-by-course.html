@@ -48,11 +48,9 @@
                 <textarea #textAreaElement [(ngModel)]="replyContent" class="content-textarea"
                           placeholder="{{placeholder}}"></textarea>
             </div>
-            <ion-row style="margin-top: 5px">
-                <ion-col col-4 style="line-height: 30px">
+            <ion-row style="margin-top: 25px">
+                <ion-col col-12 style="line-height: 30px;text-align: center">
                     <span class="send" tappable (click)="submit()">发送</span>
-                </ion-col>
-                <ion-col col-8 text-center class="img-star" *ngIf="type != 'talk'">
                 </ion-col>
             </ion-row>
         </div>
