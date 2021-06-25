@@ -35,6 +35,11 @@ export class AddAskPage {
         this.GetAskType();
         this.getCommonProblem();
     }
+    ionViewDidEnter() {
+        this.page.nowSelectAskType = null;
+        this.page.imgArr = [];
+        this.page.questionDesc = '';
+	}
 
     // 获取问题类型
     GetAskType() {
