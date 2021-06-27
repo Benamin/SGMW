@@ -67,15 +67,15 @@ export class SimulationTestPage {
     isCheck() {
 
         if (!this.test(this.exam.Exam.ExamTimer) || this.exam.Exam.ExamTimer > 120) {
-            this.commonSer.alert('考试最长时间为120分钟,且只能输入正整数');
+            this.commonSer.alertTest('考试最长时间为120分钟,且只能输入正整数');
             return
         }
         if (!this.test(this.exam.Exam.ExamTimer) || this.exam.TotalQuestionNum === 0 || this.exam.TotalQuestionNum > 100) {
-            this.commonSer.alert('考试题目的数量在1～100,且只能输入正整数');
+            this.commonSer.alertTest('考试题目的数量在1～100,且只能输入正整数');
             return;
         }
         if (this.brandList.length == 0) {
-            this.commonSer.alert('请选择分类')
+            this.commonSer.alertTest('请选择分类')
             return
         }
 

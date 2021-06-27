@@ -59,10 +59,12 @@
                                         
                                        placeholder="请输入手机号码"/>
                             </div>
-                            <div style="width: 60%" class="input-input">
-                                <input type="text" [(ngModel)]="llzsPhone.code" autocomplete name="xszspwd"
+                            <div style="width: 100%" class="input-flex-space">
+                                <div class="input-left-box input-input">
+                                    <input type="text" [(ngModel)]="llzsPhone.code" autocomplete name="xszspwd"
                                         
                                        placeholder="请输入手机验证码"/>
+                                </div>
                                 <span [ngClass]="{'disableBtn':disableBtn}" class="sendCode"
                                       (click)="sendCode()">{{timeText}}</span>
                             </div>

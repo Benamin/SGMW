@@ -1,4 +1,8 @@
 page-do-exam {
+  .toolbar-background-ios{
+    background: #fff!important;
+    border: none!important;
+  }
   .test-process {
     display: flex;
     align-items: center;
@@ -17,6 +21,13 @@ page-do-exam {
       font-weight: 400;
       line-height: 18px;
       letter-spacing: 1px;
+    }
+  }
+  .footer-subject{
+    .more{
+      .icon-ios{
+        color: #97aacf;
+      }
     }
   }
   .item-content {
