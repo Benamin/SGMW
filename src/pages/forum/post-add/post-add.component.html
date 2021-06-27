@@ -3,9 +3,9 @@
         <ion-title>
             发布动态
         </ion-title>
-        <span class="release" (click)="sevrData(true)">
+        <!-- <span class="release" (click)="sevrData(true)">
           发布
-        </span>
+        </span> -->
     </ion-navbar>
 </ion-header>
 <ion-content style="background: #f7f7f7">
@@ -16,7 +16,7 @@
                    placeholder="请输入标题">
         </div>
         <div style="height: 10px;width: 100%; background: #f7f7f7;"></div>
-        <div class="textarea-div" [ngStyle]="{'height':focusAmeR?textareaHeight:'calc(100% - 130px)'}">
+        <div class="textarea-div" [ngStyle]="{'height':focusAmeR?textareaHeight:'calc(100% - 160px)'}">
             <div tabindex="0" id="textareaImg" style="-webkit-user-select:text" class="textarea"
                  contenteditable="true"
                  (input)="inputChange()" (keydown)="selectionStart($event)"
@@ -29,12 +29,9 @@
         </div>
     </div>
 </ion-content>
-<ion-footer>
+<ion-footer class="footer-add-dynamic">
     <div class="buttom-div" id="buttomImgDiv" [ngStyle]="{'padding-bottom': paddingBottom}">
         <div class="img-div">
-            <div *ngIf="multiple !== 'video'" class="add-img" (click)="chooseVideo()">
-                <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
-            </div>
             <div class="videoBox" [hidden]="multiple !== 'video' ">
                 <div *ngIf="video.isLoad" class="loading">
                     <span class="dots-loader"></span>
@@ -55,6 +52,9 @@
                     <p>{{item.alt}}</p>
                 </div>
             </ng-container>
+            <div *ngIf="multiple !== 'video'" class="add-img" (click)="chooseVideo()">
+                <img src="./assets/imgs/forum/other/p71_add@3x.png" alt="">
+            </div>
         </div>
         <!--            上传动态图片-->
         <input type="file" id="image_selector" (change)="uploadMultipleFile($event)" accept="image/*" multiple/>
@@ -79,11 +79,17 @@
         {{item.Name}}
           <ion-icon ios="ios-close" md="md-close"></ion-icon>
       </span>
-            <span (click)="addTopic()">
+            <!-- <span (click)="addTopic()">
             <ion-icon ios="ios-add" md="md-add"></ion-icon>
-            话题</span>
+            话题</span> -->
         </div>
         <div class="plate" *ngIf="!focusAmeR">
+            <div class="plate-li" (click)="addTopic()">
+                <span class="plate-li-name">
+                  选择话题
+                </span>
+                <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
+            </div>
             <div class="plate-li" (click)="choicePlate('ForumHistory')">
                 <span class="plate-li-name" *ngIf="ForumHistorySelection.length==0">
                   选择板块
@@ -96,6 +102,7 @@
                 </span>
                 <img src="./assets/imgs/forum/other/7_1jt@2x.png" alt="">
             </div>
+                 
             <!--      <div class="plate-li" (click)="choicePlate('conversationData')">-->
             <!--        <span class="plate-li-name"  *ngIf="conversationDataSelection.length==0" >-->
             <!--          选择话题-->
@@ -119,6 +126,7 @@
         </div>
     </div>
 </ion-footer>
+<div (click)="sevrData(true)" class="sub-btn">发布</div>
 <div class="edit-pictures" *ngIf="iseditImg">
     <div class="navbar-div">
         <div (click)="iseditImg=false"><img src="./assets/imgs/forum/other/p771_arrow@3x.png" alt=""></div>

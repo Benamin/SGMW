@@ -25,6 +25,7 @@ export class CommonService {
             message: message,
             duration: 3000,
             position: 'middle',
+            cssClass: 'toastTest',
             dismissOnPageChange: true,
         });
         toast.present();

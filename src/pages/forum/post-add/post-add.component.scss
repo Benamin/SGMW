@@ -188,8 +188,6 @@ page-post-add {
     z-index: 10;
     width: 100%;
     display: flex;
-    flex-direction: column;
-
     .navbar-div {
       width: 100%;
       display: flex;
@@ -229,7 +227,7 @@ page-post-add {
       align-items: center;
       justify-content: center;
       flex: 1;
-
+      flex-direction: row-reverse;
       img {
         width: auto;
         height: auto;
@@ -455,5 +453,28 @@ page-post-add {
 
   video {
     background-color: rgba(0, 0, 0, .3);
+  }
+  .footer-add-dynamic{
+    bottom: 70px;
+  }
+  .sub-btn{
+    background: #f00;
+    position: absolute;
+    bottom: 15px;
+    text-align: center;
+    margin: 0 auto;
+    width: 70%;
+    left: 10px;
+    right: 10px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    width: 30.3rem;
+    height: 3.9rem;
+    line-height: 3.9rem;
+    border-radius: 0.5rem;
+    background-color: #384868;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 1.7rem;
   }
 }
