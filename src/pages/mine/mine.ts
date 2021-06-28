@@ -84,7 +84,6 @@ export class MinePage {
             this.CurrentRole = val;
             this.RoleName = val.CurrentRoleName;
         });
-        this.getDataNum();
     }
 
     getDataNum (){
@@ -141,6 +140,8 @@ export class MinePage {
         this.logSer.visitLog('grzx');
         this.getVersion();
         this.getUserInfo();
+
+        this.getDataNum();
         // this.forumServe.myfavorites({"PageIndex": 1, "PageSize": 10}).subscribe((res1: any) => {
             // this.mineSer.GetMyProductCountInfo().subscribe(
             //     (res2) => {
@@ -207,6 +208,7 @@ export class MinePage {
     }
 
     doRefresh(e) {
+        this.getDataNum();
         this.getUserInfo();
         timer(1000).subscribe((res) => {
             e.complete()

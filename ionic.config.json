@@ -7,7 +7,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://sitapi1.chinacloudsites.cn/api"
+      "proxyUrl": "http://devapi1.chinacloudsites.cn/api"
     },
     {
       "path": "/XSZSAPI",

@@ -117,14 +117,15 @@ export class AdvancedLevelPage {
         this.page.roleList = this.navParams.get('roleList');
         if (!this.page.leveltype) this.page.leveltype = this.navParams.get('leveltype').value;
         if (!this.page.levelTypeText) this.page.levelTypeText = this.navParams.get('leveltype').label;
-        this.getAdvancedLevel();
+        let noLoading = true
+        this.getAdvancedLevel(noLoading);
     }
 
     getModalData() {
         let loading = this.loadCtrl.create({
             content: ''
         });
-        // loading.present();
+        loading.present();
         let nowPlId = null;
         if (this.page.plid === 'theLast') {
             nowPlId = this.page.levelInformation[this.page.levelInformation.length - 1].ID;
@@ -242,12 +243,12 @@ export class AdvancedLevelPage {
     }
 
     // 用户等级信息
-    getAdvancedLevel() {
+    getAdvancedLevel(noLoading=null) {
         // console.log('leveltype99:', this.page.leveltype)
         let loading = this.loadCtrl.create({
             content: ''
         });
-        // loading.present();
+        if (!noLoading) loading.present();
         console.log('888*****leveltype', this.page.leveltype)
         this.homeSer.getAdvancedLevel({leveltype: this.page.leveltype}).subscribe(
             (res) => {
@@ -285,7 +286,7 @@ export class AdvancedLevelPage {
                         }
                         this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
                         this.initLists();
-                        this.setParams();
+                        this.setParams(noLoading);
                         return
                     }
                     this.page.firstTime = false;
@@ -308,7 +309,7 @@ export class AdvancedLevelPage {
                         if (res.data.Hierarchy === levelInformation[0].Hierarchy) {
                             this.page.plid = levelInformation[1].ID;
                             // let item = this.page.levelInformation[1];
-                            this.setParams();
+                            this.setParams(noLoading);
                             this.page.canClick = true;
                         } else {
 
@@ -361,7 +362,7 @@ export class AdvancedLevelPage {
         return levelInformation;
     }
 
-    setParams() {
+    setParams(noLoading=null) {
         let getListsApi = null;
         let getParams = {
             csStatus: 2,          //-1 未开始 0进行中 1已完成 2全部
@@ -418,15 +419,15 @@ export class AdvancedLevelPage {
 
         this.page.getListsApi = getListsApi;
         this.page.getParams = getParams;
-        this.getLists();
+        this.getLists(noLoading);
     }
 
-    getLists() {
+    getLists(noLoading=null) {
         this.page.isLoaded = false;
         let loading = this.loadCtrl.create({
             content: ''
         });
-        // loading.present();
+        if (!noLoading) loading.present();
 
         console.log('getParams', this.page.getParams)
         this.page.getListsApi(this.page.getParams).subscribe(
@@ -515,7 +516,7 @@ export class AdvancedLevelPage {
                     let loading = this.loadCtrl.create({
                         content: ''
                     });
-                    // loading.present();
+                    loading.present();
 
                     this.homeSer.ValidationLevel({}).subscribe(
                         (res) => {
@@ -608,7 +609,7 @@ export class AdvancedLevelPage {
         let loading = this.loadCtrl.create({
             content: ''
         });
-        // loading.present();
+        loading.present();
         this.homeSer.QueryCoursePage(data).subscribe(
             (res) => {
                 this.page.navliArr[0].lists = this.page.navliArr[0].lists.concat(res.data.productListItems);
