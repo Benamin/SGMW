@@ -184,9 +184,8 @@ export class InformationZonePage {
 
     // 切换类型
     switchTypeLists(item) {
-        this.showLoading();
         this.page.FileType = item;
-        this.getList();
+        this.showLoading();
     }
 
     //读取本地文件
