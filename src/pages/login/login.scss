@@ -264,4 +264,9 @@ page-login {
   .swiper-slide {
     align-items: baseline;
   }
+  .login-input-box{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content:space-between;
+  }
 }
