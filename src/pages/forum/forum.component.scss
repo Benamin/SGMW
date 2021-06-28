@@ -5,7 +5,8 @@ page-forum {
     background: white;
     display: flex;
     width: 100%;
-
+    border-bottom: 1px solid #CFCFCF;
+    padding-bottom: 2px;
     .navli {
       flex: 1;
       text-align: center;
@@ -62,7 +63,7 @@ page-forum {
       line-height: 40px;
       font-size: 14px;
       font-weight: 700;
-      padding-left: 15px;
+      padding-left: 20px;
     }
 
     h3::before {
@@ -74,7 +75,7 @@ page-forum {
       height: 16px;
       border-radius: 2px;
       margin-top: 10px;
-      background: -webkit-linear-gradient(#FFF7CB, #FFC92D);
+      // background: -webkit-linear-gradient(#FFF7CB, #FFC92D);
     }
 
     .more {
@@ -417,7 +418,7 @@ page-forum {
     position: relative;
     margin-left: auto;
     background: #fff;
-    width: 50%;
+    width: 70%;
     height: 3rem;
     margin-right: 0;
     line-height: 1rem;
@@ -432,7 +433,22 @@ page-forum {
       top: .7rem;
     }
   }
-
+  .post-introduction-con{
+    .nowrap-2{
+      font-weight: 400;
+    }
+  }
+  .header-ios{
+    .toolbar-background-ios{
+      background: #fff!important;
+    }
+  }
+  .tabs-ios{
+    background: #f00;
+    .tabbar{
+      background: #fff!important;;
+    }
+  }
   ion-refresher {
     z-index: 1;
     display: block;

@@ -23,6 +23,7 @@ comment-star {
     top: 0;
     border-radius: 4px;
     background-image: linear-gradient(to bottom, #fee6a3, #feca46);
+    background: #fff;
   }
 
   .img-star {
@@ -36,11 +37,12 @@ comment-star {
 
   .comment-star {
     display: flex;
-
+    border-bottom: 1px solid #DEDEDE;
+    padding-bottom: 20px;
     .left {
       width: 50%;
       text-align: center;
-
+      border-right: 1px solid #DEDEDE;
       p + p {
         margin-top: 1.2rem;
       }
@@ -54,7 +56,7 @@ comment-star {
 
     .right {
       width: 50%;
-      padding-left: 1.2rem;
+      padding-left: 2.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
