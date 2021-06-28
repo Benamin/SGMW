@@ -1,67 +1,58 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>我想反馈</ion-title>
-    </ion-navbar>
+	<ion-navbar>
+		<ion-title>我想反馈</ion-title>
+	</ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="下拉刷新"
-                               refreshingSpinner="bubbles">
-        </ion-refresher-content>
-    </ion-refresher>
-    <div class="top-box">
-        <span class="lists-title">常见问题</span>
-        <span class="all-btn" (click)="goWantToAsk()">全部问题</span>
-    </div>
-    <ul class="list-box">
-        <li *ngFor="let item of page.CommonProblemLists; let aIndex = index"
-            (click)="$event.stopPropagation();goAskedDetail(item)">
-            <div class="questions-box">
-                <span class="label">问</span>
-                <span class="text-questions">{{ item.QuestionDesc }}</span>
-            </div>
-            <div class="answers-box">
-                <span class="label">答</span>
-                <span class="text-answers">
+	<div class="top-box">
+		<span class="lists-title">常见问题</span>
+		<span class="all-btn" (click)="goWantToAsk()">全部问题</span>
+	</div>
+	<ul class="list-box">
+		<li *ngFor="let item of page.CommonProblemLists; let aIndex = index" (click)="$event.stopPropagation();goAskedDetail(item)">
+			<div class="questions-box">
+				<span class="label">问</span>
+				<span class="text-questions">{{ item.QuestionDesc }}</span>
+			</div>
+			<div class="answers-box">
+				<span class="label">答</span>
+				<span class="text-answers">
 					<span *ngIf="item.QuestionReplyItems">
 						<span class="name">骏菱学社小助手：</span>
 						<span>{{ item.QuestionReplyItems.ReplyContent }}</span>
 					</span>
 					<span *ngIf="!item.QuestionReplyItems">暂无回答</span>
 				</span>
-            </div>
-        </li>
-    </ul>
+			</div>
+		</li>
+	</ul>
 
-    <div class="ask-type-box">
-        <div class="ask-type-text">反馈类型</div>
-        <div class="ask-type-items">
-            <div class="type-item" [ngClass]="{'actived': page.nowSelectAskType?.value === item.value}"
-                 *ngFor="let item of page.askTypeArr; let aTIndex = index"
-                 (click)="changeAskType(aTIndex)">{{ item.label }}</div>
-        </div>
-    </div>
+	<div class="ask-type-box">
+		<div class="ask-type-text">反馈类型</div>
+		<div class="ask-type-items">
+			<div class="type-item" [ngClass]="{'actived': page.nowSelectAskType?.value === item.value}" *ngFor="let item of page.askTypeArr; let aTIndex = index" (click)="changeAskType(aTIndex)">{{ item.label }}</div>
+		</div>
+	</div>
 
-    <!--<div class="title-box">-->
-    <!--<ion-input type="text" placeholder="请输入问题标题" [(ngModel)]="page.Title" [ngModelOptions]="{standalone: true}"></ion-input>-->
-    <!--</div>-->
+	<!--<div class="title-box">-->
+		<!--<ion-input type="text" placeholder="请输入问题标题" [(ngModel)]="page.Title" [ngModelOptions]="{standalone: true}"></ion-input>-->
+	<!--</div>-->
 
-    <div class="ask-content">
-        <textarea [(ngModel)]="page.questionDesc" class="content-area" placeholder="请输入问题内容…"></textarea>
-        <div class="upload-text">上传图片</div>
-        <div class="ask-pics-lists">
-            <div class="ask-pics-box" *ngFor="let imgItem of page.imgArr; let imgIndex = index">
-                <div class="mask"></div>
-                <img (click)="$event.stopPropagation();deleteImg(imgIndex)" class="close-icon"
-                     src="./assets/imgs/competition/p71_cancel@2x.png">
-                <img class="cover-pic" [src]="imgItem || ''" alt="封面图">
-            </div>
-            <div class="ask-pics-box">
-                <img (click)="takePic()" class="cover-pic" src="./assets/imgs/competition/p71_add@2x.png" alt="上传按钮">
-            </div>
-        </div>
-        <div class="ask-pics-desc">最多4张图</div>
-    </div>
+	<div class="ask-content">
+		<textarea [(ngModel)]="page.questionDesc" class="content-area" placeholder="请输入您的问题"></textarea>
+		<div class="upload-text">上传图片</div>
+		<div class="ask-pics-lists">
+			<div class="ask-pics-box" *ngFor="let imgItem of page.imgArr; let imgIndex = index">
+				<div class="mask"></div>
+				<img (click)="$event.stopPropagation();deleteImg(imgIndex)" class="close-icon" src="./assets/imgs/competition/p71_cancel@2x.png">
+				<img class="cover-pic" [src]="imgItem || ''" alt="封面图">
+			</div>
+			<div class="ask-pics-box">
+				<img (click)="takePic()" class="cover-pic" src="./assets/imgs/competition/p71_add@2x.png" alt="上传按钮">
+			</div>
+		</div>
+		<div class="ask-pics-desc">最多4张图</div>
+	</div>
 
-    <div (click)="$event.stopPropagation();submitAdd()" class="sub-btn">提交</div>
+	<div (click)="$event.stopPropagation();submitAdd()" class="sub-btn">提交</div>
 </ion-content>

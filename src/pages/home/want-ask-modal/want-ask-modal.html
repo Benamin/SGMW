@@ -1,0 +1,43 @@
+<div class="main">
+    <div class="content" tappable (click)="$event.stopPropagation();close()">
+        <div class="content-body" tappable (click)="stop($event)">
+
+            <div class="title">
+                {{ mineInfo?.UserName }}你好！
+                <div class="close-btn" (click)="close()">
+                  <img src="./assets/imgs/new_version/home/close@2x.png" alt="">
+                </div>
+            </div>
+            <div class="desc">最近使用骏菱学社是否有发现什么问题呢，麻烦把你的问题或建议卸载下方并提交，以方便我们尽快优化，感谢支持！</div>
+
+            <div class="ask-type-box">
+                <!--<div class="ask-type-text">反馈类型</div>-->
+                <div class="ask-type-items">
+                    <div class="type-item" [ngClass]="{'actived': nowSelectAskType?.value === item.value}" *ngFor="let item of askTypeArr; let aTIndex = index" (click)="changeAskType(aTIndex)">{{ item.label }}</div>
+                </div>
+            </div>
+
+            <div class="ask-content">
+                <textarea [(ngModel)]="questionDesc" class="content-area" placeholder="请输入您的问题"></textarea>
+                <div class="ask-pics-lists">
+                    <div class="ask-pics-box" *ngFor="let imgItem of imgArr; let imgIndex = index">
+                        <div class="mask"></div>
+                        <img (click)="$event.stopPropagation();deleteImg(imgIndex)" class="close-icon" src="./assets/imgs/competition/p71_cancel@2x.png">
+                        <img class="cover-pic" [src]="imgItem || ''" alt="封面图">
+                    </div>
+                  <!--<div class="ask-pics-box">-->
+                    <!--<div class="mask"></div>-->
+                    <!--<img class="close-icon" src="./assets/imgs/competition/p71_cancel@2x.png">-->
+                    <!--<img class="cover-pic" src="./assets/imgs/competition/p71_add@2x.png" alt="上传按钮">-->
+                  <!--</div>-->
+                    <div class="ask-pics-box">
+                        <img (click)="takePic()" class="cover-pic" src="./assets/imgs/new_version/home/add.png" alt="上传按钮">
+                    </div>
+                </div>
+            </div>
+
+            <div class="sure-btn" (click)="$event.stopPropagation();submitAdd()">马上提交</div>
+        </div>
+    </div>
+</div>
+

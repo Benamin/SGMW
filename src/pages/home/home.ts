@@ -52,6 +52,7 @@ import {ShareWxComponent} from "../../components/share-wx/share-wx";
 import {ThemeActivityComponent} from "../../components/theme-activity/theme-activity";
 import {FocusCoursePage} from "../learning/focus-course/focus-course";
 import {InnerCoursePage} from "../learning/inner-course/inner-course";
+import {wantAskModalPage} from "./want-ask-modal/want-ask-modal";
 
 declare let Swiper: any;
 
@@ -139,6 +140,7 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        this.GetTodayIsWantAsk();
         this.events.publish('messageTabBadge:change', {});
         this.storage.get('user').then(value => {
             if (value) {
@@ -716,6 +718,22 @@ export class HomePage implements OnInit {
                 }
             });
         })
+    }
+    GetTodayIsWantAsk() {
+        // this.storage.set('TodayTodayIsWantAsk', null); // 测试
+        this.storage.get('TodayTodayIsWantAsk').then(val => {
+            let dateDay = new Date().getTime();
+            if (val === null || (val && dateDay - val > 24*60*60*1000*15)) {
+                // 是否第一次 或者超过15天未弹出 意见反馈弹窗
+                let modal = this.modalCtrl.create(wantAskModalPage, {});
+                modal.onDidDismiss((data) => {
+                    if (data) {
+                        console.log(data.value, data)
+                    }
+                })
+                modal.present();
+            }
+        });
     }
 
     // 开始学习
