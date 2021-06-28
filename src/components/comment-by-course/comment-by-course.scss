@@ -37,11 +37,15 @@ comment-by-course {
 
   .send {
     background-image: linear-gradient(to right, #feca46, #fee6a3);
-    padding: 8px 70px;
+    padding: 8px 30px;
     border-radius: 100px;
     font-weight: 500;
     color: rgba(0, 0, 0, .8);
     line-height: 17px;
+    display: inline-block;
+    text-align: center;
+    width: 60%;
+    margin-top: 10px;
   }
 
   .img-star {

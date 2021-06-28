@@ -97,25 +97,26 @@
                     发送
                 </div>
             </div>
-            <div class="textarea" style="position: absolute;left: 30px;top: 10px;" *ngIf="!textareaBlur">输入你的评论</div>
+            <div class="iconpl"><img src="./assets/imgs/forum/other/pl.png" alt=""></div>
+            <div class="textarea" style="position: absolute;left: 35px;top: 0px;" *ngIf="!textareaBlur">输入你的评论</div>
             <textarea placeholder='输入你的评论...' [(ngModel)]="inputText" [ngClass]="{'bulr-textarea': textareaBlur}"
                       (focus)="textareaclick();$event.stopPropagation();" rows="1"></textarea>
         </div>
         <div class="icon-div">
-            <div class="reply-more" (click)="favorites(dataCon);">
-                <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/p771_collect@3x.png" alt="">
-                <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/p771_collect_on@3x.png" alt="">
-                <span>{{dataCon.FavoritesCount || 0}}</span>
+            <div class="reply-more" (click)="follow(dataCon);">
+                <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/love_off.png" alt="">
+                <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/love_on.png">
+                <span>{{dataCon.FollowCount}}</span>
             </div>
             <div class="reply-more" (click)="forum_post_like(dataCon);">
-                <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like_on@3x.png" alt="">
-                <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/p771_comment_like@3x.png" alt="">
+                <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/like_off.png" alt="">
+                <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/like_on.png" alt="">
                 <span>{{dataCon.LikeCount}}</span>
             </div>
-            <div class="reply-more" (click)="follow(dataCon);">
-                <img *ngIf="!dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_guanzhu@3x.png" alt="">
-                <img *ngIf="dataCon.is_guanzhu" src="./assets/imgs/forum/other/p771_guanzhu_on@3x.png">
-                <span>{{dataCon.FollowCount}}</span>
+            <div class="reply-more" (click)="favorites(dataCon);">
+                <img *ngIf="!dataCon.is_collect" src="./assets/imgs/forum/other/sc.png" alt="">
+                <img *ngIf="dataCon.is_collect" src="./assets/imgs/forum/other/sc_y.png" alt="">
+                <span>{{dataCon.FavoritesCount || 0}}</span>
             </div>
         </div>
     </div>

@@ -52,7 +52,7 @@ page-login {
     position: absolute;
     top: 0;
     left: 0;
-    width: 60%;
+    width: 46%;
     padding-top: 2px;
 
     .select-ios {
@@ -61,8 +61,8 @@ page-login {
       color: #EA0A2A;
       margin-left: 10%;
       padding: 3px 8px;
-      font-size: 1.2rem;
-      max-width: 50%;
+      font-size: 1.4rem;
+      max-width: 67%;
       text-align: center;
     }
   }
@@ -100,15 +100,16 @@ page-login {
   }
 
   .login-input {
-    width: 85%;
+    width: 80%;
     margin: 0 auto;
     position: relative;
 
     .input-input {
       margin-bottom: 20px;
-      width: calc(100% - 10px);
+      // width: calc(100% - 10px);
+      width: 100%;
       background-color: #fff;
-      border: 1px solid #ffffff;
+      border: 1px solid #E0E0E0;
       border-radius: 5px;
       padding-left: 1.2rem;
       position: relative;
@@ -117,6 +118,14 @@ page-login {
 
       input {
         -webkit-user-select: auto !important;
+      }
+    }
+    .input-flex-space{
+      display: -webkit-flex; /* Safari */
+      display: flex;
+      justify-content: space-between;
+      .input-left-box{
+        width: 60%;
       }
     }
 
@@ -229,9 +238,10 @@ page-login {
   }
 
   .sendCode {
-    position: absolute;
-    top: 0;
-    right: -115px;
+    // position: absolute;
+    // top: 0;
+    // right: -115px;
+    float: right;
     height: 40px;
     line-height: 40px;
     background: linear-gradient(242deg, #FFF4D4 0%, #FFDE8A 100%);

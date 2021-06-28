@@ -23,6 +23,7 @@ comment-star {
     top: 0;
     border-radius: 4px;
     background-image: linear-gradient(to bottom, #fee6a3, #feca46);
+    background: #fff;
   }
 
   .img-star {
@@ -36,13 +37,12 @@ comment-star {
 
   .comment-star {
     display: flex;
-    position: relative;
-    padding-bottom: 1.5rem;
-
+    border-bottom: 1px solid #DEDEDE;
+    padding-bottom: 20px;
     .left {
       width: 50%;
       text-align: center;
-
+      border-right: 1px solid #DEDEDE;
       p + p {
         margin-top: 1.2rem;
       }
@@ -56,7 +56,7 @@ comment-star {
 
     .right {
       width: 50%;
-      padding-left: 1.2rem;
+      padding-left: 2.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
@@ -68,19 +68,6 @@ comment-star {
         margin-right: .5rem;
       }
     }
-  }
-
-  .comment-star:after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 1px;
-    background-color: #dddddd;
-    transform: scaleY(.5);
-    transform-origin: 0 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
   }
 
   .commentBtn {
@@ -97,7 +84,7 @@ comment-star {
     width: 8rem;
     height: 3rem;
     line-height: 3rem;
-    background: linear-gradient(241deg, rgb(240, 240, 240) 0%, rgb(229, 229, 229) 100%);
+    background: linear-gradient(241deg, rgb(240,240,240) 0%, rgb(229,229,229) 100%);
     border-radius: 1.4rem;
     text-align: center;
     margin: 0 auto;

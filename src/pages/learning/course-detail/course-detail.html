@@ -153,8 +153,10 @@
         </div>
     </div>
     <div [hidden]="showHeader !== 'show'" *ngIf="bar.type == 2" (click)="openTalk()" class="comment-fixed" ion-fixed>
-        <img src="./assets/imgs/course/course-talk.png" alt="">
-        写下你的讨论
+        <!-- <div>
+            去讨论
+        </div> -->
+        <div class="comment"><img src="./assets/imgs/forum/other/pl.png" alt="">写下你的评论</div>
     </div>
 </ion-content>
 <div *ngIf="isError" class="score" tappable ion-fixed (click)="isError = false; $event.stopPropagation();">

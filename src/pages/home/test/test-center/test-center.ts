@@ -126,7 +126,7 @@ export class TestCenterPage {
                 if (sysDate < ExamBegin) {
                     this.commonSer.toast('考试未开始');
                 } else if (sysDate > ExamEnd && this.page.StudyState == 1) {
-                    this.commonSer.toast('当前时间不可考试');
+                    this.commonSer.toast('当前时间不可考试22');
                 } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
                     this.navCtrl.push(DoTestPage, {item: item});  //未开始
                 } else if (this.page.StudyState == 2) {                    //未完成

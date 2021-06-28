@@ -10,7 +10,15 @@ page-level {
   .toolbar-ios {
     min-height: 5.7rem;
   }
-
+  .header-ios{
+    .button-inner{
+      font-weight: normal;
+      .back-button-icon-ios{
+        font-size: 2.4rem;
+        font-weight: 100;
+      }
+    }
+  }
   .top-box {
     display: flex;
     align-items: center;

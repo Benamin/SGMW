@@ -65,14 +65,14 @@
                     <p>{{item?.PName || "-" }}</p>
                     <div class="final-time">
                         {{ item?.FinalTime_NY}}前学习可获取
-                        <span class="credit">{{item.Credit}}分</span>
+                        <!-- <span class="credit">{{item.Credit}}分</span> -->
                     </div>
                     <div class="desc">
                         <span *ngIf="item.StudyStatus == 0"><img src="./assets/imgs/new_version/advanced/not-start.png">未开始</span>
                         <span *ngIf="item.StudyStatus == 1"><img src="./assets/imgs/new_version/advanced/doing.png">进行中</span>
                         <span *ngIf="item.StudyStatus == 2"><img src="./assets/imgs/new_version/advanced/finish.png">已完成</span>
                         <span *ngIf="item.StudyStatus == 3"><img src="./assets/imgs/home/studyTask/wsj.png">未上架</span>
-                        <!--<span class="credit">{{item.Credit}}分</span>-->
+                        <span class="credit">{{item.Credit}}分</span>
                     </div>
                 </div>
             </div>

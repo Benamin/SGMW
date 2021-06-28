@@ -123,6 +123,7 @@ page-course-detail {
       top: 0;
       border-radius: 4px;
       background-image: linear-gradient(to bottom, rgba(250, 202, 52, .5), #FFCA34);
+      background: #fff;
     }
 
     .introduction {
@@ -597,18 +598,33 @@ page-course-detail {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 40px;
-    line-height: 4rem;
-    border-radius: 10rem;
-    padding: 0 1.5rem;
-    background-color: #f8f8f8;
-    color: #999999;
-    display: flex;
-    align-items: center;
-
-    img {
-      width: 2rem;
-      margin-right: .5rem;
+    height: 50px;
+    background-color: #fff;
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.16);
+    border-top: 1px solid #ddd;
+    border-top: 0;
+    div {
+      text-align: center;
+      width: 50%;
+      margin: 9px auto;
+      height: 32px;
+      line-height: 32px;
+      background: linear-gradient(216deg, rgba(255, 247, 203, 1) 0%, rgba(255, 201, 45, 1) 100%);
+      box-shadow: 0px 5px 5px 0px rgba(255, 206, 61, 0.26);
+      border-radius: 16px;
+    }
+    .comment{
+      width: 90%;
+      padding-left: 5px;
+      text-align: left;
+      background: #F8F8F8;
+      border-radius: 30px;
+      box-shadow:none;
+      color: #B8B8B8;
+      img{
+        float: left;
+        margin-right: 5px;
+      }
     }
   }
 
@@ -809,9 +825,9 @@ page-course-detail {
     }
   }
 
-  /*  .swiper-slide {
-      height: 1px
-    }*/
+/*  .swiper-slide {
+    height: 1px
+  }*/
 
   /* 随意指定一个height值即可 */
   .swiper-slide-active {

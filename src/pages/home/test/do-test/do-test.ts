@@ -180,7 +180,7 @@ export class DoTestPage {
         let msg;
         if (status == 2) msg = '暂存';
         if (status == 3) msg = '提交';
-        this.commonSer.alert(`确认${msg}?`, () => {
+        this.commonSer.alertTest(`确认${msg}?`, () => {
             const loading = this.loadCtrl.create({
                 content: `${msg}中...`
             });
@@ -203,7 +203,7 @@ export class DoTestPage {
                         this.commonSer.toast('暂存成功');
                         this.navCtrl.pop();
                     } else {
-                        this.commonSer.alert(res.message);
+                        this.commonSer.alertTest(res.message);
                     }
                 }
             )

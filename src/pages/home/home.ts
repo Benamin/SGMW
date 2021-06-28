@@ -165,11 +165,7 @@ export class HomePage implements OnInit {
             }
         })
 
-        // this.getGoodsTeacher();
         this.getLIistData();
-        // this.getCompetitionId();
-        // this.getServerCompetition();
-        // this.getProductType();
     }
 
     ionViewWillEnter() {
@@ -510,12 +506,6 @@ export class HomePage implements OnInit {
 
     // 前往 认证进阶 的 勋章设置
     goAdvancedLevel() {
-        // let loading = this.loadCtrl.create({
-            // spinner: 'hide',
-            // content: `<div>加载中</div>`
-        //     content: "加载中...",
-        //     spinner: 'crescent',
-        // });
         let loading = this.loadCtrl.create({
             content: ''
         });
@@ -719,11 +709,12 @@ export class HomePage implements OnInit {
             });
         })
     }
+
     GetTodayIsWantAsk() {
         // this.storage.set('TodayTodayIsWantAsk', null); // 测试
         this.storage.get('TodayTodayIsWantAsk').then(val => {
             let dateDay = new Date().getTime();
-            if (val === null || (val && dateDay - val > 24*60*60*1000*15)) {
+            if (val === null || (val && dateDay - val > 24 * 60 * 60 * 1000 * 15)) {
                 // 是否第一次 或者超过15天未弹出 意见反馈弹窗
                 let modal = this.modalCtrl.create(wantAskModalPage, {});
                 modal.onDidDismiss((data) => {
