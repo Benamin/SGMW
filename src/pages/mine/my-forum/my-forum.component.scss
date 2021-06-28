@@ -3,6 +3,33 @@ page-my-forum {
     top: 100px !important;
   }
 
+  .video-error {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-weight: bold;
+
+    img {
+      width: 100%;
+    }
+
+    .gray {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 1.2rem;
+      color: gray;
+    }
+
+    .error {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 1.2rem;
+      color: red;
+    }
+  }
+
   .toolbar-background.toolbar-background-ios {
     background-color: #343435;
   }
