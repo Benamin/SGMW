@@ -1,6 +1,11 @@
 page-my-course {
+  ion-refresher {
+    top: 100px !important;
+  }
+
   .learn-list {
     padding: 10px;
+    margin-top: 43px;
 
     .course-item {
       display: flex;
@@ -53,7 +58,7 @@ page-my-course {
             width: 18px;
           }
 
-          > span{
+          > span {
             margin-right: 8px;
             display: flex;
             align-items: center;
@@ -70,6 +75,7 @@ page-my-course {
         justify-content: center;
         color: #6D7990;
         font-weight: 400;
+
         span:first-child {
           font-size: 14px;
         }

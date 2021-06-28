@@ -108,7 +108,7 @@ export class TabsPage {
             }
         });
 
-        //继续播放时间
+        //继续播放时间m
         this.storage.get("currentTime").then((value: any) => {
             if (!value) {
                 const arr = new Array(10);

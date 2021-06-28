@@ -1,10 +1,24 @@
 page-level {
+
+  ion-refresher {
+    top: 56px !important;
+  }
+
   background-color: #F8F8F8;
   font-family: PingFangSC-Semibold, PingFang SC;
+
   .toolbar-ios {
     min-height: 5.7rem;
   }
-
+  .header-ios{
+    .button-inner{
+      font-weight: normal;
+      .back-button-icon-ios{
+        font-size: 2.4rem;
+        font-weight: 100;
+      }
+    }
+  }
   .top-box {
     display: flex;
     align-items: center;
@@ -94,6 +108,7 @@ page-level {
 
       .rule-tip-text {
         margin-right: 0.5rem;
+
         .rule-icon {
           width: 1rem;
           height: 1rem;
@@ -194,6 +209,7 @@ page-level {
             //border-radius: 50%;
           }
         }
+
         //li:before {
         //  content: " ";
         //  position: absolute;
@@ -217,6 +233,7 @@ page-level {
         li.actived {
           color: #FFCA31;
         }
+
         li.disabled {
           color: #FFFFFF;
         }
@@ -264,6 +281,7 @@ page-level {
             border-radius: 1.45rem;
             font-size: 1.5rem;
             color: #474747;
+
             .item-line {
               position: absolute;
               left: 50%;
@@ -282,6 +300,7 @@ page-level {
           .type-btn.actived {
             font-size: 1.8rem;
             font-weight: 600;
+
             .item-line {
               background-color: #E90E2C;
             }
@@ -482,7 +501,8 @@ page-level {
                 width: 1.4rem;
                 height: 1.4rem;
               }
-              &.success{
+
+              &.success {
                 img {
                   margin-left: 0.5rem;
                   width: 1.8rem;
@@ -555,8 +575,13 @@ page-level {
         align-items: center;
         justify-content: space-between;
         font-size: 1.4rem;
-        .progress-now { color: #F7AB1A;}
-        .progress-target {}
+
+        .progress-now {
+          color: #F7AB1A;
+        }
+
+        .progress-target {
+        }
 
         .finish {
           color: #50B674;

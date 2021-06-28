@@ -1,5 +1,13 @@
-import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {
+    Content,
+    IonicPage,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams,
+    Refresher
+} from 'ionic-angular';
 import {MineService} from "../../../mine/mine.service";
 import {timer} from "rxjs/observable/timer";
 import {HomeService} from "../../home.service";
@@ -18,6 +26,8 @@ import {ShareWxComponent} from "../../../../components/share-wx/share-wx";
     templateUrl: 'test-center.html',
 })
 export class TestCenterPage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
 
     navbarList = [
         {type: '1', name: '未开始'},
@@ -58,23 +68,12 @@ export class TestCenterPage {
         this.eventEmitSer.eventEmit.emit('false');
         this.page.Page = 1;
         this.getList();
-    }
-
-    doRefresh(e) {
-        this.page.Page = 1;
-        this.getList();
-        timer(1000).subscribe((res) => {
-            e.complete()
-        });
+        this.showLoading();
     }
 
     //考试列表-EType
     //EType  1-等级考试 2-普通考试 3-课堂练习（预习作业）4-课后作业 5-调查问卷
     getList() {
-        const loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
         const data = {
             StudyState: [this.page.StudyState],
             EType: [this.page.EType],
@@ -87,12 +86,12 @@ export class TestCenterPage {
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
                 if (res.Result == 1) {
-                    this.commonSer.toast(res.Message);
+                    this.commonSer.toastTest(res.Message);
                 }
                 this.examList = res.data.Items;
                 this.page.TotalItems = res.data.TotalItems;
                 this.page.load = true;
-                loading.dismiss();
+                this.dismissLoading()
             }
         )
     }
@@ -103,6 +102,7 @@ export class TestCenterPage {
         this.page.Page = 1;
         this.page.StudyState = e.type;
         this.getList();
+        this.showLoading();
     }
 
     goExam(item) {
@@ -124,9 +124,9 @@ export class TestCenterPage {
                 loading.dismiss();
                 const sysDate = this.commonSer.transFormTime(res.data);
                 if (sysDate < ExamBegin) {
-                    this.commonSer.toast('考试未开始');
+                    this.commonSer.toastTest('考试未开始');
                 } else if (sysDate > ExamEnd && this.page.StudyState == 1) {
-                    this.commonSer.toast('当前时间不可考试');
+                    this.commonSer.toastTest('当前时间不可考试');
                 } else if (ExamBegin < sysDate && sysDate < ExamEnd) {
                     this.navCtrl.push(DoTestPage, {item: item});  //未开始
                 } else if (this.page.StudyState == 2) {                    //未完成
@@ -155,7 +155,7 @@ export class TestCenterPage {
         this.homeSer.searchExamByStu(data).subscribe(
             (res) => {
                 if (res.Result == 1) {
-                    this.commonSer.toast(res.Message);
+                    this.commonSer.toastTest(res.Message);
                 }
                 this.examList = this.examList.concat(res.data.Items);
                 this.page.TotalItems = res.data.TotalItems;
@@ -184,6 +184,20 @@ export class TestCenterPage {
     //模拟考试
     goToSimulation() {
         this.navCtrl.push(SimulationTestPage);
+    }
+
+    doRefresh(e) {
+        this.page.Page = 1;
+        this.getList();
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 
 }

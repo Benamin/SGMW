@@ -327,3 +327,56 @@ a[aria-selected="true"] {
 .has-refresher > .scroll-content {
   border: none;
 }
+.alertTestCustom{
+  .alert-head{
+    display: none;
+  }
+  .alert-message{
+    font-weight: 500;
+    padding: 4rem 2rem;
+    font-size: 1.5rem;
+  }
+  .alert-button-group{
+    padding-bottom: 10px;
+    .alert-button{
+      border-top: none;
+      border-right: none;
+      .button-inner{
+        background-image: linear-gradient(to right, #fecc4b, #feeaa5);
+        border-radius: 30px;
+        height: 30px;
+        color: #666;
+        font-weight: 500;
+      }
+    }
+  }
+}
+.toastTest{
+  opacity: 0.9;
+  background: #333;
+  .toast-wrapper{
+    .toast-message{
+      background: #fff;
+      color: #666;
+      padding: 2.5rem;
+      font-weight: 600;
+      border-radius: 4px;
+      position: relative;
+    }
+  }
+  :before{
+    content:"";
+    background: #f00;
+    background:#f00;
+    width:40px;
+    height:40px;
+    position: absolute;
+    left: 50%;
+    margin-left: -20px;
+    top: -20px;
+    background: url('../assets/imgs/test/test-delete.png') #fff no-repeat center;
+    background-size: 100% auto;
+    z-index: 10000000;
+    border-radius: 20px;
+  }
+}

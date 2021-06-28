@@ -1,4 +1,9 @@
 page-information-zone {
+  ion-refresher {
+    top: 150px !important;
+    z-index: 9;
+  }
+
   .top-box {
     display: flex;
     align-items: center;

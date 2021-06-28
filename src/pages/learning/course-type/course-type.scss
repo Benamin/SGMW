@@ -1,4 +1,8 @@
 page-course-type {
+  ion-refresher {
+    top: 56px !important;
+  }
+
   .ion-content {
     background-color: #F8F8F8;
   }
@@ -6,9 +10,11 @@ page-course-type {
   .toolbar-ios {
     min-height: 57px;
   }
+
   .header-ios .toolbar-ios:last-child .toolbar-background-ios {
     background-color: #F8F8F8;
   }
+
   .nav-title {
     margin-left: 1.7rem;
     font-size: 19px;
@@ -61,6 +67,7 @@ page-course-type {
     background: #FFFFFF;
     border-radius: 0.5rem;
     border: 1px solid #EEEEEE;
+
     .search-icon {
       margin-left: 1.5rem;
       margin-right: 0.6rem;
@@ -138,6 +145,7 @@ page-course-type {
           border-radius: 0.2rem;
           background-color: #5D5D5D;
         }
+
         ion-icon {
           vertical-align: middle;
           margin-left: 5px;
@@ -150,6 +158,7 @@ page-course-type {
         flex-wrap: wrap;
         box-sizing: border-box;
         padding: 0 1.4rem;
+
         span {
           display: block;
           box-sizing: border-box;

@@ -33,8 +33,9 @@
                     <div class="record-item">
                         <span class="file-icon file-icon_{{itemFile.icon}}">{{itemFile.icon | uppercase}}</span>
                         <img *ngIf="itemFile.icon == 'mp4'" class="shipin_zy" src="./assets/imgs/learn/shipin_zy.png">
-                        <img style="width: 56px" *ngIf="itemFile.icon != 'mp4'" class="shipin_zy"
-                             src="./assets/imgs/learn/fujian.png">
+                        <img style="width: 56px" *ngIf="['pdf','PDF'].indexOf(itemFile.icon) > -1" class="shipin_zy" src="./assets/imgs/learn/pdf.png">
+                        <img style="width: 56px" *ngIf="['word','Word','WORD'].indexOf(itemFile.icon) > -1" class="shipin_zy" src="./assets/imgs/learn/word.png">
+                        <img style="width: 56px" *ngIf="['word','mp4','pdf'].indexOf(itemFile.icon) == -1" class="shipin_zy" src="./assets/imgs/learn/fujian.png">
                         <img *ngIf="nowTime > itemFile.PlanStartTime_time && IsBuy && itemFile.icon.length && itemFile.icon != 'iframe' && itemFile?.IsDownload"
                              tappable (click)="downLoad(itemFile,$event)" style="right: 35px"
                              class="download-file" src="./assets/imgs/course/xiazai.png">
@@ -75,7 +76,7 @@
                                  <img src="./assets/imgs/course/yiwancheng.png" alt="">
                                 </span>
                                 <img style="width: 56px" *ngIf="itemExam.JopType == 0" class="shipin_zy"
-                                     src="./assets/imgs/learn/fujian.png">
+                                     src="./assets/imgs/learn/word.png">
                                 <img *ngIf="itemExam.JopType == 1" class="shipin_zy"
                                      src="./assets/imgs/learn/taolun_zy.png">
                                 <img *ngIf="itemExam.JopType == 2" class="shipin_zy"

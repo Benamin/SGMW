@@ -1,19 +1,28 @@
 page-exam {
   .scroll-content {
-    background: #fff;
+    background: #fff!important;
   }
-
+  .item-content{
+    .scroll-content {
+      background: #fff;
+    }
+  }
   .navbarfix {
     display: -webkit-flex; /* Safari */
     display: flex;
     left: 0;
     right: 0;
-
+    border-bottom: 1px solid #cfcfcf;
+    padding-bottom: 2px;
     .navbar {
       width: 100%;
     }
   }
-
+  .back-button-icon-ios{
+    font-size: 2.4rem;
+    font-weight: 100;
+    color: #555;
+  }
   .exam {
     background: #fff;
     padding: 0 !important;
@@ -22,7 +31,6 @@ page-exam {
     .item {
       margin-bottom: 0 !important;
       padding: 10px 0 !important;
-
       .test-item {
         padding: 1.2rem !important;
       }
@@ -40,9 +48,11 @@ page-exam {
   }
 
   .scroll-content {
+    background: #fff;
     .examcenter {
       .item {
-        padding: 10px 0 !important;
+        padding: 0 !important;
+        margin-bottom: 0 !important;
       }
     }
   }

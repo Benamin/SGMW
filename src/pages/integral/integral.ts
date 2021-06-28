@@ -1,5 +1,13 @@
-import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {
+    AlertController,
+    Content,
+    IonicPage,
+    LoadingController,
+    ModalController,
+    NavController,
+    NavParams, Refresher
+} from 'ionic-angular';
 import {IntegralService} from "./integral.service";
 import {PostAddComponent} from "../forum/post-add/post-add.component";
 import {IntegralListPage} from "./integral-list/integral-list";
@@ -24,6 +32,8 @@ declare let JSEncrypt: any;
     templateUrl: 'integral.html',
 })
 export class IntegralPage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
 
     type = "daily"; //daily 日常  advance 进阶
     obj = {};
@@ -49,7 +59,7 @@ export class IntegralPage {
         this.storage.get("LoginType").then(value => {
             this.LoginType = value;
         })
-        this.init();
+        this.showLoading()
     }
 
     //积分信息
@@ -61,6 +71,7 @@ export class IntegralPage {
                     // res.data.percentNew = res.data.percent?res.data.percent.substring(0, 3) + '%' : null;
                     res.data.percentNew = res.data.percent ? parseInt(res.data.percent.split('%')[0]) + '%' : null;
                     this.obj = res.data;
+                    this.dismissLoading();
                 }
             }
         )
@@ -200,13 +211,26 @@ export class IntegralPage {
         let params = {
             userName: LING_CLUB_APPID, // 原始ID
             path: path, // open mini program page
-            miniprogramType: 2 // 0是正式 1是开发 2是体验版本
+            miniprogramType: 0 // 0是正式 1是开发 2是体验版本
         };
         Wechat.openMiniProgram(params, (data) => {
             console.log(data); // data:{extMsg:""}  extMsg: Corresponds to the app-parameter attribute in the Mini Program component <button open-type="launchApp">
         }, (error) => {
             this.commonSer.alert('error:' + JSON.stringify(error));
         });
+    }
+
+    doRefresh(e) {
+        this.init()
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 
 }

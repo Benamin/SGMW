@@ -82,33 +82,13 @@
                 </div>
 
             </ion-slide>
-            <!--<ion-slide>-->
-            <!--<div class="slide-box">-->
-            <!--<div tappable class="category-item" (click)="goStudyPlan()">-->
-            <!--<img src="./assets/imgs/new_version/home/study-plan.png" alt="">-->
-            <!--<p>学习计划</p>-->
-            <!--</div>-->
-            <!--<div tappable class="category-item" (click)="goConsultation()">-->
-            <!--<img src="./assets/imgs/new_version/home/consulting-service.png" alt="">-->
-            <!--<p>资讯</p>-->
-            <!--</div>-->
-            <!--<div tappable class="category-item" (click)="goRanking()">-->
-            <!--<img src="./assets/imgs/new_version/home/ranking-list.png" alt="">-->
-            <!--<p>排行榜</p>-->
-            <!--</div>-->
-            <!--<div tappable class="category-item" (click)="goQuestion()">-->
-            <!--<img src="./assets/imgs/new_version/home/voting.png" alt="">-->
-            <!--<p>问卷/投票</p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</ion-slide>-->
         </ion-slides>
     </div>
 
     <div class="hot-course">
         <div class="title">
             热门课程
-            <span (click)="moreCourse()">更多 ></span>
+            <span (click)="moreCourse()">更多<i>﹥</i></span>
         </div>
         <ul class="course-list">
             <li (click)="goCourse(item)" *ngFor="let item of productList;">

@@ -71,7 +71,7 @@ page-posts-content {
 
 
     img {
-      margin-top: 5px;
+      margin: 30px auto 12px;
     }
   }
 
@@ -296,19 +296,25 @@ page-posts-content {
     top: 0;
 
     .input-div {
-      width: 116px;
+      width: 140px;
       border-radius: 15px;
       background: #f3f3f3;
       height: 30px;
-      padding-left: 0px;
+      padding-left: 25px;
       font-size: 14px;
       color: #616161;
       margin-right: 15px;
       line-height: 26px;
       line-height: 32px;
-      padding-left: 5px;
       color: #8c8c8c;
-
+      position: relative;
+      .iconpl{
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        left: 5px;
+        top: 3px;
+      }
     }
 
     textarea {
@@ -330,8 +336,8 @@ page-posts-content {
       }
 
       img {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
       }
 
       span {

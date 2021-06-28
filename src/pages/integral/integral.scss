@@ -1,4 +1,8 @@
 page-integral {
+  ion-refresher {
+    top: 56px !important;
+  }
+
   .scroll-content {
     padding: 0 1.6rem;
   }
@@ -238,6 +242,10 @@ page-integral {
     margin-bottom: 1rem;
     position: relative;
     text-align: center;
+  }
+
+  .title-ios {
+    position: absolute;
   }
 
   .title:before {

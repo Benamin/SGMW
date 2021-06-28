@@ -5,16 +5,10 @@
 </ion-header>
 
 <ion-content>
-    <!--    <div class="check-integral" (click)="GoList()">-->
-    <!--        <div class="iconsimg"><img src="./assets/imgs/userDefault.jpg"/></div>-->
-    <!--        <div class="left">-->
-    <!--            <span>{{obj?.username || null}}</span>-->
-    <!--        </div>-->
-    <!--        <div class="right">-->
-    <!--            &lt;!&ndash; <ion-icon name="arrow-forward"></ion-icon> &ndash;&gt;-->
-    <!--            <span>查看积分</span>-->
-    <!--        </div>-->
-    <!--    </div>-->
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
     <div *ngIf="LoginType && LoginType === '菱菱助手'" (click)="openMini()" class="jf_banner">
         <img src="./assets/imgs/integral/jf_banner.png"/>
     </div>

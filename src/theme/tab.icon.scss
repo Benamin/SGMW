@@ -60,3 +60,11 @@ ion-icon {
   }
 
 }
+
+.ion-ios-arrow-back:before {
+  content: "";
+  width: 2rem;
+  height: 3.5rem;
+  background: url(../assets/imgs/back.png) no-repeat 50% 50%;
+  background-size: contain;
+}

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, IonicPage, LoadingController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {MineService} from "../mine.service";
 import {CourseDetailPage} from "../../learning/course-detail/course-detail";
 import {timer} from "rxjs/observable/timer";
@@ -11,6 +11,8 @@ import {InnerCoursePage} from "../../learning/inner-course/inner-course";
     templateUrl: 'my-course.html',
 })
 export class MyCoursePage {
+    @ViewChild(Content) content: Content;
+    @ViewChild(Refresher) refresher: Refresher;
     navbarList = [
         {type: '2', name: '学习中'},
         {type: '1', name: '已完成'},
@@ -31,14 +33,10 @@ export class MyCoursePage {
     }
 
     ionViewDidLoad() {
-        this.getList();
+        this.showLoading();
     }
 
     getList() {
-        const loading = this.loadCtrl.create({
-            content: ''
-        });
-        loading.present();
         const data = {
             page: this.page.page,
             pageSize: this.page.pageSize,
@@ -49,12 +47,13 @@ export class MyCoursePage {
                 this.courseList = res.data.ProductList;
                 this.page.TotalCount = res.data.TotalCount;
                 this.isLoad = true;
-                loading.dismiss();
+                this.dismissLoading()
             }
         )
     }
 
     changeType(e) {
+        this.showLoading();
         this.page.page = 1;
         this.page.studystate = e.type;
         this.getList();
@@ -97,9 +96,15 @@ export class MyCoursePage {
     doRefresh(e) {
         this.page.page = 1;
         this.getList();
-        timer(1000).subscribe(() => {
-            e.complete();
-        });
+    }
+
+    showLoading() {
+        this.refresher.state = 'ready';
+        this.refresher._onEnd();
+    }
+
+    dismissLoading() {
+        this.refresher.complete();
     }
 
 }

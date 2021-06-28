@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-import { NavController, NavParams, ViewController,ToastController, LoadingController, Platform } from 'ionic-angular';
+import {NavController, NavParams, ViewController, ToastController, LoadingController, Platform} from 'ionic-angular';
 import {defaultHeadPhoto} from "../../../app/app.constants";
 import {Storage} from "@ionic/storage";
 import {HomeService} from "../home.service";
 import {ChooseImageProvider} from "../../../providers/choose-image/choose-image";
 import {AppVersion} from "@ionic-native/app-version";
 import {CommonService} from "../../../core/common.service";
+
 // import {WantToAskListsPage} from "../want-to-ask/ask-lists/ask-lists";
 
 @Component({
@@ -54,11 +55,6 @@ export class wantAskModalPage {
 
     // 获取问题类型
     GetAskType() {
-        let loading = this.loadCtrl.create({
-            content: ''
-        });
-
-        loading.present();
         const data = {
             code: 'QuestionType' // 问题类型 传QuestionType  资料分类传 MaterialFileType
         };
@@ -66,7 +62,6 @@ export class wantAskModalPage {
             (res) => {
                 console.log(9999, res.data)
                 this.askTypeArr = res.data;
-                loading.dismiss();
             }
         )
     }

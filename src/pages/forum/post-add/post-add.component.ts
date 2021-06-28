@@ -537,69 +537,50 @@ export class PostAddComponent implements OnInit {
             loading.present();
             let srcArr = [];
             const addImgS = (fileList_n, index) => {
-                let formData: FormData = new FormData();
-                formData.append('file', fileList_n);
-                this.serve.Upload_UploadFiles(formData).then((res: any) => {
-                    this.isShowPlaceHolder = false;
-                    this.imgitems.push({
-                        src: res.data,
-                        alt: '',
-                    })
-                    srcArr.push(res.data);
-                    loading.dismiss();
-
-                    if (!this.focusNode.data && fileList.length == 1) {
-                        this.DomAddImg(res.data, '');
-                        return
-                    }
-                    if (fileList.length - 1 > index) {
-                        addImgS(fileList[index + 1], index + 1);
-                    } else {
-                        this.SetaddImg(srcArr, '');
-                    }
-                });
                 //压缩图片
-                // let options = {
-                //     file: fileList_n,
-                //     quality: 0.8,
-                //     // 压缩前回调
-                //     beforeCompress: (result) => {
-                //         console.log('压缩之前图片尺寸大小: ', result.size);
-                //         // 将上传图片在页面预览
-                //         ImageCompressor.file2DataUrl(result, function (url) {
-                //         })
-                //     },
-                //
-                //     // 压缩成功回调
-                //     success: (result) => {
-                //         console.log('压缩之后图片尺寸大小: ', result.size);
-                //         console.log('实际压缩率： ', ((fileList_n.size - result.size) / fileList_n.size * 100).toFixed(2) + '%');
-                //         // 上传到远程服务器
-                //         // util.upload('/upload.png', result);
-                //         let formData: FormData = new FormData();
-                //         formData.append('file', result);
-                //         this.serve.Upload_UploadFiles(formData).then((res: any) => {
-                //             this.isShowPlaceHolder = false;
-                //             this.imgitems.push({
-                //                 src: res.data,
-                //                 alt: '',
-                //             })
-                //             srcArr.push(res.data);
-                //             loading.dismiss();
-                //
-                //             if (!this.focusNode.data && fileList.length == 1) {
-                //                 this.DomAddImg(res.data, '');
-                //                 return
-                //             }
-                //             if (fileList.length - 1 > index) {
-                //                 addImgS(fileList[index + 1], index + 1);
-                //             } else {
-                //                 this.SetaddImg(srcArr, '');
-                //             }
-                //         });
-                //     }
-                // };
-                // new ImageCompressor(options);
+                let options = {
+                    file: fileList_n,
+                    quality: 0.2,
+                    mimeType: 'image/jpeg',
+                    redressOrientation: false,
+                    // 压缩前回调
+                    beforeCompress: (result) => {
+                        console.log('压缩之前图片尺寸大小: ', result.size);
+                        // 将上传图片在页面预览
+                        ImageCompressor.file2DataUrl(result, function (url) {
+                        })
+                    },
+
+                    // 压缩成功回调
+                    success: (result) => {
+                        console.log('压缩之后图片尺寸大小: ', result.size);
+                        console.log('实际压缩率： ', ((fileList_n.size - result.size) / fileList_n.size * 100).toFixed(2) + '%');
+                        // 上传到远程服务器
+                        // util.upload('/upload.png', result);
+                        let formData: FormData = new FormData();
+                        formData.append('file', result);
+                        this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                            this.isShowPlaceHolder = false;
+                            this.imgitems.push({
+                                src: res.data,
+                                alt: '',
+                            })
+                            srcArr.push(res.data);
+                            loading.dismiss();
+
+                            if (!this.focusNode.data && fileList.length == 1) {
+                                this.DomAddImg(res.data, '');
+                                return
+                            }
+                            if (fileList.length - 1 > index) {
+                                addImgS(fileList[index + 1], index + 1);
+                            } else {
+                                this.SetaddImg(srcArr, '');
+                            }
+                        });
+                    }
+                };
+                new ImageCompressor(options);
             }
             addImgS(fileList[0], 0);
         }
@@ -614,38 +595,32 @@ export class PostAddComponent implements OnInit {
             });
             loading.present();
 
-            let formData: FormData = new FormData();
-            formData.append('file', fileList[0]);
-            this.serve.Upload_UploadFiles(formData).then((res: any) => {
-                this.CoverUrl = res.data;
-                loading.dismiss();
-            });
-
-            // let options = {
-            //     file: fileList[0],
-            //     quality: 0.5,
-            //     // 压缩前回调
-            //     beforeCompress: (result) => {
-            //         console.log('压缩之前图片尺寸大小: ', result.size);
-            //         // 将上传图片在页面预览
-            //         ImageCompressor.file2DataUrl(result, function (url) {
-            //         })
-            //     },
-            //
-            //     // 压缩成功回调
-            //     success: (result) => {
-            //         console.log('压缩之后图片尺寸大小: ', result.size);
-            //         console.log('实际压缩率： ', ((fileList[0].size - result.size) / fileList[0].size * 100).toFixed(2) + '%');
-            //         // 上传到远程服务器
-            //         let formData: FormData = new FormData();
-            //         formData.append('file', result);
-            //         this.serve.Upload_UploadFiles(formData).then((res: any) => {
-            //             this.CoverUrl = res.data;
-            //             loading.dismiss();
-            //         });
-            //     }
-            // };
-            // new ImageCompressor(options);
+            let options = {
+                file: fileList[0],
+                quality: 0.2,
+                mimeType: 'image/jpeg',
+                redressOrientation: false,
+                // 压缩前回调
+                beforeCompress: (result) => {
+                    console.log('压缩之前图片尺寸大小: ', result.size);
+                    // 将上传图片在页面预览
+                    ImageCompressor.file2DataUrl(result, function (url) {
+                    })
+                },
+                // 压缩成功回调
+                success: (result) => {
+                    console.log('压缩之后图片尺寸大小: ', result.size);
+                    console.log('实际压缩率： ', ((fileList[0].size - result.size) / fileList[0].size * 100).toFixed(2) + '%');
+                    // 上传到远程服务器
+                    let formData: FormData = new FormData();
+                    formData.append('file', result);
+                    this.serve.Upload_UploadFiles(formData).then((res: any) => {
+                        this.CoverUrl = res.data;
+                        loading.dismiss();
+                    });
+                }
+            };
+            new ImageCompressor(options);
         }
     }
 

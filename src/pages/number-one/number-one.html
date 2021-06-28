@@ -5,56 +5,22 @@
 </ion-header>
 
 <ion-content>
- 
-        <ion-refresher (ionRefresh)="doRefresh($event)">
-                <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
-                </ion-refresher-content>
-              </ion-refresher>
-        <!-- <div class="navul">
-                <div *ngFor="let item of navliArr" class="navli" [ngClass]="{'act': navli==item.label}" tappable (click)="switchInformation(item.label)">
-                        <span *ngIf="item.label=='销冠风采'">{{item.label}}</span>
-                </div>
-            </div> -->
-            <ion-list text-center style="  background: #fff;margin: 0;padding-bottom: 400px;padding-top: 200px;" *ngIf="no_list">
-                    <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
-                    <p text-center style="color: #666666;font-size: 16px">
-                        暂无数据
-                    </p>
-            </ion-list>
-    <!-- <div class="information-ul" *ngIf="navli=='销售案例'">
-        <ng-container *ngFor="let item of dataList">
-            <div class="information-list img1" *ngIf="item.IsSingle" tappable (click)="goComponentsdetails(item)">
-                    <div class="list-time">
-                        <h4 class="nowrap-2">{{item.Title}}</h4>
-                        <div class="time">
-                            {{item.ReleaseTime}}
-                        </div>
-                    </div>
-                    <div class="imgdiv">
-                            <div [ngStyle]="{'background-image': 'url('+item.SourceURLList[0]+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
-                            </div>
-                    </div>
-                </div>
-                <div class="information-list img3" *ngIf="!item.IsSingle" tappable (click)="goComponentsdetails(item)">
-                    <h4 class="nowrap-2">{{item.Title}}</h4>
-                    <div class="imgdiv-flex">
-                            <div *ngFor="let img of item.SourceURLList" [ngStyle]="{'background-image': 'url('+img+')','background-size':'cover'}" style="background-size: cover;background: no-repeat center;">
-                                </div>
-                        <img [src]="img" *ngFor="let img of item.SourceURLList" alt="">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="bubbles">
+        </ion-refresher-content>
+    </ion-refresher>
 
-                    </div>
-                    <div class="time">
-                        {{item.ReleaseTime}}
-                    </div>
-                </div>
-        </ng-container>
-   
-    </div> -->
-    <div *ngIf="navli=='销冠风采'" class="crown-list">
+    <ion-list text-center style="  background: #fff;margin: 0;padding-bottom: 400px;padding-top: 200px;"
+              *ngIf="no_list">
+        <img style="width: 60%;" src="./assets/imgs/no-data.png" alt="">
+        <p text-center style="color: #666666;font-size: 16px">
+            暂无数据
+        </p>
+    </ion-list>
+    <div class="crown-list">
         <div class="crown" *ngFor="let item of crownList" tappable (click)="goComponentsdetailsOne(item)">
             <div class="heard">
                 <div class="heard-img">
-                    <!-- <img class="crown-img" src="./assets/imgs/numberone/numberOne-@3x.png" alt=""> -->
                     <img class="user-heard" src="{{item.ImageURL}}" alt="">
                 </div>
                 <div class="name">
@@ -62,7 +28,6 @@
                     <p class="name-title">{{item.StoreName}}</p>
                 </div>
                 <div class="Month">
-                    <!-- <img src="./assets/imgs/numberone/NumberOne-bg.png" alt=""> -->
                     <div class="Month-p">
                         <p>{{item.YearName}}年{{item.MonthName}}月</p>
                     </div>
@@ -96,7 +61,7 @@
         </div>
     </div>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="isdoInfinite">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中"></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content>
