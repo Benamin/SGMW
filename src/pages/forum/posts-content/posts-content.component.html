@@ -109,8 +109,8 @@
                 <span>{{dataCon.FollowCount}}</span>
             </div>
             <div class="reply-more" (click)="forum_post_like(dataCon);">
-                <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/like_off.png" alt="">
-                <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/like_on.png" alt="">
+                <img *ngIf="!dataCon.is_like" src="./assets/imgs/forum/other/like_off.png" alt="">
+                <img *ngIf="dataCon.is_like" src="./assets/imgs/forum/other/like_on.png" alt="">
                 <span>{{dataCon.LikeCount}}</span>
             </div>
             <div class="reply-more" (click)="favorites(dataCon);">
