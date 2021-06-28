@@ -25,6 +25,24 @@ export class CommonService {
             message: message,
             duration: 3000,
             position: 'middle',
+            dismissOnPageChange: true,
+        });
+        toast.present();
+        if (callback) {
+            callback();
+        }
+    }
+
+    /**
+     * 提示信息 位置：居中，延时2s
+     * @param message  提示文字
+     * @param callback  提示信息之后执行的方法
+     */
+    toastTest(message, callback?) {
+        let toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000,
+            position: 'middle',
             cssClass: 'toastTest',
             dismissOnPageChange: true,
         });
@@ -61,17 +79,18 @@ export class CommonService {
             alert.present();
         }
     }
+
     /**
      * alertTest弹窗  文字居中
      * @param message  弹窗内的文字
      * @param callback  如果有回调方法 就有确定、取消两个按钮，没有回调方法 则只有确认一个按钮
      */
-     alertTest(message, callback?) {
+    alertTest(message, callback?) {
         if (callback) {
             let alertTest = this.alertCtrl.create({
                 title: '提示',
                 message: message,
-                cssClass:'alertTestCustom',
+                cssClass: 'alertTestCustom',
                 buttons: ['取消', {
                     text: "确定",
                     handler: data => {
@@ -84,12 +103,13 @@ export class CommonService {
             let alertTest = this.alertCtrl.create({
                 title: '',
                 message: message,
-                cssClass:'alertTestCustom',
+                cssClass: 'alertTestCustom',
                 buttons: ["确定"]
             });
             alertTest.present();
         }
     }
+
     /**
      * alert弹窗  文字左对齐
      * @param message  弹窗内的文字

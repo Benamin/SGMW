@@ -152,7 +152,6 @@ export class InformationZonePage {
 
     //加载更多
     doInfinite(e) {
-        // console.log(9966, this.page.resourceLists.length, this.page.TotalCount)
         if (this.page.resourceLists.length == this.page.TotalCount) {
             e.complete();
             return;
@@ -217,7 +216,6 @@ export class InformationZonePage {
                 console.log(value);
             }).catch(error => {
             this.localFile = [];
-            console.log("error", error)
         })
     }
 
