@@ -11,11 +11,6 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="下拉刷新"
-                               refreshingSpinner="bubbles">
-        </ion-refresher-content>
-    </ion-refresher>
     <div class="user-box">
         <div class="img-head">
             <img src="{{page.mineInfo?.HeadPhoto}}" alt="头像">
@@ -199,7 +194,5 @@
 
         </div>
         <!-- 考试列表 end -->
-
     </div>
-
 </ion-content>
