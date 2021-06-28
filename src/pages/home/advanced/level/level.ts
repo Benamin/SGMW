@@ -1,13 +1,6 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';//引入
-import {
-    NavController,
-    NavParams,
-    LoadingController,
-    ActionSheetController,
-    ModalController,
-    Content, Refresher
-} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ActionSheetController, ModalController} from 'ionic-angular';
 import {CommonService} from "../../../../core/common.service";
 import {HomeService} from "../../home.service";
 import {AdvancedListsPage} from "../lists/lists";
@@ -24,10 +17,6 @@ import {Storage} from "@ionic/storage";
     templateUrl: 'level.html',
 })
 export class AdvancedLevelPage {
-
-    @ViewChild(Content) content: Content;
-    @ViewChild(Refresher) refresher: Refresher;
-
     page = {
         defaultImg: 'assets/imgs/default.png',
         checkType: 'exam',
@@ -44,8 +33,42 @@ export class AdvancedLevelPage {
                 isActived: false,
                 lists: []
             }
+            // ,
+            // {
+            //     navBtnText: 'KPI',
+            //     navBtnEn: 'kpi',
+            //     isActived: false,
+            //     lists: []
+            // },
+            // {
+            //     navBtnText: '线下认证',
+            //     navBtnEn: 'points',
+            //     isActived: false,
+            //     lists: []
+            // }
         ],
-
+        // courseTypeArr: [
+        //     {
+        //         navBtnText: '待开始',
+        //         navBtnEn: 'wait',
+        //         isActived: true
+        //     },
+        //     {
+        //         navBtnText: '进行中',
+        //         navBtnEn: 'doing',
+        //         isActived: false
+        //     },
+        //     {
+        //         navBtnText: '已完成',
+        //         navBtnEn: 'finish',
+        //         isActived: false
+        //     },
+        //     {
+        //         navBtnText: '更多',
+        //         navBtnEn: 'more',
+        //         isActived: false
+        //     }
+        // ],
         nowClick: 'course',
         nowClickSec: 'more',
         mineInfo: null,
@@ -94,12 +117,15 @@ export class AdvancedLevelPage {
         this.page.roleList = this.navParams.get('roleList');
         if (!this.page.leveltype) this.page.leveltype = this.navParams.get('leveltype').value;
         if (!this.page.levelTypeText) this.page.levelTypeText = this.navParams.get('leveltype').label;
-        // this.getAdvancedLevel();
-        this.showLoading();
+        let noLoading = true
+        this.getAdvancedLevel(noLoading);
     }
 
     getModalData() {
-        this.showLoading();
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
         let nowPlId = null;
         if (this.page.plid === 'theLast') {
             nowPlId = this.page.levelInformation[this.page.levelInformation.length - 1].ID;
@@ -114,14 +140,17 @@ export class AdvancedLevelPage {
         this.homeSer.LevelRemake({PlId: nowPlId}).subscribe(
             (res) => {
                 if (res.code === 200) {
+
+                    console.log('888', res.data.Remake)
                     this.showRuleModal(res.data.Remake);
+
                 } else {
                     this.commonSer.toast(res.message);
                 }
 
-                this.dismissLoading()
+                loading.dismiss();
             }, err => {
-                this.dismissLoading()
+                loading.dismiss();
             }
         )
     }
@@ -150,7 +179,6 @@ export class AdvancedLevelPage {
 
     // 前往 认证进阶 的 勋章设置
     switchLevel(levelTypeIndex, bigThanMyLevel) {
-        this.showLoading();
         if (bigThanMyLevel) return; // 大于当前等级不能点击
         this.page.nowLevelIndex = levelTypeIndex;
         let levelInformation = this.page.levelInformation;
@@ -184,7 +212,6 @@ export class AdvancedLevelPage {
 
     // 一级导航（当前列表类型）切换
     changeNav(navIndex, bool) {
-        this.showLoading();
         this.page.isLoaded = false;
         this.initLists();
         console.log('changeNav', navIndex, bool)
@@ -195,7 +222,7 @@ export class AdvancedLevelPage {
         this.page.navliArr[navIndex].isActived = true;
         this.page.nowClick = this.page.navliArr[navIndex].navBtnEn
         console.log('nowClick777', this.page.nowClick)
-        console.log('8888----nowLevelIndex', this.page.nowLevelIndex, 9999, this.page.levelInformation)
+        console.log('8888----nowLevelIndex', this.page.nowLevelIndex,9999, this.page.levelInformation)
         // 若是最後一個
         if (this.page.nowLevelIndex === null) {
             if (this.page.levelInformation.length > 0 && this.page.nowLevel + 1 === this.page.levelInformation[this.page.levelInformation.length - 1].Hierarchy) {
@@ -216,11 +243,16 @@ export class AdvancedLevelPage {
     }
 
     // 用户等级信息
-    getAdvancedLevel() {
+    getAdvancedLevel(noLoading=null) {
+        // console.log('leveltype99:', this.page.leveltype)
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        if (!noLoading) loading.present();
         console.log('888*****leveltype', this.page.leveltype)
         this.homeSer.getAdvancedLevel({leveltype: this.page.leveltype}).subscribe(
             (res) => {
-                this.dismissLoading()
+                loading.dismiss();
                 if (res.code === 200) {
                     this.page.nowLevelText = res.data.Level;
                     let levelInformation = res.data.levelInformation;
@@ -229,13 +261,18 @@ export class AdvancedLevelPage {
                     let nowLevel
                     if (res.data.Hierarchy === 0) {
                         nowLevel = 0;
-                        for (let i = 0; i < res.data.levelInformation.length; i++) {
+                        for (let i=0; i<res.data.levelInformation.length; i++) {
                             res.data.levelInformation[i].Hierarchy = res.data.levelInformation[i].Hierarchy + 1;
                         }
                     } else {
                         nowLevel = res.data.Hierarchy - 1;
                     }
                     this.page.nowLevel = nowLevel;
+
+                    // 测试
+                    // this.page.nowProgress = 0.8;
+                    // let nowLevel = 2
+                    // this.page.nowLevel = nowLevel;
 
 
                     if (!this.page.firstTime) {
@@ -249,7 +286,7 @@ export class AdvancedLevelPage {
                         }
                         this.page.canClick = this.page.nowLevel >= (item.Hierarchy - 1);
                         this.initLists();
-                        this.setParams();
+                        this.setParams(noLoading);
                         return
                     }
                     this.page.firstTime = false;
@@ -272,7 +309,7 @@ export class AdvancedLevelPage {
                         if (res.data.Hierarchy === levelInformation[0].Hierarchy) {
                             this.page.plid = levelInformation[1].ID;
                             // let item = this.page.levelInformation[1];
-                            this.setParams();
+                            this.setParams(noLoading);
                             this.page.canClick = true;
                         } else {
 
@@ -281,7 +318,7 @@ export class AdvancedLevelPage {
                             for (var i = 0; i < levelInformation.length; i++) {
                                 if (res.data.Hierarchy === levelInformation[i].Hierarchy) Hindex = i;
                                 // 当前已经满等级
-                                if (res.data.Hierarchy === levelInformation[levelInformation.length - 1].Hierarchy) isFullLevel = true;
+                                if (res.data.Hierarchy === levelInformation[levelInformation.length-1].Hierarchy)  isFullLevel = true;
                             }
                             if (isFullLevel === true) {
                                 this.page.isLoaded = true;
@@ -298,7 +335,7 @@ export class AdvancedLevelPage {
                     this.commonSer.toast(res.message);
                 }
             }, err => {
-                this.dismissLoading()
+                loading.dismiss();
             }
         )
     }
@@ -308,10 +345,24 @@ export class AdvancedLevelPage {
     }
 
     tranLevelText(levelInformation) {
+        // 等级 字数 超出四个 换行 (旧 换行)
+        // for (let i = 0; i < levelInformation.length; i++) {
+        //     // levelInformation[i].Level = '啦啦店'; // 测试
+        //     // console.log(66666, levelInformation[i].Level.substring(2))
+        //     if (levelInformation[i].Level.length >= 4) {
+        //         let nowLevelTranLength = Math.ceil(levelInformation[i].Level.length / 2);
+        //         levelInformation[i].LevelText = `
+        //               <div>${levelInformation[i].Level.substring(0, nowLevelTranLength)}</div>
+        //               <div>${levelInformation[i].Level.substring(nowLevelTranLength)}</div>`;
+        //     } else {
+        //         levelInformation[i].LevelText = levelInformation[i].Level;
+        //     }
+        //     // console.log('Level', 8888888, levelInformation[i].Level)
+        // }
         return levelInformation;
     }
 
-    setParams() {
+    setParams(noLoading=null) {
         let getListsApi = null;
         let getParams = {
             csStatus: 2,          //-1 未开始 0进行中 1已完成 2全部
@@ -321,11 +372,7 @@ export class AdvancedLevelPage {
         switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
             case 'course':
                 // 课程
-                getParams = Object.assign({}, getParams, {
-                    Conditions: 'All',
-                    PageCurrent: this.page.Page,
-                    PageSize: this.page.PageSize
-                });
+                getParams = Object.assign({}, getParams, {Conditions: 'All', PageCurrent: this.page.Page, PageSize: this.page.PageSize});
                 getListsApi = (data) => {
                     return this.homeSer.QueryCoursePage(data);
                 };
@@ -336,19 +383,58 @@ export class AdvancedLevelPage {
                     return this.homeSer.QueryExam(data)
                 };
                 break
-
+            // case 'kpi':
+            //     // KPI
+            //     getListsApi = (data) => {
+            //         return this.homeSer.QueryKpiInformation(data)
+            //     };
+            //     break
+            // case 'points':
+            //     // 评分
+            //     getListsApi = (data) => {
+            //         return this.homeSer.QuerySpeakScore(data)
+            //     };
+            //     break
         }
+        // if (this.page.nowClick === 'course' || this.page.nowClick === 'exam') {
+        //     switch (this.page.nowClickSec) { // 课程/考试  对应的列表 状态
+        //         case 'wait':
+        //             // 未开始
+        //             getParams = Object.assign({}, getParams, {csStatus: -1})
+        //             break
+        //         case 'doing':
+        //             // 0进行中
+        //             getParams = Object.assign({}, getParams, {csStatus: 0})
+        //             break
+        //         case 'finish':
+        //             // 1已完成
+        //             getParams = Object.assign({}, getParams, {csStatus: 1})
+        //             break
+        //         case 'more':
+        //             // 2全部
+        //             getParams = Object.assign({}, getParams, {csStatus: 2})
+        //             break
+        //     }
+        // }
+
         this.page.getListsApi = getListsApi;
         this.page.getParams = getParams;
-        this.getLists();
+        this.getLists(noLoading);
     }
 
-    getLists() {
+    getLists(noLoading=null) {
         this.page.isLoaded = false;
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        if (!noLoading) loading.present();
+
         console.log('getParams', this.page.getParams)
         this.page.getListsApi(this.page.getParams).subscribe(
             (res) => {
+
                 if (res.code === 200) {
+
                     switch (this.page.nowClick) { // 列表类型 课程/考试/KPI/评分
                         case 'course':
                             // 课程
@@ -359,14 +445,22 @@ export class AdvancedLevelPage {
                             // 考试
                             this.page.navliArr[1].lists = res.data;
                             break
+                        // case 'kpi':
+                        //     // KPI
+                        //     this.page.navliArr[2].lists = res.data;
+                        //     break
+                        // case 'points':
+                        //     // 评分
+                        //     this.page.navliArr[3].lists = res.data;
+                        //     break
                     }
                     this.page.isLoaded = true;
                     console.log('getListsApi', res)
 
                 }
-                this.dismissLoading();
+                loading.dismiss();
             }, err => {
-                this.dismissLoading()
+                loading.dismiss();
             }
         )
 
@@ -377,6 +471,21 @@ export class AdvancedLevelPage {
             this.page.navliArr[i].lists = [];
         }
     }
+
+    // 二级导航（课程/考试状态）切换
+    // changeSecNav(navSecIndex, bool) {
+    //     if (bool) return;
+    //     this.page.isLoaded = false;
+    //     this.initLists();
+    //     console.log('changeNav', navSecIndex, bool)
+    //     for (var i = 0; i < this.page.courseTypeArr.length; i++) {
+    //         this.page.courseTypeArr[i].isActived = false;
+    //     }
+    //
+    //     this.page.courseTypeArr[navSecIndex].isActived = true;
+    //     this.page.nowClickSec = this.page.courseTypeArr[navSecIndex].navBtnEn
+    //     this.setParams();
+    // }
 
     // 前往 更多课程
     goAdvancedLists() {
@@ -391,11 +500,7 @@ export class AdvancedLevelPage {
         console.log('nowLevel', item, '888***canClick', this.page.canClick)
         this.page.plid = item.ID;
         if (item) {
-            this.navCtrl.push(AdvancedListsPage, {
-                plid: item.ID,
-                canClick: this.page.canClick,
-                Level: this.page.nowLevelText
-            });
+            this.navCtrl.push(AdvancedListsPage, {plid: item.ID, canClick: this.page.canClick, Level: this.page.nowLevelText});
         }
     }
 
@@ -407,22 +512,30 @@ export class AdvancedLevelPage {
                 text: this.page.roleList[i].label,
                 role: this.page.leveltype === this.page.roleList[i].value ? 'destructive' : '',
                 handler: () => {
-                    this.showLoading();
+                    // console.log('this', this, this.page, i)
+                    let loading = this.loadCtrl.create({
+                        content: ''
+                    });
+                    loading.present();
+
                     this.homeSer.ValidationLevel({}).subscribe(
                         (res) => {
+                            // if (res.data.status === 1) { // 判断是1 else 是0 这里模拟方便
                             this.homeSer.InitializeLevel({leveltype: this.page.roleList[i].value}).subscribe(
                                 (resInit) => {
-                                    this.dismissLoading();
                                     if (resInit.code === 200) {
                                         this.initLists();
                                         this.page.leveltype = this.page.roleList[i].value;
                                         this.page.levelTypeText = this.page.roleList[i].label;
+                                        loading.dismiss();
                                         this.page.firstTime = true;
                                         this.page.nowLevelIndex = null;
                                         this.page.TotalCount = 0;
                                         this.page.Page = 1;
                                         this.page.PageSize = 10;
+                                        console.log('leveltype', this.page.leveltype)
                                         this.getAdvancedLevel();
+
                                     }
                                 }
                             )
@@ -442,6 +555,7 @@ export class AdvancedLevelPage {
 
     // 点击课程列表项 获取课程详情
     goCourse(e) {
+        // let canClick = this.page.nowLevel >= (e.Hierarchy - 2);
         if (!this.page.canClick) {
             this.commonSer.alert('请先完成当前级别学习!');
             return
@@ -492,26 +606,18 @@ export class AdvancedLevelPage {
             plid: this.page.plid,
             Conditions: 'All'
         };
+        let loading = this.loadCtrl.create({
+            content: ''
+        });
+        loading.present();
         this.homeSer.QueryCoursePage(data).subscribe(
             (res) => {
                 this.page.navliArr[0].lists = this.page.navliArr[0].lists.concat(res.data.productListItems);
                 this.page.TotalCount = res.data.totalcount;
                 e.complete();
+                loading.dismiss();
             }
         )
-    }
-
-    doRefresh(e) {
-        this.getAdvancedLevel();
-    }
-
-    showLoading() {
-        this.refresher.state = 'ready';
-        this.refresher._onEnd();
-    }
-
-    dismissLoading() {
-        this.refresher.complete();
     }
 
 }

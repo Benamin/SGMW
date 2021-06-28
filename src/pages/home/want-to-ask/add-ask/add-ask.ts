@@ -49,9 +49,9 @@ export class AddAskPage {
         this.homeSer.GetAskType(data).subscribe(
             (res) => {
                 this.page.askTypeArr = res.data;
-                if (this.page.askTypeArr.length > 0) {
-                    this.page.nowSelectAskType = this.page.askTypeArr[0];
-                }
+                // if (this.page.askTypeArr.length > 0) {
+                //     this.page.nowSelectAskType = this.page.askTypeArr[0];
+                // }
             }
         )
     }
